@@ -213,13 +213,14 @@ describe("SubsidiesDashboardScreen", () => {
     // InfographicTile has no opt-out, so these DO carry it — the plan predicted that would
     // be a defect and step 6c measured that it is not: /budget/municipal and
     // /budget/simulator never read the param, /culture resolves it against its own year
-    // list, and /sector/transport's picker spans the whole default range.
+    // list, and /sector/transport/money anchors its rail subsidy on the forwarded year —
+    // the same railSubsidyAnchor() rule this hub's own tile reads, so both state one year.
     //
     // Asserted rather than assumed, because the reasoning is about four OTHER pages: if a
     // future edit narrows one of them, `scopeContract.test.ts` fails and this test is the
     // pointer explaining why this hub is implicated.
     expect(href("/budget/municipal")).toContain("pscope=y%3A2024");
-    expect(href("/sector/transport")).toContain("pscope=y%3A2024");
+    expect(href("/sector/transport/money")).toContain("pscope=y%3A2024");
     expect(href("/culture")).toContain("pscope=y%3A2024");
     expect(href("/budget/simulator")).toContain("pscope=y%3A2024");
   });

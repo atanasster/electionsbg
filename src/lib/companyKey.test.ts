@@ -216,7 +216,7 @@ describe("contractor surfaces route through CompanyLink", () => {
     "screens/components/procurement/ConcentrationSection.tsx",
     "screens/components/procurement/RiskSignalsTile.tsx",
     "screens/components/procurement/CompanyTopContractsTile.tsx",
-    "screens/components/procurement/transport/TransportTopContractsTile.tsx",
+    "screens/transport/TransportTopContractsTile.tsx",
     "screens/components/procurement/security/MvrTopContractsTile.tsx",
     "screens/components/procurement/roads/RoadRepeatWinnersTile.tsx",
     "screens/components/candidates/MpConnectedContractsTile.tsx",

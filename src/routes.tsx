@@ -352,6 +352,33 @@ const RoadsProcurementScreen = lazy(() =>
     default: m.RoadsProcurementScreen,
   })),
 );
+// The transport sector hub and its four sub-pages (docs/plans/transport-hub-v1.md
+// T3) — literal routes ahead of sector/:id, like roads.
+const TransportHubScreen = lazy(() =>
+  import("./screens/transport/TransportHubScreen").then((m) => ({
+    default: m.TransportHubScreen,
+  })),
+);
+const TransportNetworkScreen = lazy(() =>
+  import("./screens/transport/TransportNetworkScreen").then((m) => ({
+    default: m.TransportNetworkScreen,
+  })),
+);
+const TransportProcurementScreen = lazy(() =>
+  import("./screens/transport/TransportProcurementScreen").then((m) => ({
+    default: m.TransportProcurementScreen,
+  })),
+);
+const TransportBodiesScreen = lazy(() =>
+  import("./screens/transport/TransportBodiesScreen").then((m) => ({
+    default: m.TransportBodiesScreen,
+  })),
+);
+const TransportMoneyScreen = lazy(() =>
+  import("./screens/transport/TransportMoneyScreen").then((m) => ({
+    default: m.TransportMoneyScreen,
+  })),
+);
 const AdministrationScreen = lazy(() =>
   import("./screens/administration/AdministrationScreen").then((m) => ({
     default: m.AdministrationScreen,
@@ -2265,6 +2292,50 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <RoadsProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The transport sector hub and its four sub-pages — static literals,
+              so the registry gate and the router census can read them
+              (docs/plans/transport-hub-v1.md T3). They win over sector/:id, whose
+              SECTOR_DASHBOARDS.transport entry is now INERT. */}
+          <Route
+            path="sector/transport"
+            element={
+              <LayoutScreen>
+                <TransportHubScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/transport/network"
+            element={
+              <LayoutScreen>
+                <TransportNetworkScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/transport/procurement"
+            element={
+              <LayoutScreen>
+                <TransportProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/transport/bodies"
+            element={
+              <LayoutScreen>
+                <TransportBodiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/transport/money"
+            element={
+              <LayoutScreen>
+                <TransportMoneyScreen />
               </LayoutScreen>
             }
           />

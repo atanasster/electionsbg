@@ -414,6 +414,59 @@ const roadsFacts = (() => {
   };
 })();
 
+// The /sector/transport prerender bodies quote figures from the committed hub blob
+// (data/transport/derived/hub_stats.json, db:gen-transport-hub-stats) — never
+// literals. The two € figures render at two decimals, as the hub's band does
+// (transportHubFigures.ts eur2), so a crawler's reader lands on the same number.
+const transportFacts = (() => {
+  const s = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/transport/derived/hub_stats.json"),
+      "utf-8",
+    ),
+  ) as {
+    procurement: {
+      eur: number;
+      contracts: number;
+      singleBid: number;
+      bidKnown: number;
+      nationalSingleBid: number;
+      nationalBidKnown: number;
+      firstDate: string | null;
+      lastDate: string | null;
+    };
+    modes: { universe: string; eur: number }[];
+    inGroup: { eur: number };
+    bodyIndex: unknown[];
+    euFunds: { grantEur: number };
+  };
+  const bn = (v: number, loc: string) =>
+    (v / 1e9).toLocaleString(loc, { maximumFractionDigits: 2 });
+  // A zero denominator yields "" rather than "NaN%" — the sentence that quotes it
+  // is then omitted (the water FINDING-003 rule).
+  const pct = (n: number, d: number) =>
+    d > 0 ? `${Math.round((n / d) * 100)}%` : "";
+  const p = s.procurement;
+  const modeTotal = s.modes.reduce((a, m) => a + m.eur, 0);
+  const rail = s.modes.find((m) => m.universe === "rail")?.eur ?? 0;
+  return {
+    eurBnBg: bn(p.eur, "bg-BG"),
+    eurBnEn: bn(p.eur, "en-US"),
+    bodies: s.bodyIndex.length,
+    contracts: p.contracts,
+    from: p.firstDate?.slice(0, 4) ?? "",
+    to: p.lastDate?.slice(0, 4) ?? "",
+    railPct: pct(rail, modeTotal),
+    singleBidPct: pct(p.singleBid, p.bidKnown),
+    nationalPct: pct(p.nationalSingleBid, p.nationalBidKnown),
+    bidKnownPct: pct(p.bidKnown, p.contracts),
+    inGroupBnBg: bn(s.inGroup.eur, "bg-BG"),
+    inGroupBnEn: bn(s.inGroup.eur, "en-US"),
+    grantBnBg: bn(s.euFunds.grantEur, "bg-BG"),
+    grantBnEn: bn(s.euFunds.grantEur, "en-US"),
+  };
+})();
+
 // The /culture prerender body quotes real figures from the НФЦ overview blob —
 // committed and required at build time (data/culture/overview.json).
 const cultureFacts = (() => {
@@ -1084,28 +1137,6 @@ const SECTOR_PAGES: SectorPageContent[] = [
     },
   },
   {
-    id: "transport",
-    eik: "000695388",
-    bg: {
-      title: "Транспорт — парите на държавата за железници, пристанища и БДЖ | Наясно", // prettier-ignore
-      description:
-        "Обществените поръчки на държавния транспорт — МТС, НКЖИ, БДЖ, пристанищата, БУЛАТСА и регулаторите (~€7,3 млрд.): по вид транспорт, европейски средства (усвояване), субсидията за влака на пътник и къде отиват парите. Пътищата (АПИ) са отделен сектор.",
-      breadcrumb: "Транспорт",
-      h1: "Транспорт — къде отиват парите на държавата",
-      intro:
-        "Държавната транспортна група — Министерството на транспорта и съобщенията, НКЖИ, БДЖ (пътнически и товарни превози), Пристанищна инфраструктура, БУЛАТСА (ръководството на въздушното движение), Летище София, агенцията за река Дунав и морската, въздушната и железопътната администрация — е сред най-големите възложители в страната. Тази страница показва обществените ѝ поръчки по вид транспорт (железници, въздух, пристанища и Дунав, автомобилен), усвояването на европейските средства, държавната субсидия за железниците на пътник и картата на структурите по град. Железниците водят. Пътната инфраструктура (АПИ) е отделен сектор.",
-    },
-    en: {
-      title: "Transport — Bulgaria's spending on rail, ports and БДЖ | Наясно", // prettier-ignore
-      description:
-        "State-transport procurement — МТС, НКЖИ, БДЖ, the ports, air navigation (БУЛАТСА) and the regulators (~€7.3bn): by mode, EU-funds absorption, the state rail subsidy per passenger and where the money goes. Roads (АПИ) are a separate sector.",
-      breadcrumb: "Transport",
-      h1: "Transport — where the state's money goes",
-      intro:
-        "The state transport group — the Ministry of Transport and Communications, НКЖИ (rail infrastructure), БДЖ (passenger and freight), the Port Infrastructure company, БУЛАТСА (air navigation), Sofia Airport, the Danube waterway agency and the maritime, aviation and railway administrations — is one of the country's largest awarders. This page shows its public procurement by mode (rail, aviation, ports and the Danube, road), EU-funds absorption, the state rail subsidy per passenger, and a map of the entities city by city. Railways dominate. Road infrastructure (АПИ) is a separate sector.",
-    },
-  },
-  {
     id: "environment",
     eik: "000697371",
     bg: {
@@ -1329,7 +1360,7 @@ const sectorBody = (c: SectorPageContent, lang: "bg" | "en"): string => {
 // have NO SECTOR_PAGES entry (the generic template would emit a second
 // `sector/<id>` route — last wins, silently). They stay in SECTOR_DASHBOARD_IDS
 // for the sitemap slug and the dashboard registry (plan B1).
-const BESPOKE_SECTOR_PAGE_IDS = new Set(["roads"]);
+const BESPOKE_SECTOR_PAGE_IDS = new Set(["roads", "transport"]);
 
 // Fail the build if a graduated sector dashboard has no prerender copy here —
 // otherwise it would ship without prerendered HTML (crawlers never see its
@@ -1664,6 +1695,207 @@ ${links(true)}
 <li><strong>Planned procedures</strong> — АПИ's announced upcoming tenders.</li>
 </ul>
 <p>See also the <a href="${SITE_URL}/en/sector/roads">roads sector</a>.</p>`.trim(),
+      },
+    }),
+  ];
+};
+
+/** /sector/transport and its four sub-pages — hand-authored
+ *  (BESPOKE_SECTOR_PAGE_IDS). Plan: docs/plans/transport-hub-v1.md T3 (C7). Every
+ *  figure comes from transportFacts (the committed hub blob). Each <h1> equals the
+ *  screen's own heading (TransportHubScreen / TransportPageFrame titles). */
+const transportStaticPages = (): PrerenderRoute[] => {
+  const f = transportFacts;
+  const span = f.from && f.to ? `${f.from}–${f.to}` : "";
+  const links = (en: boolean) => {
+    const b = `${SITE_URL}${en ? "/en" : ""}/sector/transport`;
+    return en
+      ? `<ul>
+<li><a href="${b}/network">The transport network on a map</a> — the railway sections, stations, ports and airports named in the contracts.</li>
+<li><a href="${b}/procurement">Transport procurement</a> — by year, by mode, by function, competition, contractors and the largest contracts.</li>
+<li><a href="${b}/bodies">The transport bodies</a> — the ministry and the companies and agencies under it, by mode.</li>
+<li><a href="${b}/money">The money outside procurement</a> — the ministry budget, the rail subsidy, EU funds and road safety.</li>
+</ul>`
+      : `<ul>
+<li><a href="${b}/network">Транспортната мрежа на карта</a> — жп участъците, гарите, пристанищата и летищата, назовани в договорите.</li>
+<li><a href="${b}/procurement">Поръчките в транспорта</a> — по години, по вид транспорт, по функция, конкуренцията, изпълнителите и най-големите договори.</li>
+<li><a href="${b}/bodies">Структурите в транспорта</a> — министерството и дружествата и агенциите към него, по вид транспорт.</li>
+<li><a href="${b}/money">Парите извън поръчките</a> — бюджетът на министерството, субсидията за железниците, еврофондовете и пътната безопасност.</li>
+</ul>`;
+  };
+  const hubFiguresBg = [
+    f.railPct
+      ? `${f.railPct} от стойността е за железниците, като договорите на министерството за жп превози и подвижен състав се броят към тях.`
+      : "",
+    f.singleBidPct
+      ? `${f.singleBidPct} от договорите с известен брой оферти са с една оферта${f.nationalPct ? ` — при ${f.nationalPct} средно за всички възложители` : ""}.`
+      : "",
+    `€${f.inGroupBnBg} млрд. са договори между самите структури на МТС, включително ТСВ ЕАД, и остават в държавната група.`,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const hubFiguresEn = [
+    f.railPct
+      ? `${f.railPct} of the value is for the railways, counting the ministry's contracts for rail services and rolling stock as rail.`
+      : "",
+    f.singleBidPct
+      ? `${f.singleBidPct} of contracts with a known bid count drew a single bid${f.nationalPct ? ` — against ${f.nationalPct} across all buyers` : ""}.`
+      : "",
+    `€${f.inGroupBnEn}bn are contracts between МТС bodies themselves, ТСВ ЕАД included, and stay inside the state group.`,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const up = (en: boolean) =>
+    en
+      ? `<p>See also the <a href="${SITE_URL}/en/sector/transport">transport sector</a>.</p>`
+      : `<p>Виж и <a href="${SITE_URL}/sector/transport">сектор „Транспорт“</a>.</p>`;
+  return [
+    staticPage({
+      path: "sector/transport",
+      ogImage: "/og/sector-transport.png",
+      title:
+        "Транспорт — обществените поръчки за железници, пристанища и въздушен транспорт | Наясно",
+      description: `Обществените поръчки на държавния транспорт — МТС, железниците, пристанищата и ръководството на въздушното движение: €${f.eurBnBg} млрд.${span ? ` за ${span} г.` : ""}, по вид транспорт, при каква конкуренция и колко остава в държавната група.`,
+      breadcrumbName: "Транспорт",
+      bodyHtml: `
+<h1>Транспорт</h1>
+<p>Обществените поръчки на ${f.bodies} структури на Министерството на транспорта и съобщенията — министерството, НКЖИ, БДЖ, пристанищната инфраструктура, ръководството на въздушното движение, летищата и регулаторите: €${f.eurBnBg} млрд. по ${f.contracts} договора${span ? ` за ${span} г.` : ""}. Сумата е текущата стойност на договорите след анекси.</p>
+<p>${hubFiguresBg}</p>
+<p>Пътната инфраструктура (АПИ) е отделен сектор и не е включена.</p>
+<h2>Какво ще намерите тук</h2>
+${links(false)}
+<p>Виж и <a href="${SITE_URL}/awarder/000695388">страницата на МТС като възложител</a> и <a href="${SITE_URL}/governance/sectors">всички сектори</a>.</p>
+<p>Източник: АОП/ЦАИС ЕОП, ИСУН, Закон за държавния бюджет, Eurostat.</p>`.trim(),
+      english: {
+        title:
+          "Transport — public procurement for rail, ports and aviation | Naiasno",
+        description: `Public procurement of Bulgaria's state transport bodies — the ministry, the railways, the ports and air-traffic control: €${f.eurBnEn}bn${span ? ` in ${span}` : ""}, by mode, with how much competition and how much stays inside the state group.`,
+        breadcrumbName: "Transport",
+        bodyHtml: `
+<h1>Transport</h1>
+<p>The public procurement of ${f.bodies} bodies under the Ministry of Transport and Communications — the ministry, НКЖИ, БДЖ, the port infrastructure company, air-traffic control, the airports and the regulators: €${f.eurBnEn}bn over ${f.contracts} contracts${span ? ` in ${span}` : ""}. The total is the contracts' current value after annexes.</p>
+<p>${hubFiguresEn}</p>
+<p>Road infrastructure (АПИ) is a separate sector and is not included.</p>
+<h2>What you'll find</h2>
+${links(true)}
+<p>See also <a href="${SITE_URL}/en/awarder/000695388">МТС as a buyer</a> and <a href="${SITE_URL}/en/governance/sectors">all sectors</a>.</p>
+<p>Source: АОП/ЦАИС ЕОП, ИСУН, the State Budget Law, Eurostat.</p>`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/transport/network",
+      ogImage: "/og/sector-transport-network.png",
+      title:
+        "Транспортната мрежа на карта — жп участъци, пристанища и летища | Наясно",
+      description:
+        "Жп участъците, гарите, пристанищата и летищата, назовани в договорите на държавния транспорт — по вложени средства и по дела на договорите с една оферта.",
+      breadcrumbName: "Транспортната мрежа на карта",
+      bodyHtml: `
+<h1>Транспортната мрежа на карта</h1>
+<p>Картата показва физическата инфраструктура, назована в наименованията на договорите: жп участъците между две населени места като линии и единичните обекти — гари, пристанища, летища — като точки, оцветени по разход или по дела на договорите с една оферта. Линиите са схематични — между населените места, не по трасето.</p>
+<p>Договорите без назовано място — превозите, подвижният състав, горивата — са мрежови и не са на картата. Може да се избере вид транспорт: железници, пристанища и Дунав, въздушен или автомобилен транспорт.</p>
+${up(false)}`.trim(),
+      english: {
+        title:
+          "The transport network on a map — railway sections, ports and airports | Naiasno",
+        description:
+          "The railway sections, stations, ports and airports named in the state transport bodies' contracts — by money spent and by the share of single-bidder contracts.",
+        breadcrumbName: "The transport network on a map",
+        bodyHtml: `
+<h1>The transport network on a map</h1>
+<p>The map shows the physical infrastructure named in the contract titles: railway sections between two places as lines and single sites — stations, ports, airports — as points, coloured by spend or by the single-bidder share. Lines are schematic — between the places, not along the route.</p>
+<p>Contracts that name no place — train services, rolling stock, fuel — are network-wide and are not on the map. A mode can be picked: railways, ports and the Danube, aviation or road transport.</p>
+${up(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/transport/procurement",
+      ogImage: "/og/sector-transport.png",
+      title:
+        "Поръчките в транспорта — конкуренция, изпълнители и най-големи договори | Наясно",
+      description:
+        "Какво купуват министерството, железниците, пристанищата и въздушният транспорт, как го възлагат и кой го печели — по години, по вид транспорт, по функция и по изпълнител.",
+      breadcrumbName: "Поръчките в транспорта",
+      bodyHtml: `
+<h1>Поръчките в транспорта</h1>
+<p>Договорите на структурите на МТС по текуща стойност след анекси — по години, по вид транспорт и по функция.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>По вид транспорт</strong> — с договорите на министерството за жп превози и подвижен състав, отнесени към железниците, и разпределението по възложител до тях.</li>
+<li><strong>Конкуренцията</strong> — делът на договорите с една оферта по структура, до средното за всички възложители в същия период.</li>
+<li><strong>Изпълнителите</strong> — концентрацията и парите, които остават в държавната група.</li>
+<li><strong>Най-големите договори</strong> — с отбелязани многогодишните договори за обществена услуга (прогнозна стойност) и разходите, които не купуват транспорт.</li>
+<li><strong>Без обявление и договори за проверка</strong> — делът по стойността с известна процедура и договорите с оценка D и E по индекса на риска.</li>
+</ul>
+${up(false)}`.trim(),
+      english: {
+        title:
+          "Transport procurement — competition, contractors and the largest contracts | Naiasno",
+        description:
+          "What the ministry, the railways, the ports and air transport buy, how they award it and who wins it — by year, by mode, by function and by contractor.",
+        breadcrumbName: "Transport procurement",
+        bodyHtml: `
+<h1>Transport procurement</h1>
+<p>The МТС bodies' contracts at current value after annexes — by year, by mode and by function.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>By mode</strong> — with the ministry's contracts for rail services and rolling stock counted as rail, and the split by awarder beside it.</li>
+<li><strong>Competition</strong> — the single-bidder share by body, beside the average for all buyers in the same window.</li>
+<li><strong>The contractors</strong> — concentration, and the money that stays inside the state group.</li>
+<li><strong>The largest contracts</strong> — with the multi-year public-service contracts (estimated value) and the spending that buys no transport marked.</li>
+<li><strong>Without a notice, and contracts to review</strong> — the share of the value with a known procedure, and the contracts graded D and E by the risk index.</li>
+</ul>
+${up(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/transport/bodies",
+      ogImage: "/og/sector-transport.png",
+      title:
+        "Структурите в транспорта — МТС, железници, пристанища и авиация | Наясно",
+      description:
+        "Министерството на транспорта и дружествата и агенциите към него — железници, пристанища и Дунав, въздушен и автомобилен транспорт — с поръчките на всяка структура и седалищата им на карта.",
+      breadcrumbName: "Структурите в транспорта",
+      bodyHtml: `
+<h1>Структурите в транспорта</h1>
+<p>${f.bodies} структури по вид транспорт — министерството, железниците, пристанищата и Дунав, въздушният и автомобилният транспорт — всяка с поръчките си и със седалището си на карта. Една структура с непотвърден принципал е показана отделно и не влиза в сумите.</p>
+${up(false)}`.trim(),
+      english: {
+        title:
+          "The transport bodies — МТС, railways, ports and aviation | Naiasno",
+        description:
+          "The Ministry of Transport and the companies and agencies under it — railways, ports and the Danube, air and road transport — with each body's procurement and their seats on a map.",
+        breadcrumbName: "The transport bodies",
+        bodyHtml: `
+<h1>The transport bodies</h1>
+<p>${f.bodies} bodies by mode — the ministry, the railways, the ports and the Danube, air and road transport — each with its procurement and its seat on a map. One body whose principal is not confirmed is shown apart and is not counted in the totals.</p>
+${up(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/transport/money",
+      ogImage: "/og/sector-transport.png",
+      title:
+        "Парите извън поръчките — субсидия за влака, еврофондове и бюджет на МТС | Наясно",
+      description:
+        "Бюджетът на министерството, годишната субсидия за железниците и на пътник, европейските средства на структурите, разходът за транспорт спрямо ЕС и пътната безопасност — всяко на своя база, не се събират с поръчките.",
+      breadcrumbName: "Парите извън поръчките",
+      bodyHtml: `
+<h1>Парите извън поръчките</h1>
+<p>Бюджетът на Министерството на транспорта и съобщенията, годишната държавна субсидия за железниците — за пътническите превози и за инфраструктурата — и колко е тя на пътник.</p>
+<p>Европейските средства на структурите на база безвъзмездна помощ: €${f.grantBnBg} млрд. за целия програмен период. Разходът за транспорт спрямо ЕС е на целия сектор „Държавно управление“, включително пътищата и общинските метрополитени. Всяка от тези суми е на своя база и не се събира с обществените поръчки.</p>
+${up(false)}`.trim(),
+      english: {
+        title:
+          "The money outside procurement — the rail subsidy, EU funds and the МТС budget | Naiasno",
+        description:
+          "The ministry budget, the annual rail subsidy and what it is per passenger, the bodies' EU funds, transport spending against the EU and road safety — each on its own basis, never added to procurement.",
+        breadcrumbName: "The money outside procurement",
+        bodyHtml: `
+<h1>The money outside procurement</h1>
+<p>The budget of the Ministry of Transport and Communications, the annual state subsidy for the railways — for passenger services and for the infrastructure — and what it is per passenger.</p>
+<p>The bodies' EU funds on the grant basis: €${f.grantBnEn}bn over the whole programme period. Transport spending against the EU is the whole of general government, road building and municipal metros included. Each of these sums is on its own basis and is never added to public procurement.</p>
+${up(true)}`.trim(),
       },
     }),
   ];
@@ -2175,6 +2407,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   },
   ...sectorStaticPages(),
   ...roadsStaticPages(),
+  ...transportStaticPages(),
   {
     path: "",
     title: GLOBAL_HOME_TITLE,
@@ -6402,7 +6635,7 @@ ${buildDataDirectory("en")}`.trim(),
 <li><a href="${SITE_URL}/subsidies/browse"><strong>Всички плащания</strong></a> — пълната таблица по година, получател и схема.</li>
 <li><a href="${SITE_URL}/subsidies/coverage"><strong>Обхват и източници</strong></a> — кои финансови години ги има и кои липсват.</li>
 </ul>
-<p>Държавата субсидира и извън земеделието: <a href="${SITE_URL}/budget/municipal">трансферите към общините</a>, <a href="${SITE_URL}/sector/transport">субсидията за железниците</a>, <a href="${SITE_URL}/culture">филмовите субсидии на НФЦ</a> и <a href="${SITE_URL}/budget/simulator">партийните субсидии по ЗПП</a>. Тези потоци са годишни, всеки на своя база — не се събират в обща сума. Общото бюджетно перо „Субсидии" е при <a href="${SITE_URL}/budget/spending">разходите по бюджета</a>.</p>
+<p>Държавата субсидира и извън земеделието: <a href="${SITE_URL}/budget/municipal">трансферите към общините</a>, <a href="${SITE_URL}/sector/transport/money">субсидията за железниците</a>, <a href="${SITE_URL}/culture">филмовите субсидии на НФЦ</a> и <a href="${SITE_URL}/budget/simulator">партийните субсидии по ЗПП</a>. Тези потоци са годишни, всеки на своя база — не се събират в обща сума. Общото бюджетно перо „Субсидии" е при <a href="${SITE_URL}/budget/spending">разходите по бюджета</a>.</p>
 <p>Собствените обществени поръчки на фонда са на <a href="${SITE_URL}/awarder/121100421">страницата на ДФ „Земеделие"</a>. Виж и <a href="${SITE_URL}/funds">европейските средства</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>
 <p>Източници: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (ДФ „Земеделие" — отворени данни за плащанията) и публичният регистър на <a href="https://seu.dfz.bg/" rel="nofollow noopener">Системата за електронни услуги на ДФЗ</a> за текущите години.</p>`.trim(),
     english: {
@@ -6430,7 +6663,7 @@ ${buildDataDirectory("en")}`.trim(),
 <li><a href="${SITE_URL}/en/subsidies/browse"><strong>All payments</strong></a> — the full table by year, recipient and scheme.</li>
 <li><a href="${SITE_URL}/en/subsidies/coverage"><strong>Coverage and sources</strong></a> — which financial years exist and which are missing.</li>
 </ul>
-<p>The state subsidises beyond farming: <a href="${SITE_URL}/en/budget/municipal">transfers to municipalities</a>, <a href="${SITE_URL}/en/sector/transport">the railway subsidy</a>, <a href="${SITE_URL}/en/culture">film subsidies through the НФЦ</a> and <a href="${SITE_URL}/en/budget/simulator">party subsidies under the ЗПП</a>. Those streams are annual and each is on its own basis — they are not added together. The budget's own „Subsidies" line is on <a href="${SITE_URL}/en/budget/spending">budget spending</a>.</p>
+<p>The state subsidises beyond farming: <a href="${SITE_URL}/en/budget/municipal">transfers to municipalities</a>, <a href="${SITE_URL}/en/sector/transport/money">the railway subsidy</a>, <a href="${SITE_URL}/en/culture">film subsidies through the НФЦ</a> and <a href="${SITE_URL}/en/budget/simulator">party subsidies under the ЗПП</a>. Those streams are annual and each is on its own basis — they are not added together. The budget's own „Subsidies" line is on <a href="${SITE_URL}/en/budget/spending">budget spending</a>.</p>
 <p>The fund's own public procurement is on the <a href="${SITE_URL}/en/awarder/121100421">State Fund Agriculture page</a>. See also <a href="${SITE_URL}/en/funds">EU funds</a> and <a href="${SITE_URL}/en/procurement">public procurement</a>.</p>
 <p>Sources: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (State Fund Agriculture payment open data) and the public register of the fund's <a href="https://seu.dfz.bg/" rel="nofollow noopener">electronic-services system</a> for the current years.</p>`.trim(),
     },

@@ -1,7 +1,7 @@
 // Data hook for the Околна среда (МОСВ) sector pack. The model comes from ONE
 // /api/db/awarder-group-model call over the environment group EIKs — the server returns
 // compact aggregates that buildEnvironmentModelFromAggregates folds into the identical
-// EnvModel (see useAwarderGroupModel). Mirrors useTransport.tsx / useMvr.tsx.
+// EnvModel (see useAwarderGroupModel). Mirrors useMvr.tsx.
 //
 // CONSOLIDATED GROUP — Министерство на околната среда и водите (000697371) is the
 // principal of the МОСВ system: ИАОС (air/monitoring), the ПУДООС and НДЕФ funds, the

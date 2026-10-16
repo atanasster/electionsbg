@@ -20,8 +20,9 @@
 //   • the municipal tile: the plan said €4.56bn / 2025; `budget_muni_transfer` has since moved
 //     to €4.93bn / 2026. A literal would have been stale on the day it shipped.
 //   • the rail tile: the plan said €447.2m for 2026 — the newest row in rail_subsidy.json.
-//     /sector/transport anchors instead on the newest year that HAS a ridership figure, so it
-//     can state a per-passenger number, and shows €443.1m for 2025. Same four components,
+//     /sector/transport/money anchors instead on the newest year that HAS a ridership figure
+//     (or the forwarded `pscope` year, when it has one), so it can state a per-passenger
+//     number, and shows €443.1m for 2025. Same four components,
 //     different year. The hub follows the destination and reads `useRailSubsidy` rather than
 //     the file, because a reader who clicks and sees a different number learns that one of the
 //     two pages is lying and cannot tell which. (Verified live: the tile there reads
@@ -389,7 +390,11 @@ export const SubsidiesDashboardScreen: FC = () => {
 
   // Band 3's two fetched sources. Both are small and both are ANNUAL — they do not take the
   // scope, and their tiles say which year they are for.
-  const rail = useRailSubsidy();
+  // Anchored on the scope's year, exactly as /sector/transport/money anchors on the
+  // `pscope` this tile forwards to it (railSubsidyAnchor) — so the year on the tile is the
+  // year on the page. `ns` / `all` and an uncovered year fall back to the newest one with a
+  // per-passenger figure, on both sides.
+  const rail = useRailSubsidy(scopeYear(scope));
   const { data: culture } = useCultureOverview();
   // The year /culture would land on for the scope this hub is carrying. `null` (the `ns`
   // and `all` scopes) means all years there too — CLAUDE.md's URL contract records that

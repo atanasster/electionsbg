@@ -14,6 +14,12 @@ import { PROCUREMENT_BUYER_SECTORS } from "@/lib/procurementBuyerSectors";
 // sub-pages (docs/plans/roads-hub-v1.md), which build the roads model over the
 // whole buyer roll-up themselves. RoadsPack was deleted once nothing rendered it.
 //
+// Transport has NO pack either, for the same reason: /sector/transport is the
+// bespoke TransportHubScreen and its four sub-pages (docs/plans/transport-hub-v1.md
+// C5). TransportPack and useTransport were deleted — /awarder/000695388 already
+// suppressed the pack (`showPack = SectorPack && !sectorDash`), so nothing rendered
+// them.
+//
 // To add a pack (e.g. НОИ/ДОО): write a <Pack eik window /> component with its
 // own classifier + tiles and register its EIK below.
 
@@ -31,7 +37,6 @@ import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { AGRI_LEAD_EIK } from "@/lib/agriReferenceData";
 
-import { TRANSPORT_EIK } from "@/lib/transportReferenceData";
 import { MOSV_EIK } from "@/lib/environmentReferenceData";
 import { REGIONAL_EIK } from "@/lib/regionalReferenceData";
 
@@ -117,16 +122,6 @@ const DefensePack = lazy(() =>
 const MvrPack = lazy(() =>
   import("./security/MvrPack").then((m) => ({ default: m.MvrPack })),
 );
-// No TRANSPORT_AWARDER_PATH export (deliberately, like ВСС/culture/defense/МВР): the
-// transport view's home is the /sector/transport dashboard, which the nav points at;
-// the МТС awarder page is reached from there. The pack registers by EIK below and
-// renders off the existing corpus (the TRANSPORT_ENTITIES group roll-up) with no new ingest. Road
-// building (АПИ) is a SEPARATE sector — the pack cross-links to it, never folds it.
-const TransportPack = lazy(() =>
-  import("./transport/TransportPack").then((m) => ({
-    default: m.TransportPack,
-  })),
-);
 // No ENV_AWARDER_PATH export (deliberately, like transport/МВР): the environment
 // view's home is the /sector/environment dashboard, which the nav points at; the МОСВ
 // awarder page is reached from there. The pack registers by EIK below and renders off
@@ -179,7 +174,6 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [VIK_HOLDING_EIK]: VikPack,
   [MOD_EIK]: DefensePack,
   [MVR_EIK]: MvrPack,
-  [TRANSPORT_EIK]: TransportPack,
   [MOSV_EIK]: EnvironmentPack,
   [REGIONAL_EIK]: RegionalPack,
   [SOCIAL_LEAD_EIK]: SocialPack,

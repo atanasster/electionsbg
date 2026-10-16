@@ -853,8 +853,9 @@ describe("every captured card is referenced by a page", () => {
     for (const f of scripts) {
       const src = fs.readFileSync(path.join(REPO, "scripts/og", f), "utf8");
       if (!/public\/og|OG_DIR/.test(src)) continue;
-      // ⚠ NOT QUOTE-ADJACENT. `screenshot_regional.ts` and `screenshot_transport.ts` build the
-      // path as `path.resolve(…, "public/og/sector-regional.png")`, so a `["\'`]…\.png` match
+      // ⚠ NOT QUOTE-ADJACENT. `screenshot_regional.ts` (and the retired
+      // `screenshot_transport.ts`) build the path as
+      // `path.resolve(…, "public/og/sector-regional.png")`, so a `["\'`]…\.png` match
       // finds nothing in them — while the `public/og` guard above passes and makes them LOOK
       // scanned. Measured: that shape hid 2 of 10 writers and 2 of 15 cards, and the first
       // draft of this comment quoted the blind-spotted total (13) as if it were the real one.
@@ -991,6 +992,7 @@ describe("a hub's og capture anchors on its head", () => {
     subsidies: "src/screens/SubsidiesDashboardScreen.tsx",
     "culture-hub": "src/screens/culture/CultureHubScreen.tsx",
     "sector-roads": "src/screens/roads/RoadsHubScreen.tsx",
+    "sector-transport": "src/screens/transport/TransportHubScreen.tsx",
     water: "src/screens/water/WaterHubScreen.tsx",
     "governance-sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
     indicators: "src/screens/indicators/IndicatorsLandingScreen.tsx",
@@ -1303,6 +1305,7 @@ describe("a hub's og capture anchors on its head", () => {
       subsidies: "src/screens/subsidies/subsidiesHubFigures.ts",
       "culture-hub": "src/screens/culture/cultureHubFigures.ts",
       "sector-roads": "src/screens/roads/roadsHubFigures.ts",
+      "sector-transport": "src/screens/transport/transportHubFigures.ts",
       water: "src/screens/water/waterHubFigures.ts",
       indicators: "src/screens/indicators/indicatorsHubFigures.ts",
       "governance-sectors": "src/screens/governance/sectorsHubFigures.ts",
@@ -1731,7 +1734,7 @@ describe("a hub's og capture anchors on its head", () => {
     "governance-sectors": {
       payloads: ["data/procurement/derived/sector_stats.json"],
       project: sectorsFigures,
-      md5: "f2df7236d121a7b56c74e5712ca31024",
+      md5: "4972e291a94d5f9e08f31970c12df197",
       // ⚠️ RE-SHOT 2026-09-03, AND IT FIRED EXACTLY AS THE 08-31 NOTE PREDICTED. That note
       // measured the procurement total at €8.6m (0.029%) below the boundary into
       // „€29,7 млрд." and said the entry was „expected to fire soon, for real" — it did, on
@@ -1749,9 +1752,13 @@ describe("a hub's og capture anchors on its head", () => {
       // ⚠️ RE-SHOT AGAIN 2026-10-12 (UTC) — roads-hub-v1 T2 put НКСИП in the roads roll-up
       // (D5). LOOKED AT: roads €8,9 → €9,1 млрд. and the procurement total €29,8 → €30
       // млрд.; the other six values are unchanged.
-      shot: "2026-10-12",
+      // ⚠️ RE-SHOT 2026-10-16 (UTC) — transport-hub-v1 D2 put Летище Пловдив in the
+      // transport roll-up (+€1.06M), which tipped the procurement total over the rounding
+      // boundary: €30,049,039,752 → €30,050,100,018. LOOKED AT: €30 → €30,1 млрд.; the
+      // other seven values are unchanged.
+      shot: "2026-10-16",
       figures:
-        "sectors_kpi_procurement=€30 млрд. [sectors_kpi_procurement_basis:4] " +
+        "sectors_kpi_procurement=€30,1 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
         "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
         "administration=133 275 [sectors_kpi_headcount_basis:2025] " +

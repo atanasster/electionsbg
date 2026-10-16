@@ -40,6 +40,7 @@
 // ═══════════════════════════════════════════════════════════════════════════════════════════
 
 import { TILE_ACCENTS } from "@/ux/infographic";
+import { TRANSPORT_PATHS } from "@/lib/transportPaths";
 
 export interface SubsidiesTile {
   /** Scene key (SUBSIDIES_SCENES) and the tile's stable identity. Also the key
@@ -147,14 +148,19 @@ export const SUBSIDIES_BANDS: SubsidiesBand[] = [
       },
       {
         id: "rail",
-        // ⚠️ /sector/transport, NOT /sector/transport#rail-subsidy. The section HAS that id and
-        // the anchor is tempting — but three /funds KPI cards once targeted #top-beneficiaries,
+        // ⚠️ /sector/transport/money, NOT …/money#subsidy. The section HAS that id and the
+        // anchor is tempting — but three /funds KPI cards once targeted #top-beneficiaries,
         // #money-flow and #absorption, a later rework moved all three onto their own pages, and
         // every one of those links silently did nothing when clicked. A same-page anchor is the
         // link that rots when the destination is reorganised, and nothing type-checks it.
+        //
+        // /money is where the rail subsidy lives since the transport hub split the sector page
+        // (docs/plans/transport-hub-v1.md O1); the hub itself fronts procurement. It carries the
+        // forwarded `?pscope=y:YYYY` and anchors on that year — the same rule this hub's tile
+        // reads (railSubsidyAnchor), so the two state the same year.
         titleKey: "subsidies_tile_rail",
         descKey: "subsidies_tile_rail_desc",
-        to: "/sector/transport",
+        to: TRANSPORT_PATHS.money,
         accent: TILE_ACCENTS.steel,
       },
       {

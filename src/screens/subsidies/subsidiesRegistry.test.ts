@@ -8,10 +8,10 @@
 // Two rules are stricter here than on /funds, both because band 3 leaves the module:
 //
 //   • the ROUTED list carries four CROSS-MODULE destinations (/budget/municipal,
-//     /sector/transport, /culture, /budget/simulator). Those belong to other teams' pages, so a
-//     rename there breaks this hub silently — the routes.tsx check is what makes it loud.
-//     /sector/transport is registered as the parameterised `sector/:id`, so it is asserted
-//     through the sector registry instead of as a literal <Route path>.
+//     /sector/transport/money, /culture, /budget/simulator). Those belong to other teams'
+//     pages, so a rename there breaks this hub silently — the routes.tsx check is what makes
+//     it loud. /sector/transport/money is a literal <Route path> since the transport hub
+//     (docs/plans/transport-hub-v1.md O1), so it no longer needs the sector-registry detour.
 //   • band 3's four tiles must all be ANNUAL and must each name their year in the rendered
 //     caption. That is not checkable from the registry (the caption is built in the screen), so
 //     the screen's own test covers it; what IS checked here is that the band exists with
@@ -50,13 +50,8 @@ const ROUTED = [
   "/budget/municipal",
   "/culture",
   "/budget/simulator",
-  "/sector/transport",
+  "/sector/transport/money",
 ] as const;
-
-/** `/sector/transport` is served by the parameterised `sector/:id` route, so there is no
- *  `<Route path="sector/transport">` to grep for. Its existence is proved by the sector
- *  registry instead — which is also the file that would be edited if the sector were renamed. */
-const VIA_SECTOR_REGISTRY = new Set(["/sector/transport"]);
 
 describe("every tile has a scene", () => {
   it("no tile id is missing from SUBSIDIES_SCENES", () => {
@@ -96,22 +91,10 @@ describe("destinations", () => {
     // The gate that catches the class no type system does. `/funds/projects` was in the first
     // draft of the registry and does not exist — `/funds/contract/:number` is a single contract
     // page, not a browser.
-    const sectorRegistry = readFileSync(
-      path.join(REPO, "src/screens/governance/sectorRegistry.ts"),
-      "utf8",
-    );
+    // Every destination is a LITERAL route — /sector/transport/money included since the
+    // transport hub (it used to ride the parameterised `sector/:id` and was proved through
+    // the sector registry instead).
     for (const to of ROUTED) {
-      if (VIA_SECTOR_REGISTRY.has(to)) {
-        const id = to.split("/").pop();
-        expect(
-          sectorRegistry,
-          `${to} is not in sectorRegistry.ts, so sector/:id will not match it`,
-        ).toContain(`"${id}"`);
-        expect(routes, "the sector/:id route itself is gone").toContain(
-          'path="sector/:id"',
-        );
-        continue;
-      }
       const p = to.replace(/^\//, "");
       expect(routes, `${to} has no <Route path="${p}">`).toContain(
         `path="${p}"`,

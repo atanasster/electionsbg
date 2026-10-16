@@ -1,4 +1,4 @@
-// Транспорт tools — the chat surface for the /sector/transport pack. The transport
+// Транспорт tools — the chat surface for the /sector/transport hub. The transport
 // group's procurement is served live from Postgres (the same awarder-group-model the
 // dashboard uses), so these tools aggregate the curated state-transport group (every
 // EIK in TRANSPORT_ENTITIES) the way
@@ -20,8 +20,11 @@ import type { GroupModelPayload } from "@/lib/awarderModel";
 import {
   buildTransportModelFromAggregates,
   categoryLabel,
+  directShareKnown,
+  reattributedModes,
 } from "@/lib/transportAttributes";
 import {
+  TRANSPORT_EIK,
   TRANSPORT_SECTOR_EIKS,
   TRANSPORT_UNIVERSES,
   transportEntityByEik,
@@ -33,25 +36,53 @@ import {
 const pct = (share: number | null, lang: "bg" | "en"): string =>
   fmtPct(share == null ? null : Math.round(share * 100), lang);
 
-// "Къде отиват парите за транспорт?" — the state transport group's procurement folded
-// by mode + function, the chat analog of the /sector/transport pack.
+interface GroupRollup {
+  operators: {
+    eik: string;
+    contractCount: number;
+    bidKnownN: number;
+    singleBidN: number;
+  }[];
+  exMembers?: boolean;
+}
+interface NationalCompetition {
+  singleBidExMembers?: number;
+  bidKnownExMembers?: number;
+}
+
+// "Къде отиват парите за транспорт?" — the state transport group's procurement by
+// mode + function, the chat analog of /sector/transport/procurement. Two rules keep
+// it from contradicting the hub (docs/plans/transport-hub-v1.md C8):
+//   • the mode split RE-ATTRIBUTES the ministry's rail contracts (PSO 6021*, rolling
+//     stock 346*) to rail — reattributedModes(), the hub's KPI 2 rule (D8);
+//   • the single-bid share is the EX-MEMBER pair (awarder-group-rollup?exMembers=1)
+//     beside the national ex-member rate — the hub's KPI 3 basis. The group model's
+//     own pair counts the €0 consortium-member rows and reads biased down.
 export const transportSpending = async (
   _args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const payload = await fetchDb<GroupModelPayload>("awarder-group-model", {
-    eiks: TRANSPORT_SECTOR_EIKS.join(","),
-  });
+  const eiks = TRANSPORT_SECTOR_EIKS.join(",");
+  const [payload, ministry, rollup, national] = await Promise.all([
+    fetchDb<GroupModelPayload>("awarder-group-model", { eiks }),
+    fetchDb<GroupModelPayload>("awarder-group-model", { eiks: TRANSPORT_EIK }),
+    fetchDb<GroupRollup>("awarder-group-rollup", { eiks, exMembers: "1" }),
+    fetchDb<NationalCompetition>("national-competition", {}),
+  ]);
   const m = buildTransportModelFromAggregates(payload);
 
-  // Mode split from the per-unit rollup (universe is a reference-data lookup, not in
-  // the payload). Ordered by the canonical universe order, biggest kept.
-  const byMode = new Map<TransportUniverse, number>();
+  // Mode split, re-attributed; Σ modes == the group total by construction.
+  const byMode = new Map<TransportUniverse, number>(
+    reattributedModes(payload.byUnit, ministry.byCpv).map((r) => [
+      r.universe,
+      r.eur,
+    ]),
+  );
+  const rawByMode = new Map<TransportUniverse, number>();
   for (const u of payload.byUnit) {
     const uni = transportUniverseOf(u.eik);
-    if (!uni) continue;
-    byMode.set(uni, (byMode.get(uni) ?? 0) + u.totalEur);
+    if (uni) rawByMode.set(uni, (rawByMode.get(uni) ?? 0) + u.totalEur);
   }
   const total = m.totalEur;
   const modeRows = TRANSPORT_UNIVERSES.map((uni) => ({
@@ -68,10 +99,23 @@ export const transportSpending = async (
 
   const topMode = modeRows[0];
   const railEur = byMode.get("rail") ?? 0;
+  const rawRailEur = rawByMode.get("rail") ?? 0;
   const topCat = [...m.categories]
     .filter((c) => c.id !== "other" && c.totalEur > 0)
     .sort((a, b) => b.totalEur - a.totalEur)[0];
   const topCon = m.suppliers[0];
+
+  // Ex-member competition, only when the server confirms the basis.
+  const known = rollup.exMembers
+    ? rollup.operators.reduce((a, o) => a + o.bidKnownN, 0)
+    : 0;
+  const single = rollup.operators.reduce((a, o) => a + o.singleBidN, 0);
+  const contracts = rollup.operators.reduce((a, o) => a + o.contractCount, 0);
+  const nat =
+    national?.bidKnownExMembers && national.singleBidExMembers != null
+      ? national.singleBidExMembers / national.bidKnownExMembers
+      : null;
+  const direct = directShareKnown(payload.byMethod);
 
   return {
     tool: "transportSpending",
@@ -81,8 +125,8 @@ export const transportSpending = async (
       ? "Транспорт — държавната група (МТС, НКЖИ, БДЖ, пристанища)"
       : "Transport — the state group (МТС, НКЖИ, БДЖ, ports)",
     subtitle: bg
-      ? "Обществени поръчки по вид транспорт (АОП). Пътищата (АПИ) са отделен сектор."
-      : "Procurement by transport mode (AOP). Roads (АПИ) are a separate sector.",
+      ? "Обществени поръчки по вид транспорт (АОП); договорите на МТС за жп превози и подвижен състав са към железниците. Пътищата (АПИ) са отделен сектор."
+      : "Procurement by transport mode (AOP); МТС's rail-service and rolling-stock contracts count as rail. Roads (АПИ) are a separate sector.",
     columns: [
       { key: "mode", label: bg ? "Вид транспорт" : "Mode" },
       { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
@@ -92,70 +136,92 @@ export const transportSpending = async (
     viz: "none",
     facts: {
       total_value: fmtEurCompact(total, ctx.lang),
-      contracts: fmtInt(m.contractCount, ctx.lang),
+      contracts: fmtInt(contracts || m.contractCount, ctx.lang),
       rail_share: total > 0 ? pct(railEur / total, ctx.lang) : "—",
+      rail_share_by_awarder:
+        total > 0 ? pct(rawRailEur / total, ctx.lang) : "—",
       top_mode: topMode
         ? `${transportUniverseLabel(topMode.uni, ctx.lang)} (${fmtEurCompact(topMode.eur, ctx.lang)})`
         : "—",
       top_function: topCat
         ? `${categoryLabel(topCat.id, ctx.lang)} (${fmtEurCompact(topCat.totalEur, ctx.lang)})`
         : "—",
-      single_bid_share: pct(m.singleBidShare, ctx.lang),
-      direct_award_share: pct(m.directShare, ctx.lang),
+      single_bid_share: known > 0 ? pct(single / known, ctx.lang) : "—",
+      national_single_bid_share:
+        known > 0 && nat != null ? pct(nat, ctx.lang) : "—",
+      bid_known_coverage:
+        known > 0 && contracts > 0 ? pct(known / contracts, ctx.lang) : "—",
+      direct_award_share:
+        direct.knownEur > 0
+          ? pct(direct.directEur / direct.knownEur, ctx.lang)
+          : "—",
       top_contractor: topCon
         ? `${topCon.name} (${fmtEurCompact(topCon.totalEur, ctx.lang)})`
         : "—",
       note: bg
-        ? "Пътната инфраструктура (АПИ) е отделен сектор и не е включена в тези суми."
-        : "Road infrastructure (АПИ) is a separate sector and is not included here.",
+        ? "Делът с една оферта е без участниците в обединения и е до средното за всички възложители на същата база; делът без обявление е от стойността с известна процедура. Пътната инфраструктура (АПИ) е отделен сектор и не е включена."
+        : "The single-bid share excludes consortium members and sits beside the all-buyer average on the same basis; the direct-award share is of the value with a known procedure. Road infrastructure (АПИ) is a separate sector and is not included.",
     },
-    provenance: ["db:awarder-group-model"],
+    provenance: [
+      "db:awarder-group-model",
+      "db:awarder-group-rollup (exMembers)",
+      "db:national-competition",
+    ],
   };
 };
 
 interface FundsRollup {
+  basis?: string;
   operators: {
     eik: string;
-    contractedEur: number;
+    grantEur?: number;
+    totalEur?: number;
     paidEur: number;
     projectCount: number;
   }[];
 }
 
-// "Колко европейски пари усвоява транспортът?" — the ИСУН absorption story: contracted
-// vs actually paid across the transport group (ОП „Транспортна свързаност" / ОПТ).
+// "Колко европейски пари усвоява транспортът?" — ИСУН on the GRANT basis (БФП,
+// fund_projects — D6): the grant awarded against what has been paid, the hub's
+// /money#funds figure. The total project value (own contribution included) is a
+// secondary fact; dividing paid by it halved the absorption rate.
 export const transportEuFunds = async (
   _args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const { operators } = await fetchDb<FundsRollup>("awarder-funds-rollup", {
-    eiks: TRANSPORT_SECTOR_EIKS.join(","),
-  });
-  const rows0 = operators.filter((o) => o.contractedEur > 0);
-  const contracted = rows0.reduce((s, o) => s + o.contractedEur, 0);
+  const { operators, basis } = await fetchDb<FundsRollup>(
+    "awarder-funds-rollup",
+    { eiks: TRANSPORT_SECTOR_EIKS.join(","), basis: "grant" },
+  );
+  // An older function ignores ?basis and answers on the total-value basis; refuse
+  // to label that as grant aid.
+  const rows0 =
+    basis === "grant" ? operators.filter((o) => (o.grantEur ?? 0) > 0) : [];
+  const grant = rows0.reduce((s, o) => s + (o.grantEur ?? 0), 0);
   const paid = rows0.reduce((s, o) => s + o.paidEur, 0);
-  const absorption = contracted > 0 ? paid / contracted : 0;
+  const projectTotal = rows0.reduce((s, o) => s + (o.totalEur ?? 0), 0);
+  const absorption = grant > 0 ? paid / grant : 0;
 
   const named = rows0
     .map((o) => ({
       eik: o.eik,
       name: nameOfEik(o.eik),
-      contractedEur: o.contractedEur,
-      abs: o.contractedEur > 0 ? o.paidEur / o.contractedEur : 0,
+      grantEur: o.grantEur ?? 0,
+      abs: (o.grantEur ?? 0) > 0 ? o.paidEur / (o.grantEur ?? 0) : 0,
     }))
-    .sort((a, b) => b.contractedEur - a.contractedEur);
+    .sort((a, b) => b.grantEur - a.grantEur);
 
   const rows: Row[] = named.slice(0, 8).map((o) => ({
     beneficiary: o.name,
-    contracted: fmtEurCompact(o.contractedEur, ctx.lang),
+    contracted: fmtEurCompact(o.grantEur, ctx.lang),
     absorbed: pct(o.abs, ctx.lang),
   }));
 
   const top = named[0];
   // The sharpest signal: a big beneficiary that has drawn almost nothing.
   const stalled = [...named]
-    .filter((o) => o.contractedEur >= 1e7)
+    .filter((o) => o.grantEur >= 1e7)
     .sort((a, b) => a.abs - b.abs)[0];
 
   return {
@@ -166,34 +232,36 @@ export const transportEuFunds = async (
       ? "Европейски средства за транспорт (ИСУН)"
       : "EU funds for transport (ИСУН)",
     subtitle: bg
-      ? "Договорени срещу реално изплатени (усвояване), за програмния период"
-      : "Contracted vs actually paid (absorption), programme-period totals",
+      ? "Безвъзмездна помощ срещу реално изплатено, за програмния период"
+      : "Grant aid vs actually paid, programme-period totals",
     columns: [
       { key: "beneficiary", label: bg ? "Бенефициент" : "Beneficiary" },
       {
         key: "contracted",
-        label: bg ? "Договорени" : "Contracted",
+        label: bg ? "Безвъзмездна помощ" : "Grant",
         numeric: true,
       },
-      { key: "absorbed", label: bg ? "Усвоени" : "Absorbed", numeric: true },
+      { key: "absorbed", label: bg ? "Изплатени" : "Paid", numeric: true },
     ],
     rows,
     viz: "none",
     facts: {
-      total_contracted: fmtEurCompact(contracted, ctx.lang),
-      total_paid: fmtEurCompact(paid, ctx.lang),
-      absorption: pct(absorption, ctx.lang),
+      total_grant: grant > 0 ? fmtEurCompact(grant, ctx.lang) : "—",
+      total_paid: grant > 0 ? fmtEurCompact(paid, ctx.lang) : "—",
+      total_project_value:
+        projectTotal > 0 ? fmtEurCompact(projectTotal, ctx.lang) : "—",
+      absorption: grant > 0 ? pct(absorption, ctx.lang) : "—",
       top_beneficiary: top
-        ? `${top.name} (${fmtEurCompact(top.contractedEur, ctx.lang)}, ${pct(top.abs, ctx.lang)})`
+        ? `${top.name} (${fmtEurCompact(top.grantEur, ctx.lang)}, ${pct(top.abs, ctx.lang)})`
         : "—",
       lowest_absorber: stalled
-        ? `${stalled.name} (${fmtEurCompact(stalled.contractedEur, ctx.lang)}, ${pct(stalled.abs, ctx.lang)})`
+        ? `${stalled.name} (${fmtEurCompact(stalled.grantEur, ctx.lang)}, ${pct(stalled.abs, ctx.lang)})`
         : "—",
       note: bg
-        ? "Сумите са за целия програмен период (ОПТ / ОП Транспортна свързаност), не по избран парламент."
-        : "Figures are programme-period totals (ОПТ / Transport Connectivity), not scoped to a parliament.",
+        ? "Безвъзмездната финансова помощ (БФП) по проектите в ИСУН, за целия програмен период — не по избран парламент. Общата стойност на проектите включва и собственото участие."
+        : "The grant aid (БФП) on the ИСУН projects, over the whole programme period — not scoped to a parliament. The total project value includes the own contribution.",
     },
-    provenance: ["db:awarder-funds-rollup (ИСУН)"],
+    provenance: ["db:awarder-funds-rollup?basis=grant (ИСУН fund_projects)"],
   };
 };
 

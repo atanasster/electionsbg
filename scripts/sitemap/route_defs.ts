@@ -35,6 +35,10 @@ export const ENGLISH_STATIC_PAGES = [
   "sector/roads/network",
   "sector/roads/costs",
   "sector/roads/procurement",
+  "sector/transport/network",
+  "sector/transport/procurement",
+  "sector/transport/bodies",
+  "sector/transport/money",
   "subsidies/browse",
   "subsidies/places",
   "subsidies/recipients",
@@ -247,6 +251,12 @@ export const routeDefs = (year: string): RouteDefs => [
     path: `sector/roads/${sub}`,
     file: `data/roads/derived/hub_stats.json`,
   })),
+  // The transport hub's four sub-pages (docs/plans/transport-hub-v1.md T3). `file:` is
+  // the tracked figures blob the hub and its prerender bodies read.
+  ...["network", "procurement", "bodies", "money"].map((sub) => ({
+    path: `sector/transport/${sub}`,
+    file: `data/transport/derived/hub_stats.json`,
+  })),
   {
     path: "subsidies/browse",
     file: `src/screens/dev/SubsidiesBrowserDbScreen.tsx`,
@@ -360,12 +370,15 @@ export const routeDefs = (year: string): RouteDefs => [
   // prerender (SECTOR_PAGES in scripts/prerender/routes.ts).
   ...SECTOR_SLUGS.map((path) => ({
     path,
-    // Roads is a bespoke hub (RoadsHubScreen) whose figures live in a committed
-    // blob, so its lastmod follows that blob rather than the generic screen.
+    // Roads and transport are bespoke hubs (RoadsHubScreen, TransportHubScreen)
+    // whose figures live in a committed blob, so their lastmod follows that blob
+    // rather than the generic screen.
     file:
       path === "sector/roads"
         ? `data/roads/derived/hub_stats.json`
-        : `src/screens/sector/SectorDashboardScreen.tsx`,
+        : path === "sector/transport"
+          ? `data/transport/derived/hub_stats.json`
+          : `src/screens/sector/SectorDashboardScreen.tsx`,
   })),
   // Per-school pages (/school/:id) are enumerated from data/schools/index.json
   // directly in scripts/sitemap/index.ts (like the INSTITUTION_PACKS awarders),

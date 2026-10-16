@@ -42,6 +42,7 @@ import {
   transportEntityByEik,
   transportUniverseOf,
 } from "./transportReferenceData";
+import { TRANSPORT_MINISTRY_EIK } from "./transportPaths";
 
 // The header's "EXPLICITLY OUT" block, as data. Each was measured and rejected in the
 // audit; re-adding one is a decision, never a paste.
@@ -144,6 +145,12 @@ describe("the lead ministry", () => {
     expect(TRANSPORT_ENTITIES[0].universe).toBe("ministry");
     expect(TRANSPORT_ALIAS_EIKS).not.toContain(TRANSPORT_EIK);
     expect(TRANSPORT_ALIAS_EIKS).toHaveLength(TRANSPORT_ENTITIES.length - 1);
+  });
+
+  it("matches the import-free paths module's copy", () => {
+    // transportPaths.ts restates the EIK so routes and registries can link the
+    // ministry without importing this register (entryGraph.test.ts).
+    expect(TRANSPORT_MINISTRY_EIK).toBe(TRANSPORT_EIK);
   });
 
   it("is the only ministry-universe entity", () => {

@@ -45,6 +45,11 @@ const FACT_LABELS: Record<string, { bg: string; en: string }> = {
   total_value: { bg: "Обща стойност", en: "Total value" },
   total_contracted: { bg: "Общо договорено", en: "Total contracted" },
   total_paid: { bg: "Общо платено", en: "Total paid" },
+  total_grant: { bg: "Безвъзмездна помощ", en: "Grant aid" },
+  total_project_value: {
+    bg: "Обща стойност на проектите",
+    en: "Total project value",
+  },
   avg_contract: { bg: "Среден договор", en: "Avg contract" },
   top_contractor: { bg: "Топ изпълнител", en: "Top contractor" },
   top_awarder: { bg: "Топ възложител", en: "Top buyer" },
@@ -54,6 +59,14 @@ const FACT_LABELS: Record<string, { bg: string; en: string }> = {
   top_overpay: { bg: "Най-голямо надплащане", en: "Top overpay" },
   single_bid_share: { bg: "Дял с една оферта", en: "Single-bid share" },
   single_bidder: { bg: "Една оферта", en: "Single bidder" },
+  national_single_bid_share: {
+    bg: "Една оферта — средно за страната",
+    en: "Single-bid share — national",
+  },
+  bid_known_coverage: {
+    bg: "Известен брой оферти",
+    en: "Bid count known",
+  },
   direct_award_share: {
     bg: "Дял пряко възлагане",
     en: "Direct-award share",

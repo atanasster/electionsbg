@@ -3963,7 +3963,8 @@ const routeText = (question: string, ctx: ToolContext): Route => {
   if (has(q, "черен списък", "черния списък", "debarred", "субекти с нарушени"))
     return { tool: "procurementDebarred", args: {} };
   // Транспорт — the state transport group (rail НКЖИ/БДЖ, ports, aviation) procurement
-  // + EU-funds absorption (/sector/transport, via transportSpending / transportEuFunds).
+  // + EU-funds absorption (/sector/transport/procurement and /money, via transportSpending /
+  // transportEuFunds).
   // Placed BEFORE the roads rule: "железопътна" must not fall to roads. ROADS
   // (АПИ/магистрали) are a SEPARATE sector and keep their own rule below; toll/vignette
   // REVENUE (винетки/тол) is handled far above.

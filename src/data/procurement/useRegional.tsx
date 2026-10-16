@@ -1,7 +1,7 @@
 // Data hook for the Регионално развитие (МРРБ) sector pack. The model comes from ONE
 // /api/db/awarder-group-model call over the МРРБ group EIKs — the server returns
 // compact aggregates that buildRegionalModelFromAggregates folds into the identical
-// RegionalModel (see useAwarderGroupModel). Mirrors useEnvironment.tsx / useTransport.tsx.
+// RegionalModel (see useAwarderGroupModel). Mirrors useEnvironment.tsx.
 //
 // CONSOLIDATED GROUP — Министерство на регионалното развитие и благоустройството
 // (831661388) is the principal of a group that also awards ЗОП through the cadastre

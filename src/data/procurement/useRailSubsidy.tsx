@@ -1,4 +1,5 @@
-// Data hook for the rail subsidy-dependency tile on /sector/transport (Phase 3a). Joins
+// Data hook for the rail subsidy-dependency tile on /sector/transport/money#subsidy
+// (and the /subsidies hub's rail tile, which must show the same year). Joins
 // two already-ingested artifacts — the state rail subsidy from the budget law
 // (data/transport/rail_subsidy.json) and rail ridership from Eurostat
 // (data/transport/rail_ridership.json) — into a per-year view whose headline metric is
@@ -55,7 +56,27 @@ const useFile = <T,>(key: string, path: string) =>
     staleTime: Infinity,
   });
 
-export const useRailSubsidy = (): {
+/** The row a tile headlines: the requested year when it carries a per-passenger
+ *  figure, otherwise the newest year that does. Shared by /sector/transport/money
+ *  and the /subsidies rail tile so both resolve an inbound `pscope=y:YYYY` to the
+ *  SAME year — a hub tile that says 2025 above a page that says 2024 makes one of
+ *  the two look wrong. */
+export const railSubsidyAnchor = (
+  rows: RailSubsidyRow[],
+  year?: number | null,
+): RailSubsidyRow | null => {
+  const withPer = rows.filter((r) => r.perPassenger != null);
+  if (year != null) {
+    const hit = withPer.find((r) => r.year === year);
+    if (hit) return hit;
+  }
+  return withPer[withPer.length - 1] ?? null;
+};
+
+export const useRailSubsidy = (
+  /** Anchor `latest` to this year when it has a per-passenger figure. */
+  year?: number | null,
+): {
   rows: RailSubsidyRow[];
   latest: RailSubsidyRow | null;
   isLoading: boolean;
@@ -102,10 +123,7 @@ export const useRailSubsidy = (): {
   // Eurostat watcher, so a new ЗДБ routinely lands a PSO year before ridership exists for it.
   // Gating on `pso != null` would make `latest.perPassenger` null and blank the whole tile;
   // this mirrors the AI railSubsidy tool, which selects the same way.
-  const latest = useMemo(() => {
-    const withPer = rows.filter((r) => r.perPassenger != null);
-    return withPer[withPer.length - 1] ?? null;
-  }, [rows]);
+  const latest = useMemo(() => railSubsidyAnchor(rows, year), [rows, year]);
 
   return { rows, latest, isLoading: subsidy.isLoading || ridership.isLoading };
 };

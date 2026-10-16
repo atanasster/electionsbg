@@ -751,6 +751,17 @@ const HUB_HEAD_BUDGETS: {
   // + a note + a 5-row operator aside, no scope control (the hub is whole-corpus).
   // Measured 468 at 1280 on 2026-10-12 before the finder (T5); 495 with it.
   { path: "/water", maxPx: 560, measured: 495, cells: 4, asideRows: 5 },
+  // The transport sector hub (docs/plans/transport-hub-v1.md T3): identity + deck + a
+  // 4-cell band + a note + a 5-row body aside, no scope control and (until T6) no
+  // finder. Measured 481 (480.5) at 1280 on 2026-10-16 in the dev server with the
+  // committed blob — the same setup reproduced /water's recorded 495 exactly.
+  {
+    path: "/sector/transport",
+    maxPx: 560,
+    measured: 481,
+    cells: 4,
+    asideRows: 5,
+  },
   // Identity + deck + a scope control + a 4-cell band + a note + an evidence aside, and no
   // search slot (the grid is nineteen tiles, which is a list a reader scans rather than
   // searches).
@@ -949,6 +960,7 @@ const HUB_HEAD_SCREENS: Record<string, string> = {
   "/culture": "src/screens/culture/CultureHubScreen.tsx",
   "/sector/roads": "src/screens/roads/RoadsHubScreen.tsx",
   "/water": "src/screens/water/WaterHubScreen.tsx",
+  "/sector/transport": "src/screens/transport/TransportHubScreen.tsx",
   "/governance/sectors": "src/screens/governance/GovernanceSectorsScreen.tsx",
   "/indicators": "src/screens/indicators/IndicatorsLandingScreen.tsx",
   "/parliamentary/analysis": "src/screens/analysis/AnalysisHubScreen.tsx",

@@ -70,8 +70,8 @@ describe("destinations", () => {
   it("carries no fragment link", () => {
     // The /funds class. A `#section` target is the link that rots when the destination is
     // reorganised, and NOTHING type-checks it — the anchor simply stops existing and the
-    // click becomes a no-op. Band 3's rail tile is the standing temptation: /sector/transport
-    // has an `id="rail-subsidy"` and pointing at it would be one character.
+    // click becomes a no-op. Band 3's rail tile is the standing temptation: /sector/transport/money
+    // has an `id="subsidy"` and pointing at it would be one character.
     const withFragment = TILES.filter((t) => t.to.includes("#"));
     expect(withFragment.map((t) => `${t.id} → ${t.to}`)).toEqual([]);
   });

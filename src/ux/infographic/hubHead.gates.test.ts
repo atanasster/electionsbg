@@ -217,6 +217,10 @@ const HUB_SCREENS = [
   // same reason. Its basis names the corpus start („от 2011 г.") and an НСИ year.
   "src/screens/water/WaterHubScreen.tsx",
   "src/screens/water/waterHubFigures.ts",
+  // The transport sector hub (docs/plans/transport-hub-v1.md T3) and its band module, for
+  // the same reason. Its basis names the corpus window („2011–2026").
+  "src/screens/transport/TransportHubScreen.tsx",
+  "src/screens/transport/transportHubFigures.ts",
 ];
 
 /** Every `<HubHead` call site under src/screens, comment-stripped so a screen that merely

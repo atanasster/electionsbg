@@ -1425,6 +1425,36 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "sector-transport",
+    routePath: "sector/transport",
+    // The transport sector hub's head (docs/plans/transport-hub-v1.md T3). All four
+    // band cells come from one blob (transport/derived/hub_stats.json), so the wait
+    // names the two whose destinations no other head link shares — the #modes and
+    // #contractors sections of /procurement — and an absent blob times out instead
+    // of overwriting a good card. (Until 2026-10-16 this card was the map-only
+    // capture of the retired scripts/og/screenshot_transport.ts.)
+    waitFor:
+      '[data-hub-head]:has([data-kpi-cell][href*="#modes"]):has([data-kpi-cell][href*="#contractors"]) [data-kpi-cell]',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "sector-transport-network",
+    routePath: "sector/transport/network?pscope=all",
+    // The network page's argument is the project map — frame it once the basemap
+    // tiles and the line layer have painted.
+    waitFor: '[data-og="transport-map"] .leaflet-tile-loaded',
+    anchor: '[data-og="transport-map"]',
+    // A full-width card wider than the clip: pin the clip to its left edge and
+    // render at the clip viewport so the card fits rather than being sliced.
+    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "culture",
     // /culture/subsidies, NOT /culture: the film dashboard this shot frames moved
     // there when /culture became the sector hub (2026-08-18), and

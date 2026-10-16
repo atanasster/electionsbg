@@ -461,6 +461,26 @@ const ROUTES: RouteCheck[] = [
     hasEnglishMirror: true,
   })),
 
+  // The transport sector hub and its four sub-pages (docs/plans/transport-hub-v1.md T3) —
+  // hand-authored, not the generic SECTOR_PAGES template, so each needs its own check that
+  // it is not serving the homepage's head.
+  ...(
+    [
+      ["/sector/transport", "Транспорт", 700],
+      ["/sector/transport/network", "Транспортната мрежа на карта", 350],
+      ["/sector/transport/procurement", "Поръчките в транспорта", 600],
+      ["/sector/transport/bodies", "Структурите в транспорта", 200],
+      ["/sector/transport/money", "Парите извън поръчките", 400],
+    ] as const
+  ).map(([path, h1, minBodyChars]) => ({
+    path,
+    titleIncludes: h1,
+    h1Includes: h1,
+    minBodyChars,
+    expectedCanonical: path,
+    hasEnglishMirror: true,
+  })),
+
   // The water sector hub and its four new sub-pages (docs/plans/water-hub-v1.md T3) —
   // hand-authored, so each needs its own check that it is not serving the homepage's head.
   ...(

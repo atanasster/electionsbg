@@ -335,16 +335,23 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   },
   // Транспорт — the МТС state transport group: rail (НКЖИ + БДЖ + ИАЖА + ДП ТСВ),
   // ports and the Danube (Пристанищна инфраструктура + Морска администрация + ИАППД),
-  // aviation (БУЛАТСА + Летище София + ГД ГВА) and road regulation/safety
-  // (Автомобилна администрация + ДАБДП). МТС leads; its /awarder
-  // page renders the TransportPack (registered under TRANSPORT_EIK), and so does this
-  // dashboard. ⚠ ROAD BUILDING is a SEPARATE sector — АПИ/Автомагистрали are excluded;
-  // the pack cross-links to /sector/roads. Метрополитен is municipal, also excluded.
-  // Members from the curated allowlist (transportReferenceData.ts).
+  // aviation (БУЛАТСА + летищата София и Пловдив + ГД ГВА) and road
+  // regulation/safety (Автомобилна администрация + ДАБДП). ⚠ ROAD BUILDING is a
+  // SEPARATE sector — АПИ/Автомагистрали are excluded. Метрополитен is municipal,
+  // also excluded. Members from the curated allowlist (transportReferenceData.ts).
+  //
+  // ⚠ INERT (2026-10-16, docs/plans/transport-hub-v1.md C5) — the roads precedent.
+  // /sector/transport is the bespoke TransportHubScreen, routed as a static
+  // literal ahead of sector/:id, so this entry no longer renders. It stays
+  // COMPLETE on purpose: SECTOR_DASHBOARD_IDS drives the sitemap slug and the
+  // prerender guard, `agency` must keep matching sectorRegistry, `leadEik`
+  // resolves the awarder page's „this buyer has a sector page" cross-link, and
+  // `members` feeds /sector/transport/bodies' finder and roster (and
+  // membersIndex.test.ts). Transport has NO registered pack — TransportPack and
+  // useTransport were deleted with the hub — so this is a non-pack entry like
+  // `roads` and `administration`.
   transport: {
     id: "transport",
-    // The pack renders its own contracts links (CPV breakdown / „виж всички").
-    packRendersOwnContractsLink: true,
     titleKey: "sector_transport_title",
     descKey: "sector_transport_desc",
     agency: "МТС",
