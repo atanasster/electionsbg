@@ -17,6 +17,8 @@ import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { useTransportHubStats } from "@/data/transport/hubStats";
+import { HubSearch } from "@/ux/search/HubSearch";
+import { transportSearchSources } from "./transportSearch";
 import { TRANSPORT_BANDS, TRANSPORT_HUB_COPY } from "./transportRegistry";
 import { TRANSPORT_SCENES } from "./transportScenes";
 import {
@@ -46,6 +48,12 @@ export const TransportHubScreen: FC = () => {
     return e ? (bg ? e.bg : e.en) : k;
   };
 
+  // HubSearch diffs `sources` by identity, so rebuild only when the blob or the
+  // language changes — never per render.
+  const sources = useMemo(
+    () => transportSearchSources(stats, lang, bg),
+    [stats, lang, bg],
+  );
   const kpis = useMemo(
     () => transportHubKpis(stats, lang, bg),
     [stats, lang, bg],
@@ -97,6 +105,24 @@ export const TransportHubScreen: FC = () => {
         kpisPending={isPending ? 4 : undefined}
         kpiNote={kpis.length || isPending ? transportKpiNote(bg) : undefined}
         evidence={evidence}
+        search={
+          <HubSearch
+            idPrefix="transport-finder"
+            sources={sources}
+            title={{
+              bg: "Търси в транспортния сектор",
+              en: "Search the transport sector",
+            }}
+            placeholder={{
+              bg: "структура, жп участък, фирма, договор…",
+              en: "body, rail section, company, contract…",
+            }}
+            hint={{
+              bg: "Структурите и участъците се търсят в сектора; фирмите и договорите — в целия регистър.",
+              en: "Bodies and sections are searched in the sector; companies and contracts across the whole register.",
+            }}
+          />
+        }
       />
       {/* HubHead drops the band when it has no figures; without this a failed or
           absent blob just removes the head's numbers, with nothing saying why. */}
