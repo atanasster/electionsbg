@@ -72,6 +72,28 @@ test.skipIf(skip)(
   },
 );
 
+test.skipIf(skip)(
+  "facility counts exclude €0 consortium-member rows",
+  async () => {
+    const [{ r }] = await allRows<{
+      r: { facilities: { contractCount: number }[] };
+    }>("SELECT transport_facility_map($1, NULL, NULL) AS r", [
+      TRANSPORT_SECTOR_EIKS,
+    ]);
+    const shown = r.facilities.reduce((a, f) => a + f.contractCount, 0);
+    const [{ ex, all }] = await allRows<{ ex: number; all: number }>(
+      `SELECT count(*) FILTER (WHERE c.consortium_role IS DISTINCT FROM 'member')::int AS ex,
+              count(*)::int AS all
+         FROM contracts c JOIN transport_facility_geo g ON g.eik = c.awarder_eik
+        WHERE c.tag = 'contract' AND c.awarder_eik = ANY($1)
+          AND g.lng IS NOT NULL AND g.lat IS NOT NULL`,
+      [TRANSPORT_SECTOR_EIKS],
+    );
+    assert.equal(shown, ex, "the facility map counts consortium members");
+    assert.ok(all > ex, "no member rows in the set — this check is vacuous; retire it deliberately"); // prettier-ignore
+  },
+);
+
 test.skipIf(skip)("ИАППД sits in Русе, not on the София pin", async () => {
   // The mirror of the Варна assertion above, and it fails DIFFERENTLY. Варна is a
   // curated override in the loader, so it can only break by someone editing
