@@ -1,16 +1,17 @@
 # Transport hub v1: `/sector/transport` becomes a sector dashboard
 
-**Status: IMPLEMENTATION PLAN, audited 2026-10-16.**
-- D1–D8 are accepted.
-- D9 has a default applied and is flagged for confirmation (§0).
-- Nothing is implemented yet.
+**Status: IMPLEMENTED locally 2026-10-16/17 (T0–T7, T9) and audited twice more; T8 (the
+production publish) is NOT run — see §7.**
+- D1–D8 are accepted; D9's default (Пощи disclosed, not counted) is applied.
+- §2–§4 below are the plan as written; where the build deviated, §7 says how and why. Read §7
+  before trusting a figure in §1–§2: the corpus moved under them (§7.4).
 
 **How the plan was checked.** It went through three audits on 2026-10-16:
 - a first data audit against local PG, findings **A1–A16** (§2);
 - a claims/feasibility audit against the code, findings **B1–B5** (blockers), **C1–C11**
   (corrections) and **O1–O11** (omissions);
 - a second data audit that re-measured every number with the decisions applied and swept for
-  surfaces the first one missed, findings **G1–G16**.
+  surfaces the first one missed, findings **G1–G15**.
 
 Every finding is folded into the tier that fixes it, with its id kept beside the fix.
 
@@ -259,7 +260,8 @@ and no `withBundle` (O7).
    - D2: Летище Пловдив into the aviation `TRANSPORT_ENTITIES`, seat Крумово/Пловдив;
    - D3: Дунав мост on a new `TRANSPORT_VERIFY` list, with its reason;
    - D4: the `TRANSPORT_INGROUP_CONTRACTORS` constant;
-   - D9: a `TRANSPORT_STATE_CONTRACTORS` disclosure list;
+   - D9: a `TRANSPORT_PUBLIC_CONTRACTORS` disclosure list (shipped under that name, with a
+     `principal: state | municipal` field — ЦГМ is municipal, so „state" was wrong);
    - update `transportReferenceData.test.ts`. Летище Пловдив's € floor sits on `all` only (the
      Летище София scope trap from the 2026-08-13 audit).
 2. **The EIK set feeds the function bundle (B3):**
@@ -480,3 +482,96 @@ plus one shared `procurement-search` request labelled „в целия реги�
   its own plan if ever wanted.
 - The `fund_beneficiaries` lag beyond transport (A11): spin off.
 - The 2020 corpus hole itself (G1). v1 captions it; filling it is an ingest question.
+
+---
+
+## 7. Implementation log (2026-10-16 → 17)
+
+### 7.1 Commits, per tier
+
+| tier | commits |
+| --- | --- |
+| T0 register + stale copy | `7c707089ce`, `f02d3249ec` |
+| T1 engine (map, facility, classifier, browse pack, funds route) | `48cf5feb14`, `487bba1d84`, `a5995be882`, `f9bd5ecdfd`, `c750a28e19` |
+| T2 blob | `10d8194111` |
+| T3 hub + sub-pages + page layer | `0d8bebb03f`, `2d05855f5c`, `9f05ead639` |
+| T4 baselines · T5 maps · T6 finder | `112f2a6a06` · `03442823bb` · `0df8ea0709`, `fa8d7c0ca2` |
+| T7 reload/publish path | `e419d64314` |
+| T9 gates + /audit-sectors F1–F10 | `e939d5c5de`, `297fdc181f` |
+| full audit A (AI tools) · B (gaps) · C (data) | `70bcd2f6ef` · `dd26116fbb` · `4f9830db9a` |
+| corpus: contract-number-less twins | `e8f0eab5ae` (plan: `procurement-same-feed-dedup-v1.md` §7) |
+| og re-shoots | `2360dc52e6`, `528314f824` |
+
+Every step went through a review subagent; every verified finding was fixed in the same step.
+
+### 7.2 Deviations from §2–§4
+
+- **T1.4 folded into T3.** `useTransport` was deleted with the pack, so the ex-member counts
+  were wired straight into the new pages (`awarder-group-rollup?exMembers=1`).
+- **A3:** there is no "track" category — 3494 goes to `supplies`; 34942/34943 (signalling,
+  train monitoring) to signalling/IT; CPV 64 to signalling/IT. One prefix table drives both the
+  split and the deep link.
+- **A6:** „жп линия" is deliberately NOT a section word (a station on a named line drew a 378 km
+  line). A long pair reaches the map only as an explicit „A – B" parent line (`scope: line`).
+- **A7/C4:** the village pass uses `ekatte_index.json` through `placeCandidatesIndex` +
+  `pickSectionEnds` (closest candidate pair within 120 km, refusing ties), not
+  `EkatteResolver`. Shared TOWN names are refused too (Бяла).
+- **A4 reversed by G4** — the label „без обявление" stands; only the coverage half shipped.
+- **O4:** the rail files are published by `bucket:sync:paths` lines in the skill rows, not
+  `UPLOAD_PUBLISHED_ARTIFACTS` (that registry is for scripts with their own `--upload`).
+- **F1 (T9 audit):** category cards dropped contract/supplier counts and single-bid % — the only
+  per-CPV source counts consortium members (water precedent).
+- **Under a `?mode`,** contract links open `?awarder=<mode EIKs>`; € match, the row count can be
+  a few higher (that browse includes €0 member rows).
+
+### 7.3 Findings after the plan, all fixed
+
+- **/audit-sectors (T9):** category counts basis, „Друго" footnote, 2024 capital transfers read
+  as 0, `/money` period note, failed-source notes, competition top-N cut, annex sentence scope,
+  `aria-pressed`, hash-scroll readiness, duplicated VERIFY wording.
+- **Full audit (2026-10-17):**
+  - AI tools on the hub's rules (`src/lib/railSubsidy.ts` shared; no member-inclusive count
+    fallback; grant-basis description);
+  - **the broadband RRP-7 grant (€240.3M) was counted as transport EU funds** — excluded under
+    D1 via `?exclude=`; project totals dropped (phased projects double-count them);
+  - fuel/electricity/insurance are operating inputs, not pass-through; staff benefits are;
+  - KPI 4 names its PSO share (€980.6M of €1.14bn); loans captioned; dredging/marker boats
+    re-attributed to maritime;
+  - map: section ends picked by distance (Стражица–Славяново, Лозарево–Завет were 92 km and
+    ~200 km off), no single-town fallback for a named section, 1,418 non-work-site titles (water
+    supply, laundry, hotels, rolling-stock repair…) kept off;
+  - Топлофикация София and Булгаргаз added to the public-contractor disclosure;
+  - COFOG fetched Greece as `GR` — Eurostat codes it `EL`; fixed in `fetch_cofog.ts`, but
+    `data/cofog.json` needs an `update-macro` run before Greece appears.
+- **Source checks (G12/G14) — settled:** the PSO repeat 2018 = 2019 = 2020 (€89,476,079) is
+  printed in each of the three budget laws; the ridership 2018 = 2019 (21,329k) is Eurostat's
+  own value; the 2024 capital transfers are genuinely absent from the 2024 law. Road-safety
+  repeats were NOT re-fetched.
+
+### 7.4 The corpus moved under §1
+
+The audit found **12,397 contract-number-less legacy duplicates (€1.18bn)** corpus-wide —
+transport €107.3M of them. They were evicted (`procurement-same-feed-dedup-v1.md` §7), so every
+transport figure in §1–§2 that includes 2011–2021 is now lower. After the reload:
+
+| | §1 (2026-10-16) | after the sweep |
+| --- | ---: | ---: |
+| KPI 1 | €7,293,030,892 | **€7,185,704,831** |
+| in-group | €1,139,833,719 | €1,138,806,210 (PSO €980,558,458) |
+| EU grant (grant basis) | €2,536,536,928 | **€2,296,285,141** (broadband excluded) |
+| head height | 481 px | 520 px (finder + KPI 4 caption) |
+
+### 7.5 Still open
+
+- **T8 — nothing is published.** Cloud SQL was unreachable throughout. The order is in CLAUDE.md
+  (the transport paragraph under `transport_facility_geo`): apply 076/132 → map loaders `:cloud`
+  → `install_query --cloud` → `deploy:db` → bucket sync (hub blob, `sector_stats.json`, both rail
+  files) → hosting three-step. The duplicate sweep adds `db:load:pg:cloud` +
+  `db:load:annexes:pg:cloud` + the contract-derived reloads, and the bucket sync of every
+  regenerated procurement/roads/water blob. Until then the live hub has no blob (404 → no KPI
+  band) and `/money#funds` says the grant basis is not published.
+- **Site-wide, not transport:** runtime `document.title` is the short form on every hub (the
+  prerender's long title is what crawlers get); the awarder page's `<h1>` uses the corpus
+  display name, which for МТС is an ОП sub-unit label.
+- **Corpus:** the A2 class of the same-feed plan (two document ids) is still blocked on an
+  ingest change; 14 lone contract-number-less rows (€20.5M) were deliberately not touched.
