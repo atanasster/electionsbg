@@ -16,7 +16,9 @@
 // not a claim that rail construction is more "transport" than road construction. Note
 // ДП ТСВ is also the first member that is materially a CONTRACTOR TO the group as well
 // as an awarder within it (€44.8M from НКЖИ + БДЖ), so it widens the intra-group flow
-// the mode-split footnote names.
+// the mode-split footnote names. ДП ТСВ last awarded in 2019; its corporatised
+// successor ТСВ ЕАД (205677435) awards nothing and is declared below as an in-group
+// CONTRACTOR (TRANSPORT_INGROUP_CONTRACTORS), never as a member.
 //
 // ⚠ ROADS INFRASTRUCTURE IS A SEPARATE SECTOR. АПИ (000695089, ~€8.9bn) is a BUYER in
 // the dedicated `roads` sector (/sector/roads); „Автомагистрали" ЕАД (831646048) is
@@ -66,7 +68,7 @@ export type TransportUniverse =
   | "ministry" // Министерство на транспорта и съобщенията (централа)
   | "rail" // Железници — НКЖИ (инфраструктура) + БДЖ холдинг/пътнически/товарни + ИАЖА
   | "maritime" // Море, пристанища и река Дунав — ДППИ + ИА „Морска администрация" + ИАППД
-  | "aviation" // Въздух — БУЛАТСА (ДП РВД) + Летище София + ГД „Гражданска въздухоплавателна администрация"
+  | "aviation" // Въздух — БУЛАТСА (ДП РВД) + летищата София и Пловдив + ГД „Гражданска въздухоплавателна администрация"
   | "road"; // Автомобилен транспорт (регулация) + пътна безопасност — ИА „Автомобилна администрация" + ДАБДП
 
 export interface TransportEntity {
@@ -106,6 +108,10 @@ export const TRANSPORT_ENTITIES: TransportEntity[] = [
   // operating concession took the airport over later in 2021. No date cutoff is needed
   // or wanted: a windowed scope past 2021 simply finds nothing for this EIK.
   { eik: "121023551", name: "„Летище София“ ЕАД", universe: "aviation" }, // prettier-ignore
+  // „Летище Пловдив“ ЕАД — 100% state airport operator, same class as Летище София
+  // (D2, docs/plans/transport-hub-v1.md). Small (€1.06M, 11 contracts 2011–2026, all
+  // fuel CPV 09*), but it meets the inclusion rule; seat Крумово (обл. Пловдив).
+  { eik: "115007069", name: "„Летище Пловдив“ ЕАД", universe: "aviation" }, // prettier-ignore
   { eik: "121805755", name: "ГД „Гражданска въздухоплавателна администрация“ (ГД ГВА)", universe: "aviation" }, // prettier-ignore
 
   // Автомобилен транспорт (regulation) + пътна безопасност (road safety) — NOT road building
@@ -172,3 +178,68 @@ export const TRANSPORT_UNIVERSES: TransportUniverse[] = [
   "maritime",
   "road",
 ];
+
+// ── The other three declared lists (sector-dashboard §1) ──────────────────────────
+// None of these is ever in TRANSPORT_SECTOR_EIKS: the headline is an AWARDER-side Σ
+// over the roll-up above, and these three answer different questions.
+
+/** VERIFY — a body whose principal is genuinely unsettled. Shown on
+ *  /sector/transport/bodies, never summed. Do not settle one by its NAME. */
+export const TRANSPORT_VERIFY: { eik: string; name: string; why: string }[] = [
+  {
+    eik: "202623635",
+    name: "„Дунав мост Видин – Калафат“ АД",
+    // D3 (2026-10-16): TR holds no owner rows for an АД, and the public record
+    // describes a joint BG–RO operating structure for the bridge, so neither МТС nor
+    // МРРБ can be shown to be its principal from what we hold. €11.7M / 53 contracts.
+    why: "смесена българо-румънска структура; принципалът не е потвърден",
+  },
+];
+
+/** IN-GROUP CONTRACTORS — state companies under the transport minister that WIN
+ *  contracts from the roll-up but award none themselves. They widen the intra-group
+ *  flow (KPI 4 on the hub) and never touch the headline (the roads in-house shape). */
+export const TRANSPORT_INGROUP_CONTRACTORS: { eik: string; name: string }[] = [
+  // D4: ТСВ ЕАД is ДП ТСВ's corporatised successor (ДП ТСВ last awarded in 2019). It
+  // has 0 awarder rows and wins €106.2M from НКЖИ, ДППИ and БДЖ-ПП.
+  { eik: "205677435", name: "„Транспортно строителство и възстановяване“ ЕАД" },
+];
+
+/** PUBLIC CONTRACTORS OUTSIDE THE SECTOR — public bodies (state or municipal) that win
+ *  money from the group but are NOT transport bodies under D1. Disclosed beside the
+ *  in-group figure, never added to it (D9 default, 2026-10-16: adding Пощи would change
+ *  KPI 4's basis on a body the universe rule excludes). EIKs verified against
+ *  contracts.contractor_eik, 2026-10-16. */
+export const TRANSPORT_PUBLIC_CONTRACTORS: {
+  eik: string;
+  name: string;
+  principal: "state" | "municipal";
+}[] = [
+  { eik: "121396123", name: "„Български пощи“ ЕАД", principal: "state" }, // МТС-owned; НКЖИ meal vouchers
+  { eik: "000649348", name: "„Национална електрическа компания“ ЕАД", principal: "state" }, // prettier-ignore
+  { eik: "000670919", name: "НАИМ при БАН", principal: "state" }, // archaeological rescue (statutory)
+  {
+    eik: "129009105",
+    name: "Държавен авиационен оператор",
+    principal: "state",
+  },
+  {
+    eik: "831641791",
+    name: "„Информационно обслужване“ АД",
+    principal: "state",
+  },
+  { eik: "202218735", name: "„Център за градска мобилност“ ЕАД", principal: "municipal" }, // prettier-ignore
+];
+
+/** The HHI / top-suppliers tiles' `memberEiks`: the roll-up PLUS the in-group
+ *  contractors, so a payment to ТСВ ЕАД reads „в групата" (D4). Pair it with
+ *  `stateBodyEiks = TRANSPORT_PUBLIC_CONTRACTOR_EIKS`, which those tiles label as an
+ *  outside state body — never pass the in-group list there. */
+export const TRANSPORT_GROUP_EIKS: string[] = [
+  ...TRANSPORT_SECTOR_EIKS,
+  ...TRANSPORT_INGROUP_CONTRACTORS.map((e) => e.eik),
+];
+
+/** The tiles' `stateBodyEiks` — public bodies outside the group (D9). */
+export const TRANSPORT_PUBLIC_CONTRACTOR_EIKS: string[] =
+  TRANSPORT_PUBLIC_CONTRACTORS.map((e) => e.eik);

@@ -34,6 +34,11 @@ import {
   TRANSPORT_UNIVERSES,
   TRANSPORT_UNIVERSE_LABEL,
   TRANSPORT_EIK,
+  TRANSPORT_VERIFY,
+  TRANSPORT_INGROUP_CONTRACTORS,
+  TRANSPORT_PUBLIC_CONTRACTORS,
+  TRANSPORT_GROUP_EIKS,
+  TRANSPORT_PUBLIC_CONTRACTOR_EIKS,
   transportEntityByEik,
   transportUniverseOf,
 } from "./transportReferenceData";
@@ -161,6 +166,61 @@ describe("the curated boundary", () => {
       );
       expect(transportUniverseOf(eik), `${what} moved universe`).toBe(universe);
     }
+  });
+});
+
+describe("the other declared lists (transport-hub-v1 D2–D4, D9)", () => {
+  it("adds Летище Пловдив to aviation (D2)", () => {
+    expect(transportUniverseOf("115007069")).toBe("aviation");
+  });
+
+  it("keeps the VERIFY, in-group and public-contractor lists out of the roll-up", () => {
+    // The headline is an awarder-side Σ over TRANSPORT_SECTOR_EIKS. A body from any of
+    // these three lists landing in it would change what every € on the page means.
+    for (const list of [
+      TRANSPORT_VERIFY,
+      TRANSPORT_INGROUP_CONTRACTORS,
+      TRANSPORT_PUBLIC_CONTRACTORS,
+    ])
+      for (const { eik, name } of list)
+        expect(TRANSPORT_SECTOR_EIKS, `${name} (${eik}) is in the roll-up`).not.toContain(eik); // prettier-ignore
+  });
+
+  it("puts no EIK in two declared lists", () => {
+    const all = [
+      ...TRANSPORT_VERIFY,
+      ...TRANSPORT_INGROUP_CONTRACTORS,
+      ...TRANSPORT_PUBLIC_CONTRACTORS,
+    ].map((e) => e.eik);
+    expect(new Set(all).size).toBe(all.length);
+  });
+
+  it("keeps ТСВ ЕАД as the in-group successor of ДП ТСВ (D4)", () => {
+    expect(TRANSPORT_INGROUP_CONTRACTORS.map((e) => e.eik)).toContain(
+      "205677435",
+    );
+    expect(TRANSPORT_SECTOR_EIKS).toContain("130847116"); // the predecessor stays an awarder
+  });
+
+  it("discloses Български пощи as a public contractor, not in-group (D9)", () => {
+    expect(TRANSPORT_PUBLIC_CONTRACTORS.map((e) => e.eik)).toContain(
+      "121396123",
+    );
+    expect(TRANSPORT_INGROUP_CONTRACTORS.map((e) => e.eik)).not.toContain(
+      "121396123",
+    );
+  });
+
+  it("puts ТСВ ЕАД in the group set and keeps the group and public sets disjoint", () => {
+    // The HHI tiles drop memberEiks from stateBodyEiks and label the rest an OUTSIDE
+    // state body — so an in-group contractor in the public set would read as „not ours".
+    expect(TRANSPORT_GROUP_EIKS).toContain("205677435");
+    expect(TRANSPORT_GROUP_EIKS).toEqual([
+      ...TRANSPORT_SECTOR_EIKS,
+      ...TRANSPORT_INGROUP_CONTRACTORS.map((e) => e.eik),
+    ]);
+    for (const eik of TRANSPORT_PUBLIC_CONTRACTOR_EIKS)
+      expect(TRANSPORT_GROUP_EIKS).not.toContain(eik);
   });
 });
 

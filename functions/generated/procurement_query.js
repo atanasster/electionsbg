@@ -2288,6 +2288,11 @@ var TRANSPORT_ENTITIES = [
   // or wanted: a windowed scope past 2021 simply finds nothing for this EIK.
   { eik: "121023551", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u0421\u043E\u0444\u0438\u044F\u201C \u0415\u0410\u0414", universe: "aviation" },
   // prettier-ignore
+  // „Летище Пловдив“ ЕАД — 100% state airport operator, same class as Летище София
+  // (D2, docs/plans/transport-hub-v1.md). Small (€1.06M, 11 contracts 2011–2026, all
+  // fuel CPV 09*), but it meets the inclusion rule; seat Крумово (обл. Пловдив).
+  { eik: "115007069", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u041F\u043B\u043E\u0432\u0434\u0438\u0432\u201C \u0415\u0410\u0414", universe: "aviation" },
+  // prettier-ignore
   { eik: "121805755", name: "\u0413\u0414 \u201E\u0413\u0440\u0430\u0436\u0434\u0430\u043D\u0441\u043A\u0430 \u0432\u044A\u0437\u0434\u0443\u0445\u043E\u043F\u043B\u0430\u0432\u0430\u0442\u0435\u043B\u043D\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C (\u0413\u0414 \u0413\u0412\u0410)", universe: "aviation" },
   // prettier-ignore
   // Автомобилен транспорт (regulation) + пътна безопасност (road safety) — NOT road building
@@ -2305,6 +2310,36 @@ var TRANSPORT_ALIAS_EIKS = TRANSPORT_ENTITIES.filter(
 var TRANSPORT_SECTOR_EIKS = TRANSPORT_ENTITIES.map(
   (e) => e.eik
 );
+var TRANSPORT_INGROUP_CONTRACTORS = [
+  // D4: ТСВ ЕАД is ДП ТСВ's corporatised successor (ДП ТСВ last awarded in 2019). It
+  // has 0 awarder rows and wins €106.2M from НКЖИ, ДППИ and БДЖ-ПП.
+  { eik: "205677435", name: "\u201E\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u043D\u043E \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u0441\u0442\u0432\u043E \u0438 \u0432\u044A\u0437\u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0432\u0430\u043D\u0435\u201C \u0415\u0410\u0414" }
+];
+var TRANSPORT_PUBLIC_CONTRACTORS = [
+  { eik: "121396123", name: "\u201E\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438 \u043F\u043E\u0449\u0438\u201C \u0415\u0410\u0414", principal: "state" },
+  // МТС-owned; НКЖИ meal vouchers
+  { eik: "000649348", name: "\u201E\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u0435\u043B\u0435\u043A\u0442\u0440\u0438\u0447\u0435\u0441\u043A\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F\u201C \u0415\u0410\u0414", principal: "state" },
+  // prettier-ignore
+  { eik: "000670919", name: "\u041D\u0410\u0418\u041C \u043F\u0440\u0438 \u0411\u0410\u041D", principal: "state" },
+  // archaeological rescue (statutory)
+  {
+    eik: "129009105",
+    name: "\u0414\u044A\u0440\u0436\u0430\u0432\u0435\u043D \u0430\u0432\u0438\u0430\u0446\u0438\u043E\u043D\u0435\u043D \u043E\u043F\u0435\u0440\u0430\u0442\u043E\u0440",
+    principal: "state"
+  },
+  {
+    eik: "831641791",
+    name: "\u201E\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u043E \u043E\u0431\u0441\u043B\u0443\u0436\u0432\u0430\u043D\u0435\u201C \u0410\u0414",
+    principal: "state"
+  },
+  { eik: "202218735", name: "\u201E\u0426\u0435\u043D\u0442\u044A\u0440 \u0437\u0430 \u0433\u0440\u0430\u0434\u0441\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u043D\u043E\u0441\u0442\u201C \u0415\u0410\u0414", principal: "municipal" }
+  // prettier-ignore
+];
+var TRANSPORT_GROUP_EIKS = [
+  ...TRANSPORT_SECTOR_EIKS,
+  ...TRANSPORT_INGROUP_CONTRACTORS.map((e) => e.eik)
+];
+var TRANSPORT_PUBLIC_CONTRACTOR_EIKS = TRANSPORT_PUBLIC_CONTRACTORS.map((e) => e.eik);
 
 // src/lib/socialReferenceData.ts
 var SOCIAL_EIK = "000695395";
