@@ -2253,52 +2253,52 @@ var EDU_UNIVERSES = Object.keys(EDU_UNIVERSE_RANK).sort((a, b) => EDU_UNIVERSE_R
 // src/lib/transportReferenceData.ts
 var TRANSPORT_EIK = "000695388";
 var TRANSPORT_ENTITIES = [
-  { eik: TRANSPORT_EIK, name: "\u041C\u0438\u043D\u0438\u0441\u0442\u0435\u0440\u0441\u0442\u0432\u043E \u043D\u0430 \u0442\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u0430 \u0438 \u0441\u044A\u043E\u0431\u0449\u0435\u043D\u0438\u044F\u0442\u0430", universe: "ministry" },
+  { eik: TRANSPORT_EIK, name: "\u041C\u0438\u043D\u0438\u0441\u0442\u0435\u0440\u0441\u0442\u0432\u043E \u043D\u0430 \u0442\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u0430 \u0438 \u0441\u044A\u043E\u0431\u0449\u0435\u043D\u0438\u044F\u0442\u0430", nameEn: "Ministry of Transport and Communications (MTC)", universe: "ministry" },
   // prettier-ignore
   // Железници (rail) — infrastructure manager + the БДЖ operating group + rail-safety
   // regulator + the state rail-construction enterprise
-  { eik: "130823243", name: "\u0414\u041F \u201E\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F \u0416\u0435\u043B\u0435\u0437\u043E\u043F\u044A\u0442\u043D\u0430 \u0438\u043D\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430\u201C (\u041D\u041A\u0416\u0418)", universe: "rail" },
+  { eik: "130823243", name: "\u0414\u041F \u201E\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F \u0416\u0435\u043B\u0435\u0437\u043E\u043F\u044A\u0442\u043D\u0430 \u0438\u043D\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430\u201C (\u041D\u041A\u0416\u0418)", nameEn: "National Railway Infrastructure Company (NRIC)", universe: "rail" },
   // prettier-ignore
-  { eik: "130822878", name: "\u0425\u043E\u043B\u0434\u0438\u043D\u0433 \u201E\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438 \u0434\u044A\u0440\u0436\u0430\u0432\u043D\u0438 \u0436\u0435\u043B\u0435\u0437\u043D\u0438\u0446\u0438\u201C (\u0411\u0414\u0416)", universe: "rail" },
+  { eik: "130822878", name: "\u0425\u043E\u043B\u0434\u0438\u043D\u0433 \u201E\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438 \u0434\u044A\u0440\u0436\u0430\u0432\u043D\u0438 \u0436\u0435\u043B\u0435\u0437\u043D\u0438\u0446\u0438\u201C (\u0411\u0414\u0416)", nameEn: "Bulgarian State Railways (BDZ) Holding", universe: "rail" },
   // prettier-ignore
-  { eik: "175405647", name: "\u201E\u0411\u0414\u0416 \u2014 \u041F\u044A\u0442\u043D\u0438\u0447\u0435\u0441\u043A\u0438 \u043F\u0440\u0435\u0432\u043E\u0437\u0438\u201C \u0415\u041E\u041E\u0414", universe: "rail" },
+  { eik: "175405647", name: "\u201E\u0411\u0414\u0416 \u2014 \u041F\u044A\u0442\u043D\u0438\u0447\u0435\u0441\u043A\u0438 \u043F\u0440\u0435\u0432\u043E\u0437\u0438\u201C \u0415\u041E\u041E\u0414", nameEn: "BDZ Passenger Services", universe: "rail" },
   // prettier-ignore
-  { eik: "175403856", name: "\u201E\u0411\u0414\u0416 \u2014 \u0422\u043E\u0432\u0430\u0440\u043D\u0438 \u043F\u0440\u0435\u0432\u043E\u0437\u0438\u201C \u0415\u041E\u041E\u0414", universe: "rail" },
+  { eik: "175403856", name: "\u201E\u0411\u0414\u0416 \u2014 \u0422\u043E\u0432\u0430\u0440\u043D\u0438 \u043F\u0440\u0435\u0432\u043E\u0437\u0438\u201C \u0415\u041E\u041E\u0414", nameEn: "BDZ Cargo", universe: "rail" },
   // prettier-ignore
-  { eik: "130663221", name: "\u0418\u0410 \u201E\u0416\u0435\u043B\u0435\u0437\u043E\u043F\u044A\u0442\u043D\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C (\u0418\u0410\u0416\u0410)", universe: "rail" },
+  { eik: "130663221", name: "\u0418\u0410 \u201E\u0416\u0435\u043B\u0435\u0437\u043E\u043F\u044A\u0442\u043D\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C (\u0418\u0410\u0416\u0410)", nameEn: "Railway Administration Executive Agency", universe: "rail" },
   // prettier-ignore
-  { eik: "130847116", name: "\u0414\u041F \u201E\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u043D\u043E \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u0441\u0442\u0432\u043E \u0438 \u0432\u044A\u0437\u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0432\u0430\u043D\u0435\u201C (\u0414\u041F \u0422\u0421\u0412)", universe: "rail" },
+  { eik: "130847116", name: "\u0414\u041F \u201E\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u043D\u043E \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u0441\u0442\u0432\u043E \u0438 \u0432\u044A\u0437\u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0432\u0430\u043D\u0435\u201C (\u0414\u041F \u0422\u0421\u0412)", nameEn: "Transport Construction and Rehabilitation (TSV) state enterprise", universe: "rail" },
   // prettier-ignore
   // Море, пристанища и река Дунав (maritime, ports & inland waterway)
-  { eik: "130316140", name: "\u0414\u041F \u201E\u041F\u0440\u0438\u0441\u0442\u0430\u043D\u0438\u0449\u043D\u0430 \u0438\u043D\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430\u201C", universe: "maritime" },
+  { eik: "130316140", name: "\u0414\u041F \u201E\u041F\u0440\u0438\u0441\u0442\u0430\u043D\u0438\u0449\u043D\u0430 \u0438\u043D\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430\u201C", nameEn: "Bulgarian Ports Infrastructure Company", universe: "maritime" },
   // prettier-ignore
-  { eik: "121797867", name: "\u0418\u0410 \u201E\u041C\u043E\u0440\u0441\u043A\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C", universe: "maritime" },
+  { eik: "121797867", name: "\u0418\u0410 \u201E\u041C\u043E\u0440\u0441\u043A\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C", nameEn: "Maritime Administration", universe: "maritime" },
   // prettier-ignore
-  { eik: "000513106", name: "\u0418\u0410 \u201E\u041F\u0440\u043E\u0443\u0447\u0432\u0430\u043D\u0435 \u0438 \u043F\u043E\u0434\u0434\u044A\u0440\u0436\u0430\u043D\u0435 \u043D\u0430 \u0440\u0435\u043A\u0430 \u0414\u0443\u043D\u0430\u0432\u201C (\u0418\u0410\u041F\u041F\u0414)", universe: "maritime" },
+  { eik: "000513106", name: "\u0418\u0410 \u201E\u041F\u0440\u043E\u0443\u0447\u0432\u0430\u043D\u0435 \u0438 \u043F\u043E\u0434\u0434\u044A\u0440\u0436\u0430\u043D\u0435 \u043D\u0430 \u0440\u0435\u043A\u0430 \u0414\u0443\u043D\u0430\u0432\u201C (\u0418\u0410\u041F\u041F\u0414)", nameEn: "Executive Agency for Exploration and Maintenance of the Danube River", universe: "maritime" },
   // prettier-ignore
   // Въздух (aviation) — the air-navigation infrastructure manager, the state airport
   // company and the regulator. ⚠ БУЛАТСА is the AIR-SIDE ANALOGUE of НКЖИ (rail) and
   // ДППИ (ports): without it this universe was €3.7M against a real €348.2M, i.e. the
   // mode-split tile reported state aviation procurement 94x too small (audit 2026-08-13).
-  { eik: "000697179", name: "\u0414\u041F \u201E\u0420\u044A\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u043D\u0430 \u0432\u044A\u0437\u0434\u0443\u0448\u043D\u043E\u0442\u043E \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435\u201C (\u0411\u0423\u041B\u0410\u0422\u0421\u0410)", universe: "aviation" },
+  { eik: "000697179", name: "\u0414\u041F \u201E\u0420\u044A\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E \u043D\u0430 \u0432\u044A\u0437\u0434\u0443\u0448\u043D\u043E\u0442\u043E \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435\u201C (\u0411\u0423\u041B\u0410\u0422\u0421\u0410)", nameEn: "Bulgarian Air Traffic Services Authority (BULATSA)", universe: "aviation" },
   // prettier-ignore
   // ⚠ „Летище София“ ЕАД is 100% state with МТС as principal, and its corpus runs
   // 2011-01-13 → 2021-04-06 and stops there of its own accord — the SOF Connect
   // operating concession took the airport over later in 2021. No date cutoff is needed
   // or wanted: a windowed scope past 2021 simply finds nothing for this EIK.
-  { eik: "121023551", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u0421\u043E\u0444\u0438\u044F\u201C \u0415\u0410\u0414", universe: "aviation" },
+  { eik: "121023551", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u0421\u043E\u0444\u0438\u044F\u201C \u0415\u0410\u0414", nameEn: "Sofia Airport", universe: "aviation" },
   // prettier-ignore
   // „Летище Пловдив“ ЕАД — 100% state airport operator, same class as Летище София
   // (D2, docs/plans/transport-hub-v1.md). Small (€1.06M, 11 contracts 2011–2026, all
   // fuel CPV 09*), but it meets the inclusion rule; seat Крумово (обл. Пловдив).
-  { eik: "115007069", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u041F\u043B\u043E\u0432\u0434\u0438\u0432\u201C \u0415\u0410\u0414", universe: "aviation" },
+  { eik: "115007069", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u041F\u043B\u043E\u0432\u0434\u0438\u0432\u201C \u0415\u0410\u0414", nameEn: "Plovdiv Airport", universe: "aviation" },
   // prettier-ignore
-  { eik: "121805755", name: "\u0413\u0414 \u201E\u0413\u0440\u0430\u0436\u0434\u0430\u043D\u0441\u043A\u0430 \u0432\u044A\u0437\u0434\u0443\u0445\u043E\u043F\u043B\u0430\u0432\u0430\u0442\u0435\u043B\u043D\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C (\u0413\u0414 \u0413\u0412\u0410)", universe: "aviation" },
+  { eik: "121805755", name: "\u0413\u0414 \u201E\u0413\u0440\u0430\u0436\u0434\u0430\u043D\u0441\u043A\u0430 \u0432\u044A\u0437\u0434\u0443\u0445\u043E\u043F\u043B\u0430\u0432\u0430\u0442\u0435\u043B\u043D\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C (\u0413\u0414 \u0413\u0412\u0410)", nameEn: "Civil Aviation Administration", universe: "aviation" },
   // prettier-ignore
   // Автомобилен транспорт (regulation) + пътна безопасност (road safety) — NOT road building
-  { eik: "121410441", name: "\u0418\u0410 \u201E\u0410\u0432\u0442\u043E\u043C\u043E\u0431\u0438\u043B\u043D\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C", universe: "road" },
+  { eik: "121410441", name: "\u0418\u0410 \u201E\u0410\u0432\u0442\u043E\u043C\u043E\u0431\u0438\u043B\u043D\u0430 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F\u201C", nameEn: "Automobile Administration", universe: "road" },
   // prettier-ignore
-  { eik: "177344399", name: "\u0414\u044A\u0440\u0436\u0430\u0432\u043D\u0430 \u0430\u0433\u0435\u043D\u0446\u0438\u044F \u201E\u0411\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442 \u043D\u0430 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435\u0442\u043E \u043F\u043E \u043F\u044A\u0442\u0438\u0449\u0430\u0442\u0430\u201C (\u0414\u0410\u0411\u0414\u041F)", universe: "road" }
+  { eik: "177344399", name: "\u0414\u044A\u0440\u0436\u0430\u0432\u043D\u0430 \u0430\u0433\u0435\u043D\u0446\u0438\u044F \u201E\u0411\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442 \u043D\u0430 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435\u0442\u043E \u043F\u043E \u043F\u044A\u0442\u0438\u0449\u0430\u0442\u0430\u201C (\u0414\u0410\u0411\u0414\u041F)", nameEn: "Road Safety State Agency", universe: "road" }
   // prettier-ignore
 ];
 var ENTITY_BY_EIK5 = Object.fromEntries(
@@ -2313,27 +2313,53 @@ var TRANSPORT_SECTOR_EIKS = TRANSPORT_ENTITIES.map(
 var TRANSPORT_INGROUP_CONTRACTORS = [
   // D4: ТСВ ЕАД is ДП ТСВ's corporatised successor (ДП ТСВ last awarded in 2019). It
   // has 0 awarder rows and wins €106.2M from НКЖИ, ДППИ and БДЖ-ПП.
-  { eik: "205677435", name: "\u201E\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u043D\u043E \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u0441\u0442\u0432\u043E \u0438 \u0432\u044A\u0437\u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0432\u0430\u043D\u0435\u201C \u0415\u0410\u0414" }
+  {
+    eik: "205677435",
+    name: "\u201E\u0422\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u043D\u043E \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u0441\u0442\u0432\u043E \u0438 \u0432\u044A\u0437\u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0432\u0430\u043D\u0435\u201C \u0415\u0410\u0414",
+    nameEn: "Transport Construction and Rehabilitation (TSV) EAD"
+  }
 ];
 var TRANSPORT_PUBLIC_CONTRACTORS = [
-  { eik: "121396123", name: "\u201E\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438 \u043F\u043E\u0449\u0438\u201C \u0415\u0410\u0414", principal: "state" },
+  {
+    eik: "121396123",
+    name: "\u201E\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438 \u043F\u043E\u0449\u0438\u201C \u0415\u0410\u0414",
+    nameEn: "Bulgarian Posts",
+    principal: "state"
+  },
   // МТС-owned; НКЖИ meal vouchers
-  { eik: "000649348", name: "\u201E\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u0435\u043B\u0435\u043A\u0442\u0440\u0438\u0447\u0435\u0441\u043A\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F\u201C \u0415\u0410\u0414", principal: "state" },
+  { eik: "000649348", name: "\u201E\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u0435\u043B\u0435\u043A\u0442\u0440\u0438\u0447\u0435\u0441\u043A\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u044F\u201C \u0415\u0410\u0414", nameEn: "National Electricity Company (NEK)", principal: "state" },
   // prettier-ignore
-  { eik: "000670919", name: "\u041D\u0410\u0418\u041C \u043F\u0440\u0438 \u0411\u0410\u041D", principal: "state" },
+  {
+    eik: "000670919",
+    name: "\u041D\u0410\u0418\u041C \u043F\u0440\u0438 \u0411\u0410\u041D",
+    nameEn: "National Archaeological Institute (BAS)",
+    principal: "state"
+  },
   // archaeological rescue (statutory)
   {
     eik: "129009105",
     name: "\u0414\u044A\u0440\u0436\u0430\u0432\u0435\u043D \u0430\u0432\u0438\u0430\u0446\u0438\u043E\u043D\u0435\u043D \u043E\u043F\u0435\u0440\u0430\u0442\u043E\u0440",
+    nameEn: "State Aviation Operator",
     principal: "state"
   },
   {
     eik: "831641791",
     name: "\u201E\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u043E \u043E\u0431\u0441\u043B\u0443\u0436\u0432\u0430\u043D\u0435\u201C \u0410\u0414",
+    nameEn: "Information Services",
     principal: "state"
   },
-  { eik: "202218735", name: "\u201E\u0426\u0435\u043D\u0442\u044A\u0440 \u0437\u0430 \u0433\u0440\u0430\u0434\u0441\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u043D\u043E\u0441\u0442\u201C \u0415\u0410\u0414", principal: "municipal" }
+  { eik: "202218735", name: "\u201E\u0426\u0435\u043D\u0442\u044A\u0440 \u0437\u0430 \u0433\u0440\u0430\u0434\u0441\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u043D\u043E\u0441\u0442\u201C \u0415\u0410\u0414", nameEn: "Urban Mobility Centre", principal: "municipal" },
   // prettier-ignore
+  // transport-hub-v1 audit 2026-10-17 (T10): the МТС HQ's heat and gas suppliers.
+  // EIKs taken from contracts.contractor_eik (€805,973 and €359,479).
+  { eik: "831609046", name: "\u201E\u0422\u043E\u043F\u043B\u043E\u0444\u0438\u043A\u0430\u0446\u0438\u044F \u0421\u043E\u0444\u0438\u044F\u201C \u0415\u0410\u0414", nameEn: "Toplofikatsia Sofia", principal: "municipal" },
+  // prettier-ignore
+  {
+    eik: "175203485",
+    name: "\u201E\u0411\u0443\u043B\u0433\u0430\u0440\u0433\u0430\u0437\u201C \u0415\u0410\u0414",
+    nameEn: "Bulgargaz",
+    principal: "state"
+  }
 ];
 var TRANSPORT_GROUP_EIKS = [
   ...TRANSPORT_SECTOR_EIKS,

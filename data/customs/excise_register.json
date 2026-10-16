@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-08T22:49:28.293Z",
+  "generatedAt": "2026-10-16T22:48:49.124Z",
   "source": {
     "publisher": "Агенция „Митници“",
     "register": "Регистър на лицензираните складодържатели и данъчните складове",
     "url": "http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing"
   },
   "totalOperators": 566,
-  "activeOperators": 294,
+  "activeOperators": 293,
   "operators": [
     {
       "eik": "121699202",
@@ -17,8 +17,8 @@
       ],
       "warehouses": 9,
       "active": true,
-      "procurementEur": 834057116.24,
-      "contractCount": 698
+      "procurementEur": 828837406.81,
+      "contractCount": 671
     },
     {
       "eik": "831496285",
@@ -28,8 +28,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 513742186.2,
-      "contractCount": 2183
+      "procurementEur": 505397957.43,
+      "contractCount": 2130
     },
     {
       "eik": "131245283",
@@ -40,8 +40,8 @@
       ],
       "warehouses": 2,
       "active": true,
-      "procurementEur": 284004432.06,
-      "contractCount": 487
+      "procurementEur": 257069376.84,
+      "contractCount": 464
     },
     {
       "eik": "201109588",
@@ -63,8 +63,8 @@
       ],
       "warehouses": 3,
       "active": true,
-      "procurementEur": 124833182.63,
-      "contractCount": 49
+      "procurementEur": 122555719.18,
+      "contractCount": 47
     },
     {
       "eik": "121516626",
@@ -74,8 +74,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 36289143.72,
-      "contractCount": 266
+      "procurementEur": 34724890.77,
+      "contractCount": 259
     },
     {
       "eik": "115781068",
@@ -85,7 +85,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 33618718.03,
+      "procurementEur": 33531955.21,
       "contractCount": 285
     },
     {
@@ -107,8 +107,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 20430091.98,
-      "contractCount": 63
+      "procurementEur": 20451371.98,
+      "contractCount": 64
     },
     {
       "eik": "121759222",
@@ -129,8 +129,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 17139434.65,
-      "contractCount": 37
+      "procurementEur": 14610371.8,
+      "contractCount": 32
     },
     {
       "eik": "205140969",
@@ -151,8 +151,8 @@
       ],
       "warehouses": 2,
       "active": true,
-      "procurementEur": 6853336.9,
-      "contractCount": 228
+      "procurementEur": 6432324.15,
+      "contractCount": 209
     },
     {
       "eik": "130948282",
@@ -184,8 +184,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 5278447.6,
-      "contractCount": 197
+      "procurementEur": 5227912.06,
+      "contractCount": 188
     },
     {
       "eik": "106067341",
@@ -195,8 +195,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 4550511.37,
-      "contractCount": 18
+      "procurementEur": 4549268.93,
+      "contractCount": 17
     },
     {
       "eik": "130568248",
@@ -206,8 +206,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 3485954.08,
-      "contractCount": 59
+      "procurementEur": 3661204.08,
+      "contractCount": 60
     },
     {
       "eik": "201703950",
@@ -251,8 +251,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 2242107.36,
-      "contractCount": 39
+      "procurementEur": 2240266.71,
+      "contractCount": 38
     },
     {
       "eik": "124077052",
@@ -311,17 +311,6 @@
       "contractCount": 5
     },
     {
-      "eik": "121847398",
-      "name": "ГАЗТРЕЙД АД",
-      "categories": [
-        "energy"
-      ],
-      "warehouses": 4,
-      "active": true,
-      "procurementEur": 746188.08,
-      "contractCount": 11
-    },
-    {
       "eik": "117029331",
       "name": "ТОВАРНИ ПРЕВОЗИ АД",
       "categories": [
@@ -344,6 +333,17 @@
       "contractCount": 7
     },
     {
+      "eik": "121847398",
+      "name": "ГАЗТРЕЙД АД",
+      "categories": [
+        "energy"
+      ],
+      "warehouses": 4,
+      "active": true,
+      "procurementEur": 617498.98,
+      "contractCount": 10
+    },
+    {
       "eik": "101658657",
       "name": "ПИРИН ОЙЛ ГРУП ЕООД",
       "categories": [
@@ -362,8 +362,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 317394.85,
-      "contractCount": 5
+      "procurementEur": 270892.85,
+      "contractCount": 4
     },
     {
       "eik": "121658433",
@@ -1459,17 +1459,6 @@
     {
       "eik": "109030266",
       "name": "ВИНПРОМ - КЮСТЕНДИЛ АД",
-      "categories": [
-        "alcohol"
-      ],
-      "warehouses": 1,
-      "active": true,
-      "procurementEur": 0,
-      "contractCount": 0
-    },
-    {
-      "eik": "117595863",
-      "name": "ВИНПРОМ БЯЛА 2002 ЕООД",
       "categories": [
         "alcohol"
       ],
@@ -3329,8 +3318,8 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 27891253.62,
-      "contractCount": 115
+      "procurementEur": 27437804.57,
+      "contractCount": 112
     },
     {
       "eik": "200542686",
@@ -3338,8 +3327,8 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 19402451.08,
-      "contractCount": 127
+      "procurementEur": 19372779.28,
+      "contractCount": 125
     },
     {
       "eik": "117679603",
@@ -3349,8 +3338,8 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 17041615.22,
-      "contractCount": 233
+      "procurementEur": 16971572.32,
+      "contractCount": 230
     },
     {
       "eik": "127003032",
@@ -3360,8 +3349,8 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 12743538.39,
-      "contractCount": 176
+      "procurementEur": 11231085.8,
+      "contractCount": 157
     },
     {
       "eik": "833093660",
@@ -3392,8 +3381,8 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 6094208.97,
-      "contractCount": 71
+      "procurementEur": 6065062.27,
+      "contractCount": 70
     },
     {
       "eik": "115824651",
@@ -3432,8 +3421,8 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 755587.15,
-      "contractCount": 6
+      "procurementEur": 722148.66,
+      "contractCount": 5
     },
     {
       "eik": "203236851",
@@ -4411,6 +4400,17 @@
     {
       "eik": "834025349",
       "name": "ВИНПРОМ АЛВИНА ООД",
+      "categories": [
+        "alcohol"
+      ],
+      "warehouses": 0,
+      "active": false,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
+      "eik": "117595863",
+      "name": "ВИНПРОМ БЯЛА 2002 ЕООД",
       "categories": [
         "alcohol"
       ],
