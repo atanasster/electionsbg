@@ -238,6 +238,7 @@ export const TransportFacilityMap: FC<{
               <button
                 key={m.id}
                 type="button"
+                aria-pressed={metric === m.id}
                 onClick={() => setMetric(m.id)}
                 className={cn(
                   "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",

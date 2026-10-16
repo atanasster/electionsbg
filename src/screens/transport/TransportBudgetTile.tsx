@@ -20,14 +20,22 @@ import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import { ministryEurSeries } from "@/data/budget/ministrySeries";
 import { TRANSPORT_BUDGET_NODE } from "@/lib/transportReferenceData";
+import { TransportSourceNote } from "./TransportSourceNote";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 export const TransportBudgetTile: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
-  const { data } = useBudgetMinistryRollup(TRANSPORT_BUDGET_NODE);
+  const { data, isLoading } = useBudgetMinistryRollup(TRANSPORT_BUDGET_NODE);
   const years = ministryEurSeries(data?.years);
-  if (!years.length) return null;
+  if (isLoading) return <ChartGhost className="h-[220px]" />;
+  if (!years.length)
+    return (
+      <TransportSourceNote
+        what={{ bg: "Данните за бюджета на МТС", en: "The МТС budget data" }}
+      />
+    );
 
   const latest = years[years.length - 1];
   const first = years[0];

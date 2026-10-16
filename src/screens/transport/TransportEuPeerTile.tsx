@@ -16,6 +16,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatCount } from "@/lib/currency";
 import { useCofog } from "@/data/macro/useCofog";
 import { EuFlag } from "@/screens/components/procurement/security/euFlags";
+import { TransportSourceNote } from "./TransportSourceNote";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 const GEO_NAME: Record<string, { bg: string; en: string }> = {
   BG: { bg: "България", en: "Bulgaria" },
@@ -42,12 +44,21 @@ export const TransportEuPeerTile: FC = () => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const loc = bg ? "bg-BG" : "en-US";
-  const { data } = useCofog();
+  const { data, isLoading } = useCofog();
 
   const band = data?.peers?.GF0405;
   const year = band?.year ?? data?.peerSeriesLatestYear;
   const row = year != null ? data?.peerSeriesByYear?.[String(year)] : undefined;
-  if (!band || !row) return null;
+  if (isLoading) return <ChartGhost className="h-[220px]" />;
+  if (!band || !row)
+    return (
+      <TransportSourceNote
+        what={{
+          bg: "Данните за разхода за транспорт в ЕС",
+          en: "The EU transport-spending data",
+        }}
+      />
+    );
 
   const countries = new Map<string, number>();
   for (const g of PEER_GEOS) {
@@ -58,7 +69,15 @@ export const TransportEuPeerTile: FC = () => {
   const rows = [...countries.entries()]
     .map(([geo, pct]) => ({ geo, pct }))
     .sort((a, b) => b.pct - a.pct);
-  if (!rows.length) return null;
+  if (!rows.length)
+    return (
+      <TransportSourceNote
+        what={{
+          bg: "Данните за разхода за транспорт в ЕС",
+          en: "The EU transport-spending data",
+        }}
+      />
+    );
 
   const euPct = row["EU27_2020"]?.GF0405 ?? band.euAvgPctGdp ?? null;
   const max = Math.max(...rows.map((r) => r.pct), euPct ?? 0, 1);

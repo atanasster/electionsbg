@@ -1,8 +1,13 @@
 // "Какво купува транспортният сектор — по функция" — the group's ЗОП spend folded
 // into operating buckets (rolling stock, construction, transport services, signalling
-// & IT, maintenance, design, fuel, supplies, other). Each row carries its € share,
-// dominant supplier and single-bid share. Pure from TransportCategoryAgg. Mirrors
-// MvrCategoryTile / DefenseCategoryTile.
+// & IT, maintenance, design, fuel, supplies, other). Each row carries its € share and
+// dominant supplier. Pure from TransportCategoryAgg.
+//
+// ⚠️ € ONLY — NO COUNTS (transport-hub-v1 T9 F1, the water `functions` precedent).
+// awarder_group_model's byCpv / byCpvContractor COUNT the €0 consortium-member rows
+// (CPV 45: 826 contracts against 699 ex-member; single-bid 19% against 21.6%), while
+// each row links to the ex-member browse. A count here would disagree with the page it
+// opens, so contracts, suppliers and the single-bid share are left to the browser.
 
 import { FC } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -17,11 +22,10 @@ import {
   type TransportCategoryAgg,
 } from "@/lib/transportAttributes";
 import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
-import { contractsWord } from "./transportCopy";
+import { transportContractsHref, useTransportMode } from "./transportMode";
 
 // Fixed colour per category so the universe Select never repaints a survivor (colour
-// follows the entity, not its rank — dataviz house rule). Status hues (red/green) are
-// reserved for the single-bid signal in the meta line below.
+// follows the entity, not its rank — dataviz house rule).
 const CATEGORY_COLOR: Record<TransportCategory, string> = {
   rolling_stock: "bg-primary",
   construction: "bg-stone-500",
@@ -37,27 +41,32 @@ const CATEGORY_COLOR: Record<TransportCategory, string> = {
 export const TransportCategoryTile: FC<{
   categories: TransportCategoryAgg[];
   totalEur: number;
-}> = ({ categories, totalEur }) => {
+  /** € on contracts with NO CPV code (byCpv cpv === ""), a part of „Друго". */
+  noCpvEur?: number;
+}> = ({ categories, totalEur, noCpvEur = 0 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const loc = bg ? "bg-BG" : "en-US";
   const [params] = useSearchParams();
+  const { mode } = useTransportMode();
   const rows = categories.filter((c) => c.totalEur > 0);
   if (rows.length < 2 || totalEur <= 0) return null;
   const max = Math.max(...rows.map((c) => c.totalEur));
   const other = rows.find((c) => c.id === "other");
   const otherShare = other ? other.totalEur / totalEur : 0;
+  const noCpvShare = noCpvEur / totalEur;
+  const pct = (v: number) =>
+    `${(v * 100).toLocaleString(loc, { maximumFractionDigits: 0 })}%`;
 
-  // Deep-link a category to its exact contracts: sector=transport + the category's
-  // CPV divisions (the browse ORs the prefixes). "other" (no CPV) isn't linkable.
+  // Deep-link a category to its exact contracts: the sector (or mode) + the category's
+  // CPV divisions (the browse ORs the prefixes). "other" has no prefix set, so it
+  // isn't linkable.
   const categoryHref = (id: TransportCategory): string | null => {
     const divs = categoryCpvDivs(id);
     if (!divs.length) return null;
-    const p = new URLSearchParams(params);
-    p.set("sector", "transport");
-    p.set("cpv", divs.join(","));
-    return `/procurement/contracts?${p.toString()}`;
+    // The mode's awarder set under ?mode, never ?mode itself.
+    return transportContractsHref(params, mode, { cpv: divs.join(",") });
   };
 
   return (
@@ -73,7 +82,6 @@ export const TransportCategoryTile: FC<{
       <CardContent className="p-3 md:p-4 space-y-2.5">
         {rows.map((c) => {
           const share = c.totalEur / totalEur;
-          const sb = c.singleBidShare;
           const href = categoryHref(c.id);
           const label = categoryLabel(c.id, lang);
           return (
@@ -105,60 +113,30 @@ export const TransportCategoryTile: FC<{
                   style={{ width: `${Math.max(2, (c.totalEur / max) * 100)}%` }}
                 />
               </div>
-              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-muted-foreground">
-                {href ? (
-                  <Link
-                    to={href}
+              {c.topSupplier && (
+                <div className="mt-1 min-w-0 truncate text-[11px] text-muted-foreground">
+                  {bg ? "водещ изпълнител: " : "top contractor: "}
+                  <CompanyLink
+                    eik={c.topSupplier.eik}
                     className="hover:text-primary hover:underline"
                   >
-                    {c.contractCount} {contractsWord(c.contractCount, bg)} ·{" "}
-                    {c.supplierCount} {bg ? "изпълнители" : "suppliers"}
-                  </Link>
-                ) : (
-                  <span>
-                    {c.contractCount} {contractsWord(c.contractCount, bg)} ·{" "}
-                    {c.supplierCount} {bg ? "изпълнители" : "suppliers"}
-                  </span>
-                )}
-                {c.topSupplier && (
-                  <span className="min-w-0 truncate">
-                    {bg ? "водещ: " : "top: "}
-                    <CompanyLink
-                      eik={c.topSupplier.eik}
-                      className="hover:text-primary hover:underline"
-                    >
-                      {c.topSupplier.name}
-                    </CompanyLink>
-                  </span>
-                )}
-                {sb != null && c.bidKnownN >= 3 && (
-                  <span
-                    className={
-                      sb >= 0.5
-                        ? "text-amber-600 dark:text-amber-400 font-medium"
-                        : ""
-                    }
-                  >
-                    {(sb * 100).toLocaleString(loc, {
-                      maximumFractionDigits: 0,
-                    })}
-                    % {bg ? "с една оферта" : "single-bid"}
-                  </span>
-                )}
-              </div>
+                    {c.topSupplier.name}
+                  </CompanyLink>
+                </div>
+              )}
             </div>
           );
         })}
         <p className="pt-1 text-[11px] text-muted-foreground/80">
           {bg
-            ? "Категориите групират CPV-разделите на договорите в оперативни функции. Делът с една оферта се показва за категории с поне 3 договора с известен брой оферти."
-            : "Categories group the contracts' CPV divisions into operating functions. Single-bid share is shown for categories with at least 3 bid-known contracts."}
-          {otherShare >= 0.1 && (
+            ? "Категориите групират CPV кодовете на договорите в оперативни функции. Броят договори, изпълнителите и делът с една оферта са в регистъра на договорите — всяка категория води там."
+            : "Categories group the contracts' CPV codes into operating functions. The contract counts, the contractors and the single-bid share are in the contracts browser — each category links there."}
+          {otherShare > 0 && (
             <>
               {" "}
               {bg
-                ? `„Друго“ са предимно договори без CPV код (${Math.round(otherShare * 100)}% от стойността).`
-                : `"Other" is mostly contracts with no CPV code (${Math.round(otherShare * 100)}% of value).`}
+                ? `„Друго“ (${pct(otherShare)} от стойността) са договори с CPV кодове извън осемте категории${noCpvShare > 0 ? ` или без CPV код (последните са ${pct(noCpvShare)} от стойността)` : ""}.`
+                : `"Other" (${pct(otherShare)} of value) is contracts with CPV codes outside the eight categories${noCpvShare > 0 ? ` or with no CPV code (the latter ${pct(noCpvShare)} of value)` : ""}.`}
             </>
           )}
         </p>

@@ -24,7 +24,6 @@ import type { TransportBodyAgg } from "@/data/transport/useTransportSector";
 import { bandOf, WELL_ABOVE, type Band } from "./competitionBand";
 
 const MIN_BID_KNOWN = 3;
-const TOP_N = 12;
 
 const pct1 = (v: number, lang: string) =>
   new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
@@ -58,8 +57,7 @@ export const TransportCompetitionTile: FC<{
       (a, b) =>
         (b.singleBidShare ?? 0) - (a.singleBidShare ?? 0) ||
         b.totalEur - a.totalEur,
-    )
-    .slice(0, TOP_N);
+    );
   if (rows.length < 2) return null;
   const max = Math.max(...rows.map((u) => u.totalEur), 1);
 

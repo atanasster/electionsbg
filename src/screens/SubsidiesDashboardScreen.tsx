@@ -89,6 +89,8 @@ interface Band3 {
   railTotalEur: number | null;
   railYear: number | null;
   railPerPassenger: number | null;
+  /** The year's capital transfers are unpublished, so it has no total. */
+  railCapitalMissing: boolean;
   filmEur: number | null;
   filmCount: number | null;
   filmFirstYear: number | null;
@@ -242,6 +244,22 @@ const tileMetric = (
           : null,
       );
     case "rail":
+      // The destination prints no total for a year whose capital transfers are
+      // unpublished (2024 — T9 F3), so neither does this tile: it leads with the
+      // PSO-only per-passenger figure and says why the total is absent.
+      if (b3.railTotalEur == null && b3.railPerPassenger != null)
+        return m(
+          `${b3.railPerPassenger.toLocaleString(nloc, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })} €`,
+          `${bg ? "на пътник (PSO)" : "per passenger (PSO)"}, ${b3.railYear ?? ""}`.trim(),
+          b3.railCapitalMissing
+            ? bg
+              ? "капиталовите трансфери не са публикувани"
+              : "capital transfers not published"
+            : null,
+        );
       return m(
         eur(b3.railTotalEur),
         `${bg ? "за железници" : "for the railways"}, ${b3.railYear ?? ""}`.trim(),
@@ -412,6 +430,7 @@ export const SubsidiesDashboardScreen: FC = () => {
       railTotalEur: rail.latest?.total ?? null,
       railYear: rail.latest?.year ?? null,
       railPerPassenger: rail.latest?.perPassenger ?? null,
+      railCapitalMissing: rail.latest?.capitalMissing ?? false,
       // SCOPED THE WAY /culture SCOPES IT, which is the metric rule applied to the one
       // band-3 tile that could break it. InfographicTile carries `?pscope` forward and
       // CultureScreen does `useScope({years: cultureYears, allowAll: false})` and then

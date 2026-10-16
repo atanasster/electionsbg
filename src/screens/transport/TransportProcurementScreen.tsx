@@ -153,8 +153,8 @@ const SpineTile: FC<{
           {hub?.annexGrowthEur ? (
             <li>
               {bg
-                ? `Анексите са добавили ${formatEurCompact(hub.annexGrowthEur, lang)} за целия период (данните за анекси започват от 2020 г., затова това е долна граница). Сумите по години са текущата стойност след анекси.`
-                : `Annexes added ${formatEurCompact(hub.annexGrowthEur, lang)} over the whole period (annex data starts in 2020, so this is a floor). The yearly sums are the current value after annexes.`}
+                ? `Анексите са добавили ${formatEurCompact(hub.annexGrowthEur, lang)} за целия период и за целия сектор (данните за анекси започват от 2020 г., затова това е долна граница). Сумите по години са текущата стойност след анекси.`
+                : `Annexes added ${formatEurCompact(hub.annexGrowthEur, lang)} over the whole period, for the whole sector (annex data starts in 2020, so this is a floor). The yearly sums are the current value after annexes.`}
             </li>
           ) : null}
         </ul>
@@ -471,7 +471,9 @@ export const TransportProcurementScreen: FC = () => {
       }}
       scoped
       controls={<TransportModePicker />}
-      ready={[model, modes, rollup.bodies]}
+      // Every async section above a hub fragment: the watch restarts as each lands,
+      // so a cold-load #risk / #direct link does not stop at a pre-layout offset.
+      ready={[model, modes, rollup.bodies, whole.payload, ministry.byCpv]}
       // Failures are reported PER SECTION, not by the frame: every hub link
       // targets a fragment here, and an error frame would drop all eight ids.
       status={{
@@ -509,6 +511,9 @@ export const TransportProcurementScreen: FC = () => {
           <TransportCategoryTile
             categories={model.categories}
             totalEur={model.totalEur}
+            noCpvEur={(group.payload?.byCpv ?? [])
+              .filter((c) => !c.cpv)
+              .reduce((a, c) => a + c.totalEur, 0)}
           />
         ) : group.isError ? (
           <Note>{failed}</Note>

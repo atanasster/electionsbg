@@ -28,6 +28,9 @@ export const TransportPageFrame: FC<{
    *  it fails it says so — a tile that renders nothing on failure would
    *  otherwise leave a blank page, or one that reads as „no data". */
   status?: { isLoading: boolean; isError: boolean };
+  /** A sentence the PAGE supplies after „Без период" — e.g. /money naming the
+   *  year its rail subsidy anchored on. The frame states nothing page-specific. */
+  periodNote?: { bg: string; en: string } | null;
   /** Controls beside the scope toggle (the ?mode picker). */
   controls?: ReactNode;
   children: ReactNode;
@@ -38,6 +41,7 @@ export const TransportPageFrame: FC<{
   ready = [],
   status,
   controls,
+  periodNote,
   children,
 }) => {
   const { i18n } = useTranslation();
@@ -64,6 +68,7 @@ export const TransportPageFrame: FC<{
             {bg
               ? "Без период — данните тук не се филтрират по парламент или година."
               : "No period — the figures here are not filtered by parliament or year."}
+            {periodNote ? ` ${bg ? periodNote.bg : periodNote.en}` : null}
           </p>
         )}
         {controls}

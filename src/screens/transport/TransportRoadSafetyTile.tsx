@@ -12,6 +12,8 @@ import { useQuery } from "@tanstack/react-query";
 import { TrafficCone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { dataUrl } from "@/data/dataUrl";
+import { TransportSourceNote } from "./TransportSourceNote";
+import { ChartGhost } from "@/ux/motion/ChartGhost";
 
 interface RoadSafetyFile {
   source: { label: string; sourceUrl: string; eurostatUpdated: string | null };
@@ -42,8 +44,17 @@ export const TransportRoadSafetyTile: FC = () => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const loc = bg ? "bg-BG" : "en-US";
-  const { data } = useRoadSafety();
-  if (!data || data.series.length < 2) return null;
+  const { data, isLoading } = useRoadSafety();
+  if (isLoading) return <ChartGhost className="h-[220px]" />;
+  if (!data || data.series.length < 2)
+    return (
+      <TransportSourceNote
+        what={{
+          bg: "Данните за загиналите на пътя",
+          en: "The road-deaths data",
+        }}
+      />
+    );
 
   const { latest, peak, changeSincePeakPct } = data;
   // Sort ascending defensively — the baseline fallback (`.find(year >= …)`) and the left

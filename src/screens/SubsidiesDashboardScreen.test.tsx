@@ -133,8 +133,12 @@ vi.mock("@/data/agri/useAgriHubStats", () => ({
     data: opts?.keepPrevious ? hubStats.heldOver : undefined,
   }),
 }));
+// `latest` is null by default (no rail figure); one test sets a 2024-shaped row.
+const rail = vi.hoisted(() => ({
+  latest: null as Record<string, unknown> | null,
+}));
 vi.mock("@/data/procurement/useRailSubsidy", () => ({
-  useRailSubsidy: () => ({ rows: [], latest: null, isLoading: false }),
+  useRailSubsidy: () => ({ rows: [], latest: rail.latest, isLoading: false }),
 }));
 vi.mock("@/data/culture/useCulture", () => ({
   useCultureOverview: () => ({ data: undefined }),
@@ -223,6 +227,35 @@ describe("SubsidiesDashboardScreen", () => {
     expect(href("/sector/transport/money")).toContain("pscope=y%3A2024");
     expect(href("/culture")).toContain("pscope=y%3A2024");
     expect(href("/budget/simulator")).toContain("pscope=y%3A2024");
+  });
+
+  it("leads the rail tile with the per-passenger figure when the year has no total (T9 F3)", () => {
+    // 2024's capital transfers are unpublished, so the hook gives no total — the
+    // tile must neither print a partial sum nor €0, and must say why.
+    rail.latest = {
+      year: 2024,
+      pso: 107_315_053,
+      nkzhi: null,
+      bdzCapital: null,
+      total: null,
+      capitalMissing: true,
+      passengers: 21_141_000,
+      perPassenger: 5.076,
+    };
+    try {
+      at("/subsidies?pscope=y:2024");
+      const tile = document.querySelector('a[href^="/sector/transport/money"]');
+      expect(tile).toBeTruthy();
+      const text = tile!.textContent ?? "";
+      expect(text).toMatch(/5[,.]08 €/);
+      expect(text).toMatch(
+        /капиталовите трансфери не са публикувани|capital transfers not published/,
+      );
+      expect(text).not.toMatch(/€0\b/);
+      expect(text).toMatch(/2024/);
+    } finally {
+      rail.latest = null;
+    }
   });
 
   it("shows every band heading, so no tile lands under a nameless group", () => {

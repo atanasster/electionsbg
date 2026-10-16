@@ -16,6 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useRailSubsidy } from "@/data/procurement/useRailSubsidy";
 import { ChartGhost } from "@/ux/motion/ChartGhost";
+import { TransportSourceNote } from "./TransportSourceNote";
 
 export const TransportSubsidyTile: FC<{
   /** The year to headline (an inbound `pscope=y:YYYY`, resolved by the page);
@@ -31,11 +32,12 @@ export const TransportSubsidyTile: FC<{
   if (isLoading) return <ChartGhost className="h-[260px]" />;
   if (!latest || latest.perPassenger == null)
     return (
-      <p className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
-        {bg
-          ? "Данните за субсидията за железниците не са налични."
-          : "The rail subsidy data is not available."}
-      </p>
+      <TransportSourceNote
+        what={{
+          bg: "Данните за субсидията за железниците",
+          en: "The rail subsidy data",
+        }}
+      />
     );
 
   const perPax = latest.perPassenger;
@@ -45,10 +47,12 @@ export const TransportSubsidyTile: FC<{
       : `€${v.toFixed(2)}`;
 
   // Composition of the latest year's total rail subsidy.
+  // The hook's own total: null when a capital transfer is not published, never a
+  // partial sum (T9 F3) — the composition block is then replaced by that notice.
   const pso = latest.pso ?? 0;
   const nkzhi = latest.nkzhi ?? 0;
   const bdzCap = latest.bdzCapital ?? 0;
-  const total = pso + nkzhi + bdzCap;
+  const total = latest.total ?? 0;
   const seg = (v: number) => (total > 0 ? Math.max(0, (v / total) * 100) : 0);
 
   // Per-passenger trend (rows with a value), for the sparkline.
@@ -87,52 +91,64 @@ export const TransportSubsidyTile: FC<{
         </div>
 
         {/* Total rail subsidy composition — PSO (operating) · НКЖИ (infra) · БДЖ capital. */}
-        <div className="space-y-1.5">
-          <div className="flex items-baseline justify-between text-xs">
-            <span className="text-muted-foreground">
-              {bg ? "Обща субсидия за железници" : "Total rail subsidy"}
-            </span>
-            <span className="font-semibold tabular-nums">
-              {formatEurCompact(total, lang)} · {latest.year}
-            </span>
-          </div>
-          <div className="flex h-4 overflow-hidden rounded-md border">
-            <div className="bg-primary" style={{ width: `${seg(pso)}%` }} />
-            <div
-              className="bg-primary/50"
-              style={{ width: `${seg(nkzhi)}%` }}
-            />
-            <div
-              className="bg-primary/25"
-              style={{ width: `${seg(bdzCap)}%` }}
-            />
-          </div>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary" />
-              {bg ? "БДЖ — PSO (превоз)" : "БДЖ — PSO (service)"}{" "}
-              <span className="tabular-nums">
-                {formatEurCompact(pso, lang)}
+        {latest.total == null ? (
+          <p className="text-xs text-muted-foreground">
+            {latest.capitalMissing
+              ? bg
+                ? `Капиталовите трансфери за ${latest.year} г. (за БДЖ и НКЖИ) не са публикувани, затова общата субсидия за железниците за годината не се показва. Субсидията на пътник по-горе ползва само PSO и е пълна.`
+                : `The capital transfers for ${latest.year} (to БДЖ and НКЖИ) are not published, so no total rail subsidy is shown for the year. The per-passenger figure above uses the PSO only and is complete.`
+              : bg
+                ? `Общата субсидия за железниците за ${latest.year} г. не може да се състави — част от нея не е публикувана.`
+                : `The total rail subsidy for ${latest.year} cannot be assembled — part of it is not published.`}
+          </p>
+        ) : (
+          <div className="space-y-1.5">
+            <div className="flex items-baseline justify-between text-xs">
+              <span className="text-muted-foreground">
+                {bg ? "Обща субсидия за железници" : "Total rail subsidy"}
               </span>
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary/50" />
-              {bg ? "НКЖИ (инфраструктура)" : "НКЖИ (infrastructure)"}{" "}
-              <span className="tabular-nums">
-                {formatEurCompact(nkzhi, lang)}
+              <span className="font-semibold tabular-nums">
+                {formatEurCompact(total, lang)} · {latest.year}
               </span>
-            </span>
-            {bdzCap > 0 && (
+            </div>
+            <div className="flex h-4 overflow-hidden rounded-md border">
+              <div className="bg-primary" style={{ width: `${seg(pso)}%` }} />
+              <div
+                className="bg-primary/50"
+                style={{ width: `${seg(nkzhi)}%` }}
+              />
+              <div
+                className="bg-primary/25"
+                style={{ width: `${seg(bdzCap)}%` }}
+              />
+            </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary/25" />
-                {bg ? "БДЖ (капитал)" : "БДЖ (capital)"}{" "}
+                <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary" />
+                {bg ? "БДЖ — PSO (превоз)" : "БДЖ — PSO (service)"}{" "}
                 <span className="tabular-nums">
-                  {formatEurCompact(bdzCap, lang)}
+                  {formatEurCompact(pso, lang)}
                 </span>
               </span>
-            )}
+              <span className="inline-flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary/50" />
+                {bg ? "НКЖИ (инфраструктура)" : "НКЖИ (infrastructure)"}{" "}
+                <span className="tabular-nums">
+                  {formatEurCompact(nkzhi, lang)}
+                </span>
+              </span>
+              {bdzCap > 0 && (
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary/25" />
+                  {bg ? "БДЖ (капитал)" : "БДЖ (capital)"}{" "}
+                  <span className="tabular-nums">
+                    {formatEurCompact(bdzCap, lang)}
+                  </span>
+                </span>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Per-passenger subsidy trend — rising while ridership is flat. */}
         {trend.length > 1 && (

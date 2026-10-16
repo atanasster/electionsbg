@@ -80,6 +80,28 @@ describe("TransportMoneyScreen", () => {
     ).toBeTruthy();
   });
 
+  it("prints no total for a year whose capital transfers are unpublished, and names the year (F3, F4)", async () => {
+    stub();
+    const gap = subsidy.years.find(
+      (y: { bdzCapitalEur: number | null; nkzhiCapitalEur: number | null }) =>
+        y.bdzCapitalEur == null || y.nkzhiCapitalEur == null,
+    )?.fiscalYear as number | undefined;
+    // The committed files carry such a year (2024 today). If a later law fills it
+    // in, this fails loudly rather than passing with nothing asserted — replace the
+    // committed row with a fixture then.
+    expect(gap, "no capital-missing year in rail_subsidy.json").toBeDefined();
+    mount(`/sector/transport/money?pscope=y:${gap}`);
+    expect(
+      await screen.findByText(
+        new RegExp(`capital transfers for ${gap} .*are not published`),
+      ),
+    ).toBeTruthy();
+    expect(screen.queryByText("Total rail subsidy")).toBeNull();
+    expect(
+      screen.getByText(new RegExp(`The rail subsidy is shown for ${gap}`)),
+    ).toBeTruthy();
+  });
+
   it("renders every §3 section and no scope control", async () => {
     stub();
     const { container } = mount("/sector/transport/money");

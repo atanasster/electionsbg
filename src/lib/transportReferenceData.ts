@@ -192,7 +192,10 @@ export const TRANSPORT_VERIFY: { eik: string; name: string; why: string }[] = [
     // D3 (2026-10-16): TR holds no owner rows for an АД, and the public record
     // describes a joint BG–RO operating structure for the bridge, so neither МТС nor
     // МРРБ can be shown to be its principal from what we hold. €11.7M / 53 contracts.
-    why: "смесена българо-румънска структура; принципалът не е потвърден",
+    // Only the REASON: /sector/transport/bodies prints it inside „Принципалът на
+    // тази структура не е потвърден (…)", so restating that clause here printed it
+    // twice (T9 F10).
+    why: "смесена българо-румънска структура",
   },
 ];
 

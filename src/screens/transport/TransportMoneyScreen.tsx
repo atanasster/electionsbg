@@ -15,6 +15,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { isBg } from "@/i18n";
 import { scopeYear, useScope } from "@/data/scope/useScope";
+import { useRailSubsidy } from "@/data/procurement/useRailSubsidy";
 import { useTransportFunds } from "@/data/transport/useTransportSector";
 import { TRANSPORT_SECTOR_EIKS } from "@/lib/transportReferenceData";
 import { TransportPageFrame } from "./TransportPageFrame";
@@ -30,6 +31,11 @@ export const TransportMoneyScreen: FC = () => {
   // Resolved, not raw: an unparseable value falls back to the newest year.
   const { scope } = useScope();
   const year = scopeYear(scope);
+  // The year the subsidy tile actually lands on — the scope year only when the
+  // rail files cover it (railSubsidyAnchor), so the label cannot name a year the
+  // tile does not show. Same query as the tile's, so no second fetch.
+  const { latest } = useRailSubsidy(year);
+  const railYear = year != null ? (latest?.year ?? null) : null;
   const { funds, grantBasis, isLoading, isError } = useTransportFunds(
     TRANSPORT_SECTOR_EIKS,
   );
@@ -47,7 +53,15 @@ export const TransportMoneyScreen: FC = () => {
         en: "The ministry budget, the annual rail subsidy and what it is per passenger, the bodies' EU funds, transport spending against the EU and road safety — each on its own basis, never added to procurement.",
       }}
       scoped={false}
-      ready={[funds, year]}
+      periodNote={
+        railYear != null
+          ? {
+              bg: `Субсидията за железниците е показана за ${railYear} г.`,
+              en: `The rail subsidy is shown for ${railYear}.`,
+            }
+          : null
+      }
+      ready={[funds, year, latest, isLoading]}
     >
       <p className="text-sm text-muted-foreground">{sectorWide}</p>
       <section id="budget" className="scroll-mt-24">

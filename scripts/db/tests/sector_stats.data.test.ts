@@ -149,6 +149,9 @@ import {
   TRANSPORT_ENTITIES,
   TRANSPORT_EIK,
   transportUniverseOf,
+  TRANSPORT_VERIFY,
+  TRANSPORT_INGROUP_CONTRACTORS,
+  TRANSPORT_PUBLIC_CONTRACTORS,
   type TransportUniverse,
 } from "@/lib/transportReferenceData";
 import {
@@ -1665,6 +1668,39 @@ describe("transport sector (procurement / МТС)", () => {
             `either the EIK is wrong or its contracts left the corpus`,
         );
       }
+    },
+  );
+
+  test.skipIf(skip)(
+    "the transport-hub-v1 lists stay outside the roll-up, and its additions are material",
+    async () => {
+      // D3 / D4 / D9: the VERIFY body, the in-group contractor and the public
+      // contractors each answer a different question from the awarder-side headline.
+      for (const list of [
+        TRANSPORT_VERIFY,
+        TRANSPORT_INGROUP_CONTRACTORS,
+        TRANSPORT_PUBLIC_CONTRACTORS,
+      ])
+        for (const { eik, name } of list)
+          assert.ok(
+            !TRANSPORT_SECTOR_EIKS.includes(eik),
+            `${name} (${eik}) is in the roll-up — the headline would change basis`,
+          );
+      // D2: Летище Пловдив, floored on the WHOLE corpus only (the Летище София
+      // trap above — a small airport's window can hold no contract at all).
+      const [r] = await allRows<{ eur: string; aviation: string }>(
+        `select coalesce(round(sum(amount_eur) filter (where awarder_eik = '115007069')),0)::text eur,
+                coalesce(round(sum(amount_eur) filter (where awarder_eik = any($1))),0)::text aviation
+           from contracts where tag='contract'`,
+        [
+          TRANSPORT_ENTITIES.filter((e) => e.universe === "aviation").map(
+            (e) => e.eik,
+          ),
+        ],
+      );
+      assert.ok(Number(r.eur) >= 500_000, `Летище Пловдив has €${r.eur} all-time — wrong EIK or the corpus lost it`); // prettier-ignore
+      // The aviation tripwire for re-dropping БУЛАТСА (2026-08-13).
+      assert.ok(Number(r.aviation) > 250_000_000, `aviation €${r.aviation} ≤ €250M`); // prettier-ignore
     },
   );
 
