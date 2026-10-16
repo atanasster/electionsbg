@@ -1395,13 +1395,13 @@ describe("a hub's og capture anchors on its head", () => {
         },
       },
       "src/screens/SubsidiesDashboardScreen.tsx": {
-        sha: "db6682302628b4765442227e2c115ea532bbf621",
+        sha: "0d8bebb03fce848e925904e88800bb21a6d5e515",
         why:
-          "db66823026 (`/subsidies KPI band rolls between scopes`) feeds the KPI band from a " +
-          "second observer of the SAME hub-stats query with `keepPrevious` — which differs " +
-          "from the plain observer only WHILE a new scope is loading. On a fresh page load " +
-          "both hold the same payload, so the captured band is unchanged. Verified " +
-          "2026-10-12 by re-shooting: byte-identical (md5 below).",
+          "0d8bebb03f (transport-hub-v1 T3) re-points the rail-subsidy TILE to " +
+          "/sector/transport/money and anchors its figure on the scope year — a band tile " +
+          "below the `[data-hub-head]` clip, so the head card draws nothing new. Verified " +
+          "2026-10-16 by re-shooting: byte-identical (md5 below). (The previous entry, " +
+          "db66823026's keepPrevious KPI observer, expired with that commit.)",
         verifiedCardMd5: {
           subsidies: "bbbcbae84bcb772138f1743fb5bccb64",
         },
