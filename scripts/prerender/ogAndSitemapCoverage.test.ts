@@ -1755,11 +1755,11 @@ describe("a hub's og capture anchors on its head", () => {
       // transport roll-up (+€1.06M), which tipped the procurement total over the rounding
       // boundary: €30,049,039,752 → €30,050,100,018. LOOKED AT: €30 → €30,1 млрд.; the
       // other seven values are unchanged.
-      // ⚠️ RE-SHOT 2026-10-17 (UTC) — the contract-number-less legacy twin sweep
+      // ⚠️ RE-SHOT 2026-10-16 (UTC; 2026-10-17 local) — the contract-number-less legacy twin sweep
       // (procurement-same-feed-dedup-v1 §7) removed €1.18bn of duplicates. LOOKED AT:
       // procurement €30,1 → €29,7 млрд., energy €10,3 → €10,1, transport €7,3 → €7,2; the
       // other five values are unchanged.
-      shot: "2026-10-17",
+      shot: "2026-10-16",
       figures:
         "sectors_kpi_procurement=€29,7 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
