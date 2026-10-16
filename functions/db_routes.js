@@ -3285,10 +3285,11 @@ const DB_ROUTES = {
     );
     return { body: { contracts } };
   },
-  // EU-funds (ИСУН) rollup over a SET of EIKs — per-beneficiary contracted/paid
-  // from the already-rolled fund_beneficiaries table (one row per EIK). Not
-  // date-windowed: EU-funds figures are programme-period lifetime totals, not a
-  // parliament slice. Feeds the water pack's EU-investment tile.
+  // EU-funds (ИСУН) rollup over a SET of EIKs. Not date-windowed: EU-funds
+  // figures are programme-period lifetime totals, not a parliament slice. Two
+  // bases: the default — contracted/paid from the already-rolled
+  // fund_beneficiaries table (one row per EIK; the water pack's EU-investment tile
+  // and the transport pack) — and ?basis=grant, below.
   "awarder-funds-rollup": async (dbRows, q) => {
     const eiks = s(q, "eiks")
       .split(",")
@@ -3296,6 +3297,28 @@ const DB_ROUTES = {
       .filter((e) => /^\d{9,13}$/.test(e))
       .slice(0, 300);
     if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
+    // ?basis=grant — the БФП (grant) basis, rolled from fund_projects per
+    // beneficiary, with the total project value beside it. fund_beneficiaries'
+    // `contracted_eur` is the TOTAL project value including own contribution
+    // (НКЖИ €3.19bn against €1.50bn of grant, so absorption read 30.8% for 65.9%),
+    // and its paid figure lags fund_projects (МТС €441.5M vs €510.7M) —
+    // transport-hub-v1 D6 / A11. Opt-in and echoed, so every default caller is
+    // byte-identical.
+    if (s(q, "basis") === "grant") {
+      const operators = await dbRows(
+        `SELECT beneficiary_eik AS eik,
+                round(sum(grant_eur))::double precision AS "grantEur",
+                round(sum(total_eur))::double precision AS "totalEur",
+                round(sum(paid_eur))::double precision AS "paidEur",
+                count(*)::int AS "projectCount"
+         FROM fund_projects
+         WHERE beneficiary_eik = ANY($1)
+         GROUP BY beneficiary_eik
+         ORDER BY sum(grant_eur) DESC NULLS LAST, beneficiary_eik`,
+        [eiks],
+      );
+      return { body: { basis: "grant", operators } };
+    }
     const operators = await dbRows(
       `SELECT eik,
               round(contracted_eur)::double precision AS "contractedEur",
