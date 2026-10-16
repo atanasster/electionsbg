@@ -691,7 +691,7 @@ Three producers. Pick by what the page actually has:
 | The page has                                   | Producer                                                                                  | Output                                         |
 | ---------------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | a chart, map or hero worth looking at          | add a `Capture` to the table in `scripts/og/capture-screens.ts`                           | `public/og/<slug>.png`                         |
-| a FAMILY of pages needing identical framing    | a `scripts/og/screenshot_<family>.ts` (sectors, funds, procurement, regional, transport…) | `public/og/<family>-<id>.png`                  |
+| a FAMILY of pages needing identical framing    | a `scripts/og/screenshot_<family>.ts` (sectors, funds, procurement, regional…) | `public/og/<family>-<id>.png`                  |
 | prose only — a methodology or definitions page | `renderStaticPageCard(…)` in `scripts/og/generate.ts`                                     | a rendered 4-tile card, emitted by `postbuild` |
 
 **Prefer the screenshot.** A hub or a dashboard always has something better to show than four

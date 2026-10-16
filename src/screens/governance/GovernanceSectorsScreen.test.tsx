@@ -13,12 +13,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { GovernanceSectorsScreen } from "./GovernanceSectorsScreen";
 
-/** Verbatim from data/procurement/derived/sector_stats.json, `all` scope, 2026-08-26. */
+/** Verbatim from data/procurement/derived/sector_stats.json, `all` scope, 2026-08-26 —
+ *  except `transport`, re-read 2026-10-17 (transport-hub-v1 D2). */
 const STATS = {
   all: {
     roads: { kind: "eur", basis: "procurement", value: 8822447923 },
     water: { kind: "eur", basis: "procurement", value: 3326158810 },
-    transport: { kind: "eur", basis: "procurement", value: 7268093632 },
+    transport: { kind: "eur", basis: "procurement", value: 7293030892 },
     energy: { kind: "eur", basis: "procurement", value: 10271933257 },
     defense: { kind: "eur", basis: "budget", value: 2568607900, year: 2026 },
     security: { kind: "eur", basis: "budget", value: 2115233200, year: 2026 },

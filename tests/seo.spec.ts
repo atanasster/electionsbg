@@ -711,10 +711,12 @@ const runRouteCheck = (route: RouteCheck) => {
     expect(meta.title, `<title> on ${route.path}`).toContain(
       route.titleIncludes,
     );
-    expect(
-      meta.title,
-      `<title> missing site suffix on ${route.path}`,
-    ).toContain("electionsbg.com");
+    // The Наясно rebrand (src/lib/brand.ts) — every title ends `| Наясно` in BG and
+    // `| Naiasno` in EN (the home and AI-chat pages LEAD with the brand instead); the
+    // old „electionsbg.com" suffix failed every route.
+    expect(meta.title, `<title> missing site suffix on ${route.path}`).toMatch(
+      /\| (?:Наясно|Naiasno)$|^(?:Наясно|Naiasno) — |Наясно$/,
+    );
 
     // Canonical is the most reliable signal that the prerender file (not the
     // SPA fallback) was served.

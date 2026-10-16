@@ -112,7 +112,7 @@ rewriting them would falsify the record.
 | `db:load:pg` (contracts) | 4077 s, then 722 s after the normalcy ship | **426 s** |
 | `db:load:tenders` | 363 s | **318 s** |
 | `db:load:procurement-scopes` (30 windows, 6 matviews) | unmeasured ("expect minutes") | **87 s** |
-| `db:load:transport-project-map` | — | **210 s** |
+| `db:load:transport-project-map` | — | **210 s** (the TRUNCATE form; stage-merged since 2026-10-16, not re-measured) |
 | `db:load:awarder-seats` | ~3 s (before it refreshed matviews) | **59 s** |
 | `db:load:persons-browse` | — | **35 s** |
 | `db:load:graph` | — | **28 s** |
@@ -2364,13 +2364,32 @@ constant-folds, the planner estimates through pg_trgm, picks the good plan and h
 of this — the same trap the `OFFSET 0` search fence was written for.
 
 `transport_facility_geo` (migration 132, `db:load:transport-facility-map:pg`) is the static
-crosswalk behind the `/sector/transport` facility map — the same 073/074 family as the water
+crosswalk behind the `/sector/transport/bodies#map` facility map — the same 073/074 family as the water
 and МВР maps, in `db:refresh`, curated from `TRANSPORT_ENTITIES` with a Варна physical-facility
 override for the two maritime bodies. First cloud deploy needs
 `npm run db:load:transport-facility-map:pg:cloud` (after `db:load:awarder-seats:pg:cloud`)
 **before** the `deploy:db` that ships the `/api/db/transport-facility-map` route — the route
 degrades a missing migration to an empty map, so ordering is cosmetic, not breaking. Re-run it
 whenever `TRANSPORT_ENTITIES` changes; `transport_facility_map.data.test.ts` fails on drift.
+
+**The /sector/transport hub (docs/plans/transport-hub-v1.md) adds an ordering on top of
+that.** 076 (the project map) gained a `scope` column, a consortium-member filter and a
+`coverage` key, and 132 a member filter; both are FUNCTIONS, so only their loaders or
+`apply_functions.ts` carry them. `db_routes.js` also gained `awarder-funds-rollup?basis=grant`
+and two extra `awarder-group-top-contracts` fields. Ship in this order:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 076_transport_project_map.sql 132_transport_facility_map.sql
+npm run db:load:transport-project-map:pg:cloud && npm run db:load:transport-facility-map:pg:cloud
+npx tsx scripts/funds/install_query.ts --cloud && npm run deploy:db
+npm run bucket:sync:paths -- transport/derived/hub_stats.json procurement/derived/sector_stats.json transport/rail_subsidy.json transport/rail_ridership.json
+npm run deploy && npm run deploy:db && SKIP_PREDEPLOY=1 npm run deploy
+```
+
+Every step degrades rather than breaks if skipped — the hub without its blob renders no KPI
+band (a 404 maps to null), `/money#funds` says the grant basis is „not published yet", the
+map loses its coverage line, the PSO captions vanish — which is exactly why a skipped step is
+easy to miss. Check the live hub's KPI band and `/money#funds` after the last deploy.
 
 `tr_company_place` (migration 133, `db:load:tr-company-place:pg`) is the company↔settlement
 crosswalk behind the "фирми, регистрирани тук" tile on every governance dashboard and

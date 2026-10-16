@@ -1,4 +1,4 @@
-// Data hook for the /sector/transport marker map. ONE
+// Data hook for the /sector/transport/bodies#map marker map. ONE
 // /api/db/transport-facility-map call returns the МТС-group entities geolocated
 // to their facility town (via the static transport_facility_geo crosswalk,
 // schema 132) with the windowed contracts corpus already folded server-side —

@@ -729,11 +729,12 @@ describe("hub head — the band and the tiles are disjoint", () => {
       );
   });
 
-  // Verbatim from the committed sector_stats.json, `all` scope, 2026-08-26.
+  // Verbatim from the committed sector_stats.json, `all` scope, 2026-08-26 — except
+  // `transport`, re-read 2026-10-17 after transport-hub-v1 D2 added Летище Пловдив.
   const SECTOR_STATS_FIXTURE: Record<string, SectorStat> = {
     roads: { kind: "eur", basis: "procurement", value: 8822447923 },
     water: { kind: "eur", basis: "procurement", value: 3326158810 },
-    transport: { kind: "eur", basis: "procurement", value: 7268093632 },
+    transport: { kind: "eur", basis: "procurement", value: 7293030892 },
     energy: { kind: "eur", basis: "procurement", value: 10271933257 },
     defense: { kind: "eur", basis: "budget", value: 2568607900, year: 2026 },
     pension: { kind: "eur", basis: "payout", value: 11078007176, year: 2024 },

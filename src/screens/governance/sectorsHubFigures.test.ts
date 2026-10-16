@@ -1,5 +1,6 @@
 // The /governance/sectors band, against a fixture measured verbatim from the committed
-// payload (data/procurement/derived/sector_stats.json, `all` scope, read 2026-08-26).
+// payload (data/procurement/derived/sector_stats.json, `all` scope, read 2026-08-26;
+// `transport` re-read 2026-10-17 after transport-hub-v1 D2).
 //
 // The §0 class this band exists inside: NINETEEN SECTORS ON FOUR BASES, only one of which
 // may be summed. `procurement` is four DISJOINT rosters over one selected window; `budget`
@@ -25,7 +26,7 @@ const eur = (basis: SectorStat["basis"], value: number, year?: number) =>
 const STATS: Record<string, SectorStat> = {
   roads: eur("procurement", 8822447923),
   water: eur("procurement", 3326158810),
-  transport: eur("procurement", 7268093632),
+  transport: eur("procurement", 7293030892),
   energy: eur("procurement", 10271933257),
   defense: eur("budget", 2568607900, 2026),
   security: eur("budget", 2115233200, 2026),
@@ -41,7 +42,7 @@ const STATS: Record<string, SectorStat> = {
   },
 };
 
-const PROC_TOTAL = 8822447923 + 3326158810 + 7268093632 + 10271933257;
+const PROC_TOTAL = 8822447923 + 3326158810 + 7293030892 + 10271933257;
 
 /** Renders the key plus its interpolations, so a basis built from the wrong argument shows
  *  up in the assertion rather than collapsing to a bare key. */

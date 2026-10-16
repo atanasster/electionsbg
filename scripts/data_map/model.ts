@@ -2725,6 +2725,17 @@ export const DATASETS: DatasetDef[] = [
 
 export const FEATURES: FeatureDef[] = [
   {
+    id: "transport",
+    label: { bg: "Транспорт", en: "Transport" },
+    detail: { bg: "държавният транспорт", en: "state transport" },
+    desc: {
+      bg: "Транспортният сектор — структурите на МТС (железници, пристанища и Дунав, въздушен транспорт, безопасност на движението), обществените им поръчки и конкуренцията спрямо средното за страната, парите, които остават в държавната група, картата на проектите, субсидията за железниците и европейските средства.",
+      en: "The transport sector — the bodies under the transport ministry (rail, ports and the Danube, aviation, road safety), their procurement and its competition against the national average, the money that stays inside the state group, the project map, the rail subsidy and EU funds.",
+    },
+    route: "/sector/transport",
+    tags: ["fiscal"],
+  },
+  {
     id: "water",
     label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
     detail: { bg: "поръчки на водния сектор", en: "water-sector procurement" },
@@ -3171,6 +3182,11 @@ export const EDGES: [string, string][] = [
   ["src:water", "ds:water"],
   ["src:egov", "ds:water"],
   ["ds:water", "f:water"],
+  // The transport hub reads the procurement corpus (blob + sub-pages), ИСУН
+  // fund_projects (grant basis) and the rail subsidy/ridership files.
+  ["ds:transport", "f:transport"],
+  ["ds:procurement", "f:transport"],
+  ["ds:funds", "f:transport"],
   // The hub's KPI band reads the procurement corpus and ИСУН fund_beneficiaries.
   ["ds:procurement", "f:water"],
   ["ds:funds", "f:water"],

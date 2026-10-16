@@ -207,6 +207,33 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
     description:
       "per-settlement procurement totals — every contract pinned to the buyer's HQ address (municipalities, schools, hospitals, universities, regional offices, utilities) with central ministries / national state companies aggregated into a separate 'national procurement' rollup; ~388 settlements with €36 B in local-tier contracts",
   },
+  // The sector hubs — described WITHOUT figures on purpose: every number on these
+  // pages is read from a regenerated blob, so a literal here would go stale the
+  // way the „~€7,3 млрд" prerender literal did (transport-hub-v1 A15).
+  {
+    url: "/governance/sectors",
+    label: "The state by sector",
+    description:
+      "every government sector on one page — roads, water, transport, energy, defence, health, pensions and more — each headline on its declared basis (procurement, budget, payout or headcount)",
+  },
+  {
+    url: "/sector/transport",
+    label: "Transport sector",
+    description:
+      "the state transport bodies under the transport ministry (rail, ports and the Danube, aviation, road safety) — procurement, competition against the national rate, money that stays inside the state group, rail subsidy and EU funds; sub-pages /sector/transport/network (project map), /procurement, /bodies and /money",
+  },
+  {
+    url: "/sector/roads",
+    label: "Roads sector",
+    description:
+      "the republican road network (АПИ) — procurement, cost per kilometre by corridor, exercised annex options and competition",
+  },
+  {
+    url: "/water",
+    label: "Water sector",
+    description:
+      "the water operators (ВиК) — procurement, competition, EU funds, water rationing and riverbed cleaning",
+  },
   {
     url: "/financing",
     label: "Party financing",
