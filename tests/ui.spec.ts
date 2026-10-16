@@ -758,8 +758,8 @@ const HUB_HEAD_BUDGETS: {
   {
     path: "/sector/transport",
     maxPx: 560,
-    // 507.5 px on 2026-10-16 with the T6 finder; 480.5 before it.
-    measured: 508,
+    // 520 px on 2026-10-17 (KPI 4 names the PSO share); 507.5 with the T6 finder alone.
+    measured: 520,
     cells: 4,
     asideRows: 5,
   },

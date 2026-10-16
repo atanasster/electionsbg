@@ -142,8 +142,8 @@ export const transportHubKpis = (
           : "contracts between МТС bodies, incl. ТСВ ЕАД; not subtracted from the total",
         s.inGroup.psoEur
           ? bg
-            ? `от тях ${eur2(s.inGroup.psoEur, lang)} е прогнозната стойност на договора за обществена услуга с БДЖ`
-            : `of which ${eur2(s.inGroup.psoEur, lang)} is the estimated value of the public-service contract with БДЖ`
+            ? `от тях ${formatEurCompact(s.inGroup.psoEur, lang)} е прогнозната стойност на договора за обществена услуга с БДЖ`
+            : `of which ${formatEurCompact(s.inGroup.psoEur, lang)} is the estimated value of the public-service contract with БДЖ`
           : null,
       ]
         .filter(Boolean)

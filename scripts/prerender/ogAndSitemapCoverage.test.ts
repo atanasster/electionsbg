@@ -1395,13 +1395,12 @@ describe("a hub's og capture anchors on its head", () => {
         },
       },
       "src/screens/SubsidiesDashboardScreen.tsx": {
-        sha: "e939d5c5de1f39236faed8003a8b47ba3d8fe02f",
+        sha: "4f9830db9a888ec2e4f0db294e15bbdb5da1cfa1",
         why:
-          "e939d5c5de (transport-hub-v1 T9) changes only the rail-subsidy TILE — a year " +
-          "with unpublished capital transfers now leads with the per-passenger figure " +
-          "instead of a €0-filled total. It sits below the `[data-hub-head]` clip, so the " +
-          "head card draws nothing new. Verified 2026-10-16 by re-shooting: byte-identical " +
-          "(md5 below). (0d8bebb03f's T3 repoint entry expired with that commit.)",
+          "4f9830db9a (transport audit C) and its T9 predecessor change only the rail-subsidy " +
+          "TILE — the unpublished-capital wording and the per-passenger lead — below the " +
+          "`[data-hub-head]` clip, so the head card draws nothing new. Verified 2026-10-17 by " +
+          "re-shooting: byte-identical (md5 below).",
         verifiedCardMd5: {
           subsidies: "bbbcbae84bcb772138f1743fb5bccb64",
         },
@@ -1734,7 +1733,7 @@ describe("a hub's og capture anchors on its head", () => {
     "governance-sectors": {
       payloads: ["data/procurement/derived/sector_stats.json"],
       project: sectorsFigures,
-      md5: "4972e291a94d5f9e08f31970c12df197",
+      md5: "d0e54b6eeeb750e5e5c586a2ebc55b26",
       // ⚠️ RE-SHOT 2026-09-03, AND IT FIRED EXACTLY AS THE 08-31 NOTE PREDICTED. That note
       // measured the procurement total at €8.6m (0.029%) below the boundary into
       // „€29,7 млрд." and said the entry was „expected to fire soon, for real" — it did, on
@@ -1756,13 +1755,17 @@ describe("a hub's og capture anchors on its head", () => {
       // transport roll-up (+€1.06M), which tipped the procurement total over the rounding
       // boundary: €30,049,039,752 → €30,050,100,018. LOOKED AT: €30 → €30,1 млрд.; the
       // other seven values are unchanged.
-      shot: "2026-10-16",
+      // ⚠️ RE-SHOT 2026-10-17 (UTC) — the contract-number-less legacy twin sweep
+      // (procurement-same-feed-dedup-v1 §7) removed €1.18bn of duplicates. LOOKED AT:
+      // procurement €30,1 → €29,7 млрд., energy €10,3 → €10,1, transport €7,3 → €7,2; the
+      // other five values are unchanged.
+      shot: "2026-10-17",
       figures:
-        "sectors_kpi_procurement=€30,1 млрд. [sectors_kpi_procurement_basis:4] " +
+        "sectors_kpi_procurement=€29,7 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
         "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
         "administration=133 275 [sectors_kpi_headcount_basis:2025] " +
-        "| energy=€10,3 млрд. roads=€9,1 млрд. transport=€7,3 млрд. water=€3,3 млрд.",
+        "| energy=€10,1 млрд. roads=€9,1 млрд. transport=€7,2 млрд. water=€3,3 млрд.",
     },
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
