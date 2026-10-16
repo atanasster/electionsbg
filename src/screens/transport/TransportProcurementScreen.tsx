@@ -147,7 +147,7 @@ const SpineTile: FC<{
             <li>
               {bg
                 ? `Договорите на МТС за обществена услуга в железопътния транспорт в периода (${formatEurCompact(psoEur, lang)}) са с прогнозна стойност за целия многогодишен срок — пикът в годината на подписването им не е годишен разход.`
-                : `МТС's rail public-service contracts in the window (${formatEurCompact(psoEur, lang)}) carry an estimated value over their whole multi-year term — the peak in their signing year is not annual spend.`}
+                : `MTC's rail public-service contracts in the window (${formatEurCompact(psoEur, lang)}) carry an estimated value over their whole multi-year term — the peak in their signing year is not annual spend.`}
             </li>
           ) : null}
           {hub?.annexGrowthEur ? (
@@ -216,7 +216,7 @@ const CompetitionBaseline: FC<{
         <p className="text-[11px] text-muted-foreground/80">
           {bg
             ? "И двете страни са без нулевите дялове на участниците в обединения. Договорите на МТС за обществена услуга в железопътния транспорт са с един участник по естеството си — превозвачът е един. Една оферта е сигнал за проверка, не доказателство."
-            : "Both sides exclude the €0 shares of consortium members. МТС's rail public-service contracts have one bidder by their nature — there is one operator. A single bid is a flag for review, not proof."}
+            : "Both sides exclude the €0 shares of consortium members. MTC's rail public-service contracts have one bidder by their nature — there is one operator. A single bid is a flag for review, not proof."}
         </p>
       </CardContent>
     </Card>
@@ -247,9 +247,9 @@ const InGroupCard: FC<{
   }))
     .filter((p) => p.eur > 0)
     .sort((a, b) => b.eur - a.eur);
-  const ingroupName = TRANSPORT_INGROUP_CONTRACTORS.map((c) => c.name).join(
-    ", ",
-  );
+  const ingroupName = TRANSPORT_INGROUP_CONTRACTORS.map((c) =>
+    bg ? c.name : c.nameEn,
+  ).join(", ");
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -267,18 +267,18 @@ const InGroupCard: FC<{
           </span>{" "}
           {bg
             ? `в избрания период са договори, при които изпълнителят е структура на МТС или ${ingroupName}${totalEur > 0 ? ` (${pctFmt(inWindow / totalEur, bg, 1)} от сумата)` : ""}.`
-            : `in the selected window are contracts whose contractor is an МТС body or ${ingroupName}${totalEur > 0 ? ` (${pctFmt(inWindow / totalEur, bg, 1)} of the total)` : ""}.`}
+            : `in the selected window are contracts whose contractor is an MTC body or ${ingroupName}${totalEur > 0 ? ` (${pctFmt(inWindow / totalEur, bg, 1)} of the total)` : ""}.`}
         </p>
         {hub?.inGroup.contracts ? (
           <p className="text-muted-foreground">
             {bg
               ? `За целия период: ${eur(hub.inGroup.eur)} по ${formatInt(hub.inGroup.contracts, lang)} договора, от тях ${eur(hub.inGroup.contractorEur)} към ТСВ ЕАД — държавното дружество, наследник на ДП ТСВ, което получава поръчки, но не възлага.`
-              : `Over the whole period: ${eur(hub.inGroup.eur)} across ${formatInt(hub.inGroup.contracts, lang)} contracts, of which ${eur(hub.inGroup.contractorEur)} to ТСВ ЕАД — the state company that succeeded ДП ТСВ, which wins work but awards none.`}
+              : `Over the whole period: ${eur(hub.inGroup.eur)} across ${formatInt(hub.inGroup.contracts, lang)} contracts, of which ${eur(hub.inGroup.contractorEur)} to TSV EAD — the state company that succeeded the TSV state enterprise, which wins work but awards none.`}
             {/* T7 (audit 2026-10-17): most of the in-group € is ONE estimate. */}
             {hub.inGroup.psoEur
               ? bg
                 ? ` От общата сума ${eur(hub.inGroup.psoEur)} е прогнозната стойност на договора за обществена услуга на МТС с „БДЖ — Пътнически превози“ за целия му многогодишен срок.`
-                : ` Of the total, ${eur(hub.inGroup.psoEur)} is the estimated value of МТС's public-service contract with БДЖ — Пътнически превози over its whole multi-year term.`
+                : ` Of the total, ${eur(hub.inGroup.psoEur)} is the estimated value of MTC's public-service contract with BDZ Passenger Services over its whole multi-year term.`
               : null}
           </p>
         ) : null}
@@ -296,7 +296,7 @@ const InGroupCard: FC<{
                     eik={p.eik}
                     className="min-w-0 truncate hover:text-primary hover:underline"
                   >
-                    {p.name}
+                    {bg ? p.name : p.nameEn}
                   </CompanyLink>
                   <span className="shrink-0 tabular-nums text-muted-foreground">
                     {eur(p.eur)}
@@ -309,7 +309,7 @@ const InGroupCard: FC<{
         <p className="text-[11px] text-muted-foreground/80">
           {bg
             ? "Тези суми са включени в общата стойност на поръчките и не се изваждат от нея. „Български пощи“ е дружество на МТС, но е извън сектора (той е за превоза на хора и товари), затова е в списъка на външните държавни структури, а не в групата. Стойността на обединенията, в които такава структура е участник, не е в тези суми."
-            : "These sums are part of the procurement total and are not subtracted from it. Български пощи is an МТС company but outside the sector (which is about moving people and goods), so it is listed with the outside state bodies, not in the group. The value of consortia in which such a body is a member is not in these sums."}
+            : "These sums are part of the procurement total and are not subtracted from it. Bulgarian Posts is an MTC company but outside the sector (which is about moving people and goods), so it is listed with the outside state bodies, not in the group. The value of consortia in which such a body is a member is not in these sums."}
         </p>
       </CardContent>
     </Card>
@@ -405,7 +405,7 @@ const RiskCard: FC = () => {
           <p className="text-muted-foreground">
             {bg
               ? "За целия период по-голямата част от стойността с оценка D в сектора са договори вътре в групата или по закон с един изпълнител — договорът за обществена услуга с „БДЖ — Пътнически превози“ и поръчките към ТСВ ЕАД. В избран по-кратък период делът може да е различен."
-              : "Over the whole period, most of the sector's value graded D is in-group or statutory single-supplier — the public-service contract with БДЖ — Пътнически превози and the awards to ТСВ ЕАД. In a narrower window the share can differ."}
+              : "Over the whole period, most of the sector's value graded D is in-group or statutory single-supplier — the public-service contract with BDZ Passenger Services and the awards to TSV EAD. In a narrower window the share can differ."}
           </p>
         )}
         <Link

@@ -175,8 +175,8 @@ export const TransportRoadSafetyTile: FC = () => {
               >
                 {aheadOfTarget ? "ahead of" : "behind"}
               </span>{" "}
-              the target trajectory. ДАБДП coordinates road safety; road
-              building is in the separate Roads sector.
+              the target trajectory. The Road Safety State Agency coordinates
+              road safety; road building is in the separate Roads sector.
             </>
           )}
         </p>

@@ -31,6 +31,7 @@ import {
   TRANSPORT_SECTOR_EIKS,
   TRANSPORT_UNIVERSES,
   TRANSPORT_VERIFY,
+  transportBodyName,
   transportUniverseLabel,
 } from "@/lib/transportReferenceData";
 import { TransportPageFrame } from "./TransportPageFrame";
@@ -125,7 +126,7 @@ export const TransportBodiesScreen: FC = () => {
                     <BodyRow
                       key={m.eik}
                       eik={m.eik}
-                      name={m.name}
+                      name={transportBodyName(m.eik, lang)}
                       agg={byEik.get(m.eik)}
                     />
                   ))}
@@ -151,7 +152,7 @@ export const TransportBodiesScreen: FC = () => {
                 <BodyRow
                   key={v.eik}
                   eik={v.eik}
-                  name={v.name}
+                  name={transportBodyName(v.eik, lang)}
                   agg={byEik.get(v.eik)}
                 />
               ))}

@@ -32,6 +32,7 @@ import {
 } from "@/screens/components/maps/SectorPointMap";
 import {
   TRANSPORT_SECTOR_EIKS,
+  transportBodyName,
   TRANSPORT_UNIVERSES,
   transportUniverseLabel,
   type TransportUniverse,
@@ -42,6 +43,20 @@ import {
   type ScopeWindow,
 } from "@/data/procurement/useTransportFacilityMap";
 import { ChartGhost } from "@/ux/motion/ChartGhost";
+import { transliterateName } from "@/data/candidates/transliterateName";
+
+// The seats the facility map can name, in their established English spelling;
+// anything else falls back to the shared transliteration (page audit F6).
+const PLACE_EN: Record<string, string> = {
+  София: "Sofia",
+  Варна: "Varna",
+  Русе: "Ruse",
+  Пловдив: "Plovdiv",
+  Крумово: "Krumovo",
+  Бургас: "Burgas",
+};
+const placeEn = (bgName: string): string =>
+  PLACE_EN[bgName] ?? transliterateName(bgName);
 
 type Metric = "spend" | "singleBid";
 
@@ -54,16 +69,28 @@ interface Band {
   max: number;
   color: string;
   label: string;
+  /** The BG legend (млн./млрд.) where it differs from the EN one (page audit F9). */
+  labelBg?: string;
 }
 
 // Spend — a single-hue sequential ramp (light → dark = low → high €). The МТС
 // group spans €k (ДАБДП) to €bn (НКЖИ), so the thresholds are log-ish.
 const SPEND_BANDS: Band[] = [
-  { max: 5_000_000, color: "#cbd5e8", label: "≤ €5M" },
+  { max: 5_000_000, color: "#cbd5e8", label: "≤ €5M", labelBg: "≤ €5 млн." },
   { max: 50_000_000, color: "#9fb0cf", label: "5–50" },
   { max: 300_000_000, color: "#6f83ab", label: "50–300" },
-  { max: 1_500_000_000, color: "#4a5c85", label: "300M–1.5B" },
-  { max: Infinity, color: "#2b3a5e", label: "> €1.5B" },
+  {
+    max: 1_500_000_000,
+    color: "#4a5c85",
+    label: "300M–1.5B",
+    labelBg: "300 млн.–1,5 млрд.",
+  },
+  {
+    max: Infinity,
+    color: "#2b3a5e",
+    label: "> €1.5B",
+    labelBg: "> €1,5 млрд.",
+  },
 ];
 
 // Single-bid share — a risk ramp; paired with the number on every card so
@@ -121,6 +148,7 @@ export const TransportFacilityMap: FC<{
   // member can never leave the sentence untrue.
   const seats = useMemo(() => {
     const byCity = new Map<string, number>();
+    // EN prose names places in English (page audit 2026-10-17, F6).
     for (const f of facilities)
       if (f.settlement)
         byCity.set(f.settlement, (byCity.get(f.settlement) ?? 0) + 1);
@@ -132,9 +160,12 @@ export const TransportFacilityMap: FC<{
     // Read as a sentence, not a CSV: the last item joins with „и" / "and", and the
     // Bulgarian preposition takes its euphonic form from the FIRST item it governs
     // („във Варна", but „в Русе") — a bare „в" in front of Варна is wrong Bulgarian.
-    const list = (conj: string) =>
+    const list = (conj: string, en = false) =>
       outside
-        .map(([c, n]) => (n > 1 ? `${c} (${n})` : c))
+        .map(([c, n]) => {
+          const name = en ? placeEn(c) : c;
+          return n > 1 ? `${name} (${n})` : name;
+        })
         .reduce((acc, s, i, a) =>
           i === a.length - 1 ? `${acc} ${conj} ${s}` : `${acc}, ${s}`,
         );
@@ -145,7 +176,7 @@ export const TransportFacilityMap: FC<{
       outsideBg: outside.length
         ? `${/^[вфВФ]/.test(outside[0][0]) ? "във" : "в"} ${list("и")}`
         : "",
-      outsideEn: outside.length ? `in ${list("and")}` : "",
+      outsideEn: outside.length ? `in ${list("and", true)}` : "",
     };
   }, [facilities]);
 
@@ -168,12 +199,12 @@ export const TransportFacilityMap: FC<{
           value,
           color,
           badge: d.contractCount,
-          title: d.name,
+          title: transportBodyName(d.eik, i18n.language, d.name),
           subtitle: [
             d.universe
               ? transportUniverseLabel(d.universe, i18n.language)
               : null,
-            d.settlement,
+            d.settlement ? (bg ? d.settlement : placeEn(d.settlement)) : null,
           ]
             .filter(Boolean)
             .join(" · "),
@@ -301,14 +332,14 @@ export const TransportFacilityMap: FC<{
                 className="inline-block h-2.5 w-2.5 rounded-full"
                 style={{ background: b.color }}
               />
-              {b.label}
+              {bg ? (b.labelBg ?? b.label) : b.label}
             </span>
           ))}
         </div>
         <p className="text-[11px] text-muted-foreground/80">
           {bg
             ? `Картата отразява избрания времеви обхват${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} от ${seats.total} структури са РЕГИСТРИРАНИ в София${seats.hasOutside ? `; останалите са ${seats.outsideBg}` : ""}. Двата маркера във Варна (Морска администрация, Пристанищна инфраструктура) са реалното място на дейността, не седалището. Мрежите (жп линии, пътища) нямат една точка — вижте `
-            : `The map reflects the selected time scope${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} of ${seats.total} entities are REGISTERED in Sofia${seats.hasOutside ? `; the rest sit ${seats.outsideEn}` : ""}. The two Варна markers (Maritime Administration, Port Infrastructure) mark where the operation physically sits, not the legal seat. Networks (rail lines, roads) have no single point — see `}
+            : `The map reflects the selected time scope${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} of ${seats.total} entities are REGISTERED in Sofia${seats.hasOutside ? `; the rest sit ${seats.outsideEn}` : ""}. The two Varna markers (Maritime Administration, Bulgarian Ports Infrastructure Company) mark where the operation physically sits, not the legal seat. Networks (rail lines, roads) have no single point — see `}
           {/* The project map lives on its own page since the hub split
               (transport-hub-v1 T3); the scope travels with the link. */}
           <Link
@@ -319,7 +350,7 @@ export const TransportFacilityMap: FC<{
           </Link>
           {bg
             ? "; пътното строителство (АПИ) е отделен сектор."
-            : "; road building (АПИ) is a separate sector."}
+            : "; road building (RIA) is a separate sector."}
         </p>
       </CardContent>
     </Card>

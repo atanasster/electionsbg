@@ -21,6 +21,7 @@ import type { TransportFundOp } from "@/data/transport/useTransportSector";
 import {
   euFundsExcludedCaption,
   euFundsPassThroughCaption,
+  transportBodyName,
 } from "@/lib/transportReferenceData";
 
 const TOP_N = 10;
@@ -42,7 +43,7 @@ export const TransportEuFundsTile: FC<{
       <p className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
         {bg
           ? "Няма европейски проекти на структурите на сектора в ИСУН."
-          : "No EU-funded projects of the sector's bodies in ИСУН."}
+          : "No EU-funded projects of the sector's bodies in ISUN."}
       </p>
     );
 
@@ -59,7 +60,7 @@ export const TransportEuFundsTile: FC<{
           <Landmark className="h-4 w-4" />
           {bg
             ? "Европейски средства за транспорт (ИСУН)"
-            : "EU funds for transport (ИСУН)"}
+            : "EU funds for transport — ИСУН (ISUN)"}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
@@ -104,7 +105,7 @@ export const TransportEuFundsTile: FC<{
                     eik={f.eik}
                     className="min-w-0 truncate hover:text-primary hover:underline"
                   >
-                    {f.name}
+                    {transportBodyName(f.eik, lang, f.name)}
                   </AwarderLink>
                   <span className="shrink-0 tabular-nums text-muted-foreground">
                     {eur(f.grantEur)}
@@ -137,7 +138,7 @@ export const TransportEuFundsTile: FC<{
         <p className="text-[11px] text-muted-foreground/80">
           {bg
             ? "Безвъзмездната финансова помощ (БФП) по проектите на структурите в регистъра ИСУН — предимно ОП „Транспорт и транспортна инфраструктура“ и ПТС: жп модернизация и подвижен състав. Светлата лента е помощта, тъмната — изплатеното; процентът е изплатената част. Сумите са за целия програмен период и не се събират с обществените поръчки."
-            : "The grant aid (БФП) on the bodies' projects in the ИСУН register — mostly the Transport and Transport Infrastructure programmes: rail modernisation and rolling stock. The light bar is the grant, the dark fill what has been paid; the percentage is the paid share. Figures cover the whole programme period and are never added to procurement."}
+            : "The EU grant on the bodies' projects in the ISUN register — mostly the Transport and Transport Infrastructure programmes: rail modernisation and rolling stock. The light bar is the grant, the dark fill what has been paid; the percentage is the paid share. Figures cover the whole programme period and are never added to procurement."}
         </p>
       </CardContent>
     </Card>

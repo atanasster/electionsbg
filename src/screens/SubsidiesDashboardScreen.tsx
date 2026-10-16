@@ -249,10 +249,11 @@ const tileMetric = (
       // PSO-only per-passenger figure and says why the total is absent.
       if (b3.railTotalEur == null && b3.railPerPassenger != null)
         return m(
-          `${b3.railPerPassenger.toLocaleString(nloc, {
+          // Euro sign first, as every other € on the site (page audit F10).
+          `€${b3.railPerPassenger.toLocaleString(nloc, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
-          })} €`,
+          })}`,
           `${bg ? "на пътник (PSO)" : "per passenger (PSO)"}, ${b3.railYear ?? ""}`.trim(),
           b3.railCapitalMissing
             ? bg
@@ -264,10 +265,10 @@ const tileMetric = (
         eur(b3.railTotalEur),
         `${bg ? "за железници" : "for the railways"}, ${b3.railYear ?? ""}`.trim(),
         b3.railPerPassenger != null
-          ? `${b3.railPerPassenger.toLocaleString(nloc, {
+          ? `€${b3.railPerPassenger.toLocaleString(nloc, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            })} € ${bg ? "на пътник" : "per passenger"}`
+            })} ${bg ? "на пътник" : "per passenger"}`
           : null,
       );
     case "film":

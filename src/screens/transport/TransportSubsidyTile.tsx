@@ -43,7 +43,7 @@ export const TransportSubsidyTile: FC<{
   const perPax = latest.perPassenger;
   const fmtPerPax = (v: number) =>
     bg
-      ? `${v.toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`
+      ? `€${v.toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
       : `€${v.toFixed(2)}`;
 
   // Composition of the latest year's total rail subsidy.
@@ -96,7 +96,7 @@ export const TransportSubsidyTile: FC<{
             {latest.capitalMissing
               ? bg
                 ? `Капиталовите трансфери за ${latest.year} г. (за БДЖ и НКЖИ) не са разписани в Закона за държавния бюджет, затова общата субсидия за железниците за годината не се показва. Субсидията на пътник по-горе ползва само PSO и е пълна.`
-                : `The capital transfers for ${latest.year} (to БДЖ and НКЖИ) are not set out in the State Budget Law, so no total rail subsidy is shown for the year. The per-passenger figure above uses the PSO only and is complete.`
+                : `The capital transfers for ${latest.year} (to BDZ and NRIC) are not set out in the State Budget Law, so no total rail subsidy is shown for the year. The per-passenger figure above uses the PSO only and is complete.`
               : bg
                 ? `Общата субсидия за железниците за ${latest.year} г. не може да се състави — част от нея не е публикувана.`
                 : `The total rail subsidy for ${latest.year} cannot be assembled — part of it is not published.`}
@@ -125,14 +125,14 @@ export const TransportSubsidyTile: FC<{
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
                 <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary" />
-                {bg ? "БДЖ — PSO (превоз)" : "БДЖ — PSO (service)"}{" "}
+                {bg ? "БДЖ — PSO (превоз)" : "BDZ — PSO (service)"}{" "}
                 <span className="tabular-nums">
                   {formatEurCompact(pso, lang)}
                 </span>
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary/50" />
-                {bg ? "НКЖИ (инфраструктура)" : "НКЖИ (infrastructure)"}{" "}
+                {bg ? "НКЖИ (инфраструктура)" : "NRIC (infrastructure)"}{" "}
                 <span className="tabular-nums">
                   {formatEurCompact(nkzhi, lang)}
                 </span>
@@ -140,7 +140,7 @@ export const TransportSubsidyTile: FC<{
               {bdzCap > 0 && (
                 <span className="inline-flex items-center gap-1.5">
                   <span className="h-2.5 w-2.5 shrink-0 rounded-sm bg-primary/25" />
-                  {bg ? "БДЖ (капитал)" : "БДЖ (capital)"}{" "}
+                  {bg ? "БДЖ (капитал)" : "BDZ (capital)"}{" "}
                   <span className="tabular-nums">
                     {formatEurCompact(bdzCap, lang)}
                   </span>
@@ -198,12 +198,12 @@ export const TransportSubsidyTile: FC<{
               <span className="font-semibold tabular-nums">
                 {fmtPerPax(perPax)}
               </span>{" "}
-              of subsidy for every "БДЖ — Passenger" traveller (
+              of subsidy for every BDZ Passenger Services traveller (
               {latest.passengers
                 ? `${(latest.passengers / 1e6).toLocaleString("en-US", { maximumFractionDigits: 1 })}M passengers`
                 : "—"}
               , {latest.year}) — on top of the fare. The subsidy is rising while
-              ridership is not. Plus the infrastructure grant to НКЖИ.
+              ridership is not. Plus the infrastructure grant to NRIC.
             </>
           )}
         </p>
@@ -211,7 +211,7 @@ export const TransportSubsidyTile: FC<{
         <p className="text-[11px] text-muted-foreground/80">
           {bg
             ? "Субсидия: Закон за държавния бюджет (бюджетирана, не изпълнена). Пътници: Eurostat rail_pa_total (национален жп ≈ БДЖ). Субсидията на пътник ползва само PSO (оперативната субсидия); НКЖИ е инфраструктура. Това е годишната сума по бюджета — не прогнозната стойност на многогодишните договори за обществена услуга, която стои в поръчките."
-            : "Subsidy: State Budget Law (budgeted, not executed). Passengers: Eurostat rail_pa_total (national rail ≈ БДЖ). “Per passenger” uses the PSO (operating) subsidy only; НКЖИ is infrastructure. This is the annual budget figure — not the estimated value of the multi-year public-service contracts that appears in procurement."}
+            : "Subsidy: State Budget Law (budgeted, not executed). Passengers: Eurostat rail_pa_total (national rail ≈ BDZ). “Per passenger” uses the PSO (operating) subsidy only; NRIC is infrastructure. This is the annual budget figure — not the estimated value of the multi-year public-service contracts that appears in procurement."}
         </p>
       </CardContent>
     </Card>

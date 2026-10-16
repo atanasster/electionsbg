@@ -111,7 +111,7 @@ export const TransportModeSplitTile: FC<{ modes: ModeRow[] }> = ({ modes }) => {
           {moved > 0
             ? bg
               ? `Договорите на министерството за обществена услуга в железопътния транспорт (CPV 6021) и за подвижен състав (CPV 346) — ${formatEurCompact(moved, lang)} — са отнесени към железниците: МТС ги възлага централно, но купува жп превози и влакове. Ред „по възложител“ показва разпределението преди това.`
-              : `The ministry's rail public-service contracts (CPV 6021) and rolling-stock orders (CPV 346) — ${formatEurCompact(moved, lang)} — are counted as rail: МТС awards them centrally, but they buy rail services and trains. The "by awarder" line shows the split before that.`
+              : `The ministry's rail public-service contracts (CPV 6021) and rolling-stock orders (CPV 346) — ${formatEurCompact(moved, lang)} — are counted as rail: MTC awards them centrally, but they buy rail services and trains. The "by awarder" line shows the split before that.`
             : bg
               ? maritimeMoved > 0
                 ? "В избрания период министерството няма договори за жп превози или подвижен състав."
@@ -132,7 +132,7 @@ export const TransportModeSplitTile: FC<{ modes: ModeRow[] }> = ({ modes }) => {
             : null}
           {bg
             ? "Пътната инфраструктура (АПИ) е отделен сектор и не е включена."
-            : "Road infrastructure (АПИ) is a separate sector and is not included."}
+            : "Road infrastructure (RIA) is a separate sector and is not included."}
         </p>
       </CardContent>
     </Card>

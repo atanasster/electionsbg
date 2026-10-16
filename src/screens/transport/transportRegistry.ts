@@ -82,7 +82,7 @@ export const TRANSPORT_HUB_COPY: Record<string, { bg: string; en: string }> = {
   transport_tile_rail: { bg: "Железници", en: "Railways" },
   transport_tile_rail_desc: {
     bg: "Поръчките на НКЖИ, БДЖ и жп администрацията — на картата и по участъци.",
-    en: "The procurement of НКЖИ, БДЖ and the railway administration — on the map and by section.",
+    en: "The procurement of NRIC, BDZ and the railway administration — on the map and by section.",
   },
   transport_tile_maritime: {
     bg: "Пристанища и Дунав",
@@ -133,7 +133,7 @@ export const TRANSPORT_HUB_COPY: Record<string, { bg: string; en: string }> = {
   },
   transport_tile_ingroup_desc: {
     bg: "Договорите между структурите на МТС — парите, които не излизат на пазара.",
-    en: "Contracts between МТС bodies — money that never reaches an outside market.",
+    en: "Contracts between MTC bodies — money that never reaches an outside market.",
   },
   transport_tile_subsidy: { bg: "Субсидията за влака", en: "The rail subsidy" },
   transport_tile_subsidy_desc: {

@@ -23,7 +23,10 @@
 import type { HubEvidence, HubKpi } from "@/ux/infographic/HubHead";
 import type { TransportHubStats } from "@/data/transport/hubStats";
 import { formatEurCompact, formatInt } from "@/lib/currency";
-import { euFundsExcludedShort } from "@/lib/transportReferenceData";
+import {
+  euFundsExcludedShort,
+  transportBodyName,
+} from "@/lib/transportReferenceData";
 import { isBg } from "@/i18n";
 import {
   ALL,
@@ -90,7 +93,7 @@ export const transportHubKpis = (
     label: bg ? "обществени поръчки" : "public procurement",
     basis: bg
       ? `договори на ${bodies} структури на МТС${span ? `, ${span}` : ""}, текуща стойност след анекси`
-      : `contracts of ${bodies} МТС bodies${span ? `, ${span}` : ""}, current value after annexes`,
+      : `contracts of ${bodies} MTC bodies${span ? `, ${span}` : ""}, current value after annexes`,
     to: TRANSPORT_KPI_TO.eur,
   });
 
@@ -102,7 +105,7 @@ export const transportHubKpis = (
       label: bg ? "за железниците" : "on the railways",
       basis: bg
         ? "вкл. договорите на МТС за жп превози и подвижен състав"
-        : "incl. МТС's contracts for rail services and rolling stock",
+        : "incl. MTC's contracts for rail services and rolling stock",
       to: TRANSPORT_KPI_TO.rail,
     });
 
@@ -139,11 +142,11 @@ export const transportHubKpis = (
       basis: [
         bg
           ? "договори между структури на МТС, вкл. ТСВ ЕАД; не се изваждат от общата сума"
-          : "contracts between МТС bodies, incl. ТСВ ЕАД; not subtracted from the total",
+          : "contracts between MTC bodies, incl. TSV EAD; not subtracted from the total",
         s.inGroup.psoEur
           ? bg
             ? `от тях ${formatEurCompact(s.inGroup.psoEur, lang)} е прогнозната стойност на договора за обществена услуга с БДЖ`
-            : `of which ${formatEurCompact(s.inGroup.psoEur, lang)} is the estimated value of the public-service contract with БДЖ`
+            : `of which ${formatEurCompact(s.inGroup.psoEur, lang)} is the estimated value of the public-service contract with BDZ`
           : null,
       ]
         .filter(Boolean)
@@ -158,7 +161,7 @@ export const transportHubKpis = (
 export const transportKpiNote = (bg: boolean): string =>
   bg
     ? "Четирите числа са на различна база и не се събират: общата стойност на поръчките, делът на железниците в нея (с договорите на министерството за жп превози и влакове), делът с една оферта (до средното за страната) и частта от същата обща сума, която остава между структурите на МТС. Пътищата са отделен сектор."
-    : "The four figures sit on different bases and do not add up: the total procurement value, the railways' share of it (with the ministry's contracts for rail services and trains), the single-bid share (beside the national average) and the part of that same total that stays between МТС bodies. Roads are a separate sector.";
+    : "The four figures sit on different bases and do not add up: the total procurement value, the railways' share of it (with the ministry's contracts for rail services and trains), the single-bid share (beside the national average) and the part of that same total that stays between MTC bodies. Roads are a separate sector.";
 
 /** The evidence rail: the bodies that buy the most. */
 export const transportHubEvidence = (
@@ -172,10 +175,10 @@ export const transportHubEvidence = (
     heading: bg ? "Най-големите възложители" : "The largest buyers",
     basis: bg
       ? "по стойност на поръчките, за целия период; договорите на МТС за жп превози и влакове са в реда на министерството."
-      : "by procurement value, over the whole period; МТС's rail-service and train contracts sit on the ministry's row.",
+      : "by procurement value, over the whole period; MTC's rail-service and train contracts sit on the ministry's row.",
     rows: rows.map((r) => ({
       id: r.eik,
-      label: r.name,
+      label: transportBodyName(r.eik, lang, r.name),
       value: formatEurCompact(r.eur, lang),
       to: `/awarder/${r.eik}${ALL}`,
     })),
@@ -232,7 +235,7 @@ export const transportTileMetric = (
           moved > 0
             ? bg
               ? `и ${eur(moved)} на МТС за жп превози и влакове`
-              : `plus ${eur(moved)} by МТС for rail services and trains`
+              : `plus ${eur(moved)} by MTC for rail services and trains`
             : undefined,
       };
     }
@@ -305,7 +308,7 @@ export const transportTileMetric = (
             metric: eur(f.grantEur),
             metricCaption: bg
               ? "безвъзмездна помощ (ИСУН)"
-              : "grant aid (ИСУН)",
+              : "EU grant, ИСУН (ISUN)",
             // T2 (audit 2026-10-17): the RRP broadband project is out of the
             // sector, and the tile says so rather than silently shrinking.
             metricSecondary: f.excludedGrantEur

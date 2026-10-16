@@ -17,7 +17,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { PieChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEurCompact } from "@/lib/currency";
+import { formatEurCompact, formatInt } from "@/lib/currency";
 import {
   hhiBandLabel,
   HHI_BAND_COLOR,
@@ -148,7 +148,8 @@ export const VikContractorHhiTile: FC<{
             <span className="font-medium text-foreground tabular-nums">
               {Math.round(cr4 * 100)}%
             </span>{" "}
-            · {rows.length} {bg ? "изпълнители" : "contractors"}
+            · {formatInt(rows.length, i18n.language)}{" "}
+            {bg ? "изпълнители" : "contractors"}
           </div>
         </div>
 

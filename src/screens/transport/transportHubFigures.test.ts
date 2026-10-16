@@ -117,3 +117,16 @@ describe("transport hub figures", () => {
     expect(m.metricCaption).toMatch(/безвъзмездна помощ/);
   });
 });
+
+describe("EN copy carries no Cyrillic names (page audit 2026-10-17, F7)", () => {
+  it("states the head, the note and the rail in English", () => {
+    const cyr = /[Ѐ-ӿ]/;
+    for (const k of transportHubKpis(blob, "en", false)) {
+      expect(k.label, k.label).not.toMatch(cyr);
+      expect(k.basis, k.basis).not.toMatch(cyr);
+    }
+    expect(transportKpiNote(false)).not.toMatch(cyr);
+    for (const r of transportHubEvidence(blob, "en", false)!.rows)
+      expect(r.label, r.label).not.toMatch(cyr);
+  });
+});

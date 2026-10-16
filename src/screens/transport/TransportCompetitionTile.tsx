@@ -21,6 +21,7 @@ import { Gauge } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { TransportBodyAgg } from "@/data/transport/useTransportSector";
+import { transportBodyName } from "@/lib/transportReferenceData";
 import { bandOf, WELL_ABOVE, type Band } from "./competitionBand";
 
 const MIN_BID_KNOWN = 3;
@@ -80,7 +81,7 @@ export const TransportCompetitionTile: FC<{
                   eik={u.eik}
                   className="min-w-0 truncate hover:text-primary hover:underline"
                 >
-                  {u.name}
+                  {transportBodyName(u.eik, lang, u.name)}
                 </AwarderLink>
                 <span className="shrink-0 tabular-nums text-muted-foreground">
                   {formatEurCompact(u.totalEur, lang)}

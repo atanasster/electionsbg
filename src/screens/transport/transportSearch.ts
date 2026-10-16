@@ -32,6 +32,7 @@ import {
 interface BodyRow {
   eik: string;
   name: string;
+  nameEn: string;
   universe: TransportUniverse | null;
 }
 
@@ -40,6 +41,7 @@ const BODIES: BodyRow[] = [
   ...TRANSPORT_VERIFY.map((v) => ({
     eik: v.eik,
     name: v.name,
+    nameEn: v.nameEn,
     universe: null,
   })),
 ];
@@ -72,13 +74,14 @@ export const transportBodiesIndex = (
       ].filter(Boolean);
       return {
         id: b.eik,
-        label: b.name,
+        label: bg ? b.name : b.nameEn,
         sub: parts.join(" · "),
         href: awarderAllTimeHref(b.eik),
       };
     },
     (b) => [
       b.name,
+      b.nameEn,
       b.eik,
       b.universe ? transportUniverseLabel(b.universe, "bg") : null,
       b.universe ? transportUniverseLabel(b.universe, "en") : null,
@@ -112,7 +115,7 @@ export const transportSearchSources = (
   {
     kind: "index",
     id: "bodies",
-    label: { bg: "Структури на МТС", en: "МТС bodies" },
+    label: { bg: "Структури на МТС", en: "MTC bodies" },
     icon: Building2,
     limit: 6,
     index: transportBodiesIndex(s, lang, bg),

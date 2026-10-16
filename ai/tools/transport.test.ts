@@ -92,7 +92,7 @@ describe("transportEuFunds", () => {
       exclude: "BG-RRP-7.001-0001",
     });
     expect(String(env.facts?.note)).toMatch(
-      /^The grant aid.*Without the digital-infrastructure project.*it is outside the sector/,
+      /^The EU grant.*Without the digital-infrastructure project.*it is outside the sector/,
     );
 
     vi.mocked(fetchDb).mockResolvedValue({

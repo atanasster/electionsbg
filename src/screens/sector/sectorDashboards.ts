@@ -359,7 +359,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     browsePackId: "transport",
     members: TRANSPORT_ENTITIES.map((e) => ({
       eik: e.eik,
-      name: { bg: e.name, en: e.name },
+      name: { bg: e.name, en: e.nameEn },
       group: TRANSPORT_UNIVERSE_LABEL[e.universe],
     })),
   },

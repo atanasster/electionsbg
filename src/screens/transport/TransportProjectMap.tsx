@@ -56,6 +56,8 @@ interface Band {
   max: number;
   color: string;
   label: string;
+  /** The BG legend (млн./млрд.) where it differs from the EN one (page audit F9). */
+  labelBg?: string;
   /** Line stroke / relative heft for this band. */
   weight: number;
 }
@@ -64,11 +66,23 @@ interface Band {
 // dataviz method (sequential, not rainbow, not red-green). Thresholds in €. Heavier money
 // draws a thicker rail line.
 const SPEND_BANDS: Band[] = [
-  { max: 2_000_000, color: "#cdd7e3", label: "≤ €2M", weight: 2.5 },
+  {
+    max: 2_000_000,
+    color: "#cdd7e3",
+    label: "≤ €2M",
+    labelBg: "≤ €2 млн.",
+    weight: 2.5,
+  },
   { max: 20_000_000, color: "#93a6c0", label: "2–20", weight: 3.5 },
   { max: 100_000_000, color: "#5f779c", label: "20–100", weight: 5 },
   { max: 300_000_000, color: "#3c527a", label: "100–300", weight: 6.5 },
-  { max: Infinity, color: "#22314f", label: "> €300M", weight: 8 },
+  {
+    max: Infinity,
+    color: "#22314f",
+    label: "> €300M",
+    labelBg: "> €300 млн.",
+    weight: 8,
+  },
 ];
 
 // Single-bid share — a risk ramp. Paired with the number on every card.
@@ -320,7 +334,7 @@ export const TransportProjectMap: FC<{
                 className="inline-block h-2.5 w-2.5 rounded-full"
                 style={{ background: b.color }}
               />
-              {b.label}
+              {bg ? (b.labelBg ?? b.label) : b.label}
             </span>
           ))}
         </div>
@@ -334,7 +348,7 @@ export const TransportProjectMap: FC<{
         <p className="text-[11px] text-muted-foreground/80">
           {bg
             ? `Картата показва физическата инфраструктура, посочена в наименованията на договорите, в избрания обхват${periodLabel ? ` (${periodLabel})` : ""}. Линиите са жп участъци между два града (напр. Костенец–Септември) и са схематични — между населените места, не по трасето; точките са единични обекти — гари, пристанища, летища, възли — и може да се застъпват; „проект по линията“ е линия, чийто конкретен участък не може да бъде разпознат. Дебелината и цветът следват размера на разхода. Превозите, подвижният състав и горивата са мрежови, нямат една точка и не са тук. Пътищата (АПИ) са отделен сектор.`
-            : `The map shows the physical infrastructure named in the contract titles, in the selected scope${periodLabel ? ` (${periodLabel})` : ""}. Lines are rail sections between two towns (e.g. Костенец–Септември) and are schematic — between the places, not along the route; points are single sites — stations, ports, airports, junctions — and can overlap; a "project on the line" is a line whose specific section could not be placed. Line width and colour follow the spend. Train operations, rolling stock and fuel are network-wide, have no single point and are not shown. Roads (АПИ) are a separate sector.`}
+            : `The map shows the physical infrastructure named in the contract titles, in the selected scope${periodLabel ? ` (${periodLabel})` : ""}. Lines are rail sections between two towns (e.g. Kostenets–Septemvri) and are schematic — between the places, not along the route; points are single sites — stations, ports, airports, junctions — and can overlap; a "project on the line" is a line whose specific section could not be placed. Line width and colour follow the spend. Train operations, rolling stock and fuel are network-wide, have no single point and are not shown. Roads (RIA) are a separate sector.`}
         </p>
       </CardContent>
     </Card>

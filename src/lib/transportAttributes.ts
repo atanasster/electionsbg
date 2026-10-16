@@ -6,8 +6,9 @@
 //
 // Category order is grounded in what the transport group actually buys: rolling stock
 // (trains/buses/ships — the БДЖ/Шкода line), rail & port CONSTRUCTION (track, stations,
-// quays — the НКЖИ + EU-funded line), transport SERVICES (bus/rail operations, toll,
-// postal/telecom "съобщения"), signalling & IT, maintenance, design & supervision,
+// quays — the НКЖИ + EU-funded line), transport SERVICES (bus/rail operations, toll),
+// signalling & IT (incl. CPV 64 postal/telecom and 3496 airport/ATC equipment),
+// maintenance, design & supervision,
 // fuel & energy, materials/supplies. Contracts with no CPV fall to the "other" sink.
 
 import type { ProcurementContract } from "@/data/dataTypes";
@@ -25,14 +26,14 @@ import type { TransportUniverse } from "./transportReferenceData";
 import { procedureBucket } from "./cpvSectors";
 
 export type TransportCategory =
-  | "rolling_stock" // 34 — влакове, вагони, локомотиви, автобуси, кораби, самолети
+  | "rolling_stock" // 34 minus 3494/3496 — влакове, вагони, локомотиви, автобуси, кораби, самолети
   | "construction" // 45 — жп линии, гари, мостове, пристанища, летищна инфраструктура
-  | "transport_services" // 60/63/64 — превози, спомагателни транспортни услуги, съобщения
-  | "signalling_it" // 48/72/32/31/30 — сигнализация, ИТ, телеком, електроника
+  | "transport_services" // 60/63 — превози и спомагателни транспортни услуги
+  | "signalling_it" // 48/72/32/31/30, 64 (пощи и телеком), 3496 (летищно/УВД оборудване), 34942/34943 — сигнализация, ИТ, връзки
   | "maintenance" // 50 — ремонт и поддръжка на подвижен състав и инфраструктура
   | "design" // 71 — проектиране, инженеринг и строителен надзор
   | "fuel_energy" // 09 — горива и електроенергия (тяга)
-  | "supplies" // 44/14/24/19 — материали, релси, химия, текстил
+  | "supplies" // 3494 (траверси, стрелки, скрепления — без 34942/34943), 44/14/24/19 — материали, релси, химия, текстил
   | "other";
 
 export type TransportCategoryAgg = AwarderCategoryAgg<TransportCategory>;

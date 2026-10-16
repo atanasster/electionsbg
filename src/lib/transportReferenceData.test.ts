@@ -286,3 +286,15 @@ describe("the shared EU-funds caption builder (DUP-004)", () => {
       expect(euFundsExcludedCaption("bg", true)).toContain(x.label.bg);
   });
 });
+
+describe("English names (page audit 2026-10-17, F7)", () => {
+  it("gives every listed body an English name with no Cyrillic in it", () => {
+    for (const e of [
+      ...TRANSPORT_ENTITIES,
+      ...TRANSPORT_VERIFY,
+      ...TRANSPORT_INGROUP_CONTRACTORS,
+      ...TRANSPORT_PUBLIC_CONTRACTORS,
+    ])
+      expect(e.nameEn, e.eik).toMatch(/^[^Ѐ-ӿ]+$/);
+  });
+});

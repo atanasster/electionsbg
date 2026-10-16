@@ -36,8 +36,8 @@ import {
   TRANSPORT_SECTOR_EIKS,
   euFundsExcludedCaption,
   euFundsPassThroughCaption,
+  transportBodyName,
   TRANSPORT_UNIVERSES,
-  transportEntityByEik,
   transportUniverseLabel,
   transportUniverseOf,
   type TransportUniverse,
@@ -133,10 +133,10 @@ export const transportSpending = async (
     kind: "table",
     title: bg
       ? "Транспорт — държавната група (МТС, НКЖИ, БДЖ, пристанища)"
-      : "Transport — the state group (МТС, НКЖИ, БДЖ, ports)",
+      : "Transport — the state group (MTC, NRIC, BDZ, ports)",
     subtitle: bg
       ? "Обществени поръчки по вид транспорт (АОП); договорите на МТС за жп превози и подвижен състав са към железниците. Пътищата (АПИ) са отделен сектор."
-      : "Procurement by transport mode (AOP); МТС's rail-service and rolling-stock contracts count as rail. Roads (АПИ) are a separate sector.",
+      : "Procurement by transport mode (AOP); MTC's rail-service and rolling-stock contracts count as rail. Roads (RIA) are a separate sector.",
     columns: [
       { key: "mode", label: bg ? "Вид транспорт" : "Mode" },
       { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
@@ -172,7 +172,7 @@ export const transportSpending = async (
         : "—",
       note: bg
         ? "Делът с една оферта е без участниците в обединения и е до средното за всички възложители на същата база; делът без обявление е от стойността с известна процедура. Пътната инфраструктура (АПИ) е отделен сектор и не е включена."
-        : "The single-bid share excludes consortium members and sits beside the all-buyer average on the same basis; the direct-award share is of the value with a known procedure. Road infrastructure (АПИ) is a separate sector and is not included.",
+        : "The single-bid share excludes consortium members and sits beside the all-buyer average on the same basis; the direct-award share is of the value with a known procedure. Road infrastructure (RIA) is a separate sector and is not included.",
     },
     provenance: [
       "db:awarder-group-model",
@@ -225,7 +225,8 @@ export const transportEuFunds = async (
   const named = rows0
     .map((o) => ({
       eik: o.eik,
-      name: nameOfEik(o.eik),
+      // The funds endpoint carries no name; label from the reference data.
+      name: transportBodyName(o.eik, ctx.lang),
       grantEur: o.grantEur ?? 0,
       abs: (o.grantEur ?? 0) > 0 ? o.paidEur / (o.grantEur ?? 0) : 0,
     }))
@@ -249,7 +250,7 @@ export const transportEuFunds = async (
     kind: "table",
     title: bg
       ? "Европейски средства за транспорт (ИСУН)"
-      : "EU funds for transport (ИСУН)",
+      : "EU funds for transport — ИСУН (ISUN)",
     subtitle: bg
       ? "Безвъзмездна помощ срещу реално изплатено, за програмния период"
       : "Grant aid vs actually paid, programme-period totals",
@@ -277,7 +278,7 @@ export const transportEuFunds = async (
       note: [
         bg
           ? "Безвъзмездната финансова помощ (БФП) по проектите в ИСУН, за целия програмен период — не по избран парламент."
-          : "The grant aid (БФП) on the ИСУН projects, over the whole programme period — not scoped to a parliament.",
+          : "The EU grant on the ISUN projects, over the whole programme period — not scoped to a parliament.",
         euFundsExcludedCaption(ctx.lang, excludedApplied),
         euFundsPassThroughCaption(ctx.lang),
       ]
@@ -341,7 +342,7 @@ export const railSubsidy = async (
         latest?.passengers != null ? fmtInt(latest.passengers, ctx.lang) : "—",
       note: bg
         ? `Субсидията на пътник ползва само PSO (оперативната субсидия за превоза); НКЖИ е инфраструктура. Бюджетирана субсидия (ЗДБ); пътници от Eurostat (национален жп ≈ БДЖ).${latest?.capitalMissing ? ` Капиталовите трансфери за ${latest.year} г. не са разписани в Закона за държавния бюджет, затова обща сума за годината няма.` : ""}`
-        : `“Per passenger” uses the PSO (operating) subsidy only; НКЖИ is infrastructure. Budgeted subsidy (State Budget Law); passengers from Eurostat (national rail ≈ БДЖ).${latest?.capitalMissing ? ` The capital transfers for ${latest.year} are not set out in the State Budget Law, so there is no total for that year.` : ""}`,
+        : `“Per passenger” uses the PSO (operating) subsidy only; NRIC is infrastructure. Budgeted subsidy (State Budget Law); passengers from Eurostat (national rail ≈ BDZ).${latest?.capitalMissing ? ` The capital transfers for ${latest.year} are not set out in the State Budget Law, so there is no total for that year.` : ""}`,
     },
     provenance: [
       "transport/rail_subsidy.json (ЗДБ)",
@@ -349,8 +350,3 @@ export const railSubsidy = async (
     ],
   };
 };
-
-// Canonical group-member name for a beneficiary EIK; the funds endpoint carries no
-// name, so we label from the reference data (any non-member EIK is unexpected here).
-const nameOfEik = (eik: string): string =>
-  transportEntityByEik(eik)?.name ?? `ЕИК ${eik}`;

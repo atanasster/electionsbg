@@ -247,7 +247,7 @@ describe("SubsidiesDashboardScreen", () => {
       const tile = document.querySelector('a[href^="/sector/transport/money"]');
       expect(tile).toBeTruthy();
       const text = tile!.textContent ?? "";
-      expect(text).toMatch(/5[,.]08 €/);
+      expect(text).toMatch(/€5[,.]08/);
       expect(text).toMatch(
         /капиталовите трансфери не са разписани в бюджета|capital transfers not set out in the budget law/,
       );

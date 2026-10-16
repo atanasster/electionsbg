@@ -19,7 +19,9 @@ export const TransportRoadsLinkTile: FC = () => {
   const { data } = useRoadsHubStats();
   const roadsEur = data?.procurement.eur;
   const amount = roadsEur
-    ? formatEurCompact(roadsEur, bg ? "bg-BG" : "en-GB")
+    ? // The site's shared compact style — „€9.1B" beside the band's „€7.29B",
+      // never en-GB's „€9.1bn" (page audit F8).
+      formatEurCompact(roadsEur, i18n.language)
     : null;
   return (
     <Card>
@@ -28,7 +30,7 @@ export const TransportRoadsLinkTile: FC = () => {
         <p className="min-w-0 flex-1 text-sm text-muted-foreground">
           {bg
             ? `Пътната инфраструктура (Агенция „Пътна инфраструктура“ и НКСИП) е отделен сектор${amount ? ` с ${amount} договори за целия период` : ""} и не е включена в тези суми — за да не се дублира и да остане на фокус железопътният, морският и въздушният транспорт.`
-            : `Road infrastructure (the Road Infrastructure Agency and НКСИП) is a separate sector${amount ? ` with ${amount} in contracts over the whole period` : ""} and is not counted in these figures — so the two don't double-count and rail, maritime and air stay in focus.`}
+            : `Road infrastructure (the Road Infrastructure Agency and the National Company Strategic Infrastructure Projects) is a separate sector${amount ? ` with ${amount} in contracts over the whole period` : ""} and is not counted in these figures — so the two don't double-count and rail, maritime and air stay in focus.`}
         </p>
         <Link
           to="/sector/roads"

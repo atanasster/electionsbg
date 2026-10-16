@@ -118,7 +118,7 @@ export const TransportEuPeerTile: FC = () => {
                 : "bg-muted text-muted-foreground"
             }`}
           >
-            №{rank}
+            {bg ? `№${rank}` : `#${rank}`}
           </span>
         )}
       </span>
@@ -270,7 +270,7 @@ export const TransportEuPeerTile: FC = () => {
               bars read as МТС's own spending. */}
           {bg
             ? "Това е разходът на целия сектор „Държавно управление“ за транспорт — включително строителството на пътища и общинските метрополитени, които са извън този сектор. Затова не е сравним пряко с поръчките на МТС."
-            : "This is the whole of general government's transport spending — including road building and municipal metros, both outside this sector. It is therefore not directly comparable with МТС's procurement."}
+            : "This is the whole of general government's transport spending — including road building and municipal metros, both outside this sector. It is therefore not directly comparable with MTC's procurement."}
         </p>
       </CardContent>
     </Card>

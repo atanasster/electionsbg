@@ -1742,7 +1742,7 @@ const transportStaticPages = (): PrerenderRoute[] => {
     f.singleBidPct
       ? `${f.singleBidPct} of contracts with a known bid count drew a single bid${f.nationalPct ? ` — against ${f.nationalPct} across all buyers` : ""}.`
       : "",
-    `€${f.inGroupBnEn}bn are contracts between МТС bodies themselves, ТСВ ЕАД included, and stay inside the state group.`,
+    `€${f.inGroupBnEn}bn are contracts between MTC bodies themselves, TSV EAD included, and stay inside the state group.`,
   ]
     .filter(Boolean)
     .join(" ");
@@ -1774,13 +1774,13 @@ ${links(false)}
         breadcrumbName: "Transport",
         bodyHtml: `
 <h1>Transport</h1>
-<p>The public procurement of ${f.bodies} bodies under the Ministry of Transport and Communications — the ministry, НКЖИ, БДЖ, the port infrastructure company, air-traffic control, the airports and the regulators: €${f.eurBnEn}bn over ${f.contracts} contracts${span ? ` in ${span}` : ""}. The total is the contracts' current value after annexes.</p>
+<p>The public procurement of ${f.bodies} bodies under the Ministry of Transport and Communications — the ministry, the National Railway Infrastructure Company (NRIC), Bulgarian State Railways (BDZ), the Bulgarian Ports Infrastructure Company, air-traffic control (BULATSA), the airports and the regulators: €${f.eurBnEn}bn over ${f.contracts} contracts${span ? ` in ${span}` : ""}. The total is the contracts' current value after annexes.</p>
 <p>${hubFiguresEn}</p>
-<p>Road infrastructure (АПИ) is a separate sector and is not included.</p>
+<p>Road infrastructure (the Road Infrastructure Agency, RIA) is a separate sector and is not included.</p>
 <h2>What you'll find</h2>
 ${links(true)}
-<p>See also <a href="${SITE_URL}/en/awarder/000695388">МТС as a buyer</a> and <a href="${SITE_URL}/en/governance/sectors">all sectors</a>.</p>
-<p>Source: АОП/ЦАИС ЕОП, ИСУН, the State Budget Law, Eurostat.</p>`.trim(),
+<p>See also <a href="${SITE_URL}/en/awarder/000695388">the MTC as a buyer</a> and <a href="${SITE_URL}/en/governance/sectors">all sectors</a>.</p>
+<p>Source: the Public Procurement Agency (АОП/ЦАИС ЕОП), ИСУН (ISUN), the State Budget Law, Eurostat.</p>`.trim(),
       },
     }),
     staticPage({
@@ -1837,7 +1837,7 @@ ${up(false)}`.trim(),
         breadcrumbName: "Transport procurement",
         bodyHtml: `
 <h1>Transport procurement</h1>
-<p>The МТС bodies' contracts at current value after annexes — by year, by mode and by function.</p>
+<p>The MTC bodies' contracts at current value after annexes — by year, by mode and by function.</p>
 <h2>What you'll find</h2>
 <ul>
 <li><strong>By mode</strong> — with the ministry's contracts for rail services and rolling stock counted as rail, and the split by awarder beside it.</li>
@@ -1863,7 +1863,7 @@ ${up(true)}`.trim(),
 ${up(false)}`.trim(),
       english: {
         title:
-          "The transport bodies — МТС, railways, ports and aviation | Naiasno",
+          "The transport bodies — MTC, railways, ports and aviation | Naiasno",
         description:
           "The Ministry of Transport and the companies and agencies under it — railways, ports and the Danube, air and road transport — with each body's procurement and their seats on a map.",
         breadcrumbName: "The transport bodies",
@@ -1888,7 +1888,7 @@ ${up(true)}`.trim(),
 ${up(false)}`.trim(),
       english: {
         title:
-          "The money outside procurement — the rail subsidy, EU funds and the МТС budget | Naiasno",
+          "The money outside procurement — the rail subsidy, EU funds and the MTC budget | Naiasno",
         description:
           "The ministry budget, the annual rail subsidy and what it is per passenger, the bodies' EU funds, transport spending against the EU and road safety — each on its own basis, never added to procurement.",
         breadcrumbName: "The money outside procurement",

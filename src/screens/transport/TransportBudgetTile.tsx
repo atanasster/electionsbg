@@ -9,8 +9,9 @@
 //
 // Honesty: the budget TOTAL is the authoritative ЗДБ figure from the per-ministry node
 // (expenditure.amountEur). The rail-subsidy framing is qualitative — the node carries
-// no economic-type split — so no subsidy € is drawn as a measured band (that is the
-// Phase-2 tile, which needs the budget-law PSO row + БДЖ revenue/ridership).
+// no economic-type split — so no subsidy € is drawn as a measured band here. The
+// measured subsidy (the budget-law PSO and НКЖИ rows, per passenger) is the
+// TransportSubsidyTile beside it on /sector/transport/money#subsidy.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -33,7 +34,7 @@ export const TransportBudgetTile: FC = () => {
   if (!years.length)
     return (
       <TransportSourceNote
-        what={{ bg: "Данните за бюджета на МТС", en: "The МТС budget data" }}
+        what={{ bg: "Данните за бюджета на МТС", en: "The MTC budget data" }}
       />
     );
 
@@ -50,7 +51,7 @@ export const TransportBudgetTile: FC = () => {
           <Landmark className="h-4 w-4" />
           {bg
             ? "Бюджетът на МТС и субсидията за железниците"
-            : "The МТС budget & the rail subsidy"}
+            : "The MTC budget & the rail subsidy"}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
@@ -112,18 +113,18 @@ export const TransportBudgetTile: FC = () => {
             <>
               The ministry budget carries the state{" "}
               <span className="font-semibold">rail subsidy</span> (the
-              public-service obligation to "БДЖ — Passenger" and the
-              infrastructure grant to НКЖИ). It is smaller than the group's
+              public-service obligation to BDZ Passenger Services and the
+              infrastructure grant to NRIC). It is smaller than the group's
               annual procurement, because the capital projects of the state
-              enterprises (НКЖИ, БДЖ — largely EU-funded) sit outside this line.
+              enterprises (NRIC, BDZ — largely EU-funded) sit outside this line.
             </>
           )}
         </p>
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "Бюджет: Закон за държавния бюджет (админ. единица „Министерство на транспорта и съобщенията“). Разбивката субсидия/издръжка не е в бюджетния разрез по политики — предстои (нужни са редът за ЗОП/ЗДБ и приходите на БДЖ)."
-            : "Budget: State Budget Law (МТС admin unit). A subsidy/upkeep split is not in the node's by-policy breakdown — that tile is pending (needs the budget-law PSO row + БДЖ revenue)."}
+            ? "Бюджет: Закон за държавния бюджет (админ. единица „Министерство на транспорта и съобщенията“). Бюджетният разрез по политики не разделя субсидията от издръжката — субсидията за железниците по редовете на закона е в плочката „Кой плаща за влака“."
+            : "Budget: State Budget Law (MTC admin unit). The by-policy breakdown does not split the subsidy from upkeep — the rail subsidy, from the law's own rows, is in the 'Who pays for the railway' tile."}
         </p>
       </CardContent>
     </Card>

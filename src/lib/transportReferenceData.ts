@@ -75,6 +75,8 @@ export interface TransportEntity {
   eik: string;
   /** Canonical Bulgarian label (corpus carries spelling variants per EIK). */
   name: string;
+  /** The established English name (EN pages never print Cyrillic prose names). */
+  nameEn: string;
   universe: TransportUniverse;
 }
 
@@ -82,41 +84,41 @@ export interface TransportEntity {
 // Метрополитен and the rest of the anti-allowlist are intentionally absent — see the
 // header note.
 export const TRANSPORT_ENTITIES: TransportEntity[] = [
-  { eik: TRANSPORT_EIK, name: "Министерство на транспорта и съобщенията", universe: "ministry" }, // prettier-ignore
+  { eik: TRANSPORT_EIK, name: "Министерство на транспорта и съобщенията", nameEn: "Ministry of Transport and Communications (MTC)", universe: "ministry" }, // prettier-ignore
 
   // Железници (rail) — infrastructure manager + the БДЖ operating group + rail-safety
   // regulator + the state rail-construction enterprise
-  { eik: "130823243", name: "ДП „Национална компания Железопътна инфраструктура“ (НКЖИ)", universe: "rail" }, // prettier-ignore
-  { eik: "130822878", name: "Холдинг „Български държавни железници“ (БДЖ)", universe: "rail" }, // prettier-ignore
-  { eik: "175405647", name: "„БДЖ — Пътнически превози“ ЕООД", universe: "rail" }, // prettier-ignore
-  { eik: "175403856", name: "„БДЖ — Товарни превози“ ЕООД", universe: "rail" }, // prettier-ignore
-  { eik: "130663221", name: "ИА „Железопътна администрация“ (ИАЖА)", universe: "rail" }, // prettier-ignore
-  { eik: "130847116", name: "ДП „Транспортно строителство и възстановяване“ (ДП ТСВ)", universe: "rail" }, // prettier-ignore
+  { eik: "130823243", name: "ДП „Национална компания Железопътна инфраструктура“ (НКЖИ)", nameEn: "National Railway Infrastructure Company (NRIC)", universe: "rail" }, // prettier-ignore
+  { eik: "130822878", name: "Холдинг „Български държавни железници“ (БДЖ)", nameEn: "Bulgarian State Railways (BDZ) Holding", universe: "rail" }, // prettier-ignore
+  { eik: "175405647", name: "„БДЖ — Пътнически превози“ ЕООД", nameEn: "BDZ Passenger Services", universe: "rail" }, // prettier-ignore
+  { eik: "175403856", name: "„БДЖ — Товарни превози“ ЕООД", nameEn: "BDZ Cargo", universe: "rail" }, // prettier-ignore
+  { eik: "130663221", name: "ИА „Железопътна администрация“ (ИАЖА)", nameEn: "Railway Administration Executive Agency", universe: "rail" }, // prettier-ignore
+  { eik: "130847116", name: "ДП „Транспортно строителство и възстановяване“ (ДП ТСВ)", nameEn: "Transport Construction and Rehabilitation (TSV) state enterprise", universe: "rail" }, // prettier-ignore
 
   // Море, пристанища и река Дунав (maritime, ports & inland waterway)
-  { eik: "130316140", name: "ДП „Пристанищна инфраструктура“", universe: "maritime" }, // prettier-ignore
-  { eik: "121797867", name: "ИА „Морска администрация“", universe: "maritime" }, // prettier-ignore
-  { eik: "000513106", name: "ИА „Проучване и поддържане на река Дунав“ (ИАППД)", universe: "maritime" }, // prettier-ignore
+  { eik: "130316140", name: "ДП „Пристанищна инфраструктура“", nameEn: "Bulgarian Ports Infrastructure Company", universe: "maritime" }, // prettier-ignore
+  { eik: "121797867", name: "ИА „Морска администрация“", nameEn: "Maritime Administration", universe: "maritime" }, // prettier-ignore
+  { eik: "000513106", name: "ИА „Проучване и поддържане на река Дунав“ (ИАППД)", nameEn: "Executive Agency for Exploration and Maintenance of the Danube River", universe: "maritime" }, // prettier-ignore
 
   // Въздух (aviation) — the air-navigation infrastructure manager, the state airport
   // company and the regulator. ⚠ БУЛАТСА is the AIR-SIDE ANALOGUE of НКЖИ (rail) and
   // ДППИ (ports): without it this universe was €3.7M against a real €348.2M, i.e. the
   // mode-split tile reported state aviation procurement 94x too small (audit 2026-08-13).
-  { eik: "000697179", name: "ДП „Ръководство на въздушното движение“ (БУЛАТСА)", universe: "aviation" }, // prettier-ignore
+  { eik: "000697179", name: "ДП „Ръководство на въздушното движение“ (БУЛАТСА)", nameEn: "Bulgarian Air Traffic Services Authority (BULATSA)", universe: "aviation" }, // prettier-ignore
   // ⚠ „Летище София“ ЕАД is 100% state with МТС as principal, and its corpus runs
   // 2011-01-13 → 2021-04-06 and stops there of its own accord — the SOF Connect
   // operating concession took the airport over later in 2021. No date cutoff is needed
   // or wanted: a windowed scope past 2021 simply finds nothing for this EIK.
-  { eik: "121023551", name: "„Летище София“ ЕАД", universe: "aviation" }, // prettier-ignore
+  { eik: "121023551", name: "„Летище София“ ЕАД", nameEn: "Sofia Airport", universe: "aviation" }, // prettier-ignore
   // „Летище Пловдив“ ЕАД — 100% state airport operator, same class as Летище София
   // (D2, docs/plans/transport-hub-v1.md). Small (€1.06M, 11 contracts 2011–2026, all
   // fuel CPV 09*), but it meets the inclusion rule; seat Крумово (обл. Пловдив).
-  { eik: "115007069", name: "„Летище Пловдив“ ЕАД", universe: "aviation" }, // prettier-ignore
-  { eik: "121805755", name: "ГД „Гражданска въздухоплавателна администрация“ (ГД ГВА)", universe: "aviation" }, // prettier-ignore
+  { eik: "115007069", name: "„Летище Пловдив“ ЕАД", nameEn: "Plovdiv Airport", universe: "aviation" }, // prettier-ignore
+  { eik: "121805755", name: "ГД „Гражданска въздухоплавателна администрация“ (ГД ГВА)", nameEn: "Civil Aviation Administration", universe: "aviation" }, // prettier-ignore
 
   // Автомобилен транспорт (regulation) + пътна безопасност (road safety) — NOT road building
-  { eik: "121410441", name: "ИА „Автомобилна администрация“", universe: "road" }, // prettier-ignore
-  { eik: "177344399", name: "Държавна агенция „Безопасност на движението по пътищата“ (ДАБДП)", universe: "road" }, // prettier-ignore
+  { eik: "121410441", name: "ИА „Автомобилна администрация“", nameEn: "Automobile Administration", universe: "road" }, // prettier-ignore
+  { eik: "177344399", name: "Държавна агенция „Безопасност на движението по пътищата“ (ДАБДП)", nameEn: "Road Safety State Agency", universe: "road" }, // prettier-ignore
 ];
 
 const ENTITY_BY_EIK: Record<string, TransportEntity> = Object.fromEntries(
@@ -185,10 +187,16 @@ export const TRANSPORT_UNIVERSES: TransportUniverse[] = [
 
 /** VERIFY — a body whose principal is genuinely unsettled. Shown on
  *  /sector/transport/bodies, never summed. Do not settle one by its NAME. */
-export const TRANSPORT_VERIFY: { eik: string; name: string; why: string }[] = [
+export const TRANSPORT_VERIFY: {
+  eik: string;
+  name: string;
+  nameEn: string;
+  why: string;
+}[] = [
   {
     eik: "202623635",
     name: "„Дунав мост Видин – Калафат“ АД",
+    nameEn: "Danube Bridge Vidin–Calafat",
     // D3 (2026-10-16): TR holds no owner rows for an АД, and the public record
     // describes a joint BG–RO operating structure for the bridge, so neither МТС nor
     // МРРБ can be shown to be its principal from what we hold. €11.7M / 53 contracts.
@@ -202,10 +210,18 @@ export const TRANSPORT_VERIFY: { eik: string; name: string; why: string }[] = [
 /** IN-GROUP CONTRACTORS — state companies under the transport minister that WIN
  *  contracts from the roll-up but award none themselves. They widen the intra-group
  *  flow (KPI 4 on the hub) and never touch the headline (the roads in-house shape). */
-export const TRANSPORT_INGROUP_CONTRACTORS: { eik: string; name: string }[] = [
+export const TRANSPORT_INGROUP_CONTRACTORS: {
+  eik: string;
+  name: string;
+  nameEn: string;
+}[] = [
   // D4: ТСВ ЕАД is ДП ТСВ's corporatised successor (ДП ТСВ last awarded in 2019). It
   // has 0 awarder rows and wins €106.2M from НКЖИ, ДППИ and БДЖ-ПП.
-  { eik: "205677435", name: "„Транспортно строителство и възстановяване“ ЕАД" },
+  {
+    eik: "205677435",
+    name: "„Транспортно строителство и възстановяване“ ЕАД",
+    nameEn: "Transport Construction and Rehabilitation (TSV) EAD",
+  },
 ];
 
 /** PUBLIC CONTRACTORS OUTSIDE THE SECTOR — public bodies (state or municipal) that win
@@ -216,26 +232,44 @@ export const TRANSPORT_INGROUP_CONTRACTORS: { eik: string; name: string }[] = [
 export const TRANSPORT_PUBLIC_CONTRACTORS: {
   eik: string;
   name: string;
+  nameEn: string;
   principal: "state" | "municipal";
 }[] = [
-  { eik: "121396123", name: "„Български пощи“ ЕАД", principal: "state" }, // МТС-owned; НКЖИ meal vouchers
-  { eik: "000649348", name: "„Национална електрическа компания“ ЕАД", principal: "state" }, // prettier-ignore
-  { eik: "000670919", name: "НАИМ при БАН", principal: "state" }, // archaeological rescue (statutory)
+  {
+    eik: "121396123",
+    name: "„Български пощи“ ЕАД",
+    nameEn: "Bulgarian Posts",
+    principal: "state",
+  }, // МТС-owned; НКЖИ meal vouchers
+  { eik: "000649348", name: "„Национална електрическа компания“ ЕАД", nameEn: "National Electricity Company (NEK)", principal: "state" }, // prettier-ignore
+  {
+    eik: "000670919",
+    name: "НАИМ при БАН",
+    nameEn: "National Archaeological Institute (BAS)",
+    principal: "state",
+  }, // archaeological rescue (statutory)
   {
     eik: "129009105",
     name: "Държавен авиационен оператор",
+    nameEn: "State Aviation Operator",
     principal: "state",
   },
   {
     eik: "831641791",
     name: "„Информационно обслужване“ АД",
+    nameEn: "Information Services",
     principal: "state",
   },
-  { eik: "202218735", name: "„Център за градска мобилност“ ЕАД", principal: "municipal" }, // prettier-ignore
+  { eik: "202218735", name: "„Център за градска мобилност“ ЕАД", nameEn: "Urban Mobility Centre", principal: "municipal" }, // prettier-ignore
   // transport-hub-v1 audit 2026-10-17 (T10): the МТС HQ's heat and gas suppliers.
   // EIKs taken from contracts.contractor_eik (€805,973 and €359,479).
-  { eik: "831609046", name: "„Топлофикация София“ ЕАД", principal: "municipal" }, // prettier-ignore
-  { eik: "175203485", name: "„Булгаргаз“ ЕАД", principal: "state" },
+  { eik: "831609046", name: "„Топлофикация София“ ЕАД", nameEn: "Toplofikatsia Sofia", principal: "municipal" }, // prettier-ignore
+  {
+    eik: "175203485",
+    name: "„Булгаргаз“ ЕАД",
+    nameEn: "Bulgargaz",
+    principal: "state",
+  },
 ];
 
 /** EU-FUNDED PROJECTS OUTSIDE THE SECTOR — fund_projects rows held by a transport
@@ -334,3 +368,22 @@ export const euFundsPassThroughCaption = (lang: "bg" | "en"): string =>
       ? `Сумата включва и ${joinLabels(TRANSPORT_EU_FUNDS_PASS_THROUGH, "bg")} — тези средства не остават в сектора.`
       : `The figure also includes ${joinLabels(TRANSPORT_EU_FUNDS_PASS_THROUGH, "en")} — money that does not stay in the sector.`
     : "";
+
+/** A sector body's display name in the reader's language — the English name on
+ *  EN pages, never the Cyrillic one (page audit 2026-10-17, F7). Falls back to the
+ *  caller's label, then the EIK, for a body outside the lists. */
+export const transportBodyName = (
+  eik: string,
+  lang: string | undefined,
+  /** The caller's own label for a body outside the lists (e.g. a route's name). */
+  fallback?: string,
+): string => {
+  const en = !lang?.startsWith("bg");
+  const e =
+    ENTITY_BY_EIK[eik] ??
+    TRANSPORT_VERIFY.find((v) => v.eik === eik) ??
+    TRANSPORT_INGROUP_CONTRACTORS.find((v) => v.eik === eik) ??
+    TRANSPORT_PUBLIC_CONTRACTORS.find((v) => v.eik === eik);
+  if (!e) return fallback ?? (en ? `EIK ${eik}` : `ЕИК ${eik}`);
+  return en ? e.nameEn : e.name;
+};
