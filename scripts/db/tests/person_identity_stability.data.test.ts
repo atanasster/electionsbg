@@ -250,7 +250,11 @@ test.skipIf(skipIdentity)(
     // The total did NOT need moving (135,009 → 135,249, +240, inside 500): tier-V private
     // owners 70,061 → 70,396 from ordinary TR growth, base 64,948 → 64,853 — the base falling
     // by about the merged pairs. Moved anyway to keep the three at one vintage.
-    const BASELINE = 135_249;
+    //
+    // 2026-10-16: 135,249 → 135,772 (+523), operator-accepted as corpus growth. Tier-V private
+    // owners 70,396 → 70,890 (+494) after a TR refresh (+287 companies, CR projection applied);
+    // base 64,853 → 64,882 (+29). Nothing dropped.
+    const BASELINE = 135_772;
     const TOLERANCE = 500;
     assert.ok(
       Math.abs(persons - BASELINE) <= TOLERANCE,
