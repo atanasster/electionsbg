@@ -167,13 +167,13 @@ const SpineTile: FC<{
  *  on the SAME window and basis, or no baseline at all. */
 const CompetitionBaseline: FC<{
   bodies: TransportBodyAgg[];
-  exMembers: boolean;
+  /** The national ex-member share for the same window, or null (see the screen). */
+  natShare: number | null;
   contracts: number;
-}> = ({ bodies, exMembers, contracts }) => {
+}> = ({ bodies, natShare, contracts }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
-  const { data: national } = useNationalCompetition();
   const known = bodies.reduce((s, b) => s + b.bidKnownN, 0);
   const single = bodies.reduce((s, b) => s + b.singleBidN, 0);
   if (!known)
@@ -184,7 +184,6 @@ const CompetitionBaseline: FC<{
           : "No contracts with a known bid count in the selected window."}
       </Note>
     );
-  const natShare = exMembers ? nationalSingleBidExMembers(national) : null;
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -313,6 +312,11 @@ const InGroupCard: FC<{
 
 /** #direct — „без обявление" over the € whose method is KNOWN (A4). */
 const DirectCard: FC<{ payload: GroupModelPayload }> = ({ payload }) => {
+  const { mode } = useTransportMode();
+  // The sector-procedure clause names air navigation and ports, so it shows only when
+  // those bodies are in the figure.
+  const sectorProcs =
+    mode == null || mode === "aviation" || mode === "maritime";
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
@@ -350,6 +354,11 @@ const DirectCard: FC<{ payload: GroupModelPayload }> = ({ payload }) => {
           {bg
             ? `Процедурата е известна за ${pctFmt(d.knownEur / totalEur, bg)} от стойността — за останалото регистърът не я посочва.`
             : `The procedure is known for ${pctFmt(d.knownEur / totalEur, bg)} of the value — the register does not state it for the rest.`}
+        </p>
+        <p className="text-[11px] text-muted-foreground/80">
+          {bg
+            ? `Тук влизат договарянето без обявление, прякото договаряне и процедурите само с покана${sectorProcs ? " — включително секторните поръчки на въздушната навигация и пристанищата, които законът допуска" : ""}. Законно основание и пропуск не се различават от тези данни: сигнал за проверка.`
+            : `This covers negotiation without a notice, direct negotiation and invitation-only procedures${sectorProcs ? " — including the sector procedures that the law allows for air navigation and ports" : ""}. The data cannot tell a lawful ground from a lapse: a flag for review.`}
         </p>
         <Link
           to={href({ proc: "direct" })}
@@ -413,6 +422,12 @@ export const TransportProcurementScreen: FC = () => {
   const { mode, eiks } = useTransportMode();
   const group = useTransportGroupModel(eiks);
   const rollup = useTransportRollup(eiks);
+  const { data: national } = useNationalCompetition();
+  // Ex-member on both sides, or no baseline at all — one decision for the headline
+  // card and the per-unit tile.
+  const natShare = rollup.exMembers
+    ? nationalSingleBidExMembers(national)
+    : null;
   // The mode split is the WHOLE sector by definition — it ignores ?mode.
   const whole = useTransportGroupModel(TRANSPORT_SECTOR_EIKS);
   const ministry = useMinistryByCpv();
@@ -506,10 +521,13 @@ export const TransportProcurementScreen: FC = () => {
           <>
             <CompetitionBaseline
               bodies={rollup.bodies}
-              exMembers={rollup.exMembers}
+              natShare={natShare}
               contracts={contracts}
             />
-            <TransportCompetitionTile units={rollup.bodies} />
+            <TransportCompetitionTile
+              units={rollup.bodies}
+              national={natShare}
+            />
           </>
         )}
       </section>
