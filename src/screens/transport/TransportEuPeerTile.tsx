@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { TrainFront } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatCount } from "@/lib/currency";
-import { useCofog } from "@/data/macro/useCofog";
+import { cofogRankText, useCofog } from "@/data/macro/useCofog";
 import { EuFlag } from "@/screens/components/procurement/security/euFlags";
 import { TransportSourceNote } from "./TransportSourceNote";
 import { ChartGhost } from "@/ux/motion/ChartGhost";
@@ -94,7 +94,7 @@ export const TransportEuPeerTile: FC = () => {
     pct: number;
     isBg?: boolean;
     isEu?: boolean;
-    rank?: number;
+    rank?: string;
   }> = ({ geo, pct, isBg, isEu, rank }) => (
     <div className="flex items-center gap-2">
       <span className="flex w-28 shrink-0 items-center gap-1.5">
@@ -157,7 +157,7 @@ export const TransportEuPeerTile: FC = () => {
       <CardContent className="p-3 md:p-4 space-y-3">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <span className="text-2xl font-bold tabular-nums">
-            {bg ? `№ ${band.rank}` : `#${band.rank}`}
+            {bg ? `№ ${cofogRankText(band)}` : `#${cofogRankText(band)}`}
             <span className="text-base font-semibold text-muted-foreground">
               {bg ? ` от ${band.total}` : ` of ${band.total}`}
             </span>
@@ -187,7 +187,11 @@ export const TransportEuPeerTile: FC = () => {
               pct={r.pct}
               isBg={r.geo === "BG"}
               rank={
-                r.geo === topGeo ? 1 : r.geo === "BG" ? band.rank : undefined
+                r.geo === topGeo
+                  ? "1"
+                  : r.geo === "BG"
+                    ? cofogRankText(band)
+                    : undefined
               }
             />
           ))}

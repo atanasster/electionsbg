@@ -275,6 +275,8 @@ const decodePeers = (
 //   bgPctGdp:   Bulgaria's spend as % of GDP
 //   euAvgPctGdp: EU27 aggregate value
 //   rank:       1 = highest spender among the 27 member states; 27 = lowest
+//   rankTo:     the last place BG shares — equal to `rank` unless other members
+//               report the same (one-decimal) value, e.g. 6..8 for three at 3,4%
 //   total:      number of member states with a value at the chosen year
 //   year:       the year these figures are pinned to
 // Walks the peer rows back from `latestYear` to find a year where BG has
@@ -285,6 +287,7 @@ interface PeerBand {
   bgPctGdp: number;
   euAvgPctGdp: number | null;
   rank: number;
+  rankTo: number;
   total: number;
   // The highest-spending member state at `year` (rank 1) — geo code + its
   // value as % of GDP. Lets a tile show "who is above Bulgaria". null when BG
@@ -398,12 +401,16 @@ const buildPeerBands = (
       // Rank: 1 = highest spender as % of GDP, total = members with data.
       const higher = memberValues.filter((v) => v > bg).length;
       const rank = higher + 1;
+      // Eurostat publishes PC_GDP to one decimal, so ties are common; a lone
+      // `rank` would claim a place BG shares (transport 2024: 3,4% with PL, AT).
+      const rankTo = memberValues.filter((v) => v >= bg).length;
       const euAvg = byGeo.get(EU_AGGREGATE_GEO) ?? null;
       out[cofog] = {
         year: y,
         bgPctGdp: bg,
         euAvgPctGdp: euAvg,
         rank,
+        rankTo,
         total: memberValues.length,
         // Drop `top` when BG is itself #1 (nobody spends more) — the tile then
         // has no "above Bulgaria" row to show.

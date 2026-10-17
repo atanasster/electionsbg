@@ -29,12 +29,14 @@ interface Band {
   bgPctGdp: number;
   euAvgPctGdp: number | null;
   rank: number;
+  rankTo?: number;
   total: number;
   top?: { geo: string; pctGdp: number };
 }
 
 let band: Band;
-vi.mock("@/data/macro/useCofog", () => ({
+vi.mock("@/data/macro/useCofog", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/data/macro/useCofog")>()),
   useCofog: () => ({
     data: {
       peers: { GF10: band },
@@ -116,6 +118,16 @@ describe("SocialEuPeerTile — the rank claim follows the rank", () => {
   it("says so when BG is the highest", () => {
     const { container } = renderTile({ rank: 1, total: 26 });
     expect(container.textContent).toContain("най-високият");
+  });
+
+  // One-decimal values tie; a shared place must not read as BG's alone.
+  it("names a shared place as a range, and a shared top as not the highest", () => {
+    const mid = renderTile({ rank: 18, rankTo: 20, total: 27 });
+    expect(mid.container.textContent).toContain("Поделено 18–20 място от 27");
+    mid.unmount();
+    const top = renderTile({ rank: 1, rankTo: 2, total: 27 });
+    expect(top.container.textContent).toContain("Поделено 1–2 място");
+    expect(top.container.textContent).not.toContain("най-високият");
   });
 });
 

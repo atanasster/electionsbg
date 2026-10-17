@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 import { HandHeart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatCount } from "@/lib/currency";
-import { useCofog } from "@/data/macro/useCofog";
+import { cofogRankText, useCofog } from "@/data/macro/useCofog";
 import { EuFlag } from "../security/euFlags";
 
 const GEO_NAME: Record<string, { bg: string; en: string }> = {
@@ -97,19 +97,22 @@ export const SocialEuPeerTile: FC = () => {
               ? { bg: "под", en: "below" }
               : { bg: "чувствително под", en: "well below" };
   // Rank is 1 = highest spender, so `total` is the lowest.
+  const tied = (band.rankTo ?? band.rank) > band.rank;
   const rankWord =
     band.rank === band.total
       ? { bg: "Това е най-ниският разход в ЕС", en: "That is the lowest in the EU" } // prettier-ignore
-      : band.rank === 1
-        ? { bg: "Това е най-високият разход в ЕС", en: "That is the highest in the EU" } // prettier-ignore
-        : { bg: `${band.rank}-о място от ${band.total}`, en: `Rank ${band.rank} of ${band.total}` }; // prettier-ignore
+      : tied
+        ? { bg: `Поделено ${cofogRankText(band)} място от ${band.total}`, en: `Tied for ${cofogRankText(band)} of ${band.total}` } // prettier-ignore
+        : band.rank === 1
+          ? { bg: "Това е най-високият разход в ЕС", en: "That is the highest in the EU" } // prettier-ignore
+          : { bg: `${band.rank}-о място от ${band.total}`, en: `Rank ${band.rank} of ${band.total}` }; // prettier-ignore
 
   const Bar: FC<{
     geo: string;
     pct: number;
     isBg?: boolean;
     isEu?: boolean;
-    rank?: number;
+    rank?: string;
   }> = ({ geo, pct, isBg, isEu, rank }) => (
     <div className="flex items-center gap-2">
       <span className="flex w-28 shrink-0 items-center gap-1.5">
@@ -191,7 +194,11 @@ export const SocialEuPeerTile: FC = () => {
               pct={r.pct}
               isBg={r.geo === "BG"}
               rank={
-                r.geo === topGeo ? 1 : r.geo === "BG" ? band.rank : undefined
+                r.geo === topGeo
+                  ? "1"
+                  : r.geo === "BG"
+                    ? cofogRankText(band)
+                    : undefined
               }
             />
           ))}

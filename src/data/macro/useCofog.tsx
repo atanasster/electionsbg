@@ -49,6 +49,9 @@ export type CofogPeerBand = {
   bgPctGdp: number;
   euAvgPctGdp: number | null;
   rank: number;
+  // The last place BG shares with members reporting the same value; equals
+  // `rank` when there is no tie. Absent from files minted before it existed.
+  rankTo?: number;
   total: number;
   // The highest-spending EU member state at `year` (rank 1): geo code + its
   // % of GDP. null when Bulgaria is itself #1. Emitted by fetch_cofog.ts.
@@ -98,3 +101,9 @@ export const useCofog = () =>
     },
     staleTime: Infinity,
   });
+
+// BG's place as text: "6", or "6–8" when it shares the value with others.
+export const cofogRankText = (band: Pick<CofogPeerBand, "rank" | "rankTo">) =>
+  band.rankTo != null && band.rankTo > band.rank
+    ? `${band.rank}–${band.rankTo}`
+    : `${band.rank}`;
