@@ -311,6 +311,17 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
         );
   const GUTTER = 330; // right-aligned label column
   const X0 = 80 + GUTTER + 24; // bars start here
+  // Labels are right-aligned to the gutter, so one wider than it starts left of
+  // the 80px margin and is cropped by the canvas edge — with nothing thrown.
+  // Measured in the weight each row is drawn in (a highlight is bolder).
+  for (const r of rows) {
+    ctx.font = `${r.highlight ? 800 : 600} 34px ${FONT}`;
+    const lw = ctx.measureText(r.label).width;
+    if (lw > GUTTER)
+      throw new Error(
+        `renderBarCard: label "${r.label}" is ${Math.ceil(lw)}px wide, the label column is ${GUTTER}px — shorten it (move the detail to the footnote)`,
+      );
+  }
   const signedW = spec.signed ?? true;
   const unitW = spec.unit ?? "%";
   const decW = spec.decimals ?? 1;

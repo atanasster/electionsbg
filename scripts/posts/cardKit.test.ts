@@ -95,6 +95,29 @@ describe("renderBarCard", () => {
     expect(buf.subarray(1, 4).toString()).toBe("PNG");
     expect(buf.readUInt32BE(16)).toBe(1080);
   });
+
+  it("refuses a label wider than the label column instead of cropping it", () => {
+    const spec = {
+      title: "Най-големите възложители в транспорта",
+      bars: [
+        { label: "НКЖИ (жп мрежа)", value: 3375 },
+        { label: "БУЛАТСА", value: 263 },
+      ],
+      unit: " млн. €",
+      signed: false,
+      source: "Източник: АОП",
+    };
+    expect(() => renderBarCard(spec)).not.toThrow();
+    expect(() =>
+      renderBarCard({
+        ...spec,
+        bars: [
+          ...spec.bars,
+          { label: "Министерство на транспорта", value: 2421 },
+        ],
+      }),
+    ).toThrow(/label "Министерство на транспорта" is \d+px wide/);
+  });
 });
 
 const tableBase: TableCardSpec = {
