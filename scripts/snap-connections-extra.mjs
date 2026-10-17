@@ -2,7 +2,7 @@
 import { chromium } from "playwright";
 import path from "node:path";
 
-const OUT = "/Users/atanasster/data-bg/docs/images/connections";
+const OUT = "/Users/atanasster/data-bg/public/articles/images/connections";
 const BASE = "http://localhost:5173";
 
 const browser = await chromium.launch();

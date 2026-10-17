@@ -3,11 +3,11 @@
 **Status: NOT APPLIED FOR as of 2026-08-21.** Nothing below has been purchased or
 requested; it is the desk research that decides whether to.
 
-This file exists because `docs/plans/gfo-ingest-spike.md` has cited it since 2026-07-02
-— „the paid full-DB export (~100 BGN/yr, incl. act documents — see
-docs/tr-full-db-access-request.md)" — and it had never been written. The price in that
-citation is right. **The „incl. act documents" half is unverified and the evidence is
-against it**, which matters, because that half is the only reason to buy.
+This file exists because our initial ГФО ingest research cited „the paid full-DB export
+(~100 BGN/yr, incl. act documents)" — and the full-DB export rules had not yet been
+verified. The price in that citation is right. **The „incl. act documents" half is
+unverified and the evidence is against it**, which matters, because that half is the
+only reason to buy.
 
 Context: `docs/plans/gfo-ocr-engine-v1.md` §11g, §12.16.
 

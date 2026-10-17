@@ -1,7 +1,6 @@
 # Manual per-município financial-indicators drops (ЗПФ чл. 130г ал. 2)
 
-`scripts/budget/municipal_fiscal/` (planned — see
-`docs/plans/municipal-fiscal-commitments-v1.md`) parses the workbooks dropped here into a
+`scripts/budget/municipal_fiscal/` parses the workbooks dropped here into a
 per-município, per-quarter series covering the three liability stocks Bulgarian public finance
 distinguishes. The raw `.xlsx`/`.pdf` are gitignored; the parsed JSON is committed.
 

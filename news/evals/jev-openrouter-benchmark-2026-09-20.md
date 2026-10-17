@@ -1,7 +1,6 @@
 # Phase 3.8–3.9 — Jev on live traffic, and the go/no-go (2026-09-20)
 
-Plan: `docs/plans/news-jev-realtime-cloud-worker-v1.md` §3.8–3.9 and the §8
-go/no-go. Tool: `news/scripts/replay_jev_gate.py`. Replayed the Stage-A gate
+Tool: `news/scripts/replay_jev_gate.py`. Replayed the Stage-A gate
 over **600 articles already analysed and on disk**, against GLM's stored
 answers — GLM is not re-run, so the comparison costs only the Jev calls:
 **$0.016**.

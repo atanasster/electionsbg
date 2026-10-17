@@ -1,7 +1,6 @@
 # Person identity join — first measurement, 2026-09-27
 
-Plan: `docs/plans/news-person-sentiment-v1.md` §3.1–3.2. Code:
-`news/scripts/person_identity_join.py`. Reproduce with
+Code: `news/scripts/person_identity_join.py`. Reproduce with
 
 ```bash
 python3 news/scripts/person_identity_join.py --report

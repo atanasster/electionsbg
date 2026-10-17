@@ -12,7 +12,7 @@ allowed-tools:
 
 Ingests Bulgarian presidential-elections data (президент и вицепрезидент) from ЦИК into `data/<cycle>_pvr/`. Five cycles are committed — 2001, 2006, 2011, 2016, 2021 — and the next is due in **November 2026**.
 
-⚠ **THIS IS ITS OWN WATCHER AND ITS OWN SKILL, deliberately.** `cik_results` (local elections) is coupled by `process-watch-report` to `update-persons` and `db:load:person-elections:pg`, and that loader reads the **parliamentary** candidate files. A presidential flip routed through it would stall on a tree it cannot read or skip the new cycle silently. The watcher is `cik_presidential`; the map routes it here and nowhere else. See `docs/plans/presidential-elections-v1.md` T7.2.
+⚠ **THIS IS ITS OWN WATCHER AND ITS OWN SKILL, deliberately.** `cik_results` (local elections) is coupled by `process-watch-report` to `update-persons` and `db:load:person-elections:pg`, and that loader reads the **parliamentary** candidate files. A presidential flip routed through it would stall on a tree it cannot read or skip the new cycle silently. The watcher is `cik_presidential`; the map routes it here and nowhere else.
 
 ## When to run
 

@@ -22,8 +22,7 @@ head. `/governance/sectors` and the analysis hub are the same shape.
 their first figure at 803–826 px — at the fold edge, inside a tile banner, as a preview of one
 destination — and `/governance` carried no number at all until **2 355 px** on a 2 789 px page.
 Thirteen hubs each composed their own header by hand and no two agreed: search on 6 of 13, an
-intro sentence on 5, a breadcrumb on 9, a KPI row on 2 (both below the fold). Full measurement
-and the decisions: `docs/plans/hub-hero-v1.md`.
+intro sentence on 5, a breadcrumb on 9, a KPI row on 2 (both below the fold).
 
 **For a SECTOR surface, read `sector-dashboard` alongside this.** That skill owns
 the data layer underneath — the EIK register that decides who the sector is, the
@@ -343,8 +342,7 @@ right raw shape: the parliamentary country page pairs 'RegionsMapTile' with
 'PartyResultsTile', while the local page leads with separate mayor/council maps plus the
 regions result table. The 2026-09-01 elections-hub research found the same result-first order
 across official German, Norwegian, Australian and European result systems and BBC/Guardian
-lookup views; the evidence and level matrix are recorded in
-'docs/plans/elections-hub-research-v1.md'.
+lookup views.
 
 So an election results front uses a compact scope/place/status head, a 3–4 figure outcome
 strip, then an **outcome canvas** as its first substantive section:

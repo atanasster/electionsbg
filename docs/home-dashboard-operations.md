@@ -4,7 +4,6 @@ The global home page at `/` is served from **two committed JSON artifacts on GCS
 Postgres. This is the runbook for regenerating them, publishing them, telling healthy from
 stale from absent, and recovering when one of those goes wrong.
 
-Design: [`docs/plans/home-dashboard-implementation-v1.md`](plans/home-dashboard-implementation-v1.md).
 Price thresholds: [`docs/audits/home-price-threshold-replay-2026-09-01.md`](audits/home-price-threshold-replay-2026-09-01.md).
 
 ---

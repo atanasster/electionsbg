@@ -1,13 +1,10 @@
 # Jev sentiment scales — Phase 0, measured (2026-09-23)
 
-Plan: `docs/plans/news-jev-sentiment-scales-v1.md` §6 Phase 0. Harness:
-`news/scripts/jev_sentiment_eval.py`. Pass: `news/scripts/jev_ask.py`, live
+Harness: `news/scripts/jev_sentiment_eval.py`. Pass: `news/scripts/jev_ask.py`, live
 against `typesafe/jev-1.13-20260917`, in `shadow` — nothing published.
 
 **Every figure below is read from the committed report,
-`news/evals/jev-sentiment-phase0-2026-09-23.json`** — the rule
-`jev-contract-2026-09-20.md` set after one of its own figures could not be
-recomputed. Re-derive with
+`news/evals/jev-sentiment-phase0-2026-09-23.json`**. Re-derive with
 `python3 news/scripts/jev_sentiment_eval.py --out <file>`.
 
 ⚠️ **Agreement is not accuracy.** Every agreement figure compares Jev with

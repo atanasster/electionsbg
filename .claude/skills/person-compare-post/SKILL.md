@@ -20,8 +20,6 @@ figure off the right filing. Composition, the duplicate check, public-source
 confirmation and saving the draft belong to **`naiasno-post`** — invoke it at
 Step 5 and do not duplicate its rules here.
 
-Plan and measurements: `docs/plans/person-compare-post-v1.md`.
-
 ## The one thing to internalise
 
 **A declaration is not a wealth statement. It is one of two different forms, and

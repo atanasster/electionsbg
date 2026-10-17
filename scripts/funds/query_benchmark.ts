@@ -201,7 +201,7 @@ try {
     ),
   );
   writeFileSync(
-    "docs/plans/ai-funding-chat-performance-v1.json",
+    process.argv[2] || "/tmp/ai-funding-chat-performance-v1.json",
     JSON.stringify(
       {
         measuredAt: new Date().toISOString(),

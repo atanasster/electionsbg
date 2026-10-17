@@ -1,7 +1,9 @@
 // Run from repository root after refreshing the isolated preview. Does not publish.
 const { chromium } = require("playwright");
 const fs = require("fs");
-const root = require("path").resolve("docs/plans/chat-launch-assets");
+const root = require("path").resolve(
+  process.env.CHAT_LAUNCH_ASSETS_DIR || "/tmp/chat-launch-assets",
+);
 const waitAnswer = (p, q) =>
   p.waitForFunction(
     (q) => {

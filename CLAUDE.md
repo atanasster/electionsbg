@@ -179,7 +179,7 @@ follow that. **The two roots invert the rule**: the bare `/` keeps its slash (ho
 it) while the EN root is `/en`, NOT `/en/` — that asymmetry is the one thing to get right in any
 new URL builder, and emitting `/en/` gives the EN homepage a canonical that 301s. Until 2026-08-03
 hosting used the default (slash-adding) behaviour while the code emitted no-slash, so every
-canonical on ~248k pages named a redirecting URL; see `docs/plans/parliament-hub-v1.md` §2.8.
+canonical on ~248k pages named a redirecting URL.
 `tests/seo.spec.ts` gates both the redirect direction and that no declared canonical / `og:url` /
 `hreflang` redirects — the older test asserted only that the canonical _string_ was right, which is
 why this survived unnoticed.
@@ -386,7 +386,7 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/a
 The founding-date writer (`upsertFoundingDates`) preflights and throws with that command in
 the message if the columns are missing.
 
-**CR Deeds full-capture** (`docs/plans/cr-deeds-capture-v1.md`) supersedes the old
+**CR Deeds full-capture** supersedes the old
 `fetch_company_founded` crawl. The rate-limited crawl is an operator action — `npm run
 tr:cr-deeds` (tiers 0/1/2a/2b/3; `--probe` first to gauge the block state); it writes the
 durable raw store `raw_data/tr/cr_deeds.sqlite` (gitignored, never uploaded). Two projections
@@ -405,7 +405,7 @@ read that cache offline, no re-fetch:
   `contract_risk_cache`) + the `/company` "% outside declared activity" chip. **The division
   is classified from the LABEL, not the code** (`src/lib/naceLabel.ts`) — the НКИД field mixes
   НКИД-2003 and КИД-2008 codes that reuse division numbers for different sectors, so a
-  code-based parse fired ~20k flags, thousands false (see `docs/plans/nkid-cpv-mismatch-v1.md`).
+  code-based parse fired ~20k flags, thousands false.
   Cloud publish, in order: apply `033`+`112` (company_nkid shell + nkidByEik payload + bit-12
   mask + crosswalk shells) via `apply_functions.ts`; `npm run db:load:cr-nkid:pg:cloud`
   (fills company_nkid + crosswalk, refreshes `procurement_risk_indexes_cache`); then
@@ -665,8 +665,7 @@ shards or a database. The identity and refusal rules live beside the shared impl
 **SAME-feed duplication is a separate class, and the pass above is blind to it by construction** —
 every grouping it does requires `count(DISTINCT feed) > 1`. The harness measures it as **§6**, and
 the one rule to remember is **always read that section split by `tag`**, because the two arms are
-disjoint on it and only one is a defect (plan:
-`docs/plans/procurement-same-feed-dedup-v1.md`):
+disjoint on it and only one is a defect:
 
 - **`ocds` (238 groups / €591.1m) is 100% `contractAmendment` and is NOT duplication — never evict
   it.** Those rows are distinct amendment events, verified 1:1 against
@@ -970,7 +969,7 @@ NOT EXISTS` is held until the last statement — which includes a multi-million-
 ⚠️ **`price_last_seen` is upsert-only with ONE exception**: a re-published day that
 withdraws a `(store, sku)` deletes that row, so the table matches the corrected feed rather
 than asserting a price the source now says was never filed. Any future non-shrink gate must
-exempt that case. Plan: `docs/plans/prices-chain-absence-v1.md`.
+exempt that case.
 
 ⚠️ **`price_products.title_fold` is a DEPLOY-ORDER dependency of `deploy:db`, and getting it
 backwards is a 500 on every products search.** 048 declares it
@@ -1173,8 +1172,7 @@ They load the officials re-slug maps into `person_slug_retired`, so the ~20.8k `
 minted under pre-2026-07-24 officials slugs 301 instead of 404. The loader upserts, so each
 dated map composes; add a line here whenever a new one lands (2026-07-29 is the collision-fold
 drop — see `raw_data/person/README.md`). `db:refresh` runs the local equivalent automatically;
-nothing runs it on the cloud side. See `raw_data/person/README.md` and
-`docs/plans/persons-pg-retirement-v1.md` (T1.0).
+nothing runs it on the cloud side. See `raw_data/person/README.md`.
 
 **"Composes" means rows accumulate — NOT that older targets stay valid.** When a later map
 retires a slug an earlier map already pointed somebody at, that earlier row becomes a 301 into
@@ -1328,10 +1326,9 @@ why the net figure can go below zero. Do not "fix" this by dropping the matched 
 measuring first: the table-7 description is free text and the same match would drop lease
 debts against property the declarant DOES own. Pairing them and dropping both is NOT reliably implementable — the table-7
 description is free text, and matching „лизинг" would also drop lease debts against property
-the declarant DOES own. See `docs/plans/declaration-foreign-assets-v1.md` §4d.
+the declarant DOES own.
 
-**Measured locally 2026-08-18** (the pre-`table_num` estimates in that plan's §2 over-matched
-and are superseded): 7,278 чуждо rows / €73.6m raw; **€55,565,683** left `person_wealth_year`
+**Measured locally 2026-08-18**: 7,278 чуждо rows / €73.6m raw; **€55,565,683** left `person_wealth_year`
 across 1,980 person-years and 1,120 people; corpus assets €4,213,997,747 → €4,158,432,064;
 795 latest-year profiles affected, 77 of them reduced to €0; 562 fall 50+ ranks and the top
 100 does not move. `/mp-cars` went 721 → 643 rows, €7,109,059 → €5,483,110, and **41 MPs left
@@ -1359,8 +1356,7 @@ read as "the rule is enforced".
 it and the unit is unrecoverable per row. That matters because `perSqmAnchor` drives
 `correctRealEstateSeparatorTypo`, which **mutates the stored value**.
 `check_suspicious_values.ts` now marks a чуждо flag as such so a reviewer does not
-"correct" a contract price as if it were a purchase price, but nothing else is fixed. See
-`docs/plans/declaration-foreign-assets-v1.md` §6.
+"correct" a contract price as if it were a purchase price, but nothing else is fixed.
 
 ### `value_basis` — whether a declared euro figure is the declarant's or OURS
 
@@ -1389,7 +1385,7 @@ NULL      no euro figure — COUNTED in excluded_asset_rows
 
 `fx_ecb` is the ECB reference rate at the last quoted day of the period the filing covers
 (`COALESCE(fiscal_year, declaration_year)`), from the **committed** `data/declarations/
-fx_year_end.json`. Plan: `docs/plans/declaration-fx-conversion-v1.md`.
+fx_year_end.json`.
 
 Six things about it are easy to get backwards:
 
@@ -1455,8 +1451,7 @@ the gate asserts both that they are counted and that the residue has not grown.
 it per account — Иво Христов Петков's 228,100 EUR account is marked „Белгия" while his
 other five say „да" — and our rows for the two were byte-identical in every stored column.
 `declaration_asset.held_scope` / `held_country` / `held_raw_in_country` / `held_raw_abroad`
-close it. Rule: `classifyHeldPlace` in `scripts/declarations/held_abroad.ts`. Plan:
-`docs/plans/declaration-held-abroad-v1.md`.
+close it. Rule: `classifyHeldPlace` in `scripts/declarations/held_abroad.ts`.
 
 Measured over 76,953 money rows: **95.46% domestic, 4.15% abroad (€168.5m, 765 people),
 0.38% unknown**.
@@ -1710,8 +1705,7 @@ npm run db:load:official-candidate-links:pg:cloud
 ```
 
 It populates `official_candidate_link` and REFRESHes `municipal_officials_table`. `db:refresh`
-runs the local equivalent automatically; the cloud side does not. See
-`docs/plans/persons-pg-retirement-v1.md` (T1.5).
+runs the local equivalent automatically; the cloud side does not.
 
 Same shape, and it must run **BEFORE** `db:resolve:persons:cloud` rather than after: the
 judicial dimension (migration 116) is what gives every magistrate their court on `/person`.
@@ -1725,8 +1719,7 @@ It rebuilds `judicial_body` + `judicial_body_alias` from `magistrate.court` ∪
 (`db:load:magistrates:pg:cloud`, `db:load:court-load:pg:cloud`) — then re-run
 `db:resolve:persons:cloud`, which reads the alias table. Skipping it does not fail: the
 resolve simply finds an empty alias table and ~2,700 magistrate roles publish with no
-court, green locally and blank on prod. See
-`docs/plans/person-role-place-consolidation-v1.md` (T2).
+court, green locally and blank on prod.
 
 **`db:load:magistrates:pg:cloud` is itself a PREREQUISITE of the resolve, not merely a
 trigger for the loader above**, and it is the newest member of this section:
@@ -2427,8 +2420,7 @@ comes from `company_politicians` (008), whose two arms are derived in SQL from t
 layer and INNER-JOIN procurement money, so it is MONEY-restricted: **135 companies at 48
 places** (re-measured 2026-08-21; it was 113 at 43 when this note was written, and the ratio,
 not the figure, is the point). (**[2026-08-21]** it used to be built FROM
-`mp_connected`/`pep_connected`; those two now read it —
-`docs/plans/company-page-consolidation-v1.md` Tiers 4-6.) `person_link_n` is the whole gated
+`mp_connected`/`pep_connected`; those two now read it.) `person_link_n` is the whole gated
 identity layer: **10,385 companies at 1,341 settlements / 260 municipalities**. Gating anything
 on the first while the page filters on the second is a live defect that already happened once —
 the tile's link to `/settlement/:id/companies` was hidden on 218 of 260 municipalities and
@@ -2578,8 +2570,7 @@ see this defect, since the broken plan satisfies both.
 `place_mp_companies(ekatte, obshtina, page, pageSize)` (migration 151,
 `/api/db/place-mp-companies`) replaced three bucket-served shard families —
 `parliament/mp-management/` (896 files), `companies-by-ekatte/` (376) and
-`companies-by-obshtina/` (270). Plan: `docs/plans/mp-tr-edges-pg-v1.md`, revised by
-`data-hub-lateral-edges-v1.md` §11.10.
+`companies-by-obshtina/` (270).
 
 **Neither is a table and neither has a loader** — they are "applied, never loaded", and their
 appliers are chosen so a corpus reload carries them: **150 rides `db:resolve:persons`**
@@ -2646,7 +2637,7 @@ always a separate operator action. What is frozen NOW is listed at the exclusion
 
 The state-budget corpus (migrations 152 + 153, `db:load:budget:pg`) is the КФП execution feed,
 its per-fiscal-year roll-up, the admin/programme reconciliation, personnel, COFOG and the
-budget-document index. Plan: `docs/plans/budget-hub-v1.md` T1.
+budget-document index.
 
 ```bash
 npm run db:load:budget:pg:cloud
@@ -3649,8 +3640,6 @@ Three things about it are easy to get backwards:
   carve-out matches on EXACT equality: `PAX Gold` is a gold-backed TOKEN and must stay crypto,
   while `XAU` / `инвестиционно злато` must not.
 
-Plan: `docs/plans/declared-crypto-v1.md`.
-
 `person_abroad_table` + `person_abroad_overview()` (migration 169) are the „Пари в чужбина"
 register behind `/declarations/abroad` and the `abroad_holdings` DbDataTable resource — the
 corpus answer to „how much of the money declared by officials is held abroad". Like 159 it
@@ -4176,8 +4165,8 @@ Five things about it are easy to get backwards:
 - **The rule exists TWICE and the two must agree.** `owner_share.ts`
   (`scripts/declarations/tr/`) is the TypeScript twin, because the SQLite corpus is written
   offline before Postgres exists. **[2026-08-21] It has NO rendering consumer left, and the
-  ⚠️ below is now the whole reason it is still live code.** There were two, both retired by
-  `docs/plans/company-page-consolidation-v1.md`: `companies-index.json` via `integrate.ts`,
+  ⚠️ below is now the whole reason it is still live code.** There were two, both retired:
+  `companies-index.json` via `integrate.ts`,
   read by `/mp/company/:slug` (Tier 5.2), and `data/officials/derived/company_links.json` via
   `build_officials_company_links.ts`, which became `pep_connected` →
   `company_politicians.relations` (Tier 6). `pep_connected` now READS `company_politicians`
@@ -4325,8 +4314,7 @@ TABLE used to give it for free. Three consequences worth knowing:
   company". An error a route can degrade on beats that, which is why the trade was made, but a
   cloud TR publish is **not** reader-safe: it is **280 s** (re-measured 2026-08-27 on
   `db-perf-optimized-N-2`; this line read 34.9 min, measured on the retired `db-g1-small`,
-  and that figure was being used to argue against running it at all). Paid off by Phase 4b in
-  `docs/plans/cloud-deploy-speed-v1.md` (F21), which also records that an INTERRUPTED load
+  and that figure was being used to argue against running it at all). Note that an INTERRUPTED load
   used to leave the tables populated but unindexed — the index drops now live inside each
   table's own transaction, so an abort rolls them back.
 

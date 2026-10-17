@@ -1,9 +1,8 @@
 # Home dashboard — is event-level personalization ready?
 
-**Date:** 2026-09-01 · **Verdict: NO-GO, with two named preconditions** ·
-**Plan:** [`docs/plans/home-dashboard-implementation-v1.md`](../plans/home-dashboard-implementation-v1.md) Phase 7 / §7.4
+**Date:** 2026-09-01 · **Verdict: NO-GO, with two named preconditions**
 
-§7.4 defers the watch-cursor schema until „the home feed event IDs survive a 30-day stability
+The home dashboard defers the watch-cursor schema until „the home feed event IDs survive a 30-day stability
 test across rebuilds and backfills". This is that test, plus the subject-supply measurement the
 schema would rest on. Both are reproducible:
 

@@ -5,7 +5,7 @@ Refreshes the data behind the **health sector pack** on `/awarder/121858220`
 footprint (~€79M) is ~1.5% of its ~€5.5bn budget — the rest (hospital
 reimbursements, drug reimbursement, GP/dental care) flows **outside** ЗОП. The
 pack fuses the budget law + these non-ЗОП payment streams with the contract
-ledger. Full design: `docs/plans/nzok-health-pack-v1.md`.
+ledger.
 
 ## Run
 
@@ -34,8 +34,7 @@ served from the GCS bucket, not the deploy.
 
 `parse_hospital_payments.ts` is the shared, reconciliation-asserted PDF parser.
 
-Its completeness model changed on 2026-08-25
-(`docs/plans/nzok-hospital-parser-hardening-v1.md`, Tier 2). НЗОК prints a subtotal
+Its completeness model changed on 2026-08-25. НЗОК prints a subtotal
 above each РЗОК block, so **each block is reconciled against its own subtotal** —
 an absolute band, so a €129 error inside a €51m block is visible where the old
 whole-file 0.5% ratio could not see it, and a failure names the block rather than
@@ -125,9 +124,8 @@ amount)` — the cumulative YTD is the largest money figure in a row, so the max
     ordinal (`d2edc80b73`) and RC-3d, and is no longer a row-matching problem at
     all: bmp 2023-01 now matches **373 of the 373 rows it lists**. What still
     rejects it is the _count model_ — 364 rows carry money against a header of 373
-    — which is RC-3(a)/(c) in
-    `docs/plans/nzok-hospital-parser-hardening-v1.md` §3, closed by that plan's
-    Tier 2 rather than by the parser.
+    — which is closed by per-block reconciliation + Рег.№ universe assertions
+    rather than by the parser.
   - **The mid-2024 drift — SOLVED** (2026-08-25). It was never "systematic, not one
     bad row": it was exactly one row per file, a wrapped МИ-МВР / ДЪЧМЕД name
     whose amount the extractor read out of a name fragment (RC-4 ii/iii). Every

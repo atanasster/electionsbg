@@ -7,15 +7,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = "/Users/atanasster/data-bg/docs/images/connections";
+const OUT = "/Users/atanasster/data-bg/public/articles/images/connections";
 const BASE = "http://localhost:5173";
 
-// ⚠️ SHOT LIST DRIFT, pre-existing: this writes to docs/images/connections while both
-// articles read public/articles/images/connections, so a run does NOT refresh the images
-// they display. The list is also out of step with them in both directions —
-// 02-region-dashboard-tile.png is referenced by nothing, and 11-orbital-pathfind-attempt.png
-// is used by both articles and absent here. Left alone deliberately: reconciling it is an
-// editorial pass over the articles' images, not part of the company-page retirement.
 const SHOTS = [
   // [filename, route, prep-fn, capture-fn]
   // dashboard tile (full national dashboard, then crop tile)

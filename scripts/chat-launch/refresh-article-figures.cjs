@@ -3,7 +3,9 @@
 const { chromium } = require("playwright");
 const fs = require("node:fs");
 const assert = require("node:assert/strict");
-const root = require("node:path").resolve("docs/plans/chat-launch-assets");
+const root = require("node:path").resolve(
+  process.env.CHAT_LAUNCH_ASSETS_DIR || "/tmp/chat-launch-assets",
+);
 const origin =
   process.env.CHAT_CAPTURE_ORIGIN ||
   "https://elections-bg--chat-launch-gu0gkopz.web.app";

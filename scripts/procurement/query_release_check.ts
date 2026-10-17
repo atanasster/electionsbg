@@ -83,7 +83,7 @@ try {
     concurrentThreeMs: Math.round(performance.now() - started),
   };
   writeFileSync(
-    "docs/plans/ai-procurement-chat-release-metrics.json",
+    process.argv[2] || "/tmp/ai-procurement-chat-release-metrics.json",
     JSON.stringify(report, null, 2) + "\n",
   );
   console.log(JSON.stringify(report));

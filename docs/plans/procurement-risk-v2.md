@@ -745,7 +745,7 @@ as relative ordering only.
    ⚠️ **Refresh cadence is DEFERRED TO `cr-deeds-capture-v1` (decision 2026-07-27), not
    wired here.** The default fetch mode already picks up only new contractors
    (contractor_eik NOT IN company_founded), so a periodic no-args run would keep it current —
-   but `docs/plans/cr-deeds-capture-v1.md` crawls the *same* host for the same companies and
+   but `scripts/declarations/tr/fetch_cr_deeds.ts` (`npm run tr:cr-deeds`) crawls the *same* host for the same companies and
    folds founding-date capture in, retiring this script. Two independent daily crawlers against
    one rate-limited source would throttle each other and re-create the block that corrupted the
    2026-07 run. The cadence belongs to whichever crawler survives; wiring one here first would

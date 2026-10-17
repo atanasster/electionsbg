@@ -1,8 +1,6 @@
 # Наясно — social posting strategy
 
-Written 2026-08-14, after the four staffed channels went live. Companion to
-`docs/naiasno_channels_setup.md` (how the channels were opened) and
-`docs/plans/naiasno-rebrand-v1.md` (§10 decides which channels exist at all).
+Written 2026-08-14, after the four staffed channels went live.
 
 This is a strategy, not a calendar. It says what the channels are FOR, what goes where,
 what the sustainable rate is, and what would make it fail — so a week of enthusiasm does

@@ -42,7 +42,7 @@ try {
     }
   });
   writeFileSync(
-    "docs/plans/ai-funding-chat-source-audit.json",
+    process.argv[2] || "/tmp/ai-funding-chat-source-audit.json",
     JSON.stringify(audit, null, 2) + "\n",
   );
   console.log(JSON.stringify({ ...audit, columns: audit.columns.length }));

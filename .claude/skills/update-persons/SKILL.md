@@ -11,7 +11,7 @@ allowed-tools:
 # Update Persons skill (the identity spine)
 
 The person layer sits ABOVE nine people datasets and resolves them to one stable
-`person_id` (plan: `docs/plans/person-identity-v1.md`). It is a pure, idempotent
+`person_id`. It is a pure, idempotent
 **re-derivation** — `scripts/person/resolve_persons.ts` reads the already-ingested
 sources, blocks + clusters them, and rebuilds the `person_*` tables with deterministic
 slugs. Nothing here re-ingests a source; each source is refreshed by its OWN skill.
@@ -193,7 +193,7 @@ npm run bucket:sync
 
 `emit_prerender_slugs` (the `person:slugs` step below) also now folds municipal officials +
 village/район mayors into the /person prerender + sitemap set — a deliberate, staging-measured
-addition on top of the exec cap (docs/plans/local-person-links-v1.md, Phase 4/5). **Measure the
+addition on top of the exec cap. **Measure the
 `dist/` file count on a `npm run staging` deploy before shipping to prod** — the local-officials
 set adds ~30k files.
 
@@ -296,7 +296,7 @@ carries the same note; re-run this one loader after either family is published.
 `db_routes.js` catches the missing relation and degrades to an empty list, so `/governance`
 and the officials search go silently blank rather than erroring — nothing alerts you. The
 drop is one-time (guarded on the legacy column existing), but the window has to be closed
-in the same session. See `docs/plans/person-role-place-consolidation-v1.md` (T4). On a
+in the same session. On a
 FRESH Cloud SQL (person tables absent), `db:resolve:persons:cloud` now self-bootstraps the
 right order (085 before 082); if you ever hit `relation "person_election_stats" does not exist`
 on an older checkout, apply `085_person_elections.sql` by hand first, then re-run.

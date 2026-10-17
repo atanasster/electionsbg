@@ -140,4 +140,4 @@ Turnstile validation: https://developers.cloudflare.com/turnstile/get-started/se
 
 ## Main-project migration
 
-The main Hosting `/api/llm` rewrite targets `llm` in elections-bg. The legacy API uses a method-preserving temporary redirect to the stable main-project endpoint. See `docs/plans/llm-main-project-migration.md` for ledger-preserving cutover and rollback rules. Do not re-enable the old function or deploy an independent quota ledger.
+The main Hosting `/api/llm` rewrite targets `llm` in elections-bg. The legacy API uses a method-preserving temporary redirect to the stable main-project endpoint. Do not re-enable the old function or deploy an independent quota ledger.

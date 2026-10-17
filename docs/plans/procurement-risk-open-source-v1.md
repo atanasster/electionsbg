@@ -739,6 +739,4 @@ operator-run — say so, rather than implying CI covers it.
   the only source with measured per-flag weights. ⚠️ Wayback only.
 - EC Single Market Scoreboard, public procurement, 01/2024–12/2024.
 - OECD (2024), Hungary public procurement review, p. 65.
-- Repo: `docs/plans/procurement-risk-v2.md` (the methodology), `docs/plans/nkid-cpv-mismatch-v1.md`,
-  `docs/plans/cross-linking-strategy-v2.md` §3 move 3. The standalone competitive-review
-  snapshot was retired after its durable comparison was condensed there.
+- Repo: `docs/plans/procurement-risk-v2.md` (the methodology) and `docs/methodology/procurement-risk-flags.md`.

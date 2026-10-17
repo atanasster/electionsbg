@@ -11,8 +11,7 @@ allowed-tools:
 
 # Update Polls skill
 
-Walks through the full refresh cycle for `data/polls/*.json`. Plan:
-`docs/plans/polls-agency-watchers-v1.md`.
+Walks through the full refresh cycle for `data/polls/*.json`.
 
 ⚠️ **The corpus's primary source is each agency's OWN publication, never
 Wikipedia** (decision 1). `scrape_polls.ts` — which used to scrape BG
@@ -164,7 +163,7 @@ A refusal remains visible in the ledger/backlog on subsequent unchanged runs.
 
 Run this BEFORE the manual review below; it clears every draft the
 extractor got fully right, so the human pass only sees the rest.
-Plan: `docs/plans/polls-ai-review-v1.md`. No API key — the reading is done by
+No API key — the reading is done by
 subagents in this session, on the operator's subscription.
 
 ```bash

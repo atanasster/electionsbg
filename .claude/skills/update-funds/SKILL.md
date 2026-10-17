@@ -314,8 +314,7 @@ npm run db:load:grant-links:pg:cloud       # the grant→procurement spine — s
 > publishes the new page payloads over an unchanged beneficiary table, which
 > reconciles perfectly while under-reporting the money. `db:load:funds:pg:cloud` is
 > one of the 7 scripts that forward argv, so `-- --full` does reach the loader.
-> (Measured 2026-08-21: the flagless form halted a deploy chain at this step —
-> `docs/plans/cloud-deploy-speed-v1.md` F34, recurred as F53.)
+> (Measured 2026-08-21: the flagless form halted a deploy chain at this step.)
 
 > ⚠️ **`db:load:funds-fit:pg:cloud` is not optional.** It is the ONLY applier of
 > migrations 143 (`fund_fit`, the „финансирано ли е нещо като моето" resolver),
@@ -371,7 +370,7 @@ sources into a single derived shard set keyed by beneficiary EIK:
   **[2026-08-21]** this was `data/officials/derived/company_links.json` (from
   `/update-officials`), of which only the **high-confidence** slice was used —
   declarations and `namesakeCount == 1` TR roles. That file and its builder are
-  deleted (`docs/plans/company-page-consolidation-v1.md`, Tier 6): a name the
+  deleted: a name the
   Commerce Registry says belongs to more than one human is now REFUSED by the
   `tr_name_fold_people` fold (148) rather than graded, so there is no confidence
   slice left to take. ⚠️ **The staleness trigger moved with it — `db:load:tr:pg`
@@ -427,7 +426,7 @@ money. The gate is now migration 148's `tr_name_fold_people` fold — a name the
 Registry says belongs to more than one human is **refused**, not graded — unioned with
 096's confirmed declared stakes. Editorial guardrail unchanged and now actually true: a
 connection is flagged **only** when it is recorded in the Commerce Registry or in a
-Court-of-Audit declaration. Plan: `docs/plans/company-page-consolidation-v1.md` (Tier 5.1).
+Court-of-Audit declaration.
 
 ⚠️ **THE SCOPE IS `all`, AND IT MUST NOT BECOME `contractors`.** `company_politicians` is
 contract-restricted — its loader inner-joins procurement money, so every row is a politically

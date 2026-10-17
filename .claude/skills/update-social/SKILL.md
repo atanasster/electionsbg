@@ -24,8 +24,7 @@ multi-year regex parser is fragile and could silently mis-extract. The committed
 therefore a **curated, source-verified** baseline (like the defense mega-programs), and the fetch script is
 a **verifier** that re-downloads the latest report, `pdftotext`-extracts three stable anchors (heating
 households, child children, disability recipients) and flags drift. There is **no per-oblast data** anywhere
-(АСП's РДСП breakdowns are internal/FOI-only) — the tiles are national. See
-`docs/plans/social-assistance-view-v1.md` §2.1.
+(АСП's РДСП breakdowns are internal/FOI-only) — the tiles are national.
 
 ## When to run
 

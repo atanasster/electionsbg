@@ -10,7 +10,7 @@ allowed-tools:
 
 # Update НЗОК skill
 
-Refreshes `data/budget/nzok/` — the data behind the **health sector pack** on `/awarder/121858220`. НЗОК's public-procurement footprint (~€79M) is ~1.5% of its ~€5.5bn budget; the pack fuses the budget law + the non-ЗОП payment streams (hospital reimbursements, drug reimbursement, cash execution) with the contract ledger. Design: `docs/plans/nzok-health-pack-v1.md`; ingest details: `scripts/nzok/README.md`; memory `[[project_nzok_health_pack]]`.
+Refreshes `data/budget/nzok/` — the data behind the **health sector pack** on `/awarder/121858220`. НЗОК's public-procurement footprint (~€79M) is ~1.5% of its ~€5.5bn budget; the pack fuses the budget law + the non-ЗОП payment streams (hospital reimbursements, drug reimbursement, cash execution) with the contract ledger. Ingest details: `scripts/nzok/README.md`; memory `[[project_nzok_health_pack]]`.
 
 **Source:** `nhif.bg` — fetched directly over plain HTTPS (no Cloudflare, unlike the NSSI B1 flow which needs a manual download). All four generators auto-discover and download the newest file.
 
@@ -84,7 +84,7 @@ npm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
    npm run bucket:sync:paths -- budget data-changes.json
    ```
 
-   ⚠️ The FIRST load after the parser-hardening work will report a large restatement — the Tier 1 corrections were measured at ~€1.67M across 11 months, including a sign flip on ДКЦ Св. София ЕООД that published a clawback as income for six months, plus ~33 rows whose month figure becomes 0 ("unknown") instead of a fabricated fragment. Expect a large `added` count too: the 24 months the old asserts withheld now load. That is the correction landing, not a defect — see `docs/plans/nzok-hospital-parser-hardening-v1.md`. (The loader counts ROWS, not months; the month figures here come from the plan.)
+   ⚠️ The FIRST load after the parser-hardening work will report a large restatement — the Tier 1 corrections were measured at ~€1.67M across 11 months, including a sign flip on ДКЦ Св. София ЕООД that published a clawback as income for six months, plus ~33 rows whose month figure becomes 0 ("unknown") instead of a fabricated fragment. Expect a large `added` count too: the 24 months the old asserts withheld now load. That is the correction landing, not a defect. (The loader counts ROWS, not months.)
 
 3. Sanity-check the console output. Hospital payments print, in decreasing order of urgency: any **skipped** month (expected 0 — a skip is a month the site does not have); any **restated** rows (money already published changing value — the loader writes the `data-changes.json` entry, you commit and sync it); any month that **repeats** its predecessor with a zero month column (published as filed, see RC-5); and finally the months that loaded with something **unverified** — blocks disagreeing with НЗОК's own printed facility count, or printing no subtotal at all. The count figure is descriptive — watch it for a TREND against the baseline the loader prints, because a rise means НЗОК's documents changed shape. The **no-subtotal** figure beside it is not descriptive: money in a block that prints no subtotal is reconciled by nothing but the whole-file 0.5% ratio, which is the check that let €1,672,123 through before this work. Drugs print the €total + top INN + oncology group L; execution prints revenue + expenditure YTD.
 

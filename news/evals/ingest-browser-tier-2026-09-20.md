@@ -1,7 +1,6 @@
 # Phase 2 — ingestion and the browser tier (2026-09-20)
 
-Plan: `docs/plans/news-jev-realtime-cloud-worker-v1.md` Phase 2. Measured on
-the hourly scheduled runs of 2026-09-19T22:00 → 2026-09-20T05:00 local. Raw
+Measured on the hourly scheduled runs of 2026-09-19T22:00 → 2026-09-20T05:00 local. Raw
 data: `news/data/_perf/*.jsonl` (gitignored, archive-excluded).
 
 ## 2.0 Re-confirmation

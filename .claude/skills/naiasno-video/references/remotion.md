@@ -2,7 +2,7 @@
 
 Load when writing or debugging composition code. Distilled from `remotion-dev/skills`
 (the Remotion team's own agent skills, pinned to `4.0.507`) plus this project's
-constraints. Rationale: `docs/plans/explainer-video-v1.md` §11–12.
+constraints.
 
 **Pin this file's assumptions to a Remotion version when the project is created**, so
 a stale reference is visible rather than silently wrong.
@@ -86,7 +86,7 @@ Use `transform` strings only for `skew()`, `perspective()`, or order-sensitive c
 
 ## Do not add GSAP
 
-Decided 2026-08-08 (`docs/plans/explainer-video-v1.md` §12a). Free since April 2025, so
+Decided 2026-08-08. Free since April 2025, so
 cost is not the reason.
 
 - Remotion renders each frame as a pure function of `frame`, possibly out of order and

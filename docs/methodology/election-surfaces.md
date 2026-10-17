@@ -4,7 +4,6 @@ This is the published methodology for the **election result surface**: the share
 every election page renders — a scope bar, a place digest, up to four outcome facts, a map paired
 with a ranked result, and up to three "what stands out" findings.
 
-Implementation plan: [`docs/plans/elections-hub-implementation-v1.md`](../plans/elections-hub-implementation-v1.md).
 The contract is `src/data/elections/surfaceTypes.ts`; the composition matrix is
 `src/screens/elections/electionSurfaceDescriptors.ts`; and **§5's thresholds have an executable
 copy in `src/data/elections/standoutThresholds.ts`**, which `standoutThresholds.test.ts` holds

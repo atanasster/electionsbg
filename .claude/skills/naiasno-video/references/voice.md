@@ -1,7 +1,6 @@
 # Voice — Bulgarian TTS and the verbalization rules
 
 Load when writing any `voiceOver`, or when choosing/configuring a TTS provider.
-Rationale and the provider comparison: `docs/plans/explainer-video-v1.md` §2.
 
 ## The voice is decided — use it
 

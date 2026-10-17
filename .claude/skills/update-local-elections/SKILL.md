@@ -236,8 +236,7 @@ This reads `person_role (source='local')` from Postgres, so it must run AFTER
 `db:resolve:persons` (see update-persons SKILL.md). **For a prod publish use
 `data:local-person-refresh:cloud`** — it stamps from Cloud SQL (the serving DB), since local
 and cloud slugs diverge and `bucket:sync` serves prod. Skipping it leaves prod links
-stale after a re-resolve — the plan (docs/plans/local-person-links-v1.md, Phase 5)
-treats this as the mandatory publish step.
+stale after a re-resolve — this is the mandatory publish step.
 
 ## Step 5.5 — Section coordinates (powers the per-município section map)
 

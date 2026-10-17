@@ -21,8 +21,6 @@ and avoiding the five ways settlement data lies. Composition, the duplicate
 check, public-source confirmation and saving the draft all belong to
 **`naiasno-post`** — invoke it at Step 8 and do not duplicate its rules here.
 
-Research behind this skill: `docs/plans/settlement-card-kit-v1.md`.
-
 ## The one thing to internalise
 
 **Settlement data has a coverage cliff.** Four blocks cover essentially every

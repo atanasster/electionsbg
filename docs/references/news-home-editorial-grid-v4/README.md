@@ -1,7 +1,7 @@
 # Home composition — the "before" state, 2026-09-01
 
-These are the **defect** captures that `docs/plans/news-home-editorial-grid-v4.md`
-argues from. They are a dated record, not a reference the suite compares against:
+These are the **defect** captures from the pre-v4 home editorial grid (`tests/news/home-grid.spec.ts`).
+They are a dated record, not a reference the suite compares against:
 nothing fails when they stop matching, and they are expected to look wrong.
 
 Regenerate with:

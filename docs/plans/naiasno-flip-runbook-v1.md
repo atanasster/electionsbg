@@ -33,16 +33,8 @@
 `https://naiasno.bg` in the repo; production still served `electionsbg.com` and
 `naiasno.bg` was still parked as a 301 pointing the other way.
 
-This is the operational sequence. It supersedes §7 of
-[`naiasno-rebrand-v1.md`](naiasno-rebrand-v1.md), which was written before the
-chat launched on the main site, before the LLM backend moved, and before the
-console redirect was measured. Read that plan for the *reasoning* — §2.5 in
-particular, which is why there is no `legacy` hosting site — and this file for
-the *order*.
-
-It also absorbs [`chat-launch-rebrand-handoff.md`](chat-launch-rebrand-handoff.md),
-which owns the chat-specific verification list. Where the two disagree, that
-one wins on chat details.
+This is the operational sequence for the live domain cutover, including both the
+main site and the integrated `/chat` surface.
 
 ---
 

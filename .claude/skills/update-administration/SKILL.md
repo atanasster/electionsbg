@@ -7,8 +7,7 @@ description: Refresh the Държавна администрация data behind
 
 Refreshes the data served at `/sector/administration` (the bespoke
 institution-first dashboard) + `/sector/administration/services` (the DbDataTable
-services browser), and read by the `administrationOverview` AI chat tool. See
-`docs/plans/administration-view-v1.md`.
+services browser), and read by the `administrationOverview` AI chat tool.
 
 ## Sources
 

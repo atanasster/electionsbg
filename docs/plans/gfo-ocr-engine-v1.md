@@ -1,6 +1,6 @@
 # ГФО OCR engine bakeoff — Tesseract vs Gemini Flash
 
-**Plan item P3** of `docs/plans/culture-investigative-v1.md`. Measured 2026-08-20 against the
+Measured 2026-08-20 against the
 16 ГФО documents cached in `raw_data/tr/gfo_bakeoff/` (gitignored). Nothing was fetched for
 this bakeoff; nothing was built, loaded or deployed.
 
@@ -537,8 +537,8 @@ document that departs from the norm, and §10 cannot catch it (§10.2b).
 
 ### 8.3 Storage — follow the `cr_deeds.sqlite` precedent
 
-Yes: a durable SQLite capture with offline projections reading it without re-fetching, exactly
-as `docs/plans/cr-deeds-capture-v1.md` describes for the deeds corpus. Four reasons it is the
+Yes: a durable SQLite capture with offline projections reading it without re-fetching, following
+the `raw_data/tr/cr_deeds.sqlite` deeds-corpus precedent (`scripts/declarations/tr/cr_deeds_store.ts`). Four reasons it is the
 right shape here: the crawl is rate-limited and non-repeatable; two independent projections are
 already foreseen (financial capacity, and the `company_public_money` denominator); the raw
 capture must survive a change of mind about which fields matter; and it is far too large to

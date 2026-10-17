@@ -1,7 +1,6 @@
 # Analyze yield — Phase 1 report (2026-09-19)
 
-Plan: `docs/plans/news-jev-realtime-cloud-worker-v1.md` Phase 1. Model
-`z-ai/glm-5.3-flash` via OpenRouter throughout. Raw data:
+Model `z-ai/glm-5.3-flash` via OpenRouter throughout. Raw data:
 `news/data/_perf/2026-09-19.jsonl` (the perf log) and
 `news/data/_perf/diagnose/2026-09-19T193333Z/` (diagnosis answers), both
 archive-excluded and gitignored.

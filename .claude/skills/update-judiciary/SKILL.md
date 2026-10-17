@@ -249,8 +249,6 @@ SELECT count(*) FROM magistrate WHERE real_estate_count_parsed IS NOT NULL;  -- 
 SELECT count(*) FROM magistrate_filing WHERE kind IS NOT NULL;               -- ~36,995 of 37,023
 ```
 
-Plan: `docs/plans/magistrate-declaration-detail-v1.md`.
-
 ⚠️ **`db:resolve:persons:cloud` is not optional, and every loader above it publishes
 nothing to `/person` without it.** `judicial_body` / `judicial_body_alias` are a DIMENSION:
 the resolve is what reads the alias table and rebuilds `person_role`. Stop at
@@ -264,7 +262,7 @@ dimension** (migration 116) from `magistrate.court` ∪ `court_load.name`, so it
 after BOTH — and, on the cloud side, before `db:resolve:persons:cloud`, which reads
 `judicial_body_alias` to give every magistrate their court on `/person`. Skipping it does
 not fail anything: the resolve just finds an empty alias table and ~2,700 magistrate roles
-publish with no institution. See `docs/plans/person-role-place-consolidation-v1.md` (T2).
+publish with no institution.
 
 The loader prints every institution name it could not classify, per source. That list is
 the work-list for extending `scripts/judiciary/judicialBodies.ts` — it never guesses a

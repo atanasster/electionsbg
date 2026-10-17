@@ -21,7 +21,7 @@ allowed-tools:
 > Everything below that references `connections.json` / `connections-rankings.json` /
 > `buildConnectionsGraph` / `mp-connections` is **historical** — those files are no longer built or served.
 
-> **⚠️ SECOND RETIREMENT (2026-08-20 — `docs/plans/company-page-consolidation-v1.md`, Tier 5).**
+> **⚠️ SECOND RETIREMENT (2026-08-20).**
 > `data/parliament/companies-index.json` is **DELETED**, and with it phases 2, 2.5, 5 and 5a plus the
 > `mpRoles` augment. **A missing companies-index.json is now the CORRECT state — do not run anything
 > to "restore" it.** It was a 4.16 MB name-keyed company page whose registry arm attached a company
@@ -37,7 +37,7 @@ allowed-tools:
 > `companies-index.json` / `buildCompanyIndex` / `mpRoles` / `companySlug` / `/mp/company` is
 > **historical**.
 
-> **⚠️ THIRD RETIREMENT (2026-08-21 — `docs/plans/company-page-consolidation-v1.md`, Tier 6).**
+> **⚠️ THIRD RETIREMENT (2026-08-21).**
 > `data/officials/derived/company_links.json` is **DELETED**, with its builder
 > `build_officials_company_links.ts` (declarations phase 4a) and the standalone runner
 > `scripts/run-officials-links-only.ts`. It was 70,525 officials↔company links over 9,659

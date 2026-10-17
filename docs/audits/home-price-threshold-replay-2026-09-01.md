@@ -1,8 +1,7 @@
 # Home change feed — the 90-day price threshold replay
 
 **Date:** 2026-09-01 · **Corpus:** `price_grid_days` 2026-01-02 … 2026-08-31 (242 days),
-local Postgres · **Plan:** `docs/plans/home-dashboard-implementation-v1.md` §6.3, Phase 5 item 1
-· **Tool:** `npx tsx scripts/db/gen_home/price_events.ts --replay --days 90`
+local Postgres · **Tool:** `npx tsx scripts/db/gen_home/price_events.ts --replay --days 90`
 
 This is the review artifact §6.3 requires before a price threshold is accepted: it records the
 event volume, the false-positive class, the missing days and the category dominance the

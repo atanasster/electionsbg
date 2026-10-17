@@ -165,7 +165,7 @@ gitignored corpora, so **every** one of these gates skips on every push — meas
 and nothing else. `scripts/lib/report_skip_coverage.test.ts` enforces this — it also
 fails a hand-typed label, and a `reportSkip` call placed ABOVE the block that fills
 an imperatively-assigned `skip` (where it would read the initialiser and print
-nothing). Plan: `docs/plans/data-gate-skip-visibility-v1.md`.
+nothing).
 
 ## Fixtures
 

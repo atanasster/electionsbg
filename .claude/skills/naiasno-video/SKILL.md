@@ -20,7 +20,6 @@ captions, a thumbnail and a draft note. Output is a **draft for the operator to
 review and publish by hand** — this skill never uploads to YouTube or Facebook.
 
 Sibling of `naiasno-post`. Same brand, same discipline, same refusal to publish.
-Plan and full rationale: `docs/plans/explainer-video-v1.md`.
 
 Use `https://naiasno.bg` for all links to our site in video descriptions and
 companion posts; the rebranding is complete. Keep external source URLs unchanged.

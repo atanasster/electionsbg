@@ -68,7 +68,6 @@ The new runs used 101 requests with a $3.131 reservation ceiling; actual billed
 cost was not returned. Numerical inputs were fictional. Unexpected narration
 payloads were withheld before transport, and old pilot evidence is unchanged.
 
-[Primary assessment](PRIMARY_RESULTS.md) preserves the initial failures.
 `data/ai/toolgrad/release/final-review.json` contains per-answer final judgments,
 content signatures, source-report hashes and the deployment decision. Fixed
 judgments refuse different text, tool arguments or envelopes; comparisons check

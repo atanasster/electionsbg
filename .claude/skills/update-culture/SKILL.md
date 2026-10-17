@@ -8,8 +8,7 @@ description: Refresh the Култура (culture) data behind /culture — the �
 Refreshes the culture-spending data served at `/culture` (the dedicated dashboard)
 and read by the `cultureOverview` / `topCultureGrantees` / `filmSubsidyForProducer`
 AI tools. Phase 1 covers the **НФЦ film-subsidy register**; НФК grants, the pack on
-`/awarder/000695160`, and the jury-transparency tile are later phases (see
-`docs/plans/kultura-view-v1.md`).
+`/awarder/000695160`, and the jury-transparency tile are later phases.
 
 ## Source
 

@@ -34,7 +34,7 @@ watcher shipped on 2026-08-17 is what keeps them current from now on. Read its `
 | Records | **Zero** |
 
 **Reachability is the pleasant surprise.** The Търговски регистър side of the same portal
-needs headed Playwright (see `docs/plans/cr-deeds-capture-v1.md`); РНФЛ answers a bare
+needs headed Playwright (`scripts/declarations/tr/fetch_cr_deeds.ts`); РНФЛ answers a bare
 `curl` with a stock User-Agent. Do not assume this survives the register getting popular.
 
 ### The public endpoints
