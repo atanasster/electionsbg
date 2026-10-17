@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T21:32:07.416Z",
+  "generatedAt": "2026-10-16T23:59:02.531Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -10992,6 +10992,16 @@
       "label": "Пейчо Иванов Върбанов"
     },
     {
+      "id": "contractor:204591875",
+      "type": "contractor",
+      "label": "Бриапроджект ООД"
+    },
+    {
+      "id": "official:yulian-miroslavov-pavlov-1c0aec",
+      "type": "official",
+      "label": "Юлиан Мирославов Павлов"
+    },
+    {
       "id": "contractor:104511395",
       "type": "contractor",
       "label": "Нове - Петков ЕООД - Свищов"
@@ -11995,6 +12005,16 @@
       "id": "awarder:000852544",
       "type": "awarder",
       "label": "Община Балчик"
+    },
+    {
+      "id": "awarder:000133933",
+      "type": "awarder",
+      "label": "Община Полски тръмбеш"
+    },
+    {
+      "id": "awarder:000215889",
+      "type": "awarder",
+      "label": "Община Севлиево"
     },
     {
       "id": "awarder:000093378",
@@ -25029,6 +25049,11 @@
       "valueEur": 20294.35
     },
     {
+      "source": "contractor:204591875",
+      "target": "official:yulian-miroslavov-pavlov-1c0aec",
+      "valueEur": 19096.01
+    },
+    {
       "source": "contractor:104511395",
       "target": "official:nikolai-petrov-petkov-862b10",
       "valueEur": 18874.03
@@ -26847,6 +26872,16 @@
       "source": "awarder:201617654",
       "target": "contractor:201617654",
       "valueEur": 251.71
+    },
+    {
+      "source": "awarder:000133933",
+      "target": "contractor:204591875",
+      "valueEur": 15951.56
+    },
+    {
+      "source": "awarder:000215889",
+      "target": "contractor:204591875",
+      "valueEur": 3144.45
     },
     {
       "source": "awarder:000133965",

@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-16T23:14:46.796Z",
+  "generatedAt": "2026-10-17T01:44:54.975Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1203,7 +1203,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-13T23:55:55.214Z",
+      "freshness": "2026-10-16T23:42:35.566Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1222,7 +1222,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-10-13T23:55:55.214Z"
+          "freshness": "2026-10-16T23:42:35.566Z"
         },
         {
           "id": "municipal_naredba",
@@ -1769,7 +1769,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-15T21:40:59.711Z",
+      "freshness": "2026-10-16T23:42:35.566Z",
       "skills": [
         "update-prices"
       ],
@@ -1779,7 +1779,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-10-15T21:40:59.711Z"
+          "freshness": "2026-10-16T23:42:35.566Z"
         }
       ],
       "issue": {
@@ -7445,8 +7445,8 @@
         {
           "node": "ds:officials",
           "text": {
-            "bg": "А през лицата се затваря кръгът: 5 625 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-            "en": "And people close the circle: 5,625 officials who file asset declarations also hold a role in the company registry."
+            "bg": "А през лицата се затваря кръгът: 5 622 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,622 officials who file asset declarations also hold a role in the company registry."
           }
         }
       ]
@@ -7777,7 +7777,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5625,
+      "overlap": 5622,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7790,7 +7790,7 @@
         "bg": "кой кандидат после заема публична длъжност",
         "en": "which candidates later hold public office"
       },
-      "overlap": 3209
+      "overlap": 3208
     },
     {
       "id": "connections|elections|person_id",

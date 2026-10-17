@@ -1,0 +1,50 @@
+{
+  "session": "20261016T234327Z-1201",
+  "createdAt": "2026-10-17T01:47:32.338Z",
+  "skills": [
+    "tr-daily-refresh",
+    "update-procurement",
+    "update-rollcall",
+    "update-macro",
+    "update-prices",
+    "update-council-minutes"
+  ],
+  "paths": [
+    "data_map.json",
+    "data-changes.json",
+    "macro.json",
+    "macro_peers.json",
+    "administration/context.json",
+    "culture/derived",
+    "governance",
+    "home",
+    "roads/derived/hub_stats.json",
+    "transport/derived/hub_stats.json",
+    "parliament/votes/derived/hub_stats.json",
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json"
+  ],
+  "cloudCommands": [
+    "npm run db:load:rollcall:pg:cloud",
+    "npm run db:load:rollcall-derived:pg:cloud",
+    "npm run db:load:tr:pg:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run proc:verify-seats:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:ted:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud",
+    "npm run db:refresh:risk:cloud",
+    "npm run prices:ingest:cloud"
+  ],
+  "notes": "TR +183 companies; EOP self-heal/tenders/TED; rollcall 2026-10-16; Eurostat 2026-Q3; prices 2026-10-16; home needs bucket:gz"
+}

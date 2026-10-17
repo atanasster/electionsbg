@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-15",
+  "computedAt": "2026-10-16",
   "thresholds": {
     "basketPids": [
       1,
@@ -61,6 +61,16 @@
       "prevCostEur": 15.278,
       "cohortCells": 1708,
       "cohortShare": 0.9534
+    },
+    {
+      "peakDay": "2026-10-16",
+      "startDay": "2026-10-16",
+      "endDay": "2026-10-16",
+      "pctChange": 1.711,
+      "costEur": 15.71,
+      "prevCostEur": 15.446,
+      "cohortCells": 1697,
+      "cohortShare": 0.9395
     }
   ],
   "promotions": [
@@ -71,17 +81,17 @@
       "promoEur": 0.3,
       "regularEur": 0.79,
       "discountPct": 62,
-      "stores": 147,
+      "stores": 64,
       "chains": 2
     },
     {
       "slug": "krave-maslo-d-markenbutter-250gr",
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-      "atOrBelowSince": "2026-10-10",
-      "promoEur": 1.59,
+      "atOrBelowSince": "2026-09-24",
+      "promoEur": 1.79,
       "regularEur": 4.07,
-      "discountPct": 61,
-      "stores": 221,
+      "discountPct": 56,
+      "stores": 218,
       "chains": 2
     },
     {
@@ -91,7 +101,7 @@
       "promoEur": 0.89,
       "regularEur": 1.99,
       "discountPct": 55,
-      "stores": 426,
+      "stores": 427,
       "chains": 6
     }
   ]

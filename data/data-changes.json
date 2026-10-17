@@ -1,6 +1,54 @@
 {
-  "updatedAt": "2026-10-16T08:48:31.814Z",
+  "updatedAt": "2026-10-17T01:32:14.530Z",
   "entries": [
+    {
+      "timestamp": "2026-10-17T01:32:14.530Z",
+      "date": "2026-10-17",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-16 (+1 daily archive; 1,020,156 store rows, 168 settlements, 71 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-16"
+    },
+    {
+      "timestamp": "2026-10-17T01:21:47.050Z",
+      "date": "2026-10-17",
+      "skill": "update-macro",
+      "summary": "Eurostat refresh: 2026-Q3 HICP peer points, inflation 2026-09 = 5.6%; macro + peers + PLI + admin context",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-17T01:20:55.793Z",
+      "date": "2026-10-17",
+      "skill": "update-rollcall",
+      "summary": "1 new session 2026-10-16; 639 plenary days, 17,229 items",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-17T01:15:54.653Z",
+      "date": "2026-10-17",
+      "skill": "update-procurement",
+      "summary": "EOP self-heal (+22 rows), tenders 240,738 procedures, TED 222,107 notices; local PG refreshed",
+      "source": "ЦАИС ЕОП open data / TED"
+    },
+    {
+      "timestamp": "2026-10-17T00:45:16.608Z",
+      "date": "2026-10-17",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 887 лица, 125 089 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-10-16T08:48:31.814Z",
       "date": "2026-10-16",
