@@ -115,7 +115,7 @@ export const SocialEuPeerTile: FC = () => {
     rank?: string;
   }> = ({ geo, pct, isBg, isEu, rank }) => (
     <div className="flex items-center gap-2">
-      <span className="flex w-28 shrink-0 items-center gap-1.5">
+      <span className="flex w-32 shrink-0 items-center gap-1.5">
         <EuFlag
           geo={isEu ? "EU27_2020" : geo}
           size={11}

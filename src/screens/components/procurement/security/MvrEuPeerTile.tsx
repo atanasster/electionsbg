@@ -87,7 +87,7 @@ export const MvrEuPeerTile: FC = () => {
     rank?: string;
   }> = ({ geo, pct, isBg, isEu, rank }) => (
     <div className="flex items-center gap-2">
-      <span className="flex w-28 shrink-0 items-center gap-1.5">
+      <span className="flex w-32 shrink-0 items-center gap-1.5">
         {isEu ? (
           <EuFlag geo="EU27_2020" size={11} title={geoName(geo, bg)} />
         ) : (
