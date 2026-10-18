@@ -1,48 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-17T23:59:59.999Z",
+  "computedAt": "2026-10-18T23:59:59.999Z",
   "windowDays": 30,
   "events": [
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:kartofi-chetkani-na-kg",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-17T00:00:00.000Z",
-      "firstSeenAt": "2026-10-17T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/kartofi-chetkani-na-kg",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "КАРТОФИ ЧЕТКАНИ НА КГ",
-        "pct": 62,
-        "promoEur": "0.30",
-        "regularEur": "0.79",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8857142857142857,
-      "actionability": 0.85
-    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-17T00:00:00.000Z",
-      "firstSeenAt": "2026-10-17T00:00:00.000Z",
+      "occurredAt": "2026-10-18T00:00:00.000Z",
+      "firstSeenAt": "2026-10-18T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -71,6 +38,39 @@
     },
     {
       "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-18T00:00:00.000Z",
+      "firstSeenAt": "2026-10-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 55,
+        "promoEur": "0.89",
+        "regularEur": "1.99",
+        "chains": 6
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7857142857142857,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
       "id": "parliament:sitting:2026-10-16",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -91,7 +91,7 @@
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 41,
-        "sittings": 14,
+        "sittings": 13,
         "windowDays": 30
       },
       "backfill": false,
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-17T00:00:00.000Z",
-      "firstSeenAt": "2026-10-17T00:00:00.000Z",
+      "occurredAt": "2026-10-18T00:00:00.000Z",
+      "firstSeenAt": "2026-10-18T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,18 +213,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/kartofi-miti",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
-        "pct": 55,
-        "promoEur": "0.89",
-        "regularEur": "1.99",
-        "chains": 6
+        "title": "КАРТОФИ МИТИ",
+        "pct": 54,
+        "promoEur": "0.55",
+        "regularEur": "1.19",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7857142857142857,
+      "materiality": 0.7714285714285715,
       "actionability": 0.85
     },
     {
@@ -259,11 +259,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-10-17",
+      "id": "prices:basket_moved:2026-10-18",
       "kind": "basket_moved",
       "category": "prices",
-      "occurredAt": "2026-10-17T00:00:00.000Z",
-      "firstSeenAt": "2026-10-17T00:00:00.000Z",
+      "occurredAt": "2026-10-18T00:00:00.000Z",
+      "firstSeenAt": "2026-10-18T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -280,12 +280,12 @@
       "factKey": "home_fact_basket_up",
       "factArgs": {
         "pct": "2.1",
-        "costEur": "15.76",
+        "costEur": "15.78",
         "days": 7
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.51825,
+      "materiality": 0.5255,
       "actionability": 0.5
     },
     {
@@ -896,166 +896,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:0cbfcb31-af33-4ccb-8a0a-a7f4208296b9",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-18T15:00:00.000Z",
-      "deadlineAt": "2026-10-18T14:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/0cbfcb31-af33-4ccb-8a0a-a7f4208296b9"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "\"Предлагане на пазара - компенсации - подсектор \"Риболов\"",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:785eaeb6-6137-4e0d-b6d3-a0efcb4970ee",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-18T14:00:00.000Z",
-      "deadlineAt": "2026-10-18T14:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/785eaeb6-6137-4e0d-b6d3-a0efcb4970ee"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "„Предлагане на пазара – компенсации - подсектор „Преработка на продукти от риболов и аквакултури“",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:a7cc4771-8820-4b62-a188-40b4cc443aa8",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-18T14:00:00.000Z",
-      "deadlineAt": "2026-10-18T14:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/a7cc4771-8820-4b62-a188-40b4cc443aa8"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "„Предлагане на пазара – компенсации - подсектор „Аквакултури\"",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:414016a7-a024-4da2-bcb7-8baa285bcc94",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-18T08:00:00.000Z",
-      "deadlineAt": "2026-12-15T15:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/414016a7-a024-4da2-bcb7-8baa285bcc94"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "АКТИВЕН ЖИВОТ НА ВЪЗРАСТНИТЕ ХОРА В ПЕНСИОННА ВЪЗРАСТ И ОСТАРЯВАНЕ В ДОБРО ЗДРАВЕ - ВОМР",
-        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:70c75ab7-9772-4da6-a9be-6e0b6380e535",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-18T08:00:00.000Z",
-      "deadlineAt": "2026-12-15T15:00:00.000Z",
-      "firstSeenAt": "2026-09-18T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/70c75ab7-9772-4da6-a9be-6e0b6380e535"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "ПОДКРЕПА ЗА РАЗВИТИЕ НА ПРЕДПРИЯТИЯТА ОТ СОЦИАЛНАТА ИКОНОМИКА- ВОМР",
-        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:basket_moved:2026-09-20",
       "kind": "basket_moved",
       "category": "prices",
@@ -1134,8 +974,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-17",
-      "observedAt": "2026-10-17",
+      "asOf": "2026-10-18",
+      "observedAt": "2026-10-18",
       "staleAfterDays": 5,
       "stale": false
     }

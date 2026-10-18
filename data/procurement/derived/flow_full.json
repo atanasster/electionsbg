@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T00:47:22.085Z",
+  "generatedAt": "2026-10-18T23:27:24.942Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -10665,6 +10665,16 @@
       "id": "contractor:205383914",
       "type": "contractor",
       "label": "ФИВО ООД"
+    },
+    {
+      "id": "contractor:202847380",
+      "type": "contractor",
+      "label": "Моллов 393 ООД"
+    },
+    {
+      "id": "official:azis-tahirov-mollov-251c63",
+      "type": "official",
+      "label": "Азис Тахиров Моллов"
     },
     {
       "id": "contractor:102855682",
@@ -24809,6 +24819,11 @@
       "valueEur": 38336.66
     },
     {
+      "source": "contractor:202847380",
+      "target": "official:azis-tahirov-mollov-251c63",
+      "valueEur": 38027.55
+    },
+    {
       "source": "contractor:102855682",
       "target": "official:panaiot-zdravkov-trendafilov-6c9a4e",
       "valueEur": 37354.98
@@ -26687,6 +26702,11 @@
       "source": "awarder:175201304",
       "target": "contractor:205383914",
       "valueEur": 17731.6
+    },
+    {
+      "source": "awarder:000235750",
+      "target": "contractor:202847380",
+      "valueEur": 38027.55
     },
     {
       "source": "awarder:000057122",

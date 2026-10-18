@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-17",
+  "computedAt": "2026-10-18",
   "thresholds": {
     "basketPids": [
       1,
@@ -63,27 +63,17 @@
       "cohortShare": 0.9534
     },
     {
-      "peakDay": "2026-10-17",
+      "peakDay": "2026-10-18",
       "startDay": "2026-10-16",
-      "endDay": "2026-10-17",
-      "pctChange": 2.073,
-      "costEur": 15.76,
-      "prevCostEur": 15.44,
+      "endDay": "2026-10-18",
+      "pctChange": 2.102,
+      "costEur": 15.783,
+      "prevCostEur": 15.458,
       "cohortCells": 1697,
-      "cohortShare": 0.9378
+      "cohortShare": 0.9361
     }
   ],
   "promotions": [
-    {
-      "slug": "kartofi-chetkani-na-kg",
-      "title": "КАРТОФИ ЧЕТКАНИ НА КГ",
-      "atOrBelowSince": "2026-10-05",
-      "promoEur": 0.3,
-      "regularEur": 0.79,
-      "discountPct": 62,
-      "stores": 62,
-      "chains": 2
-    },
     {
       "slug": "krave-maslo-d-markenbutter-250gr",
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
@@ -91,7 +81,7 @@
       "promoEur": 1.79,
       "regularEur": 4.1,
       "discountPct": 56,
-      "stores": 212,
+      "stores": 209,
       "chains": 2
     },
     {
@@ -101,8 +91,18 @@
       "promoEur": 0.89,
       "regularEur": 1.99,
       "discountPct": 55,
-      "stores": 418,
+      "stores": 413,
       "chains": 6
+    },
+    {
+      "slug": "kartofi-miti",
+      "title": "КАРТОФИ МИТИ",
+      "atOrBelowSince": "2026-09-30",
+      "promoEur": 0.55,
+      "regularEur": 1.19,
+      "discountPct": 54,
+      "stores": 38,
+      "chains": 2
     }
   ]
 }

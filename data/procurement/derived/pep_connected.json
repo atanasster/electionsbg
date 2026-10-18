@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-18T00:47:13.918Z",
-  "total": 883,
-  "officialCount": 811,
+  "generatedAt": "2026-10-18T23:27:18.963Z",
+  "total": 884,
+  "officialCount": 812,
   "entries": [
     {
       "slug": "daniel-stanimirov-mihalev-b6f569",
@@ -60534,6 +60534,85 @@
           "name": "ЕЛЕКТРОЕНЕРГИЕН СИСТЕМЕН ОПЕРАТОР ЕАД",
           "contractCount": 1,
           "totalEur": 17731.6,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "azis-tahirov-mollov-251c63",
+      "name": "Азис Тахиров Моллов",
+      "tier": "municipal",
+      "role": "councillor",
+      "contractorEik": "202847380",
+      "contractorName": "Моллов 393 ООД",
+      "totalEur": 38027.55,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50 %",
+          "valueEur": 127.82
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 2556.46,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 5112.92,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 2,
+          "totalEur": 10882.84,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 3,
+          "totalEur": 7591.15,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 0.51,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 3,
+          "totalEur": 2.49,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 1.18,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 11880,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000235750",
+          "name": "Община Ардино",
+          "contractCount": 15,
+          "totalEur": 38027.55,
           "totalOther": {}
         }
       ]

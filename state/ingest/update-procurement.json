@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-10-18T01:34:29.583Z",
+  "lastSuccessfulIngest": "2026-10-18T23:28:12.665Z",
   "skill": "update-procurement",
-  "summary": "EOP day 2026-10-16 gap-filled; АДФИ 2,124 inspections; ЦПРС 108,722 licences / 8,513 firms; local PG reloaded via db:refresh"
+  "summary": "ЦАИС ЕОП 2026-10-17 self-heal (0 net new contracts, 402,939), tenders 240,843, TED +112 notices; repaired person_id drift in company_politicians (official links 33→812 joined)"
 }
