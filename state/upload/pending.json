@@ -1,6 +1,7 @@
 {
   "session": "20261018T001839Z-b4b7",
   "createdAt": "2026-10-18T01:44:23.217Z",
+  "commit": "c401954d2c",
   "skills": [
     "tr-daily-refresh",
     "update-procurement",
@@ -20,7 +21,12 @@
     "water/derived/hub_stats.json",
     "transport/derived/hub_stats.json",
     "governance/hub_stats.json",
-    "governance/declarations_hub_stats.json"
+    "governance/declarations_hub_stats.json",
+    "culture/derived/hub_stats.json",
+    "home/flyover.json",
+    "home/hub_stats.json",
+    "home/price_events.json",
+    "home/feed.json"
   ],
   "cloudCommands": [
     "npm run db:load:tr:pg:cloud",
