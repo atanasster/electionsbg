@@ -1,22 +1,42 @@
 {
   "obshtina": "VRC20",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.004-1178",
-      "title": "Подобряване на условията на труд в АТОМЕНЕРГОРЕМОНТ АД",
+      "contractNumber": "BG-RRP-11.018-0055",
+      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания на територията на община Козлодуй",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 194834.79,
-      "totalEur": 194834.79,
-      "paidEur": 155867.83,
+      "prevTotalEur": 3333295.84,
+      "totalEur": 619608.82,
+      "paidEur": 619608.82,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Козлодуй",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1471",
+      "title": "Подобряване на работната среда в ЕНЕРГОМОНТАЖ - МК ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 129692.28,
+      "totalEur": 120842.28,
+      "paidEur": 120842.28,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Атоменергоремонт АД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Енергомонтаж - МК ЕООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

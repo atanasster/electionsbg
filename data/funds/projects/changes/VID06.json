@@ -1,22 +1,43 @@
 {
   "obshtina": "VID06",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.035-0008",
-      "title": "Повишаване готовността на област Видин за предотвратяване и oвладяване на бедствия, пожари и извънредни ситуации",
+      "contractNumber": "BG-RRP-13.009-0173",
+      "title": "Фотоволтаични решения и зелена мобилност за ЦНСТ услуги в с. Балей и с. Куделин",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 210706.85,
-      "totalEur": 210706.85,
-      "paidEur": 55395.9,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Видин",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 146395.95,
+      "totalEur": 145492.56,
+      "paidEur": 145492.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Брегово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2255",
+      "title": "Подобряване на капацитета за предоставяне на услуги на \"Капана Фест\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102212.36,
+      "totalEur": 102025.73,
+      "paidEur": 76519.3,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Капана фест ЕООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

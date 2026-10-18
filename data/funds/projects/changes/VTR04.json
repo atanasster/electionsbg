@@ -1,119 +1,173 @@
 {
   "obshtina": "VTR04",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BNSF-1.010-0033",
-      "title": "Осма международна научна конференция „Иновативно STEM образование“ STEMedu-2026",
-      "type": "new",
-      "totalEur": 9000,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "BNSF",
-      "programName": "Фонд Научни Изследвания",
-      "beneficiaryName": "Институт по математика и информатика при Българска академия на науките",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1268",
-      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново - ул. Димитър Благоев № 3",
+      "contractNumber": "BG-RRP-4.023-1229",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в гр. Велико Търново, ул. Краков №6 и ул. Ален Мак №5",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 554957.47,
-      "totalEur": 554957.47,
-      "paidEur": 552797.9,
+      "prevTotalEur": 887147.92,
+      "totalEur": 887147.92,
+      "paidEur": 884728.09,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Велико търново",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0169",
-      "title": "Подобряване и адаптиране на работната среда в ДЕНИ ЛАЙТИНГ ЕООД",
+      "contractNumber": "BG16RFPR001-1.008-0077",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"ВАЛДА 90\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 867836.16,
+      "totalEur": 867836.16,
+      "paidEur": 173567.23,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Валда 90 ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1204",
+      "title": "Енергийно обновяване на жилищен сграден фонд в гр. Велико Търново, ул. Краков №4",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 549482.36,
+      "totalEur": 549482.36,
+      "paidEur": 547997.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Велико търново",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0677",
+      "title": "Изграждане на мрежа от 14 дигитални клуба",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 138857.28,
-      "totalEur": 137378.13,
-      "paidEur": 137378.15,
+      "prevTotalEur": 348179.62,
+      "totalEur": 318480.34,
+      "paidEur": 318480.34,
       "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Дени лайтинг ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-0873",
       "title": "Подобряване условията на труд в динамична пазарна среда",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 80031.62,
-      "totalEur": 80031.62,
+      "totalEur": 79651.15,
       "paidEur": 79651.15,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Бонанза – Професионално почистване ЕООД",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-2047",
-      "title": "Прилагане мерки за енергийна ефективност в предприятие за пране и химическо чистене в гр. Велико Търново",
+      "contractNumber": "BG16RFPR001-2.004-0305",
+      "title": "Подобряване на енергийната ефективност на АСТИ - ВТ ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 74412.04,
-      "totalEur": 75434.62,
+      "prevTotalEur": 79076.2,
+      "totalEur": 79076.2,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕМ ТИ Фреш ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Асти - ВТ ООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1234",
-      "title": "Подобряване на производствения капацитет на Астеди ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-2347",
+      "title": "Подобряване на производствения капацитет на \"Алро-Инженеринг\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 57775.98,
+      "totalEur": 57775.98,
+      "paidEur": 39287.67,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АЛРО-ИНЖЕНЕРИНГ ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0801",
+      "title": "Изграждане на дигитален клуб в Читалище \"НАДЕЖДА 1869\" в гр. Велико Търново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 26587.18,
+      "totalEur": 26587.18,
+      "paidEur": 25048.41,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Читалище \"Надежда 1869\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0935",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ИЛАРИОН ДРАГОСТИНОВ-1897\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 42626.4,
-      "totalEur": 35714.33,
-      "paidEur": 26785.75,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Астеди ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0556",
-      "title": "Изграждане на дигитален клуб в село",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 14316.17,
+      "prevTotalEur": 14295.72,
+      "totalEur": 9730.2,
+      "paidEur": 9730.2,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Нива - 1898 \"",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище \"Иларион ДРАГОСТИНОВ-1897\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

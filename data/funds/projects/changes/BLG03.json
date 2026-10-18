@@ -1,24 +1,194 @@
 {
   "obshtina": "BLG03",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.012-0292",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG-RRP-1.024-0529",
+      "title": "Изграждане на мрежа от 13 дигитални клуба",
       "type": "modified",
       "changedFields": [
         "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 325382.43,
+      "totalEur": 295434.86,
+      "paidEur": 295434.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Младежки форум 21 век",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0140",
+      "title": "Повишаване на енергийната ефективност и подобряване на оперативната устойчивост в сектора на социалните услуги в община Благоевград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 264874.76,
+      "totalEur": 248070.83,
+      "paidEur": 248070.83,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0041",
+      "title": "„Училище без тормоз – модел за сигурна и подкрепяща среда в Природо-математическа гимназия \"Акад. С. Корольов\" - Благоевград“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 52448.91,
+      "totalEur": 52448.91,
+      "paidEur": 18010.58,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Природо-математическа гимназия \"Академик Сергей Корольов\" - Благоевград",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0039",
+      "title": "Закупуване на електрическо превозно средство за нуждите на социалните услуги в община Благоевград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 45547.2,
+      "paidEur": 45547.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0186",
+      "title": "В УЧИЛИЩЕ ЗА ХОРИЗОНТИ - ЗАЕДНО ЗА СИЛНА ОБЩНОСТ ОТ УЧЕНИЦИ, УЧИТЕЛИ И РОДИТЕЛИ СРЕЩУ АГРЕСИЯТА И ТОРМОЗА, ФОРМИРАНЕ НА АСЕРТИВНОСТ И ИЗГРАЖДАНЕ НА ЖЕЛАНА ЕВРОПЕЙСКА УЧИЛИЩНА СРЕДА.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 27099.09,
+      "totalEur": 27099.09,
+      "paidEur": 5419.82,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Единадесето основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0094",
+      "title": "\"Изграждане на дигитален клуб в Благоевград\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 26587.17,
+      "totalEur": 26587.17,
+      "paidEur": 20750.31,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Благоевград",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-2274",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 50763.61,
-      "totalEur": 50763.62,
-      "paidEur": 25381.81,
+      "prevTotalEur": 23555.72,
+      "totalEur": 23555.72,
+      "paidEur": 16489.01,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Аутохоф транспорт кондалонис Сандански",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "ДК-БЛАГОЕВГРАД ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-2406",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 22419.63,
+      "totalEur": 22419.63,
+      "paidEur": 15693.75,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Бред Енд Фууд 1 ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0985",
+      "title": "Изграждане на дигитален клуб в Търговско-промишлена палата - Благоевград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 42060.04,
+      "totalEur": 21030.02,
+      "paidEur": 21030.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Търговско - промишлена палата - Благоевград",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-2224",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 16194.14,
+      "totalEur": 16194.14,
+      "paidEur": 11335.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ВХ Експерт ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1004",
+      "title": "Интегрирани енергийно ефективни решения и ВЕИ за устойчиво развитие на БББ КЪНСТРАКШЪН КОНТРОЛ ЕООД.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 38890.6,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "БББ Кънстракшън контрол ЕООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

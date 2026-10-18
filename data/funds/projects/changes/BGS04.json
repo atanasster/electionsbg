@@ -1,205 +1,109 @@
 {
   "obshtina": "BGS04",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-5.001-0007",
-      "title": "Намаляване на замърсяването на атмосферния въздух с фини прахови частици в населените места на Община Бургас - II",
+      "contractNumber": "BG05SFPR003-1.001-0187",
+      "title": "Топъл обяд в Община Бургас",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 13112137.75,
-      "totalEur": 13112137.75,
-      "paidEur": 3553638.47,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
+      "prevTotalEur": 420188.29,
+      "totalEur": 420188.29,
+      "paidEur": 307127.22,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0586",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к. „Меден Рудник“ бл.4“",
+      "contractNumber": "BG05SFPR001-1.007-0002",
+      "title": "Добрият избор",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1355313.27,
-      "totalEur": 1355313.27,
-      "paidEur": 1312910.43,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG16FFPR003-1.001-0053",
-      "title": "Център за иновации в химичните изследвания и образованието (ЦИХИО)",
-      "type": "modified",
-      "changedFields": [
-        "totalEur"
-      ],
-      "prevTotalEur": 1256514.51,
-      "totalEur": 1221735.58,
-      "paidEur": 360959.36,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Бургаски държавен университет „Проф. д-р Асен Златаров“",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.035-0028",
-      "title": "ПОВИШАВАНЕ ГОТОВНОСТТА НА ОБЛАСТ БУРГАС ЗА ПРЕДОТВРАТЯВАНЕ И ОВЛАДЯВАНЕ НА БЕДСТВИЯ, ПОЖАРИ И ИЗВЪНРЕДНИ СИТУАЦИИ",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 459652.79,
-      "totalEur": 459652.79,
-      "paidEur": 223422.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\"-Бургас",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0087",
-      "title": "Комбиниран проект на БУРГАСБУС ЕООД за изграждане на нова мощност за производство на електрическа енергия от слънчева енергия (компонент за производство) и за локални съоръжения за съхранение на електрическа енергия (компонент за съхранение)",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 323647.76,
-      "totalEur": 323647.76,
-      "paidEur": 154058.46,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Бургасбус ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0075",
-      "title": "Комбиниран проект 1 на EВРОПЕТРОЛ ЕООД за изграждане на нова мощност за производство на електрическа енергия от слънчева енергия (компонент за производство) и за локални съоръжения за съхранение на електрическа енергия (компонент за съхранение)",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 263826.61,
-      "totalEur": 263826.61,
-      "paidEur": 129453.9,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Европетрол ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0718",
-      "title": "Подобряване условията на труд в ЕИВ ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 187307.88,
-      "totalEur": 187307.88,
-      "paidEur": 161960.07,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ЕИВ ООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR001-3.005-0023",
-      "title": "Развитие на дуалната система на обучение в ПОО в ПГКПИ - Бургас",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 184047.29,
-      "totalEur": 184047.29,
-      "paidEur": 73152.97,
+      "prevTotalEur": 355953.2,
+      "totalEur": 355953.2,
+      "paidEur": 144914.53,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по компютърно програмиране и иновации",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0079",
-      "title": "Комбиниран проект 2 на EВРОПЕТРОЛ ЕООД за изграждане на нова мощност за производство на електрическа енергия от слънчева енергия (компонент за производство) и за локални съоръжения за съхранение на електрическа енергия (компонент за съхранение)",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 145206.89,
-      "totalEur": 145206.89,
-      "paidEur": 70259.12,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Европетрол ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0169",
-      "title": "Подобряване и адаптиране на работната среда в ДЕНИ ЛАЙТИНГ ЕООД",
+      "contractNumber": "BG-RRP-1.024-0677",
+      "title": "Изграждане на мрежа от 14 дигитални клуба",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 138857.28,
-      "totalEur": 137378.13,
-      "paidEur": 137378.15,
+      "prevTotalEur": 348179.62,
+      "totalEur": 318480.34,
+      "paidEur": 318480.34,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Дени лайтинг ЕООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1079",
-      "title": "Адаптирана работна среда в ЕТ ДАРС-91- ДИМИТЪР СЪБКОВ",
+      "contractNumber": "BG16RFPR001-1.001-0215",
+      "title": "Разработване на пилотен проект за апликация \"QR меню за ресторанти и заведения за хранене\".",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 171340.04,
+      "totalEur": 171340.04,
+      "paidEur": 61929.12,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Формс ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1115",
+      "title": "Подобряване на условията на труд и адаптирана работна среда",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 122281.11,
-      "totalEur": 122281.12,
-      "paidEur": 6659.07,
+      "prevTotalEur": 165679.54,
+      "totalEur": 165679.55,
+      "paidEur": 41781.78,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ЕТ ДАРС-91 - Димитър Събков",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Динамик 2012 ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1447",
-      "title": "Адаптирана работна среда в БУРГАСЦВЕТ - 90 - ТАНЕВ ЕООД",
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
       "type": "modified",
       "changedFields": [
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 119759.79,
-      "totalEur": 119759.79,
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Бургасцвет - 90 - Танев ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0888",
-      "title": "ПОДКРЕПА ЗА ПОДОБРЯВАНЕ НА ПРОИЗВОДСТВЕНИЯ КАПАЦИТЕТ НА ЕООД „ФИН ДИЗАЙН“ ПРИ ПРОИЗВОДСТВОТО НА КОРПУСНА МЕБЕЛ",
+      "contractNumber": "BG16RFPR001-1.004-2275",
+      "title": "Подкрепа за семейно предприятие - ВЕНТОРИЯ ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -207,235 +111,247 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 102062.43,
-      "paidEur": 76546.82,
+      "prevTotalEur": 105929.45,
+      "totalEur": 105929.44,
+      "paidEur": 76692.91,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ФИН Дизайн ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Вентория ООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0407",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Афродита комерс ЕООД.",
+      "contractNumber": "BG16RFPR001-2.004-0405",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Евросървиз ЕООД.",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 101640.12,
-      "totalEur": 101640.12,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Афродита комерс ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1986",
-      "title": "Адаптирана работна среда в \"Никика-90\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 131685.99,
-      "totalEur": 90076.99,
-      "paidEur": 90076.99,
+      "prevTotalEur": 98845.24,
+      "totalEur": 98845.24,
+      "paidEur": 49422.62,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "НИКИКА-90 ООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Евросървиз ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-0873",
       "title": "Подобряване условията на труд в динамична пазарна среда",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 80031.62,
-      "totalEur": 80031.62,
+      "totalEur": 79651.15,
       "paidEur": 79651.15,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Бонанза – Професионално почистване ЕООД",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG65AMPR001-4.002-0005",
-      "title": "Интеграционна подкрепа за презаселени лица на територията на Община Бургас",
+      "contractNumber": "BG-RRP-13.009-0229",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи 22 сгради на социални услуги, делегирана от държавата дейност с 23 социални услуги на територията на Община Бургас и закупуване на 1 брой електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги от \"Домашен социален патронаж\" - Бургас\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 56000,
-      "totalEur": 56000,
-      "paidEur": 56000,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG65AMPR001",
-      "programName": "Програма на Република България по фонд „Убежище, миграция и интеграция“",
+      "prevTotalEur": 724598.66,
+      "totalEur": 55107.9,
+      "paidEur": 55107.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0231",
+      "title": "„Изграждане на дигитален клуб в гр. Бургас“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26587.17,
+      "totalEur": 26578.56,
+      "paidEur": 26578.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Бургас",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0558",
+      "title": "Дигитален клуб „Учи и твори“ в Регионална библиотека \"Пейо К. Яворов\" гр. Бургас",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26546.28,
+      "totalEur": 25566.29,
+      "paidEur": 25566.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална библиотека \"Пейо Крачолов Яворов\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0248",
+      "title": "Изграждане на дигитален клуб на територията на читалище \"Просвета 1927\", гр. Бургас",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26132.13,
+      "totalEur": 25176.19,
+      "paidEur": 25176.19,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета 1927\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0008",
+      "title": "\"Изграждане на дигитален клуб в Бургас\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26587.17,
+      "totalEur": 24945.82,
+      "paidEur": 24945.82,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"Бургаска търговско - промишлена палата\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0815",
+      "title": "Дигитален клуб към Народно читалище „Преображение - 2017“, гр. Бургас – достъпно място за дигитално обучение и приобщаване",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26587.18,
+      "totalEur": 24298.86,
+      "paidEur": 24298.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Преображение - 2017\", Град бургас",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0420",
+      "title": "Изграждане на дигитален клуб в град Бургас",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26587.18,
+      "totalEur": 23729.07,
+      "paidEur": 23729.07,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Тракия -2015“",
+      "detectedAt": "2026-10-18"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-2344",
       "title": "Подобряване на работната среда в МАРВИН ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 51786.69,
-      "totalEur": 51786.69,
+      "totalEur": 22757.46,
       "paidEur": 22757.46,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Марвин ООД",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR001-1.010-0129",
-      "title": "Проектно предложения на Търговска гимназия Бургас по проект \"BG05SFPR001-1.010 „Превенция и предотвратяване на тормоза и насилието и намаляване агресията в училищата“",
+      "contractNumber": "BG-RRP-1.024-0192",
+      "title": "Изграждане на дигитален клуб в град Бургас , кв.Крайморие",
       "type": "modified",
       "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 37125.41,
-      "totalEur": 37125.41,
-      "paidEur": 7425,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Търговска гимназия Бургас",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2028",
-      "title": "Подобряване на конкурентоспособността на НОТИ ПЛЮС ЕООД чрез внедряване на съвременни технологии за UV печат и рязане",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
+        "totalEur",
+        "grantEur",
         "status"
       ],
-      "prevTotalEur": 15696.66,
-      "totalEur": 15696.66,
-      "paidEur": 11772.5,
+      "prevTotalEur": 26587.18,
+      "totalEur": 20896.18,
+      "paidEur": 20896.18,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ноти плюс ЕООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Петър Янев 1939г.\"",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0056",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 13371.81,
-      "totalEur": 13371.81,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Лайт проджект ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0143",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ж.к.Изгрев бл. 41A\"",
+      "contractNumber": "BG-RRP-1.024-1183",
+      "title": "Изграждане на дигитален клуб в НЧ \"Ангел Димитров 1929\", гр. Бургас, кв. Сарафово.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 601462.74,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 15308.08,
+      "totalEur": 15246.38,
+      "paidEur": 15246.38,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище \"Ангел Димитров 1929\"",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.024-0134",
-      "title": "Устойчиво и ефективно енергийно обновяване на много-фамилна жилищна сграда с административен адрес гр. Бургас, ул. \"Шейново\" №15\"",
+      "contractNumber": "BG-RRP-1.024-1174",
+      "title": "Изграждане на дигитален клуб в сградата на НЧ „Пробуда - 1929г.“, с.Равнец",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 79752.39,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 14316.17,
+      "totalEur": 13060.86,
+      "paidEur": 13060.86,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0135",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ул. Възраждане №12\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 51799.7,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0136",
-      "title": "Устойчиво и ефективно енергийно обновяване на много-фамилна жилищна сграда с административен адрес гр. Бургас, ж.к. „Меден Рудник“ бл. 132 вх.5",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 236594.75,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0137",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Бургас, ул. Константин Фотинов 35А",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 74694.33,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище пробуда - 1929 г.",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

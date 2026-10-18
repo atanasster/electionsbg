@@ -1,22 +1,96 @@
 {
   "obshtina": "KRZ15",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0082",
-      "title": "Иновативни здравно-социални услуги в община Крумовград",
+      "contractNumber": "BG-RRP-13.009-0083",
+      "title": "Инсталиране на фотоволтаична система (ФЕЦ) върху сграда на Дом за стари хора – Крумовград и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 276522.37,
-      "totalEur": 276522.37,
-      "paidEur": 221217.9,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "prevTotalEur": 108425.79,
+      "totalEur": 96255.88,
+      "paidEur": 96255.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Крумовград",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1248",
+      "title": "Изграждане на дигитален клуб в с. Странджево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.16,
+      "totalEur": 13775.36,
+      "paidEur": 13775.36,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Д-Р петър берон - 1946\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1132",
+      "title": "Изграждане на дигитален клуб в с. Аврен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13764.27,
+      "paidEur": 13764.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Народни будители - 1925г.\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1229",
+      "title": "Изграждане на дигитален клуб в с. Егрек",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14302.84,
+      "totalEur": 13545.02,
+      "paidEur": 13545.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Кирил и Методий - 1952\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1123",
+      "title": "Изграждане на дигитален клуб в с. Поточница",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 12884.56,
+      "totalEur": 12218.2,
+      "paidEur": 12218.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Петко Рачев Славейков - 1958\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

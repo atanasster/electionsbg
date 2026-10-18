@@ -1,40 +1,148 @@
 {
   "obshtina": "RSE04",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0019",
-      "title": "Изграждане на нов дом за стари хора в град Бяла",
+      "contractNumber": "BG-RRP-4.032-0001",
+      "title": "\"Фотоволтаична електрическа централа с мощност 4500 kW в ПИ 07603.502.604 със система за съхранение на енергия по плана регулация и застрояване на гр. Бяла, общ.Бяла обл. Русе\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 952521.95,
+      "totalEur": 952521.95,
+      "paidEur": 469604.78,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Смарт Естейт Консулт ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0130",
+      "title": "Повишаване на енергийната ефективност и намаляване на енергийната зависимост в сектора на социалните услуги в град Бяла, област Русе",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 2637897.98,
-      "totalEur": 2636658.6,
-      "paidEur": 2636658.6,
+      "prevTotalEur": 108266.05,
+      "totalEur": 107824.2,
+      "paidEur": 107824.2,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Бяла",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0016",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия -ЕТ ДЕКАДАНС - ДИМИТЪР ШИШКОВ",
+      "contractNumber": "BG-RRP-1.024-0308",
+      "title": "Изграждане на дигитален клуб в гр.Бяла",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 203749.81,
-      "totalEur": 203749.81,
-      "paidEur": 101772.64,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 20451.68,
+      "totalEur": 16501.23,
+      "paidEur": 16501.23,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕТ Декаданс - димитър Шишков",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище Трудолюбие 1884",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1244",
+      "title": "Изграждане на дигитален клуб в село Дряновец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13349.75,
+      "paidEur": 13349.75,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда 1927\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0600",
+      "title": "Изграждане на дигитален клуб в село Лом Черковна",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12157.21,
+      "paidEur": 12157.21,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Никола Йонков Вапцаров 1908\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0578",
+      "title": "Изграждане на дигитален клуб в село Копривец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 11811.94,
+      "paidEur": 11811.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Народно читалище свети свети кирил и Методий 1922\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0322",
+      "title": "Изграждане на дигитален клуб в село Полско Косово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 11479,
+      "paidEur": 11479,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище НЧ\"Развитие 1899\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0898",
+      "title": "Изграждане на дигитален клуб в село Босилковци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 10130.01,
+      "paidEur": 10130.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета 1919\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

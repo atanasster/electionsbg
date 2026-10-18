@@ -1,22 +1,42 @@
 {
   "obshtina": "JAM03",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.013-0061",
-      "title": "Създаване на общинско социално предприятие - Болярово",
+      "contractNumber": "BG-RRP-1.024-0867",
+      "title": "Изграждане на дигитален клуб в НЧ “Светлина-1928“, с. Мамарчево",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 165321.7,
-      "totalEur": 165321.7,
-      "paidEur": 33064.34,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Болярово",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 13456.18,
+      "totalEur": 12007.05,
+      "paidEur": 12007.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Светлина- 1928г.\", с. Мамарчево, община Болярово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0865",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ\"СТЕФАН КАРАДЖА-1904",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13456.18,
+      "totalEur": 11856.95,
+      "paidEur": 11856.95,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Стефан Караджа -1904г.\", с. Стефан Караджово, община Болярово",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

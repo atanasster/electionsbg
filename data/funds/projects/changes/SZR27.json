@@ -1,24 +1,148 @@
 {
   "obshtina": "SZR27",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.004-2346",
-      "title": "Адаптирана работна среда в \"Металинвест Ремко\" ЕООД",
+      "contractNumber": "BG16FFPR003-4.002-0031",
+      "title": "04: Обучение на служители на \"Мини Марица-изток\" ЕАД за придобиване на втора степен на професионална квалификация по професията „Машини, съоръжения и системи в индустрията“.",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1595846.11,
+      "totalEur": 1595846.11,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "„Мини Марица-изток” ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2044",
+      "title": "Осигуряване на устойчиви условия на труд и подобряване на качеството на работните места в „ПЕТКО ПЕТКОВ-24“ ООД.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 199940.7,
-      "totalEur": 199846.11,
-      "paidEur": 199846.11,
+      "prevTotalEur": 199883.17,
+      "totalEur": 199526.68,
+      "paidEur": 199526.68,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "\"МЕТАЛИНВЕСТ-РЕМКО\" ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Петко Петков - 24 ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0705",
+      "title": "Изграждане на дигитален клуб в НЧ \"Гео Милев - 1893\", гр. Раднево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 20451.69,
+      "totalEur": 20132.72,
+      "paidEur": 20132.72,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Гео Милев-1893\", гр. Раднево",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0833",
+      "title": "\" Изграждане на дигитален клуб в НЧ \"Просвета-1915г\". гр. Раднево, кв. Гипсово\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 19326.83,
+      "totalEur": 18950.33,
+      "paidEur": 18950.33,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета - 1915 г.\" гр. Раднево кв. \"Гипсово\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0757",
+      "title": "Изграждане на дигитален клуб в с. Трънково, общ. Раднево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14314.66,
+      "paidEur": 14314.67,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Знание - 1914\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1256",
+      "title": "Изграждане на дигитален клуб в с. Трояново, общ. Раднево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14255.01,
+      "paidEur": 14255.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Светлина - 1910 г. \", с. Трояново",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1312",
+      "title": "Изграждане на дигитален клуб в с. Полски градец, общ. Раднево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14099.75,
+      "paidEur": 12586.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Достоевски - 1928\", с. Полски градец",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0746",
+      "title": "Изграждане на дигитален клуб в с. Ковачево, община Раднево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13977.9,
+      "paidEur": 13977.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев -1929\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

@@ -1,58 +1,77 @@
 {
   "obshtina": "LOV34",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0012",
-      "title": "Реформиране на Дом за стари хора в с. Добродан, община Троян",
+      "contractNumber": "BG06RDNP001-4.012-1950",
+      "title": "РЕКОНСТРУКЦИЯ И ПРОМЯНА НА ПРЕДНАЗНАЧЕНИЕТО НА СКЛАДОВА БАЗА И ПРОМИШЛЕНА СГРАДА В СКЛАД ЗА СЪХРАНЕНИЕ НА ПЛОДОВЕ И ЗЕЛЕНЧУЦИ С ФОТОВОЛТАИЧНА (СОЛАРНА) СИСТЕМА ЗА СОБСТВЕНИ НУЖДИ И АДМИНИСТРАТИВНА СГРАДА НАМИРАЩИ СЕ В ПИ 20300.46.47, по кадастралния план на с.Дебнево, общ.Троян, обл. Ловеч.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 999391.97,
+      "totalEur": 999391.98,
+      "paidEur": 499695.99,
+      "status": "Сключен",
+      "programCode": "2014BG06RDNP001",
+      "programName": "Програма за развитие на селските райони",
+      "beneficiaryName": "Земя 2010 ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1356",
+      "title": "Повишаване на достъпа и качеството на обучението на всички заинтересовани страни чрез изграждане на дигитален клуб в село Орешак, община Троян",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 866100.59,
-      "totalEur": 736424.13,
-      "paidEur": 736424.13,
+      "prevTotalEur": 17378.3,
+      "totalEur": 15813.77,
+      "paidEur": 15813.77,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Троян",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "\"Народно читалище \"Развитие - 1898 г.\"\" НЧ",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0090",
-      "title": "Гарантиране здравето и безопасността на заетите в АС - ДС ООД",
+      "contractNumber": "BG-RRP-1.024-0575",
+      "title": "Изграждане на дигитален клуб в с. Врабево , общ. Троян",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 196555.26,
-      "totalEur": 190729.42,
-      "paidEur": 0,
+      "prevTotalEur": 14111.66,
+      "totalEur": 13069.86,
+      "paidEur": 13069.86,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "АС - ДС ООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище христо Ботев - 1911 г.",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16FFPR003-2.006-0022",
-      "title": "Единно здраве за Северозападен регион",
+      "contractNumber": "BG-RRP-1.024-0088",
+      "title": "Изграждане на дигитален клуб в Народно читалище НАПРЕДЪК - 1908 г. с. Борима",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 2188.33,
-      "totalEur": 2188.33,
-      "paidEur": 2186.01,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Троян",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 14316.17,
+      "totalEur": 10514.36,
+      "paidEur": 10514.36,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Напредък - 1908 г. с. Борима",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

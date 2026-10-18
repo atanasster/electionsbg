@@ -1,90 +1,327 @@
 {
   "obshtina": "PDV17",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
-    {
-      "contractNumber": "BG-RRP-4.032-0049",
-      "title": "Подкрепа на нови мощности за производство и съхранение на електроенергия на Сол Верде 2022 ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 767960.4,
-      "totalEur": 767960.4,
-      "paidEur": 356843.13,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сол Верде 2022 ООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0174",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в \"КАРИНА-4\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 659566.53,
-      "totalEur": 659566.53,
-      "paidEur": 327152.64,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Карина - 4 ООД",
-      "detectedAt": "2026-10-11"
-    },
     {
       "contractNumber": "BG05SFPR002-1.004-0193",
       "title": "Адаптирана работна среда в МАКСКОМ ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 159730.96,
-      "totalEur": 159730.96,
+      "totalEur": 129053.62,
       "paidEur": 98039.33,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Макском ЕООД",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0564",
-      "title": "Адаптирана работна среда в \"ТУРИСТСТРОЙ - ЦАРАЦОВО\" ЕООД",
+      "contractNumber": "BG-RRP-4.032-0228",
+      "title": "Инсталиране на локални средства за съхранение (ЛСС) към Фотоволтаична инсталация за производство на електрическа енергия в УПИ 7.815-складова дейност, обслужваща дейност, фец / ПИ 17806.7.815/, местност Панорамен път, село Граф Игнатиево, община Марица, област Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 101491.44,
+      "totalEur": 101491.44,
+      "paidEur": 49309.05,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Флора - 62 ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0198",
+      "title": "Подобряване на производствения капацитет на Тенеси ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 97724.75,
+      "totalEur": 97724.75,
+      "paidEur": 73293.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Тенеси ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1017",
+      "title": "Подобряване на енергийната ефективност на АРТИСТИКО-СИСТЕМС ООД.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 83662.79,
+      "totalEur": 83662.79,
+      "paidEur": 41823.03,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АРТИСТИКО-СИСТЕМС ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1930",
+      "title": "Осигуряване на безопасност при работа и подобряване на условията на труд в Мувио Лоджистикс ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 146018.58,
-      "totalEur": 145848.12,
-      "paidEur": 145848.12,
+      "prevTotalEur": 67584.33,
+      "totalEur": 63916.9,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Туристстрой - царацово ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Мувио лоджистикс ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0230",
-      "title": "Адаптирана работна среда в Гама Пласт БГ ООД",
+      "contractNumber": "BG16RFPR001-1.004-1672",
+      "title": "Подобряване на производствения капацитет и ефективността на процесите в ВЕДАКОМ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 59630.81,
+      "totalEur": 59621.89,
+      "paidEur": 44716.42,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Ведаком ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1274",
+      "title": "Изграждане на дигитален клуб в читалището на територията на Община Марица. село Труд, област Пловдив с цел развитие на социално- дигитални умения на населението",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 121534.79,
-      "totalEur": 118067.05,
-      "paidEur": 118067.05,
+      "prevTotalEur": 17383.91,
+      "totalEur": 16842.14,
+      "paidEur": 16842.14,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Гама пласт БГ ООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Труд 2019",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1186",
+      "title": "В крак с времето - да се дигитализираме заедно. В помощ на всеки, за когото технологиите са непозната територия.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17332.79,
+      "totalEur": 16700.05,
+      "paidEur": 16700.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Виделина-1928г.\" с. Войводиново",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0608",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище ''СВЕТЛИНА - 1929 Г.'' в село Труд, община Марица, област Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 16942.58,
+      "totalEur": 16655.99,
+      "paidEur": 16655.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина - 1929 г. - с. Труд",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1008",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ИЗГРЕВ - 1927 Г. - С. РОГОШ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 16169.99,
+      "paidEur": 16169.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Изгрев - 1927 г. - с. Рогош",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0136",
+      "title": "\"Подавам Ви ръка\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17302.12,
+      "totalEur": 16006.15,
+      "paidEur": 16006.15,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Васил Левски-1930 г.-с. Бенковски\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0987",
+      "title": "Изграждане на дигитален клуб в Народно читалище СВЕТЛИНА - 1927 - с. Скутаре",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 15204.57,
+      "paidEur": 15204.57,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина - 1927 - с.Скутаре",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1038",
+      "title": "„Дигитални хоризонти в читалището“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17230.54,
+      "totalEur": 14514.54,
+      "paidEur": 14514.54,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Никола Вапцаров-1928 г. с. Костиево\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0873",
+      "title": "Изграждане на дигитален клуб в село Маноле",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17379.63,
+      "totalEur": 14438.65,
+      "paidEur": 14438.65,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета 1927\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0946",
+      "title": "Дигитален клуб в читалището",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17032.67,
+      "totalEur": 13720.32,
+      "paidEur": 13720.32,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Изгрев-1927г.\" - с.Граф Игнатиево",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0290",
+      "title": "Изграждане на мрежа от дигитални клубове в Народно Читалище \"Пробуда - 1929\" - с.Манолско Конаре",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13456.18,
+      "totalEur": 12953.71,
+      "paidEur": 12953.71,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Пробуда - 1929\" - с.Манолско Конаре",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0678",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Просвета -1938г.- с.Динк\" , община Марица, област Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14065.51,
+      "totalEur": 11802.25,
+      "paidEur": 11802.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета -1938г.- с.Динк\" , община Марица, област Пловдив",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0729",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище Васил Левски -1943 Област ПЛОВДИВ Община МАРИЦА Град/село СЕЛО ЖЕЛЯЗНО Адрес \"Сребрю Бабаков\" 5, пк.4136",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 12826.51,
+      "totalEur": 10425.29,
+      "paidEur": 10425.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Васил Левски -1943 Област Пловдив Община марица Град/село село желязно Адрес \"Сребрю Бабаков\" 5, пк.4136",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

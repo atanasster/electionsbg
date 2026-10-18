@@ -1,22 +1,78 @@
 {
   "obshtina": "PVN03",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.033-0070",
-      "title": "Изграждане на локална система за съхранение на енергията (ЛСС) с инсталирана мощност 1,725MW и капацитет на съхранение 4MWh към фотоволтаична централа с инсталирана мощност 3,63MW",
+      "contractNumber": "BG05SFPR002-1.004-2279",
+      "title": "Адаптирана работна среда в \"Майкромет\" ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1265447.41,
-      "totalEur": 1265447.41,
-      "paidEur": 627610.71,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 66872.32,
+      "totalEur": 54461.05,
+      "paidEur": 43028.46,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Майкромет ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2325",
+      "title": "Адаптирана работна среда в \"Мед Индъстри\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 34130.45,
+      "totalEur": 28034.84,
+      "paidEur": 28034.84,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "МЕД Индъстри ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0158",
+      "title": "Изграждане на дигитален клуб в гр.Белене",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 20451.68,
+      "totalEur": 19321.94,
+      "paidEur": 19321.94,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Белене солар енърджи ООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище Народно читалище \"Христо Ботев - 1892\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1034",
+      "title": "Изграждане на дигитален клуб в с.Деков , общ.Белене",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14111.66,
+      "totalEur": 11957.1,
+      "paidEur": 11957.1,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Виделина - 1897\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

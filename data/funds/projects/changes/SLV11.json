@@ -1,22 +1,61 @@
 {
   "obshtina": "SLV11",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-2.003-0010",
-      "title": "Изграждане на регионална система за разделно събиране и рециклиране на биоразградими отпадъци на територията на РСУО-Омуртаг",
+      "contractNumber": "BG-RRP-1.024-0096",
+      "title": "Изграждане на дигитален клуб НЧ Съгласие - Напредък 1870, гр. Котел",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 1471046.25,
-      "totalEur": 1471046.25,
-      "paidEur": 265833.03,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Омуртаг",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 17383.92,
+      "totalEur": 15154.06,
+      "paidEur": 15077.38,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ Съгласие - Напредък 1870",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1104",
+      "title": "Изграждане на дигитален клуб в Народно читалище Аврора-2012",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 12950.24,
+      "paidEur": 12950.24,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Аврора-2012",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0121",
+      "title": "Дигитален клуб - Народно Читалище \"Единство 1870\" с. Жеравна",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14295.72,
+      "totalEur": 12189.84,
+      "paidEur": 12189.84,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Единство 1870\" с. Жеравна",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

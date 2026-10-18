@@ -1,112 +1,158 @@
 {
   "obshtina": "MON29",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0168",
-      "title": "„Промяна чрез подкрепа: устойчив модел за намаляване на агресията и укрепване на позитивния училищен климат“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 143870.45,
-      "totalEur": 143870.45,
-      "paidEur": 28774.09,
+      "contractNumber": "BG16RFPR001-1.008-0536",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в БКК-95 ООД",
+      "type": "new",
+      "totalEur": 936533.34,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Трето основно училище „Д‑р Петър Берон“ — гр. Монтана",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "БКК-95 ООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1273",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ НАУКА - 1928",
+      "contractNumber": "BG14MFPR001-2.002-0017",
+      "title": "Създаване на високотехнологично рибовъдно стопанство",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 529637.35,
+      "totalEur": 529637.35,
+      "paidEur": 317782.41,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "ФИШ Инвест ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0529",
+      "title": "Изграждане на мрежа от 13 дигитални клуба",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13549.73,
-      "paidEur": 13549.73,
+      "prevTotalEur": 325382.43,
+      "totalEur": 295434.86,
+      "paidEur": 295434.86,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище наука - 1928",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Младежки форум 21 век",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0184",
-      "title": "Изграждане на дигитален клуб в Народно читалище \"ХРИСТО БОТЕВ - 1929\"",
+      "contractNumber": "BG05SFPR002-1.004-0241",
+      "title": "Адаптирана работна среда в МБАЛ \"Сити клиник-Св.Георги\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13426.81,
-      "paidEur": 13426.81,
+      "prevTotalEur": 199825.66,
+      "totalEur": 195405.02,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Ботев - 1929\"",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Многопрофилна болница за активно лечение сити клиник - свети георги ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0134",
-      "title": "Изграждане на дигитален клуб в \"НАРОДЕН БУДИТЕЛ - 1927 г.\" с. Николово",
+      "contractNumber": "BG-RRP-13.009-0115",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност на територията на община Монтана и закупуване на електрически автомобил включително свързана зарядна станция за предоставяне на социални услуги\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 13175.29,
-      "paidEur": 13175.29,
+      "prevTotalEur": 233986.09,
+      "totalEur": 186539.28,
+      "paidEur": 186539.28,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Народен будител - 1927 г.\"",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Община Монтана",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0567",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ЕЛЕНКО ЦЕНОВ - 1896г.\"",
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1089",
+      "title": "Дигитални пространства",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 11735.99,
-      "paidEur": 11735.99,
+      "prevTotalEur": 79360.68,
+      "totalEur": 59661.78,
+      "paidEur": 59661.78,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Еленко Ценов - 1896г",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Специализирани бизнес системи АД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0190",
-      "title": "Изграждане на дигитален клуб в Народно читалище ПРОБУДА - 1928 С. КРАПЧЕНЕ",
+      "contractNumber": "BG-RRP-1.024-0103",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"КУТЛОВИЦА-2011 Г.\" гр. Монтана",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 10443.77,
-      "paidEur": 10443.77,
+      "prevTotalEur": 23519.43,
+      "totalEur": 20549.13,
+      "paidEur": 20549.13,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Пробуда - 1928 с. Крапчене",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище \"КУТЛОВИЦА-2011 г.\" гр. Монтана",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0779",
+      "title": "Изграждане на дигитален клуб в Регионална библиотека \"Гео Милев\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 18711.96,
+      "totalEur": 18409.8,
+      "paidEur": 18409.8,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална библиотека \"Гео Милев\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

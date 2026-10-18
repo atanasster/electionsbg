@@ -1,22 +1,168 @@
 {
   "obshtina": "KRZ16",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-11.010-0050",
       "title": "\"Модернизиране и реформиране на Дом за стари хора в град Кърджали\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 1610818.72,
-      "totalEur": 1610818.72,
+      "totalEur": 1515570.79,
       "paidEur": 1515570.79,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0113",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство за предоставяне на социални услуги в община Кърджали\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 430218.78,
+      "totalEur": 383351.76,
+      "paidEur": 383351.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кърджали",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0677",
+      "title": "Изграждане на мрежа от 14 дигитални клуба",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 348179.62,
+      "totalEur": 318480.34,
+      "paidEur": 318480.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2611",
+      "title": "Подобряване на производствения капацитет в Н ПРОДАКШЪН ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 101708.4,
+      "totalEur": 99793.31,
+      "paidEur": 74844.98,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Н продакшън ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0047",
+      "title": "\"Закупуване на електрическо превозно средство за предоставяне на социални услуги в община Кърджали\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 56400,
+      "paidEur": 56400,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кърджали",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1895",
+      "title": "Подобряване на производствения капацитет на ФРЕНДС 99 ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 57239.13,
+      "totalEur": 54023.56,
+      "paidEur": 40517.64,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Френдс 99 ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0058",
+      "title": "„Изграждане на дигитален клуб в гр. Кърджали“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23519.42,
+      "totalEur": 19650.33,
+      "paidEur": 19650.33,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Синдикален регионален съюз на КТ „Подкрепа“ - Кърджали",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0831",
+      "title": "Изграждане на дигитален клуб в НЧ \"Обединение 1913\" Кърджали",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 45815,
+      "totalEur": 15076.9,
+      "paidEur": 15076.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Обединение 1913\" Кърджали, ул. \"Републиканска\" 47",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

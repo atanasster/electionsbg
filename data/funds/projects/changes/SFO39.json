@@ -1,50 +1,168 @@
 {
   "obshtina": "SFO39",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0290",
-      "title": "„Безопасна училищна среда за всеки ученик“",
-      "type": "new",
-      "totalEur": 74540.59,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище „Христо Максимов“",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1893",
-      "title": "Устойчиво енергийно обновяване чрез внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда СС „САМОКОВ-САМОКОВО 39“",
+      "contractNumber": "BG-RRP-4.023-1266",
+      "title": "Устойчиво енергийно обновяване чрез внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда СС \"Блок № 7, кв. Самоково, гр. Самоков“",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 870119.96,
-      "totalEur": 870119.96,
-      "paidEur": 825001.28,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 665683.46,
+      "totalEur": 664123.07,
+      "paidEur": 662541.63,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Самоков",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16FFPR003-2.005-0006",
-      "title": "Техническа подкрепа на община Самоков за изпълнение на ИТИ инструмента",
+      "contractNumber": "BG-RRP-1.024-0677",
+      "title": "Изграждане на мрежа от 14 дигитални клуба",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 31938.67,
-      "totalEur": 31938.67,
-      "paidEur": 31938.67,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Самоков",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 348179.62,
+      "totalEur": 318480.34,
+      "paidEur": 318480.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1246",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"ПРОСВЕТА-1939\" в с. Марица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14210.65,
+      "paidEur": 14210.65,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"ПРОСВЕТА-1939\" с. Марица",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0590",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ВЪЗРАЖДАНЕ-2016\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13313.05,
+      "paidEur": 13313.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ВЪЗРАЖДАНЕ-2016\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0868",
+      "title": "Израждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ВАСИЛ ЛЕВСКИ-1937г.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13087.31,
+      "paidEur": 13087.31,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище васил ЛЕВСКИ-1937г.",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0924",
+      "title": "Изграждане на мрежа от дигитален клуб в 000762772 НЧ СТОЙНЕ АНГЕЛОВ-1932 ГОДИНА ЧИТАЛИЩЕ Бели Искър 2011София (област)",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 11787.88,
+      "totalEur": 9568.84,
+      "paidEur": 9568.84,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "000762772 НЧ Стойне АНГЕЛОВ-1932 Година читалище Бели Искър 2011София (област)",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0535",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"СВОБОДА-1940\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 9367.76,
+      "paidEur": 9367.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВОБОДА-1940\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0991",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"СВЕТЛИНА-1909\" в с. Белчин",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 9121.95,
+      "paidEur": 9121.95,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"СВЕТЛИНА-1909\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0589",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"СВ.СВ.КИРИЛ И МЕТОДИЙ - 1928\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 8337.05,
+      "paidEur": 8337.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ.СВ.КИРИЛ и Методий - 1928\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

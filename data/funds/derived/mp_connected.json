@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-11T21:56:04.289Z",
-  "total": 181,
-  "mpCount": 153,
-  "beneficiaryCount": 170,
-  "contractedEur": 4851933586.52,
-  "paidEur": 2256262144.49,
+  "generatedAt": "2026-10-18T00:54:12.545Z",
+  "total": 182,
+  "mpCount": 154,
+  "beneficiaryCount": 171,
+  "contractedEur": 4853421790.92,
+  "paidEur": 2257153182.14,
   "entries": [
     {
       "mpId": 4507,
@@ -278,7 +278,7 @@
       ],
       "contractCount": 11,
       "contractedEur": 4471490.53,
-      "paidEur": 1853787.8
+      "paidEur": 1904760.79
     },
     {
       "mpId": 1504,
@@ -361,7 +361,7 @@
         }
       ],
       "contractCount": 3,
-      "contractedEur": 2084060.45,
+      "contractedEur": 2084060.47,
       "paidEur": 630794.39
     },
     {
@@ -379,6 +379,22 @@
       "contractCount": 6,
       "contractedEur": 1653201.16,
       "paidEur": 339823.35
+    },
+    {
+      "mpId": 2761,
+      "mpName": "Александър Димитров Паунов",
+      "beneficiaryEik": "833067822",
+      "beneficiaryName": "Капрони АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 1520841.8,
+      "paidEur": 772454.66
     },
     {
       "mpId": 5108,
@@ -567,7 +583,7 @@
         }
       ],
       "contractCount": 1,
-      "contractedEur": 920325.38,
+      "contractedEur": 920325.39,
       "paidEur": 0
     },
     {
@@ -847,7 +863,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 499361.74,
-      "paidEur": 0
+      "paidEur": 67610
     },
     {
       "mpId": 1874,
@@ -1768,7 +1784,7 @@
         }
       ],
       "contractCount": 3,
-      "contractedEur": 69412.24,
+      "contractedEur": 66235.58,
       "paidEur": 59498.5
     },
     {
@@ -2078,22 +2094,6 @@
       "paidEur": 36547.14
     },
     {
-      "mpId": 1064,
-      "mpName": "Георги Велков Колев",
-      "beneficiaryEik": "000935698",
-      "beneficiaryName": "Стопанска камара - Шумен",
-      "orgType": "Нестопанска организация",
-      "relations": [
-        {
-          "kind": "ngo_board",
-          "isCurrent": true
-        }
-      ],
-      "contractCount": 1,
-      "contractedEur": 35020.76,
-      "paidEur": 17510.38
-    },
-    {
       "mpId": 3694,
       "mpName": "Атанас Димитров Михнев",
       "beneficiaryEik": "204033505",
@@ -2218,24 +2218,8 @@
         }
       ],
       "contractCount": 2,
-      "contractedEur": 28586.83,
+      "contractedEur": 27746.86,
       "paidEur": 25480.55
-    },
-    {
-      "mpId": 4541,
-      "mpName": "Етиен Херцел Леви",
-      "beneficiaryEik": "000671309",
-      "beneficiaryName": "Народно читалище \"СВ.СВ. кирил и Методий\" 1924",
-      "orgType": "Друга",
-      "relations": [
-        {
-          "kind": "trustee",
-          "isCurrent": true
-        }
-      ],
-      "contractCount": 1,
-      "contractedEur": 26586.97,
-      "paidEur": 19807.33
     },
     {
       "mpId": 1538,
@@ -2270,7 +2254,7 @@
         }
       ],
       "contractCount": 1,
-      "contractedEur": 26480.47,
+      "contractedEur": 26439.17,
       "paidEur": 22579.66
     },
     {
@@ -2402,6 +2386,22 @@
       "paidEur": 24405.34
     },
     {
+      "mpId": 4541,
+      "mpName": "Етиен Херцел Леви",
+      "beneficiaryEik": "000671309",
+      "beneficiaryName": "Народно читалище \"СВ.СВ. кирил и Методий\" 1924",
+      "orgType": "Друга",
+      "relations": [
+        {
+          "kind": "trustee",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 22848.8,
+      "paidEur": 19807.33
+    },
+    {
       "mpId": 3287,
       "mpName": "Филчо Кръстев Филев",
       "beneficiaryEik": "000083868",
@@ -2418,20 +2418,20 @@
       "paidEur": 17709
     },
     {
-      "mpId": 1115,
-      "mpName": "Катя Костова Колева",
-      "beneficiaryEik": "000210504",
-      "beneficiaryName": "Народно Читалище \"ПРОБУДА-1924\"",
+      "mpId": 1064,
+      "mpName": "Георги Велков Колев",
+      "beneficiaryEik": "000935698",
+      "beneficiaryName": "Стопанска камара - Шумен",
       "orgType": "Нестопанска организация",
       "relations": [
         {
-          "kind": "verifier",
+          "kind": "ngo_board",
           "isCurrent": true
         }
       ],
       "contractCount": 1,
-      "contractedEur": 17383.92,
-      "paidEur": 14275.74
+      "contractedEur": 17510.38,
+      "paidEur": 17510.38
     },
     {
       "mpId": 5295,
@@ -2450,24 +2450,20 @@
       "paidEur": 17257.6
     },
     {
-      "mpId": 5146,
-      "mpName": "Фатме Хасан Рамадан",
-      "beneficiaryEik": "000046841",
-      "beneficiaryName": "Народно читалище \"Любен Каравелов\"",
+      "mpId": 1115,
+      "mpName": "Катя Костова Колева",
+      "beneficiaryEik": "000210504",
+      "beneficiaryName": "Народно Читалище \"ПРОБУДА-1924\"",
       "orgType": "Нестопанска организация",
       "relations": [
         {
-          "kind": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "kind": "trustee",
+          "kind": "verifier",
           "isCurrent": true
         }
       ],
       "contractCount": 1,
-      "contractedEur": 14316.17,
-      "paidEur": 7932.88
+      "contractedEur": 16735.04,
+      "paidEur": 14275.74
     },
     {
       "mpId": 2150,
@@ -2482,7 +2478,7 @@
         }
       ],
       "contractCount": 1,
-      "contractedEur": 14111.66,
+      "contractedEur": 12402.02,
       "paidEur": 10836.98
     },
     {
@@ -2534,6 +2530,26 @@
       "contractCount": 1,
       "contractedEur": 9561.16,
       "paidEur": 9561.16
+    },
+    {
+      "mpId": 5146,
+      "mpName": "Фатме Хасан Рамадан",
+      "beneficiaryEik": "000046841",
+      "beneficiaryName": "Народно читалище \"Любен Каравелов\"",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "kind": "trustee",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 9343.74,
+      "paidEur": 7932.88
     },
     {
       "mpId": 152,

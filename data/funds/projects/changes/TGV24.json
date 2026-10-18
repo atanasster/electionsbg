@@ -1,40 +1,293 @@
 {
   "obshtina": "TGV24",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG06AFSP001-1.001-0035",
-      "title": "„Интегрирано местно развитие чрез прилагане на стратегия за Водено от общностите местно развитие на територията на Местна инициативна група – Попово“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 749988.5,
-      "totalEur": 749988.5,
-      "paidEur": 164931.51,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2023BG06AFSP001",
-      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
-      "beneficiaryName": "Сдружение \"Местна инициативна група Попово\"",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0771",
-      "title": "Център за обучение по дигитални компетенции",
+      "contractNumber": "BG-RRP-13.009-0185",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Попово\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 46488.21,
-      "totalEur": 43102.57,
-      "paidEur": 43102.57,
+      "prevTotalEur": 207268.12,
+      "totalEur": 149970.26,
+      "paidEur": 149970.26,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \"СВ.СВ.КИРИЛ и Методий - 1882\" гр. Попово",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Община Попово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0008",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 72602.76,
+      "totalEur": 58101.86,
+      "paidEur": 58101.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Попово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0787",
+      "title": "Подобряване на работната среда в ДЖИ ЕН ИНВЕСТ ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 40329.13,
+      "totalEur": 39271.89,
+      "paidEur": 39271.89,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЖИ ЕН Инвест ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1399",
+      "title": "Подобряване на основната дейност на \"Перос 2016\", чрез придобиване на активи за качествено предоставяне на услуги на крайните потребители.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 52146.67,
+      "totalEur": 26662.17,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Перос - 2016\" ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0429",
+      "title": "Изграждане на дигитален клуб в кв. Невски, гр. Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 20441.45,
+      "totalEur": 19846.2,
+      "paidEur": 19846.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Възраждане-1924\" кв. Невски, гр. Попово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0787",
+      "title": "Изграждане на дигитален клуб в с.Кардам, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17368.58,
+      "totalEur": 15766.5,
+      "paidEur": 15766.5,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Иван Братанов-1898\", с.Кардам",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0775",
+      "title": "Изграждане на дигитален клуб в с. Ковачевец, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14311.05,
+      "totalEur": 14310.23,
+      "paidEur": 14310.23,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Познай себе си -1893\", с. Ковачевец",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0461",
+      "title": "Създаване на дигитален клуб към Народно читалище \"В.М. Гаршин - 1902\", с. Светлен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13779.01,
+      "paidEur": 13779.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"В.М. Гаршин - 1902\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0965",
+      "title": "Изграждане на дигитален клуб в с. Гагово, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14300.83,
+      "totalEur": 13344.66,
+      "paidEur": 13344.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище - \"Светлина - 1905\", с. Гагово, Община Попово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0805",
+      "title": "Изграждане на дигитален клуб в с. Ломци, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14311.06,
+      "totalEur": 13286.59,
+      "paidEur": 13286.59,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда -1928\", с. Ломци",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0856",
+      "title": "Изграждане на дигитален клуб в с. Садина, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14295.72,
+      "totalEur": 12951.3,
+      "paidEur": 12951.3,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Съединение -1889\", с. Садина",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0814",
+      "title": "Изграждане на дигитален клуб в с. Паламарца, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14040.08,
+      "totalEur": 12682.02,
+      "paidEur": 12682.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Искра-1893\", с. Паламарца, Община Попово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0813",
+      "title": "Изграждане на дигитален клуб в с. Дриново, гр. Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13876.46,
+      "totalEur": 12599.58,
+      "paidEur": 12599.58,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Развитие-1905\", с. Дриново",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0802",
+      "title": "Изграждане на дигитален клуб в с. Зараево, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14208.8,
+      "totalEur": 12581.02,
+      "paidEur": 12581.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище - \"Христо Ботев -1899\", с. Зараево, Община Попово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0885",
+      "title": "Изграждане на дигитален клуб в с. Славяново, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14290.6,
+      "totalEur": 12493.03,
+      "paidEur": 12493.03,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище - \"Люба Велич -1905\", с. Славяново, Община Попово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0816",
+      "title": "Изграждане на дигитален клуб в с. Глогинка, Община Попово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14275.26,
+      "totalEur": 12229.17,
+      "paidEur": 12229.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Светлина -1905\", с. Глогинка",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

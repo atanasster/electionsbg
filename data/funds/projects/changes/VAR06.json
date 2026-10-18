@@ -1,54 +1,215 @@
 {
   "obshtina": "VAR06",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG14MFPR001-2.006-0006",
-      "title": "АКВА ЕКСПО ЦЕНТЪР ПРО 2025 / АЕЦ ПРО 2025",
-      "type": "new",
-      "totalEur": 125419.9,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-11.010-0009",
+      "title": "\"Реформиране на Дом за стари хора \"Гергана\" чрез извършване на ремонтни дейности, доставка на оборудване и обзавеждане и въвеждане на мерки за енергийна ефективност на сградите на Комплекс за социални услуги за възрастни хора „Гергана“, в съответствие със стандартите за качество на резидентна грижа за възрастни хора в надтрудоспособна възраст\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 3964715.9,
+      "totalEur": 3900040.49,
+      "paidEur": 3386630.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Варна",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0529",
+      "title": "Изграждане на мрежа от 13 дигитални клуба",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 325382.43,
+      "totalEur": 295434.86,
+      "paidEur": 295434.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Младежки форум 21 век",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG14MFPR001-1.006-0003",
+      "title": "Подобряване на икономическия и социалния статус на заетите в Лаврак ЕООД, посредством извършване на ремонтни и инвестиционни дейности на борда на риболовен кораб Лефер.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 256920.32,
+      "totalEur": 256920.32,
+      "paidEur": 128460.17,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG14MFPR001",
       "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "Българска транспортна камара",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Лаврак ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-2.012-0094",
-      "title": "\"Иновативни здравно-социални услуги в домашна среда\" в община Варна",
+      "contractNumber": "BG14MFPR001-1.006-0004",
+      "title": "Подобряване на икономическия и социалния статус на заетите в Лаврак ЕООД, посредством доставка на хладилен бус и извършване на ремонтни и инвестиционни дейности на борда на риболовен кораб Барбун.",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 201074.77,
+      "totalEur": 201074.77,
+      "paidEur": 100537.39,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Лаврак ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0002",
+      "title": "Инсталиране на фотоволтаични системи в сгради на социални услуги в община Варна и закупуване на електрическo превознo средствo със зарядна станция",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 284762.35,
+      "totalEur": 192739.25,
+      "paidEur": 192739.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Варна",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2275",
+      "title": "Адаптирана работна среда в Хидравлон-1 ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2256595.82,
-      "totalEur": 2256595.82,
-      "paidEur": 1416196.61,
+      "prevTotalEur": 144841.98,
+      "totalEur": 144841.98,
+      "paidEur": 141190.71,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Варна",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "ХИДРАВЛОН-1 ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16FFPR002-1.008-0001",
-      "title": "Актуализация на План за управление на речните басейни в Черноморски район за басейново управление на водите за периода 2028-2033 г.",
+      "contractNumber": "BG05SFPR002-1.004-1285",
+      "title": "Адаптирана работна среда в ЕВРОТЕКС ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 740805.9,
-      "totalEur": 740805.9,
-      "paidEur": 148161.18,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Басейнова дирекция \"Черноморски район\"",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 184095.3,
+      "totalEur": 143973.29,
+      "paidEur": 115178.61,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Евротекс ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.001-0300",
-      "title": "Разработка на иновации в Тонекс 2000 ЕООД",
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG14MFPR001-1.005-0004",
+      "title": "Окончателно преустановяване на риболовни дейности на риболовен кораб ВН 7180 \"СИГМА\"",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 125288.71,
+      "totalEur": 125288.71,
+      "paidEur": 125288.71,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Рибуто ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0923",
+      "title": "Адаптирана работна среда в \"А.Д.Холд\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 114138.58,
+      "totalEur": 114073.62,
+      "paidEur": 114073.62,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "А.Д.ХОЛД ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG14MFPR001-2.004-0001",
+      "title": "Финансиране на Плана за производството и предлагането на пазара на основните продукти от риболов, реализирани от членовете на Сдружение „Черноморски изгрев“ 2023-2025",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 104865.96,
+      "totalEur": 102269,
+      "paidEur": 76701.77,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Черноморски изгрев Сдружение",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1330",
+      "title": "Закупуване на 3 броя стоматологични столове за дентална клиника",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102156.12,
+      "totalEur": 102156.12,
+      "paidEur": 76617.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Амбулатория за индивидуална практика за първична Медицинска помощ по дентална Медицина Д-Р юрка Шайкова ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0521",
+      "title": "Повишаване на производствения капацитет на рекламна агенция Лун Арт ЕООД, гр. Варна",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -56,230 +217,632 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 331317.14,
-      "totalEur": 330700,
-      "paidEur": 198420,
+      "prevTotalEur": 102088.73,
+      "totalEur": 102055.68,
+      "paidEur": 76541.74,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Тонекс 2000 ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "ЛУН АРТ ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.013-0147",
-      "title": "„Наистина жестов език: социално предприемачество и професионално развитие за хора с увреждания“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 299406.54,
-      "totalEur": 299406.54,
-      "paidEur": 59881.31,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Наистина Жестов език ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1285",
-      "title": "Адаптирана работна среда в ЕВРОТЕКС ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 184095.3,
-      "totalEur": 184095.3,
-      "paidEur": 115178.61,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Евротекс ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0183",
-      "title": "\"АЗ СЪМ ПРОМЯНАТА: Активни мерки срещу агресията и ненасилието в училище\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 145748.12,
-      "totalEur": 145748.12,
-      "paidEur": 29000,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище \"Цар Симеон 1\"",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0169",
-      "title": "Подобряване и адаптиране на работната среда в ДЕНИ ЛАЙТИНГ ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-2433",
+      "title": "„Подобряване на производствения капацитет на „РЕКАРПЛАСТ 2006“, чрез закупуване на високо производително технологично оборудване“",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 138857.28,
-      "totalEur": 137378.13,
-      "paidEur": 137378.15,
+      "prevTotalEur": 101124.31,
+      "totalEur": 101108.31,
+      "paidEur": 75831.23,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Дени лайтинг ЕООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Рекарпласт 2006 ООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.012-0352",
-      "title": "Устойчива заетост за хора в неравностойно положение в Табак ком инженеринг ООД",
+      "contractNumber": "BG16RFPR001-1.004-0365",
+      "title": "Подобряване на производствения капацитет и оптимизиране на бизнес процесите в ХОТЕЛ ЗАРЯ ЕООД.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 100830.5,
+      "paidEur": 75622.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Хотел заря ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0317",
+      "title": "Подобряване на производствения капацитет и оптимизиране на бизнес процеса в СВЕМАР КОНСУЛТ ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 100074.32,
+      "paidEur": 75055.73,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Свемар консулт ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2689",
+      "title": "Закупуване на вертикален и хоризонтален кофраж за дейността на КЛИФ ИНВЕСТ ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 101977.17,
+      "totalEur": 98960,
+      "paidEur": 74220,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Клиф инвест ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1365",
+      "title": "Подобряване на енергийната ефективност и дела на ВИ в „РУДИ АН“ ЕООД чрез термопомпени системи въздух-въздух за базата в гр. Аксаково и Мострената зала в гр. Варна.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur"
+      ],
+      "prevTotalEur": 64608.28,
+      "totalEur": 96572.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Руди АН ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0123",
+      "title": "Подобряване на енергийната ефективност на \"БИЯНКИ\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 103817.87,
-      "totalEur": 103817.87,
-      "paidEur": 67069.39,
+      "prevTotalEur": 94383.36,
+      "totalEur": 94383.36,
+      "paidEur": 47191.68,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Табак КОМ инженеринг ООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Биянки ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.012-0448",
-      "title": "Промяната е живот-Втори шанс за хората със зависимост",
+      "contractNumber": "BG16RFPR001-1.004-1712",
+      "title": "Подобряване на производствения капацитет на \"ФОРТЕ ДЖИ-ДИЗАЙН\" ЕООД",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 85355.95,
-      "totalEur": 85355.95,
-      "paidEur": 32980.4,
+      "prevTotalEur": 90048.26,
+      "totalEur": 90048.26,
+      "paidEur": 76541.01,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "\"Промяната е живот\" ЕООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Форте ДЖИ-ДИЗАЙН ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2226",
+      "title": "Повишаване на производителността и подобряване на екосъобразността на „ЕКСТРИЙМ-БЪЛГАРИЯ“ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 101854.45,
+      "totalEur": 88937.42,
+      "paidEur": 66703.08,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЕКСТРИЙМ-БЪЛГАРИЯ ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG14MFPR001-1.005-0002",
+      "title": "Окончателно преустановяване на риболовните дейности чрез скрапиране на риболовен кораб Хром",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 85037.42,
+      "totalEur": 85037.42,
+      "paidEur": 85037.42,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "ЕТ Марин Димитров- 44",
+      "detectedAt": "2026-10-18"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-0873",
       "title": "Подобряване условията на труд в динамична пазарна среда",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 80031.62,
-      "totalEur": 80031.62,
+      "totalEur": 79651.15,
       "paidEur": 79651.15,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Бонанза – Професионално почистване ЕООД",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1743",
-      "title": "Адаптирана работна среда във Формика Груп ООД",
+      "contractNumber": "BG16RFPR001-1.004-0679",
+      "title": "Повишаване капацитета на АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА ИЗВЪНБОЛНИЧНА МЕДИЦИНСКА ПОМОЩ - Д-Р БОРЯНА ИЛЧЕВА ,чрез оптимизация и модернизация на бизнес процесите.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 66508.85,
+      "totalEur": 66483.88,
+      "paidEur": 49862.91,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Амбулатория за индивидуална практика за специализирана извънболнична Медицинска помощ - Д-Р боряна Илчева ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1930",
+      "title": "Осигуряване на безопасност при работа и подобряване на условията на труд в Мувио Лоджистикс ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 60982.76,
-      "totalEur": 58142.42,
-      "paidEur": 58142.42,
+      "prevTotalEur": 67584.33,
+      "totalEur": 63916.9,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Формика груп ООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Мувио лоджистикс ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0317",
-      "title": "Адаптирана работна среда в \"ДЖАМБО\" ООД",
+      "contractNumber": "BG16RFPR001-1.004-2233",
+      "title": "Подобряване на производствения капацитет и ефективността на процесите в Елмаус Ко ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 57653.23,
-      "totalEur": 57653.23,
-      "paidEur": 54521.72,
+      "prevTotalEur": 60217.66,
+      "totalEur": 60217.66,
+      "paidEur": 45163.24,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Елмаус КО ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0048",
+      "title": "\"Закупуване на електрическо превозно средство със свързана зарядна станция за предоставяне на социални услуги в община Варна\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 55486.01,
+      "paidEur": 55486.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Варна",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2109",
+      "title": "Повишаване на производителността в семейно предприятие АРЕНА-Консулт ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 53747,
+      "totalEur": 52143.86,
+      "paidEur": 39107.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АРЕНА-КОНСУЛТ ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1192",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 35462.18,
+      "totalEur": 35462.18,
+      "paidEur": 24823.53,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"ПИ ЕС\" ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-2411",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 35324.64,
+      "totalEur": 35324.64,
+      "paidEur": 24727.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Майстор пекар варна ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-2162",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 32706.83,
+      "totalEur": 32706.83,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Джамбо ООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Спато ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0462",
+      "title": "Дигитален клуб \"Онлайн заедно\" към Народно Читалище \"Просвета - 1927\" Варна",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 26583.53,
+      "totalEur": 26583.53,
+      "paidEur": 26583.53,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета - 1927\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2395",
+      "title": "Подобряване на производствения капацитет във Фантастични апартаменти ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 25364.51,
+      "totalEur": 25243.94,
+      "paidEur": 16254.82,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Фантастични апартаменти ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1319",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 29621.69,
+      "totalEur": 24590.58,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"М и д авто\" ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0694",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"ХРИСТО СМИРНЕНСКИ-1946\" в гр./с. Варна",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26587.18,
+      "totalEur": 24266.72,
+      "paidEur": 24266.72,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Христо СМИРНЕНСКИ-1946\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1316",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Искра - 1924\" град Варна, район Младост за безплатен и свободен достъп на хора в неравностойно социално положение и потребители от ромски етнос до електронни образователни ресурси ,както и подпомагане на лицата без необходими дигитални умения за участие в онлайн курсове за обучение",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26578.99,
+      "totalEur": 23731.9,
+      "paidEur": 23731.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Искра - 1924\" град Варна",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0754",
+      "title": "Подобряване на производствения капацитет на Парти Тайм БГ ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 23830.07,
+      "totalEur": 23640.99,
+      "paidEur": 17730.75,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Парти тайм БГ ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1645",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 23442.73,
+      "totalEur": 23442.73,
+      "paidEur": 14065.64,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АР СИ Акаунтинг ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0881",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 23269.4,
+      "totalEur": 23269.4,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Голден 2 ООД",
+      "detectedAt": "2026-10-18"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-2344",
       "title": "Подобряване на работната среда в МАРВИН ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 51786.69,
-      "totalEur": 51786.69,
+      "totalEur": 22757.46,
       "paidEur": 22757.46,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Марвин ООД",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-1003",
+      "contractNumber": "BG16RFPR001-1.012-0467",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 30733.24,
-      "totalEur": 30733.24,
+      "prevTotalEur": 30292.5,
+      "totalEur": 21724.27,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сидеон",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "\"Досев импекс\" ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0153",
-      "title": "Подобряване на производствения капацитет на ЕЛЕКТРОТЕРМ ВАРНА ООД",
+      "contractNumber": "BG-RRP-1.024-0676",
+      "title": "изграждане на дигитален клуб в Народно читалище Свети Саркис-2007 - гр.Варна",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 101112.92,
+      "prevTotalEur": 26587.19,
+      "totalEur": 18044.39,
+      "paidEur": 18044.39,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Свети Саркис-2007 - гр.Варна",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0621",
+      "title": "Изграждане на дигитален клуб в НЧ \"Елин Пелин - 1977\", гр. Варна",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 15510.55,
+      "totalEur": 15091.58,
+      "paidEur": 15091.59,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Елин Пелин - 1977\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2704",
+      "title": "Подкрепа за семейното предприятие \"Стедако\" ЕООД.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 15124.17,
+      "totalEur": 14385.32,
+      "paidEur": 10789,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Стедако ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1540",
+      "title": "Подобряване на производствения капацитет и оптимизиране на бизнес процесите в семейните предприятия, предприятията от творческите индустрии и занаятите с цел повишаване на конкурентоспособността и засилване на пазарното им присъствие.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14216.88,
+      "totalEur": 14216.88,
+      "paidEur": 10658.45,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Корект сървисиз ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0485",
+      "title": "изграждане на дигитален клуб в Народно читалище Димо Цанков 1927г - с.Звездица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 11899.64,
+      "paidEur": 11899.64,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Димо Цанков 1927г - с.Звездица",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1730",
+      "title": "Подобряване на производствения капацитет на \"Монблан Интериор\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 10606.24,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Електротерм варна ООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Монблан интериор ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0761",
-      "title": "Прилагане на \"зелени\" модели на организация на труд и закупуване на лични предпазни средства и специално работно облекло с по-добра защита на работниците в ИГС ПРО ЕООД.",
+      "contractNumber": "BG-RRP-4.021-0119",
+      "title": "Енергийно обновяване на сграда на фирма Моникс Сторидж ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 127683.25,
+      "prevTotalEur": 103672.36,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ИГС ПРО ЕООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Моникс сторидж ЕООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

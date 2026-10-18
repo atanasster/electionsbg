@@ -1,109 +1,599 @@
 {
   "obshtina": "PVN24",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0122",
-      "title": "Устойчиви зелени решения за повишаване на енергийната ефективност и енергийна независимост в сектора на социалните услуги в община Плевен",
+      "contractNumber": "BG-RRP-1.024-0677",
+      "title": "Изграждане на мрежа от 14 дигитални клуба",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 438641.6,
-      "totalEur": 393374.46,
-      "paidEur": 393374.46,
+      "prevTotalEur": 348179.62,
+      "totalEur": 318480.34,
+      "paidEur": 318480.34,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Плевен",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0090",
-      "title": "Гарантиране здравето и безопасността на заетите в АС - ДС ООД",
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0445",
+      "title": "Повишаване на производствения капацитет и повишаване на конкурентоспособността на ЕЛИ Л ЕООД.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 196555.26,
-      "totalEur": 190729.42,
-      "paidEur": 0,
+      "prevTotalEur": 111921.79,
+      "totalEur": 111921.78,
+      "paidEur": 76106.81,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "АС - ДС ООД",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЕЛИ - Л ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.012-0328",
-      "title": "УСТОЙЧИВА ЗАЕТОСТ ЗА ХОРА В НЕРАВНОСТОЙНО ПОЛОЖЕНИЕ В „ЕСКПРЕС СЕКЮРИТИ СОД”",
+      "contractNumber": "BG16RFPR001-1.004-1979",
+      "title": "Подрепа за семейното предприятие Калоян Георгиев 2020 ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur",
-        "durationMonths"
+        "status"
       ],
-      "prevTotalEur": 127612.78,
-      "totalEur": 127612.78,
-      "paidEur": 99852.2,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Експрес секюрити СОД ЕООД",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
+      "paidEur": 76693.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Калоян Георгиев 2020 ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-0873",
       "title": "Подобряване условията на труд в динамична пазарна среда",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 80031.62,
-      "totalEur": 80031.62,
+      "totalEur": 79651.15,
       "paidEur": 79651.15,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Бонанза – Професионално почистване ЕООД",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-13.011-0004",
-      "title": "Закупуване на електрическо превозно средство и зарядна станция за нуждите на социалните услуги в община Плевен",
+      "contractNumber": "BG05SFPR002-1.004-1171",
+      "title": "Постигане на адаптирана работна среда в \"ИТА България\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 42206.46,
-      "paidEur": 42206.46,
+      "prevTotalEur": 74757.57,
+      "totalEur": 72340.9,
+      "paidEur": 72340.9,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Плевен",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ИТА България ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0889",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG16RFPR001-1.004-2328",
+      "title": "Подобряване на технологичното оборудване в Дом декор ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 13371.82,
-      "totalEur": 13371.82,
-      "paidEur": 5838.49,
+      "prevTotalEur": 68255.16,
+      "totalEur": 65728.91,
+      "paidEur": 49296.69,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДОМ Декор ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0869",
+      "title": "Енергийна ефективност в Автопрогрес Плевен EООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 51592.31,
+      "totalEur": 46014.79,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Виктрон\" ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Автопрогрес Плевен ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2524",
+      "title": "Подобряване на технологичното оборудване в ЧЕЛСИНАТОР- 7 ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 66126.47,
+      "totalEur": 40061.46,
+      "paidEur": 30046.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Челсинатор к7 ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1361",
+      "title": "Подобряване на производствения капацитет и пазарното представяне на \"ДЖУНИЪР СЪПЛАЙС\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 34818.98,
+      "totalEur": 32307.92,
+      "paidEur": 24230.97,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Джуниър съплайс ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2322",
+      "title": "Адаптирана работна среда в \"ЕЛКОМ - ВМВ\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 58951.24,
+      "totalEur": 29949.58,
+      "paidEur": 58576.31,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "\"Елком - ВМВ\" ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0001",
+      "title": "„Изграждане на дигитален клуб в гр. Плевен“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 52953.2,
+      "totalEur": 26476.6,
+      "paidEur": 26476.61,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Плевен",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1127",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"РОДОЛЮБИЕ - 2018\" в гр. Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26587.18,
+      "totalEur": 25248.67,
+      "paidEur": 25248.67,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Родолюбие - 2018\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0435",
+      "title": "Изграждане на дигитален клуб в Регионална библиотека \"Христо Смирненски\" - гр. Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26576.82,
+      "totalEur": 25063.36,
+      "paidEur": 25063.35,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална библиотека \"Христо Смирненски\" Плевен",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1459",
+      "title": "Подкрепа за \"ЕКО МОТОРС АВТО\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 40641.06,
+      "totalEur": 24610.7,
+      "paidEur": 18458.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЕКО Моторс авто ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1159",
+      "title": "Дигитален клуб \"Парашкев Цветков\" гр. Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 20827.99,
+      "totalEur": 19489.56,
+      "paidEur": 19489.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Парашкев Цветков - 2003",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0144",
+      "title": "Изграждане на дигитален клуб в село Опанец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17272.93,
+      "paidEur": 17272.92,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Изгрев 1929 с.Опанец",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0559",
+      "title": "Изграждане на дигитален клуб в с.Славяново , общ. Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17179.41,
+      "totalEur": 15844.63,
+      "paidEur": 15844.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Паисий Хилендарски - 2001",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0130",
+      "title": "Изграждане на дигитален клуб в село Мечка, община Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.13,
+      "paidEur": 14316.13,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда 1927 г. -с.Мечка\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0453",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ СЛЪНЦЕ-1927",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14311.86,
+      "paidEur": 14311.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище СЛЪНЦЕ-1927",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0009",
+      "title": "\"Изграждане на дигитален клуб в с.Коиловци\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14311.06,
+      "totalEur": 14298.28,
+      "paidEur": 14298.28,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев-1927\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0325",
+      "title": "Изграждане на дигитален клуб в с. Бохот",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14314.13,
+      "totalEur": 14237.19,
+      "paidEur": 14237.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев 1927 - бохот\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0319",
+      "title": "Изграждане на дигитален клуб в с. Търнене",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14268.11,
+      "totalEur": 13943.89,
+      "paidEur": 13943.89,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ.СВ.КИРИЛ и Методий - 1928\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0413",
+      "title": "Дигитален клуб на с. Тодорово община Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13822.26,
+      "totalEur": 13756.18,
+      "paidEur": 13756.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Бъдеще - 1927\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0101",
+      "title": "Изграждане на дигитален клуб в село Брестовец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13555.09,
+      "paidEur": 13555.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Наука 1927",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0879",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА - 1997\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13095.21,
+      "paidEur": 13095.21,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда - 1997\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0135",
+      "title": "Изграждане на дигитален клуб в село Буковлък",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 12675.75,
+      "paidEur": 12675.75,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Пробуда 1927",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0414",
+      "title": "Дигитален клуб с Бръшляница",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 12728.1,
+      "totalEur": 12619.77,
+      "paidEur": 12619.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета 1907\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0864",
+      "title": "Изграждане на дигитален клуб в с.Пелишат , общ.Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14111.66,
+      "totalEur": 12579.95,
+      "paidEur": 12579.95,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Пробуждане 1897",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0583",
+      "title": "Изграждане на дигитален клуб в ПРОБУЖДАНЕ - 1907 в гр./с. Тученица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 11180.91,
+      "paidEur": 11180.91,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Пробуждане - 1907",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0571",
+      "title": "Изграждане на дигитален клуб в с.Върбица, общ.Плевен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 11964.23,
+      "totalEur": 10993.16,
+      "paidEur": 10993.16,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Изгрев 1926\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR002-1.005-0090",
+      "title": "Методика за предварително оразмеряване и изчисления на заземителни инсталации за работно и защитно заземяване, както и за заземители за мълниезащита на сгради и открити пространства.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 7521.1,
+      "totalEur": 7521.1,
+      "paidEur": 7521.1,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR002",
+      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
+      "beneficiaryName": "Елстарт инженеринг ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0038",
+      "title": "Внедряване мерки за повишаване енергийната ефективност на производствена сграда, част от промишлена система на \"Димитров\"ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1021475.79,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Димитров ООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

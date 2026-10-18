@@ -1,174 +1,300 @@
 {
   "obshtina": "SLV20",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-0245",
-      "title": "Енергийно обновяване на блок 3, ул. \"Владислав Очков\", гр. Сливен.",
+      "contractNumber": "BG16FFPR003-4.014-0020",
+      "title": "Подобряване на енергийната ефективност на сградата на Окръжен съд – Сливен",
+      "type": "new",
+      "totalEur": 1724280.17,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Окръжен съд – Сливен",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0040",
+      "title": "Реформиране на Дом стари хора - Сливен",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 799848.51,
-      "totalEur": 799848.51,
-      "paidEur": 798048.52,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 4416779.01,
+      "totalEur": 4262364.26,
+      "paidEur": 4262364.26,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16FFPR003-4.001-0105",
-      "title": "Енергийно обновяване на блок 42, кв. \"Българка\", гр. Сливен",
+      "contractNumber": "BG16FFPR003-4.001-0103",
+      "title": "Енергийно обновяване на блок 6, кв. \"Кольо Фичето 6\", гр. Сливен",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 643299.16,
-      "totalEur": 643299.16,
-      "paidEur": 225154.71,
+      "prevTotalEur": 765046.5,
+      "totalEur": 765046.5,
+      "paidEur": 246209.48,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16FFPR002-3.011-0002",
-      "title": "Подобряване на природозащитното състояние на лешоядни видове птици в изпълнение на мярка 70 от Националната рамка за приоритетни действия за НАТУРА 2000 на територията на Специална защитена зона BG0002058 \"Сините камъни - Гребенец\", землище на с. Ичера, община Сливен.",
+      "contractNumber": "BG06RDNP001-4.018-0149",
+      "title": "Изграждане на локално съоръжение за съхранение на електро енергия към съществуваща фотоволтаична централа за собствени нужди на предприятие за разфасоване на червени меса в ПИ 67338.832.48 в гр. Сливен, ул. Банско шосе",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 142771.15,
-      "totalEur": 142771.15,
-      "paidEur": 82737.58,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Дирекция на природен парк \"Сините камъни\" - сливен",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 656852.92,
+      "totalEur": 656852.9,
+      "paidEur": 328426.45,
+      "status": "Сключен",
+      "programCode": "2014BG06RDNP001",
+      "programName": "Програма за развитие на селските райони",
+      "beneficiaryName": "АЛФА-ФАРМ ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0243",
-      "title": "Подкрепа на СЛЪНЧЕВ СВЯТ 2010 ООД за нови мощности за производство на електроенергия от ВИ в комбинация с ЛСС",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 125000,
-      "totalEur": 125000,
-      "paidEur": 55449.6,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Слънчев свят 2010 ООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0793",
-      "title": "Адаптирана работна среда в \"Метал Арт - инж. Добрев\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 76914.3,
-      "totalEur": 76914.3,
-      "paidEur": 45674.93,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Метал АРТ - инж. Добрев ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1495",
-      "title": "Подобряване на енергийната ефективност на АТОН ДД ООД",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 41831.4,
-      "totalEur": 41831.4,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Атон ДД ООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0271",
-      "title": "Адаптирана работна среда 2023",
+      "contractNumber": "BG-RRP-1.024-0529",
+      "title": "Изграждане на мрежа от 13 дигитални клуба",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 31634.22,
-      "totalEur": 29607.99,
-      "paidEur": 29607.99,
+      "prevTotalEur": 325382.43,
+      "totalEur": 295434.86,
+      "paidEur": 295434.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Младежки форум 21 век",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0265",
+      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в „АРИС ФЪРНИЧЪР ГРУП АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 226231.84,
+      "totalEur": 226231.83,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Арис фърничър груп АД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2309",
+      "title": "Адаптиране на работна среда в \"Е.Миролио\" ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 144485.34,
+      "totalEur": 144485.36,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Е.МИРОЛИО ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1809",
+      "title": "Устойчиви работни практики и здравословна среда в ИППМП-Д-Р ПЕНКОВА ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 96341.05,
+      "totalEur": 96000.83,
+      "paidEur": 96000.83,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Кале ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Индивидуална практика за първична Медицинска помощ иппмп- Д-Р Пенкова ЕООД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0808",
-      "title": "Подобряване на производствения процес на Електра - МС ООД",
+      "contractNumber": "BG-RRP-13.011-0003",
+      "title": "Закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в Община Сливен",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 50738.05,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Електра - МС ООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.024-0158",
-      "title": "Енергийно обновяване на блок 4, кв. \"Сини камъни\", гр. Сливен - ЕТАП II",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1406279.01,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 58082.76,
+      "totalEur": 47906.4,
+      "paidEur": 47906.4,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.024-0173",
-      "title": "Енергийно обновяване на блок 34A, ул. \"Агликина поляна\" , гр. Сливен- етап ІІ",
+      "contractNumber": "BG-RRP-1.024-0687",
+      "title": "„Заедно в дигиталния свят – без възраст, без граници“ изграждане на дигитален клуб при Народно читалище \"Христо Смирненски 1944\" - Сливен",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 74191.65,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 18871.89,
+      "totalEur": 18479.21,
+      "paidEur": 18479.21,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище \" Христо Смирненски 1944 \"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0309",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА - 1906\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 16099.34,
+      "paidEur": 16099.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда - 1906\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0762",
+      "title": "Изграждане на дигитален клуб в Регионална библиотека “Сава Доброплоднни“ - гр.Сливен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 16768.32,
+      "totalEur": 14231.45,
+      "paidEur": 14231.45,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална библиотека „Сава Доброплодни“",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0984",
+      "title": "Заедно в дигиталния свят.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14315.26,
+      "totalEur": 14198.04,
+      "paidEur": 14198.04,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище\"Пробуда-1938\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0255",
+      "title": "Изграждане на дигитален клуб към Народно Читалище „Христо Ботев 1936“ с. Бяла, община Сливен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14062.05,
+      "totalEur": 12707.07,
+      "paidEur": 11573.55,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Христо Ботев 1936\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1015",
+      "title": "Изграждане на дигитален клуб в Народно читалище ДАСКАЛ ДИМИТЪР ДИМОВ - 1908",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.94,
+      "totalEur": 12064.54,
+      "paidEur": 12064.54,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Даскал димитър Димов - 1908",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1354",
+      "title": "Дигитален клуб Сливен – дигитални умения за равни възможности",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 24015.38,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Компютър маркет ЕООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

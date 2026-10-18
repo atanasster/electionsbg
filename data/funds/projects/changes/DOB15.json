@@ -1,40 +1,42 @@
 {
   "obshtina": "DOB15",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-2.004-0016",
-      "title": "„Разширение и надграждане на система за разделно събиране и компостиране на биоразградимите отпадъци на общините Град Добрич, Добричка и Крушари“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 4455672.17,
-      "totalEur": 4455672.17,
-      "paidEur": 770807.31,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Град добрич",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-2279",
-      "title": "Закупуване на земеделска техника за технологична и екологична модернизация",
+      "contractNumber": "BG-RRP-1.024-0645",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Пробуждане -1898 Година\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 351784.52,
-      "totalEur": 378509.37,
-      "paidEur": 175892.26,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 14316.18,
+      "totalEur": 13279.07,
+      "paidEur": 13279.07,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕТ Статев - станимир Недялков",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище \"Пробуждане -1898 Година\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0947",
+      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище Просвета – 1940”, с. Царевец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12518.83,
+      "paidEur": 12518.83,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище „Просвета – 1940”, село Царевец",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

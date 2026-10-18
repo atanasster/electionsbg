@@ -1,40 +1,257 @@
 {
   "obshtina": "HKV09",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.004-2344",
-      "title": "Подобряване на работната среда в МАРВИН ООД",
+      "contractNumber": "BG05SFPR003-1.001-0246",
+      "title": "Топъл обяд в община Димитровград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 51786.69,
-      "totalEur": 51786.69,
-      "paidEur": 22757.46,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Марвин ООД",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 1042430.68,
+      "totalEur": 1042430.68,
+      "paidEur": 884625.75,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Димитровград",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0451",
-      "title": "Подобряване на работната среда в ЖЕТ ЛОГИСТИК И КО ООД",
+      "contractNumber": "BG16RFPR001-1.004-2480",
+      "title": "Повишаване на производствения капацитет на Анакинис EООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
+      "paidEur": 76693.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Анакинис ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2112",
+      "title": "Внедряване на иновации в производствения процес и повишаване на ефективността и производителността на семейно предприятие \"Акорд 67\"ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 103536.61,
+      "totalEur": 76030,
+      "paidEur": 56262.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Акорд 67 ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1364",
+      "title": "Дигитален клуб \"Култура-2025\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 22803.62,
+      "totalEur": 22801.6,
+      "paidEur": 22418.18,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Култура-2002“, гр. Димитровград",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2344",
+      "title": "Подобряване на работната среда в МАРВИН ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 48679.68,
-      "totalEur": 13528.41,
-      "paidEur": 0,
+      "prevTotalEur": 51786.69,
+      "totalEur": 22757.46,
+      "paidEur": 22757.46,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ЖЕТ Логистик и КО ООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Марвин ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0887",
+      "title": "„Дигитални умения за всички“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 22394.58,
+      "totalEur": 21495.14,
+      "paidEur": 21495.14,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Градска библиотека \"Пеньо Пенев\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0812",
+      "title": "Изграждане на дигитален клуб в село Добрич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.17,
+      "paidEur": 14316.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Нов път 2011",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0711",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ИСКРА-1926\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13891.81,
+      "paidEur": 13891.81,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ИСКРА-1926\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0663",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА - 1926\" Народно читалище",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13317.61,
+      "paidEur": 13317.61,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета - 1926\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0440",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"СЕЛСКА ПРОБУДА-1927\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12636.14,
+      "paidEur": 12636.14,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народно читалище \"Селска ПРОБУДА-1927\"\" НЧ",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0449",
+      "title": "Изграждане на дигитален клуб в \"НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА - 1896\" НЧ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12158.28,
+      "paidEur": 12158.28,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народно читалище просвета - 1896\" НЧ",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0430",
+      "title": "\"НАРОДНО ЧИТАЛИЩЕ ИСКРИЦА 1901\" НЧ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 11449.45,
+      "paidEur": 11449.45,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народно читалище искрица 1901\" НЧ",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0727",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ВАСИЛ ЛЕВСКИ -1929",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 9162.11,
+      "paidEur": 9162.11,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище васил Левски -1929",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1184",
+      "title": "Изграждане на дигитален клуб в Народно читалище СЪБУЖДАНЕ - 1927 в с. Радиево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.16,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Събуждане - 1927",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

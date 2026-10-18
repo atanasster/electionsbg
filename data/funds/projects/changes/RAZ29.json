@@ -1,38 +1,60 @@
 {
   "obshtina": "RAZ29",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-3.003-0003",
-      "title": "Успешни в СУ-Самуил",
+      "contractNumber": "BG-RRP-13.009-0213",
+      "title": "Устойчива енергия и зелена мобилност в подкрепа на социалните услуги в Община Самуил",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 257224.57,
-      "totalEur": 257224.57,
-      "paidEur": 51444.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Св. Св. Кирил и Методий\"",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 604343.99,
+      "totalEur": 598780.27,
+      "paidEur": 549076.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Самуил",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-2.012-0093",
-      "title": "Иновативни здравно-социални услуги в община Самуил",
+      "contractNumber": "BG-RRP-13.011-0027",
+      "title": "Зелена мобилност в подкрепа на социалните услуги в Община Самуил",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 115327.3,
-      "totalEur": 115327.3,
-      "paidEur": 92261.84,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "prevTotalEur": 91213.76,
+      "totalEur": 88045.79,
+      "paidEur": 88045.79,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Самуил",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0886",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Искра-1928г.\" , село ЦАР САМУИЛ , Област СИЛИСТРА , Община ТУТРАКАН",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13456.18,
+      "totalEur": 11742.52,
+      "paidEur": 11742.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Искра-1928г.\" , село ЦАР Самуил , Област силистра , Община тутракан",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

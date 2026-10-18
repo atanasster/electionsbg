@@ -1,22 +1,96 @@
 {
   "obshtina": "BGS27",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.035-0028",
-      "title": "ПОВИШАВАНЕ ГОТОВНОСТТА НА ОБЛАСТ БУРГАС ЗА ПРЕДОТВРАТЯВАНЕ И ОВЛАДЯВАНЕ НА БЕДСТВИЯ, ПОЖАРИ И ИЗВЪНРЕДНИ СИТУАЦИИ",
+      "contractNumber": "BG-RRP-13.009-0193",
+      "title": "„Модернизиране автопарка на Дом за пълнолетни лица с физически увреждания, с. Ясна поляна, общ. Прморско“",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 459652.79,
-      "totalEur": 459652.79,
-      "paidEur": 223422.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\"-Бургас",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 58077.44,
+      "totalEur": 47732.4,
+      "paidEur": 47732.4,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Приморско",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0949",
+      "title": "Клуб на знанието: Smart-start",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 15102.72,
+      "paidEur": 15102.72,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Самообразование -1919\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0016",
+      "title": "Изграждане на дигитален клуб в с.Веселие, Община Приморско, Област Бургас",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13752.78,
+      "paidEur": 13752.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ВИДЕЛИНА-1927",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0602",
+      "title": "Изграждане на дигитален клуб в град Китен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13339.79,
+      "paidEur": 13339.79,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВОБОДА-1948\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0052",
+      "title": "Изграждане на дигитален клуб в село Ново Паничарево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 12224.44,
+      "paidEur": 12224.44,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ\"Отец Паисий-1927\" с.Ново Паничарево",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

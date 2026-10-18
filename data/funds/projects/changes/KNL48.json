@@ -1,18 +1,111 @@
 {
   "obshtina": "KNL48",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.014-0007",
-      "title": "Подобряване на енергийната ефективност на съдебна сграда на Районен съд – Дупница",
-      "type": "new",
-      "totalEur": 589852.24,
-      "paidEur": 0,
+      "contractNumber": "BG05SFPR001-3.008-0008",
+      "title": "Дуално образование за устойчиво развитие в химичната индустрия",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 332146.26,
+      "totalEur": 332146.26,
+      "paidEur": 119585.25,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Районен СЪД - дупница",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по хранително - вкусови и химични технологии",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0677",
+      "title": "Изграждане на мрежа от 14 дигитални клуба",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 348179.62,
+      "totalEur": 318480.34,
+      "paidEur": 318480.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0233",
+      "title": "„Изграждане на фотоволтаични централи и закупуване на електромобил за нуждите на социалните услуги, предоставяни от Община Дупница“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 231904.02,
+      "totalEur": 229701.51,
+      "paidEur": 229701.51,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Дупница",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0038",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Дупница",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 88742.76,
+      "totalEur": 88742.76,
+      "paidEur": 88742.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Дупница",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0216",
+      "title": "Подкрепа за семейна фирма",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 54145.81,
+      "totalEur": 42171.26,
+      "paidEur": 31628.44,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Цаки строй 99\" ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0477",
+      "title": "Изграждане на дигитален клуб в гр. Дупница.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23455.52,
+      "totalEur": 22670.82,
+      "paidEur": 22670.82,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Синдикален регионален съюз към КТ\"Подкрепа\"-Дупница",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

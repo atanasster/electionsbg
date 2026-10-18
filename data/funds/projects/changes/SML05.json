@@ -1,38 +1,42 @@
 {
   "obshtina": "SML05",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0255",
-      "title": "Превенция и предотвратяване на тормоза и насилието и намаляване агресията в Средно училище „Никола Йонков Вапцаров“ – с. Борино, общ. Борино",
+      "contractNumber": "BG-RRP-13.009-0018",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги на територията на Община Борино",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 178050.53,
-      "totalEur": 178050.53,
-      "paidEur": 35610.1,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Никола й. Вапцаров\"",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 58082.76,
+      "totalEur": 57929.39,
+      "paidEur": 57929.39,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Борино",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-2.012-0126",
-      "title": "Иновативни здравно-социални услуги в община Борино",
+      "contractNumber": "BG-RRP-1.024-0750",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"Обнова-1939\" в с. Борино",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 48920.56,
-      "totalEur": 48920.56,
-      "paidEur": 35696.43,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Борино",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 17383.92,
+      "totalEur": 14710.3,
+      "paidEur": 14710.3,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Обнова-1939\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

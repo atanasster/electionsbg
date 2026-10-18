@@ -1,6 +1,56 @@
 {
-  "updatedAt": "2026-10-17T01:32:14.530Z",
+  "updatedAt": "2026-10-18T01:41:48.446Z",
   "entries": [
+    {
+      "timestamp": "2026-10-18T01:41:48.446Z",
+      "date": "2026-10-18",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-17 (+1 daily archive; 1,110,367 store rows, 168 settlements, 68 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-17"
+    },
+    {
+      "timestamp": "2026-10-18T01:21:42.807Z",
+      "date": "2026-10-18",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 890 лица, 125 089 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-18T00:56:08.447Z",
+      "date": "2026-10-18",
+      "skill": "tr-daily-refresh",
+      "summary": "Commerce Registry: 1,027,177 companies (172 new)",
+      "source": "data.egov.bg Търговски регистър"
+    },
+    {
+      "timestamp": "2026-10-18T00:56:07.995Z",
+      "date": "2026-10-18",
+      "skill": "update-procurement",
+      "summary": "Procurement: ЦАИС ЕОП day 2026-10-16, АДФИ 2,124 inspections, ЦПРС 108,722 licences / 8,513 firms",
+      "source": "ЦАИС ЕОП / АДФИ / ЦПРС"
+    },
+    {
+      "timestamp": "2026-10-18T00:56:07.553Z",
+      "date": "2026-10-18",
+      "skill": "update-funds",
+      "summary": "ИСУН EU funds refreshed: 83,067 contracts (+18 new, 1,320 modified)",
+      "source": "ИСУН 2020 (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-10-18T00:53:39.334Z",
+      "date": "2026-10-18",
+      "skill": "kzk_decisions",
+      "summary": "КЗК decisions register refreshed: 20 acts for 2026; 3135 outcomes",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-10-18T00:53:38.888Z",
+      "date": "2026-10-18",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: 40 complaints for 2026",
+      "source": "КЗК (reg.cpc.bg)"
+    },
     {
       "timestamp": "2026-10-17T01:32:14.530Z",
       "date": "2026-10-17",

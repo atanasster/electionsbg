@@ -1,56 +1,40 @@
 {
   "obshtina": "SFO59",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0055",
-      "title": "Енергийно обновяване на сградите на Народно читалище „Рила - 1898“, Музей и Библиотека в гр. Долна баня, община Долна баня",
+      "contractNumber": "BG-RRP-13.011-0045",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги на територията на община Долна баня",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 58082.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Долна баня",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1068",
+      "title": "Изграждане на Дигитален клуб към Народно читалище \"Рила - 1898\" гр. Долна баня",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 627797.48,
-      "totalEur": 620829.16,
-      "paidEur": 594120.07,
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.92,
+      "paidEur": 17383.92,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Долна баня",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0034",
-      "title": "Инсталиране на локално съоръжение за съхранение на електрическа енергия (ЛСС) с мощност 500 kW и капацитет 1075 kWh към ФвЕЦ с мощност 1000 kW",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 545088.27,
-      "totalEur": 545088.27,
-      "paidEur": 272544.13,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Солар ЕРА енерджи ООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0022",
-      "title": "Иновативни здравно-социални услуги в община Долна баня",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 72247.47,
-      "totalEur": 72247.47,
-      "paidEur": 28934.22,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Долна баня",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Народно читалище Рила - 1898",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

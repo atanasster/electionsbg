@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-16T23:59:59.999Z",
+  "computedAt": "2026-10-17T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:kartofi-chetkani-na-kg",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-16T00:00:00.000Z",
-      "firstSeenAt": "2026-10-16T00:00:00.000Z",
+      "occurredAt": "2026-10-17T00:00:00.000Z",
+      "firstSeenAt": "2026-10-17T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -38,6 +38,39 @@
     },
     {
       "schemaVersion": 1,
+      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-17T00:00:00.000Z",
+      "firstSeenAt": "2026-10-17T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/krave-maslo-d-markenbutter-250gr",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+        "pct": 56,
+        "promoEur": "1.79",
+        "regularEur": "4.10",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
       "id": "parliament:sitting:2026-10-16",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -58,46 +91,13 @@
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 41,
-        "sittings": 15,
+        "sittings": 14,
         "windowDays": 30
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 1,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-16T00:00:00.000Z",
-      "firstSeenAt": "2026-10-16T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/krave-maslo-d-markenbutter-250gr",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-        "pct": 56,
-        "promoEur": "1.79",
-        "regularEur": "4.07",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8,
-      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -199,8 +199,8 @@
       "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-16T00:00:00.000Z",
-      "firstSeenAt": "2026-10-16T00:00:00.000Z",
+      "occurredAt": "2026-10-17T00:00:00.000Z",
+      "firstSeenAt": "2026-10-17T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -259,11 +259,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-10-16",
+      "id": "prices:basket_moved:2026-10-17",
       "kind": "basket_moved",
       "category": "prices",
-      "occurredAt": "2026-10-16T00:00:00.000Z",
-      "firstSeenAt": "2026-10-16T00:00:00.000Z",
+      "occurredAt": "2026-10-17T00:00:00.000Z",
+      "firstSeenAt": "2026-10-17T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -279,13 +279,13 @@
       "route": "/consumption",
       "factKey": "home_fact_basket_up",
       "factArgs": {
-        "pct": "1.7",
-        "costEur": "15.71",
+        "pct": "2.1",
+        "costEur": "15.76",
         "days": 7
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.42775,
+      "materiality": 0.51825,
       "actionability": 0.5
     },
     {
@@ -1134,8 +1134,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-16",
-      "observedAt": "2026-10-16",
+      "asOf": "2026-10-17",
+      "observedAt": "2026-10-17",
       "staleAfterDays": 5,
       "stale": false
     }

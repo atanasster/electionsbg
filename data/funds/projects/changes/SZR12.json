@@ -1,26 +1,26 @@
 {
   "obshtina": "SZR12",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0024",
-      "title": "Полет към промяната - превенция на насилието и насърчаване на доброто",
+      "contractNumber": "BG16FFPR003-4.014-0034",
+      "title": "Подобряване енергийната ефективност на ПХГ Св. Св. Кирил и Методий, гр. Казанлък",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 155788.45,
-      "totalEur": 155788.45,
-      "paidEur": 31157.69,
+      "prevTotalEur": 1984582.92,
+      "totalEur": 1984582.92,
+      "paidEur": 694604.02,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Екзарх Антим 1\"",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Казанлък",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0100",
-      "title": "Адаптирана работна среда 2023",
+      "contractNumber": "BG16RFPR001-1.004-1810",
+      "title": "Подобряване на производствения капацитет и оптимизиране на бизнес процесите в ВЕКТОР ГРУП ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -28,14 +28,86 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 60582.41,
-      "totalEur": 50014.62,
-      "paidEur": 50014.62,
+      "prevTotalEur": 70940.73,
+      "totalEur": 65724.77,
+      "paidEur": 49293.58,
       "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Вектор груп ЕООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0899",
+      "title": "Обществен Дигитален Клуб Бузовград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17355.19,
+      "totalEur": 17353.89,
+      "paidEur": 17353.89,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Любен Каравелов-1921\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0534",
+      "title": "\"Компютърен свят за всички\" - изграждане на дигитален клуб в народно читалище \"Пробуда - 1920",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17347.31,
+      "totalEur": 17328.85,
+      "paidEur": 17328.84,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда - 1920\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0541",
+      "title": "Изграждане на дигитален клуб в село Черганово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 12015.36,
+      "totalEur": 11351.84,
+      "paidEur": 11351.84,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Антон СТРАШИМИРОВ-1909 “",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2382",
+      "title": "Адаптиране на работната среда в Машпром КМХ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 123825.53,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Бригада ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "МАШПРОМ-КМХ ЕООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

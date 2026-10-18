@@ -1,40 +1,38 @@
 {
   "obshtina": "VID15",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.035-0008",
-      "title": "Повишаване готовността на област Видин за предотвратяване и oвладяване на бедствия, пожари и извънредни ситуации",
+      "contractNumber": "BG-RRP-4.032-0182",
+      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в ХИДРОЕНЕРГИЙНА КОМПАНИЯ АД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 210706.85,
-      "totalEur": 210706.85,
-      "paidEur": 55395.9,
+      "prevTotalEur": 202198.04,
+      "totalEur": 202198.04,
+      "paidEur": 101099.02,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Видин",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1095",
-      "title": "Създаване на дигитален клуб в град Грамада, област Видин",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 11576.67,
-      "totalEur": 10922.4,
-      "paidEur": 10922.4,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Пробуда 1908\"",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Хидроенергийна компания АД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0085",
+      "title": "Позитивна училищна среда",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 4287.12,
+      "totalEur": 4287.12,
+      "paidEur": 857.42,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Христо Ботев\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

@@ -1,180 +1,92 @@
 {
   "obshtina": "VID09",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-1.001-0008",
-      "title": "„Осигуряване на модерна и приобщаваща образователна среда в ОУ \"Епископ Софроний Врачански\" и СУ \"П.Р.Славейков\"",
+      "contractNumber": "BG16FFPR002-5.001-0016",
+      "title": "ЗА ПО-ЧИСТ ВЪЗДУХ В ОБЩИНА ВИДИН",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 8251930.02,
-      "totalEur": 8251930.02,
-      "paidEur": 2921963.73,
+      "prevTotalEur": 11990916.11,
+      "totalEur": 11990916.11,
+      "paidEur": 7548110.78,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
       "beneficiaryName": "Община Видин",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG05SFPR002-1.035-0008",
-      "title": "Повишаване готовността на област Видин за предотвратяване и oвладяване на бедствия, пожари и извънредни ситуации",
+      "contractNumber": "BG-RRP-13.009-0071",
+      "title": "Инсталиране на фотоволтаични системи в съществуващи социални услуги в Община Видин",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 210706.85,
-      "totalEur": 210706.85,
-      "paidEur": 55395.9,
+      "prevTotalEur": 410754.22,
+      "totalEur": 375238.12,
+      "paidEur": 375238.12,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Видин",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0529",
+      "title": "Изграждане на мрежа от 13 дигитални клуба",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 325382.43,
+      "totalEur": 295434.86,
+      "paidEur": 295434.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Младежки форум 21 век",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Видин",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0240",
-      "title": "Комбиниран проект за изграждане на нова мощност включващ изграждане на Локално стопанство за съхранение на електроенергия 430 kWh / PCS: 200 kW и изградена собствена фотоволтаична електроцентрала с инсталирана мощност PV 2 – 533,60 kWp на производствената площадка на \"Випом\" АД\" в имот с идентификатор ПИ 10971.513.14 в гр. Видин, с административен адрес: гр.Видин, Западна Складова Зона.“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 161259.21,
-      "totalEur": 161259.21,
-      "paidEur": 76065.34,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Випом АД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0986",
-      "title": "Дигитални умения за бъдещето - клуб за обучение и интеграция",
+      "contractNumber": "BG-RRP-4.024-0063",
+      "title": "Енергийно обновяване на жилищна сграда с административен адрес: гр. Видин, ул. „Цар Симеон Велики“ № 85",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 23422.28,
-      "totalEur": 22572.49,
-      "paidEur": 22572.49,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 226544.51,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Регионална библиотека \"Михалаки Георгиев\"",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0314",
-      "title": "Изграждане на Дигитален клуб във Видин",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 23519.43,
-      "totalEur": 14167.58,
-      "paidEur": 14167.58,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище цвят 1870",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0480",
-      "title": "Създаване на дигитален клуб в село Буковец, община Видин",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14007.24,
-      "totalEur": 13273.96,
-      "paidEur": 13273.96,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета- 1925\" село Буковец",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0286",
-      "title": "Създаване на дигитален клуб в село Слана бара, община Видин",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 13908.03,
-      "totalEur": 12859.74,
-      "paidEur": 12859.74,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Съгласие- 1936\" село Слана бара",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0427",
-      "title": "Създаване на дигитален клуб в село Бела Рада, община Видин",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 13303.33,
-      "totalEur": 12773.28,
-      "paidEur": 12773.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Пробуда- 1928\" село Бела Рада",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0547",
-      "title": "Изграждане на дигитален клуб в село Кутово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14087.93,
-      "totalEur": 12734.51,
-      "paidEur": 12734.51,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета-1937 г.\"",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0408",
-      "title": "Създаване на дигитален клуб в село Капитановци, община Видин",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14237.32,
-      "totalEur": 12544.48,
-      "paidEur": 12544.48,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Самообразование- 1927\" село Капитановци",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Община Видин",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

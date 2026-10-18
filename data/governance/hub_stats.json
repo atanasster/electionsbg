@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-10-17T00:56:44.776Z",
+  "computedAt": "2026-10-18T01:27:21.204Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 94476184176,
+      "value": 94493568969,
       "basis": "contracts"
     },
     "sectors": {
@@ -13,7 +13,7 @@
     },
     "persons": {
       "kind": "count",
-      "value": 63604,
+      "value": 63607,
       "basis": "public_register"
     },
     "budget": {
@@ -35,7 +35,7 @@
     },
     "funds": {
       "kind": "eur",
-      "value": 45358206326,
+      "value": 45352388517,
       "basis": "contracted"
     },
     "municipal-finance": {
@@ -50,7 +50,7 @@
     },
     "connections": {
       "kind": "count",
-      "value": 207202,
+      "value": 207372,
       "basis": "edges"
     }
   },
@@ -122,21 +122,21 @@
     "52": {
       "parliament": {
         "kind": "count",
-        "value": 64,
+        "value": 65,
         "basis": "sessions",
-        "extra": 1600
+        "extra": 1641
       }
     }
   },
   "coverage": [
     {
       "id": "contracts",
-      "value": 405598,
+      "value": 405689,
       "to": "/procurement/contracts?pscope=all"
     },
     {
       "id": "tenders",
-      "value": 240738,
+      "value": 240843,
       "to": "/procurement/tenders?pscope=all"
     },
     {
@@ -146,7 +146,7 @@
     },
     {
       "id": "fundsProjects",
-      "value": 83049,
+      "value": 83067,
       "to": "/funds/beneficiaries"
     }
   ],

@@ -1,22 +1,115 @@
 {
   "obshtina": "SHU22",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0143",
-      "title": "„Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия от „ВОГОН 24“ ЕООД в обект ФЕЦ Нови Пазар 5 - 3 MW“",
+      "contractNumber": "BG05SFPR003-1.001-0079",
+      "title": "Топъл обяд в Община Нови пазар",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 1131748.93,
-      "totalEur": 1131748.93,
-      "paidEur": 546775.58,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 906030.91,
+      "totalEur": 1108694.98,
+      "paidEur": 827615.37,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Нови пазар",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0102",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в шест социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Нови пазар\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 348193.85,
+      "totalEur": 347947.42,
+      "paidEur": 347947.42,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Вогон 24 ЕООД",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Община Нови пазар",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0007",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Нови пазар",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 91213.75,
+      "totalEur": 74751.72,
+      "paidEur": 74751.72,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Нови пазар",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1150",
+      "title": "СЪЗДАВАНЕ НА ДИГИТАЛЕН КЛУБ В НАРОДНО ЧИТАЛИЩЕ \"ИВАН ВАЗОВ - 1911\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14300.73,
+      "totalEur": 14168.76,
+      "paidEur": 14168.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \" Иван Вазов – 1911“",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1122",
+      "title": "СЪЗДАВАНЕ НА ДИГИТАЛЕН КЛУБ В НАРОДНО ЧИТАЛИЩЕ \"РАЗВИТИЕ-1908\" с. МИРОВЦИ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14035.48,
+      "totalEur": 14030.74,
+      "paidEur": 14030.74,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"РАЗВИТИЕ-1908\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1134",
+      "title": "Създаване на дигитален клуб в Народно читалище „Напредък-1928“ с. Войвода",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14152.97,
+      "totalEur": 13550.51,
+      "paidEur": 13550.51,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Напредък-1928“",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

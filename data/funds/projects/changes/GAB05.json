@@ -1,10 +1,257 @@
 {
   "obshtina": "GAB05",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-2798",
-      "title": "Подобряване на производствения капацитет в \"МАК ДИ\" ЕООД",
+      "contractNumber": "BG-RRP-1.024-0677",
+      "title": "Изграждане на мрежа от 14 дигитални клуба",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 348179.62,
+      "totalEur": 318480.34,
+      "paidEur": 318480.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0658",
+      "title": "Адаптиране на работната среда във \"ВАЛЕНТИН ПЕТРОВ 2004\" ООД към променящите се модели на работа",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 106288.59,
+      "totalEur": 105456.03,
+      "paidEur": 105456.03,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Валентин Петров 2004 ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1214",
+      "title": "Адаптирана работна среда в \"Пастили\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 66083.63,
+      "totalEur": 66083.35,
+      "paidEur": 66083.35,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "\"Пастили\" ООД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0521",
+      "title": "Адаптирана работна среда 2023",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 187217.13,
+      "totalEur": 43753.19,
+      "paidEur": 43753.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Димас АД",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0516",
+      "title": "Изграждане на дигитален клуб в гр.Габрово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26587.18,
+      "totalEur": 26585.34,
+      "paidEur": 26585.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Отец Паисий -1933",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0974",
+      "title": "Изграждане на дигитален клуб във филиал на РБ \"Априлов - Палаузов\" - Габрово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23518.2,
+      "totalEur": 23482.75,
+      "paidEur": 23482.75,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална библиотека \"Априлов-Палаузов\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0347",
+      "title": "\"Изграждане на дигитален клуб в РЕГИОНАЛНА СТОПАНСКА КАМАРА-Габрово, в гр. Габрово\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23519.43,
+      "totalEur": 23352.48,
+      "paidEur": 23352.48,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сдружение \"Регионална Стопанска камара - Габрово\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0253",
+      "title": "Изграждане на дигитален клуб към НЧ \"Будителите 2017\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23519.43,
+      "totalEur": 23219.9,
+      "paidEur": 23219.9,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Будителите 2017\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0230",
+      "title": "Изграждане на дигитален клуб в гр. Габрово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 22911,
+      "totalEur": 22674.26,
+      "paidEur": 22674.26,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Габрово",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0731",
+      "title": "Изграждане на дигитален клуб в гр. Габрово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23519.43,
+      "totalEur": 21313.09,
+      "paidEur": 21313.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище “СВ.СВ.КИРИЛ и Методий- 1928“",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1231",
+      "title": "Изграждане на дигитален клуб в Габрово (ГТПП)",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 41389.2,
+      "totalEur": 20694.6,
+      "paidEur": 20694.6,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Габровска търговско-промишлена палата Сдружение",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0697",
+      "title": "Дигитално читалище",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 19405.06,
+      "totalEur": 19089.07,
+      "paidEur": 19089.07,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета-1951г.-кв. Златари\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0402",
+      "title": "Изграждане на дигитален клуб в село Яворец",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 14316.17,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Васил Левски - 1922 \"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1675",
+      "title": "Подкрепа за оптимизация и разширяване на услугите за пожарна безопасност на 'Файърскейп Партнърс' ООД чрез инвестиции в специализирано оборудване и онлайн магазин.",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -12,114 +259,14 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 101784.92,
-      "totalEur": 101784.9,
-      "paidEur": 76338.67,
+      "prevTotalEur": 27583.19,
+      "totalEur": 10879.53,
+      "paidEur": 8159.66,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"МАК ДИ\" ЕООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.035-0022",
-      "title": "Повишаване готовността на област Габрово за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92676.52,
-      "totalEur": 92676.52,
-      "paidEur": 53429.16,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Габрово",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0209",
-      "title": "Слънце и мобилност за социална подкрепа",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 132438.52,
-      "totalEur": 87157.28,
-      "paidEur": 87157.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Габрово",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0805",
-      "title": "„По - здравословна и адаптирана към предизвикателствата на климатичния преход работна среда в „ИМПУЛС“ АД“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 77062.93,
-      "totalEur": 77062.93,
-      "paidEur": 56551,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "„Импулс“ АД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0016",
-      "title": "Подобрена мобилност за качествена грижа за децата",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 69296.24,
-      "totalEur": 55236,
-      "paidEur": 55236,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Габрово",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG16RFTA001-1.010-0034",
-      "title": "РИЦ „Амбициозно Габрово\" – граждански капацитет и партньорство за ефективно сближаване",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 49346.83,
-      "totalEur": 49346.83,
-      "paidEur": 10941.64,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение Регионален иновационен център \"Амбициозно Габрово\"",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG16RFTA001-1.010-0083",
-      "title": "Хоризонталните принципи на политиката на сближаване – основа за устойчиво партньорство и активно гражданско участие",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 43122.14,
-      "totalEur": 43122.14,
-      "paidEur": 7816.99,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение \"Младежко дружество за спорт и ТУРИЗЪМ-\"ЗДРАВЕЦ\"\"",
-      "detectedAt": "2026-10-11"
+      "beneficiaryName": "Файърскейп Партнърс ООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

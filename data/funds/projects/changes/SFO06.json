@@ -1,34 +1,42 @@
 {
   "obshtina": "SFO06",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.040-0281",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда - бл.8, ж.к. Жилища, гр.Божурище, община Божурище",
-      "type": "new",
-      "totalEur": 130470.19,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Божурище",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0329",
-      "title": "Енергийна ефективност за \"ВОЛАКОМ\" АД",
+      "contractNumber": "BG-RRP-1.024-0912",
+      "title": "Изграждане на дигитален клуб в село Пролеша",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 79076.2,
-      "totalEur": 79076.2,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Волаком\" АД",
-      "detectedAt": "2026-10-11"
+      "prevTotalEur": 14315.76,
+      "totalEur": 13460.66,
+      "paidEur": 13460.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Светлина 1924 г.\"",
+      "detectedAt": "2026-10-18"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1172",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА 1925\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.19,
+      "totalEur": 11490.86,
+      "paidEur": 11490.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета 1925\"",
+      "detectedAt": "2026-10-18"
     }
   ]
 }

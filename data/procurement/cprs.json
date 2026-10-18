@@ -1,12 +1,12 @@
 {
  "source": {
   "url": "https://register.ksb.bg/listFirms.php",
-  "fetchedAt": "2026-10-11"
+  "fetchedAt": "2026-10-18"
  },
  "counts": {
-  "firms": 8498,
-  "licences": 108460,
-  "dated": 108434,
+  "firms": 8513,
+  "licences": 108722,
+  "dated": 108696,
   "unjoinable": 4
  },
  "classes": {
@@ -33,32 +33,32 @@
   "42.91": "42.91 Строителство на хидротехнически съоръжения",
   "43.22": "43.22 Изграждане на водопроводни, канализационни, отоплителни и климатични инсталации",
   "43.39": "43.39 Други довършителни строителни дейности",
-  "41.20": "41.20 Строителство на жилищни и нежилищни сгради",
-  "43.11": "43.11 Събаряне и разрушаване",
-  "43.12": "43.12 Земни работи",
-  "43.13": "43.13 Сондиране и пробиване",
-  "43.21": "43.21 Изграждане на електрически инсталации",
-  "43.29": "43.29 Изграждане на други инсталации",
-  "43.31": "43.31 Полагане на мазилки",
-  "43.32": "43.32 Монтаж на дограма и дърводелски работи",
-  "43.33": "43.33 Полагане на облицовки и настилки",
-  "43.34": "43.34 Боядисване и стъклопоставяне",
-  "43.91": "43.91 Зидарски и каменоделски дейности",
-  "43.99": "43.99 Други специализирани строителни дейности, некласифицирани другаде",
+  "41.00": "41.00 Строителство на жилищни и нежилищни сгради",
   "42.11": "42.11 Строителство на автомагистрали, пътища и самолетни писти",
   "42.12": "42.12 Строителство на подземни и наземни релсови пътища",
   "42.13": "42.13 Строителство на мостове и тунели",
   "42.22": "42.22 Строителство на преносни и разпределителни електрически и телекомуникационни  мрежи",
   "42.99": "42.99 Строителство на други съоръжения, некласифицирани другаде",
-  "80.20": "80.20 Дейности в областта на технически системи за сигурност",
-  "41.00": "41.00 Строителство на жилищни и нежилищни сгради",
+  "43.11": "43.11 Събаряне и разрушаване",
+  "43.12": "43.12 Земни работи",
+  "43.13": "43.13 Сондиране и пробиване",
+  "43.21": "43.21 Изграждане на електрически инсталации",
   "43.23": "43.23 Изграждане на изолация",
   "43.24": "43.24 Изграждане на други инсталации",
+  "43.31": "43.31 Полагане на мазилки",
+  "43.32": "43.32 Монтаж на дограма и дърводелски работи",
+  "43.33": "43.33 Полагане на облицовки и настилки",
+  "43.34": "43.34 Боядисване и стъклопоставяне",
   "43.35": "43.35 Други довършителни строителни дейности",
   "43.41": "43.41 Покривни работи",
   "43.42": "43.42 Други специализирани строителни дейности при строителството на сгради",
   "43.50": "43.50 Специализирани строителни дейности при строителството на съоръжения",
-  "80.09": "80.09 Дейности в областта на технически системи за сигурност"
+  "43.91": "43.91 Зидарски и каменоделски дейности",
+  "43.99": "43.99 Други специализирани строителни дейности, некласифицирани другаде",
+  "80.09": "80.09 Дейности в областта на технически системи за сигурност",
+  "41.20": "41.20 Строителство на жилищни и нежилищни сгради",
+  "43.29": "43.29 Изграждане на други инсталации",
+  "80.20": "80.20 Дейности в областта на технически системи за сигурност"
  },
  "firms": {
   "101001608": {
@@ -2011,6 +2011,10 @@
   },
   "107015671": {
    "name": "РЕСТАВРАЦИЯ И КОНСЕРВАЦИЯ ЕООД",
+   "oblast": "Габрово"
+  },
+  "107020184": {
+   "name": "СТИЛ - МС ООД",
    "oblast": "Габрово"
   },
   "107022580": {
@@ -7969,6 +7973,10 @@
    "name": "БИЛДИ СТРОЙ ЕООД",
    "oblast": "София град и София област"
   },
+  "131575345": {
+   "name": "ЛИНДНЕР ИМОБИЛИЕН МЕНИДЖМЪНТ ЕООД",
+   "oblast": "София град и София област"
+  },
   "147003260": {
    "name": "Евробилдинг Инженеринг ООД",
    "oblast": "София град и София област"
@@ -8308,6 +8316,10 @@
   "148047740": {
    "name": "Ренед ООД",
    "oblast": "София град и София област"
+  },
+  "148051169": {
+   "name": "ЕСЕН ООД",
+   "oblast": "Варна"
   },
   "148052145": {
    "name": "Металекс строй ЕООД",
@@ -9002,7 +9014,7 @@
    "oblast": "София град и София област"
   },
   "175140483": {
-   "name": "ХАЛИМИНСКИ ЕООД",
+   "name": "ХАЛИМИНСКИ ООД",
    "oblast": "София град и София област"
   },
   "175142153": {
@@ -9119,6 +9131,10 @@
   },
   "175177752": {
    "name": "ДЖИ ЕН БИ ЕЛ ООД",
+   "oblast": "София град и София област"
+  },
+  "175177880": {
+   "name": "МИТИ-ТРАНС 98 ЕООД",
    "oblast": "София град и София област"
   },
   "175180392": {
@@ -9880,6 +9896,10 @@
   "200070584": {
    "name": "Финансово Инвестиционна Група Плюс ООД",
    "oblast": "Стара Загора"
+  },
+  "200070771": {
+   "name": "ВАНОР ЕООД",
+   "oblast": "Пловдив"
   },
   "200072069": {
    "name": "СТАНДАРТ КОНСТРУКШЪН ЕООД",
@@ -18005,6 +18025,10 @@
    "name": "СТРОИТЕЛ СВ ООД",
    "oblast": "Варна"
   },
+  "203801913": {
+   "name": "НАТУР ЕКСТРАКТ БЪЛГАРИЯ ЕООД",
+   "oblast": "Пазарджик"
+  },
   "203802302": {
    "name": "ПЕЛТЕКОВ- 68 ЕООД",
    "oblast": "Благоевград"
@@ -19661,6 +19685,10 @@
    "name": "ФАСАДИ БГ ЕООД",
    "oblast": "София град и София област"
   },
+  "204452446": {
+   "name": "ЗАГОРА М ЕООД",
+   "oblast": "Стара Загора"
+  },
   "204460877": {
    "name": "Термо свят Еоод",
    "oblast": "Хасково"
@@ -20385,6 +20413,10 @@
    "name": "СКАРАБЕЙ БИЛД ЕООД",
    "oblast": "Бургас"
   },
+  "204757049": {
+   "name": "ЕКСПЕРТ ИНЖЕКТ ЕООД",
+   "oblast": "София град и София област"
+  },
   "204757647": {
    "name": "Феър Строй ЕООД",
    "oblast": "София град и София област"
@@ -20430,7 +20462,7 @@
    "oblast": "Пловдив"
   },
   "204774041": {
-   "name": "Стройрезиденс ООД",
+   "name": "Стройрезиденс ЕООД",
    "oblast": "София град и София област"
   },
   "204776366": {
@@ -21216,6 +21248,10 @@
   "205083754": {
    "name": "ПАРТ КОНСТРУКШЪН ЕООД",
    "oblast": "Бургас"
+  },
+  "205084221": {
+   "name": "Велина М ЕООД",
+   "oblast": "Враца"
   },
   "205085394": {
    "name": "ЕЛИТ БИЛДИНГ БГ ООД",
@@ -24049,6 +24085,10 @@
    "name": "ПАЛНЕД ЕООД",
    "oblast": "София град и София област"
   },
+  "206055945": {
+   "name": "Оптимити Дружество с ограничена отговорност",
+   "oblast": "Кърджали"
+  },
   "206056253": {
    "name": "ЕЛ ИНЖ ЕООД",
    "oblast": "Плевен"
@@ -26160,6 +26200,10 @@
   "206647217": {
    "name": "ПИК 77 ИНВЕСТ ООД",
    "oblast": "Бургас"
+  },
+  "206648707": {
+   "name": "ГЛОБЪЛ БИЛД ГРУП ООД",
+   "oblast": "Варна"
   },
   "206649200": {
    "name": "МОНТАЖСТРОЙ ИНЖЕНЕРИНГ ЕООД",
@@ -30293,6 +30337,10 @@
    "name": "ДЕЛТАСПАН ЕООД",
    "oblast": "Бургас"
   },
+  "207927439": {
+   "name": "ЛА СТРОЙ 2022 ООД",
+   "oblast": "Пазарджик"
+  },
   "207927827": {
    "name": "ВИВАСТРОЙ-88 ЕООД",
    "oblast": "София град и София област"
@@ -31557,6 +31605,10 @@
    "name": "МЕГАТРАНС 85 ЕООД",
    "oblast": "Русе"
   },
+  "208362850": {
+   "name": "Енерготех Лоджистикс ЕООД",
+   "oblast": "София град и София област"
+  },
   "208363607": {
    "name": "ДОМЕЛЛО ГРУП ЕООД",
    "oblast": "Русе"
@@ -32412,6 +32464,10 @@
   "208859658": {
    "name": "УНИКА 222 ЕООД",
    "oblast": "Пловдив"
+  },
+  "208862528": {
+   "name": "ЕЛЕКТРА ИНЖЕНЕРИНГ 17 ООД",
+   "oblast": "Ямбол"
   },
   "208867169": {
    "name": "ЕВРОПА СТРОЙ 66 ЕООД",
@@ -33574,7 +33630,7 @@
    "oblast": "ЧЮЛ"
   },
   "999999061": {
-   "name": "Хитачи Рейл ГТС Австрия ГмбХ",
+   "name": "Хитачи Рейл Австрия ГмбХ",
    "oblast": "ЧЮЛ"
   },
   "999999098": {
@@ -33764,6 +33820,10 @@
   "0004715430097": {
    "name": "Общинско предприятие Благоустрояване и Превенция",
    "oblast": "Пловдив"
+  },
+  "0005306320340": {
+   "name": "Паркстрой - Русе Общинско предприятие",
+   "oblast": "Русе"
   },
   "0006149060119": {
    "name": "ОЗЕЛЕНЯВАНЕ БЛАГОУСТРОЙСТВО И ЧИСТОТА - ДОСПАТ Общинско предприятие",
@@ -34117,6 +34177,238 @@
    "isGroup": false,
    "firstProtocolNo": "1689",
    "firstProtocolDate": "2022-11-17",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "42.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "42.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "42.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.31",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "43.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "0005306320340",
+   "classCode": "80.09",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -46803,200 +47095,208 @@
    "eik": "101728098",
    "classCode": "12",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
-   "classCode": "22",
+   "classCode": "21",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
-   "classCode": "32",
+   "classCode": "31",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
-   "classCode": "41.20",
+   "classCode": "41",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
-   "classCode": "42",
+   "classCode": "41.00",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
-   "classCode": "43.29",
+   "classCode": "43.24",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
-   "classCode": "43.39",
+   "classCode": "43.35",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "101728098",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "101728098",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "0903",
-   "firstProtocolDate": "2016-04-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -66921,82 +67221,90 @@
   },
   {
    "eik": "103509206",
-   "classCode": "14",
+   "classCode": "13",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "34",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
-   "classCode": "43.39",
+   "classCode": "43.35",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "103509206",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "103509206",
    "classCode": "72",
    "isGroup": false,
-   "firstProtocolNo": "2205",
-   "firstProtocolDate": "2026-09-24",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -83449,42 +83757,42 @@
   },
   {
    "eik": "106581912",
-   "classCode": "34",
+   "classCode": "33",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "106581912",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "106581912",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "106581912",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "106581912",
-   "classCode": "43.29",
+   "classCode": "43.24",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -85685,6 +85993,14 @@
    "isGroup": false,
    "firstProtocolNo": "1173",
    "firstProtocolDate": "2018-09-27",
+   "unjoinable": false
+  },
+  {
+   "eik": "107020184",
+   "classCode": "44",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -239248,6 +239564,38 @@
    "unjoinable": false
   },
   {
+   "eik": "131575345",
+   "classCode": "12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "131575345",
+   "classCode": "22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "131575345",
+   "classCode": "32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "131575345",
+   "classCode": "42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
    "eik": "147003260",
    "classCode": "13",
    "isGroup": false,
@@ -245685,6 +246033,30 @@
    "isGroup": false,
    "firstProtocolNo": "0773",
    "firstProtocolDate": "2015-03-12",
+   "unjoinable": false
+  },
+  {
+   "eik": "148051169",
+   "classCode": "14",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "148051169",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "148051169",
+   "classCode": "44",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -265797,6 +266169,254 @@
    "isGroup": false,
    "firstProtocolNo": "2154",
    "firstProtocolDate": "2026-06-25",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "42.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "42.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "42.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.31",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "43.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "175177880",
+   "classCode": "80.09",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -287853,6 +288473,254 @@
    "isGroup": false,
    "firstProtocolNo": "1219",
    "firstProtocolDate": "2019-03-28",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "42.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "42.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "42.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.31",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "43.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "200070771",
+   "classCode": "80.09",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -374265,10 +375133,18 @@
   },
   {
    "eik": "201692201",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "201692201",
    "classCode": "33",
    "isGroup": false,
-   "firstProtocolNo": "1333",
-   "firstProtocolDate": "2020-02-27",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -377889,10 +378765,10 @@
   },
   {
    "eik": "201780516",
-   "classCode": "23",
+   "classCode": "22",
    "isGroup": false,
-   "firstProtocolNo": "1181",
-   "firstProtocolDate": "2018-10-04",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -444227,8 +445103,16 @@
    "eik": "203015326",
    "classCode": "14",
    "isGroup": false,
-   "firstProtocolNo": "2138",
-   "firstProtocolDate": "2026-05-14",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203015326",
+   "classCode": "44",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -491752,6 +492636,238 @@
    "unjoinable": false
   },
   {
+   "eik": "203801913",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "42.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "42.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "42.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.31",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "43.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203801913",
+   "classCode": "80.09",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
    "eik": "203802302",
    "classCode": "14",
    "isGroup": false,
@@ -500187,184 +501303,232 @@
    "eik": "203928910",
    "classCode": "13",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
-   "classCode": "41.20",
+   "classCode": "41.00",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203928910",
+   "classCode": "43",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
-   "classCode": "43.29",
+   "classCode": "43.23",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203928910",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
-   "classCode": "43.39",
+   "classCode": "43.35",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203928910",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203928910",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203928910",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "203928910",
-   "classCode": "80.20",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "203928910",
+   "classCode": "80.09",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -509161,186 +510325,186 @@
   },
   {
    "eik": "204050636",
-   "classCode": "13",
+   "classCode": "14",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "41.20",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.29",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.39",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204050636",
    "classCode": "80.20",
    "isGroup": false,
-   "firstProtocolNo": "1964",
-   "firstProtocolDate": "2024-11-28",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -523089,18 +524253,18 @@
   },
   {
    "eik": "204284393",
-   "classCode": "13",
+   "classCode": "12",
    "isGroup": false,
-   "firstProtocolNo": "1967",
-   "firstProtocolDate": "2024-12-19",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "204284393",
-   "classCode": "43",
+   "classCode": "42",
    "isGroup": false,
-   "firstProtocolNo": "1967",
-   "firstProtocolDate": "2024-12-19",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -532829,6 +533993,14 @@
    "isGroup": false,
    "firstProtocolNo": "1621",
    "firstProtocolDate": "2022-07-07",
+   "unjoinable": false
+  },
+  {
+   "eik": "204452446",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -551165,6 +552337,238 @@
    "isGroup": false,
    "firstProtocolNo": "2014",
    "firstProtocolDate": "2025-06-19",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "42.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "42.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "42.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.31",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "43.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "204757049",
+   "classCode": "80.09",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -571853,6 +573257,238 @@
    "isGroup": false,
    "firstProtocolNo": "1181",
    "firstProtocolDate": "2018-10-04",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "42.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "42.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "42.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.31",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "43.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205084221",
+   "classCode": "80.09",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -601697,210 +603333,210 @@
   },
   {
    "eik": "205527866",
-   "classCode": "13",
+   "classCode": "11",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
-   "classCode": "23",
+   "classCode": "22",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
-   "classCode": "33",
+   "classCode": "41",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
-   "classCode": "41.20",
+   "classCode": "41.00",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
-   "unjoinable": false
-  },
-  {
-   "eik": "205527866",
-   "classCode": "43",
-   "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
-   "classCode": "43.29",
+   "classCode": "43.24",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
-   "classCode": "43.39",
+   "classCode": "43.35",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "205527866",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205527866",
-   "classCode": "80.20",
+   "classCode": "80.09",
    "isGroup": false,
-   "firstProtocolNo": "2231",
-   "firstProtocolDate": "2026-10-08",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -606865,186 +608501,186 @@
   },
   {
    "eik": "205601327",
-   "classCode": "13",
+   "classCode": "14",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "41.20",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.29",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.39",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "205601327",
    "classCode": "80.20",
    "isGroup": false,
-   "firstProtocolNo": "1337",
-   "firstProtocolDate": "2020-03-05",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -644416,6 +646052,22 @@
    "unjoinable": false
   },
   {
+   "eik": "206055945",
+   "classCode": "14",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206055945",
+   "classCode": "44",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
    "eik": "206056253",
    "classCode": "33",
    "isGroup": false,
@@ -658691,176 +660343,248 @@
    "eik": "206168067",
    "classCode": "11",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "21",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "33",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "41",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "206168067",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "2089",
-   "firstProtocolDate": "2025-10-09",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "206168067",
+   "classCode": "72",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -700397,6 +702121,14 @@
    "isGroup": false,
    "firstProtocolNo": "2010",
    "firstProtocolDate": "2025-06-05",
+   "unjoinable": false
+  },
+  {
+   "eik": "206648707",
+   "classCode": "14",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -768497,90 +770229,194 @@
   },
   {
    "eik": "207465363",
-   "classCode": "14",
+   "classCode": "13",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
-   "classCode": "43.39",
+   "classCode": "43.35",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207465363",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "1986",
-   "firstProtocolDate": "2025-03-13",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207465363",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -796257,186 +798093,218 @@
   },
   {
    "eik": "207802802",
-   "classCode": "14",
+   "classCode": "13",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
-   "classCode": "41.20",
+   "classCode": "23",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207802802",
+   "classCode": "33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207802802",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207802802",
+   "classCode": "43",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
-   "classCode": "43.29",
+   "classCode": "43.24",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
-   "classCode": "43.39",
+   "classCode": "43.35",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207802802",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "207802802",
-   "classCode": "80.20",
+   "classCode": "80.09",
    "isGroup": false,
-   "firstProtocolNo": "1862",
-   "firstProtocolDate": "2024-05-30",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -809488,6 +811356,22 @@
    "unjoinable": false
   },
   {
+   "eik": "207927439",
+   "classCode": "14",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "207927439",
+   "classCode": "34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
    "eik": "207927827",
    "classCode": "14",
    "isGroup": false,
@@ -814633,7 +816517,39 @@
   },
   {
    "eik": "207978782",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2231",
+   "firstProtocolDate": "2026-10-08",
+   "unjoinable": false
+  },
+  {
+   "eik": "207978782",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2231",
+   "firstProtocolDate": "2026-10-08",
+   "unjoinable": false
+  },
+  {
+   "eik": "207978782",
    "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2231",
+   "firstProtocolDate": "2026-10-08",
+   "unjoinable": false
+  },
+  {
+   "eik": "207978782",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2231",
+   "firstProtocolDate": "2026-10-08",
+   "unjoinable": false
+  },
+  {
+   "eik": "207978782",
+   "classCode": "80.09",
    "isGroup": false,
    "firstProtocolNo": "2231",
    "firstProtocolDate": "2026-10-08",
@@ -832667,40 +834583,32 @@
    "eik": "208202696",
    "classCode": "14",
    "isGroup": false,
-   "firstProtocolNo": "2058",
-   "firstProtocolDate": "2025-09-18",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208202696",
    "classCode": "24",
    "isGroup": false,
-   "firstProtocolNo": "2058",
-   "firstProtocolDate": "2025-09-18",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208202696",
    "classCode": "34",
    "isGroup": false,
-   "firstProtocolNo": "2058",
-   "firstProtocolDate": "2025-09-18",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208202696",
    "classCode": "44",
    "isGroup": false,
-   "firstProtocolNo": "2058",
-   "firstProtocolDate": "2025-09-18",
-   "unjoinable": false
-  },
-  {
-   "eik": "208202696",
-   "classCode": "72",
-   "isGroup": false,
-   "firstProtocolNo": "2058",
-   "firstProtocolDate": "2025-09-18",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -841817,226 +843725,226 @@
   },
   {
    "eik": "208315733",
-   "classCode": "14",
+   "classCode": "13",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "41.00",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "42.11",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "42.12",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "42.13",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "42.21",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "42.22",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "42.91",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "42.99",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.11",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.12",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.13",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.21",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.22",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.23",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.24",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.31",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.32",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.33",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.34",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.35",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.41",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.42",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.50",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.91",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "43.99",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "50",
    "isGroup": true,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
    "eik": "208315733",
    "classCode": "80.09",
    "isGroup": false,
-   "firstProtocolNo": "2022",
-   "firstProtocolDate": "2025-07-03",
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -846429,6 +848337,230 @@
    "isGroup": false,
    "firstProtocolNo": "2022",
    "firstProtocolDate": "2025-07-03",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "41.00",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "42.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "42.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "42.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "42.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "42.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "42.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "42.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.11",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.12",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.13",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.22",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.23",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.31",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.32",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.33",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.35",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.41",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.42",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.50",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.91",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "43.99",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "50",
+   "isGroup": true,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208362850",
+   "classCode": "80.09",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {
@@ -871725,6 +873857,30 @@
    "isGroup": false,
    "firstProtocolNo": "2180",
    "firstProtocolDate": "2026-09-03",
+   "unjoinable": false
+  },
+  {
+   "eik": "208862528",
+   "classCode": "34",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208862528",
+   "classCode": "43.21",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
+   "unjoinable": false
+  },
+  {
+   "eik": "208862528",
+   "classCode": "43.24",
+   "isGroup": false,
+   "firstProtocolNo": "2235",
+   "firstProtocolDate": "2026-10-15",
    "unjoinable": false
   },
   {

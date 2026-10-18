@@ -1,68 +1,55 @@
 {
   "obshtina": "VTR28",
-  "generatedAt": "2026-10-11T21:57:02.892Z",
+  "generatedAt": "2026-10-18T00:54:58.477Z",
   "changes": [
     {
-      "contractNumber": "BNSF-1.010-0023",
-      "title": "Международна научно-практическа конференция „90 ГОДИНИ ДАРИТЕЛСТВО, ЗНАНИЕ, ИНОВАЦИИ И УСТОЙЧИВО РАЗВИТИЕ В СА „Д. А. ЦЕНОВ“ – СВИЩОВ“",
-      "type": "new",
-      "totalEur": 9000,
+      "contractNumber": "BG05SFPR002-1.019-0154",
+      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 140093.94,
+      "totalEur": 140093.94,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "BNSF",
-      "programName": "Фонд Научни Изследвания",
-      "beneficiaryName": "Стопанска академия „Д. А. Ценов“ - Свищов",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0200",
-      "title": "„Комбиниран проект за изграждане на локална система за съхранение на енергия с мощност от 0.6 MW и капацитет 1.29 MWh за присъединяване към новоизграждаща се ФЕЦ Грамина с проектна инсталирана мощност от 1.2 MW\".",
+      "contractNumber": "BG05SFPR001-3.008-0009",
+      "title": "Училище и бизнес в партньорство за дуално образование",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 337431.17,
-      "totalEur": 337431.17,
-      "paidEur": 147650,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Грамина ООД",
-      "detectedAt": "2026-10-11"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0249",
-      "title": "Пространство за емоционално развитие в училище",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 90167.84,
-      "totalEur": 90167.84,
-      "paidEur": 18033.57,
+      "prevTotalEur": 132726.87,
+      "totalEur": 132726.87,
+      "paidEur": 60523.42,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Свищовска професионална гимназия \"Алеко Константинов\"",
-      "detectedAt": "2026-10-11"
+      "detectedAt": "2026-10-18"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0483",
-      "title": "Изграждане на дигитален клуб в село Вардим",
+      "contractNumber": "BG16RFPR001-1.004-1591",
+      "title": "Подкрепа за семейното предприятие ЕВРОЛОГИСТИКА 2015 ЕООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 11163.14,
-      "paidEur": 11163.14,
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
+      "paidEur": 76693.78,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище\"Трудолюбие 1907\"",
-      "detectedAt": "2026-10-11"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Еврологистика 2015 ЕООД",
+      "detectedAt": "2026-10-18"
     }
   ]
 }
