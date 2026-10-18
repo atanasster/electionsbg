@@ -55,7 +55,13 @@ afterAll(async () => {
 const MEASURED = {
   isunGuarded: { rows: 1559, benef: 1365, eur: 147_135_798 },
   isunUnguarded: { rows: 1636, benef: 1376, eur: 174_931_733 },
-  isunChitalishta: { rows: 1332, benef: 1196, eur: 22_140_281 },
+  // Re-measured 2026-10-18 (was €22,140,281 on 2026-08-18). The rows and
+  // beneficiaries did not move — only money did: ИСУН is closing out the НПВУ
+  // читалища procedure BG-RRP-1.024, and a closed contract's value is cut from
+  // the contracted sum to what was actually spent (675 contracts on the
+  // 2026-10-18 ingest alone, −12.9%, −€1.44m). 364 of its contracts (~€6.0m)
+  // were still open then, so expect this figure to keep falling for a while.
+  isunChitalishta: { rows: 1332, benef: 1196, eur: 20_458_621 },
   agriChitalishta: { rows: 264, benef: 197, eur: 18_341_814 },
   agriGuarded: { rows: 277, benef: 208, eur: 18_956_087 },
   agriUnguarded: { rows: 624, benef: 222, eur: 21_787_877 },
@@ -111,7 +117,7 @@ const near = (actual: Agg, expected: Agg, label: string) => {
     assert.ok(
       actual[k] >= lo && actual[k] <= hi,
       `${label}.${k}: ${actual[k]} is outside ±${TOLERANCE * 100}% of the ` +
-        `2026-08-18 measurement ${expected[k]}. Either a matcher changed ` +
+        `recorded measurement ${expected[k]} (see MEASURED). Either a matcher changed ` +
         `meaning, or the corpus moved and MEASURED needs re-deriving — check ` +
         `which before widening anything.`,
     );
