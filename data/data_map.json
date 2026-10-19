@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-18T23:35:55.612Z",
+  "generatedAt": "2026-10-19T22:12:45.314Z",
   "nodes": [
     {
       "id": "src:water",
@@ -589,7 +589,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-18T22:13:59.867Z",
+      "freshness": "2026-10-19T21:44:24.874Z",
       "skills": [
         "update-procurement"
       ],
@@ -599,7 +599,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-10-18T22:13:59.867Z"
+          "freshness": "2026-10-19T21:44:24.874Z"
         }
       ],
       "x": 28,
@@ -990,7 +990,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-11T21:27:03.370Z",
+      "freshness": "2026-10-19T21:44:24.874Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -1137,7 +1137,7 @@
           "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
           "url": "https://ipop.mrrb.bg/",
           "cadence": "daily",
-          "freshness": "2026-09-24T21:41:24.900Z"
+          "freshness": "2026-10-19T21:44:24.874Z"
         },
         {
           "id": "iisda_doklad",
@@ -1203,7 +1203,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-16T23:42:35.566Z",
+      "freshness": "2026-10-19T21:44:24.874Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1222,7 +1222,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-10-16T23:42:35.566Z"
+          "freshness": "2026-10-19T21:44:24.874Z"
         },
         {
           "id": "municipal_naredba",
@@ -1442,7 +1442,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-10-18T00:10:53.793Z",
+      "freshness": "2026-10-19T21:44:24.874Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1454,7 +1454,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-10-18T00:10:53.793Z"
+          "freshness": "2026-10-19T21:44:24.874Z"
         },
         {
           "id": "eurostat_policy",
@@ -1769,7 +1769,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-18T22:13:59.867Z",
+      "freshness": "2026-10-19T21:44:24.874Z",
       "skills": [
         "update-prices"
       ],
@@ -1779,7 +1779,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-10-18T22:13:59.867Z"
+          "freshness": "2026-10-19T21:44:24.874Z"
         }
       ],
       "issue": {
@@ -2630,7 +2630,7 @@
       "url": "https://alpharesearch.bg/",
       "origin": "community",
       "cadence": "daily",
-      "freshness": "2026-10-11T21:27:03.370Z",
+      "freshness": "2026-10-19T21:44:24.874Z",
       "skills": [
         "update-polls"
       ],
@@ -2689,7 +2689,7 @@
           "label": "Polls — press discovery (agencies without a site)",
           "url": "https://news.google.com/",
           "cadence": "daily",
-          "freshness": "2026-10-06T21:44:36.530Z"
+          "freshness": "2026-10-19T21:44:24.874Z"
         }
       ],
       "x": 28,

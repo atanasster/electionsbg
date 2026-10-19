@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-18T23:59:59.999Z",
+  "computedAt": "2026-10-19T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-18T00:00:00.000Z",
-      "firstSeenAt": "2026-10-18T00:00:00.000Z",
+      "occurredAt": "2026-10-19T00:00:00.000Z",
+      "firstSeenAt": "2026-10-19T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -28,7 +28,7 @@
         "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
         "pct": 56,
         "promoEur": "1.79",
-        "regularEur": "4.10",
+        "regularEur": "4.08",
         "chains": 2
       },
       "backfill": false,
@@ -38,11 +38,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-18T00:00:00.000Z",
-      "firstSeenAt": "2026-10-18T00:00:00.000Z",
+      "occurredAt": "2026-10-19T00:00:00.000Z",
+      "firstSeenAt": "2026-10-19T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -55,14 +55,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/byalo-zele",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
+        "title": "БЯЛО ЗЕЛЕ",
         "pct": 55,
-        "promoEur": "0.89",
-        "regularEur": "1.99",
-        "chains": 6
+        "promoEur": "0.49",
+        "regularEur": "1.10",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
@@ -98,6 +98,38 @@
       "verification": "automatic",
       "materiality": 1,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r392",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r392",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Определяне на участник, спечелил публично оповестен конкурс за отдаване под наем на част от недвижим имот – публична общ",
+        "council": "PDV01",
+        "number": "392"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -165,42 +197,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "debt:domestic_auction:BG-2026-09-28-119",
-      "kind": "debt_auction",
-      "category": "budget_debt",
-      "occurredAt": "2026-09-28T00:00:00.000Z",
-      "firstSeenAt": "2026-09-28T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "bnb_auctions",
-        "labelKey": "home_source_bnb"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators/fiscal",
-      "factKey": "home_fact_debt_auction_yield",
-      "factArgs": {
-        "millions": 150,
-        "currency": "EUR",
-        "years": 5,
-        "yieldPct": "4.02"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7263256490977231,
-      "actionability": 0.2
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:promotion:kartofi-miti",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-18T00:00:00.000Z",
-      "firstSeenAt": "2026-10-18T00:00:00.000Z",
+      "occurredAt": "2026-10-19T00:00:00.000Z",
+      "firstSeenAt": "2026-10-19T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -449,6 +450,389 @@
     },
     {
       "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r393",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r393",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Изпълнение за 2026 година на Подпрограма „Подкрепа за формиране на дуални паралелки в общински и държавни образователни ",
+        "council": "PDV01",
+        "number": "393"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r394",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r394",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Наредба за изменение и допълнение на Наредбата за осигуряване на обществения ред ПО ПРЕДЛОЖЕНИЕ НА: Ангел Сл",
+        "council": "PDV01",
+        "number": "394"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r395",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r395",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Одобряване отпускане на временен безлихвен заем в размер на 350 000 /триста и петдесет хиляди/ евро от бюджета на Община",
+        "council": "PDV01",
+        "number": "395"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r396",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r396",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Предоставяне на временен безлихвен заем в размер на 145 000 евро (сто четиридесет и пет хиляди евро) от бюджета на общин",
+        "council": "PDV01",
+        "number": "396"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r397",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r397",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за учредяване безвъзмездно право на ползване, за срок от 10 години върху недвижим имот – частна общин",
+        "council": "PDV01",
+        "number": "397"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r398",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r398",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за замяна на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Тракия”, б",
+        "council": "PDV01",
+        "number": "398"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r399",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r399",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за замяна на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Тракия”, б",
+        "council": "PDV01",
+        "number": "399"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r400",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r400",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за замяна на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Тракия”, б",
+        "council": "PDV01",
+        "number": "400"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r401",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r401",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Западен”",
+        "council": "PDV01",
+        "number": "401"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r402",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r402",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, ЖР „Тракия“, бл",
+        "council": "PDV01",
+        "number": "402"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot16-r403",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-15T00:00:00.000Z",
+      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot16-r403",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Източен”",
+        "council": "PDV01",
+        "number": "403"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "debt:domestic_auction:BG-2026-09-28-119",
+      "kind": "debt_auction",
+      "category": "budget_debt",
+      "occurredAt": "2026-09-28T00:00:00.000Z",
+      "firstSeenAt": "2026-09-28T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "bnb_auctions",
+        "labelKey": "home_source_bnb"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators/fiscal",
+      "factKey": "home_fact_debt_auction_yield",
+      "factArgs": {
+        "millions": 150,
+        "currency": "EUR",
+        "years": 5,
+        "yieldPct": "4.02"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7263256490977231,
+      "actionability": 0.2
+    },
+    {
+      "schemaVersion": 1,
       "id": "funds:call_opened:isun:9a1210fb-84d1-44e2-bb6e-9d9f83d942c4",
       "kind": "call_opened",
       "category": "funds",
@@ -478,390 +862,6 @@
       "verification": "automatic",
       "materiality": 0.4,
       "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1144",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1144",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Установяване на партньорски отношения между Община Велико Търново, Република България и град Мансура, Арабска република ",
-        "council": "VTR01",
-        "number": "1144"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1145",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1145",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Даване на съгласие за партньорство на Община Велико Търново с Община Габрово по проект „Комплексни мерки за превенция на",
-        "council": "VTR01",
-        "number": "1145"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1146",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1146",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Освобождаване на учениците от Спортно училище \"Георги Живков\", гр. В. Търново от месечна такса за ползване на общежитие ",
-        "council": "VTR01",
-        "number": "1146"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1147",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1147",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Включване в Годишен план за приватизация за 2026 година и откриване процедура за приватизация на общински нежилищен имот",
-        "council": "VTR01",
-        "number": "1147"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1148",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1148",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Включване в Годишен план за приватизация за 2026 година и откриване процедура за приватизация на общински нежилищен имот",
-        "council": "VTR01",
-        "number": "1148"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1149",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1149",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Включване в Годишен план за приватизация за 2026 година и откриване процедура за приватизация на общински нежилищен имот",
-        "council": "VTR01",
-        "number": "1149"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1150",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1150",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Приемане анализ на правното състояние, начална цена и определяне метод на приватизация за продажба на общински нежилищен",
-        "council": "VTR01",
-        "number": "1150"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1152",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1152",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Продажба на недвижим имот – апартамент, гр. Велико Търново, Вх.№ 2944/09.09.2026 г.",
-        "council": "VTR01",
-        "number": "1152"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1153",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1153",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Учредяване право на строеж върху общинска земя, гр. Велико Търново, Вх.№ 2945/09.09.2026 г.",
-        "council": "VTR01",
-        "number": "1153"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1154",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1154",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Отдаване под наем на част от имот частна общинска собственост, с. Ресен, Вх.№ 2941/09.09.2026 г.",
-        "council": "VTR01",
-        "number": "1154"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1155",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1155",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Отдаване под наем на част от имот частна общинска собственост, гр. Дебелец, Вх.№ 2942/09.09.2026 г.",
-        "council": "VTR01",
-        "number": "1155"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot48-r1156",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-01T00:00:00.000Z",
-      "firstSeenAt": "2026-10-01T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot48-r1156",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Почасово отдаване под наем на част от имот публична общинска собственост, ОУ „П. Р. Славейков“, гр. Велико Търново, Вх.№",
-        "council": "VTR01",
-        "number": "1156"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -935,7 +935,7 @@
     },
     "council": {
       "available": true,
-      "asOf": "2026-10-01",
+      "asOf": "2026-10-15",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -974,8 +974,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-18",
-      "observedAt": "2026-10-18",
+      "asOf": "2026-10-19",
+      "observedAt": "2026-10-19",
       "staleAfterDays": 5,
       "stale": false
     }

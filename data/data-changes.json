@@ -1,6 +1,34 @@
 {
-  "updatedAt": "2026-10-18T23:35:11.120Z",
+  "updatedAt": "2026-10-19T22:11:22.214Z",
   "entries": [
+    {
+      "timestamp": "2026-10-19T22:11:22.214Z",
+      "date": "2026-10-19",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-19 (+1 daily archive; 981,631 store rows, 168 settlements, 68 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-19"
+    },
+    {
+      "timestamp": "2026-10-19T21:57:44.561Z",
+      "date": "2026-10-19",
+      "skill": "update-council-minutes",
+      "summary": "PDV01 +16 resolutions (6 protocols touched); SZR12 UNVERIFIED (index unreadable, retried next run); local PG 5515 resolutions, 94.1% attributed",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-10-19T21:50:24.305Z",
+      "date": "2026-10-19",
+      "skill": "update-macro",
+      "summary": "Eurostat 2026-10-19 national-accounts release (nama_10_gdp, namq_10_gdp, nama_10_lp_ulc, ilc_peps01n) — macro.json + macro_peers.json refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-10-18T23:35:11.120Z",
       "date": "2026-10-18",

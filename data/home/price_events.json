@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-18",
+  "computedAt": "2026-10-19",
   "thresholds": {
     "basketPids": [
       1,
@@ -65,7 +65,7 @@
     {
       "peakDay": "2026-10-18",
       "startDay": "2026-10-16",
-      "endDay": "2026-10-18",
+      "endDay": "2026-10-19",
       "pctChange": 2.102,
       "costEur": 15.783,
       "prevCostEur": 15.458,
@@ -79,20 +79,20 @@
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
       "atOrBelowSince": "2026-09-24",
       "promoEur": 1.79,
-      "regularEur": 4.1,
+      "regularEur": 4.08,
       "discountPct": 56,
-      "stores": 209,
+      "stores": 207,
       "chains": 2
     },
     {
-      "slug": "limoni",
-      "title": "ЛИМОНИ",
+      "slug": "byalo-zele",
+      "title": "БЯЛО ЗЕЛЕ",
       "atOrBelowSince": "2026-10-15",
-      "promoEur": 0.89,
-      "regularEur": 1.99,
+      "promoEur": 0.49,
+      "regularEur": 1.1,
       "discountPct": 55,
-      "stores": 413,
-      "chains": 6
+      "stores": 201,
+      "chains": 3
     },
     {
       "slug": "kartofi-miti",
@@ -101,7 +101,7 @@
       "promoEur": 0.55,
       "regularEur": 1.19,
       "discountPct": 54,
-      "stores": 38,
+      "stores": 37,
       "chains": 2
     }
   ]
