@@ -1,9 +1,12 @@
-# Watch report — 2026-10-18 (19.10.2026 г., 01:13 Europe/Sofia)
+# Watch report — 2026-10-19 (20.10.2026 г., 00:44 Europe/Sofia)
 
 ## Changed
-- **ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)**: 1 new publication day(s) (latest 2026-10-17) — run the incremental EOP gap-fill + geo refresh in /update-procurement
-- **TED — обявления за България (api.ted.europa.eu)**: 112 new BG notices (23,581 this year)
-- **КЗП Колко струва (retail prices, kolkostruva.bg)**: new daily price archive: 2026-10-18 (was 2026-10-17)
+- **Polls — press discovery (agencies without a site)**: Екзакта: +1 press item(s): "Екзакта": Седем партии с шанс за парламента, ГЕРБ води убедително (ГРАФИКА) - Actualno.com (Actualno.com)
+- **ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)**: 1 new publication day(s) (latest 2026-10-18) — run the incremental EOP gap-fill + geo refresh in /update-procurement
+- **МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение**: IPOP CSV re-uploaded — re-run `tsx scripts/budget/ipop/ingest.ts`
+- **Eurostat macro (BG): 29 datasets**: new release · ilc_peps01n 2026-10-19T23:00:00+0200, nama_10_gdp 2026-10-19T23:00:00+0200, nama_10_lp_ulc 2026-10-19T23:00:00+0200, namq_10_a10 2026-10-19T23:00:00+0200, namq_10_gdp 2026-10-19T23:00:00+0200
+- **Council resolutions + vote tallies**: periodic safety re-check (no count change) · 16 município(s) wired, 844 session-link(s) total · 2 fetch error(s)
+- **КЗП Колко струва (retail prices, kolkostruva.bg)**: new daily price archive: 2026-10-19 (was 2026-10-18)
 
 ## Unchanged
 - Parliament roll-call votes: unchanged (no new sessions (max id 11189, 2026-10-16))
@@ -17,7 +20,6 @@
 - Polls — Мяра: unchanged (no new electoral publications (newest id 1918))
 - Polls — Глобал Метрикс: unchanged (no new electoral publications (newest id 658))
 - Polls — Галъп (site + press): unchanged (site arm FAILED: fetch failed · press: no new press coverage)
-- Polls — press discovery (agencies without a site): unchanged (no new press coverage across any press-only agency)
 - Сметна палата declarations — MPs: unchanged (727 MP declarations in scope for 2026, hash 46cf32bda5447c0d)
 - Сметна палата declarations — executive (officials): unchanged (11317 declarations in scope for 2026, hash 85857c57c626707e)
 - Сметна палата declarations — municipal (mayors & councillors): unchanged (6499 declarations in scope for 2026, hash 5dbbf6f1df11f716)
@@ -25,10 +27,7 @@
 - МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo): unchanged (4512 institutions)
 - Interreg — трансгранични покани: unchanged (7 покани от 1 програми · недостъпни: interreg-bsb)
 - ИСУН — отворени процедури: unchanged (56 отворени · 0 за обсъждане)
-- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК): unchanged (бр. 95 от 2026-10-16 · 6 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени)
-- МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение: unchanged (IPOP CSV sample 32768B · hash b98ff637ad35b796)
-- Eurostat macro (BG): 29 datasets: unchanged (29 datasets · latest update 2026-10-17T11:00:00+0200)
-- State Budget Law promulgation (minfin, via Wayback): unchanged (45 budget-law file(s) cached · latest FY 2025)
+- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК): unchanged (бр. 96 от 2026-10-20 · 26 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени)
 - AZ (Агенция по заетостта): annual unemployment reviews: unchanged (18 annual reviews · latest 2025)
 - МОН: ДЗИ резултати (data.egov.bg): unchanged (10 resources)
 - МОН: НВО 7. клас резултати (data.egov.bg): unchanged (9 resources)
@@ -37,9 +36,9 @@
 - НСИ: Баланс на територията (LANDUSE annex): unchanged (1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година)
 - НСИ: Население с водни услуги / воден режим (Ecology_9.8): unchanged (15 years · latest 2024)
 - ГРАО: население по постоянен и настоящ адрес (по населени места): unchanged (2026-09-15 · 505573 bytes)
+- TED — обявления за България (api.ted.europa.eu): unchanged (23,581 BG notices published this year)
 - CIK local-elections results bundles: unchanged (0/2 regular bundle(s) reachable · 14 partial cycle(s) tracked)
 - ЦИК presidential-elections results bundles: unchanged (4 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle)
-- Council resolutions + vote tallies: unchanged (16 município(s) wired, 844 session-link(s) total · 1 fetch error(s))
 - Procurement scope windows (calendar / election rollover): unchanged (16 year window(s) 2011..2026 + 13 election window(s) (+ all))
 
 ## Skipped (off-cadence)
@@ -111,6 +110,7 @@
 - Minfin government-debt bulletins (Eurobond signal, via Wayback) (monthly): 137 debt bulletin(s) cached · latest 2025-02 · next check 2026-10-20
 - Minfin programme-budget execution reports (via Wayback) (monthly): 27 report(s) cached · latest 2024-06 (H1) · next check 2026-10-20
 - МВнР programmatic execution reports (via Wayback) (monthly): 22 report(s) cached · latest 2025-12 (annual) · next check 2026-10-20
+- State Budget Law promulgation (minfin, via Wayback) (weekly): 45 budget-law file(s) cached · latest FY 2025 · next check 2026-10-24
 - Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-10-20
 - World Bank WGI (Bulgaria, Rule of Law canary) (monthly): 21 year(s) · latest 2025 = -0.046 (Rule of Law) · next check 2026-11-07
 - Standard Eurobarometer (institutional trust) (monthly): latest wave: Standard Eurobarometer 105 (Spring 2026) · next check 2026-10-20
@@ -143,4 +143,4 @@
 - **НФЦ artistic-commission appointments (nfc.bg заповеди)**: HTTP 520 <none>
 
 ---
-_Watcher run at 2026-10-18T22:13:59.867Z UTC._
+_Watcher run at 2026-10-19T21:44:24.874Z UTC._
