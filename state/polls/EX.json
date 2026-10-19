@@ -1,20 +1,88 @@
 [
   {
     "pubId": "1bdb98cca076fcce",
-    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOYzFsY0twWnZaemVlQ05HUjlaSm9CWmpKUUN6SFFpUmphQ0N3R2NlNWJhQ2VqZVN0U21EQmtreFp6NUl1dWRobGZMczhLckE2cVdfT21IaUkwdF9xV1FjbzN2VkFqRi1JUzQwZ1RpR1JrckwtV3c3SWM3azZNVEhpLXk0XzZCVzVTeWwxejFseHhQMWc4eURwVQ?oc=5",
+    "url": "https://www.segabg.com/hot/category-bulgaria/ekzakta-gerb-sds-bie-pp-db-nad-4-pri-izbori-dnes",
     "title": "\"Екзакта\": ГЕРБ-СДС бие ПП-ДБ с над 4% при избори днес - segabg.com",
     "publishedAt": "2023-06-26T07:00:00.000Z",
     "press": {
       "guid": "CBMimAFBVV95cUxOYzFsY0twWnZaemVlQ05HUjlaSm9CWmpKUUN6SFFpUmphQ0N3R2NlNWJhQ2VqZVN0U21EQmtreFp6NUl1dWRobGZMczhLckE2cVdfT21IaUkwdF9xV1FjbzN2VkFqRi1JUzQwZ1RpR1JrckwtV3c3SWM3azZNVEhpLXk0XzZCVzVTeWwxejFseHhQMWc4eURwVQ",
-      "sourceName": "segabg.com"
+      "sourceName": "segabg.com",
+      "resolvedUrl": "https://www.segabg.com/hot/category-bulgaria/ekzakta-gerb-sds-bie-pp-db-nad-4-pri-izbori-dnes"
     },
     "agencyId": "EX",
     "pubIds": [
       "1bdb98cca076fcce"
     ],
     "discoveredAt": "2026-10-02T22:46:52.711Z",
-    "latestHash": null,
-    "versions": [],
+    "latestHash": "4772403eb9e11a67a4dcad30691f274e91728f9d24c4c953ba4cf9f27c086df3",
+    "versions": [
+      {
+        "sha256": "4772403eb9e11a67a4dcad30691f274e91728f9d24c4c953ba4cf9f27c086df3",
+        "capturePath": "raw_data/polls/ex/1bdb98cca076fcce",
+        "capturedAt": "2026-10-19T22:46:39.726Z",
+        "attachmentFailures": [],
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+            "reviewedAt": "2026-10-19"
+          },
+          {
+            "race": "presidential",
+            "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+            "reviewedAt": "2026-10-19"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "85eba4bdd72198e2",
+    "url": "https://www.actualno.com/politics/ekzakta-sedem-partii-s-shans-za-parlamenta-gerb-vodi-ubeditelno-grafika-news_2326316.html",
+    "title": "\"Екзакта\": Седем партии с шанс за парламента, ГЕРБ води убедително (ГРАФИКА) - Actualno.com",
+    "publishedAt": "2024-10-25T07:00:00.000Z",
+    "press": {
+      "guid": "CBMiwAFBVV95cUxPSEo1d0ZiRzJkQm5nQWFIeldwcVU3c1RHb1h2TXRwenNsUWpvQXdweGZFYmtZN1JRSl9RVW1IQ2tpcDlYdXRob3BzdkZoMldQSkhuUVV4QS1taF9qWVR4UzUzOUdNcU1XY281SnlCNEgwOUVmZTZJUWNFeWk3UDMxMkdMU0UyTTU5OEN4Z1FkYTQ4UTEyRFMwejV2ZHVfWjVQcFI2YUlkWmtmREV3NV8xUDBVOTRHM0thMGtiSHZteVI",
+      "sourceName": "Actualno.com",
+      "resolvedUrl": "https://www.actualno.com/politics/ekzakta-sedem-partii-s-shans-za-parlamenta-gerb-vodi-ubeditelno-grafika-news_2326316.html"
+    },
+    "agencyId": "EX",
+    "pubIds": [
+      "85eba4bdd72198e2"
+    ],
+    "discoveredAt": "2026-10-19T21:44:24.874Z",
+    "latestHash": "cb930fe6351410a46fbf8251247b8201aae00791c5502a8b7862630d7707a40f",
+    "versions": [
+      {
+        "sha256": "cb930fe6351410a46fbf8251247b8201aae00791c5502a8b7862630d7707a40f",
+        "capturePath": "raw_data/polls/ex/85eba4bdd72198e2",
+        "capturedAt": "2026-10-19T22:46:39.065Z",
+        "attachmentFailures": [],
+        "drafts": [],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+            "reviewedAt": "2026-10-19"
+          },
+          {
+            "race": "presidential",
+            "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+            "reviewedAt": "2026-10-19"
+          }
+        ]
+      }
+    ],
     "failures": {
       "capture": 0,
       "extraction": 0
