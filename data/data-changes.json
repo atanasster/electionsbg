@@ -1,6 +1,48 @@
 {
-  "updatedAt": "2026-10-19T22:11:22.214Z",
+  "updatedAt": "2026-10-20T22:53:20.421Z",
   "entries": [
+    {
+      "timestamp": "2026-10-20T22:53:20.421Z",
+      "date": "2026-10-20",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 901 лица, 125 103 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-20T22:49:51.657Z",
+      "date": "2026-10-20",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-20 (+1 daily archive; 975,971 store rows, 164 settlements, 68 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-20"
+    },
+    {
+      "timestamp": "2026-10-20T22:44:16.476Z",
+      "date": "2026-10-20",
+      "skill": "update-local-elections",
+      "summary": "Частични местни избори 18.10.2026: 13 общини",
+      "source": "CIK local-elections results bundles"
+    },
+    {
+      "timestamp": "2026-10-20T22:41:56.593Z",
+      "date": "2026-10-20",
+      "skill": "update-macro",
+      "summary": "Eurostat national accounts + SILC 2026-10-20, BNB FDI to 2026-08",
+      "source": "Eurostat macro (BG) / BNB FDI",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-20T22:41:08.419Z",
+      "date": "2026-10-20",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП +146 contracts (to 2026-10-19), +26 annexes, TED 222,331 notices",
+      "source": "ЦАИС ЕОП open data / TED"
+    },
     {
       "timestamp": "2026-10-19T22:11:22.214Z",
       "date": "2026-10-19",

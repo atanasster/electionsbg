@@ -1,50 +1,50 @@
 {
-  "generatedAt": "2026-10-19T21:59:16.727Z",
-  "count": 1880,
+  "generatedAt": "2026-10-20T22:02:47.419Z",
+  "count": 1881,
   "sources": {
     "tr": 121,
     "name+oblast": 73,
     "ri": 1157,
-    "name": 248,
-    "ocds": 195,
+    "name": 247,
+    "ocds": 197,
     "mon": 31,
     "mon+oblast": 54,
     "school": 1
   },
   "run": {
     "candidates": 2433,
-    "resolved": 1880,
-    "unresolved": 553
+    "resolved": 1881,
+    "unresolved": 552
   },
   "carriedOver": {},
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-10-19T21:59:16.727Z"
+      "lastFreshAt": "2026-10-20T22:02:47.419Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-10-19T21:59:16.727Z"
+      "lastFreshAt": "2026-10-20T22:02:47.419Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-10-19T21:59:16.727Z"
+      "lastFreshAt": "2026-10-20T22:02:47.419Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-10-19T21:59:16.727Z"
+      "lastFreshAt": "2026-10-20T22:02:47.419Z"
     },
     "mon": {
       "status": "ok",
-      "lastFreshAt": "2026-10-19T21:59:16.727Z"
+      "lastFreshAt": "2026-10-20T22:02:47.419Z"
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-10-19T21:59:16.727Z"
+      "lastFreshAt": "2026-10-20T22:02:47.419Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-10-19T21:59:16.727Z"
+      "lastFreshAt": "2026-10-20T22:02:47.419Z"
     }
   },
   "awarders": {
@@ -1720,8 +1720,8 @@
     },
     "160078022": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "ocds",
+      "confidence": "name+province"
     },
     "175075078": {
       "ekatte": "12259",
@@ -2155,6 +2155,11 @@
     },
     "181181545": {
       "ekatte": "40909",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "181437083": {
+      "ekatte": "68134",
       "source": "ocds",
       "confidence": "name+province"
     },

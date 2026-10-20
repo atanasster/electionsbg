@@ -1,15 +1,48 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-19T23:59:59.999Z",
+  "computedAt": "2026-10-20T23:59:59.999Z",
   "windowDays": 30,
   "events": [
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-20T00:00:00.000Z",
+      "firstSeenAt": "2026-10-20T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 58,
+        "promoEur": "0.89",
+        "regularEur": "2.14",
+        "chains": 4
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8285714285714286,
+      "actionability": 0.85
+    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-19T00:00:00.000Z",
-      "firstSeenAt": "2026-10-19T00:00:00.000Z",
+      "occurredAt": "2026-10-20T00:00:00.000Z",
+      "firstSeenAt": "2026-10-20T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -28,45 +61,12 @@
         "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
         "pct": 56,
         "promoEur": "1.79",
-        "regularEur": "4.08",
+        "regularEur": "4.07",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.8,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:byalo-zele",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-19T00:00:00.000Z",
-      "firstSeenAt": "2026-10-19T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/byalo-zele",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "БЯЛО ЗЕЛЕ",
-        "pct": 55,
-        "promoEur": "0.49",
-        "regularEur": "1.10",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7857142857142857,
       "actionability": 0.85
     },
     {
@@ -197,11 +197,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kartofi-miti",
+      "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-19T00:00:00.000Z",
-      "firstSeenAt": "2026-10-19T00:00:00.000Z",
+      "occurredAt": "2026-10-20T00:00:00.000Z",
+      "firstSeenAt": "2026-10-20T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -214,18 +214,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kartofi-miti",
+      "route": "/product/byalo-zele",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КАРТОФИ МИТИ",
-        "pct": 54,
-        "promoEur": "0.55",
-        "regularEur": "1.19",
-        "chains": 2
+        "title": "БЯЛО ЗЕЛЕ",
+        "pct": 55,
+        "promoEur": "0.49",
+        "regularEur": "1.10",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7714285714285715,
+      "materiality": 0.7857142857142857,
       "actionability": 0.85
     },
     {
@@ -893,37 +893,6 @@
       "verification": "automatic",
       "materiality": 0.53475,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-09-20",
-      "kind": "basket_moved",
-      "category": "prices",
-      "occurredAt": "2026-09-20T00:00:00.000Z",
-      "firstSeenAt": "2026-09-20T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/consumption",
-      "factKey": "home_fact_basket_down",
-      "factArgs": {
-        "pct": "1.6",
-        "costEur": "15.66",
-        "days": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.39525,
-      "actionability": 0.5
     }
   ],
   "sourceCoverage": {
@@ -974,8 +943,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-19",
-      "observedAt": "2026-10-19",
+      "asOf": "2026-10-20",
+      "observedAt": "2026-10-20",
       "staleAfterDays": 5,
       "stale": false
     }

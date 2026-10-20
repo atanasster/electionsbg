@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T23:27:24.942Z",
+  "generatedAt": "2026-10-20T22:04:13.705Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -5597,6 +5597,11 @@
       "label": "Център за комплексно обслужване на деца с увреждания и хронични заболявания - бургас"
     },
     {
+      "id": "awarder:177453060",
+      "type": "awarder",
+      "label": "Агенция за качеството на социалните услуги"
+    },
+    {
       "id": "awarder:177549105",
       "type": "awarder",
       "label": "Министерство на икономиката, Инвестициите и индустрията"
@@ -8152,14 +8157,14 @@
       "label": "Юлиян Живков Ефендийски"
     },
     {
-      "id": "official:bobi-spiridonov-bachev-d47a52",
-      "type": "official",
-      "label": "Боби Спиридонов Бачев"
-    },
-    {
       "id": "official:iordanka-vladimirova-bicheva-4acee4",
       "type": "official",
       "label": "Йорданка Владимирова Бичева"
+    },
+    {
+      "id": "official:bobi-spiridonov-bachev-d47a52",
+      "type": "official",
+      "label": "Боби Спиридонов Бачев"
     },
     {
       "id": "official:nikolai-ivanov-kosev-4b83c6",
@@ -8577,6 +8582,11 @@
       "label": "Анатоли Стоянов Чаушев"
     },
     {
+      "id": "official:tsvetanka-nikolova-tsvetkova-8c2ded",
+      "type": "official",
+      "label": "Цветанка Николова Цветкова"
+    },
+    {
       "id": "official:aneliya-atanasova-dimitrova-77bd86",
       "type": "official",
       "label": "Анелия Атанасова Димитрова"
@@ -8735,11 +8745,6 @@
       "id": "official:slavcho-dimov-slavkov-7341d6",
       "type": "official",
       "label": "Славчо Димов Славков"
-    },
-    {
-      "id": "official:tsvetanka-nikolova-tsvetkova-8c2ded",
-      "type": "official",
-      "label": "Цветанка Николова Цветкова"
     },
     {
       "id": "official:krasimir-delchev-angelov-2d30b0",
@@ -19409,6 +19414,11 @@
       "valueEur": 14.62
     },
     {
+      "source": "awarder:177453060",
+      "target": "contractor:175313939",
+      "valueEur": 609988
+    },
+    {
       "source": "awarder:177549105",
       "target": "contractor:831609046",
       "valueEur": 826097.62
@@ -19421,7 +19431,7 @@
     {
       "source": "awarder:177549112",
       "target": "contractor:831641791",
-      "valueEur": 9794924.64
+      "valueEur": 10468692.64
     },
     {
       "source": "awarder:177549112",
@@ -19446,7 +19456,7 @@
     {
       "source": "awarder:180742160",
       "target": "contractor:107063552",
-      "valueEur": 20451.68
+      "valueEur": 32451.68
     },
     {
       "source": "awarder:181092349",
@@ -20626,7 +20636,7 @@
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 362441613.59
+      "valueEur": 363115381.59
     },
     {
       "source": "contractor:121396123",
@@ -21301,32 +21311,32 @@
     {
       "source": "contractor:831641791",
       "target": "official:diyana-georgieva-tomova-704486",
-      "valueEur": 362441613.59
+      "valueEur": 363115381.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:ivailo-borisov-filipov-65173d",
-      "valueEur": 362441613.59
+      "valueEur": 363115381.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:nikolina-todorova-naidenova-640c03",
-      "valueEur": 362441613.59
+      "valueEur": 363115381.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-7e7aff",
-      "valueEur": 362441613.59
+      "valueEur": 363115381.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:valeri-petrov-borisov-0ec362",
-      "valueEur": 362441613.59
+      "valueEur": 363115381.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:yuliyana-petrova-kalcheva-9ed43d",
-      "valueEur": 362441613.59
+      "valueEur": 363115381.59
     },
     {
       "source": "contractor:130800278",
@@ -21426,22 +21436,22 @@
     {
       "source": "contractor:831609046",
       "target": "official:aleksandr-slavchev-aleksandrov-127a85",
-      "valueEur": 186397232.36
+      "valueEur": 187218065.36
     },
     {
       "source": "contractor:831609046",
       "target": "official:ivailo-ivov-epitropov-6342ef",
-      "valueEur": 186397232.36
+      "valueEur": 187218065.36
     },
     {
       "source": "contractor:831609046",
       "target": "official:milena-staikova-tsenova-5c008d",
-      "valueEur": 186397232.36
+      "valueEur": 187218065.36
     },
     {
       "source": "contractor:831609046",
       "target": "official:rozalina-deyanova-georgieva-a0ebce",
-      "valueEur": 186397232.36
+      "valueEur": 187218065.36
     },
     {
       "source": "contractor:205251243",
@@ -22509,14 +22519,14 @@
       "valueEur": 5356741.22
     },
     {
+      "source": "contractor:205175742",
+      "target": "official:iordanka-vladimirova-bicheva-4acee4",
+      "valueEur": 5179516.01
+    },
+    {
       "source": "contractor:200609341",
       "target": "official:bobi-spiridonov-bachev-d47a52",
       "valueEur": 5109209.72
-    },
-    {
-      "source": "contractor:205175742",
-      "target": "official:iordanka-vladimirova-bicheva-4acee4",
-      "valueEur": 5100516.01
     },
     {
       "source": "contractor:107564054",
@@ -22926,12 +22936,17 @@
     {
       "source": "contractor:107063552",
       "target": "official:nikolai-genov-apostolov-7a0a4f",
-      "valueEur": 1817250.04
+      "valueEur": 1829250.04
     },
     {
       "source": "contractor:201222671",
       "target": "official:anatoli-stoyanov-chaushev-53ed48",
       "valueEur": 1793421.04
+    },
+    {
+      "source": "contractor:175313939",
+      "target": "official:tsvetanka-nikolova-tsvetkova-8c2ded",
+      "valueEur": 1732998.38
     },
     {
       "source": "contractor:831040933",
@@ -23102,11 +23117,6 @@
       "source": "contractor:000225011",
       "target": "official:slavcho-dimov-slavkov-7341d6",
       "valueEur": 1153826.41
-    },
-    {
-      "source": "contractor:175313939",
-      "target": "official:tsvetanka-nikolova-tsvetkova-8c2ded",
-      "valueEur": 1123010.38
     },
     {
       "source": "contractor:126690709",

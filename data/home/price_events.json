@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-19",
+  "computedAt": "2026-10-20",
   "thresholds": {
     "basketPids": [
       1,
@@ -75,13 +75,23 @@
   ],
   "promotions": [
     {
+      "slug": "limoni",
+      "title": "ЛИМОНИ",
+      "atOrBelowSince": "2026-10-15",
+      "promoEur": 0.89,
+      "regularEur": 2.14,
+      "discountPct": 58,
+      "stores": 348,
+      "chains": 4
+    },
+    {
       "slug": "krave-maslo-d-markenbutter-250gr",
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
       "atOrBelowSince": "2026-09-24",
       "promoEur": 1.79,
-      "regularEur": 4.08,
+      "regularEur": 4.07,
       "discountPct": 56,
-      "stores": 207,
+      "stores": 200,
       "chains": 2
     },
     {
@@ -91,18 +101,8 @@
       "promoEur": 0.49,
       "regularEur": 1.1,
       "discountPct": 55,
-      "stores": 201,
+      "stores": 202,
       "chains": 3
-    },
-    {
-      "slug": "kartofi-miti",
-      "title": "КАРТОФИ МИТИ",
-      "atOrBelowSince": "2026-09-30",
-      "promoEur": 0.55,
-      "regularEur": 1.19,
-      "discountPct": 54,
-      "stores": 37,
-      "chains": 2
     }
   ]
 }
