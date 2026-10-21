@@ -86,7 +86,12 @@ const normEkatte = (e: string | undefined): string =>
 const matchesLocal = (
   section: LocalSectionResult,
   n: ProblemNeighborhood,
+  cycle: string,
 ): boolean => {
+  // A cited era-correct list replaces every other rule for this cycle — see
+  // `cycleSectionCodes` in neighborhoods.ts for why the address arm is wrong here.
+  const pinned = n.cycleSectionCodes?.[cycle];
+  if (pinned) return pinned.codes.includes(section.sectionCode);
   // Suffix pin — for махала stations the CIK local feed ships with a blank
   // address (Филиповци), so neither the prefix nor the keyword path can reach
   // them. The suffix (code minus its 2-digit МИР/NSI prefix) is shared across
@@ -263,13 +268,20 @@ const generateForCycle = ({
   }
 
   const acc = new Map<string, Acc>();
+  // Neighbourhoods with a cited list for this cycle are tried FIRST, so a section
+  // the document assigns to one cannot be claimed by another's address rule under
+  // the first-match-wins loop below.
+  const ordered = [
+    ...PROBLEM_NEIGHBORHOODS.filter((n) => n.cycleSectionCodes?.[cycle]),
+    ...PROBLEM_NEIGHBORHOODS.filter((n) => !n.cycleSectionCodes?.[cycle]),
+  ];
 
   for (const shard of readLocalShards(sectionsDir)) {
     const legend = new Map(shard.parties.map((p) => [p.localPartyNum, p]));
 
     for (const section of shard.sections) {
-      for (const n of PROBLEM_NEIGHBORHOODS) {
-        if (!matchesLocal(section, n)) continue;
+      for (const n of ordered) {
+        if (!matchesLocal(section, n, cycle)) continue;
         let a = acc.get(n.id);
         if (!a) {
           a = {

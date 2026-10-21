@@ -2,10 +2,8 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Vote } from "lucide-react";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import {
-  LocalProblemSectionsReport,
-  useLocalProblemSections,
-} from "@/data/local/useLocalProblemSections";
+import { useLocalProblemSections } from "@/data/local/useLocalProblemSections";
+import { buildProblemPartyRows } from "./problemPartyRows";
 import { usePriorLocalCycle } from "@/data/local/useLocalCycles";
 import { formatPct, formatThousands } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
@@ -18,46 +16,6 @@ type Props = {
   // neighborhoods sitting in this 2-digit административен район; unset folds in
   // every flagged neighborhood of the município.
   rayonCode?: string;
-};
-
-type Bucket = {
-  votes: number;
-  name: string;
-  color: string;
-  canonicalId: string | null;
-};
-
-// Sum the pre-aggregated party totals across the município's flagged
-// neighborhoods (a município can hold several — e.g. Burgas has Pobeda + the
-// two Ezerovo mahali), keyed by a stable bucket id: the canonical party id when
-// known, else `local:<num>` for a local-only slate (OIK-scoped, so it never
-// aligns across cycles).
-const aggregate = (
-  report: LocalProblemSectionsReport | undefined,
-  obshtinaCode: string,
-  rayonCode?: string,
-): { totals: Map<string, Bucket>; total: number } => {
-  const totals = new Map<string, Bucket>();
-  let total = 0;
-  if (!report) return { totals, total };
-  for (const n of report.neighborhoods) {
-    if (n.obshtinaCode !== obshtinaCode) continue;
-    if (rayonCode && n.rayonCode !== rayonCode) continue;
-    for (const p of n.parties) {
-      const canonicalId = p.primaryCanonicalId ?? null;
-      const key = canonicalId ?? `local:${p.localPartyNum}`;
-      const cur = totals.get(key) ?? {
-        votes: 0,
-        name: p.localPartyName,
-        color: p.color,
-        canonicalId,
-      };
-      cur.votes += p.votes;
-      totals.set(key, cur);
-      total += p.votes;
-    }
-  }
-  return { totals, total };
 };
 
 // Local-elections counterpart of ProblemVotesByPartyTile: the council-ballot
@@ -76,40 +34,10 @@ export const LocalProblemVotesByPartyTile: FC<Props> = ({
   // falling back to the latest cycle and skewing ΔPP.
   const { data: prior } = useLocalProblemSections(priorCycle ?? null);
 
-  const rows = useMemo(() => {
-    const { totals, total } = aggregate(current, obshtinaCode, rayonCode);
-    if (!total) return [];
-    const { totals: priorTotals, total: priorTotal } = aggregate(
-      prior,
-      obshtinaCode,
-      rayonCode,
-    );
-
-    const built = Array.from(totals.entries()).map(([key, b]) => {
-      const share = (100 * b.votes) / total;
-      let deltaPP: number | undefined;
-      // Only canonical buckets are comparable across cycles — a local-only
-      // slate's ballot number is reassigned each cycle.
-      if (b.canonicalId && priorTotal) {
-        const pb = priorTotals.get(b.canonicalId);
-        if (pb) deltaPP = share - (100 * pb.votes) / priorTotal;
-      }
-      return {
-        key,
-        canonicalId: b.canonicalId,
-        // Fallback name (raw local slate name); the canonical display name is
-        // resolved in render so this memo stays stable.
-        rawName: b.name,
-        color: b.color,
-        votes: b.votes,
-        share,
-        deltaPP,
-      };
-    });
-
-    built.sort((a, b) => b.votes - a.votes);
-    return built.filter((r) => r.votes > 0).slice(0, 8);
-  }, [current, prior, obshtinaCode, rayonCode]);
+  const rows = useMemo(
+    () => buildProblemPartyRows(current, prior, obshtinaCode, rayonCode),
+    [current, prior, obshtinaCode, rayonCode],
+  );
 
   if (!rows.length) return null;
 

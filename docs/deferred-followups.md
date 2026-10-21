@@ -481,15 +481,17 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
     say only „гр.Бургас") and tags **020400252–257** „гр.Бургас–кв.Д. Езерово" and **020400119–120**
     „кв. Горно Езерово". Read from the Wayback copy of
     `oik0204.cik.bg/minr2015/decisions/11/2015-09-09` (the live ОИК pages 403; the attached
-    `upload/1258/_11_.doc` still downloads directly). Not wired in: the matcher places by address
-    (`addressIncludes`), so it needs a per-cycle code list with this citation before 2015 can
-    match — a published-number change, so it waits for that decision.
-    ⚠️ **It also shows a PUBLISHED 2015 placement is wrong.** `gorno_ezerovo` matches 2015 sections
-    020400148–150 because their 2026 address names Горно Езерово; the ОИК list has those as plain
-    гр.Бургас and Горно Езерово at 119–120. 2011 matches the same 148–150 and is almost certainly
-    wrong too. `problem_sections_local.data.test.ts` requires the 2015 match, so the gate currently
-    locks it in. Correcting it changes published numbers and belongs with the per-cycle code-list
-    change above.
+    `upload/1258/_11_.doc` still downloads directly). **PLACED 2026-10-21** through the new
+    `cycleSectionCodes` field in `neighborhoods.ts`, which replaces a neighbourhood's address rule
+    for one cycle with a cited code list. 2015 now reads Долно Езерово 6 sections / 4,423
+    registered (none before) and Горно Езерово 2 / 1,614 — previously 3 / 2,162 from 148–150,
+    which the ОИК list gives as plain гр.Бургас. Both sit beside 2019 (4,365 / 1,712).
+    `problem_sections_local.data.test.ts` asserts a cited list matches exactly its own codes.
+    Because 2015 now holds a neighbourhood 2011 cannot, `LocalProblemVotesByPartyTile` takes its
+    „промяна (пп)" only over neighbourhoods BOTH cycles have (`problemPartyRows.ts`); the shares
+    still cover the whole current set.
+    ⚠️ **2011 Горно Езерово is almost certainly wrong the same way** — it still matches 148–150
+    by today's address (3 sections / 2,193) — and stays published until a 2011 list is found.
     **2011 — still open:** `oik0204.cik.bg/mi2011` has no Wayback captures; the ЗДОИ route to
     Община Бургас (Заповед за образуване на секции, 2011) is the remaining one.
 - **Parliamentary votes & bills**:

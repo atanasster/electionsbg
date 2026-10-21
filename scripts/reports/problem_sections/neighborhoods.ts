@@ -15,8 +15,23 @@ export type ProblemNeighborhood = {
   // (Филиповци). Parliamentary "254619069" and local "224619069" share the
   // suffix "4619069", so one curated list holds across systems and cycles.
   sectionSuffixes?: string[];
+  // ERA-CORRECT section codes for ONE local cycle, keyed by the cycle folder
+  // (`2015_10_25_mi`), each with the document that names them. When a cycle has
+  // an entry it REPLACES every other rule for that neighbourhood in that cycle —
+  // the local matcher reads no address for it — because the address arm reads
+  // the shards' 2022+ backfilled addresses, which follow a renumbered code to
+  // today's building rather than the one it named in that year. Exact codes only,
+  // never a range or a guess: a cycle with no cited list keeps its rules.
+  cycleSectionCodes?: Record<string, { codes: string[]; source: string }>;
   source_url: string;
 };
+
+// ОИК Бургас, Решение № 11-МИ/НР of 2015-09-09 „Формиране единните номера на
+// избирателните секции" (under the mayor's Заповед № 2241/07.09.2015) — the 2015
+// list by place. Read from the Wayback copy; the live ОИК page is Cloudflare-
+// walled, the attached .doc still downloads directly.
+const BURGAS_2015_SECTIONS =
+  "https://web.archive.org/web/20220122172625/https://oik0204.cik.bg/minr2015/decisions/11/2015-09-09";
 
 export const PROBLEM_NEIGHBORHOODS: ProblemNeighborhood[] = [
   {
@@ -87,6 +102,14 @@ export const PROBLEM_NEIGHBORHOODS: ProblemNeighborhood[] = [
     city_en: "Burgas",
     ekatte: "07079",
     addressIncludes: ["ГОРНО ЕЗЕРОВО"],
+    // 2015: „кв. Горно Езерово" is 119–120. The address arm had matched 148–150,
+    // which the same list gives as plain „гр.Бургас".
+    cycleSectionCodes: {
+      "2015_10_25_mi": {
+        codes: ["020400119", "020400120"],
+        source: BURGAS_2015_SECTIONS,
+      },
+    },
     source_url: "https://rroma.org/bulgaria-vote-buying/",
   },
   {
@@ -97,6 +120,21 @@ export const PROBLEM_NEIGHBORHOODS: ProblemNeighborhood[] = [
     city_en: "Burgas",
     ekatte: "07079",
     addressIncludes: ["ДОЛНО ЕЗЕРОВО"],
+    // 2015: „кв.Д. Езерово" is 252–257 (the 2016+ codes 309–315 did not exist yet,
+    // so the address arm could match nothing in 2015).
+    cycleSectionCodes: {
+      "2015_10_25_mi": {
+        codes: [
+          "020400252",
+          "020400253",
+          "020400254",
+          "020400255",
+          "020400256",
+          "020400257",
+        ],
+        source: BURGAS_2015_SECTIONS,
+      },
+    },
     source_url: "https://rroma.org/bulgaria-vote-buying/",
   },
   {

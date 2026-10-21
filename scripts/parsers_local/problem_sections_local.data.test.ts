@@ -75,12 +75,6 @@ const NOT_MATCHABLE: Record<string, { id: string; why: string }[]> = {
       why: "Burgas codes 020400309-315 were created ~2016 (291 stations in 2011); the earlier stations are unaddressable — every address we hold is 2022+",
     },
   ],
-  "2015_10_25_mi": [
-    {
-      id: "dolno_ezerovo",
-      why: "Burgas codes 020400309-315 were created ~2016 (the 2015 results stop at 020400290). An era-correct list EXISTS — ОИК Бургас Решение № 11 of 2015-09-09 tags 020400252-257 „кв. Д. Езерово“ — but the matcher places by address only and every address we hold is 2022+, so it is not wired in yet (see docs/deferred-followups.md)",
-    },
-  ],
 };
 
 describe.runIf(hasCorpus)("the local neighbourhood corpus", () => {
@@ -161,6 +155,43 @@ describe.runIf(hasCorpus)("the local neighbourhood corpus", () => {
         cycle,
         ids: expected.sort(),
       });
+    },
+  );
+
+  it("every cycleSectionCodes key names a built local cycle", () => {
+    // A mistyped key („2015_10_25" for „2015_10_25_mi") matches no cycle, so the address rule
+    // silently comes back for the year the list was meant to correct — with every other gate
+    // green, because the address rule still produces SOME match.
+    const keys = PROBLEM_NEIGHBORHOODS.flatMap((n) =>
+      Object.keys(n.cycleSectionCodes ?? {}).map((cycle) => ({
+        id: n.id,
+        cycle,
+      })),
+    );
+    expect(keys.length).toBeGreaterThan(0);
+    for (const k of keys)
+      expect({ ...k, built: cycles.includes(k.cycle) }).toEqual({
+        ...k,
+        built: true,
+      });
+  });
+
+  it.each(built)(
+    "$cycle: a cited era-correct code list matches exactly its own codes",
+    ({ cycle, neighborhoods }) => {
+      // `cycleSectionCodes` REPLACES the address rule for its cycle, so the neighbourhood must
+      // carry exactly that many sections — fewer means a listed code is missing from the shards
+      // (a wrong transcription), more means another rule is still reaching it. Burgas 2015 is
+      // the case: the address arm put Горно Езерово on 148–150, ОИК Бургас's list says 119–120.
+      for (const n of PROBLEM_NEIGHBORHOODS) {
+        const pinned = n.cycleSectionCodes?.[cycle];
+        if (!pinned) continue;
+        const got = neighborhoods.find((x) => x.id === n.id);
+        expect({ id: n.id, sections: got?.sectionCount }).toEqual({
+          id: n.id,
+          sections: pinned.codes.length,
+        });
+      }
     },
   );
 
