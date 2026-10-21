@@ -188,6 +188,9 @@ const run = async (): Promise<void> => {
   let unmerged = 0;
   const duplicateOrds: string[] = [];
   let moneyFilings = 0;
+  const pendingMoney = usable.filter(
+    (r) => !r.money && (r.formVersion === "3.0" || r.formVersion === "4.0"),
+  ).length;
   let moneyRows = 0;
   let moneyRefused = 0;
 
@@ -500,8 +503,11 @@ const run = async (): Promise<void> => {
   console.log(
     `  money tables (storage only): ${moneyFilings} filing(s) parsed, ` +
       `${moneyRows} row(s), ${moneyRefused} table refusal(s)` +
-      (moneyFilings < usable.length
-        ? ` — ${usable.length - moneyFilings} filing(s) not yet parsed for money ` +
+      // Only a CURRENT-form filing without `money` is backfillable — the pre-v3.0 forms are
+      // never fetched for it (moneyTables.ts would refuse them), so counting them here as
+      // „run --backfill-money" sends an operator to a command that changes nothing.
+      (pendingMoney
+        ? ` — ${pendingMoney} current-form filing(s) not yet parsed for money ` +
           `(crawl_declarations.ts --backfill-money)`
         : ""),
   );
