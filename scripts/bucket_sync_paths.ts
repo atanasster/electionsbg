@@ -169,6 +169,10 @@ export const isExcluded = (rel: string): string | null => {
     return "budget/municipal_fiscal/ is a PG load source (db:load:municipal-fiscal:pg)";
   // МЕУ's еФорми request volumes (migration 201) — the committed snapshot is the loader's SOURCE
   // under the still-served administration/ parent, so it also needs the CHILD_EXCLUDES twin.
+  // parliament.bg bill records (T4.7) — the roll-call loader's adoption input, under the
+  // still-served parliament/ tree, so it also needs the CHILD_EXCLUDES twin.
+  if (rel.startsWith("parliament/bills"))
+    return "parliament/bills/ is a PG load source (db:load:rollcall:pg)";
   if (rel === "administration/eforms_requests.json")
     return "administration/eforms_requests.json is a PG load source (db:load:admin-service-requests:pg)";
   // The council corpus is PG-served (migrations 160/161) — /api/db/council-overview,
@@ -552,6 +556,8 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "budget/municipal_fiscal", isDir: true },
   // Same shape: a PG load source (201) under the served administration/ parent.
   { path: "administration/eforms_requests.json", isDir: false },
+  // Same shape: the roll-call loader's bill-adoption input under the served parliament/ tree.
+  { path: "parliament/bills", isDir: true },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under

@@ -40,6 +40,19 @@ CREATE TABLE IF NOT EXISTS bill (
 );
 CREATE INDEX IF NOT EXISTS idx_bill_ns ON bill (ns);
 
+-- ADOPTION, as parliament.bg STATES it (scripts/parliament/bills/, T4.7). Added as a
+-- reconcile because CREATE TABLE IF NOT EXISTS cannot reach a warm database. These come from
+-- the bill's own record — `L_Act_date2` (the day the plenary adopted it) and its ДВ issue —
+-- and are set only when (a) the stem matches one of the bill's EXACT title forms and (b) that
+-- adoption day is a day on which this stem had a standing second-reading vote. They say WHEN
+-- and WHERE it was promulgated, never WHICH vote adopted it: final_item stays NULL (header).
+-- NULL here is „no matched promulgation", not „not adopted" — only the current assembly is
+-- reachable through the API, and stems with typos stay unmatched.
+ALTER TABLE bill ADD COLUMN IF NOT EXISTS adopted_on date;
+ALTER TABLE bill ADD COLUMN IF NOT EXISTS dv_issue text;
+ALTER TABLE bill ADD COLUMN IF NOT EXISTS dv_year smallint;
+ALTER TABLE bill ADD COLUMN IF NOT EXISTS parliament_bill_ids integer[];
+
 -- 134 declares vote_item.bill_id without the constraint, because bill did not exist yet.
 -- Added here, and idempotently: exec() sends a migration as one implicit transaction, so a
 -- duplicate-object error would roll the whole file back on every re-apply.
@@ -65,3 +78,9 @@ COMMENT ON COLUMN bill.final_item IS
   'ALWAYS NULL today. The corpus has no whole-bill adoption marker; NULL means "not derivable", never "not adopted".';
 COMMENT ON COLUMN vote_item.bill_id IS
   'The bill this item votes on, for first- and second-reading items of a bill that reached a second reading. NULL for every other item.';
+COMMENT ON COLUMN bill.adopted_on IS
+  'The day parliament.bg records the bill as adopted (L_Act_date2), for exact stem matches corroborated by a second-reading vote that day. NULL = no matched promulgation, not "not adopted".';
+COMMENT ON COLUMN bill.dv_issue IS
+  'Държавен вестник issue that promulgated it (L_Act_dv_iss), with dv_year. Same matching rule as adopted_on.';
+COMMENT ON COLUMN bill.parliament_bill_ids IS
+  'parliament.bg L_Act_id of every promulgated bill matched to this stem (several bills can merge into one second reading).';

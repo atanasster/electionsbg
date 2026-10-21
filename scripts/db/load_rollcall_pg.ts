@@ -51,6 +51,11 @@ import {
 } from "../parliament/derived/hub_stats";
 import { classifyTitle } from "../parliament/derived/topics";
 import type { SessionFile } from "../parliament/derived/types";
+import {
+  billStemCandidates,
+  stemKey,
+  type BillDetail,
+} from "../parliament/bills/bills";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -89,6 +94,23 @@ interface LoadedBill {
   /** Resolved in a second pass, because bill.first_reading_item references vote_item and
    *  vote_item.bill_id references bill — the cycle has to be filled from both ends. */
   firstReadingItem: number | null;
+  /** Adoption as parliament.bg states it — see 136's ADOPTION block. All null unless an exact
+   *  stem match is corroborated by a second-reading vote on the adoption day. */
+  adoptedOn: string | null;
+  dvIssue: string | null;
+  dvYear: number | null;
+  parliamentBillIds: number[] | null;
+}
+
+/** A promulgated parliament.bg bill (data/parliament/bills/ns<N>.json), reduced to what the
+ *  bill pass matches on. */
+export interface PromulgatedBill {
+  id: number;
+  ns: number;
+  title: string;
+  adoptedOn: string;
+  dvIssue: string;
+  dvYear: number | null;
 }
 
 interface LoadedItem {
@@ -116,6 +138,32 @@ interface LoadedCast {
   vote: string;
   party: string | null;
 }
+
+/** data/parliament/bills/ns<N>.json (scripts/parliament/bills/fetch_bills.ts), promulgated
+ *  rows only. Absent on a clone that never crawled — then no stem carries an adoption. */
+const BILLS_DIR = path.join(ROOT, "data/parliament/bills");
+export const readPromulgatedBills = (): PromulgatedBill[] => {
+  if (!existsSync(BILLS_DIR)) return [];
+  const out: PromulgatedBill[] = [];
+  for (const f of readdirSync(BILLS_DIR).filter((n) =>
+    /^ns\d+\.json$/.test(n),
+  )) {
+    const file = JSON.parse(readFileSync(path.join(BILLS_DIR, f), "utf8")) as {
+      bills: BillDetail[];
+    };
+    for (const b of file.bills)
+      if (b.dvIssue && b.adoptedOn)
+        out.push({
+          id: b.id,
+          ns: Number(b.ns),
+          title: b.title,
+          adoptedOn: b.adoptedOn,
+          dvIssue: b.dvIssue,
+          dvYear: b.dvYear,
+        });
+  }
+  return out;
+};
 
 const readSessions = (): SessionFile[] => {
   if (!existsSync(SESSIONS_DIR)) return [];
@@ -166,6 +214,7 @@ export const buildRollcall = (
    *  than renumbering: bill_id is a foreign key on 15,096 vote_item rows, and renumbering it
    *  every night would rewrite them all and make the merge's changed-row count meaningless. */
   existingBillIds: Map<string, number> = new Map(),
+  promulgated: readonly PromulgatedBill[] = [],
 ): RollcallBuild => {
   const rawItems = raw.reduce((n, s) => n + s.sessions.length, 0);
   const dedupedItems = dedupeRevotes(raw).reduce(
@@ -343,11 +392,34 @@ export const buildRollcall = (
         a.date === b.date ? a.itemNo - b.itemNo : a.date.localeCompare(b.date),
       );
     for (const row of firstItems) row.billId = billId;
+    // ADOPTION: promulgated bills whose EXACT title forms include this stem, kept only when
+    // the stem had a standing second-reading vote on the bill's adoption day — the corpus's
+    // own corroboration of the match. The latest such adoption wins when two amendments of one
+    // law merged into one stem; every matched id is kept.
+    const secondDays = new Set(
+      secondByStem
+        .get(key)!
+        .filter((row) => row.supersededBy === null)
+        .map((row) => row.date),
+    );
+    const adoptions = promulgated
+      .filter(
+        (p) =>
+          p.ns === ns &&
+          secondDays.has(p.adoptedOn) &&
+          billStemCandidates(p.title).some((c) => stemKey(c) === stemKey(stem)),
+      )
+      .sort((a, b) => a.adoptedOn.localeCompare(b.adoptedOn) || a.id - b.id);
+    const latest = adoptions.at(-1);
     bills.push({
       billId,
       ns,
       stem,
       firstReadingItem: firstItems[0]?.itemId ?? null,
+      adoptedOn: latest?.adoptedOn ?? null,
+      dvIssue: latest?.dvIssue ?? null,
+      dvYear: latest?.dvYear ?? null,
+      parliamentBillIds: adoptions.length ? adoptions.map((p) => p.id) : null,
     });
   }
 
@@ -414,7 +486,13 @@ const run = async (): Promise<void> => {
     }
   });
 
-  const build = buildRollcall(raw, existingBillIds);
+  const promulgated = readPromulgatedBills();
+  const build = buildRollcall(raw, existingBillIds, promulgated);
+  const adopted = build.bills.filter((b) => b.adoptedOn);
+  console.log(
+    `bills: ${promulgated.length} promulgated parliament.bg bill(s) on disk → ` +
+      `${adopted.length} stem(s) carry an adoption (${[...new Set(adopted.map((b) => b.ns))].join(", ") || "none"})`,
+  );
 
   console.log(
     `rollcall: ${raw.length} plenary days · ${build.rawItems} raw items → ` +
@@ -556,8 +634,17 @@ const run = async (): Promise<void> => {
 
       for (const b of build.bills) {
         await c.query(
-          "UPDATE bill SET first_reading_item = $2 WHERE bill_id = $1",
-          [b.billId, b.firstReadingItem],
+          `UPDATE bill SET first_reading_item = $2, adopted_on = $3, dv_issue = $4,
+                           dv_year = $5, parliament_bill_ids = $6
+            WHERE bill_id = $1`,
+          [
+            b.billId,
+            b.firstReadingItem,
+            b.adoptedOn,
+            b.dvIssue,
+            b.dvYear,
+            b.parliamentBillIds,
+          ],
         );
       }
 

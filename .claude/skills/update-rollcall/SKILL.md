@@ -117,6 +117,14 @@ The roll-call corpus is now also a set of Postgres tables (`vote_item`, `vote_ca
 `mp_seat`, `party_dim` — migration 134), loaded from the same session files this skill
 writes. Any newly-ingested session leaves them stale.
 
+Bill adoptions (ДВ promulgation) come from parliament.bg's bills API — crawl them BEFORE the
+facts load, which reads `data/parliament/bills/ns<N>.json` (current assembly only; see
+CLAUDE.md's `bill` section):
+
+```bash
+npm run parliament:bills             # ~4 min: list + every non-promulgated bill's detail
+```
+
 ```bash
 npm run db:load:rollcall:pg          # local — facts
 npm run db:load:rollcall-derived:pg  # local — the four precomputes

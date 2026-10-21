@@ -443,11 +443,14 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 - **Parliamentary votes & bills**:
   - Decide whether to prerender a scored subset of `/votes/:date/:slug` item pages (top engaged
     URL family in the parliament module, currently SPA-only).
-  - Ingest bills (`законопроекти`) from `parliament.bg` to populate `bill.final_item` and pass/fail
-    law outcomes. Source: the undocumented SPA API. `POST /api/v1/fn-bills` with body `{}` lists
-    recent bills; `GET /api/v1/bill/{L_Act_id}` returns ДВ promulgation (`L_Act_dv_iss` / `_year`),
-    veto, withdrawn, committee reports and plenary transcripts. There is no single outcome field,
-    so derive pass/fail from the ДВ fields plus the readings.
+  - Bills from parliament.bg: the CURRENT assembly is crawled (`npm run parliament:bills`, T4.7,
+    2026-10-21) and its ДВ adoptions fill `bill.adopted_on` / `dv_issue` for 38 of the 52nd's 52
+    stems. Still open: (a) the 44th–51st — `fn-bills` 500s on any assembly filter, so those need
+    `GET /api/v1/bill/{id}` id enumeration; (b) a surface for the adoption; (c) the 14 stems with no
+    corroborated match stay unmatched by design — typos, rewordings, or an adoption day with no
+    vote in the corpus; (d) `final_item` stays NULL — the
+    source dates an adoption, it does not identify the adopting vote;
+    (e) `npm run db:load:rollcall:pg:cloud` has not carried it to prod yet.
 
 ## Governance, Places & Council
 

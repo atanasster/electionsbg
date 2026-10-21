@@ -115,6 +115,17 @@ describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
 
   // The еФорми snapshot (migration 201) is a PG load source under administration/, whose other
   // files (egov.json, services_overview.json …) are still served.
+  it("excludes parliament/bills/ everywhere, while sparing the rest of parliament/", () => {
+    for (const k of ["bucket:sync", "bucket:sync:dry"] as const) {
+      const re = new RegExp(pkg[k].match(/-x '([^']*)'/)?.[1] as string);
+      expect(re.test("parliament/bills/ns52.json"), k).toBe(true);
+      expect(re.test("parliament/connections.json"), k).toBe(false);
+    }
+    expect(isExcluded("parliament/bills")).toBeTruthy();
+    expect(isExcluded("parliament/bills/ns52.json")).toBeTruthy();
+    expect(childExcludeRegexes("parliament")).toContain("^bills/.*");
+  });
+
   it("excludes administration/eforms_requests.json everywhere, while sparing administration/", () => {
     for (const k of ["bucket:sync", "bucket:sync:dry"] as const) {
       const re = new RegExp(pkg[k].match(/-x '([^']*)'/)?.[1] as string);

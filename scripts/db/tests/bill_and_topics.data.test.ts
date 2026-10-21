@@ -21,7 +21,7 @@ import {
   secondReadingStem,
   firstReadingStem,
 } from "../../parliament/derived/hub_stats";
-import { buildRollcall } from "../load_rollcall_pg";
+import { buildRollcall, readPromulgatedBills } from "../load_rollcall_pg";
 import { outcomeFor } from "../../parliament/derived/important_votes";
 // The SAME function SessionOutcomeBar's classification lives in, imported rather than
 // re-written. There were THREE copies of this rule until 2026-08-22 — the SQL in
@@ -54,6 +54,14 @@ const skipSessions = !existsSync(SESSIONS)
   : false;
 reportSkip(import.meta.url, skipDb);
 reportSkip(import.meta.url, skipSessions);
+// No parliament.bg crawl on this clone (data/parliament/bills/ is written by
+// `npm run parliament:bills`): the shift check has nothing to discriminate — a distinct skip,
+// never a silent pass.
+const noBillCrawl =
+  readPromulgatedBills().length === 0
+    ? "no parliament.bg bill crawl on disk — run npm run parliament:bills"
+    : false;
+reportSkip(import.meta.url, noBillCrawl);
 
 // OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
 // working copy rather than a supported state. See scripts/lib/assert_committed.ts.
@@ -207,6 +215,61 @@ test.skipIf(skipDb || skipSessions)(
       new Set(ids).size,
       ids.length,
       "the resolver issued a duplicate bill_id",
+    );
+  },
+);
+
+test.skipIf(skipDb)(
+  "an adoption on a bill is the source's own, corroborated by a second-reading vote that day",
+  async () => {
+    // adopted_on / dv_issue come from parliament.bg (T4.7), never from the vote corpus — and
+    // they are kept only where the stem had a standing second-reading item on the adoption
+    // day. A row breaking that is a match the loader should have refused.
+    const bad = await allRows<{ bill_id: number }>(
+      `SELECT b.bill_id FROM bill b
+        WHERE b.adopted_on IS NOT NULL
+          AND (b.dv_issue IS NULL OR coalesce(cardinality(b.parliament_bill_ids), 0) = 0
+               OR NOT EXISTS (
+                 SELECT 1 FROM vote_item v
+                  -- The loader's own marker (a second-reading stem needs „второ гласуване" in the
+                  -- title), not the reading column, which classifies one-sitting „първо … второ" items as 1.
+                  WHERE v.bill_id = b.bill_id AND v.title ~* 'второ\\s+(гласуване|четене)'
+                    AND v.superseded_by IS NULL AND v.date = b.adopted_on))`,
+    );
+    assert.deepEqual(bad, [], "a bill carries an uncorroborated adoption");
+  },
+);
+
+test.skipIf(skipDb || skipSessions || noBillCrawl)(
+  "the adoption match discriminates: a one-day-shifted promulgation attaches to nothing",
+  async () => {
+    const promulgated = readPromulgatedBills();
+    const stored = new Map(
+      (
+        await allRows<{ bill_id: number; ns: number; stem: string }>(
+          "SELECT bill_id, ns, stem FROM bill",
+        )
+      ).map((r) => [`${r.ns}|${r.stem}`, r.bill_id]),
+    );
+    const corpus = readSessions();
+    const real = buildRollcall(corpus, stored, promulgated).bills.filter(
+      (b) => b.adoptedOn,
+    );
+    assert.ok(real.length > 0, "no promulgated bill matched a stem at all");
+    const shift = (d: string) =>
+      new Date(Date.parse(d + "T12:00:00Z") + 86_400_000)
+        .toISOString()
+        .slice(0, 10);
+    const shifted = buildRollcall(
+      corpus,
+      stored,
+      promulgated.map((p) => ({ ...p, adoptedOn: shift(p.adoptedOn) })),
+    ).bills.filter((b) => b.adoptedOn);
+    // Not necessarily zero — a stem voted on two consecutive days can still corroborate — but
+    // the corroboration must REMOVE most matches, or it is not doing anything.
+    assert.ok(
+      shifted.length < real.length / 2,
+      `shifting every adoption by a day kept ${shifted.length} of ${real.length} matches`,
     );
   },
 );

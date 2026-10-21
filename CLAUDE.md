@@ -2199,6 +2199,30 @@ counted 8 extra bills on the 52nd. And **`final_item` is always NULL**: it is wh
 whole-bill adoption marker would live, and this corpus has none, so NULL means "not
 derivable" rather than "not adopted". `bill_and_topics.data.test.ts` fails if either changes.
 
+**Adoption comes from parliament.bg instead, in its own columns (T4.7, 2026-10-21).**
+`npm run parliament:bills` crawls the bills API into the committed
+`data/parliament/bills/ns<N>.json` (a PG load source — excluded from bucket sync at all four
+sites); `db:load:rollcall:pg` reads it and fills `bill.adopted_on` / `dv_issue` / `dv_year` /
+`parliament_bill_ids` only where the stem equals one of the bill title's EXACT forms
+(`billStemCandidates`: „ЗИД на …", „Ратификация на …" — never fuzzy, the stems carry typos)
+AND the stem had a standing second-reading vote on the bill's adoption day (`L_Act_date2`).
+First load: 48 promulgated bills of the 52nd → 38 of its 52 stems. Three things are easy to
+get backwards:
+
+- ⚠️ **`final_item` STAYS NULL.** The source says WHEN a law was adopted, not WHICH vote
+  adopted it, and the last vote of that day can be a rejected amendment — the §4.2 trap. The
+  gate above still holds.
+- ⚠️ **Only the CURRENT assembly is reachable.** `fn-bills` 500s on ANY `A_ns_id` (even the
+  current 62) and returns `[]` for a date window outside it, so 44th–51st stems carry no
+  adoption: NULL there is „not crawled", never „not adopted". Older bills are reachable only by
+  `GET /api/v1/bill/{id}` id enumeration — open work.
+- The crawler re-fetches every NON-promulgated bill each run (pending is the state that moves)
+  and reuses promulgated details from the gitignored `raw_data/parliament/bills/` cache.
+
+Cloud side: `db:load:rollcall:pg:cloud` carries it (136 is in that loader). The gates are the
+two adoption arms in `bill_and_topics.data.test.ts`, one a one-day-shift mutation check that
+proves the same-day corroboration discriminates.
+
 **`/api/db/vote-day-summary?ns=` + `/api/db/contested-votes?ns=`** retire the 8 MB
 `topic_index.json` from the two consumers that fetched it whole — the `/votes` table (a topic
 chip set and a four-segment outcome bar per day) and the contested-votes tile. 39 rows and

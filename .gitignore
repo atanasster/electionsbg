@@ -510,3 +510,5 @@ __pycache__/
 /coverage/
 # НТР raw register pages (scripts/tourism/fetch_ntr.ts) — ~14 MB, regenerable, never committed.
 /raw_data/tourism/ntr/
+# parliament.bg bill API responses (scripts/parliament/bills/fetch_bills.ts) — regenerable.
+/raw_data/parliament/bills/
