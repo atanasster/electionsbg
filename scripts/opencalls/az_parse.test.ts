@@ -115,6 +115,18 @@ describe("parseAzWindow — a labelled END in a clause about applying", () => {
     }
   });
 
+  it("an item whose only window is inverted is rejected for THAT reason, not as open-ended", () => {
+    const o = parseAzOutcome({
+      id: "1",
+      url: "u",
+      date: "01.12.2027",
+      title: "Прием по програма",
+      body: "Започва прием. Работодателите могат да подават заявки от 28 декември 2027 г. до 9 януари 2027 г.",
+    });
+    expect(o?.kind).toBe("rejected");
+    if (o?.kind === "rejected") expect(o.why).toMatch(/opens after it closes/);
+  });
+
   it("refuses a window that opens after it closes", () => {
     expect(
       parseAzWindow(

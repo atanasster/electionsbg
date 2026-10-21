@@ -196,17 +196,28 @@ const windowOf = (sentence: string): AzWindow | null => {
 };
 
 /** EVERY labelled end in clauses about applying — one item can carry several (employers by
- *  26 October, the young graduates themselves by 30 October). Empty when open-ended. */
-export const parseAzWindows = (body: string): AzWindow[] => {
-  const out: AzWindow[] = [];
+ *  26 October, the young graduates themselves by 30 October) — plus how many labelled windows
+ *  were refused because they open after they close (a misread or a source typo, never a row). */
+export const scanAzWindows = (
+  body: string,
+): { windows: AzWindow[]; inverted: number } => {
+  const windows: AzWindow[] = [];
+  let inverted = 0;
   for (const s of body.split(SENTENCE)) {
     const w = windowOf(s);
-    // A window that opens after it closes is a misread, never a row.
-    if (w && w.opensAt && w.opensAt > w.closesAt) continue;
-    if (w && !out.some((o) => o.closesAt === w.closesAt)) out.push(w);
+    if (!w) continue;
+    if (w.opensAt && w.opensAt > w.closesAt) {
+      inverted++;
+      continue;
+    }
+    if (!windows.some((o) => o.closesAt === w.closesAt)) windows.push(w);
   }
-  return out;
+  return { windows, inverted };
 };
+
+/** The windows alone — empty when open-ended. */
+export const parseAzWindows = (body: string): AzWindow[] =>
+  scanAzWindows(body).windows;
 
 /** The first labelled end, or null when open-ended. */
 export const parseAzWindow = (body: string): AzWindow | null =>
@@ -234,13 +245,15 @@ export const azCallKey = (itemId: string, closesAt: string): string =>
 /** One news item → its rows with a labelled end, a counted rejection, or null (not an intake). */
 export const parseAzOutcome = (item: AzItem): AzOutcome | null => {
   if (!isIntakeNews(item)) return null;
-  const windows = parseAzWindows(item.body);
+  const { windows, inverted } = scanAzWindows(item.body);
   if (!windows.length)
     return {
       kind: "rejected",
       date: item.date,
       title: item.title,
-      why: "open-ended intake or stop notice — no labelled end in a clause about applying",
+      why: inverted
+        ? "a labelled window that opens after it closes — a misread or a source typo, check the item"
+        : "open-ended intake or stop notice — no labelled end in a clause about applying",
     };
   // Each row's audience comes from ITS OWN clause, which names who applies („работодателите",
   // „областните и общинските администрации", „младежите"). The whole article is the wrong
