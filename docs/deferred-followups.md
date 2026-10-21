@@ -212,7 +212,10 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   (2022–2024 have one). „Митническа хроника" 2025 does not print the figure as text: its total of
   14,527.5 млн лв minus excise (7,423.7), import VAT (6,684.5) and duties (398.3) leaves
   21.0 млн лв ≈ €10.74m for „глоби и други". The same method gives 8.2 for 2024 against the repo's
-  8.1. Decide whether a derived residual may be published with that caveat.
+  8.1. **Decided 2026-10-21: keep null.** The residual covers more than fines, and a derived
+  number in that key reads as a printed one. Revisit only if a later report prints the fines row
+  as text again, or if a `finesBasis: "residual"` field with its own „глоби и други" label is
+  built first.
 - **Health (НЗОК)**:
   - Surface `periodByStream` on the national `/awarder/121858220` pack (`HealthPack.tsx`) so the
     pack header shows per-stream month coverage (`105/105` vs `44/105` months) like `/company/:eik`.

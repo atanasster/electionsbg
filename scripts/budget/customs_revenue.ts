@@ -71,7 +71,12 @@ const ROW_LABELS: Array<{ key: keyof TableExtraction; re: RegExp }> = [
   { key: "importVat", re: /^\s*ДДС\s+при\s+внос\s*$/i },
   { key: "customs", re: /^\s*Мита\s*$/i },
   // Wrapped row label in 2023 ("Глоби, санкции, лихви и\nдруги приходи");
-  // bare "Глоби, санкции" in 2024 — no $-anchor here.
+  // bare "Глоби, санкции" in 2024 — no $-anchor here. ⚠️ 2025 has NO fines line at all, and
+  // not because of this regex: that year's report prints Table 1 as an image, so `findTable1`
+  // finds fewer than three of the main row labels and returns null, and no line is written.
+  // The absence is DECIDED (2026-10-21, docs/deferred-followups.md „Customs"), not a parser gap
+  // to paper over: the total-minus-components residual (21.0 млн лв) is „глоби и други", and
+  // written as `fines_total` it would read as a printed fines figure.
   { key: "fines", re: /^\s*Глоби(?:,?\s*санкции)?/i },
 ];
 

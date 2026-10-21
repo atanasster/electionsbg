@@ -35,8 +35,9 @@
 // the 2025 card — measured AFTER the §F1 anchor fix; against the pre-F1 total it
 // read 28.4%, which is the figure the plan's §F2 table still carries, so do not
 // "correct" it back from there. It is 99.9% of the €7.428bn headline of the
-// /sector/customs pack; the €10.7m remainder is that pack's глоби line, which the
-// tax composition does not carry. Audit 2026-08-19,
+// /sector/customs pack; the €10.7m remainder is the report's total less those three
+// lines — „глоби и други" — which the tax composition does not carry. (2025 prints no
+// separate глоби row; that line is deliberately absent, see customs_revenue.ts.) Audit 2026-08-19,
 // docs/plans/revenue-sector-audit-v1.md §F2.
 //
 // Decided there: RE-CAPTION, keep every euro. Excluding the lines is only PARTLY
