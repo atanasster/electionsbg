@@ -12,8 +12,8 @@
 // get right and `isun_procedures` never faces.
 //
 // ИСУН is a single register, so a fetch that fails is a failed probe and throwing is correct.
-// Here there are two independent sites, and three MORE Bulgarian cross-border programmes are
-// already unreachable (measured 2026-08-09, see interreg_parse.ts). Folding a down programme
+// Here there are six independent programme sites (all six Bulgarian cross-border programmes
+// since 2026-10-21, see interreg_parse.ts), and on any given day one may be down. Folding a down programme
 // into the fingerprint as „zero calls" would report „2 затворени" on a day nothing changed —
 // crying wolf on exactly the signal a reader is supposed to trust — and „2 нови" when the site
 // came back. So an unreachable programme is EXCLUDED from the hash and named in the detail line.
@@ -32,10 +32,14 @@
 
 import { sha256Short, fetchText } from "../fingerprint";
 import type { Fingerprint, WatchSource, WatchState } from "../types";
+// Side effect: completes the TLS chain for the МРРБ and RO-BG hosts (verification stays on) —
+// without it those four programmes would read as permanently „недостъпни".
+import "../../opencalls/interreg_tls";
 import {
   PROGRAMMES,
-  parseIndex,
   callSlug,
+  indexUrlsOf,
+  listCallUrls,
 } from "../../opencalls/interreg_parse";
 
 interface InterregCallsMeta {
@@ -56,21 +60,33 @@ export const interregCalls: WatchSource = {
     const slugs: Record<string, string[]> = {};
     const down: string[] = [];
 
-    // Serial, not Promise.all: two small programme secretariats, and the watcher runs daily.
+    // Serial, not Promise.all: six small programme secretariats, and the watcher runs daily.
     for (const p of PROGRAMMES) {
       try {
         // `fetchText` returns NULL on failure rather than throwing. Relying on the downstream
         // `html.matchAll` to crash would work by accident and break the moment `parseIndex`
         // grew a null guard of its own — with the failure mode being „programme up, 0 calls",
         // i.e. every call reported closed.
-        const html = await fetchText(p.indexUrl, { retries: 2 });
-        if (html === null) {
+        // Every index page the crawler reads, through the SAME `listCallUrls` it uses, so the
+        // watcher cannot disagree with the crawler about what a programme's calls are. One page
+        // unreadable makes the whole programme „down" — a half-read slug set would report
+        // every call on the missing page as closed.
+        const pages: string[] = [];
+        for (const u of indexUrlsOf(p)) {
+          const html = await fetchText(u, { retries: 2 });
+          if (html === null) break;
+          pages.push(html);
+        }
+        if (pages.length < indexUrlsOf(p).length) {
           down.push(p.code);
           continue;
         }
-        const found = parseIndex(html, p).map(callSlug).sort();
+        const found = [
+          ...new Set(pages.flatMap((h) => listCallUrls(h, p).map(callSlug))),
+        ].sort();
         // Zero links from a 200 is a markup change or an interstitial, not an empty programme —
-        // both of these indexes have always listed at least two calls. Treating it as „down"
+        // every one of these indexes has listed at least two calls since it was added (measured
+        // 2026-10-21: 2 to 7 per programme). Treating it as „down"
         // keeps it out of the hash instead of reporting every call as closed.
         if (found.length === 0) down.push(p.code);
         else slugs[p.code] = found;

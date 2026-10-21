@@ -1,9 +1,9 @@
 // The Interreg watcher, and specifically what happens when a programme's site is DOWN.
 //
 // That is the whole reason this watcher differs from `isun_procedures`: ИСУН is one register, so
-// a failed fetch is a failed probe. Here there are independent sites, three of Bulgaria's six
-// cross-border programmes are already unreachable, and Black Sea Basin went down mid-crawl on
-// the very first real run. A watcher that folds an outage in as „zero calls" reports every one
+// a failed fetch is a failed probe. Here there are six independent sites — on 2026-08-09 three
+// of them looked unreachable (the wrong hosts, it turned out) — and Black Sea Basin went down
+// mid-crawl on the very first real run. A watcher that folds an outage in as „zero calls" reports every one
 // of that programme's calls as closed, then as new when the site returns — crying wolf on
 // exactly the signal a reader is supposed to trust.
 
@@ -19,17 +19,49 @@ vi.mock("../fingerprint", async (orig) => ({
 const { interregCalls } = await import("./interreg_calls");
 const { PROGRAMMES } = await import("../../opencalls/interreg_parse");
 const [GBG, BSB] = PROGRAMMES;
+const OTHERS = PROGRAMMES.filter((p) => p !== GBG && p !== BSB);
+type P = (typeof PROGRAMMES)[number];
 
-/** An index page listing the given call slugs under a programme's own prefix. */
-const indexHtml = (p: (typeof PROGRAMMES)[number], slugs: string[]) =>
-  slugs.map((s) => `<a href="${p.callPrefix}${s}/">${s}</a>`).join("\n");
+/** An index page listing the given call slugs, in the SHAPE that programme's kind reads: the
+ *  МРРБ nav dropdown of taxonomy terms, RO-BG's `/en/call-N` links, a plain prefix otherwise. */
+const indexHtml = (p: P, slugs: string[]) => {
+  if (p.kind === "mrrb")
+    return (
+      `<a>Calls for proposals</a><ul>` +
+      `<li><a href="/en/term/99">Timetables of planned calls for proposals</a></li>` +
+      slugs
+        .map((s) => `<li><a href="/en/term/${s}">Call ${s}</a></li>`)
+        .join("") +
+      `</ul>`
+    );
+  if (p.kind === "robg")
+    return slugs
+      .map((s) => `<a href="/en/call-${s}-x">Call ${s}</a>`)
+      .join("\n");
+  return slugs.map((s) => `<a href="${p.callPrefix}${s}/">${s}</a>`).join("\n");
+};
 
-const serve = (gbg: string[] | null, bsb: string[] | null) =>
+/** The two original programmes are varied per test; the four added on 2026-10-21 answer with
+ *  two calls each unless `others` is null (down). RO-BG's slugs sit on its FIRST index page. */
+const serve = (
+  gbg: string[] | null,
+  bsb: string[] | null,
+  others: string[] | null = ["1", "2"],
+) =>
   fetchText.mockImplementation(async (url: string) => {
     if (url === GBG.indexUrl) return gbg === null ? null : indexHtml(GBG, gbg);
     if (url === BSB.indexUrl) return bsb === null ? null : indexHtml(BSB, bsb);
+    for (const p of OTHERS) {
+      const pages = [p.indexUrl, ...(p.extraIndexUrls ?? [])];
+      const k = pages.indexOf(url);
+      if (k < 0) continue;
+      if (others === null) return null;
+      return indexHtml(p, k === 0 ? others : []);
+    }
     return null;
   });
+/** Calls the four added programmes contribute when up (two each). */
+const OTHER_CALLS = OTHERS.length * 2;
 
 /** A prior run, as the runner would have persisted it. `meta` is the only field `describe`
  *  reads, but the shape is built in full so a change to `WatchState` breaks here loudly rather
@@ -48,7 +80,9 @@ describe("fingerprint", () => {
   it("hashes the call slugs of every programme that answered", async () => {
     serve(["a", "b"], ["x"]);
     const fp = await interregCalls.fingerprint();
-    expect(fp.detail).toContain("3 покани от 2 програми");
+    expect(fp.detail).toContain(
+      `${3 + OTHER_CALLS} покани от ${PROGRAMMES.length} програми`,
+    );
     expect(fp.detail).not.toContain("недостъпни");
   });
 
@@ -83,7 +117,9 @@ describe("fingerprint", () => {
   it("names a down programme in the detail line instead of counting it as zero", async () => {
     serve(["a", "b"], null);
     const fp = await interregCalls.fingerprint();
-    expect(fp.detail).toContain("2 покани от 1 програми");
+    expect(fp.detail).toContain(
+      `${2 + OTHER_CALLS} покани от ${PROGRAMMES.length - 1} програми`,
+    );
     expect(fp.detail).toContain("недостъпни: interreg-bsb");
   });
 
@@ -97,7 +133,7 @@ describe("fingerprint", () => {
   });
 
   it("THROWS when no programme could be read — a probe failure is not a finding", async () => {
-    serve(null, null);
+    serve(null, null, null);
     await expect(interregCalls.fingerprint()).rejects.toThrow(/probe failure/);
   });
 
@@ -107,6 +143,37 @@ describe("fingerprint", () => {
     // „programme up, 0 calls", i.e. every call reported closed.
     serve(["a"], null);
     expect((await interregCalls.fingerprint()).detail).toContain("недостъпни");
+  });
+});
+
+describe("the programmes added on 2026-10-21", () => {
+  it("lists an МРРБ programme's calls from its nav dropdown, skipping the timetable", async () => {
+    serve(["a"], ["x"]);
+    const fp = await interregCalls.fingerprint();
+    const slugs = (fp.meta as { slugs: Record<string, string[]> }).slugs;
+    for (const p of OTHERS.filter((p) => p.kind === "mrrb"))
+      expect(slugs[p.code], p.code).toEqual(["1", "2"]);
+  });
+
+  it("reads EVERY RO-BG index page, and calls it down if any one fails", async () => {
+    // Its closed and open calls are on different pages. A half-read slug set would report every
+    // call on the missing page as withdrawn — the cry-wolf shape this watcher exists to avoid.
+    const robg = OTHERS.find((p) => p.kind === "robg")!;
+    serve(["a"], ["x"]);
+    expect(
+      (
+        (await interregCalls.fingerprint()).meta as {
+          slugs: Record<string, string[]>;
+        }
+      ).slugs[robg.code],
+    ).toEqual(["call-1-x", "call-2-x"]);
+    const extra = robg.extraIndexUrls![0];
+    const real = fetchText.getMockImplementation()!;
+    fetchText.mockImplementation(async (url: string) =>
+      url === extra ? null : real(url),
+    );
+    const fp = await interregCalls.fingerprint();
+    expect(fp.detail).toContain(`недостъпни: ${robg.code}`);
   });
 });
 

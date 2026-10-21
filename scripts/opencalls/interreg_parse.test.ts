@@ -9,8 +9,18 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { existsSync } from "node:fs";
 import {
   callSlug,
+  labelledDeadlines,
+  latestLabelledDeadline,
+  listCallUrls,
+  parseDeadlineClock,
+  parseMrrbCall,
+  parseMrrbCallTerms,
+  parseMrrbNextPage,
+  parseMrrbNodeLinks,
+  parseProseDate,
   parseCall,
   parseEuroAmount,
   parseIndex,
@@ -29,6 +39,29 @@ const FIX = path.join(
 );
 const fx = (n: string) => readFileSync(path.join(FIX, n), "utf8");
 const [GBG, BSB] = PROGRAMMES;
+const BGRS = PROGRAMMES.find((p) => p.code === "interreg-bg-rs")!;
+const ROBG = PROGRAMMES.find((p) => p.kind === "robg")!;
+
+/** The real fixtures behind each parser KIND. A programme whose kind has none here is a
+ *  programme no test has ever parsed — the gate below fails on it. */
+const FIXTURES_BY_KIND: Record<(typeof PROGRAMMES)[number]["kind"], string[]> =
+  {
+    gbg: ["interreg_gbg_index.html", "interreg_gbg_call.html"],
+    bsb: ["interreg_bsb_index.html", "interreg_bsb_call.html"],
+    mrrb: [
+      "interreg_mrrb_bgrs_home.html",
+      "interreg_mrrb_bgrs_term37.html",
+      "interreg_mrrb_bgrs_node250.html",
+      "interreg_mrrb_bgrs_node142.html",
+      "interreg_mrrb_bgrs_node249.html",
+    ],
+    robg: [
+      "interreg_robg_index.html",
+      "interreg_robg_call2.html",
+      "interreg_robg_call6.html",
+      "interreg_robg_call7.html",
+    ],
+  };
 
 /** The Sofia calendar day an instant falls on — what a reader sees as „the deadline". */
 const sofiaDayOf = (iso: string | null) =>
@@ -42,17 +75,30 @@ const sofiaDayOf = (iso: string | null) =>
       }).format(new Date(iso));
 
 describe("PROGRAMMES", () => {
-  it("lists only programmes that were actually reachable", () => {
-    // Three of Bulgaria's six cross-border programmes reset the connection on 2026-08-09 from
-    // two independent clients. Listing one would produce a crawler reporting „0 calls" for a
-    // site it never read — a hole that looks like a finding.
-    const hosts = PROGRAMMES.map((p) => new URL(p.indexUrl).host);
-    for (const blocked of [
-      "ipacbc-bgrs.eu",
-      "www.ipa-cbc-007.eu",
-      "www.ipacbc-bgtr.eu",
-    ])
-      expect(hosts, blocked).not.toContain(blocked);
+  it("every listed programme's parser kind is backed by real fixtures", () => {
+    // Replaces „lists only programmes that were actually reachable", which pinned the 2014–2020
+    // hostnames as blocked — a measurement against the wrong sites (audit 2026-10-21, row 12).
+    // The rule it guarded still holds, stated the right way round: a programme is listed only if
+    // a test has parsed its pages.
+    for (const p of PROGRAMMES) {
+      const files = FIXTURES_BY_KIND[p.kind];
+      expect(files?.length, p.code).toBeGreaterThan(0);
+      for (const f of files)
+        expect(existsSync(path.join(FIX, f)), f).toBe(true);
+    }
+  });
+
+  it("covers all six Bulgarian cross-border programmes", () => {
+    expect(PROGRAMMES.map((p) => p.code).sort()).toEqual(
+      [
+        "interreg-bg-mk",
+        "interreg-bg-rs",
+        "interreg-bg-tr",
+        "interreg-bsb",
+        "interreg-gr-bg",
+        "interreg-ro-bg",
+      ].sort(),
+    );
   });
 
   it("every programme's callPrefix is under its index host", () => {
@@ -335,5 +381,254 @@ describe("parseCall", () => {
   it("keys on the slug, so a retitled call is the same row", () => {
     expect(callSlug("https://x/call/6th-call/")).toBe("6th-call");
     expect(callSlug("https://x/call/6th-call")).toBe("6th-call");
+  });
+});
+
+// ── the prose-deadline programmes (МРРБ IPA ×3, RO-BG) — fixtures captured 2026-10-21 ──
+
+describe("parseProseDate — every spelling measured on these sites", () => {
+  it.each([
+    ["15 September 2023", "2023-09-15"],
+    ["15th of August 2023", "2023-08-15"],
+    ["31 th of July 2023", "2023-07-31"],
+    ["3th of January 2024", "2024-01-03"],
+    ["22 nd of December 2025", "2025-12-22"],
+    ["June 6, 2025", "2025-06-06"],
+    ["March, 20-th, 2024", "2024-03-20"],
+    ["02.09.2024", "2024-09-02"],
+    ["15/09/2025", "2025-09-15"],
+  ])("%s", (raw, want) => {
+    const d = parseProseDate(raw)!;
+    expect(
+      `${d.y}-${String(d.mo).padStart(2, "0")}-${String(d.d).padStart(2, "0")}`,
+    ).toBe(want);
+  });
+
+  it("does not read a budget as a date", () => {
+    // „The total budget of the call is EUR 8 529 412" sits a sentence away from deadlines.
+    expect(parseProseDate("8 529 412 Euro")).toBeNull();
+  });
+});
+
+describe("parseDeadlineClock", () => {
+  it.each([
+    [", 17:00 EEST", { h: 17, mi: 0 }],
+    [", 17.00 h. local time", { h: 17, mi: 0 }],
+    [", 5:00 p.m. (Bulgarian time)", { h: 17, mi: 0 }],
+    [", 5 p.m. local time", { h: 17, mi: 0 }],
+    [", 12.00 (PM)", { h: 12, mi: 0 }], // noon, NOT midnight
+    [", 13.00 (PM)", { h: 13, mi: 0 }], // already 24-hour
+    [", 13:00 o’clock", { h: 13, mi: 0 }],
+    [", 24:00 h. local time", { h: 23, mi: 59 }], // end of day, not next morning
+  ])("%s", (after, want) => expect(parseDeadlineClock(after)).toEqual(want));
+
+  it("does not reach into the next sentence", () => {
+    expect(parseDeadlineClock(". Info day in Sofia at 10:00")).toBeNull();
+  });
+
+  it("does not read the start of a following DATE as a time", () => {
+    // „20.10.2024" is a date; reading it as 20:10 moves the deadline by hours.
+    expect(parseDeadlineClock(" (published 20.10.2024)")).toBeNull();
+  });
+});
+
+describe("labelledDeadlines — the label is an allow-list of WHAT is submitted", () => {
+  const day = (iso: string) => sofiaDayOf(iso);
+
+  it("reads the application deadline and NOT the questions deadline beside it", () => {
+    // bg-rs node 133, verbatim shape: the questions deadline is labelled too, three weeks early.
+    const t =
+      "Deadline: June 11, 2025, 17:00 EET You can contact the Joint Secretariat. " +
+      "Deadline for Submission of Questions: Questions may be submitted no later than 21 " +
+      "calendar days before the deadline (by May 21, 2025 ).";
+    expect(labelledDeadlines(t).map((d) => day(d.iso))).toEqual(["2025-06-11"]);
+  });
+
+  it('ignores a registration deadline and a consultation „until"', () => {
+    const t =
+      "Deadline for registration: April 14, 2025, Monday, by 17:00 EET. " +
+      "Comments on the draft Guidelines for Applicants are welcome until 27 October 2025.";
+    expect(labelledDeadlines(t)).toEqual([]);
+  });
+
+  it("a bare „deadline:\" qualified by ANOTHER noun is not the call's", () => {
+    for (const q of ["Registration", "Questions", "Payment"])
+      expect(
+        labelledDeadlines(`${q} deadline: 1 June 2026, 17:00 EET`),
+        q,
+      ).toEqual([]);
+    // …while a bare „Deadline:" after a URL — bg-rs node 147, verbatim — still reads.
+    expect(
+      labelledDeadlines(
+        "Jems: https://jems-bgrs.mrrb.bg Deadline: June 6, 2025, 17:30 Bulgarian Local Time",
+      ).length,
+    ).toBe(1);
+  });
+
+  it("finds the date past a non-date digit in the filler", () => {
+    // Stopping at the first digit („Call 2") lost this deadline entirely.
+    const t =
+      "The deadline for submission of project proposals under Call 2 is 15 September 2023, 17:00 EEST.";
+    expect(labelledDeadlines(t).map((d) => day(d.iso))).toEqual(["2023-09-15"]);
+  });
+
+  it("ignores a HEADLINE announcing an extension, which is followed by a publish date", () => {
+    // bg-tr node 129: „…and extension of the deadline for project submission 08.02.2024 Dear…"
+    const t =
+      "Corrigendum and extension of the deadline for project submission 08.02.2024 Dear " +
+      "applicants, … The deadline for submitting the project proposal is extended to " +
+      "March 20, 2024, 5 p.m. local time in Bulgaria.";
+    expect(labelledDeadlines(t).map((d) => day(d.iso))).toEqual(["2024-03-20"]);
+  });
+
+  it("takes the LATEST labelled deadline, so an extension wins", () => {
+    const t =
+      "The deadline for uploading applications in the Jems system is: 30th of June 2026, " +
+      "13:00 o’clock The new deadline for uploading applications in the Jems system is: " +
+      "15 th of July 2026, 13:00 o’clock";
+    expect(day(latestLabelledDeadline(t)!)).toBe("2026-07-15");
+  });
+
+  it("within one day, a printed time beats a reminder that restates the date bare", () => {
+    // bg-mk Territorial Strategy: the untimed reminder would default to 23:59 and publish the
+    // call as open seven hours after it shut.
+    const t =
+      "The deadline for submission of Full Project Proposals in Jems is 30 July 2024, " +
+      "17:00 EEST. The deadline for submitting full project proposals is set for 30 July 2024.";
+    expect(latestLabelledDeadline(t)).toBe("2024-07-30T14:00:00.000Z");
+  });
+
+  it("returns null rather than a guess when nothing is labelled", () => {
+    expect(
+      latestLabelledDeadline("Info day in Sofia: 25 June 2025"),
+    ).toBeNull();
+  });
+});
+
+describe("МРРБ programmes (mrrb) — bg-rs fixtures", () => {
+  const home = fx("interreg_mrrb_bgrs_home.html");
+  const term = fx("interreg_mrrb_bgrs_term37.html");
+  const node = (n: string) => ({
+    url: `https://ipa-bgrs.mrrb.bg/en/term/10/node/${n}`,
+    html: fx(`interreg_mrrb_bgrs_node${n}.html`),
+  });
+  const TERM37 = {
+    url: "https://ipa-bgrs.mrrb.bg/en/term/37",
+    title: "Second Call for SMEs",
+    html: term,
+  };
+
+  it('lists one call per „Calls for proposals" term and skips the timetable', () => {
+    const terms = parseMrrbCallTerms(home, BGRS);
+    expect(terms.length).toBe(7);
+    expect(terms).toContainEqual({
+      url: "https://ipa-bgrs.mrrb.bg/en/term/37",
+      title: "Second Call for SMEs",
+    });
+    expect(terms.some((t) => /timetable/i.test(t.title))).toBe(false);
+    // The crawler and the watcher read the same list.
+    expect(listCallUrls(home, BGRS)).toEqual(terms.map((t) => t.url));
+  });
+
+  it("finds a term's news nodes and its pager", () => {
+    const nodes = parseMrrbNodeLinks(term, BGRS);
+    expect(nodes.length).toBe(10);
+    expect(nodes).toContain("https://ipa-bgrs.mrrb.bg/en/term/10/node/250");
+    expect(parseMrrbNextPage(term, TERM37.url)).toBe(
+      "https://ipa-bgrs.mrrb.bg/en/term/37?page=1",
+    );
+  });
+
+  it('CLOSED: dates the call from its announcement node, keeping „5:00 p.m."', () => {
+    const c = parseMrrbCall(
+      TERM37,
+      [node("250"), node("142"), node("249")],
+      BGRS,
+    )!;
+    expect(c.closesAt).toBe("2026-03-31T14:00:00.000Z"); // 17:00 EEST
+    expect(c.sourceKey).toBe("interreg-bg-rs:term-37");
+    expect(c.title).toBe("Second Call for SMEs");
+    expect(c.datePrecision).toBe("exact");
+    // Prose budget, not a labelled field — 142 must not see money from here.
+    expect(c.budgetEur).toBeNull();
+    expect(c.enrichment).toBe("none");
+  });
+
+  it("OPEN (synthetic): a future deadline passes through unfiltered", () => {
+    // `interreg_mrrb_bgrs_node250_synthetic_open.html` is node 250 with its deadline year moved
+    // to 2099 — nothing open existed to capture on 2026-10-21. Open/closed is derived at QUERY
+    // time (142); this only pins that the parser does not drop a future date.
+    const open = {
+      url: "https://ipa-bgrs.mrrb.bg/en/term/10/node/250",
+      html: fx("interreg_mrrb_bgrs_node250_synthetic_open.html"),
+    };
+    expect(sofiaDayOf(parseMrrbCall(TERM37, [open], BGRS)!.closesAt)).toBe(
+      "2099-03-31",
+    );
+  });
+
+  it("UNDATED → REJECTED: a registration deadline and a notice do not date a call", () => {
+    // Node 142 carries „Deadline for registration: April 14, 2025" — a real, labelled deadline
+    // that is not the call's. The term page text alone carries none either.
+    const bare = {
+      ...TERM37,
+      html: "<main><h1>Second Call for SMEs</h1></main>",
+    };
+    expect(parseMrrbCall(bare, [node("142"), node("249")], BGRS)).toBeNull();
+  });
+});
+
+describe("Romania–Bulgaria (robg)", () => {
+  const call = (f: string, slug: string) =>
+    parseCall(fx(f), `https://interregviarobg.eu/en/${slug}`, ROBG);
+
+  it("lists closed calls AND the open-call slug shape from the index", () => {
+    const urls = listCallUrls(fx("interreg_robg_index.html"), ROBG);
+    expect(urls.length).toBe(7);
+    expect(urls).toContain(
+      "https://interregviarobg.eu/en/open-calls-for-proposals-call-6",
+    );
+    // Navigation under /en/ is not a call.
+    expect(urls.some((u) => u.endsWith("/calls-for-proposals-1"))).toBe(false);
+    // Call 7's href ends in a typo'd „%20"; kept, a fixed link would mint a second row.
+    expect(urls.some((u) => /%20$|\s$/.test(u))).toBe(false);
+    expect(
+      urls.some((u) => u.endsWith("integrated-territorial-strategy")),
+    ).toBe(true);
+  });
+
+  it('CLOSED: Call 2 — launching date and „12.00 (PM)" (noon)', () => {
+    const c = call("interreg_robg_call2.html", "call-2")!;
+    expect(sofiaDayOf(c.opensAt)).toBe("2023-05-10");
+    expect(c.closesAt).toBe("2023-09-11T09:00:00.000Z"); // 12:00 EEST
+    // The FULL name from <title>, not the site's truncated <h1> („…call for...").
+    expect(c.title).toBe(
+      "Call 2 - Competitive call for project proposals dedicated to Priority 2: A Green Region, Specific Objectives 2.4 and 2.7",
+    );
+  });
+
+  it("an extension printed beside the original wins (Call 7)", () => {
+    expect(
+      sofiaDayOf(call("interreg_robg_call7.html", "call-7")!.closesAt),
+    ).toBe("2026-07-15");
+  });
+
+  it("recovers Call 6's full name from a page that titles it „Call 6\"", () => {
+    const c = call(
+      "interreg_robg_call6.html",
+      "open-calls-for-proposals-call-6",
+    )!;
+    expect(c.title).toMatch(/^Call 6 - Call dedicated to the operations/);
+    expect(c.closesAt).toBe("2025-12-22T11:00:00.000Z"); // 13:00 EET, extended
+  });
+
+  it("UNDATED → REJECTED", () => {
+    const html =
+      '<article class="article_page"><div class="article_item-content">' +
+      "Call 9 - Example. Launching date: 1st of May 2026. Guide published soon." +
+      "</div></article>";
+    expect(
+      parseCall(html, "https://interregviarobg.eu/en/call-9", ROBG),
+    ).toBeNull();
   });
 });

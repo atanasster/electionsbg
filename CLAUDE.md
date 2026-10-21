@@ -3122,14 +3122,27 @@ through the function would otherwise saturate at its own `LEAST(p_limit, 2000)` 
 through the function rather than with a second WHERE is what keeps the tile's heading count and
 the rows beneath it on one predicate.
 
-**`/funds/calls` covers ИСУН + ДФЗ + 2 of 6 Interreg programmes, and the page says so.**
+**`/funds/calls` covers ИСУН + ДФЗ + PART of Interreg, and the page says so („част от").**
 Interreg runs on Jems rather than ИСУН, so an Interreg call can never appear in `/Active` — a
 system boundary that falls on the border municipalities. `npm run opencalls:interreg`
-(`interreg_parse.ts`, one parser per programme shape) covers Greece-Bulgaria and Black Sea Basin;
-Romania-Bulgaria publishes no calls index, and BG-RS / BG-MK / BG-TR reset the connection on both
-ports from two independent clients (measured 2026-08-09). Do not add a programme to `PROGRAMMES`
-without reading it first: a listed-but-unreadable programme makes a crawler report „0 calls" for
-a site it never fetched, which is a hole that looks like a finding.
+(`interreg_parse.ts`, one parser per programme SHAPE) lists all six Bulgarian cross-border
+programmes since 2026-10-21: Greece-Bulgaria (`gbg`), Black Sea Basin (`bsb`), the three МРРБ
+IPA programmes BG-RS / BG-MK / BG-TR (`mrrb` — home „Calls for proposals" dropdown → one
+taxonomy term per call → its news nodes, following the term's pager) and Romania-Bulgaria
+(`robg`). ⚠️ The 2026-08-09 note that BG-RS/BG-MK/BG-TR „reset the connection" and that RO-BG
+„publishes no calls index" was measured against the **2014–2020 hosts**; the 2021–2027 sites
+are `ipa-bg{rs,mk,tr}.mrrb.bg` and `interregviarobg.eu`. Those four send an incomplete TLS
+chain, which Node reports as unreachable — `scripts/opencalls/interreg_tls.ts` supplies the
+missing intermediates with verification ON (never a bypass), scoped to those hosts and gated by
+`interreg_tls.test.ts`. First crawl: 28 calls from 5 programmes, none open, with Black Sea Basin
+down. A listed programme that does not answer is still a counted failure, never „0 calls", and
+`interreg_parse.test.ts` fails on any programme whose kind has no real fixture.
+
+The prose-deadline kinds (`mrrb`, `robg`) add two rules on top of the two below: the deadline
+LABEL is an allow-list of what is being submitted (these pages also label a questions deadline,
+a registration deadline and a consultation „until" — none of them the call's), and the LATEST
+labelled deadline wins, because extensions are printed beside the original; within one day a
+printed time beats a bare restated date.
 
 Two rules in that parser are load-bearing:
 
