@@ -13,7 +13,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
-import { allRows, dbReachable, end } from "../lib/pg";
+import { allRows, dbReachable, end, isServingDatabase } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
 import { assertCommitted } from "../../lib/assert_committed";
 
@@ -27,6 +27,7 @@ interface TopNetWorth {
 }
 
 interface Blob {
+  source?: "serving" | "local";
   topNetWorth?: TopNetWorth[];
   topNetWorthYears?: { first: number; last: number } | null;
   people: number;
@@ -58,11 +59,57 @@ const skipBlob =
     : false);
 reportSkip(import.meta.url, skipBlob !== skipDb ? skipBlob : false);
 
+// ⚠️ THE BLOB DESCRIBES ONE DATABASE, AND EVERY ARM BELOW COMPARES IT TO ONE. It is committed
+// from the SERVING projection (update-persons skill), while this gate normally connects to
+// local docker — and a local-only person resolve (the 2026-10-21 one was withheld from the
+// publish) moves `people` / `officials` / `organisations` on one side only. Comparing across
+// them reported a tile/destination disagreement that does not exist on either side
+// (people: 63,619 local vs 63,560 serving; organisations: 18,083 vs 18,031 — each side
+// self-consistent). So the comparisons run only against the database that minted the blob,
+// and say so when they cannot.
+// The price, stated: with a serving-minted blob these arms skip on a local run, and are
+// exercised by re-minting locally (`db:refresh` does) or by running this file against the
+// Cloud SQL proxy.
+const connected = isServingDatabase() ? "serving" : "local";
+const blobSource = load()?.source;
+const skipSource =
+  skipBlob ||
+  (!blobSource
+    ? "the declarations hub-stats blob does not record which database minted it — re-run " +
+      "npm run db:gen-declarations-hub-stats against the database it should describe"
+    : blobSource !== connected
+      ? `the declarations hub-stats blob was minted from the ${blobSource} database and this ` +
+        `run is connected to the ${connected} one — its figures are compared only against ` +
+        "the database they describe"
+      : false);
+reportSkip(import.meta.url, skipSource !== skipBlob ? skipSource : false);
+
 // OUTSIDE any gate, deliberately — these are COMMITTED, so absence is a broken
 // working copy rather than a supported state. See scripts/lib/assert_committed.ts.
 assertCommitted("data/governance/declarations_hub_stats.json");
 
-test.skipIf(skipBlob)(
+// Postgres only — gated on reachability alone, not on which database minted the blob.
+test.skipIf(skipDb)(
+  "mp_cars_table is partitioned by ns, so a whole-table count double-counts",
+  async () => {
+    const [row] = await allRows<Record<string, string>>(`
+    SELECT (SELECT count(*) FROM mp_cars_table)                       AS cars_all_partitions,
+           (SELECT count(*) FROM mp_cars_table WHERE ns = 'all')      AS cars_registry,
+           (SELECT count(DISTINCT ns) FROM mp_cars_table)             AS car_partitions`);
+    // The structural fact the first draft missed. If this ever stops holding, the partitioning
+    // changed and every blob figure needs re-deriving — which is what the assert says.
+    assert.ok(
+      Number(row.car_partitions) > 1,
+      "mp_cars_table is no longer partitioned by ns — re-derive the blob's grain",
+    );
+    assert.ok(
+      Number(row.cars_all_partitions) > Number(row.cars_registry),
+      "the per-ns partitions no longer duplicate the roll-up; the grain checks are now blind",
+    );
+  },
+);
+
+test.skipIf(skipSource)(
   "the two MP registries are partitioned by ns — a whole-table count is never a figure",
   async (t) => {
     const blob = load();
@@ -81,17 +128,6 @@ test.skipIf(skipBlob)(
            (SELECT count(*) FROM mp_assets_rankings_table)            AS asset_all_partitions,
            (SELECT count(DISTINCT mp_id) FROM mp_assets_rankings_table
              WHERE ns = 'all')                                        AS asset_registry`);
-
-    // The structural fact the first draft missed. If this ever stops holding, the partitioning
-    // changed and every figure below needs re-deriving — which is what the assert says.
-    assert.ok(
-      Number(row.car_partitions) > 1,
-      "mp_cars_table is no longer partitioned by ns — re-derive the blob's grain",
-    );
-    assert.ok(
-      Number(row.cars_all_partitions) > Number(row.cars_registry),
-      "the per-ns partitions no longer duplicate the roll-up; this gate is now blind",
-    );
 
     assert.equal(
       blob.byNs.all.cars,
@@ -112,7 +148,7 @@ test.skipIf(skipBlob)(
   },
 );
 
-test.skipIf(skipBlob)(
+test.skipIf(skipSource)(
   "every ns partition present in Postgres is present in the blob",
   async (t) => {
     const blob = load();
@@ -140,7 +176,7 @@ test.skipIf(skipBlob)(
   },
 );
 
-test.skipIf(skipBlob)(
+test.skipIf(skipSource)(
   "people and officials quote their DESTINATION's filter, not their table",
   async (t) => {
     const blob = load();
@@ -176,7 +212,7 @@ test.skipIf(skipBlob)(
   },
 );
 
-test.skipIf(skipBlob)(
+test.skipIf(skipSource)(
   "the organisations figure comes from what /companies?political=1 renders",
   async (t) => {
     // ⚠️ THE TILE QUOTES ITS DESTINATION'S OWN RELATION. It used to quote
@@ -244,7 +280,7 @@ test.skipIf(skipBlob)(
   },
 );
 
-test.skipIf(skipBlob)(
+test.skipIf(skipSource)(
   "the companies figure is NOT company_politicians",
   async (t) => {
     const blob = load();
@@ -266,7 +302,7 @@ test.skipIf(skipBlob)(
   },
 );
 
-test.skipIf(skipBlob)(
+test.skipIf(skipSource)(
   "the evidence rail IS /officials/assets' own first rows",
   async (t) => {
     const blob = load();

@@ -41,7 +41,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { allRows, end } from "../lib/pg";
+import { allRows, end, isServingDatabase } from "../lib/pg";
 import { missingRelations, warnSkip } from "../gen_procurement/preflight";
 
 const ROOT = path.resolve(
@@ -71,6 +71,11 @@ export interface DeclarationsNsStats {
 
 export interface DeclarationsHubStats {
   computedAt: string;
+  /** Which database the figures were read from. The committed blob is meant to be minted
+   *  from the SERVING database (update-persons skill), while the data gate usually runs
+   *  against local docker — and after a local-only person resolve the two legitimately
+   *  disagree. The gate compares the blob only against the database it describes. */
+  source: "serving" | "local";
   /** People the /persons browser LISTS on arrival — its default `tier = 'P'` floor. NOT
    *  the identity layer's 126,004, and not person_browse_table's 128,584. */
   people: number;
@@ -269,6 +274,7 @@ const run = async (): Promise<void> => {
 
   const out: DeclarationsHubStats = {
     computedAt: new Date().toISOString(),
+    source: isServingDatabase() ? "serving" : "local",
     people: Number(row.people),
     peopleWithDeclaration: Number(row.people_with_declaration),
     officials: Number(row.officials),
