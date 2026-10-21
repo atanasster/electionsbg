@@ -352,8 +352,17 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   done. `scripts/officials/index.ts` ingests every category of the Сметна палата register
   (register.cacbg.bg — 95 category nodes, 52 non-empty in 2026) except MPs, municipal and
   judiciary: ~57 categories and 16,109 entries, including hospital directors, ЗОП signatories,
-  rectors, MEPs and the President. Re-check whether any `person_source` facet is still empty, and
-  close if not.
+  rectors, MEPs and the President. **Re-checked 2026-10-21 — not closeable: six sources have no
+  rows**, identically on local and Cloud SQL: `concession` (facet company), `media`, `academic` and
+  `honours` (facet other), `historic_mp` (politician) and `professional` (Нотариус/ЧСИ) — so the
+  `media`, `other` and `professional` FACETS are entirely empty. Every other source is populated
+  (from `sanctions` 1 role to `tr` ~199k). They are 081 seed rows for ingests never built, not a
+  loss; nothing is broken by them, since `/persons` builds its facets from server counts and the
+  curated groups name none of the six. What remains is to decide each of the six: `academic` needs no
+  ingest — rectors and БАН are already in as `official_exec` (role `academic`, 223 roles) and
+  `public_sector` (`agri_academy`, 67) — so remap or drop that seed; the other five would each be
+  their own ingest (concession register, media ownership, state honours, pre-roster MPs, and
+  notaries / ЧСИ / синдици).
 - **Judiciary (ИВСС) declarations**:
   - ИВСС money tables 10/11/13 → `person_wealth_year`: **PARSED AND STORED, NOT PUBLISHED —
     blocked on one owner decision.** All three are point-in-time stocks (verified 2026-10-21):
