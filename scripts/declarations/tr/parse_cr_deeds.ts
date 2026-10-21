@@ -39,6 +39,32 @@ export type CrDeedRole =
   | "ngo_board"
   | "actual_owner";
 
+/*
+ * CR nameCode ↔ fieldIdent, VERIFIED against every capture in raw_data/tr/cr_deeds.sqlite
+ * (29,777 bodies, 2026-10-21) — read off the records, each pair inside one JSON object, not
+ * inferred from the CR_F_<n>_L ↔ 00<n>0 pattern. Counts are COMPANIES / field OCCURRENCES
+ * (a company can carry a field more than once). Only the fields other code or plans name:
+ *
+ *   00050  CR_F_5_L    седалище (seat) — 29,777 / 29,777
+ *   00051  CR_F_5a_L   адрес за кореспонденция — NOT the seat — 6,836 / 6,836
+ *   00180  CR_F_18_L   физическо лице търговец (ЕТ) — 1 / 1, and that one is the
+ *                      „Заличено обстоятелство." placeholder, not a trader (0 real ЕТ captures)
+ *   00230  CR_F_23_L   едноличен собственик на капитала — 29,776 / 29,776
+ *   05500  CR_F_550_L  действителен собственик (ЗМИП) — 380 / 381. ⚠️ Not always an owner:
+ *                      2 of 381 name the MANAGER „на основание §2, ал. 5 ЗМИП".
+ *   05510  CR_F_551_L  „Заличен действителен собственик" — an erased UBO — 7 / 7
+ *   06000  CR_F_600_L  прехвърляне на търговското предприятие — the TYPE (695 full,
+ *                      71 partial, 5 empty) — 714 / 771
+ *   06010  CR_F_601_L  counterparty enterprise, „name, ЕИК/ПИК n" — 825 / 1,719
+ *   06020  CR_F_602_L  counterparty enterprise, „name, ЕИК/ПИК n" — 834 / 966
+ *                      The records do not say which of 06010 / 06020 is transferor and which
+ *                      acquirer; do not assume a direction without a labelled sample.
+ *
+ * `05400` and `1005010` are NEVER a fieldIdent (as raw text they occur only inside land-plot
+ * numbers). The ГФО is not a CR field at all: it is a document ACT — `ActModeValue` 2,
+ * `ActModeText` „Годишен финансов отчет" in the daily feed (21 such acts in
+ * raw_data/tr/daily/2026-10-16.json; see docs/plans/gfo-ocr-engine-v1.md §11d.3).
+ */
 const FIELD_TO_ROLE: Record<string, CrDeedRole> = {
   CR_F_7_L: "manager", // управител (ООД/ЕООД)
   // NB: CR_F_9 folds supervisory-board (надзорен съвет) members into `director`
