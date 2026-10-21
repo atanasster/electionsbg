@@ -43,6 +43,7 @@ import {
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
   INTERREG_PROGRAMMES,
+  composeCoverageNote,
   isEligibleNuts,
   programmeByCode,
 } from "../funds/interreg/programmes";
@@ -56,6 +57,7 @@ import {
   isBulgarianPartner,
   type InterregOperation,
   type InterregPartner,
+  type KeepCoverage,
 } from "../funds/interreg/types";
 import { readCorpus } from "../funds/interreg/corpus";
 
@@ -267,7 +269,10 @@ const readLookups = async (): Promise<PlaceLookups> => {
   return { seatByEik, trPlaceByEik };
 };
 
-const copyProgrammes = async (c: PoolClient): Promise<number> =>
+const copyProgrammes = async (
+  c: PoolClient,
+  coverageByCode: ReadonlyMap<string, KeepCoverage>,
+): Promise<number> =>
   copyRows(
     c,
     PROGRAMME_SPEC.source,
@@ -281,7 +286,7 @@ const copyProgrammes = async (c: PoolClient): Promise<number> =>
       p.keepTitle ?? null,
       p.cci ?? null,
       p.eligibleNuts ? pgTextArray(p.eligibleNuts) : null,
-      p.coverageNote ?? null,
+      composeCoverageNote(p, coverageByCode.get(p.code)),
     ]),
   );
 
@@ -505,7 +510,14 @@ export const loadInterregPg = async (): Promise<{
     for (const spec of [PROGRAMME_SPEC, OPERATION_SPEC, PARTNER_SPEC])
       await createStageTable(c, spec);
 
-    await copyProgrammes(c);
+    await copyProgrammes(
+      c,
+      new Map(
+        index.programmes.flatMap((g) =>
+          g.keepCoverage ? [[g.code, g.keepCoverage] as const] : [],
+        ),
+      ),
+    );
     await copyOperations(c, operations, index.fetchedAt);
     await copyPartners(c, partners, places, dim);
 

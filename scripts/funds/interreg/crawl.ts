@@ -3,6 +3,7 @@
 //   npm run funds:crawl-interreg                    # incremental
 //   npm run funds:crawl-interreg -- --full          # re-fetch every detail
 //   npm run funds:crawl-interreg -- --max-pages 200 --index-only
+//   npm run funds:crawl-interreg -- --coverage-only # keep.eu's own per-programme counts only
 //
 // Writes only to the gitignored raw cache (raw_data/interreg/) — never to
 // data/. parse.ts and ingest.ts (T1) turn this cache into the committed corpus,
@@ -25,10 +26,12 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { atomicWriteJsonSync } from "../../lib/atomic_write";
-import { programmeFor } from "./programmes";
+import { INTERREG_PROGRAMMES, programmeFor } from "./programmes";
 import {
   walkIndex,
   fetchDetails,
+  fetchProgrammeCoverage,
+  COVERAGE_FILE,
   cachedKeepIds,
   RAW_DIR,
   MAX_CONCURRENCY,
@@ -188,6 +191,7 @@ export const parseArgs = (argv: string[]) => {
     full: has("--full"),
     indexOnly: has("--index-only"),
     detailsOnly: has("--details-only"),
+    coverageOnly: has("--coverage-only"),
     maxPages: positiveInt(val("--max-pages"), "--max-pages"),
     concurrency:
       positiveInt(val("--concurrency"), "--concurrency", MAX_CONCURRENCY) ??
@@ -212,8 +216,12 @@ const daysSince = (iso: string | null): number | null =>
 export const main = async (
   argv: string[] = process.argv.slice(2),
 ): Promise<void> => {
-  const { full, indexOnly, detailsOnly, maxPages, concurrency } =
+  const { full, indexOnly, detailsOnly, coverageOnly, maxPages, concurrency } =
     parseArgs(argv);
+  if (coverageOnly) {
+    await writeCoverage();
+    return;
+  }
 
   const t0 = Date.now();
   let manifest = readManifest();
@@ -358,6 +366,20 @@ export const main = async (
     process.exitCode = 1;
   }
   console.log(`interreg: cache now holds ${cachedKeepIds().length} operations`);
+  // ~22 small requests; refreshed on every crawl so the counts cannot outlive the corpus.
+  await writeCoverage();
+};
+
+/** keep.eu's per-programme coverage → the raw tree, for `ingest.ts` to carry into index.json. */
+const writeCoverage = async (): Promise<void> => {
+  const ids = INTERREG_PROGRAMMES.map((p) => p.keepProgrammeId).filter(
+    (id): id is number => typeof id === "number",
+  );
+  const byId = await fetchProgrammeCoverage(ids);
+  atomicWriteJsonSync(COVERAGE_FILE, { byId }, 1);
+  console.log(
+    `interreg: keep.eu coverage for ${Object.keys(byId).length}/${ids.length} programme(s) → ${COVERAGE_FILE}`,
+  );
 };
 
 const isMain =

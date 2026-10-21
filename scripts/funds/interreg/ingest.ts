@@ -42,11 +42,12 @@ import {
   atomicWriteJsonSync,
 } from "../../lib/atomic_write";
 import { readManifest, type Manifest } from "./crawl";
-import { cachedKeepIds, readCachedDetail } from "./keep_fetch";
+import { cachedKeepIds, readCachedDetail, COVERAGE_FILE } from "./keep_fetch";
 import { parseOperation, type KeepProjectRaw } from "./parse";
 import { INTERREG_PROGRAMMES, programmeByCode } from "./programmes";
 import {
   isBulgarianPartner,
+  type KeepCoverage,
   type InterregIndex,
   type InterregOperation,
   type InterregPartner,
@@ -92,12 +93,31 @@ export interface IngestResult {
   notAdmitted: number;
 }
 
+/** keep.eu's per-programme coverage written by `funds:crawl-interreg` (any run, or
+ *  `--coverage-only`). A MISSING file means no figures, never zeros; a corrupt one THROWS —
+ *  swallowing it would rewrite index.json without any coverage and say nothing. */
+const readCoverage = (): Record<string, KeepCoverage> => {
+  let raw: string;
+  try {
+    raw = fs.readFileSync(COVERAGE_FILE, "utf8");
+  } catch (e) {
+    if ((e as NodeJS.ErrnoException).code === "ENOENT") return {};
+    throw e;
+  }
+  return (
+    (JSON.parse(raw) as { byId?: Record<string, KeepCoverage> }).byId ?? {}
+  );
+};
+
 export interface BuildOptions {
   /** Debugging filter. Never writes — see `main`. */
   programme?: string;
   fetchedAt: string;
   /** Cache directory. Threaded so a test can point at a fixture directory. */
   dir?: string;
+  /** keep.eu coverage by programme id. Defaults to the raw-tree file ONLY when `dir` is the
+   *  real cache — a fixture build must not pick up whatever the last crawl measured. */
+  coverage?: Record<string, KeepCoverage>;
 }
 
 /** Build the corpus from the raw cache. Pure apart from reading the cache. */
@@ -135,8 +155,13 @@ export const buildCorpus = (opts: BuildOptions): IngestResult => {
   // A missing row and a zero row mean opposite things — "we never asked" versus
   // "we asked and keep.eu holds nothing" — and BG-Serbia 21-27 and ESPON 2030
   // are exactly the second kind.
+  const coverage = opts.coverage ?? (opts.dir ? {} : readCoverage());
   const programmes = INTERREG_PROGRAMMES.map((p) => {
     const ops = operations.filter((o) => o.programmeCode === p.code);
+    const keepCoverage =
+      p.keepProgrammeId === undefined || p.keepProgrammeId === null
+        ? undefined
+        : coverage[String(p.keepProgrammeId)];
     const keys = new Set(ops.map((o) => o.keepId));
     const rows = partners.filter((q) => keys.has(q.keepId));
     const bgRows = rows.filter(isBulgarianPartner);
@@ -149,6 +174,7 @@ export const buildCorpus = (opts: BuildOptions): IngestResult => {
       bgBudgetEur: bgRows.reduce((a, q) => a + (q.budgetEur ?? 0), 0),
       bgUnpublishedCount: bgRows.filter((q) => q.budgetBasis === "unpublished")
         .length,
+      ...(keepCoverage ? { keepCoverage } : {}),
     };
   });
 

@@ -320,5 +320,18 @@ export interface InterregIndex {
     bgBudgetEur: number;
     /** BG rows whose budget the programme does not publish — stated, never split. */
     bgUnpublishedCount: number;
+    /** keep.eu's OWN count of how much of the programme it holds, from
+     *  `/api/programme/<id>/`. Absent when the coverage pass has not run — never zero-filled,
+     *  because „keep.eu holds 0 of 10" and „we did not ask" are different claims. */
+    keepCoverage?: KeepCoverage;
   }[];
+}
+
+/** keep.eu's programme-level coverage stats, as published, with the moment they were read. */
+export interface KeepCoverage {
+  projectsInKeep: number;
+  totalProjects: number;
+  partnershipsInKeep: number;
+  totalPartnerships: number;
+  measuredAt: string;
 }

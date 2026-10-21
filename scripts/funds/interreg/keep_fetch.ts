@@ -26,6 +26,7 @@
 
 import fs from "fs";
 import path from "path";
+import type { KeepCoverage } from "./types";
 import { fileURLToPath } from "url";
 import { atomicWriteFileSync } from "../../lib/atomic_write";
 import { admittedKeepProgrammeIds, programmeFor } from "./programmes";
@@ -160,6 +161,56 @@ export const projectDetailUrl = (keepId: number): string =>
 
 export const programmeDetailUrl = (keepProgrammeId: number): string =>
   `${KEEP_BASE}/api/programme/${keepProgrammeId}/`;
+
+/** Where the coverage pass keeps keep.eu's programme stats — the gitignored raw tree, like the
+ *  detail cache, so a crawl never writes a committed file. */
+export const COVERAGE_FILE = path.join(
+  RAW_DIR,
+  "..",
+  "programme_coverage.json",
+);
+
+interface KeepProgrammeStats {
+  projects_in_keep?: number;
+  total_no_of_projects?: number;
+  partnerships_in_keep?: number;
+  total_no_of_partnerships?: number;
+}
+
+/**
+ * keep.eu's own coverage for each programme id. The figures used to be typed by hand into
+ * `coverageNote` („38% of partnerships in keep.eu") and went stale silently — GR-BG 2021-27 had
+ * reached 21 of 21 projects by 2026-10-21. A programme whose stats are missing a field is
+ * SKIPPED rather than zero-filled.
+ */
+export const fetchProgrammeCoverage = async (
+  ids: readonly number[],
+  fetcher: Fetcher = realFetch,
+  now: () => string = () => new Date().toISOString(),
+): Promise<Record<string, KeepCoverage>> => {
+  const out: Record<string, KeepCoverage> = {};
+  for (const id of ids) {
+    const d = await fetchKeepJson<KeepProgrammeStats>(
+      programmeDetailUrl(id),
+      fetcher,
+    );
+    const nums = [
+      d.projects_in_keep,
+      d.total_no_of_projects,
+      d.partnerships_in_keep,
+      d.total_no_of_partnerships,
+    ];
+    if (nums.some((n) => typeof n !== "number")) continue;
+    out[String(id)] = {
+      projectsInKeep: d.projects_in_keep!,
+      totalProjects: d.total_no_of_projects!,
+      partnershipsInKeep: d.partnerships_in_keep!,
+      totalPartnerships: d.total_no_of_partnerships!,
+      measuredAt: now(),
+    };
+  }
+  return out;
+};
 
 /** A project we admit, as learned from the index (before any detail fetch). */
 export interface AdmittedRow {

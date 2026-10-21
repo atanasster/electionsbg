@@ -28,7 +28,7 @@
 // keep_fetch.ts + measure.ts (T0), parse.ts + ingest.ts (T1), resolve_place.ts
 // (T2, loader-side — it is the consumer of `isEligibleNuts` below).
 
-import type { InterregPeriod, InterregProgramme } from "./types";
+import type { InterregPeriod, InterregProgramme, KeepCoverage } from "./types";
 
 // ─── 2021-2027 ──────────────────────────────────────────────────────────────
 // Land-border (CBC) programmes first, then transnational, then interregional.
@@ -60,11 +60,12 @@ const P_2021: InterregProgramme[] = [
     nameEn: "Interreg VI-A Greece-Bulgaria",
     cci: "2021TC16RFCB021",
     eligibleNuts: ["BG413", "BG422", "BG424", "BG425"],
-    // The thinnest arm we still admit: 10 of 26 partnerships present, and
-    // BOTH the partner-budget and postcode fill rates are 0%. Operations and
-    // partners ingest; money does not, and placement must come from the EIK.
+    // Complete in keep.eu since 2026-10 (21 of 21 projects, 85 of 85 partnerships;
+    // it was 10 of 26 on 2026-08-06), but BOTH the partner-budget and postcode fill
+    // rates are still 0%. Operations and partners ingest; money does not, and
+    // placement must come from the EIK.
     coverageNote:
-      "38% of partnerships in keep.eu; 0% partner budget, 0% postcode. Money is unpublished; place via EIK only.",
+      "0% partner budget and 0% postcode (2026-10-21). Money is unpublished; place via EIK only.",
   },
   {
     keepProgrammeId: 305,
@@ -74,7 +75,6 @@ const P_2021: InterregProgramme[] = [
     nameEn: "Interreg VI-A IPA Bulgaria-Türkiye",
     cci: "2021TC16IPCB005",
     eligibleNuts: ["BG341", "BG343", "BG422"],
-    coverageNote: "111 of 151 partnerships in keep.eu; 40 absent.",
   },
   {
     keepProgrammeId: 306,
@@ -98,7 +98,7 @@ const P_2021: InterregProgramme[] = [
     // zero rows today. Keeping the entry means the day keep.eu imports it we
     // pick it up automatically instead of silently skipping a whole border.
     coverageNote:
-      "0 of 8 operations in keep.eu as of 2026-08-06. A named gap: registered so a later import is picked up, not skipped.",
+      "A named gap: registered so a later import is picked up, not skipped.",
   },
   {
     keepProgrammeId: 387,
@@ -145,8 +145,9 @@ const P_2021: InterregProgramme[] = [
     nameEn: "Interreg VI-C URBACT IV",
     cci: "2021TC16FFIR001",
     eligibleNuts: null,
-    coverageNote:
-      "30 of 2,081 partnerships in keep.eu (1%); 0% partner budget. A named gap.",
+    // No note: keep.eu caught up — 80 of 80 projects and 544 of 544 partnerships, every partner
+    // budget published (2026-10-21). It was „30 of 2,081 partnerships, 0% budget, a named gap"
+    // on 2026-08-06; the derived counts now say what the note used to.
   },
   {
     keepProgrammeId: 395,
@@ -156,8 +157,7 @@ const P_2021: InterregProgramme[] = [
     nameEn: "Interreg VI-C ESPON 2030",
     cci: "2021TC16RFIR004",
     eligibleNuts: null,
-    coverageNote:
-      "0 of 616 partnerships in keep.eu. Registered empty, like BG-RS 21-27.",
+    coverageNote: "Registered empty, like BG-RS 21-27.",
   },
 ];
 
@@ -205,7 +205,6 @@ const P_2014: InterregProgramme[] = [
     nameBg: "ИНТЕРРЕГ - ИПП България - Сърбия 2014-2020",
     nameEn: "Interreg IPA CBC Bulgaria-Serbia",
     eligibleNuts: ["BG311", "BG312", "BG313", "BG412", "BG414", "BG415"],
-    coverageNote: "232 of 245 partnerships in keep.eu.",
   },
   {
     keepProgrammeId: 73,
@@ -229,7 +228,8 @@ const P_2014: InterregProgramme[] = [
     nameBg: "Черноморски басейн 2014-2020",
     nameEn: "Black Sea Basin ENI CBC",
     eligibleNuts: ["BG33", "BG34"],
-    coverageNote: "74% partner-budget fill rate — the money gap here is real.",
+    coverageNote:
+      "74% partner-budget fill rate (2026-08-06) — the money gap here is real.",
   },
   {
     keepProgrammeId: 63,
@@ -271,7 +271,7 @@ const P_2014: InterregProgramme[] = [
     nameEn: "ESPON 2020",
     eligibleNuts: null,
     coverageNote:
-      "353 of 370 partnerships in keep.eu but 0% partner budget — operations and partners only, no money.",
+      "0% partner budget (2026-08-06) — operations and partners only, no money.",
   },
 ];
 
@@ -384,3 +384,25 @@ export const warnUnknownProgramme = (
 
 /** Test seam: the warn-once memo is process-global, which a test must be able to reset. */
 export const __resetProgrammeWarnings = (): void => warned.clear();
+
+/**
+ * The note a programme page shows: keep.eu's OWN coverage counts, dated, then the curated
+ * qualitative remark. The counts are never typed by hand any more — „38% of partnerships in
+ * keep.eu" had silently become 21 of 21 projects by 2026-10-21 — so they come from
+ * `index.json`'s `keepCoverage` (keep.eu `/api/programme/<id>/`, refreshed on every crawl).
+ * Every percentage left in a `coverageNote` carries the date it was measured on.
+ */
+export const composeCoverageNote = (
+  p: Pick<InterregProgramme, "coverageNote">,
+  coverage?: KeepCoverage,
+): string | null => {
+  const counts = coverage
+    ? `${coverage.projectsInKeep} of ${coverage.totalProjects} projects and ` +
+      `${coverage.partnershipsInKeep} of ${coverage.totalPartnerships} partnerships in keep.eu ` +
+      `(${coverage.measuredAt.slice(0, 10)})`
+    : null;
+  const parts = [counts, p.coverageNote ?? null].filter(
+    (x): x is string => !!x,
+  );
+  return parts.length ? parts.join(". ") : null;
+};

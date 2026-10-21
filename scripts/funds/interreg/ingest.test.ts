@@ -244,6 +244,32 @@ describe("buildCorpus, against a fixture cache", () => {
     expect(r.notAdmitted).toBe(0);
   });
 
+  it("carries keep.eu coverage onto its programme only when it was measured", () => {
+    const cov = {
+      projectsInKeep: 1,
+      totalProjects: 2,
+      partnershipsInKeep: 3,
+      totalPartnerships: 4,
+      measuredAt: "T",
+    };
+    const first = INTERREG_PROGRAMMES.find((p) => p.keepProgrammeId)!;
+    const r = buildCorpus({
+      fetchedAt: "T",
+      dir: FIXTURES,
+      coverage: { [String(first.keepProgrammeId)]: cov },
+    });
+    const rows = r.index.programmes;
+    expect(rows.find((g) => g.code === first.code)?.keepCoverage).toEqual(cov);
+    // No measurement → no field at all (not zeros), and a fixture build never reads the
+    // last real crawl's file.
+    expect(rows.filter((g) => g.keepCoverage).length).toBe(1);
+    expect(
+      buildCorpus({ fetchedAt: "T", dir: FIXTURES }).index.programmes.some(
+        (g) => g.keepCoverage,
+      ),
+    ).toBe(false);
+  });
+
   // These two mean opposite things and must never share a counter: an
   // unadmitted programme is the gate working, an unreadable file is a defect.
   it("counts an unreadable cache file apart from an unadmitted programme", () => {

@@ -14,6 +14,7 @@ import {
   fetchDetails,
   cachedKeepIds,
   readCachedDetail,
+  fetchProgrammeCoverage,
   type Fetcher,
   type KeepIndexPage,
 } from "./keep_fetch";
@@ -464,5 +465,33 @@ describe("walkIndex — surviving a ~2 h unattended run", () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+});
+
+describe("fetchProgrammeCoverage", () => {
+  it("reads keep.eu's counts per programme id, stamped with when they were read", async () => {
+    const fetcher: Fetcher = async (url) =>
+      json(
+        url === programmeDetailUrl(343)
+          ? {
+              projects_in_keep: 21,
+              total_no_of_projects: 21,
+              partnerships_in_keep: 85,
+              total_no_of_partnerships: 85,
+            }
+          : // A programme whose stats lack a field is SKIPPED, never zero-filled: „keep.eu
+            // holds 0 of 10" and „keep.eu did not say" are different claims.
+            { projects_in_keep: 0, total_no_of_projects: 10 },
+      );
+    const r = await fetchProgrammeCoverage([343, 307], fetcher, () => "NOW");
+    expect(r).toEqual({
+      "343": {
+        projectsInKeep: 21,
+        totalProjects: 21,
+        partnershipsInKeep: 85,
+        totalPartnerships: 85,
+        measuredAt: "NOW",
+      },
+    });
   });
 });

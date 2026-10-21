@@ -12,6 +12,7 @@ import {
   isEligibleNuts,
   warnUnknownProgramme,
   __resetProgrammeWarnings,
+  composeCoverageNote,
 } from "./programmes";
 import { INTERREG_PERIODS } from "./types";
 
@@ -284,10 +285,10 @@ describe("the register itself", () => {
   it("names every programme with a thin or empty keep.eu arm", () => {
     // The four the plan records as gaps must SAY so, so a zero-row programme is
     // never mistaken for a programme with no Bulgarian participation.
+    // URBACT 21-27 left this list on 2026-10-21: keep.eu now holds all of it, with budgets.
     for (const code of [
       "INTERREG-BGRS-2127",
       "INTERREG-ESPON-2127",
-      "INTERREG-URBACT-2127",
       "INTERREG-GRBG-2127",
     ])
       expect(programmeByCode(code)?.coverageNote, code).toBeTruthy();
@@ -401,5 +402,40 @@ describe("isEligibleNuts — prefix, not equality", () => {
     expect(() => isEligibleNuts(danube, "BG421-1")).not.toThrow();
     expect(isEligibleNuts(danube, "BG421-1")).toBe(true);
     expect(isEligibleNuts(robg, "BG421-1")).toBe(false);
+  });
+});
+
+describe("composeCoverageNote — counts come from keep.eu, never by hand", () => {
+  const COV = {
+    projectsInKeep: 21,
+    totalProjects: 21,
+    partnershipsInKeep: 85,
+    totalPartnerships: 85,
+    measuredAt: "2026-10-21T08:00:00.000Z",
+  };
+
+  it("prefixes keep.eu's own dated counts to the curated remark", () => {
+    expect(
+      composeCoverageNote({ coverageNote: "Money is unpublished." }, COV),
+    ).toBe(
+      "21 of 21 projects and 85 of 85 partnerships in keep.eu (2026-10-21). Money is unpublished.",
+    );
+  });
+
+  it("falls back to the remark alone, and to null when there is neither", () => {
+    expect(composeCoverageNote({ coverageNote: "A named gap." })).toBe(
+      "A named gap.",
+    );
+    expect(composeCoverageNote({})).toBeNull();
+  });
+
+  it("no curated note still types a count or an UNDATED percentage", () => {
+    // The counts went stale silently while they were hand-typed; a percentage that remains must
+    // say when it was measured.
+    for (const p of INTERREG_PROGRAMMES) {
+      const n = p.coverageNote ?? "";
+      expect(n, p.code).not.toMatch(/\d[\d,]*\s+of\s+\d/);
+      if (/%/.test(n)) expect(n, p.code).toMatch(/\(\d{4}-\d{2}-\d{2}\)/);
+    }
   });
 });
