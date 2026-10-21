@@ -148,19 +148,34 @@ const patronymicOf = (name: string): string => {
  *  docs/plans/local-mp-photo-links-v1.md Part B. */
 export const MIDDLE_NAME_MAX_EDITS = 2;
 
+/** Two names the first+last fallback may treat as one person: either lacks a patronymic,
+ *  or the two patronymics are within `maxEdits`. */
+export const patronymicsAgree = (
+  a: string,
+  b: string,
+  maxEdits = MIDDLE_NAME_MAX_EDITS,
+): boolean => {
+  const pa = patronymicOf(a);
+  const pb = patronymicOf(b);
+  if (!pa || !pb) return true;
+  return editDistance(pa, pb, maxEdits) <= maxEdits;
+};
+
 /** One roster name → its council slate row in the same município, or undefined.
  *
  *  1. Exact full name, one row: take it.
  *  2. Exact full name, several rows: take the single elected one, else refuse.
  *  3. Otherwise first+last, only when that key is held by ONE slate row and the
- *     patronymics agree: either side has none, or they are within MIDDLE_NAME_MAX_EDITS.
+ *     patronymics agree (`patronymicsAgree`).
  *
  *  A different middle name is a different father, i.e. a different person: the old
  *  unconditional first+last fallback gave deputy mayors an unrelated council candidate's
- *  party and preference votes. */
+ *  party and preference votes. `maxEdits` exists for the unit test's mutation check;
+ *  production callers use the default. */
 export const resolveSlateRow = (
   name: string,
   idx: SlateIndex,
+  maxEdits = MIDDLE_NAME_MAX_EDITS,
 ): SlateRow | undefined => {
   const full = idx.byFull.get(normalise(name));
   if (full) {
@@ -170,13 +185,7 @@ export const resolveSlateRow = (
   }
   const fl = idx.byFirstLast.get(firstLastKey(name));
   if (!fl || fl.length !== 1) return undefined;
-  const row = fl[0];
-  const a = patronymicOf(name);
-  const b = patronymicOf(row.name);
-  if (!a || !b) return row;
-  return editDistance(a, b, MIDDLE_NAME_MAX_EDITS) <= MIDDLE_NAME_MAX_EDITS
-    ? row
-    : undefined;
+  return patronymicsAgree(name, fl[0].name, maxEdits) ? fl[0] : undefined;
 };
 
 export const loadMiBundle = (miCode: string): MiMuni | null => {

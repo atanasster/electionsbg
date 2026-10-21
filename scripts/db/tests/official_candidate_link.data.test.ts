@@ -11,10 +11,21 @@
 //
 //   npm run test:data
 
+import fs from "node:fs";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import {
+  loadMiBundle,
+  normalise,
+  officialsToMi,
+} from "../../officials/candidate_link_join";
+import { editDistance } from "../../judiciary/judicialBodies";
+import {
+  normaliseMpName,
+  PARLIAMENT_INDEX,
+} from "../../parsers_local/mpNameMatch";
 
 // Gated on the table EXISTING, not on rows (a silently-empty load must FAIL, not skip green).
 const reachable = async (): Promise<boolean> => {
@@ -109,3 +120,112 @@ test.skipIf(skip)("official_slug is unique (no roster fan-out)", async () => {
   );
   assert.equal(Number(dupe.n), 0, `${dupe.n} duplicate official_slug(s)`);
 });
+
+// docs/plans/local-mp-photo-links-v1.md Part B. Each link joined back to the roster name it
+// was resolved from — the same membership the loader reads.
+type NamedLink = {
+  official_slug: string;
+  name: string;
+  obshtina: string;
+  party_name: string;
+  list_pos: number;
+  mp_id: number | null;
+};
+const namedLinks = (): Promise<NamedLink[]> =>
+  allRows<NamedLink>(
+    `SELECT DISTINCT ON (l.official_slug)
+            l.official_slug, p.display_name AS name, r.place_code AS obshtina,
+            l.party_name, l.list_pos, l.mp_id
+       FROM official_candidate_link l
+       JOIN person_role r ON r.ref = l.official_slug AND r.source = 'official_muni'
+       JOIN person p ON p.person_id = r.person_id
+      ORDER BY l.official_slug`,
+  );
+
+// The MP photo is exact-full-name only: a first+last match against the national MP index
+// is a namesake far more often than the same person.
+const mpSkip =
+  skip ||
+  (fs.existsSync(PARLIAMENT_INDEX)
+    ? false
+    : "data/parliament/index.json absent");
+test.skipIf(mpSkip)(
+  "every mp_id names an MP with an identical full name",
+  async () => {
+    const mps = (
+      JSON.parse(fs.readFileSync(PARLIAMENT_INDEX, "utf8")) as {
+        mps: Array<{ id: number; normalizedName?: string }>;
+      }
+    ).mps;
+    const nameById = new Map(
+      mps.map((m) => [m.id, normaliseMpName(m.normalizedName ?? "")]),
+    );
+    const linked = (await namedLinks()).filter((l) => l.mp_id !== null);
+    assert.ok(
+      linked.length > 0,
+      "no link carries an mp_id — the MP join produced nothing",
+    );
+    const bad = linked.filter(
+      (l) => nameById.get(l.mp_id as number) !== normaliseMpName(l.name),
+    );
+    assert.deepEqual(
+      bad.slice(0, 10).map((l) => `${l.name} → MP #${l.mp_id}`),
+      [],
+      `${bad.length} mp_id(s) name a different person`,
+    );
+  },
+);
+
+// A slate row reached through the first+last fallback must agree on the patronymic (or one
+// side has none): a different patronymic is a different father, i.e. a different person.
+// Restated here rather than imported from the module, so a regression in the loader's own
+// helper cannot pass by judging its output with itself.
+const patronymic = (name: string): string => {
+  const parts = name.split(/\s+/).filter(Boolean);
+  return parts.length >= 3 ? normalise(parts[1]) : "";
+};
+const patronymicsClose = (a: string, b: string): boolean => {
+  const pa = patronymic(a);
+  const pb = patronymic(b);
+  return !pa || !pb || editDistance(pa, pb, 2) <= 2;
+};
+const slateSkip =
+  skip ||
+  (loadMiBundle("SOF") ? false : "data/2023_10_29_mi/municipalities absent");
+test.skipIf(slateSkip)(
+  "every first+last slate match agrees on the patronymic",
+  async () => {
+    const slateName = new Map<string, Map<string, string>>();
+    const nameAt = (obshtina: string, party: string, pos: number) => {
+      const mi = officialsToMi(obshtina);
+      if (!slateName.has(mi)) {
+        const m = new Map<string, string>();
+        for (const slate of Object.values(loadMiBundle(mi)?.council ?? {}))
+          for (const c of slate.candidates)
+            m.set(`${slate.localPartyName}\u0000${c.listPos}`, c.name);
+        slateName.set(mi, m);
+      }
+      return slateName.get(mi)?.get(`${party}\u0000${pos}`);
+    };
+    const slated = (await namedLinks()).filter((l) => l.party_name !== "");
+    let fallback = 0;
+    const bad: string[] = [];
+    for (const l of slated) {
+      const cand = nameAt(l.obshtina, l.party_name, l.list_pos);
+      if (cand === undefined || normalise(cand) === normalise(l.name)) continue;
+      fallback++;
+      if (!patronymicsClose(l.name, cand)) bad.push(`${l.name} → ${cand}`);
+    }
+    // Non-vacuity: the fallback still fires (19 measured 2026-10-21: 15 roster typos + 4
+    // rows where one side has no patronymic).
+    assert.ok(
+      fallback > 0,
+      "no first+last slate match found — the arm checks nothing",
+    );
+    assert.deepEqual(
+      bad.slice(0, 10),
+      [],
+      `${bad.length} slate link(s) matched a different patronymic`,
+    );
+  },
+);
