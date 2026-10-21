@@ -48,6 +48,10 @@ const GLOBAL_FILES = [
   "settlements.json",
   "municipalities.json",
   "canonical_parties.json",
+  // The cabinets register behind /governments*, the cabinet anchor and the indicators pages.
+  // Was served `identity` (9,960 B, audit 2026-10-21) while its sibling canonical_parties.json
+  // was gzipped.
+  "governments.json",
   "ekatte_index.json",
   "postcode_ekatte.json",
   "grao_population.json",
