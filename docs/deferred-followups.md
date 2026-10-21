@@ -142,11 +142,12 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   `TenderDetailScreen` and `ProjectFileScreen` consume server-side `risk_mask` exclusively.
 - **Procurement review queue & new datasets**: Surface `contract_risk_cache` grades D/E/F strictly
   as „за преглед" with gated person↔company edges. Remaining candidate external datasets:
-  - the LIVE АОП external-experts list under чл. 229, ал. 1, т. 17 ЗОП. Migration 174 loads the
-    HISTORICAL list that aop.bg/ets.php still titles „по чл. 232а, ал. 2" — the 2019–2020 wording,
-    since repealed (no repeal date was confirmed); the current чл. 232а (in force 22.07.2024) is
-    ex-ante control. The live list's page
-    (`www.aop.bg/ee2014.php`) is a 404.
+  - ~~the LIVE АОП external-experts list under чл. 229, ал. 1, т. 17 ЗОП~~ — **CLOSED 2026-10-21:
+    not a public dataset.** Since 1 July 2021 the list lives inside ЦАИС ЕОП, which has no
+    anonymous view of it (a buyer-permissioned `external-experts-report` and an
+    organisation-scoped `experts` module);
+    AOP's 2021/2024 posts on www2.aop.bg describe the move. Migration 174 keeps the HISTORICAL
+    list (aop.bg/ets.php), which that migration explains. Reopen only if ЦАИС publishes it.
   - Сметна палата audit reports (no migration or loader yet).
   - ЗМИП beneficial owners — subject to the access limits of чл. 63б ЗМИП (ДВ бр. 49/2025); see
     the CR Deeds entry.

@@ -23,6 +23,14 @@
 // that links to it. ⚠️ Despite the key's name it serves the historical чл. 232а, ал. 2
 // list, NOT a live чл. 229, ал. 1, т. 17 one.
 //
+// The LIVE list is not public (checked 2026-10-21). Since 1 July 2021 it is a ЦАИС ЕОП
+// function — self-registration with a КЕП, valid one calendar year, used since 23.07.2024
+// to select наблюдатели — and app.eop.bg has no anonymous view of it: a buyer-permissioned
+// report (`external-experts-report`, `canViewExternalExpertsBuyer`) and an organisation-
+// scoped `experts` module. What migrated
+// there on 30.06.2021 was the 2014 чл. 229 list (presumably the dead ee2014.php) — not this
+// чл. 232а one. See CLAUDE.md, „aop_expert".
+//
 // The transport is deliberately dull: a GET, no session, no cookie, no token, and
 // a windows-1251 body. The one non-obvious parameter is `ets_prof_oblast` — the
 // register has no „all areas" option, so membership is only obtainable as one

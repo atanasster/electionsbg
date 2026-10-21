@@ -639,7 +639,18 @@ the чл. 229 list — is a **404**. The URL that DOES answer is the other confi
 object (`externalExperts229AUrl` in app.eop.bg's main bundle) — `ets.php`, a plain 1990s PHP
 GET form, not the Angular SPA that links to it. ⚠️ Despite the key's name, what `ets.php`
 serves is the historical чл. 232а, ал. 2 list described above, NOT a live чл. 229, ал. 1, т. 17
-one; no URL for the current list has been found.
+one. **There is no public URL for the current list, and that is now established rather than
+unsearched (2026-10-21).** Since **1 July 2021** the чл. 229, ал. 1, т. 17 list is a function of
+ЦАИС ЕОП itself — AOP's own posts `www2.aop.bg/registrscia-na-experti-v-cais-eop/` (2021) and
+`/aop-nasurchava-reg-na-experti/` (2024): experts self-register with a КЕП, a registration
+is valid „в рамките на 1 календарна година" and must be renewed, and since the ППЗОП change of
+23.07.2024 experts on it may be selected as наблюдатели. In app.eop.bg the only views of it are `external-experts-report`
+(permission `canViewExternalExpertsBuyer`) and the `experts` module under an organisation's
+authenticated area — nothing anonymous. What migrated into ЦАИС on 30.06.2021 was the
+01.10.2014 чл. 229 list (presumably the one `ee2014.php` served — an inference from the
+name and the 404; neither post names the URL), NOT the чл. 232а list `ets.php`
+serves — do not read the migration as the reason that register stops in 2020. A second loader
+would need a buyer account on ЦАИС, i.e. it is not a public dataset and is out of scope.
 
 The gate is `scripts/db/tests/aop_experts.data.test.ts` (9 tests) plus 13 pure parser tests
 that need no Postgres. Two of the nine exist only to prove the refusal still DISCRIMINATES —
