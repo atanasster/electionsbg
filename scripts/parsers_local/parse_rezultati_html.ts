@@ -62,6 +62,23 @@ const txt = ($el: Cheerio<AnyNode>): string =>
     .replace(/\s+/g, " ")
     .trim();
 
+// ЦИК's 2026-10 partial-election pages dropped the race type from the section
+// heading — „Обобщени данни от гласуването Рудник" — and carry it only on the
+// tab that owns the section (a[href="#t1"] → „Кмет на кметство"). Missing it,
+// no SECTION_HEADINGS pattern matched, the no-heading fallback took the first
+// mayor table as the MUNICIPAL mayor, and 12 village races were published as
+// município mayoralties. Rebuild the legacy „Обобщени данни от избор на <race>
+// <place>" form from the two; any other heading is returned unchanged.
+export const sectionHeadingText = ($: CheerioAPI, el: AnyNode): string => {
+  const raw = txt($(el));
+  const m = raw.match(/^Обобщени данни от гласуването\s*(.*)$/i);
+  if (!m) return raw;
+  const tabId = $(el).closest(".elections-container").attr("id");
+  const race = tabId ? txt($(`a[href="#${tabId}"]`).first()) : "";
+  if (!race) return raw;
+  return `Обобщени данни от избор на ${race.toLowerCase()} ${m[1]}`.trim();
+};
+
 const parseIntLoose = (s: string): number => {
   const n = parseInt(s.replace(/[^\d-]/g, ""), 10);
   return Number.isNaN(n) ? 0 : n;
@@ -85,7 +102,7 @@ const collectSections = ($: CheerioAPI): Section[] => {
   let current: Section | null = null;
   // CIK uses h2 / h3 headings to introduce each race type.
   $("h1, h2, h3, h4, .section-title").each((_, el) => {
-    const heading = txt($(el));
+    const heading = sectionHeadingText($, el);
     if (!heading) return;
     if (current) sections.push(current);
     current = { heading, tables: [] };
@@ -107,7 +124,7 @@ const collectSections = ($: CheerioAPI): Section[] => {
       tag === "h4" ||
       (node as Element).attribs?.class?.includes?.("section-title")
     ) {
-      activeHeading = txt($(node));
+      activeHeading = sectionHeadingText($, node);
       activeSection = sections.find((s) => s.heading === activeHeading) ?? {
         heading: activeHeading,
         tables: [],

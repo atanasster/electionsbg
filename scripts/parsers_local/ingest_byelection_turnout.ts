@@ -26,6 +26,8 @@ import { cikFetchText, shutdownCikFetch } from "./cik_fetch.js";
 import { cycleSlugToRawFolder } from "./ingest_cycle.js";
 import { parseChisloviHtml } from "./parse_protocol_chislovi.js";
 import { buildChmiHistory } from "./build_chmi_history.js";
+import { load } from "cheerio";
+import { sectionHeadingText } from "./parse_rezultati_html.js";
 import type {
   LocalMunicipalityBundle,
   LocalSectionResult,
@@ -64,6 +66,31 @@ const buildOikMaps = (
       const html = fs.readFileSync(path.join(dir, file), "utf8");
       const ik = html.match(/data-ik="(\d{4})"/)?.[1];
       if (!ik) continue;
+      const add = (race: string, name: string) => {
+        const map = race === "кметство" ? kmetstvoOik : mayorOik;
+        if (!map.has(normName(name))) map.set(normName(name), ik); // tur1 wins
+      };
+      // One page can carry several races (2026-10: община + a кметство), and
+      // the race type now lives on the tab, not the heading — so read every
+      // section heading through the parser's own normaliser.
+      const $ = load(html);
+      const municipality =
+        $("h1.main-title")
+          .text()
+          .match(/Община\s+(.+?),/)?.[1] ?? "";
+      let found = false;
+      $("h3").each((_, el) => {
+        const m = sectionHeadingText($, el).match(
+          /избор на кмет на (район|община|кметство)\s*(.*)$/i,
+        );
+        if (!m) return;
+        const name = m[2].trim() || (m[1] === "община" ? municipality : "");
+        if (!name) return;
+        add(m[1], name);
+        found = true;
+      });
+      if (found) continue;
+      // Legacy single-race pages whose heading is not an <h3>.
       const text = html
         .replace(/<[^>]+>/g, " ")
         .replace(/&quot;/g, '"')
@@ -71,9 +98,7 @@ const buildOikMaps = (
       const m = text.match(
         /избор на кмет на (район|община|кметство)\s+(.+?)\s+(?:Обобщени|Числови|изборен|№|в )/,
       );
-      if (!m) continue;
-      const map = m[1] === "кметство" ? kmetstvoOik : mayorOik;
-      if (!map.has(normName(m[2]))) map.set(normName(m[2]), ik); // tur1 wins
+      if (m) add(m[1], m[2]);
     }
   }
   return { mayorOik, kmetstvoOik };

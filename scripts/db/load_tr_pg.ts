@@ -440,6 +440,242 @@ export const LOAD_INDEXES: { name: string; table: string; ddl: string }[] = [
   return { name: m[1] as string, table: m[2] as string, ddl };
 });
 
+/**
+ * company_politicians — the gated politician↔company link set — and every precompute built
+ * from it. Reads ONLY Postgres (person layer, declarations, tr_* tables, contracts), never the
+ * TR SQLite, so it can run without a TR ingest.
+ *
+ * ⚠️ IT MUST RE-RUN AFTER EVERY db:resolve:persons. person_id is a positional ordinal that a
+ * resolve reassigns, and this table STORES it: measured 2026-10-21, a local resolve that ran
+ * after the TR load left 849 of 1,001 rows pointing at a DIFFERENT person (the neighbouring
+ * ordinal — Бамбова for Стефанова), every row count reconciling. The graph loader now refuses
+ * on that drift; this is the repair it names.
+ */
+export const rebuildCompanyPoliticians = async (): Promise<number> => {
+  // Curated company↔politician links (from mp_connected / pep_connected) → PG,
+  // so the person page's political connections come straight from the DB.
+  // eik, politician, ref, kind, role, total_eur, relations, person_id — the last is the
+  // identity the URL-string ref only approximates. See 008's note.
+  const links: Array<
+    [
+      string,
+      string,
+      string,
+      string,
+      string | null,
+      number | null,
+      string,
+      number | null,
+    ]
+  > = [];
+  {
+    // ⚠️ THREE HARD DEPENDENCIES THIS LOADER DOES NOT APPLY: person_role/person (081, the
+    // resolver), tr_name_fold_people (148) and declaration_stake_company (096). A missing one
+    // is a 42P01 two-thirds of the way through a ~35-minute load, and an EMPTY person_role is
+    // worse — it ships a company_politicians with no MP arm at all, silently, on a run that
+    // exits 0. Preflight names which, and refuses rather than publishing a table that asserts
+    // no MP is linked to any company.
+    const [dep] = await allRows<{ missing: string | null; mps: string }>(
+      `SELECT (SELECT string_agg(rel, ', ') FROM unnest(ARRAY[
+                 'person_role','person','tr_name_fold_people','declaration_stake_company'
+               ]) AS rel WHERE to_regclass('public.' || rel) IS NULL) AS missing,
+              COALESCE((SELECT count(*) FROM person_role WHERE source = 'mp'), 0)::text AS mps`,
+    );
+    if (dep.missing) {
+      throw new Error(
+        `company_politicians mp arm: missing ${dep.missing} — run npm run db:resolve:persons ` +
+          `(and db:load:declarations:pg -- --resolve) before this loader.`,
+      );
+    }
+    if (Number(dep.mps) === 0) {
+      throw new Error(
+        "company_politicians mp arm: person_role holds no 'mp' rows, so the arm would load " +
+          "EMPTY and publish 'no MP is linked to any company'. Run db:resolve:persons first.",
+      );
+    }
+    const rows = await allRows<{
+      eik: string;
+      politician: string;
+      ref: string;
+      role: string | null;
+      total_eur: string | null;
+      person_id: string | null;
+      relations: unknown;
+    }>(MP_ARM_SQL);
+    for (const r of rows)
+      links.push([
+        r.eik,
+        r.politician,
+        r.ref,
+        "mp",
+        r.role,
+        r.total_eur === null ? null : Number(r.total_eur),
+        JSON.stringify(r.relations ?? []),
+        r.person_id === null ? null : Number(r.person_id),
+      ]);
+  }
+  {
+    // The same refusal the mp arm carries, and it matters MORE here: this arm is 7.7x the
+    // size and is what fires f_pep on 409,644 contracts, so an empty load publishes „no
+    // office-holder is linked to any company" across the whole risk surface.
+    const [dep] = await allRows<{ officials: string }>(
+      `SELECT count(*)::text AS officials FROM person_role
+        WHERE source IN (${OFFICIAL_SOURCES})`,
+    );
+    if (Number(dep.officials) === 0) {
+      throw new Error(
+        "company_politicians official arm: person_role holds no officials rows, so the arm " +
+          "would load EMPTY. Run db:resolve:persons first.",
+      );
+    }
+    const rows = await allRows<{
+      eik: string;
+      politician: string;
+      ref: string;
+      role: string | null;
+      total_eur: string | null;
+      person_id: string | null;
+      relations: unknown;
+    }>(OFFICIAL_ARM_SQL);
+    for (const r of rows)
+      links.push([
+        r.eik,
+        r.politician,
+        r.ref,
+        "official",
+        r.role,
+        r.total_eur === null ? null : Number(r.total_eur),
+        JSON.stringify(r.relations ?? []),
+        r.person_id === null ? null : Number(r.person_id),
+      ]);
+  }
+  await exec("TRUNCATE company_politicians");
+  if (links.length)
+    await copyTable(
+      "company_politicians",
+      [
+        "eik",
+        "politician",
+        "ref",
+        "kind",
+        "role",
+        "total_eur",
+        "relations",
+        "person_id",
+      ],
+      links,
+    );
+
+  // Awarder K-Index (politician/NGO-board-linked-supplier share per awarder) —
+  // depends on contracts + the company_politicians just loaded. The migration
+  // creates the fn + (re)builds the ranking matview. Skipped cleanly if the
+  // contracts table isn't present yet (TR-only load before a contract load).
+  const KINDEX_SQL = fileURLToPath(
+    new URL("./schema/pg/039_awarder_kindex.sql", import.meta.url),
+  );
+  // Multi-component A–F risk grade (buyer + supplier) — same deps as the K-Index
+  // (contracts + company_politicians), so applied in the same guarded block.
+  const RISK_GRADE_SQL = fileURLToPath(
+    new URL("./schema/pg/041_procurement_risk_grade.sql", import.meta.url),
+  );
+  // Per-NGO public-interest signals (Phase 1: public-money) + the list matview.
+  // Composes contracts + fund_projects + ngo_funding + supplier_risk_grade, so
+  // applied only when ALL of those are present (guarded below).
+  const NGO_SIGNALS_SQL = fileURLToPath(
+    new URL("./schema/pg/080_ngo_signals.sql", import.meta.url),
+  );
+  const hasContracts = await getPool()
+    .query("SELECT to_regclass('public.contracts') AS t")
+    .then((r) => r.rows[0]?.t != null)
+    .catch(() => false);
+  if (hasContracts) {
+    await exec(readFileSync(KINDEX_SQL, "utf8"));
+    await exec(readFileSync(RISK_GRADE_SQL, "utf8"));
+    // 041 rebuilt the ranking matview from fresh company_politicians; repopulate
+    // the per-scope serving table so the leaderboard doesn't go stale (F-007).
+    await withClient((c) => rebuildRiskGradeScoped(c));
+    // The per-scope precomputes built from the two tables this loader just replaced.
+    // company_politicians is TRUNCATE+reloaded above, and it is the politician↔company link
+    // set the MP-tied money on the whole procurement dashboard is computed from; tr_companies
+    // supplies contractor display names. Without this a TR reload moves every MP-tied figure
+    // everywhere on the site EXCEPT /procurement/contractors and the six /procurement
+    // dashboard routes, which keep serving the previous link set at a 200 — the same silent
+    // staleness lib/scopedMatviews exists to prevent, and the reason 122's and 124's `inputs`
+    // name these tables. Only those two matviews: 119 and 123 read neither.
+    //
+    // Guarded because a TR-only database may predate the migrations; refreshScopedPrecomputes
+    // already skips a matview that does not exist, so this only has to survive the call.
+    await refreshScopedPrecomputes(["company_politicians", "tr_companies"]);
+    // Same reason, different precompute: budget_admin_procurement (157) counts
+    // DISTINCT politician-linked contractors per spending unit, straight out of
+    // the company_politicians this loader just replaced. Without it every
+    // ministry row on /budget/ministries keeps the previous link set's flag at a
+    // 200 — the third trigger, after the budget loader (its own dimension) and
+    // load_pg (the contracts corpus). Guarded on the FUNCTION, since that is
+    // what is called; a database with the table and no function raises 42883.
+    const hasAdminProc = await getPool()
+      .query(
+        "SELECT to_regprocedure('public.rebuild_budget_admin_procurement()') AS t",
+      )
+      .then((r) => r.rows[0]?.t != null)
+      .catch(() => false);
+    if (hasAdminProc) {
+      await exec("SELECT rebuild_budget_admin_procurement()");
+      await vacuumAfterReload("budget_admin_procurement");
+    }
+    // NGO signals (080) also need fund_projects + ngo_funding. Apply + REFRESH
+    // only when both are present too — a TR-only DB (before an ИСУН / funding
+    // load) skips it cleanly. load_ngo_funding_pg.ts re-refreshes after funding.
+    const hasNgoDeps = await getPool()
+      .query(
+        "SELECT to_regclass('public.fund_projects') AS f, to_regclass('public.ngo_funding') AS n",
+      )
+      .then((r) => r.rows[0]?.f != null && r.rows[0]?.n != null)
+      .catch(() => false);
+    if (hasNgoDeps) {
+      await exec(readFileSync(NGO_SIGNALS_SQL, "utf8"));
+      // Connection signals: rebuild ngo_board_links from the fresh officers +
+      // the magistrate roster + the persisted official_roster. Guarded on the
+      // magistrate table (the rebuild fn joins it; may not be loaded on a TR-only
+      // DB). NOTE: the official leg matches against whatever official_roster was
+      // last loaded by db:load:ngo-board-links — on a routine TR refresh that
+      // roster may be older than the current officials dataset (officials change
+      // slowly, so acceptable; re-run db:load:ngo-board-links to refresh it).
+      const hasMagistrate = await getPool()
+        .query("SELECT to_regclass('public.magistrate') AS t")
+        .then((r) => r.rows[0]?.t != null)
+        .catch(() => false);
+      if (hasMagistrate) await exec("SELECT rebuild_ngo_board_links()");
+      // Matview is created WITH NO DATA; a plain REFRESH populates it (~2s over
+      // ~31k NGOs). Not CONCURRENTLY — it may be unpopulated on the first run.
+      await exec("REFRESH MATERIALIZED VIEW ngo_signals");
+      // Rebuild the contract-page foreign-funding disclosure feed, then refresh
+      // the risk-indexes cache so /api/db/procurement-risk-indexes serves it.
+      // Gate on the TARGET TABLE itself (owned by migration 033, applied by the
+      // separate procurement loader) — `hasContracts` above is only a practical
+      // proxy and is stale-033-vulnerable, so guard the exact object we touch.
+      const hasLinkTable = await getPool()
+        .query("SELECT to_regclass('public.procurement_ngo_foreign_link') AS t")
+        .then((r) => r.rows[0]?.t != null)
+        .catch(() => false);
+      if (hasLinkTable) {
+        await exec("SELECT rebuild_procurement_ngo_foreign_link()");
+        const hasRiskCache = await getPool()
+          .query(
+            "SELECT to_regclass('public.procurement_risk_indexes_cache') AS t",
+          )
+          .then((r) => r.rows[0]?.t != null)
+          .catch(() => false);
+        if (hasRiskCache)
+          await exec(
+            "REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache",
+          );
+      }
+    }
+  }
+  return links.length;
+};
+
 export const loadTrPg = async (): Promise<{
   companies: number;
   officers: number;
@@ -662,227 +898,9 @@ export const loadTrPg = async (): Promise<{
   // manual apply.
   await exec(readFileSync(PERSON_BREAKDOWNS_SQL, "utf8"));
 
-  // Curated company↔politician links (from mp_connected / pep_connected) → PG,
-  // so the person page's political connections come straight from the DB.
-  // eik, politician, ref, kind, role, total_eur, relations, person_id — the last is the
-  // identity the URL-string ref only approximates. See 008's note.
-  const links: Array<
-    [
-      string,
-      string,
-      string,
-      string,
-      string | null,
-      number | null,
-      string,
-      number | null,
-    ]
-  > = [];
-  {
-    // ⚠️ THREE HARD DEPENDENCIES THIS LOADER DOES NOT APPLY: person_role/person (081, the
-    // resolver), tr_name_fold_people (148) and declaration_stake_company (096). A missing one
-    // is a 42P01 two-thirds of the way through a ~35-minute load, and an EMPTY person_role is
-    // worse — it ships a company_politicians with no MP arm at all, silently, on a run that
-    // exits 0. Preflight names which, and refuses rather than publishing a table that asserts
-    // no MP is linked to any company.
-    const [dep] = await allRows<{ missing: string | null; mps: string }>(
-      `SELECT (SELECT string_agg(rel, ', ') FROM unnest(ARRAY[
-                 'person_role','person','tr_name_fold_people','declaration_stake_company'
-               ]) AS rel WHERE to_regclass('public.' || rel) IS NULL) AS missing,
-              COALESCE((SELECT count(*) FROM person_role WHERE source = 'mp'), 0)::text AS mps`,
-    );
-    if (dep.missing) {
-      throw new Error(
-        `company_politicians mp arm: missing ${dep.missing} — run npm run db:resolve:persons ` +
-          `(and db:load:declarations:pg -- --resolve) before this loader.`,
-      );
-    }
-    if (Number(dep.mps) === 0) {
-      throw new Error(
-        "company_politicians mp arm: person_role holds no 'mp' rows, so the arm would load " +
-          "EMPTY and publish 'no MP is linked to any company'. Run db:resolve:persons first.",
-      );
-    }
-    const rows = await allRows<{
-      eik: string;
-      politician: string;
-      ref: string;
-      role: string | null;
-      total_eur: string | null;
-      person_id: string | null;
-      relations: unknown;
-    }>(MP_ARM_SQL);
-    for (const r of rows)
-      links.push([
-        r.eik,
-        r.politician,
-        r.ref,
-        "mp",
-        r.role,
-        r.total_eur === null ? null : Number(r.total_eur),
-        JSON.stringify(r.relations ?? []),
-        r.person_id === null ? null : Number(r.person_id),
-      ]);
-  }
-  {
-    // The same refusal the mp arm carries, and it matters MORE here: this arm is 7.7x the
-    // size and is what fires f_pep on 409,644 contracts, so an empty load publishes „no
-    // office-holder is linked to any company" across the whole risk surface.
-    const [dep] = await allRows<{ officials: string }>(
-      `SELECT count(*)::text AS officials FROM person_role
-        WHERE source IN (${OFFICIAL_SOURCES})`,
-    );
-    if (Number(dep.officials) === 0) {
-      throw new Error(
-        "company_politicians official arm: person_role holds no officials rows, so the arm " +
-          "would load EMPTY. Run db:resolve:persons first.",
-      );
-    }
-    const rows = await allRows<{
-      eik: string;
-      politician: string;
-      ref: string;
-      role: string | null;
-      total_eur: string | null;
-      person_id: string | null;
-      relations: unknown;
-    }>(OFFICIAL_ARM_SQL);
-    for (const r of rows)
-      links.push([
-        r.eik,
-        r.politician,
-        r.ref,
-        "official",
-        r.role,
-        r.total_eur === null ? null : Number(r.total_eur),
-        JSON.stringify(r.relations ?? []),
-        r.person_id === null ? null : Number(r.person_id),
-      ]);
-  }
-  await exec("TRUNCATE company_politicians");
-  if (links.length)
-    await copyTable(
-      "company_politicians",
-      [
-        "eik",
-        "politician",
-        "ref",
-        "kind",
-        "role",
-        "total_eur",
-        "relations",
-        "person_id",
-      ],
-      links,
-    );
-
-  // Awarder K-Index (politician/NGO-board-linked-supplier share per awarder) —
-  // depends on contracts + the company_politicians just loaded. The migration
-  // creates the fn + (re)builds the ranking matview. Skipped cleanly if the
-  // contracts table isn't present yet (TR-only load before a contract load).
-  const KINDEX_SQL = fileURLToPath(
-    new URL("./schema/pg/039_awarder_kindex.sql", import.meta.url),
-  );
-  // Multi-component A–F risk grade (buyer + supplier) — same deps as the K-Index
-  // (contracts + company_politicians), so applied in the same guarded block.
-  const RISK_GRADE_SQL = fileURLToPath(
-    new URL("./schema/pg/041_procurement_risk_grade.sql", import.meta.url),
-  );
-  // Per-NGO public-interest signals (Phase 1: public-money) + the list matview.
-  // Composes contracts + fund_projects + ngo_funding + supplier_risk_grade, so
-  // applied only when ALL of those are present (guarded below).
-  const NGO_SIGNALS_SQL = fileURLToPath(
-    new URL("./schema/pg/080_ngo_signals.sql", import.meta.url),
-  );
-  const hasContracts = await getPool()
-    .query("SELECT to_regclass('public.contracts') AS t")
-    .then((r) => r.rows[0]?.t != null)
-    .catch(() => false);
-  if (hasContracts) {
-    await exec(readFileSync(KINDEX_SQL, "utf8"));
-    await exec(readFileSync(RISK_GRADE_SQL, "utf8"));
-    // 041 rebuilt the ranking matview from fresh company_politicians; repopulate
-    // the per-scope serving table so the leaderboard doesn't go stale (F-007).
-    await withClient((c) => rebuildRiskGradeScoped(c));
-    // The per-scope precomputes built from the two tables this loader just replaced.
-    // company_politicians is TRUNCATE+reloaded above, and it is the politician↔company link
-    // set the MP-tied money on the whole procurement dashboard is computed from; tr_companies
-    // supplies contractor display names. Without this a TR reload moves every MP-tied figure
-    // everywhere on the site EXCEPT /procurement/contractors and the six /procurement
-    // dashboard routes, which keep serving the previous link set at a 200 — the same silent
-    // staleness lib/scopedMatviews exists to prevent, and the reason 122's and 124's `inputs`
-    // name these tables. Only those two matviews: 119 and 123 read neither.
-    //
-    // Guarded because a TR-only database may predate the migrations; refreshScopedPrecomputes
-    // already skips a matview that does not exist, so this only has to survive the call.
-    await refreshScopedPrecomputes(["company_politicians", "tr_companies"]);
-    // Same reason, different precompute: budget_admin_procurement (157) counts
-    // DISTINCT politician-linked contractors per spending unit, straight out of
-    // the company_politicians this loader just replaced. Without it every
-    // ministry row on /budget/ministries keeps the previous link set's flag at a
-    // 200 — the third trigger, after the budget loader (its own dimension) and
-    // load_pg (the contracts corpus). Guarded on the FUNCTION, since that is
-    // what is called; a database with the table and no function raises 42883.
-    const hasAdminProc = await getPool()
-      .query(
-        "SELECT to_regprocedure('public.rebuild_budget_admin_procurement()') AS t",
-      )
-      .then((r) => r.rows[0]?.t != null)
-      .catch(() => false);
-    if (hasAdminProc) {
-      await exec("SELECT rebuild_budget_admin_procurement()");
-      await vacuumAfterReload("budget_admin_procurement");
-    }
-    // NGO signals (080) also need fund_projects + ngo_funding. Apply + REFRESH
-    // only when both are present too — a TR-only DB (before an ИСУН / funding
-    // load) skips it cleanly. load_ngo_funding_pg.ts re-refreshes after funding.
-    const hasNgoDeps = await getPool()
-      .query(
-        "SELECT to_regclass('public.fund_projects') AS f, to_regclass('public.ngo_funding') AS n",
-      )
-      .then((r) => r.rows[0]?.f != null && r.rows[0]?.n != null)
-      .catch(() => false);
-    if (hasNgoDeps) {
-      await exec(readFileSync(NGO_SIGNALS_SQL, "utf8"));
-      // Connection signals: rebuild ngo_board_links from the fresh officers +
-      // the magistrate roster + the persisted official_roster. Guarded on the
-      // magistrate table (the rebuild fn joins it; may not be loaded on a TR-only
-      // DB). NOTE: the official leg matches against whatever official_roster was
-      // last loaded by db:load:ngo-board-links — on a routine TR refresh that
-      // roster may be older than the current officials dataset (officials change
-      // slowly, so acceptable; re-run db:load:ngo-board-links to refresh it).
-      const hasMagistrate = await getPool()
-        .query("SELECT to_regclass('public.magistrate') AS t")
-        .then((r) => r.rows[0]?.t != null)
-        .catch(() => false);
-      if (hasMagistrate) await exec("SELECT rebuild_ngo_board_links()");
-      // Matview is created WITH NO DATA; a plain REFRESH populates it (~2s over
-      // ~31k NGOs). Not CONCURRENTLY — it may be unpopulated on the first run.
-      await exec("REFRESH MATERIALIZED VIEW ngo_signals");
-      // Rebuild the contract-page foreign-funding disclosure feed, then refresh
-      // the risk-indexes cache so /api/db/procurement-risk-indexes serves it.
-      // Gate on the TARGET TABLE itself (owned by migration 033, applied by the
-      // separate procurement loader) — `hasContracts` above is only a practical
-      // proxy and is stale-033-vulnerable, so guard the exact object we touch.
-      const hasLinkTable = await getPool()
-        .query("SELECT to_regclass('public.procurement_ngo_foreign_link') AS t")
-        .then((r) => r.rows[0]?.t != null)
-        .catch(() => false);
-      if (hasLinkTable) {
-        await exec("SELECT rebuild_procurement_ngo_foreign_link()");
-        const hasRiskCache = await getPool()
-          .query(
-            "SELECT to_regclass('public.procurement_risk_indexes_cache') AS t",
-          )
-          .then((r) => r.rows[0]?.t != null)
-          .catch(() => false);
-        if (hasRiskCache)
-          await exec(
-            "REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache",
-          );
-      }
-    }
-  }
+  // company_politicians + everything computed from it. Shared with the standalone
+  // db:load:company-politicians:pg, which re-runs it after a person resolve.
+  await rebuildCompanyPoliticians();
 
   // Declared stakes → public contracts (096) resolves a declared company NAME against
   // tr_companies and confirms the person against tr_person_roles / tr_officers, so a TR

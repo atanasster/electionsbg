@@ -478,6 +478,19 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     why: "reads person_browse_table facets for its person nodes",
   },
   {
+    after: "db:load:company-politicians:pg",
+    before: "db:resolve:persons",
+    why:
+      "company_politicians STORES person_id, which the resolver renumbers — run first, " +
+      "every procurement link names the neighbouring ordinal's person (849 of 1,001 rows, " +
+      "2026-10-21) with every row count reconciling",
+  },
+  {
+    after: "db:load:graph:pg",
+    before: "db:load:company-politicians:pg",
+    why: "its procurement arm reads company_politicians.person_id",
+  },
+  {
     // Unlike hub_stats / sector_stats, which are NOT in this table, this generator's
     // position is declared: `people` is person_browse_table's tier='P' count, so run
     // ahead of the loader it commits the PREVIOUS vintage of the one figure on the page

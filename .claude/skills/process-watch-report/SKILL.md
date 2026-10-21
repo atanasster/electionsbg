@@ -1162,6 +1162,7 @@ first, then re-run the orchestrator.
                                                #   and was used to argue against running it.
    # AFTER the resolve — 115 drops person_role.place, taking the municipal roster matview with it
    npm run db:load:declarations:pg:cloud -- --resolve   # re-applies 102, rebuilds that matview
+   npm run db:load:company-politicians:pg:cloud         # re-keys person_id the resolve renumbered — graph refuses without it
 npm run db:load:employer-links:pg:cloud     # 165+168 — a pure derivation over
                                            # declaration.filed_institution × contracts.awarder_name.
                                            # A declarations-only flip still needs it: 168 joins

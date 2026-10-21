@@ -1112,6 +1112,14 @@ The drift has a **hard boundary at person_id 98,512** and it is not luck: ids 1.
 whenever `tr_person_roles` does. Consequence: `candidate_person` was 0% misattributed while
 `graph_person_node` was 42.2%, purely because candidates are low-ordinal base persons.
 
+⚠️ **`company_politicians` is the TENTH silent dependent, and the one that reaches procurement.**
+It stores `person_id` and was rebuilt only by `db:load:tr:pg` (a `REFRESH_EXCLUSIONS` member), so
+every resolve left it naming the neighbouring ordinal's person — measured 2026-10-21, 849 of 1,001
+rows locally (Бамбова for Стефанова), the `/connections` overview falling from 606 to 420 links with
+every row count reconciling. `db:load:company-politicians:pg[:cloud]` rebuilds it from Postgres
+alone (no TR SQLite) and is in `db:refresh` after phase 2; `db:load:graph:pg` now REFUSES when more
+than 2% of its rows name a different person than their `person_id` resolves to.
+
 **Two dependents announce themselves and nine do not.** `declaration` and `council_vote` are
 the only FKs to `person`, both `ON DELETE SET NULL`, so a resolve blanks them table-wide —
 measured, `declaration.person_id` went 61,743 → **0** and `council_vote.person_id` 43,168 →
@@ -1125,6 +1133,7 @@ at a 200. The local repair chain is `db:refresh` steps 53–65; the necessary su
 
 ```bash
 npm run db:load:declarations:pg -- --resolve   # refills declaration.person_id; rebuilds 090/096/097/159/169
+npm run db:load:company-politicians:pg         # re-keys company_politicians.person_id (see below)
 npm run db:load:person-elections:pg            # candidate_person + person_election_stats
 npm run db:load:official-candidate-links:pg
 npm run db:load:council:pg                     # re-attaches council_vote.person_id (90% floor)

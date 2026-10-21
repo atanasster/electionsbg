@@ -53,6 +53,7 @@ must not be broadened into a same-name heuristic. After editing it, run the full
 npm run db:resolve:persons        # applies 081+085+082-084 schema + resolves + rebuilds person_*
 npm run db:load:declarations:pg   # phase 1 rewrites declaration.subject_ref after roster re-slugging
 npm run db:load:declarations:pg -- --resolve  # phase 2 restores declaration.person_id
+npm run db:load:company-politicians:pg  # re-keys company_politicians.person_id — the resolve renumbered it
 npm run db:load:official-candidate-links:pg  # restores the official/candidate projection
 npm run db:load:person-elections:pg  # loads candidate_person + person_election_stats (the merged /candidate block)
 npm run db:load:council:pg        # restores council_vote.person_id (resolve clears it via ON DELETE SET NULL)
@@ -246,6 +247,11 @@ npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + 
 # residue, which is how 1 of 47,983 was missed on 2026-07-31.
 npm run db:load:declarations:pg:cloud               # phase 1 — rewrites subject_ref
 npm run db:load:declarations:pg:cloud -- --resolve
+# MANDATORY: company_politicians STORES person_id, which the resolve just renumbered. Skip
+# this and every procurement link on /person and /connections names the neighbouring
+# ordinal's person (849 of 1,001 rows when it happened locally, 2026-10-21). The graph
+# loader below refuses on that drift, so a skipped step fails loudly rather than shipping.
+npm run db:load:company-politicians:pg:cloud
 npm run db:load:official-candidate-links:pg:cloud  # re-decorates + REFRESHes that matview
 npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
 # MANDATORY after every resolve: deleting/rebuilding person fires council_vote.person_id's

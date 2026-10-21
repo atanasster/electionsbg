@@ -357,6 +357,27 @@ const main = async (): Promise<void> => {
             `Nothing merged.`,
         );
 
+    // ⚠️ A NON-NULL person_id CAN STILL NAME THE WRONG HUMAN. person_id is an ordinal that
+    // db:resolve:persons reassigns, so a company_politicians built before the last resolve
+    // joins cleanly to the NEIGHBOURING person — measured 2026-10-21, 849 of 1,001 rows
+    // (Бамбова for Стефанова), with the null check above green. `politician` is the
+    // person's display name at build time, so a mismatch beyond ordinary curation is drift.
+    const { rows: drift } = await c.query<{ n: string; bad: string }>(
+      `SELECT count(*) AS n,
+              count(*) FILTER (WHERE p.person_id IS NULL
+                                  OR lower(p.display_name) <> lower(cp.politician)) AS bad
+         FROM company_politicians cp
+         LEFT JOIN person p ON p.person_id = cp.person_id
+        WHERE cp.person_id IS NOT NULL`,
+    );
+    const [n, bad] = [Number(drift[0].n), Number(drift[0].bad)];
+    if (n > 0 && bad > n * 0.02)
+      throw new Error(
+        `graph: ${bad}/${n} company_politicians rows name a different person than their ` +
+          `person_id now resolves to — the table predates the last db:resolve:persons. ` +
+          `Run db:load:company-politicians:pg (or :cloud) first. Nothing merged.`,
+      );
+
     // ── GLOBAL BLOB (129): the down-sampled PUBLIC-figure bridge graph for /connections' overview.
     // Nodes = top-N bridge companies by public money (companies linking ≥2 public figures via a real,
     // ≤6-officer tie) + every public figure on them + the edges between. The facet×facet matrix is a
