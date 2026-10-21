@@ -627,7 +627,7 @@ describe("Romania–Bulgaria (robg)", () => {
     // is derived at QUERY time (142); this pins that the parser does not drop a future date.
     // Every year, not a pattern: the deadlines sit inside markup a phrase regex misses, and a
     // half-shifted page would let the un-shifted extension lose to the original.
-    const html = fx("interreg_robg_call7.html").replaceAll("2026", "2099");
+    const html = fx("interreg_robg_call7.html").replace(/2026/g, "2099");
     expect(
       sofiaDayOf(
         parseCall(html, "https://interregviarobg.eu/en/call-7", ROBG)!.closesAt,

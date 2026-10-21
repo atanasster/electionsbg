@@ -57,6 +57,9 @@ describe("classify", () => {
       classify(1000, eop({ currency: "BGN", contractCurrency: "EUR" })).eopSays,
     ).toBe("BGN/EUR");
   });
+  it("treats a legacy row with no amount as no value, not as a mismatch", () => {
+    expect(classify(null, eop({})).amountCheck).toBe("no-value");
+  });
   it("treats a zero contract value as no value, not as a mismatch", () => {
     expect(classify(1000, eop({ contractValue: 0 })).amountCheck).toBe(
       "no-value",

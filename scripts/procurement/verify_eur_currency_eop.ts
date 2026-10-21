@@ -121,7 +121,7 @@ export const joinKeys = (
  *   does and ЕОП says BGN, the legacy EUR label is wrong; if ЕОП says EUR, the label holds.
  */
 export const classify = (
-  legacyAmount: number,
+  legacyAmount: number | null,
   eop: EopCurrencyRow,
 ): {
   fields: "agree" | "disagree" | "one-empty" | "both-empty";
@@ -140,8 +140,12 @@ export const classify = (
           : "disagree";
   const eopSays =
     fields === "agree" ? a : fields === "disagree" ? `${a}/${b}` : a || b || "";
+  // Either side without an amount is „no-value", never a mismatch: a legacy row the CSV left
+  // blank has nothing to be equal or different to.
   const amountCheck =
-    eop.contractValue === null || eop.contractValue === 0
+    legacyAmount === null ||
+    eop.contractValue === null ||
+    eop.contractValue === 0
       ? "no-value"
       : Math.abs(eop.contractValue - legacyAmount) < 0.01
         ? "equal"
@@ -172,7 +176,7 @@ const main = (): void => {
     unp?: string;
     contractId?: string;
     contractorEik: string;
-    amount: number;
+    amount: number | null;
     awarderName: string;
     contractorName: string;
   }[] = [];
@@ -191,7 +195,7 @@ const main = (): void => {
           unp: r.unp,
           contractId: r.contractId,
           contractorEik: r.contractorEik,
-          amount: r.amount,
+          amount: r.amount ?? null,
           awarderName: r.awarderName,
           contractorName: r.contractorName,
         });
