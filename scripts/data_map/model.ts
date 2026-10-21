@@ -73,6 +73,11 @@ export interface SourceGroupDef {
  *    publisher we do not read.
  */
 export const WATCH_ONLY_SOURCES: Record<string, string> = {
+  eurostat_tourism_annual:
+    "Eurostat tour_occ_ninat (annual nights, BG). Nothing ingests it yet — the tourism " +
+    "surfaces read the MONTHLY tour_occ_nim/ninraw via eurostat_tourism. A flip means a new " +
+    "year landed; an operator decides whether a surface should use it. Move it onto the " +
+    "tourism group the day something reads it.",
   person_link_overrides:
     "Repository-local maintenance trigger, not a publisher: hashes the audited " +
     "data/person/link_overrides.json registry so a changed identity decision queues " +

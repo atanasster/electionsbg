@@ -108,6 +108,7 @@ import { eurostatEnergyPrices } from "./eurostat_energy_prices";
 import { eurostatFoodPli } from "./eurostat_food_pli";
 import { ecOilBulletin } from "./ec_oil_bulletin";
 import { eurostatTourism } from "./eurostat_tourism";
+import { eurostatTourismAnnual } from "./eurostat_tourism_annual";
 import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
@@ -214,6 +215,7 @@ export const SOURCES: WatchSource[] = [
   eurostatPolicy,
   eurostatEnergyPrices,
   eurostatTourism,
+  eurostatTourismAnnual,
   emberGeneration,
   policyBaselineLocal,
   euTaxRates,

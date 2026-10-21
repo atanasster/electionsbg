@@ -311,12 +311,12 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   plain „Бяла" (591 objects) stays unresolved. 216 objects state no beds and 3,371 no rooms —
   the sums are a floor. `--from-cache` re-summarises without a crawl. Still open: a surface for it, the
   expired-certificates view (`mnexpired.xsp`) and the other НТР views (`mnvu.xsp`), a watcher, and
-  `bucket:sync` of the summary. Also add a Eurostat `tour_occ_ninat`
-  watcher (annual, latest BG 2025; monthly `tour_occ_nim` reaches 2026-08). Before this fetcher there was no
+  `bucket:sync` of the summary. The annual Eurostat `tour_occ_ninat` series has a WATCH-ONLY watcher since 2026-10-21
+  (`eurostat_tourism_annual`; latest BG year 2025) — nothing reads it yet. Before this fetcher there was no
   static НТР snapshot to replace (checked 2026-10-21); the rest of the tourism data is the
   Eurostat-backed `data/tourism/visitors.json`, `src/lib/tourismReferenceData.ts` and the
   PG-served tourism procurement figures. Note the existing `eurostat_tourism`
-  watcher already covers `tour_occ_nim` and `tour_occ_ninraw`; only `tour_occ_ninat` is new.
+  watcher covers `tour_occ_nim` and `tour_occ_ninraw`.
 - **Water (`/water`)**:
   - Keep `water_quality_zones` separate from `vik_performance`: РЗИ / МЗ drinking-water monitoring
     zones (Наредба № 9/2001; БАБХ has no role here) are supply-zone strings (`Зона Пловдив`,
