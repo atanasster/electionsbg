@@ -1,6 +1,6 @@
 ---
 name: update-open-calls
-description: Refresh the open-calls register — which EU-programme procedures (ИСУН 2020) and ДФ „Земеделие" Strategic-Plan intakes a reader can APPLY to right now, into data/opencalls/*.json + the open_calls Postgres table. Use when the daily watch report flags `isun_procedures`, `sp2023_indicative`, `interreg_calls` or `ahu_calls` as changed, when the user asks to refresh open calls / отворени процедури / приеми / „какво е отворено сега", or after a fresh clone if the open_calls table is empty. This is the OPEN half of ИСУН — distinct from update-funds, which refreshes the AWARDED corpus. The publish step to Cloud SQL is mandatory and nothing runs it automatically.
+description: Refresh the open-calls register — which EU-programme procedures (ИСУН 2020) and ДФ „Земеделие" Strategic-Plan intakes a reader can APPLY to right now, into data/opencalls/*.json + the open_calls Postgres table. Use when the daily watch report flags `isun_procedures`, `sp2023_indicative`, `interreg_calls` or `ahu_calls` as changed (АЗ has no watcher — run Step 2c on any open-calls refresh), when the user asks to refresh open calls / отворени процедури / приеми / „какво е отворено сега", or after a fresh clone if the open_calls table is empty. This is the OPEN half of ИСУН — distinct from update-funds, which refreshes the AWARDED corpus. The publish step to Cloud SQL is mandatory and nothing runs it automatically.
 allowed-tools:
   - Read
   - Bash
@@ -22,8 +22,11 @@ Crawls two registers of things you can still apply to, and publishes them:
 - **АХУ** (Агенция за хората с увреждания) — its grant competitions (НПЗХУ, rehabilitation,
   accessible environment, self-employment, чл. 49, protected-employment centres), into
   `data/opencalls/ahu.json` (`npm run opencalls:ahu`, Step 2b).
+- **АЗ** (Агенция по заетостта) — intake windows announced in its news („Старт на кариерата",
+  „Заетост без бариери" …), into `data/opencalls/az.json` (`npm run opencalls:az`, Step 2c).
+  EXACT ROWS ONLY — most АЗ intakes are open-ended and are rejected, see Step 2c.
 
-All four then load into `open_calls` (migration 142) and surface on the `/funds` band-1 tile,
+All five then load into `open_calls` (migration 142) and surface on the `/funds` band-1 tile,
 `/funds/calls`, and the `openCalls` AI tool.
 
 ## Read this before anything else: why this dataset is different
@@ -111,6 +114,26 @@ its label (four phrasings, see `scripts/opencalls/ahu_parse.ts`). An announcemen
 is only in an attached `.doc` is REJECTED — never filed as `indicative`, because `open_calls`
 never deletes and an indicative row would stay „expected" for ever. It prints as a `✗` line,
 which is expected, not a failure. No money is read; the ceilings are prose.
+
+## Step 2c — Refresh the АЗ intake windows
+
+```bash
+npm run opencalls:az
+```
+
+Eleven page fetches (the news list plus the ten newest items, 1.2 s apart). АЗ has no calls
+register: an intake is a news item. Only an item whose END date sits in a clause about applying
+becomes a row („от 16 до 26 октомври 2026 г. включително", „до 17:00 ч. на 25 септември
+2026 г."). **Most АЗ intakes are open-ended** („От 19 октомври започва прием …" — they run until
+the money is spent) and are REJECTED as `✗` lines, deliberately: the only other shape 142 offers
+is `indicative`, which renders „Очаквани приеми" for ever because `open_calls` never deletes.
+Decided 2026-10-21; revisit only when the view can expire a stale indicative row.
+
+The crawl MERGES into the committed `az.json` by key (`az:<item>:<closing day>`) — the list page
+shows only the ten newest items, so a window scrolling off it is not a window that ended. One item
+can yield several rows (employers by one date, the young graduates by another). A run where half
+or more of the item pages fail to parse throws: that is a markup change, not a quiet week.
+Statistics items („… безработни започнаха работа") are not intakes and print nothing.
 
 ## Step 3 — Load locally
 

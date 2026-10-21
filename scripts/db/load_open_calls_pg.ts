@@ -58,8 +58,8 @@ const SNAPSHOT_DIR = path.join(REPO, "data", "opencalls");
 const SCHEMA_DIR = path.join(here, "schema", "pg");
 
 /** Which snapshots to load. A source with no file is SKIPPED WITH A WARNING rather than
- *  failing the run: ahu/az are Stage 8 and do not exist yet, and a fresh clone legitimately
- *  has only what is committed. */
+ *  failing the run: a fresh clone legitimately has only what is committed, and a source whose
+ *  crawler has never found a dated call (az keeps no snapshot until one) has no file at all. */
 const SOURCES: OpenCall["source"][] = [
   "isun",
   "sp2023",
