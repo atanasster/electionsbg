@@ -314,7 +314,7 @@ export const OpenCallsTile: FC = () => {
             and a bare „Interreg се следи" would imply. The per-programme state lives where it
             stays fresh: the crawl output and the `interreg_calls` watcher's detail line. */}
         {t("oc_coverage") ||
-          "Обхват: ИСУН (европейски програми), ДФ „Земеделие“ и част от трансграничните програми (Interreg)."}
+          "Обхват: ИСУН (европейски програми), ДФ „Земеделие“, конкурсите на Агенцията за хората с увреждания, приемите със срок на Агенцията по заетостта и част от трансграничните програми (Interreg)."}
       </p>
     </DashboardSection>
   );

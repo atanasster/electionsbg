@@ -639,19 +639,24 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       // describe procedures that have not produced a contract yet, so no query over the
       // beneficiary/project corpus would ever return them — and „има ли програма за мен" is the
       // question most readers actually arrive with, which the awarded corpus cannot answer.
-      bg: "Процедурите, по които все още може да се кандидатства — активните покани в ИСУН 2020 и проектите на насоки за обществено обсъждане, индикативния график на приемите по Стратегическия план на ДФ „Земеделие“ и поканите по 2 от 6-те трансгранични програми (Interreg). Статусът не се съхранява: изчислява се при всяка заявка спрямо крайния срок, така че изтекла процедура не може да се покаже като отворена.",
-      en: "The procedures you can still apply to — the live calls in ИСУН 2020 and the draft guidance out for public consultation, the indicative intake schedule under the ДФЗ CAP Strategic Plan, and the calls of 2 of the 6 cross-border Interreg programmes. Status is never stored: it is derived per request from the closing date, so an expired procedure cannot be shown as open.",
+      bg: "Процедурите, по които все още може да се кандидатства — активните покани в ИСУН 2020 и проектите на насоки за обществено обсъждане, индикативния график на приемите по Стратегическия план на ДФ „Земеделие“, конкурсите на Агенцията за хората с увреждания, сроковете за кандидатстване, обявени от Агенцията по заетостта, и част от поканите по трансграничните програми (Interreg). Статусът не се съхранява: изчислява се при всяка заявка спрямо крайния срок, така че изтекла процедура не може да се покаже като отворена.",
+      en: "The procedures you can still apply to — the live calls in ИСУН 2020 and the draft guidance out for public consultation, the indicative intake schedule under the ДФЗ CAP Strategic Plan, the grant competitions of the Agency for People with Disabilities, the application windows the Employment Agency announces, and part of the cross-border Interreg calls. Status is never stored: it is derived per request from the closing date, so an expired procedure cannot be shown as open.",
     },
     url: "https://eumis2020.government.bg/bg/s/Procedure/Active",
     origin: "state",
-    members: ["isun_procedures", "sp2023_indicative", "interreg_calls"],
+    members: [
+      "isun_procedures",
+      "sp2023_indicative",
+      "interreg_calls",
+      "ahu_calls",
+    ],
     skills: ["update-open-calls"],
     tags: ["fiscal", "local"],
     issue: {
       label: { bg: "Непълно покритие", en: "Partial coverage" },
       note: {
-        bg: "Interreg Румъния–България не публикува индекс на приемите; три от шестте програми периодично отхвърлят връзката от независими клиенти.",
-        en: "Interreg Romania-Bulgaria publishes no calls index; three of the six programmes periodically reset the connection from independent clients.",
+        bg: "Шестте трансгранични програми се четат от сайтовете им; програма, която не отговаря при обхождането, се отчита като недостъпна, а не като „0 покани“. Агенцията по заетостта обявява повечето приеми без краен срок — те не влизат в регистъра.",
+        en: "The six cross-border programmes are read from their own sites; a programme that does not answer during a crawl is counted as unreachable, never as „0 calls“. The Employment Agency announces most intakes with no closing date — those are not in the register.",
       },
     },
   },
@@ -2401,12 +2406,16 @@ export const DATASETS: DatasetDef[] = [
       en: "workforce, cost, services, e-gov",
     },
     desc: {
-      bg: "Административните услуги (ИИСДА, ~2 668), използването на е-управление спрямо ЕС (Eurostat), качеството на административното обслужване (сигнали, измерване на удовлетвореността — от годишния Доклад), плюс сгънатия page-context (щат, структури, разход, население). Поръчките за е-управление (групата ведомства в ADMIN_SECTOR_EIKS) идват от корпуса на договорите.",
-      en: "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (the body group in ADMIN_SECTOR_EIKS) comes from the contracts corpus.",
+      bg: "Административните услуги (ИИСДА, ~2 668), броят заявени електронни услуги през системата еФорми на МЕУ по месеци (само заявки и само тази система — месеците, които МЕУ не е публикувало, липсват, а не са нула), използването на е-управление спрямо ЕС (Eurostat), качеството на административното обслужване (сигнали, измерване на удовлетвореността — от годишния Доклад), плюс сгънатия page-context (щат, структури, разход, население). Поръчките за е-управление (групата ведомства в ADMIN_SECTOR_EIKS) идват от корпуса на договорите.",
+      en: "The administrative-services register (IISDA, ~2,668), monthly e-service REQUEST counts through МЕУ's еФорми system (requests only, that one system only — months МЕУ has not published are missing, never zero), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (the body group in ADMIN_SECTOR_EIKS) comes from the contracts corpus.",
     },
     path: "data/administration/",
     serving: "both",
-    tables: ["admin_services"],
+    tables: [
+      "admin_services",
+      "admin_service_requests",
+      "admin_service_requests_month",
+    ],
     tags: ["fiscal", "indicators"],
   },
   {
