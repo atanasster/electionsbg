@@ -221,8 +221,13 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 - **СЕБРА daily payment execution**: Ingest the daily СЕБРА payment files as a separate budget
   execution pipeline. Under the Наредба по ПМС № 299/2016 (last amended ПМС 76/2024), МФ publishes
   daily payments by ППРБ on `minfin.bg` (чл. 2), and each ППРБ publishes its own daily Excel file on
-  its own site (чл. 4, 9). The МФ URL is not yet pinned. (`mof.bg`, named here earlier, is an
-  unrelated fashion site.)
+  its own site (чл. 4, 9). **Located 2026-10-21 — on data.egov.bg, no Cloudflare:** the national
+  daily report (2,797 distinct days since 2015-05-22, posted next working day) and МЕУ's quarterly list of
+  individual payments ≥ 5,000 лв (€2,556.46; чл. 12, ПМС 76/2024; Q3 2022 → Q2 2026, 122,648 rows in Q2
+  2026, no recipient ЕИК; 89% of natural-person rows carry an unmasked 9–10 digit number, so
+  a loader must drop natural persons' names and accounts). See
+  [docs/plans/sebra-payments-v1.md](plans/sebra-payments-v1.md). Not built. (`mof.bg`, named here
+  earlier, is an unrelated fashion site.)
 - **Trimming `/budget/deep-dive` (`BudgetScreen.tsx`)**: Retire the legacy inline tiles
   (`PersonnelSection`, `AdminComparisonSection`, `SocialFundsCard`, `CapitalComparisonCard`,
   `DeviationsSection`) from `/budget/deep-dive` once the route is scoped strictly to the
