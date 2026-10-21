@@ -312,11 +312,19 @@ or a bounded next step. Completed implementation histories belong in Git, not he
 
 - **Presidential elections**:
   - ⚠️ DUE NOW: round 1 is **25.10.2026** and the runoff **01.11.2026** (НС decision of
-    31.07.2026, ДВ 04.08.2026; ЦИК slug `pvr2026`; 27 candidate pairs). Wire `/presidential` into the
-    main header/cycle switcher and add `/presidential/polls` to `scripts/sitemap/route_defs.ts`.
-    The folder name `2026_11_pvr` does not match round 1's month — settle the cycle folder names
-    before results drop.
-  - When 2026 round 1 (`2026_11_pvr`) drops, re-verify `runoffFlow` ridge-regularised OLS fit on
+    31.07.2026, ДВ 04.08.2026; ЦИК slug `pvr2026`; 27 candidate pairs). The cycle folder is
+    `2026_10_25_pvr`, with the runoff inside it (settled 2026-10-21, `6977245023`). Header and
+    sitemap need no new wiring: the elections menu links `LATEST_PRESIDENTIAL_CYCLE` and the cycle
+    dropdown lists presidential rows, and `/polls/presidential` (the real path, not
+    `/presidential/polls`) already has BG + EN `<loc>`s and prerendered pages (verified
+    2026-10-21). ⚠️ OPEN: the presidential ingest cannot run a round-1-only cycle —
+    `PresidentialSource.rounds` requires both rounds and `download.ts` reads round 2
+    unguarded — so round 1 cannot be published in the week before the runoff until that is made
+    optional. Also still to do on results night: add the 2026 entry to
+    `scripts/parsers_presidential/sources.ts` (it lists 2021/2016/2011/2006/2001 only, and the
+    archive URLs need a browser check), and bump `LATEST_PRESIDENTIAL_CYCLE` from its literal
+    `"2021_11_14_pvr"` — until both land, the header and the elections registry open 2021.
+  - When 2026 round 1 (`2026_10_25_pvr`) drops, re-verify `runoffFlow` ridge-regularised OLS fit on
     live 2026 round-1 → round-2 pairs and calibrate `presidential_2026` risk-index weights once
     2026 round-1 section tallies exist.
 - **Local neighbourhood corpus (`problem_sections_local`)** — see
