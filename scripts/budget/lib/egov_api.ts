@@ -74,6 +74,17 @@ const normaliseResources = (raw: RawDataset): EgovResource[] => {
   return Array.isArray(r) ? r : Object.values(r);
 };
 
+const toDataset = (d: RawDataset): EgovDataset => ({
+  id: d.id,
+  uri: d.uri,
+  org_id: d.org_id,
+  name: d.name,
+  category_id: d.category_id,
+  updated_at: d.updated_at,
+  created_at: d.created_at,
+  resources: normaliseResources(d),
+});
+
 export const listDatasets = async (
   orgId: number,
   opts: { recordsPerPage?: number } = {},
@@ -83,16 +94,20 @@ export const listDatasets = async (
     records_per_page: opts.recordsPerPage ?? 100,
     page_number: 1,
   });
-  return (json.datasets ?? []).map((d) => ({
-    id: d.id,
-    uri: d.uri,
-    org_id: d.org_id,
-    name: d.name,
-    category_id: d.category_id,
-    updated_at: d.updated_at,
-    created_at: d.created_at,
-    resources: normaliseResources(d),
-  }));
+  return (json.datasets ?? []).map(toDataset);
+};
+
+/** Datasets by their numeric id — the shape a single known dataset wants, where an org-wide
+ *  listing would have to page past every other dataset that organisation publishes. */
+export const listDatasetsByIds = async (
+  ids: number[],
+): Promise<EgovDataset[]> => {
+  const json = await post<{ datasets?: RawDataset[] }>("listDatasets", {
+    criteria: { dataset_ids: ids },
+    records_per_page: Math.max(ids.length, 1),
+    page_number: 1,
+  });
+  return (json.datasets ?? []).map(toDataset);
 };
 
 export const getResourceData = async (

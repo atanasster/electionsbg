@@ -154,6 +154,15 @@ const RELOADED: ReadonlyArray<{
   // scans — an unlisted vacuum there is one nothing verifies took.
   { table: "aop_expert", loader: "db:load:aop-experts:pg" },
   { table: "aop_expert_area", loader: "db:load:aop-experts:pg" },
+  // еФорми request volumes (201): TRUNCATE + COPY in one transaction.
+  {
+    table: "admin_service_requests",
+    loader: "db:load:admin-service-requests:pg",
+  },
+  {
+    table: "admin_service_requests_month",
+    loader: "db:load:admin-service-requests:pg",
+  },
   { table: "isun_clean_contract", loader: "db:load:clean-delivery:pg" },
   { table: "isun_clean_beneficiary", loader: "db:load:clean-delivery:pg" },
   { table: "adfi_coverage", loader: "db:load:adfi:pg" },

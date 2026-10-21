@@ -167,6 +167,10 @@ export const isExcluded = (rel: string): string | null => {
   // DIRECT argument and the natural push is the whole `budget` subtree.
   if (rel.startsWith("budget/municipal_fiscal"))
     return "budget/municipal_fiscal/ is a PG load source (db:load:municipal-fiscal:pg)";
+  // МЕУ's еФорми request volumes (migration 201) — the committed snapshot is the loader's SOURCE
+  // under the still-served administration/ parent, so it also needs the CHILD_EXCLUDES twin.
+  if (rel === "administration/eforms_requests.json")
+    return "administration/eforms_requests.json is a PG load source (db:load:admin-service-requests:pg)";
   // The council corpus is PG-served (migrations 160/161) — /api/db/council-overview,
   // -muni and -resolution. Every reader moved off the bucket in council-hub-v1
   // tiers 5-7: the My-Area tile, the alerts builder and both AI tools.
@@ -546,6 +550,8 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // actually runs — the same shape that put ~16.8k company-connection shards on
   // a bucket where nothing reads them.
   { path: "budget/municipal_fiscal", isDir: true },
+  // Same shape: a PG load source (201) under the served administration/ parent.
+  { path: "administration/eforms_requests.json", isDir: false },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under

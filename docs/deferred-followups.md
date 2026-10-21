@@ -224,11 +224,20 @@ or a bounded next step. Completed implementation histories belong in Git, not he
     than only via the curated `sectorKey` static list.
 - **Buy-side `sector_awarder_stats` matview**: Extend `CompanySectorRankTile` to buy-side
   awarders (currently sell-side contractors only).
-- **Administration**: e-service volumes are now sourceable, so this is unblocked. МЕУ's
-  data.egov.bg dataset „Списък на заявените услуги през надградената система еФорми" gives request
-  volumes. `analytics.egov.bg` is a public Matomo instance (~20 egov sites) whose API answers
-  anonymously in JSON/CSV — it holds page VISITS, not transactions. No client-satisfaction dataset
-  has been found.
+- **Administration**: e-service request volumes are INGESTED (2026-10-21) — МЕУ's еФорми
+  dataset (data.egov.bg 20218) → committed `data/administration/eforms_requests.json`
+  (`npm run admin:eforms`) → `admin_service_requests` + `admin_service_requests_month`
+  (migration 201, `db:load:admin-service-requests:pg`, in `db:refresh`). 23 months 2024-02…2026-07,
+  173,509 requests, 407 services (295 join the ИИСДА catalogue). Still open:
+  - **No surface reads it yet.** A `/sector/administration` tile must say „заявени през
+    еФорми" (requests, one system only) and name the missing months — the publisher skipped
+    2025-01…04, 2025-07…08 and 2026-02, and nothing after 2026-07 had appeared by 2026-10-21.
+  - **No watcher.** The dataset's monthly resources land on the 1st; a `scripts/watch/sources/`
+    entry on the dataset's `updated_at` would flag `npm run admin:eforms`.
+  - **Cloud SQL never received it**: `npm run db:load:admin-service-requests:pg:cloud`.
+  - `analytics.egov.bg` (public Matomo, ~20 egov sites, anonymous JSON/CSV API) holds page
+    VISITS, not transactions — optional, and only ever labelled as visits. No
+    client-satisfaction dataset has been found.
 - **Agriculture**: Decide whether the six чл. 163 ЗГ state forestry enterprises (`ДП` and their
   териториални поделения) belong in „Земеделие" (must be delimited by EIK, never by name regex).
 - **Culture**:
