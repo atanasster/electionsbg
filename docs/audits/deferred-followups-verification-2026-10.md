@@ -195,3 +195,29 @@ No external claim, or an internal measurement only:
 
 Outside this file: CLAUDE.md's Cloud SQL header (51) and its „чл. 232а, ал. 2 ЗОП" citation (7)
 are stale; ЗПФ чл. 130а criteria count, 6 vs 7 (23), needs reconciling against the current ДВ.
+
+## Fixed 2026-10-21 — by docs/plans/deferred-followups-verification-fixes-v1.md
+
+Appended rather than edited: the verdicts above stay as measured. „In repo" means committed and
+loaded locally; every production publish is still pending and is listed in
+`docs/deferred-followups.md` under „Pending production publishes". Each data change was checked
+against what production served on 2026-10-21 before being listed there.
+
+| row | fixed by | what changed |
+| --- | -------- | ------------ |
+| 42 | 6977245023 T0.1, 227a3a7974 T0.2, 36dc622051 T0.3 | cycle id `2026_10_25_pvr`; header/sitemap were already wired; the 24.10 readiness check is a dated operator step, not run. Round-1-only ingest support is still OPEN. |
+| 51 | 7b62716bb7 T1.1, 40f2ec015c T3.5 | three tiers from the Cloud Audit Log (`db-custom-2-13312` since 2026-08-27); stale stamps relabelled; remaining present-tense N-2 timings stamped 2026-10-21 (audit follow-up commit). |
+| 7 | d1a83ac3db T1.2 | the АОП list is described everywhere as the repealed 2019–2020 чл. 232а, ал. 2; the live чл. 229, ал. 1, т. 17 list is still not ingested. |
+| 11, 14 | a668e61f36 T4.1, c910d16304 T4.2 | АХУ competitions (5 rows) and АЗ dated intakes (3 rows, exact only) in `open_calls`; every deadline re-checked against its source page. |
+| 12, 13 | 36385ce968 T2.1 | all six Interreg programmes crawled (28 calls from 5; BSB down); `*.mrrb.bg` intermediates supplied with verification on. New since the audit: that wildcard EXPIRED 2026-10-15. |
+| 16, 17, 18 | 364041c2a6 T2.2 | coverage notes derived from keep.eu's own per-programme counts; all 22 re-checked against keep.eu live. |
+| 50 | fecde492fa T2.3 | data-map AI node points at `/chat`; the domain-level Firebase redirect is an owner action. |
+| 52 | e9ed6dda08 T2.4 | `governments.json` in `bucket:gz`; the bucket copy is content-identical and still uncompressed until it runs. |
+| 29 | d1bebeb3d9 T2.5 | owner decision: 2025 customs fines stay null; the derivable ≈ €10.74m is recorded with its caveat. |
+| broken paths (§3) | da7764478a T2.6 | none of the four dead paths has a real artifact; entries rewritten. `verify_eur_currency_eop.ts` now exists (row 6). |
+| 23 | 4e27c785db T3.1 | six statutory conditions, МФ's seven columns; threshold counts conditions. No verdict moved (11,130 rows equal to prod). |
+| 3, 8 | b8a6487c9f T3.2 | inventory of the four surfaces that publish `actual_owner`; the чл. 63б decision is with counsel. |
+| 2 | 2ce7409e7b T3.3 | verified CR field-code table beside the parser. |
+| 6 | 66fe560001 T3.4 | `verify_eur_currency_eop.ts` written; the „~322 in BGN" note does not reproduce. |
+| 24 | ea0cb2b846 T4.3 | еФорми request volumes ingested (migration 201); Matomo stays visits-only and unused. |
+| 32 | 59895b1c64 T4.4 | pensioners by ТП with an explicit 28-ТП crosswalk; the map itself is open. |

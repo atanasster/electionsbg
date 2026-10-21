@@ -2212,7 +2212,10 @@ no item in the corpus reaches, so it rides on `outcomeFor()`'s definition alone.
 casts. ⚠️ **That is no longer the cost — re-measured 2026-08-27 on `db-perf-optimized-N-2`,
 `mp_similarity` is 70.9 s**, i.e. parity with local (67 s) and 10.5× off the figure above. The
 "budget a quarter of an hour and do not chain it behind anything urgent" advice was written for
-the retired shared-core box; it now over-states the step by an order of magnitude. The facts
+the retired shared-core box; it now over-states the step by an order of magnitude. ⚠️ The 70.9 s
+is an N-2 figure: on today's `db-custom-2-13312` the publish traces show the whole
+`db:load:rollcall-derived:pg:cloud` step at **188–202 s** (2026-08-29 → 2026-09-09) — still
+minutes, not a quarter of an hour. The facts
 half (`db:load:rollcall:pg:cloud`) is dominated by ~2,900 single-row round trips
 through the proxy before the COPY starts. `/api/db/mp-dissents` and
 `/api/db/mp-similarity` read them and DEGRADE to an empty array on `42P01 · 42883 · 55000 ·
@@ -3133,7 +3136,10 @@ through the function would otherwise saturate at its own `LEAST(p_limit, 2000)` 
 through the function rather than with a second WHERE is what keeps the tile's heading count and
 the rows beneath it on one predicate.
 
-**`/funds/calls` covers ИСУН + ДФЗ + PART of Interreg, and the page says so („част от").**
+**`/funds/calls` covers ИСУН + ДФЗ + АХУ + the dated АЗ intakes + PART of Interreg, and the page says so („част от").**
+АХУ (`npm run opencalls:ahu`) and АЗ (`npm run opencalls:az`) are documented in the
+`update-open-calls` skill; both keep EXACT rows only — an announcement with no labelled end is
+rejected, never filed as `indicative`, for the never-delete reason below.
 Interreg runs on Jems rather than ИСУН, so an Interreg call can never appear in `/Active` — a
 system boundary that falls on the border municipalities. `npm run opencalls:interreg`
 (`interreg_parse.ts`, one parser per programme SHAPE) lists all six Bulgarian cross-border
@@ -4034,9 +4040,10 @@ has never needed a guard. The `/api/db/company` arm is #1 of a ~30-way `Promise.
 that rejection is a 500 on the WHOLE payload — every `/company/:eik` AND every
 `/awarder/:eik`, since `CompanyDbScreen` serves both — while the function-served
 `/company/**` HEAD keeps working, which makes it present as an intermittent front-end bug
-rather than a migration gap. `load_tr_pg.ts` is 003's only loader-side applier and is
-~280 s on cloud (re-measured 2026-08-27; the 34.9 min this line used to quote was the retired
-`db-g1-small`), so a `deploy:db` landing first is a site-wide outage with a ~5-minute
+rather than a migration gap. `load_tr_pg.ts` is 003's only loader-side applier and took
+~280 s on cloud on the N-2 box (2026-08-27) and **497–670 s** on today's `db-custom-2-13312`
+(publish traces 2026-08-29 → 2026-09-09; the 34.9 min this line once quoted was the retired
+`db-g1-small`), so a `deploy:db` landing first is a site-wide outage with a ~5–11-minute
 floor on the recovery.
 
 The arm now falls back to the pre-003 column list on 42703 and logs `co:no-subject-column`
@@ -4106,7 +4113,7 @@ npm run db:load:tr-company-place:pg   # ⚠️ the step that turns a seat into a
 ```
 
 Cloud, and nothing runs it automatically — the documented pair, in this order:
-`npm run db:load:tr:pg:cloud` (280 s) then `npm run db:load:tr-company-place:pg:cloud` (28 s).
+`npm run db:load:tr:pg:cloud` (497–670 s on `db-custom-2-13312`; 280 s on N-2) then `npm run db:load:tr-company-place:pg:cloud` (28 s, N-2).
 Skipping the second is the usual silent shape: prod's seats are current and its placements
 are a vintage behind, at a 200.
 
@@ -4371,9 +4378,10 @@ TABLE used to give it for free. Three consequences worth knowing:
   atomically and the COPYs then took only `RowExclusiveLock`) — what it served instead was an
   EMPTY table at a 200 for the length of the load, i.e. search confidently answering "no such
   company". An error a route can degrade on beats that, which is why the trade was made, but a
-  cloud TR publish is **not** reader-safe: it is **280 s** (re-measured 2026-08-27 on
-  `db-perf-optimized-N-2`; this line read 34.9 min, measured on the retired `db-g1-small`,
-  and that figure was being used to argue against running it at all). Note that an INTERRUPTED load
+  cloud TR publish is **not** reader-safe: it was **280 s** on `db-perf-optimized-N-2`
+  (2026-08-27) and is **497–670 s** on today's `db-custom-2-13312` (publish traces
+  2026-08-29 → 2026-09-09); this line once read 34.9 min, measured on the retired
+  `db-g1-small`, and that figure was being used to argue against running it at all). Note that an INTERRUPTED load
   used to leave the tables populated but unindexed — the index drops now live inside each
   table's own transaction, so an abort rolls them back.
 
@@ -4482,7 +4490,7 @@ Three things about it are easy to get backwards:
 
 - **`db:load:tr:pg` is a `REFRESH_EXCLUSIONS` member, so `db:refresh` never applies 192.** On a
   machine with a loaded TR corpus, `npm run test:data` therefore FAILS until someone runs the
-  34.9-minute TR loader or the command above. The gate names the fix in its message, so it is
+  TR loader (497–670 s on today's box) or the command above. The gate names the fix in its message, so it is
   survivable — but it is a red test on a fresh checkout rather than a skip, which is the one
   thing that distinguishes it from every other entry in this section.
 - **The route DEGRADES, in two different ways, and only one of them is a missing migration.**
@@ -4750,7 +4758,7 @@ failed repair. `company_founded` is the one member with no `RELOADED` entry — 
 passes the table as a VARIABLE, which the gate's string-literal scan cannot see:
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, tender_search_text, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme, price_last_seen, price_current, vote_item, vote_cast, mp_seat, party_dim, mp_attendance, party_cohesion, mp_dissent, mp_similarity, mp_vote_norm, person_browse_table, company_browse_table, transport_project_link;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) declaration_employer_link, grant_contract_link, tender_subcontracting, ted_notice, ted_coverage, adfi_inspection, aop_expert, aop_expert_area, isun_clean_contract, isun_clean_beneficiary, adfi_coverage, obshtina_population, fund_projects, fund_beneficiaries, company_founded, tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, tender_search_text, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, budget_fiscal_year, budget_fiscal_year_figure, budget_kfp_observation, budget_kfp_snapshot_section, budget_kfp_snapshot_line, budget_personnel, budget_admin_procurement, budget_muni_transfer, budget_muni_ipop_project, budget_muni_capital_project, budget_muni_execution, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, council_muni, council_muni_code, council_resolution, council_vote, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme, price_last_seen, price_current, vote_item, vote_cast, mp_seat, party_dim, mp_attendance, party_cohesion, mp_dissent, mp_similarity, mp_vote_norm, person_browse_table, company_browse_table, transport_project_link, admin_service_requests, admin_service_requests_month;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

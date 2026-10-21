@@ -4,6 +4,24 @@ This is the compact home for work deliberately left outside an otherwise complet
 implementation. Entries stay only while they name an unresolved decision, a concrete trigger,
 or a bounded next step. Completed implementation histories belong in Git, not here.
 
+## Pending production publishes (deferred-followups-verification-fixes-v1, 2026-10-21)
+
+Everything below is committed and loaded LOCALLY; none of it has reached production. Each was
+checked against what production serves on 2026-10-21 before being listed here.
+
+- `npm run db:load:open-calls:pg:cloud` — Interreg (6 programmes), АХУ, АЗ (see EU Funds below).
+- `npm run db:load:interreg:pg:cloud`, then `db:load:graph:pg:cloud` and
+  `db:load:tr-company-place:pg:cloud` (CLAUDE.md's Interreg order) — the derived keep.eu coverage
+  notes; programme counts are unchanged.
+- `npm run db:load:admin-service-requests:pg:cloud` — еФорми volumes (migration 201, new table).
+- `npm run bucket:sync` — `data/data_map.json` and `data/budget/noi/pensioners_by_tp.json`.
+- `npm run bucket:gz` — `governments.json` with gzip encoding.
+- `npm run db:load:municipal-fiscal:pg:cloud` — optional: no verdict differs (all 11,130 rows
+  match prod on 2026-10-21).
+- Firebase: clear the domain-level redirect on `ai.electionsbg.com` (see the AI app entry).
+- `npm run deploy` — the reader-facing copy fixes (open-calls coverage line, municipal-fiscal
+  criteria wording).
+
 ## Companies & Commerce Registry
 
 - Add NKID and founding-date facets to `/companies` only after the UI can distinguish unknown
@@ -34,7 +52,9 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   transfer is the closest family), ГФО filing compliance chip (the ГФО is a document act,
   `ActModeValue` 2 „Годишен финансов отчет", not a field), shared registered-address cluster
   (`Field 00050`), and UBO (`Field 05500` `ActualOwners`, erase `05510`) vs registered owner
-  comparison. Field codes verified 2026-10-21; `06010` is `TransferringEnterprise`, not the ГФО,
+  comparison. Field codes verified 2026-10-21; `06010` / `06020` are the two counterparty
+  enterprises of a transfer (the records do not say which is transferor and which acquirer — see
+  the table in `parse_cr_deeds.ts`), not the ГФО,
   and the act code `1005010` cited earlier appears nowhere in the capture or the feed.
   ⚠️ The UBO comparison needs a legal/GDPR decision first: since ДВ бр. 49/2025 (new чл. 63б
   ЗМИП) access to beneficial-owner data is limited to authorities, obliged entities and persons
@@ -126,8 +146,9 @@ or a bounded next step. Completed implementation histories belong in Git, not he
 - **Procurement review queue & new datasets**: Surface `contract_risk_cache` grades D/E/F strictly
   as „за преглед" with gated person↔company edges. Remaining candidate external datasets:
   - the LIVE АОП external-experts list under чл. 229, ал. 1, т. 17 ЗОП. Migration 174 loads the
-    HISTORICAL list that aop.bg/ets.php still titles „по чл. 232а, ал. 2" — a provision repealed
-    from 01.01.2021; the current чл. 232а is ex-ante control. The live list's page
+    HISTORICAL list that aop.bg/ets.php still titles „по чл. 232а, ал. 2" — the 2019–2020 wording,
+    since repealed (no repeal date was confirmed); the current чл. 232а (in force 22.07.2024) is
+    ex-ante control. The live list's page
     (`www.aop.bg/ee2014.php`) is a 404.
   - Сметна палата audit reports (no migration or loader yet).
   - ЗМИП beneficial owners — subject to the access limits of чл. 63б ЗМИП (ДВ бр. 49/2025); see
@@ -143,28 +164,28 @@ or a bounded next step. Completed implementation histories belong in Git, not he
 - **Grant → tender → contract UI surfaces (`166_grant_contract_link.sql`)**: The ПИИ money-spine
   table is populated in PostgreSQL; wire the strip onto `/funds/contract/:key`, `/awarder/:eik`,
   and `/culture/funds#spine`.
-- **Open-calls arms not yet scraped** (all hosts answered on 2026-10-21 — none is blocked now):
-  - АХУ (`ahu.mlsp.government.bg`, reachable): annual project rounds under named методики (чл. 49
-    / чл. 51 ЗХУ, НПЗХУ), spring to summer. Read `/portal/page/7` and `/portal/page/123`;
-    `/portal/page/4` „Конкурси" also carries staff-hiring competitions and must be filtered.
-  - Interreg RO-BG: the 2021–27 programme lives on `interregviarobg.eu`, which has an Open/Closed
-    calls index and an indicative timetable (`interregrobg.eu` is the 2014–2020 site).
-  - Interreg BG-RS / BG-MK / BG-TR: the live sites are `ipa-bgrs.mrrb.bg`, `ipa-bgmk.mrrb.bg` and
-    `ipa-bgtr.mrrb.bg`. The old `ipa-cbc-*` domains fail on DNS or are refused, and
-    `ipa-cbc-programme.eu` is Greece–North Macedonia. The mrrb.bg hosts serve an incomplete TLS
-    chain („unable to verify the first certificate"), so a strict client needs the intermediate
-    certificate.
-  - АЗ (`az.government.bg`): publishes dated intake windows as news prose (e.g. employers
-    16–26.10.2026), not as a register — `indicative`-only.
-
-  Ensure `DELETE FROM open_calls WHERE source = 'interreg' AND closes_at IS NULL;` has been
-  applied on Cloud SQL.
+- **Open-calls arms — all scraped locally (2026-10-21), none published.** АХУ (`opencalls:ahu`),
+  all six Interreg programmes incl. RO-BG (`interregviarobg.eu`) and BG-RS/MK/TR (`ipa-bg*.mrrb.bg`)
+  (`opencalls:interreg`), and АЗ dated intakes (`opencalls:az`, exact rows only) load into the
+  LOCAL `open_calls`. Still open:
+  - Cloud SQL has none of it: `npm run db:load:open-calls:pg:cloud`. Checked before publishing:
+    all 5 Interreg keys prod holds today are in the new snapshot, field-for-field identical, so
+    the load adds 31 rows and orphans none.
+  - Ensure `DELETE FROM open_calls WHERE source = 'interreg' AND closes_at IS NULL;` has been
+    applied on Cloud SQL.
+  - ⚠️ The `*.mrrb.bg` wildcard certificate EXPIRED 2026-10-15; on 2026-10-21 `ipa-bgrs` served
+    the expired one (`CERT_HAS_EXPIRED`) while `ipa-bgmk` / `ipa-bgtr` still answered. The crawler
+    keeps verification on, so BG-RS reads as unreachable until МРРБ renews — expected, not a bug.
+  - Black Sea Basin was down on the first crawl; it has no rows yet.
+  - No watcher for АЗ (run `opencalls:az` with every open-calls refresh).
 
 - **Upstream keep.eu Interreg coverage gaps** (re-checked 2026-10-21):
   - Interreg IPA Bulgaria–Serbia 2021–2027: 0 projects in keep.eu, against the programme's own
     10 projects / 60 partnerships.
   - Greece–Bulgaria 2021–2027: all 21 projects and 85 partnerships are present, but 0% carry a
-    partner budget or postcode. The repo's „38% of partnerships" coverage note is stale.
+    partner budget or postcode. The coverage notes are now derived from keep.eu's own counts
+    (T2.2; all 22 re-checked against keep.eu live on 2026-10-21) — but Cloud SQL still serves the
+    old hand-typed notes („38%", URBACT „1%") until `npm run db:load:interreg:pg:cloud`.
   - URBACT IV: 95.8% partner budgets, 0% postcodes.
   - ESPON 2030: keep.eu holds 0 of 110 projects.
 - **ИСУН 2020 per-project executors**: Full crawl of `2020.eufunds.bg` detail pages is shelved —
@@ -207,9 +228,8 @@ or a bounded next step. Completed implementation histories belong in Git, not he
 - **Municipal fiscal commitments historical eras (pre-2024)**: Add per-era column maps for pre-2024
   MinFin workbooks cached in `data/_cache/minfin_municipal_fiscal/` (2022–2023 62-column shift,
   2021 59-column shift, 2016–2020 layouts, and Q4-anchored explicit чл. 130а criteria sheets).
-  Open question: the consolidated ЗПФ text found online lists SIX чл. 130а, ал. 1 criteria, while
-  `scripts/budget/municipal_fiscal/criteria.ts` reads SEVEN from МФ's releases. Reconcile against
-  the current ДВ text (likely т. 1 split into чл. 32 ал. 1 / ал. 2, or a post-2020 amendment).
+  (The SIX-vs-SEVEN question is settled: МФ splits т. 1 into чл. 32 ал. 1 / ал. 2, and the
+  threshold now counts statutory conditions — see CLAUDE.md's municipal_fiscal section.)
 - **Retiring `budget/reconciliation/` & `budget/facts/` JSONs**: Retire once `budget_admin_fact`
   adds the 4 currency-split columns needed by the reconciliation view.
 
@@ -281,13 +301,20 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   pharmacies) because `contracts.cpv_code` is 99.66% NULL in the АОП portal CSV. ⚠️ No such
   probe exists in the repo (no script, no `nap_issuers` relation; checked 2026-10-21) — this is
   the rule for one if it is built, not a description of code that ships.
-- **Tourism**: Build an automated scraper for `ntr.tourism.government.bg`. It is an IBM XPages
-  app, not a hard block: a GET sets a `SessionID` cookie and results come from a form postback, so
-  a cookie jar plus a POST should work without a browser. Also add a Eurostat `tour_occ_ninat`
-  watcher (annual, latest BG 2025; monthly `tour_occ_nim` reaches 2026-08). There is no static НТР
-  snapshot to replace — the repo holds no НТР data at all (its tourism data is the
+- **Tourism**: the НТР accommodation register is FETCHED (2026-10-21) — `npm run tourism:ntr`
+  (`scripts/tourism/fetch_ntr.ts`). No cookie jar or postback turned out to be needed: the XPages
+  page's table reads Domino's REST Data Service
+  (`/CategoryzationAll.nsf/api/data/collections/name/vRegistarMNValid1?ps=100&page=N`, JSON,
+  `Content-Range` total, no session). It writes the full register to gitignored
+  `raw_data/tourism/ntr/mn_valid.json` and a committed per-municipality summary
+  `data/tourism/ntr_summary.json` (objects / rooms / beds by kind and category; a municipality
+  NAME resolves to a code only when unique — Бяла is not). Still open: a surface for it, the
+  expired-certificates view (`mnexpired.xsp`) and the other НТР views (`mnvu.xsp`), a watcher, and
+  `bucket:sync` of the summary. Also add a Eurostat `tour_occ_ninat`
+  watcher (annual, latest BG 2025; monthly `tour_occ_nim` reaches 2026-08). Before this fetcher there was no
+  static НТР snapshot to replace (checked 2026-10-21); the rest of the tourism data is the
   Eurostat-backed `data/tourism/visitors.json`, `src/lib/tourismReferenceData.ts` and the
-  PG-served tourism procurement figures; checked 2026-10-21). Note the existing `eurostat_tourism`
+  PG-served tourism procurement figures. Note the existing `eurostat_tourism`
   watcher already covers `tour_occ_nim` and `tour_occ_ninraw`; only `tour_occ_ninat` is new.
 - **Water (`/water`)**:
   - Keep `water_quality_zones` separate from `vik_performance`: РЗИ / МЗ drinking-water monitoring
@@ -532,9 +559,9 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   - Add `--post-only` flag to `scripts/db/load_pg.ts` so interrupted runs after COPY can finish
     `postLoad` without re-copying.
 - **Bundle & i18n splits**:
-  - Re-upload `governments.json` to GCS with gzip content encoding
-    (`gsutil -h "Content-Encoding:gzip" cp -Z ... gs://data-electionsbg-com/`). `canonical_parties.json`
-    already carries `Content-Encoding: gzip`.
+  - `governments.json` is in `bucket:gz`'s `GLOBAL_FILES` since 2026-10-21; the bucket copy is
+    still the uncompressed 2026-05-11 upload (content identical), so the remaining step is
+    `npm run bucket:gz`.
   - Next candidate locale bundles to split out of `src/i18n.ts` when entry JS byte budgets tighten:
     `funds`, `procurement`, `person`, `indicators`, `local`.
 - **Data Hub (`/data`) granularity**:

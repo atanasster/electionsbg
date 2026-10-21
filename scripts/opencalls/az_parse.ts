@@ -136,7 +136,7 @@ const RANGE_ONE_MONTH = new RegExp(
 );
 /** „от 28 септември до 9 октомври 2026" — a range across months, one year. */
 const RANGE_TWO_MONTHS = new RegExp(
-  String.raw`от\s+${D}\s+${MON}(?:\s+\d{4}\s*г\.?)?\s+до\s+${D}\s+${MON}\s+${Y}`,
+  String.raw`от\s+${D}\s+${MON}(?:\s+(\d{4})\s*г\.?)?\s+до\s+${D}\s+${MON}\s+${Y}`,
   "i",
 );
 /** „до 17:00 ч. на 25 септември 2026" */
@@ -168,8 +168,18 @@ const windowOf = (sentence: string): AzWindow | null => {
   }
   m = RANGE_TWO_MONTHS.exec(s);
   if (m) {
-    const a = wordDate(m[1], m[2], m[5]);
-    const b = wordDate(m[3], m[4], m[5]);
+    // The start's own year when printed; otherwise the end's — or the year before it when the
+    // range crosses New Year („от 28 декември до 9 януари 2027"). Reading 2027 for both ends
+    // would open the window after it closed.
+    const endYear = Number(m[6]);
+    const b = wordDate(m[4], m[5], m[6]);
+    const startMonth = MONTHS[m[2].toLowerCase()];
+    const startYear = m[3]
+      ? Number(m[3])
+      : b && startMonth > b.mo
+        ? endYear - 1
+        : endYear;
+    const a = wordDate(m[1], m[2], String(startYear));
     if (a && b) return at(iso(a, 0, 0), iso(b, 23, 59));
   }
   m = UNTIL_TIME.exec(s);
@@ -191,6 +201,8 @@ export const parseAzWindows = (body: string): AzWindow[] => {
   const out: AzWindow[] = [];
   for (const s of body.split(SENTENCE)) {
     const w = windowOf(s);
+    // A window that opens after it closes is a misread, never a row.
+    if (w && w.opensAt && w.opensAt > w.closesAt) continue;
     if (w && !out.some((o) => o.closesAt === w.closesAt)) out.push(w);
   }
   return out;

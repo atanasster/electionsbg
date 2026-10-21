@@ -622,6 +622,19 @@ describe("Romania–Bulgaria (robg)", () => {
     expect(c.closesAt).toBe("2025-12-22T11:00:00.000Z"); // 13:00 EET, extended
   });
 
+  it("OPEN (synthetic): a future deadline passes through unfiltered", () => {
+    // Call 7 with its years moved to 2099 — nothing was open on 2026-10-21. Open/closed
+    // is derived at QUERY time (142); this pins that the parser does not drop a future date.
+    // Every year, not a pattern: the deadlines sit inside markup a phrase regex misses, and a
+    // half-shifted page would let the un-shifted extension lose to the original.
+    const html = fx("interreg_robg_call7.html").replaceAll("2026", "2099");
+    expect(
+      sofiaDayOf(
+        parseCall(html, "https://interregviarobg.eu/en/call-7", ROBG)!.closesAt,
+      ),
+    ).toBe("2099-07-15");
+  });
+
   it("UNDATED → REJECTED", () => {
     const html =
       '<article class="article_page"><div class="article_item-content">' +

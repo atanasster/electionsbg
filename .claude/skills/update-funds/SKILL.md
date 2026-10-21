@@ -190,6 +190,9 @@ change" therefore means "none of the 11 moved", not "nothing moved".
 npm run funds:crawl-interreg -- --index-only --max-pages 1
 npm run funds:crawl-interreg            # incremental: stop at a known keep.eu id
 npm run funds:crawl-interreg -- --full  # ~2 h at 8-way; needed for RE-IMPORTS
+npm run funds:crawl-interreg -- --coverage-only  # keep.eu's own per-programme counts only
+                                        # (22 small GETs) — refreshes the „N of M in keep.eu"
+                                        # coverage notes without a crawl; then ingest + load
 
 # 2. Ingest the raw cache into the committed corpus (no network, no Postgres)
 npm run funds:ingest-interreg -- --dry-run

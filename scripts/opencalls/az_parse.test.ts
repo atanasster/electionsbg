@@ -104,6 +104,25 @@ describe("parseAzWindow — a labelled END in a clause about applying", () => {
     expect(sofia(w.closesAt)).toBe("2026-10-09, 23:59");
   });
 
+  it("a range across New Year opens in the earlier year, with or without its year printed", () => {
+    for (const text of [
+      "Работодателите могат да подават заявки от 28 декември до 9 януари 2027 г.",
+      "Работодателите могат да подават заявки от 28 декември 2026 г. до 9 януари 2027 г.",
+    ]) {
+      const w = parseAzWindow(text)!;
+      expect(sofia(w.opensAt), text).toBe("2026-12-28, 00:00");
+      expect(sofia(w.closesAt), text).toBe("2027-01-09, 23:59");
+    }
+  });
+
+  it("refuses a window that opens after it closes", () => {
+    expect(
+      parseAzWindow(
+        "Работодателите могат да подават заявки от 28 декември 2027 г. до 9 януари 2027 г.",
+      ),
+    ).toBeNull();
+  });
+
   it(`„ч." before a capital does not end the sentence that carries the deadline`, () => {
     expect(
       sofia(
