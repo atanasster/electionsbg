@@ -324,6 +324,17 @@ or a bounded next step. Completed implementation histories belong in Git, not he
     `scripts/parsers_presidential/sources.ts` (it lists 2021/2016/2011/2006/2001 only, and the
     archive URLs need a browser check), and bump `LATEST_PRESIDENTIAL_CYCLE` from its literal
     `"2021_11_14_pvr"` — until both land, the header and the elections registry open 2021.
+  - **24.10.2026, results-day readiness (operator, no code):** plain `curl` gets 403 on
+    results.cik.bg and cik.bg, so prove the Cloudflare-warming path against a KNOWN-GOOD cycle
+    the day before, where failure cannot be confused with „not published yet":
+    `npm run data -- --pvr-download 2021_11_14_pvr --pvr-force` (headed Playwright, ~165 MB).
+    `sources.ts` pins each archive's md5 and the downloader refuses a mismatch before
+    extracting, so exit 0 with „2 archive(s) fetched" is the pass. Expect `SOURCE.json` to show
+    as modified (a forced fetch rewrites its `fetchedAt`) and restore it with
+    `git checkout -- raw_data/2021_11_14_pvr/SOURCE.json` before the auto-committer picks it up;
+    any change under `ТУР1/` or `ТУР2/` is the real alarm. 2021 rehearses only the `click`
+    strategy — also run `npm run data -- --pvr-download 2016_11_06_pvr --pvr-force` (the
+    `goto` path, same checks) unless the 2026 entry is known to be `click`.
   - When 2026 round 1 (`2026_10_25_pvr`) drops, re-verify `runoffFlow` ridge-regularised OLS fit on
     live 2026 round-1 → round-2 pairs and calibrate `presidential_2026` risk-index weights once
     2026 round-1 section tallies exist.
