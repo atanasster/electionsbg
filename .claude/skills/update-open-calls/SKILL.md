@@ -1,6 +1,6 @@
 ---
 name: update-open-calls
-description: Refresh the open-calls register — which EU-programme procedures (ИСУН 2020) and ДФ „Земеделие" Strategic-Plan intakes a reader can APPLY to right now, into data/opencalls/*.json + the open_calls Postgres table. Use when the daily watch report flags `isun_procedures` or `sp2023_indicative` as changed, when the user asks to refresh open calls / отворени процедури / приеми / „какво е отворено сега", or after a fresh clone if the open_calls table is empty. This is the OPEN half of ИСУН — distinct from update-funds, which refreshes the AWARDED corpus. The publish step to Cloud SQL is mandatory and nothing runs it automatically.
+description: Refresh the open-calls register — which EU-programme procedures (ИСУН 2020) and ДФ „Земеделие" Strategic-Plan intakes a reader can APPLY to right now, into data/opencalls/*.json + the open_calls Postgres table. Use when the daily watch report flags `isun_procedures`, `sp2023_indicative`, `interreg_calls` or `ahu_calls` as changed, when the user asks to refresh open calls / отворени процедури / приеми / „какво е отворено сега", or after a fresh clone if the open_calls table is empty. This is the OPEN half of ИСУН — distinct from update-funds, which refreshes the AWARDED corpus. The publish step to Cloud SQL is mandatory and nothing runs it automatically.
 allowed-tools:
   - Read
   - Bash
@@ -17,10 +17,13 @@ Crawls two registers of things you can still apply to, and publishes them:
 - **ДФ „Земеделие"** — the indicative intake schedule under the CAP Strategic Plan
   2023-2027, into `data/opencalls/sp2023.json`.
 
-- **Interreg** — 2 of the 6 cross-border programmes, into `data/opencalls/interreg.json`
-  (`npm run opencalls:interreg`). See „What this skill does NOT do" for the other four.
+- **Interreg** — all 6 Bulgarian cross-border programmes since 2026-10-21, into
+  `data/opencalls/interreg.json` (`npm run opencalls:interreg`; see „What this skill does NOT do").
+- **АХУ** (Агенция за хората с увреждания) — its grant competitions (НПЗХУ, rehabilitation,
+  accessible environment, self-employment, чл. 49, protected-employment centres), into
+  `data/opencalls/ahu.json` (`npm run opencalls:ahu`, Step 2b).
 
-All three then load into `open_calls` (migration 142) and surface on the `/funds` band-1 tile,
+All four then load into `open_calls` (migration 142) and surface on the `/funds` band-1 tile,
 `/funds/calls`, and the `openCalls` AI tool.
 
 ## Read this before anything else: why this dataset is different
@@ -95,6 +98,19 @@ become NULL rather than a guess, and the row keeps its verbatim text.
 
 **Skip this step when only `isun_procedures` was flagged.** The schedule is annual; there is
 no reason to re-download it on an ИСУН change.
+
+## Step 2b — Refresh the АХУ competitions
+
+```bash
+npm run opencalls:ahu
+```
+
+One page fetch: the agency's NEWS page (`/portal/page/6`), where each competition is an
+„обявява конкурс" announcement. Run it when `ahu_calls` was flagged. The deadline is read from
+its label (four phrasings, see `scripts/opencalls/ahu_parse.ts`). An announcement whose window
+is only in an attached `.doc` is REJECTED — never filed as `indicative`, because `open_calls`
+never deletes and an indicative row would stay „expected" for ever. It prints as a `✗` line,
+which is expected, not a failure. No money is read; the ceilings are prose.
 
 ## Step 3 — Load locally
 
@@ -173,11 +189,11 @@ per its own rules. The two changelogs are separate — see `reference_two_change
   without human sign-off.
 - **It does not touch the awarded corpus.** `update-funds` does that. If the watch report
   flagged `isun_eu_funds` or `isun_eu_funds_projects`, you want that skill, not this one.
-- **It covers only 2 of the 6 Interreg programmes**, and those come from a THIRD crawl:
-  `npm run opencalls:interreg` (Greece-Bulgaria + Black Sea Basin). Run it alongside the two
-  above; it writes `data/opencalls/interreg.json` and loads through the same
-  `db:load:open-calls:pg`. Romania-Bulgaria publishes no calls index, and BG-RS / BG-MK / BG-TR
-  were unreachable on 2026-08-09. `/funds/calls` states the 2-of-6 fraction on the page.
+- **Interreg comes from a THIRD crawl**: `npm run opencalls:interreg`, covering all six
+  Bulgarian cross-border programmes since 2026-10-21 (the 2026-08-09 note that BG-RS / BG-MK /
+  BG-TR were unreachable and RO-BG had no index was measured against the 2014–2020 hosts — see
+  CLAUDE.md). Run it alongside the two above; it writes `data/opencalls/interreg.json` and loads
+  through the same `db:load:open-calls:pg`. `/funds/calls` says „част от", never a count.
 
   Two things about that crawl differ from these two. **Zero open calls is normal** — on
   2026-08-09 all 7 rows were closed, and they load anyway, because „the last one closed on

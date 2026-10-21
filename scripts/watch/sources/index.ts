@@ -37,6 +37,7 @@ import { dfzSubsidies } from "./dfz_subsidies";
 // The OPEN-CALLS half of both registers — what a reader can still apply to, as opposed to the
 // awarded/paid corpora the three sources above watch.
 import { interregCalls } from "./interreg_calls";
+import { ahuCalls } from "./ahu_calls";
 import { isunProcedures } from "./isun_procedures";
 import { sp2023Indicative } from "./sp2023_indicative";
 import { egovBudgetExecution } from "./egov_budget_execution";
@@ -189,6 +190,7 @@ export const SOURCES: WatchSource[] = [
   keepEuInterreg,
   dfzSubsidies,
   interregCalls,
+  ahuCalls,
   isunProcedures,
   sp2023Indicative,
   egovBudgetExecution,
