@@ -1,17 +1,17 @@
 // Decorate every per-município local-election bundle at
 // data/<cycle>/municipalities/<obshtinaCode>.json with an `mpId` field on
-// each candidate row whose normalised name matches a parliament.bg MP.
+// each candidate row whose full name matches exactly one parliament.bg MP.
 //
-// Why: the SPA renders mayor / council rows with `MpAvatar`, which falls
-// back to a fuzzy `findMpByName` lookup at render time. That lookup misses
-// silently when middle names differ between sources (CIK vs parliament.bg).
-// Stamping the MP id at ingest time gives `MpAvatar` a deterministic
-// `findMpById` path and keeps the photo-reuse coverage stable.
+// Why: the SPA renders mayor / council rows with `MpAvatar`, which resolves
+// `findMpById(mpId) ?? findMpByName(name)`. Stamping the id at ingest time
+// gives it a deterministic path; a row with no stamp falls through to the
+// EXACT-name lookup and, failing that, shows initials.
 //
-// Mirrors the matching strategy in scripts/officials/decorate_candidate_links.ts
-// — diacritic-stripped uppercase, with a first+last fallback for cases
-// where one source dropped the middle name. Photo-bearing MPs win
-// collisions so the avatar surfaces a face when there is one.
+// The matching rule lives in ./mpNameMatch.ts: exact normalised full name,
+// held by one MP only. There is deliberately NO first+last fallback — it used
+// to mirror the officials decorator's, and that tier attached the wrong MP's
+// photo to 69% of stamped rows (a different middle name is a different father,
+// i.e. a different person). See docs/plans/local-mp-photo-links-v1.md.
 //
 // Covers all four candidate-bearing slots of LocalMunicipalityBundle:
 //   - mayor.round1[], mayor.round2[], mayor.elected
@@ -31,67 +31,12 @@ import type {
   LocalMayorResult,
   LocalCouncilCandidate,
 } from "./types";
+import { loadMpNameIndex, matchMp, type MpNameIndex } from "./mpNameMatch";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "../..");
 const DATA_ROOT = path.join(ROOT, "data");
-const PARLIAMENT_INDEX = path.join(DATA_ROOT, "parliament", "index.json");
-
-const normalise = (s: string): string =>
-  s
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toUpperCase()
-    .replace(/[-\s]+/g, " ")
-    .trim();
-
-const firstLastKey = (s: string): string => {
-  const parts = s.split(/\s+/).filter(Boolean);
-  if (parts.length < 2) return normalise(s);
-  return normalise(`${parts[0]} ${parts[parts.length - 1]}`);
-};
-
-type MpRow = { id: number; photoUrl?: string };
-
-const loadParliamentIndex = (): {
-  byFull: Map<string, MpRow>;
-  byFirstLast: Map<string, MpRow>;
-} => {
-  const idx = JSON.parse(fs.readFileSync(PARLIAMENT_INDEX, "utf8")) as {
-    mps: Array<{ id: number; normalizedName?: string; photoUrl?: string }>;
-  };
-  const byFull = new Map<string, MpRow>();
-  const byFirstLast = new Map<string, MpRow>();
-  for (const m of idx.mps) {
-    if (!m.normalizedName) continue;
-    const full = normalise(m.normalizedName);
-    const fl = firstLastKey(m.normalizedName);
-    const row: MpRow = { id: m.id, photoUrl: m.photoUrl };
-    // Photo-bearing wins; otherwise first-wins (so the lowest-id MP keeps
-    // the slot, matching the officials decorator's behaviour).
-    const prevFull = byFull.get(full);
-    if (!prevFull || (row.photoUrl && !prevFull.photoUrl)) {
-      byFull.set(full, row);
-    }
-    const prevFl = byFirstLast.get(fl);
-    if (!prevFl || (row.photoUrl && !prevFl.photoUrl)) {
-      byFirstLast.set(fl, row);
-    }
-  }
-  return { byFull, byFirstLast };
-};
-
-const lookupMpId = (
-  name: string,
-  idx: ReturnType<typeof loadParliamentIndex>,
-): number | undefined => {
-  if (!name) return undefined;
-  const full = idx.byFull.get(normalise(name));
-  if (full) return full.id;
-  const fl = idx.byFirstLast.get(firstLastKey(name));
-  return fl?.id;
-};
 
 type DecorationStats = {
   considered: number;
@@ -100,11 +45,11 @@ type DecorationStats = {
 
 const stampMayor = (
   m: LocalMayorResult,
-  idx: ReturnType<typeof loadParliamentIndex>,
+  idx: MpNameIndex,
   stats: DecorationStats,
 ): void => {
   stats.considered++;
-  const id = lookupMpId(m.candidateName, idx);
+  const id = matchMp(m.candidateName, idx)?.id;
   if (id !== undefined) {
     m.mpId = id;
     stats.stamped++;
@@ -115,11 +60,11 @@ const stampMayor = (
 
 const stampCouncillor = (
   c: LocalCouncilCandidate,
-  idx: ReturnType<typeof loadParliamentIndex>,
+  idx: MpNameIndex,
   stats: DecorationStats,
 ): void => {
   stats.considered++;
-  const id = lookupMpId(c.name, idx);
+  const id = matchMp(c.name, idx)?.id;
   if (id !== undefined) {
     c.mpId = id;
     stats.stamped++;
@@ -130,7 +75,7 @@ const stampCouncillor = (
 
 const decorateBundle = (
   bundle: LocalMunicipalityBundle,
-  idx: ReturnType<typeof loadParliamentIndex>,
+  idx: MpNameIndex,
   stats: DecorationStats,
 ): void => {
   for (const m of bundle.mayor.round1) stampMayor(m, idx, stats);
@@ -157,9 +102,10 @@ const localCycleDirs = (): string[] =>
     .sort();
 
 const main = (dryRun: boolean): void => {
-  const idx = loadParliamentIndex();
+  const idx = loadMpNameIndex();
   console.log(
-    `[decorate-local] loaded parliament index: ${idx.byFull.size} MPs by full name`,
+    `[decorate-local] loaded parliament index: ${idx.byFull.size} unique full names, ` +
+      `${idx.ambiguous.size} shared by 2+ MPs (never matched)`,
   );
 
   const cycles = localCycleDirs();
@@ -205,7 +151,7 @@ const main = (dryRun: boolean): void => {
 const cli = command({
   name: "decorate-local-mp-links",
   description:
-    "Stamp mpId on every candidate row across data/<cycle>/municipalities/<obshtinaCode>.json by matching normalised names against the parliament.bg index. Drives parliament.bg photo reuse in MpAvatar.",
+    "Stamp mpId on every candidate row across data/<cycle>/municipalities/<obshtinaCode>.json by an exact, unique full-name match against the parliament.bg index. Drives parliament.bg photo reuse in MpAvatar.",
   args: {
     dryRun: flag({
       type: boolean,

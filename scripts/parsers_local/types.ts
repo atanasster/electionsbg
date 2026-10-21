@@ -76,7 +76,8 @@ export type LocalPreference = {
 //
 // `mpId` is a post-ingest decoration stamped by
 // scripts/parsers_local/decorate_local_mp_links.ts when the candidate's
-// normalised name matches a parliament.bg MP. Drives photo reuse via
+// full name exactly matches ONE parliament.bg MP (mpNameMatch.ts — no
+// first+last fallback). Drives photo reuse via
 // `MpAvatar`; absent means no MP match.
 export type LocalMayorResult = {
   candidateName: string;
