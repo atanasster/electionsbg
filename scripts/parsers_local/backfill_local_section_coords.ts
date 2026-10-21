@@ -35,6 +35,9 @@ type Geo = {
   latitude: number;
   settle: string;
   address?: string;
+  // The parliamentary election the record came from — stamped beside the
+  // address as `addressSource`.
+  source: string;
 };
 
 // Drop the гр./с./общ. prefix, collapse whitespace, lowercase — so "гр.София"
@@ -94,6 +97,7 @@ const buildLookups = (dataFolder: string): Lookups => {
           longitude: s.longitude,
           latitude: s.latitude,
           settle: s.settlement,
+          source: y,
           address:
             typeof s.address === "string" && s.address.trim()
               ? s.address
@@ -182,10 +186,13 @@ export const backfillLocalSectionCoords = ({
         total += 1;
         // Recompute from scratch — clear any prior stamp first.
         const hadCoords =
-          typeof s.longitude === "number" || s.address !== undefined;
+          typeof s.longitude === "number" ||
+          s.address !== undefined ||
+          s.addressSource !== undefined;
         delete s.longitude;
         delete s.latitude;
         delete s.address;
+        delete s.addressSource;
 
         const ls = normSettle(s.settlement);
         const last7 = s.sectionCode.slice(2);
@@ -201,7 +208,10 @@ export const backfillLocalSectionCoords = ({
           if (c && normSettle(c.settle) === ls) {
             s.longitude = c.longitude;
             s.latitude = c.latitude;
-            if (c.address) s.address = c.address;
+            if (c.address) {
+              s.address = c.address;
+              s.addressSource = c.source;
+            }
             building += 1;
             stamped = true;
             break;

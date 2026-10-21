@@ -114,6 +114,37 @@ describe.runIf(hasCorpus)("the local neighbourhood corpus", () => {
     },
   );
 
+  it.runIf(withShards.length > 0).each(withShards)(
+    "$cycle: an addressSource stamp always travels with its address",
+    ({ cycle }) => {
+      // The stamp says which parliamentary election an address came from; one without an
+      // address, or one that is not a date, would date a fact the shard does not hold.
+      const dir = path.join(DATA_ROOT, cycle, "sections");
+      const bad: string[] = [];
+      for (const f of fs.readdirSync(dir)) {
+        if (!f.endsWith(".json")) continue;
+        let shard: { sections?: unknown };
+        try {
+          shard = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
+        } catch {
+          continue;
+        }
+        if (!Array.isArray(shard.sections)) continue;
+        for (const s of shard.sections as {
+          sectionCode: string;
+          address?: string;
+          addressSource?: string;
+        }[])
+          if (
+            s.addressSource !== undefined &&
+            (!s.address || !/^\d{4}_\d{2}_\d{2}$/.test(s.addressSource))
+          )
+            bad.push(s.sectionCode);
+      }
+      expect({ cycle, bad }).toEqual({ cycle, bad: [] });
+    },
+  );
+
   it.each(built)(
     "$cycle: matches exactly the catalogue minus its named exclusions",
     ({ cycle, neighborhoods }) => {

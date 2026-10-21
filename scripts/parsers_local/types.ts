@@ -215,6 +215,14 @@ export type LocalSectionResult = {
   // parliamentary section bundle (same 9-digit CIK section code). Absent when
   // the section has no parliamentary match (renumbered / new station).
   address?: string;
+  // The parliamentary election (YYYY_MM_DD) `address` was taken from. ⚠ Only
+  // 2022_10_02 onward carries addresses, and the backfill takes the newest, so
+  // for every regular cycle up to 2023 this is NEWER than the cycle: the address
+  // is today's building at that code, which for a renumbered code is not the
+  // building the cycle voted in. Compare it against the cycle date rather than
+  // assume the direction — a 2026 partial predates nothing.
+  // docs/plans/local-neighbourhoods-coverage-v1.md §4.
+  addressSource?: string;
   longitude?: number;
   latitude?: number;
 };
