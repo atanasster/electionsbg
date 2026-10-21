@@ -22,6 +22,7 @@ import type {
   MunicipalOfficialRole,
   OfficialCandidateLink,
 } from "../../src/data/dataTypes";
+import { editDistance } from "../judiciary/judicialBodies";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -89,17 +90,25 @@ type MiMuni = {
   >;
 };
 
+/** Every slate row under each key, so a key held by several candidates is visible as such
+ *  rather than silently resolved by insertion order. */
 export type SlateIndex = {
-  byFull: Map<string, SlateRow>;
-  byFirstLast: Map<string, SlateRow>;
+  byFull: Map<string, SlateRow[]>;
+  byFirstLast: Map<string, SlateRow[]>;
 };
 
-/** Build a name→slate-row index for one local-election município bundle. Maps both the full
- *  normalised name AND the first+last fallback. The full-name match wins when both fire
- *  (e.g. two councillors with the same first+last in different slates). */
+const pushTo = <K, V>(m: Map<K, V[]>, k: K, v: V): void => {
+  const list = m.get(k);
+  if (list) list.push(v);
+  else m.set(k, [v]);
+};
+
+/** Build a name→slate-rows index for one local-election município bundle, keyed on both
+ *  the full normalised name and first+last. Neither key is assumed unique — see
+ *  `resolveSlateRow` for when a shared key is resolved and when it is refused. */
 export const buildSlateIndex = (bundle: MiMuni): SlateIndex => {
-  const byFull = new Map<string, SlateRow>();
-  const byFirstLast = new Map<string, SlateRow>();
+  const byFull = new Map<string, SlateRow[]>();
+  const byFirstLast = new Map<string, SlateRow[]>();
   if (!bundle.council) return { byFull, byFirstLast };
   for (const slate of Object.values(bundle.council)) {
     for (const c of slate.candidates) {
@@ -111,16 +120,58 @@ export const buildSlateIndex = (bundle: MiMuni): SlateIndex => {
         prefVotes: c.prefVotes,
         isElected: c.isElected,
       };
-      const full = normalise(c.name);
-      const fl = firstLastKey(c.name);
-      // First-wins on full so we don't clobber a more-specific match. Last-wins on
-      // first+last is fine — collisions are rare and we'd rather get one party right than
-      // show nothing.
-      if (!byFull.has(full)) byFull.set(full, row);
-      byFirstLast.set(fl, row);
+      pushTo(byFull, normalise(c.name), row);
+      pushTo(byFirstLast, firstLastKey(c.name), row);
     }
   }
   return { byFull, byFirstLast };
+};
+
+/** The patronymic: the second token of a 3+ part name. Empty for a 2-part name. A 4-part
+ *  name is first + patronymic + a double surname („Милена Иванова Стоянова Желева"), so the
+ *  patronymic is token 2, never "everything between first and last". */
+const patronymicOf = (name: string): string => {
+  // Split on whitespace BEFORE normalising, as firstLastKey does: `normalise` folds a
+  // hyphen to a space, which would read „Иванова-Танева" as a patronymic + surname.
+  const parts = name.split(/\s+/).filter(Boolean);
+  return parts.length >= 3 ? normalise(parts[1]) : "";
+};
+
+/** Max edits between two patronymics still read as one person mistyped. Measured
+ *  2026-10-21 on the mi2023 slates: the roster typos („Радослваов", „Геогиев") are 1–2
+ *  edits; the genuinely different middle names the old fallback accepted are 4–8.
+ *  docs/plans/local-mp-photo-links-v1.md Part B. */
+export const MIDDLE_NAME_MAX_EDITS = 2;
+
+/** One roster name → its council slate row in the same município, or undefined.
+ *
+ *  1. Exact full name, one row: take it.
+ *  2. Exact full name, several rows: take the single elected one, else refuse.
+ *  3. Otherwise first+last, only when that key is held by ONE slate row and the
+ *     patronymics agree: either side has none, or they are within MIDDLE_NAME_MAX_EDITS.
+ *
+ *  A different middle name is a different father, i.e. a different person: the old
+ *  unconditional first+last fallback gave deputy mayors an unrelated council candidate's
+ *  party and preference votes. */
+export const resolveSlateRow = (
+  name: string,
+  idx: SlateIndex,
+): SlateRow | undefined => {
+  const full = idx.byFull.get(normalise(name));
+  if (full) {
+    if (full.length === 1) return full[0];
+    const elected = full.filter((r) => r.isElected);
+    return elected.length === 1 ? elected[0] : undefined;
+  }
+  const fl = idx.byFirstLast.get(firstLastKey(name));
+  if (!fl || fl.length !== 1) return undefined;
+  const row = fl[0];
+  const a = patronymicOf(name);
+  const b = patronymicOf(row.name);
+  if (!a || !b) return row;
+  return editDistance(a, b, MIDDLE_NAME_MAX_EDITS) <= MIDDLE_NAME_MAX_EDITS
+    ? row
+    : undefined;
 };
 
 export const loadMiBundle = (miCode: string): MiMuni | null => {
@@ -179,9 +230,7 @@ export const resolveCandidateLink = (
   const fullKey = normalise(name);
   const flKey = firstLastKey(name);
 
-  const slateRow = slateIdx
-    ? (slateIdx.byFull.get(fullKey) ?? slateIdx.byFirstLast.get(flKey))
-    : undefined;
+  const slateRow = slateIdx ? resolveSlateRow(name, slateIdx) : undefined;
   const mp = parliamentByName.get(fullKey) ?? parliamentByName.get(flKey);
 
   if (!slateRow && !mp) return null;
