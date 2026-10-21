@@ -3,9 +3,10 @@
 //
 // ⚠⚠ THE TILE SELF-HIDES ON AN EMPTY RESULT, so a matcher regression and „this município
 // genuinely has none" render identically. On 2026-09-07 (`fa5260ca06`) 2019 and 2023 matched
-// **2** against 7 in 2011/2015, and `docs/plans/presidential-analysis-sections-v1.md` went on
-// to record that local „cannot borrow the neighbourhood catalogue" at all. That „2" was NOT a
-// shrink: no matcher, catalogue or backfill code changed between then and the re-measured 8.
+// **2** against 7 in 2011/2015, and the presidential-analysis-sections plan (retired in
+// `cf6ec257dd`; correction in `docs/deferred-followups.md`) went on to record that local
+// „cannot borrow the neighbourhood catalogue" at all. That „2" was NOT a shrink: no matcher,
+// catalogue or backfill code changed between then and the re-measured 8.
 // The two rules needing no address are Stolipinovo (prefix) and Filipovci (suffix), so it was
 // almost certainly a shard tree with no addresses yet — a re-parse rewrote
 // `data/<cycle>/sections/*.json` and `--local-problem-sections` ran before `--local-coords`

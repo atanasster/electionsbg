@@ -241,6 +241,25 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   - When 2026 round 1 (`2026_11_pvr`) drops, re-verify `runoffFlow` ridge-regularised OLS fit on
     live 2026 round-1 → round-2 pairs and calibrate `presidential_2026` risk-index weights once
     2026 round-1 section tallies exist.
+- **Local neighbourhood corpus (`problem_sections_local`)** — see
+  `docs/plans/local-neighbourhoods-coverage-v1.md`. Record correction (2026-10-21): the retired
+  presidential-analysis-sections plan (`fa5260ca06`) recorded 2019/2023 matching **2**
+  neighbourhoods against 7 in 2011/2015. That „2" was an out-of-order build (shards re-parsed,
+  generator run before `--local-coords`), not a shrink: the corpus matches 7 / 7 / 8 / 8, the
+  7 → 8 being Долно Езерово's Burgas codes `020400309–315`, created ~2016. The generator now
+  refuses that build. Open:
+  - Every local address is anachronistic: the backfill can only use 2022+ parliamentary
+    addresses (2015's all come from `2026_04_19`; `addressSource` now records this on the next
+    `--local-coords` run), so renumbered codes inherit today's building.
+  - The planned ±50% roll-continuity filter (vs the same code's 2023 roll) was NOT shipped: it
+    would drop 8 / 6 / 4 ADDRESS-MATCHED stations in 2011 / 2015 / 2019 across Pobeda, Fakulteta
+    and Maksuda, not only the known 2015 Maksuda small stations `03396`/`03397`. Applied to every
+    section carrying an `addressSource`, it would also drop prefix-matched Stolipinovo `009`
+    (2011), `004/009/034/052` (2015, plus `071`, which has no 2023 roll) and `009/047` (2019).
+    Any implementation must limit itself to address-rule matches and decide what a code missing
+    from 2023 means; then decide per station before changing published numbers.
+  - Долно Езерово before 2016 is placeable only from an era-correct ЦИК СИК address list
+    (2011/2015/2016), if one exists. Do not guess codes.
 - **Parliamentary votes & bills**:
   - Decide whether to prerender a scored subset of `/votes/:date/:slug` item pages (top engaged
     URL family in the parliament module, currently SPA-only).
