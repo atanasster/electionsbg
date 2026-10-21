@@ -508,3 +508,5 @@ __pycache__/
 # generated report of a local run, so it says nothing a reviewer can act on and
 # everything about which machine produced it.
 /coverage/
+# НТР raw register pages (scripts/tourism/fetch_ntr.ts) — ~14 MB, regenerable, never committed.
+/raw_data/tourism/ntr/

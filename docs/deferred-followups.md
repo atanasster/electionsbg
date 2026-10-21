@@ -14,7 +14,8 @@ checked against what production serves on 2026-10-21 before being listed here.
   `db:load:tr-company-place:pg:cloud` (CLAUDE.md's Interreg order) — the derived keep.eu coverage
   notes; programme counts are unchanged.
 - `npm run db:load:admin-service-requests:pg:cloud` — еФорми volumes (migration 201, new table).
-- `npm run bucket:sync` — `data/data_map.json` and `data/budget/noi/pensioners_by_tp.json`.
+- `npm run bucket:sync` — `data/data_map.json`, `data/budget/noi/pensioners_by_tp.json` and
+  `data/tourism/ntr_summary.json`.
 - `npm run bucket:gz` — `governments.json` with gzip encoding.
 - `npm run db:load:municipal-fiscal:pg:cloud` — optional: no verdict differs (all 11,130 rows
   match prod on 2026-10-21).
@@ -307,8 +308,12 @@ checked against what production serves on 2026-10-21 before being listed here.
   (`/CategoryzationAll.nsf/api/data/collections/name/vRegistarMNValid1?ps=100&page=N`, JSON,
   `Content-Range` total, no session). It writes the full register to gitignored
   `raw_data/tourism/ntr/mn_valid.json` and a committed per-municipality summary
-  `data/tourism/ntr_summary.json` (objects / rooms / beds by kind and category; a municipality
-  NAME resolves to a code only when unique — Бяла is not). Still open: a surface for it, the
+  `data/tourism/ntr_summary.json` (objects / rooms / beds by kind and category). First crawl:
+  41,422 objects, 577,069 beds; the view also counts 41 entries it never serves anonymously,
+  so completeness is checked positionally, not by count. A municipality NAME resolves only when
+  unique or when НТР disambiguates it („Бяла - Русе"); „Столична" maps to the city-wide `SOF`;
+  plain „Бяла" (591 objects) stays unresolved. 216 objects state no beds and 3,371 no rooms —
+  the sums are a floor. `--from-cache` re-summarises without a crawl. Still open: a surface for it, the
   expired-certificates view (`mnexpired.xsp`) and the other НТР views (`mnvu.xsp`), a watcher, and
   `bucket:sync` of the summary. Also add a Eurostat `tour_occ_ninat`
   watcher (annual, latest BG 2025; monthly `tour_occ_nim` reaches 2026-08). Before this fetcher there was no
