@@ -3096,7 +3096,9 @@ export const FEATURES: FeatureDef[] = [
       bg: "Чат асистент със 75+ инструмента върху същите данни — изборни резултати, гласувания, бюджет, цени и индикатори, с точни числа от източниците.",
       en: "A chat assistant with 75+ tools over the same data — election results, roll calls, budget, prices and indicators, with exact numbers from the sources.",
     },
-    href: "https://ai.electionsbg.com",
+    // The assistant is the in-site /chat route. It linked out to ai.electionsbg.com, which since
+    // the naiasno.bg move answers with a domain-level 301 to the HOMEPAGE (verified 2026-10-21).
+    route: "/chat",
     tags: [
       "elections",
       "parliament",

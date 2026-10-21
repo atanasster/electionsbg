@@ -403,9 +403,19 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   expose a signing date, replace the raw `financial_year_unavailable` reason string on missing ДФЗ
   egov years (`2024` in the 2015–2023 series) with human-readable copy, and split `/chat` funding
   starters into subtopics.
-- **Standalone `ai/app/` retirement & legacy `elections-bg-llm` cleanup**: `ai.electionsbg.com`
-  already 301s, but to the naiasno.bg HOMEPAGE, not `/chat` — repoint it. Retire the standalone
-  `ai/app/` SPA entrypoint (`ai/app/main.tsx`, `ai/app/index.html`, `ai/app/vite.config.ts`).
+- **Standalone AI app retirement & legacy `elections-bg-llm` cleanup**: `ai.electionsbg.com`
+  301s to the naiasno.bg HOMEPAGE, not `/chat`. Diagnosed 2026-10-21: `firebase.json` (target
+  `ai`) is CORRECT — `electionsbg-ai.web.app/` answers `301 → naiasno.bg/chat` — but the custom
+  domain carries a Firebase Hosting **domain-level redirect** (`redirectTarget: naiasno.bg`,
+  MOVED_PERMANENTLY, path-preserving), which wins over every `firebase.json` rule. ⚠️ The fix is
+  to CLEAR that redirect (Hosting console → Domains, or the `customDomains` API), NOT to add a
+  `firebase.json` catch-all: the same domain-level redirect is also breaking `/legacy-export`,
+  the recovery page where a returning reader exports chat history stored in THIS origin's
+  `localStorage`, and a catch-all redirect would break it the same way (redirects precede
+  rewrites). Then decide when the transition window closes and retire the standalone build —
+  `ai/main.tsx`, `ai/index.html`, `vite.config.ai.ts`, `vite/ai-public-assets.ts`, the
+  `dev/build/preview/deploy:ai` scripts and the `Build both applications` CI step. NOT `ai/app/`
+  or `ai/App.tsx`: those ARE the live `/chat` (`src/screens/ChatScreen.tsx` imports them).
   Decommission the legacy `elections-bg-llm` Cloud Function project if no external callers
   remain; the current gcloud account has no access to it, so confirm whether it still exists.
 - **Search money basis (`company_public_money`)**: `contracts_eur` in `company_public_money` uses
