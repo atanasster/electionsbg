@@ -10,7 +10,8 @@
 // almost certainly a shard tree with no addresses yet — a re-parse rewrote
 // `data/<cycle>/sections/*.json` and `--local-problem-sections` ran before `--local-coords`
 // stamped the addresses back on. `docs/plans/local-neighbourhoods-coverage-v1.md` has the
-// measurement.
+// measurement. The generator now refuses to write below an address-coverage floor, and the
+// coverage arm below asserts the same floor on the shard tree directly.
 //
 // ⚠ THE JOIN IS ЕКАТТЕ + ADDRESS, NOT THE SECTION CODE, and that is the whole design: local
 // codes are NSI-oblast-prefixed while parliamentary ones are МИР-prefixed, so a code join is
@@ -24,6 +25,10 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { PROBLEM_NEIGHBORHOODS } from "../reports/problem_sections/neighborhoods";
+import {
+  LOCAL_ADDRESS_COVERAGE_FLOOR,
+  measureLocalAddressCoverage,
+} from "./problem_sections_local";
 
 type Neighborhood = {
   id: string;
@@ -84,6 +89,28 @@ describe.runIf(hasCorpus)("the local neighbourhood corpus", () => {
       // ⚠ A FLOOR AT ALL IS THE POINT. Zero renders as „no such places" on every município page,
       // which is exactly how a matcher that stopped matching would look.
       expect(neighborhoods.length).toBeGreaterThan(0);
+    },
+  );
+
+  // Only cycles whose shard tree is on disk — `sections/` is gitignored, so a checkout holding
+  // the outputs without the shards has nothing to measure, which must not read as a pass.
+  const withShards = built.filter((b) =>
+    fs.existsSync(path.join(DATA_ROOT, b.cycle, "sections")),
+  );
+  it.runIf(withShards.length > 0).each(withShards)(
+    "$cycle: every address-matched settlement carries addresses (else run --local-coords)",
+    ({ cycle }) => {
+      // ⚠ THE CAUSE, ASSERTED WHERE IT LIVES. A stripped shard tree used to surface only as a
+      // neighbourhood count three steps downstream; this fails on the tree itself, naming the
+      // settlement and its measured coverage.
+      const coverage = measureLocalAddressCoverage(
+        path.join(DATA_ROOT, cycle, "sections"),
+      );
+      expect(coverage.length).toBeGreaterThan(0);
+      const short = coverage.filter(
+        (c) => c.coverage < LOCAL_ADDRESS_COVERAGE_FLOOR,
+      );
+      expect({ cycle, short }).toEqual({ cycle, short: [] });
     },
   );
 

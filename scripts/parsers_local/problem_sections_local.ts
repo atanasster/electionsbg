@@ -145,6 +145,77 @@ const readFullPartyVotes = (
   return section.partyVotes;
 };
 
+// Sofia район shards (S2xxx) would double-count — the city's stations all live in
+// the synthetic SOF bundle.
+const isSofiaRayonShard = (shard: LocalSectionShard): boolean =>
+  /^S2\d{3}$/.test(shard.obshtinaCode);
+
+// Every light shard of a cycle that the matcher reads (Sofia район shards excluded).
+const readLocalShards = (sectionsDir: string): LocalSectionShard[] => {
+  const shards: LocalSectionShard[] = [];
+  for (const f of fs.readdirSync(sectionsDir)) {
+    if (!f.endsWith(".json")) continue;
+    let shard: unknown;
+    try {
+      shard = JSON.parse(fs.readFileSync(path.join(sectionsDir, f), "utf-8"));
+    } catch {
+      continue;
+    }
+    if (isLocalShard(shard) && !isSofiaRayonShard(shard)) shards.push(shard);
+  }
+  return shards;
+};
+
+// ⚠ THE OUT-OF-ORDER BUILD GUARD. Six of the eight neighbourhoods match on the
+// ADDRESS, and the CIK feed ships none — `--local-coords`
+// (backfill_local_section_coords.ts) stamps them onto the shards afterwards. A
+// re-parse rewrites the shards without addresses, so running this generator in
+// between matched only the two address-free rules (Stolipinovo, Filipovci) and
+// wrote a 2-neighbourhood file over an 8-neighbourhood one — at a 200, because
+// the tile hides itself on a short list as readily as on an empty one. That is
+// what the 2026-09-07 „2 in 2019/2023" record was.
+//
+// Coverage is measured PER SETTLEMENT an address rule reads, never corpus-wide:
+// those settlements are ~23% of a cycle's sections, so Sofia alone losing its
+// addresses would still leave the whole cycle above any useful floor while
+// Fakulteta and Filipovci silently dropped out. Measured 2026-10-21 the weakest
+// settlement is Варна 2011 at 86.4% (every other one 94.7–100%), so 80% refuses
+// a stripped settlement and admits every real one.
+export const LOCAL_ADDRESS_COVERAGE_FLOOR = 0.8;
+
+export type SettlementAddressCoverage = {
+  ekatte: string;
+  sections: number;
+  addressed: number;
+  coverage: number;
+};
+
+// Address coverage of each settlement an address rule matches against, sorted
+// weakest first. A settlement with no sections in the cycle is omitted.
+export const measureLocalAddressCoverage = (
+  sectionsDir: string,
+): SettlementAddressCoverage[] => {
+  const tally = new Map<string, { sections: number; addressed: number }>();
+  for (const n of PROBLEM_NEIGHBORHOODS)
+    if (n.addressIncludes?.length)
+      tally.set(normEkatte(n.ekatte), { sections: 0, addressed: 0 });
+  for (const shard of readLocalShards(sectionsDir))
+    for (const section of shard.sections) {
+      const t = tally.get(normEkatte(section.ekatte));
+      if (!t) continue;
+      t.sections += 1;
+      if ((section.address ?? "").trim()) t.addressed += 1;
+    }
+  return Array.from(tally.entries())
+    .filter(([, t]) => t.sections > 0)
+    .map(([ekatte, t]) => ({
+      ekatte,
+      ...t,
+      coverage: t.addressed / t.sections,
+    }))
+    .sort((x, y) => x.coverage - y.coverage);
+};
+
 type Acc = {
   obshtinaCode: string;
   obshtinaName: string;
@@ -167,24 +238,33 @@ const generateForCycle = ({
   publicFolder: string;
   cycle: string;
   stringify: (o: object) => string;
-}): boolean => {
+}): "written" | "refused" | "empty" => {
   const sectionsDir = path.join(publicFolder, cycle, "sections");
-  if (!fs.existsSync(sectionsDir)) return false;
+  if (!fs.existsSync(sectionsDir)) return "empty";
+
+  const short = measureLocalAddressCoverage(sectionsDir).filter(
+    (c) => c.coverage < LOCAL_ADDRESS_COVERAGE_FLOOR,
+  );
+  if (short.length) {
+    // Refuse rather than write: the previous problem_sections.json stays.
+    const detail = short
+      .map(
+        (c) =>
+          `ЕКАТТЕ ${c.ekatte} ${c.addressed}/${c.sections} ` +
+          `(${(c.coverage * 100).toFixed(1)}%)`,
+      )
+      .join(", ");
+    console.warn(
+      `  ${cycle}: REFUSING — address coverage below the ` +
+        `${LOCAL_ADDRESS_COVERAGE_FLOOR * 100}% floor for ${detail}; ` +
+        `run --local-coords first`,
+    );
+    return "refused";
+  }
 
   const acc = new Map<string, Acc>();
 
-  for (const f of fs.readdirSync(sectionsDir)) {
-    if (!f.endsWith(".json")) continue;
-    let shard: unknown;
-    try {
-      shard = JSON.parse(fs.readFileSync(path.join(sectionsDir, f), "utf-8"));
-    } catch {
-      continue;
-    }
-    if (!isLocalShard(shard)) continue;
-    // Sofia район shards (S2xxx) would double-count — the city's stations all
-    // live in the synthetic SOF bundle.
-    if (/^S2\d{3}$/.test(shard.obshtinaCode)) continue;
+  for (const shard of readLocalShards(sectionsDir)) {
     const legend = new Map(shard.parties.map((p) => [p.localPartyNum, p]));
 
     for (const section of shard.sections) {
@@ -272,7 +352,7 @@ const generateForCycle = ({
     },
   ).filter((n): n is LocalProblemNeighborhood => n !== null);
 
-  if (neighborhoods.length === 0) return false;
+  if (neighborhoods.length === 0) return "empty";
 
   const report: LocalProblemSectionsReport = { cycle, neighborhoods };
   fs.writeFileSync(
@@ -284,7 +364,7 @@ const generateForCycle = ({
   console.log(
     `  ${cycle}: ${neighborhoods.length} neighborhoods, ${totalSections} sections`,
   );
-  return true;
+  return "written";
 };
 
 // Public entry. Generates data/<cycle>/problem_sections.json for one cycle (if
@@ -308,9 +388,9 @@ export const generateLocalProblemSections = ({
         .sort();
 
   console.log("generateLocalProblemSections:");
-  let any = false;
-  for (const c of cycles) {
-    if (generateForCycle({ publicFolder, cycle: c, stringify })) any = true;
-  }
-  if (!any) console.log("  (no matching local sections found)");
+  const outcomes = cycles.map((c) =>
+    generateForCycle({ publicFolder, cycle: c, stringify }),
+  );
+  if (outcomes.every((o) => o === "empty"))
+    console.log("  (no matching local sections found)");
 };
