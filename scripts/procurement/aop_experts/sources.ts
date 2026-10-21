@@ -1,4 +1,6 @@
-// АОП — Списък с външни експерти по чл. 232а, ал. 2 от ЗОП (plan P4).
+// АОП — Списък с външни експерти по чл. 232а, ал. 2 от ЗОП (plan P4) — АОП's own title for
+// the list under чл. 232а, ал. 2 as worded 2019–2020. The provision is repealed; the
+// live list is чл. 229, ал. 1, т. 17.
 //
 // The state's list of external experts a contracting authority may co-opt onto an
 // evaluation committee. Joined to the procurement-officer layer it makes „the same
@@ -15,10 +17,11 @@
 //
 // Finding it is worth recording, because the obvious search does not: aop.bg's own
 // navigation does not link it, and `www.aop.bg/ee2014.php` — the URL the ЦАИС
-// bundle carries for the чл. 229 list — is a 404. The live URL is the OTHER config
-// key in the same object (`externalExperts229AUrl` in app.eop.bg's main bundle),
-// and the page behind it is a plain 1990s PHP GET form, not the Angular SPA that
-// links to it.
+// bundle carries for the чл. 229 list — is a 404. The URL that DOES answer is the
+// OTHER config key in the same object (`externalExperts229AUrl` in app.eop.bg's main
+// bundle), and the page behind it is a plain 1990s PHP GET form, not the Angular SPA
+// that links to it. ⚠️ Despite the key's name it serves the historical чл. 232а, ал. 2
+// list, NOT a live чл. 229, ал. 1, т. 17 one.
 //
 // The transport is deliberately dull: a GET, no session, no cookie, no token, and
 // a windows-1251 body. The one non-obvious parameter is `ets_prof_oblast` — the

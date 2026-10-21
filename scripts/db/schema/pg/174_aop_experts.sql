@@ -1,4 +1,5 @@
--- 174 — АОП external experts (чл. 232а, ал. 2 ЗОП). Plan P4.
+-- 174 — АОП external experts (чл. 232а, ал. 2 ЗОП as worded 2019–2020 — a HISTORICAL,
+-- repealed provision; the live list is чл. 229, ал. 1, т. 17, not loaded here). Plan P4.
 --
 -- The state's list of external experts a contracting authority may co-opt onto an
 -- evaluation committee. Joined to the procurement-officer layer it answers „the

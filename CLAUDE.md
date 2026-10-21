@@ -581,8 +581,13 @@ DISAGREE, so that a future change „reconciling" them fails loudly rather than 
 publishing a fabricated equality.
 
 `aop_expert` / `aop_expert_area` (migration 174, `db:load:aop-experts:pg`) is the АОП
-register of external experts under чл. 232а, ал. 2 ЗОП — the people a contracting authority
-may co-opt onto an evaluation committee. Its source is COMMITTED
+register of external experts under the **2019–2020 wording of чл. 232а, ал. 2 ЗОП** — the
+people a contracting authority may co-opt onto an evaluation committee. That provision is
+gone: today's чл. 232а (in force 22.07.2024) is about ex-ante control, and the live experts
+list sits under **чл. 229, ал. 1, т. 17**, whose page (`ee2014.php`) is a 404. АОП's own
+page still titles the old list „по чл. 232а, ал. 2", which is why the ingested `source`
+string keeps that wording verbatim; a reader-facing sentence must not present it as current
+law. Its source is COMMITTED
 (`data/procurement/aop_experts.json`, 88 rows), so the loader is pure-load and a fresh clone
 builds the table with no network; `npm run aop:experts` re-crawls.
 
@@ -629,9 +634,11 @@ Four things about it are easy to get backwards:
 
 Finding it is worth recording, because the obvious search does not: aop.bg's own navigation
 does not link the register, and `www.aop.bg/ee2014.php` — the URL the ЦАИС bundle carries for
-the чл. 229 list — is a **404**. The live URL is the other config key in the same object
-(`externalExperts229AUrl` in app.eop.bg's main bundle), and the page behind it is a plain 1990s
-PHP GET form, not the Angular SPA that links to it.
+the чл. 229 list — is a **404**. The URL that DOES answer is the other config key in the same
+object (`externalExperts229AUrl` in app.eop.bg's main bundle) — `ets.php`, a plain 1990s PHP
+GET form, not the Angular SPA that links to it. ⚠️ Despite the key's name, what `ets.php`
+serves is the historical чл. 232а, ал. 2 list described above, NOT a live чл. 229, ал. 1, т. 17
+one; no URL for the current list has been found.
 
 The gate is `scripts/db/tests/aop_experts.data.test.ts` (9 tests) plus 13 pure parser tests
 that need no Postgres. Two of the nine exist only to prove the refusal still DISCRIMINATES —

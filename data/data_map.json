@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-20T22:58:36.898Z",
+  "generatedAt": "2026-10-21T07:10:03.220Z",
   "nodes": [
     {
       "id": "src:water",
@@ -435,7 +435,7 @@
         {
           "id": "regulator_rosters",
           "label": "Регулатори / независими органи — състави (regulator facet)",
-          "url": "https://www.constcourt.bg/bg/composition",
+          "url": "https://www.constcourt.bg/bg/judges",
           "cadence": "monthly",
           "freshness": "2026-10-20T21:44:25.284Z"
         }
@@ -2403,8 +2403,8 @@
         "en": "who was approved to evaluate tenders"
       },
       "desc": {
-        "bg": "Списъкът на АОП с външни експерти по чл. 232а, ал. 2 ЗОП — хората, които възложител може да включи в комисия. ⚠️ Регистърът е ИСТОРИЧЕСКИ: 88 експерти, нито един с валидност днес — последната изтича на 1.1.2023 г., а нов експерт не е вписван от 1.1.2020 г. Отговаря на „кой е бил одобрен между 2017 и 2023“, никога на „кой е на разположение сега“. Регистърът публикува само собствено и фамилно име, а нашият слой за самоличност държи три, така че свързването е по-слабо от всяко друго тук: 58 от 88 съвпадат с човек, но само 25 еднозначно — останалите 33 се ОТКАЗВАТ, а не се степенуват, защото да посочиш грешен човек като одобрен експерт е обвинение.",
-        "en": "The АОП list of external experts under art. 232a(2) of the Public Procurement Act — people a contracting authority may co-opt onto an evaluation committee. ⚠️ The register is HISTORICAL: 88 experts and not one still valid, the newest validity having ended 2023-01-01 with nobody added since 2020-01-01. It answers „who was approved between 2017 and 2023\", never „who is available now\". It publishes given + family name only while our identity layer holds three, so the link is weaker than anything else here: 58 of 88 match a person but only 25 match exactly one — the other 33 are REFUSED rather than graded, because naming the wrong individual as a state-approved expert is an accusation."
+        "bg": "Списъкът на АОП с външни експерти по чл. 232а, ал. 2 ЗОП в редакцията от 2019–2020 г. (разпоредбата вече е отменена; действащият списък е по чл. 229, ал. 1, т. 17) — хората, които възложител може да включи в комисия. ⚠️ Регистърът е ИСТОРИЧЕСКИ: 88 експерти, нито един с валидност днес — последната изтича на 1.1.2023 г., а нов експерт не е вписван от 1.1.2020 г. Отговаря на „кой е бил одобрен между 2017 и 2023“, никога на „кой е на разположение сега“. Регистърът публикува само собствено и фамилно име, а нашият слой за самоличност държи три, така че свързването е по-слабо от всяко друго тук: 58 от 88 съвпадат с човек, но само 25 еднозначно — останалите 33 се ОТКАЗВАТ, а не се степенуват, защото да посочиш грешен човек като одобрен експерт е обвинение.",
+        "en": "The АОП list of external experts under art. 232a(2) of the Public Procurement Act as worded in 2019–2020 (since repealed; the current list sits under art. 229(1)(17)) — people a contracting authority may co-opt onto an evaluation committee. ⚠️ The register is HISTORICAL: 88 experts and not one still valid, the newest validity having ended 2023-01-01 with nobody added since 2020-01-01. It answers „who was approved between 2017 and 2023\", never „who is available now\". It publishes given + family name only while our identity layer holds three, so the link is weaker than anything else here: 58 of 88 match a person but only 25 match exactly one — the other 33 are REFUSED rather than graded, because naming the wrong individual as a state-approved expert is an accusation."
       },
       "tags": [
         "fiscal"
@@ -2419,7 +2419,7 @@
       "sources": [
         {
           "id": "aop_experts",
-          "label": "АОП — списък с външни експерти по чл. 232а, ал. 2 ЗОП (aop.bg)",
+          "label": "АОП — исторически списък с външни експерти по отм. чл. 232а, ал. 2 ЗОП (aop.bg)",
           "url": "https://www.aop.bg/ets.php",
           "cadence": "weekly",
           "freshness": "2026-08-20T07:23:14.975Z"

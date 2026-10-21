@@ -1,4 +1,5 @@
-// Watch the АОП external-experts register (чл. 232а, ал. 2 ЗОП). Maps to
+// Watch the АОП external-experts register (the list under чл. 232а, ал. 2 ЗОП as worded
+// 2019–2020 — repealed; the live list is чл. 229, ал. 1, т. 17). Maps to
 // `update-procurement`.
 //
 // ⚠️ THE EXPECTED STATE OF THIS SOURCE IS „UNCHANGED, FOREVER". Measured
@@ -26,7 +27,8 @@ import {
 
 export const aopExperts: WatchSource = {
   id: "aop_experts",
-  label: "АОП — списък с външни експерти по чл. 232а, ал. 2 ЗОП (aop.bg)",
+  label:
+    "АОП — исторически списък с външни експерти по отм. чл. 232а, ал. 2 ЗОП (aop.bg)",
   url: AOP_EXPERTS_URL,
   // A closed register. Weekly is already generous; the point is to notice a
   // reopening within a reasonable window, not to track churn there is none of.
