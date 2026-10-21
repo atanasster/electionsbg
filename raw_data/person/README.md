@@ -139,7 +139,7 @@ redirects are re-derived there rather than loaded from this file.
 `{ "<old person slug>": "<new person slug>" }` — 11 entries, the 2026-10-18 partial local
 elections.
 
-**What it is.** The first parse of that by-election read every race as an общинa mayor, so
+**What it is.** The first parse of that by-election read every race as an община mayor, so
 its winners were minted under `local:2026_10_18_chmi:<code>:mayor`. The fix in `60dc5c9ec6`
 takes the race type from ЦИК's tab labels, and 11 of those races are кметство races. They
 became `local:2026_10_18_chmi:<code>:kmetstvo:0`: the same ОИК code, race and person, under a
