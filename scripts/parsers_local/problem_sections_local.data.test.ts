@@ -1,11 +1,16 @@
-// The local neighbourhood corpus — the artifact whose SILENT SHRINK made a plan conclude the
+// The local neighbourhood corpus — the artifact whose apparent SHRINK made a plan conclude the
 // whole feature was impossible.
 //
 // ⚠⚠ THE TILE SELF-HIDES ON AN EMPTY RESULT, so a matcher regression and „this município
-// genuinely has none" render identically — and that is not hypothetical: matched neighbourhoods
-// fell from **7 in 2011 and 2015 to 2 in 2019 and 2023** with nothing failing, and
-// `docs/plans/presidential-analysis-sections-v1.md` went on to record that local „cannot borrow
-// the neighbourhood catalogue" at all. It can, and does; what it had was an unwatched shrink.
+// genuinely has none" render identically. On 2026-09-07 (`fa5260ca06`) 2019 and 2023 matched
+// **2** against 7 in 2011/2015, and `docs/plans/presidential-analysis-sections-v1.md` went on
+// to record that local „cannot borrow the neighbourhood catalogue" at all. That „2" was NOT a
+// shrink: no matcher, catalogue or backfill code changed between then and the re-measured 8.
+// The two rules needing no address are Stolipinovo (prefix) and Filipovci (suffix), so it was
+// almost certainly a shard tree with no addresses yet — a re-parse rewrote
+// `data/<cycle>/sections/*.json` and `--local-problem-sections` ran before `--local-coords`
+// stamped the addresses back on. `docs/plans/local-neighbourhoods-coverage-v1.md` has the
+// measurement.
 //
 // ⚠ THE JOIN IS ЕКАТТЕ + ADDRESS, NOT THE SECTION CODE, and that is the whole design: local
 // codes are NSI-oblast-prefixed while parliamentary ones are МИР-prefixed, so a code join is
@@ -18,6 +23,7 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
+import { PROBLEM_NEIGHBORHOODS } from "../reports/problem_sections/neighborhoods";
 
 type Neighborhood = {
   id: string;
@@ -54,6 +60,23 @@ const built = cycles.map((cycle) => ({
 }));
 const hasCorpus = built.length > 0;
 
+// Catalogue entries a cycle CANNOT match, each with the reason. Anything not listed here must
+// match — see the set-equality arm.
+const NOT_MATCHABLE: Record<string, { id: string; why: string }[]> = {
+  "2011_10_23_mi": [
+    {
+      id: "dolno_ezerovo",
+      why: "Burgas codes 020400309-315 were created ~2016 (291 stations in 2011); the earlier stations are unaddressable — every address we hold is 2022+",
+    },
+  ],
+  "2015_10_25_mi": [
+    {
+      id: "dolno_ezerovo",
+      why: "Burgas codes 020400309-315 were created ~2016 (290 stations in 2015); the earlier stations are unaddressable — every address we hold is 2022+",
+    },
+  ],
+};
+
 describe.runIf(hasCorpus)("the local neighbourhood corpus", () => {
   it.each(built)(
     "$cycle: matched at least one curated neighbourhood",
@@ -64,32 +87,23 @@ describe.runIf(hasCorpus)("the local neighbourhood corpus", () => {
     },
   );
 
-  it("still matches SEVEN in the cycles that once did", () => {
-    // ⚠ THE RATCHET, ON THE CYCLES WHOSE ANSWER CANNOT CHANGE. 2011 and 2015 are closed
-    // historical corpora — their addresses are not going to move — so a drop there is a
-    // matcher regression and nothing else. The recent cycles are deliberately NOT ratcheted:
-    // 2019 and 2023 match 2, which may be a real address change, and pinning a number nobody
-    // has explained would freeze a defect as a requirement.
-    for (const { cycle, neighborhoods } of built)
-      if (cycle.startsWith("2011") || cycle.startsWith("2015"))
-        expect({ cycle, n: neighborhoods.length }).toEqual({ cycle, n: 7 });
-  });
-
-  it("REPORTS the shrink the recent cycles carry, rather than asserting it away", () => {
-    // ⚠ THIS TEST EXISTS TO KEEP A KNOWN GAP VISIBLE. 7 → 2 between 2015 and 2019 is either a
-    // real address change or a matcher regression; nobody has established which, and a suite
-    // that simply passed would let the question disappear. It fails only if the recent cycles
-    // ever EXCEED the historical ones — at which point this test has done its job and should be
-    // rewritten rather than relaxed.
-    const historical = built
-      .filter((b) => b.cycle < "2019")
-      .map((b) => b.neighborhoods.length);
-    const recent = built
-      .filter((b) => b.cycle >= "2019")
-      .map((b) => b.neighborhoods.length);
-    if (historical.length && recent.length)
-      expect(Math.max(...recent)).toBeLessThanOrEqual(Math.max(...historical));
-  });
+  it.each(built)(
+    "$cycle: matches exactly the catalogue minus its named exclusions",
+    ({ cycle, neighborhoods }) => {
+      // ⚠ EQUALITY, NOT A COUNT. A lost neighbourhood and an unexplained new one both fail, and
+      // so does a catalogue addition — every cycle then needs someone to decide, per cycle,
+      // whether it matches — and so does a stale exclusion. The count-based test this replaced
+      // could not tell 7 → 8 (a real Burgas renumbering) from a matcher change.
+      const excluded = new Set((NOT_MATCHABLE[cycle] ?? []).map((e) => e.id));
+      const expected = PROBLEM_NEIGHBORHOODS.map((n) => n.id).filter(
+        (id) => !excluded.has(id),
+      );
+      expect({ cycle, ids: neighborhoods.map((n) => n.id).sort() }).toEqual({
+        cycle,
+        ids: expected.sort(),
+      });
+    },
+  );
 
   it.each(built)(
     "$cycle: every neighbourhood resolves to a município that cycle actually has",
