@@ -83,13 +83,20 @@ or a bounded next step. Completed implementation histories belong in Git, not he
 - Add a cohort-granularity control to procurement normalcy only if readers need to inspect the
   CPV-8/CPV-4/division basis. Consider per-metric cohort widening when a fine cohort falls below
   the minimum sample instead of weakening the shared minimum itself.
-- **ЦАИС ЕОП pre-2026 EUR `CurrentContractValue` guard & `T`-id canonicalization**: Out of 365
-  2020–2025 contracts tagged `EUR` in the АОП portal CSV, ~322 were entered in BGN under an `EUR`
-  label. Do not divide by `1.95583` without checking the currency on the `storage.eop.bg` daily
-  JSON — one file per day (`open-data-YYYY-MM-DD/…договори…DD.MM.YYYY.json`), camelCase keys.
-  It carries TWO fields, `currency` and `contractCurrency`, which can disagree, so decide which one
-  is authoritative first. A verifier script still has to be written (the
-  `verify_eur_currency_eop.ts` named here earlier never existed). Separately, normalize
+- **ЦАИС ЕОП EUR guard & `T`-id canonicalization**: the verifier now exists —
+  `npx tsx scripts/procurement/verify_eur_currency_eop.ts` (read-only; writes the gitignored
+  `raw_data/procurement/eur_currency_check.json`). Measured 2026-10-21 over 2020–2025, it does NOT
+  reproduce the earlier „365 EUR-tagged, ~322 entered in BGN" note. The legacy АОП CSV's currency
+  column tags 90 rows EUR (2020–2023; none in the 2024/2025 RL dumps); `parseLegacyCsv` keeps 57 of
+  them. 37 of those join the ЕОП daily feed on УНП + contract number, all with the same amount: 35
+  recorded EUR/EUR, 1 with one field empty, 1 BGN/EUR — so 0 BGN-amount-under-EUR-label among the
+  legacy rows. In the ЕОП feed itself (174,575 distinct contracts with a value) `currency` and
+  `contractCurrency` disagree on 15 rows (EUR/BGN 6, BGN/EUR 5, USD/BGN 3, BGN/USD 1). That
+  `currency` labels the ESTIMATE is inferred from field order, not shown. Against a BGN estimate,
+  4 of the 5 BGN/EUR rows are same-scale — a BGN amount under an EUR `contractCurrency` — and 1 is
+  EUR-scale. So NEITHER field is authoritative for those rows: no blanket ÷1.95583, and no blanket
+  trust in `contractCurrency` (which `eop_field_map.ts` uses today). Hand-triage the 15 rows from
+  the report's `disagreeSample`, and re-measure before acting on the old figure. Separately, normalize
   `T`-prefixed tender IDs (`T486119` vs `00073-2020-0016`): a `T`-id is `"T" + tenderId`, placed in
   `uniqueProcurementNumber` when a procedure has no УНП, so the cross-map key is `tenderId`
   (there is no `TenderNumber` field).
