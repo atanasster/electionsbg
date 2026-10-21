@@ -13,7 +13,12 @@
 //      (canonicalPartyId), ballot position, preference votes, elected flag (~95% coverage).
 //   b. name ↔ the parliament.bg MP index → photo URL + MP id (~5% coverage — the
 //      councillors who also served in NS).
-// Matched on the full normalised 3-part name, falling back to first+last.
+// The slate side matches the full normalised name, and falls back to first+last only under
+// the guards in `resolveSlateRow`: one slate row holds the key, and either name lacks a
+// patronymic or the two are within MIDDLE_NAME_MAX_EDITS.
+// The MP side is exact full name only (scripts/parsers_local/mpNameMatch.ts). A different
+// patronymic is a different person, so an unguarded first+last fallback is never safe.
+// See docs/plans/local-mp-photo-links-v1.md Part B.
 
 import fs from "fs";
 import path from "path";
@@ -46,8 +51,8 @@ export const officialsToMi = (obshtina: string): string =>
 //
 // Roster `normalizedName` is UPPERCASE 3-part ("АБЕДИН РАКИПОВ КАМБУРОВ"). Local-election
 // candidate names are mixed-case full names ("Абедин Ракипов Камбуров") — normalise on the
-// fly. Join on the full 3-part name when available, falling back to first+last if the slate
-// row dropped the middle name (rare but happens for hyphenated families).
+// fly. `firstLastKey` is the slate fallback's key and is never used on its own: see
+// `resolveSlateRow` for the guards that make it safe.
 
 export const normalise = (s: string): string =>
   s
