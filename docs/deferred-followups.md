@@ -15,9 +15,9 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 
 - Firebase: clear the domain-level redirect on `ai.electionsbg.com` (see the AI app entry).
 - `npm run db:load:municipal-fiscal:pg:cloud` — optional; no verdict differs.
-- ⚠️ Cloud `person_role` at tr/ngo is 2,431 rows (1.2%) behind local — cloud last resolved
-  2026-09-27 — which is past CLAUDE.md's ~1% trigger for the cloud person chain. It shows as
-  2,434 fewer `graph_edge` rows on prod; money is unaffected.
+- The cloud person chain ran 2026-10-21 (19 steps, 24 min): prod now equals local on persons,
+  `/persons`, search and attribution; TR roles within 3, graph edges within 2. It cost two
+  measured 500 windows (~5½ min + ~1 min) — recorded in CLAUDE.md beside the 2026-09-04 poll.
 
 ## Companies & Commerce Registry
 

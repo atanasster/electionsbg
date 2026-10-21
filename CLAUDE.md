@@ -1551,7 +1551,19 @@ interval cannot exclude a sub-30 s blip, and this was an idle-hours run on
 `db-custom-2-13312`. But the claim it replaces was never measured at all — the sentence
 here used to say so — and an unmeasured figure had been load-bearing in arguments against
 running the chain. If a future run does degrade these pages, re-measure and say so here rather
-than restoring the old number. The values are derived from immutable filings,
+than restoring the old number.
+
+⚠️⚠️ **RE-MEASURED 2026-10-21, AND THIS TIME IT DID HAPPEN — the 2026-09-04 zero was not the
+rule.** Same box (`db-custom-2-13312`), the full 19-step cloud person chain (14:31→14:56Z,
+24m21s), probed every ~26 s on naiasno.bg (56 samples): `persons`, `officials_rankings`,
+`crypto_holdings` and `abroad_holdings` all answered **500 from 14:41:16 to ~14:46:30 (~5½
+min)** — inside `db:load:declarations:pg:cloud -- --resolve` (14:40:54→14:46:43), i.e. 090's
+CASCADE window; `officials_rankings` recovered ~30 s before the other three. A SECOND, shorter
+window: `persons` AND `/api/db/person-profile` answered **500 from 14:50:43 to ~14:52:00
+(~1 min)** during `db:load:persons-browse:pg:cloud` (120's DROP + CREATE) — the profile route
+was 200 everywhere else, including through the CASCADE. Everything was 200 again by 14:52:09.
+So both numbers are true of this box: 0 on 2026-09-04, ~6½ minutes of 500s across two windows
+on 2026-10-21. Run it off-peak, and do not read either as a guarantee. The values are derived from immutable filings,
 so they are identical whichever database computes them — the `ship_filed_position.ts`
 argument — and `scripts/db/ship_held_abroad.ts` writes them into the rows already there:
 
