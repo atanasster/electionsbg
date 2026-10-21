@@ -217,7 +217,13 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   methodology breaks are annotated. The breaks are the GFSM 86 / GFSM 2001 / GFSM 2014
   presentations, with ЗПФ in force from 01.01.2014. КФП stays cash-based throughout — it is not an
   ESA 2010 series. The „2016 chart-of-accounts restructure" cited earlier is unsourced; verify it
-  before annotating. minfin.bg sits behind Cloudflare for automated clients.
+  before annotating. minfin.bg sits behind Cloudflare for automated clients. **Partly located
+  2026-10-21:** the same monthly matrices are on data.egov.bg (МФ, dataset `bfcdd4cb-…`, 101
+  months: 2016-03/04, then 2018-03 → 2026-08 with 2020-02/03/07 missing), no Cloudflare. They state
+  no unit — reconciled to `budget_kfp_observation` on five months 2021-06 → 2026-08: millions of
+  лева through 2025-12, millions of EUR from 2026-01; earlier months unchecked. 1998–2017 and the
+  five missing months still need the minfin.bg workbooks. See
+  [docs/plans/kfp-monthly-history-v1.md](plans/kfp-monthly-history-v1.md). Not built.
 - **СЕБРА daily payment execution**: Ingest the daily СЕБРА payment files as a separate budget
   execution pipeline. Under the Наредба по ПМС № 299/2016 (last amended ПМС 76/2024), МФ publishes
   daily payments by ППРБ on `minfin.bg` (чл. 2), and each ППРБ publishes its own daily Excel file on
