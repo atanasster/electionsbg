@@ -14,7 +14,9 @@ import "../../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 // getResourceData returns the resource as a 2D row array (data: unknown[][]),
 // the same shape XLSX.utils.sheet_to_json(..., { header: 1 }) produces, so a
 // portal-hosted CSV feeds straight into the município capital-programme
-// parsers with no XLSX round-trip.
+// parsers with no XLSX round-trip. Some datasets (МЕУ's еФорми) return
+// `{headers, row1, row2, …}` instead: getResourceData throws on that shape and
+// getResourceTable normalises both to string rows.
 
 const BASE = "https://data.egov.bg/api";
 const UA = "electionsbg.com data pipeline (egov)";
@@ -110,13 +112,48 @@ export const listDatasetsByIds = async (
   return (json.datasets ?? []).map(toDataset);
 };
 
+/** The raw `data` payload: a 2D array for most datasets, `{headers, row1, …}` for some. */
+const getResourceRaw = async (resourceUri: string): Promise<unknown> =>
+  (
+    await post<{ data?: unknown }>("getResourceData", {
+      resource_uri: resourceUri,
+    })
+  ).data;
+
+/** A resource's rows as the 2D array most datasets return. THROWS on the `{headers, rowN}`
+ *  shape rather than handing an object to code that indexes rows — use `getResourceTable`. */
 export const getResourceData = async (
   resourceUri: string,
 ): Promise<unknown[][]> => {
-  const json = await post<{ data?: unknown[][] }>("getResourceData", {
-    resource_uri: resourceUri,
-  });
-  return json.data ?? [];
+  const data = await getResourceRaw(resourceUri);
+  if (data == null) return [];
+  if (!Array.isArray(data))
+    throw new Error(
+      `egov resource ${resourceUri} is {headers,rowN}-shaped — read it with getResourceTable`,
+    );
+  return data as unknown[][];
+};
+
+/** A resource as [headers, ...rows] of trimmed strings, whichever shape the API used. */
+export const getResourceTable = async (
+  resourceUri: string,
+): Promise<string[][]> => resourceTable(await getResourceRaw(resourceUri));
+
+const cell = (v: unknown): string => (v == null ? "" : String(v).trim());
+
+/** A getResourceData payload of either shape → [headers, ...rows] of trimmed strings. */
+export const resourceTable = (data: unknown): string[][] => {
+  if (Array.isArray(data)) return data.map((r) => (r as unknown[]).map(cell));
+  if (data && typeof data === "object") {
+    const o = data as Record<string, unknown>;
+    if (!Array.isArray(o.headers)) return [];
+    const rows = Object.keys(o)
+      .filter((k) => /^row\d+$/.test(k))
+      .sort((a, b) => Number(a.slice(3)) - Number(b.slice(3)))
+      .map((k) => (o[k] as unknown[]).map(cell));
+    return [(o.headers as unknown[]).map(cell), ...rows];
+  }
+  return [];
 };
 
 const NORM_RE = new RegExp("[\\s\\u00a0\\u2007\\u202f]+", "g");

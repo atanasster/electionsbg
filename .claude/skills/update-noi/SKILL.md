@@ -142,6 +142,22 @@ in `parse_yearbook_xlsx.ts`). The Eurostat poverty line is fetched inline; it
 degrades to null offline. Then `git add data/budget/noi/pensions.json` and
 `bucket:sync data/budget/noi/`.
 
+## Pensioners by ТП → pensioners_by_tp.json (the 28-ТП map input)
+
+```bash
+npm run noi:pensioners-by-tp
+```
+
+data.egov.bg dataset 10480 („Брой на пенсионерите по териториални поделения на НОИ
+(средномесечен брой) - по години"), one resource, updated about once a year (the 2025
+column landed 2026-06-24). No watcher yet — run it with the yearbook. The ТП ↔ oblast
+crosswalk is an explicit table in `scripts/budget/noi/pensioners_by_tp.ts`, checked against
+each published name; a renamed or missing ТП THROWS, and every year's ТП rows must sum to
+the published „Общо" or it throws. София-град (ТП 21) is `SOFIA_CITY` and София-област
+(ТП 22) is `SFO` — never fold them. ТП 29 „Международни спогодби/договори" has no
+territory and is kept as its own series, never placed on a map. Nothing renders it yet.
+Then `git add data/budget/noi/pensioners_by_tp.json` and `bucket:sync data/budget/noi/`.
+
 ## КФН → kfn/funds.json (private pillars 2 & 3)
 
 The `/pensions` private-funds tile. КФН publishes a quarterly ZIP of English
@@ -215,6 +231,8 @@ The watcher's `nssi_b1.ts` tracks the current and prior fiscal year — extend i
 | `scripts/budget/noi/__smoke_b1.ts` | One-fund inspection for debugging |
 | `raw_data/budget/noi/B1_*.xls` | Manually-cached source XLS files (gitignored) |
 | `data/budget/noi/funds.json` | The committed artifact |
+| `scripts/budget/noi/pensioners_by_tp.ts` + `fetch_pensioners_by_tp.ts` | Pensioners by ТП + the ТП ↔ oblast crosswalk |
+| `data/budget/noi/pensioners_by_tp.json` | Pensioners by ТП, 2010→ (no reader yet) |
 | `scripts/watch/sources/nssi_b1.ts` | Daily fingerprint of B1 file signatures |
 | `src/data/budget/useBudget.tsx` (`useNoiFunds`) | React Query hook the drilldown consumes |
 | `src/screens/components/budget/BudgetFlowSocialFundsDrilldown.tsx` | The UI |

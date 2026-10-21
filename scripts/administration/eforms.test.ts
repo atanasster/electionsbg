@@ -9,9 +9,9 @@ import {
   parseEformsTable,
   periodOfResourceName,
   serialiseEforms,
-  tableOf,
   type EformsSnapshot,
 } from "./eforms";
+import { resourceTable } from "../budget/lib/egov_api";
 
 const H = [...EFORMS_HEADERS];
 
@@ -29,10 +29,10 @@ describe("periodOfResourceName", () => {
   });
 });
 
-describe("tableOf", () => {
+describe("resourceTable", () => {
   it("orders the {headers, rowN} shape numerically, not lexically", () => {
     expect(
-      tableOf({
+      resourceTable({
         headers: H,
         row10: ["3", "в", "1"],
         row2: ["2", "б", "5"],
@@ -41,7 +41,7 @@ describe("tableOf", () => {
     ).toEqual([H[0], "1", "2", "3"]);
   });
   it("passes a 2D array through", () => {
-    expect(tableOf([H, ["1", "а", 9]])).toEqual([H, ["1", "а", "9"]]);
+    expect(resourceTable([H, ["1", "а", 9]])).toEqual([H, ["1", "а", "9"]]);
   });
 });
 

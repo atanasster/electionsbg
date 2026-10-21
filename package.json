@@ -167,6 +167,7 @@
     "db:load:admin-service-requests:pg": "tsx scripts/db/load_admin_service_requests_pg.ts",
     "db:load:admin-service-requests:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:admin-service-requests:pg",
     "admin:eforms": "tsx scripts/administration/fetch_eforms.ts",
+    "noi:pensioners-by-tp": "tsx scripts/budget/noi/fetch_pensioners_by_tp.ts",
     "db:load:court-load:pg": "tsx scripts/db/load_court_load_pg.ts",
     "db:load:court-load:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:court-load:pg",
     "db:load:excise-warehouses:pg": "tsx scripts/db/load_excise_warehouses_pg.ts",

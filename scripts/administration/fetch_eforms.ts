@@ -6,12 +6,12 @@
 //   npx tsx scripts/administration/fetch_eforms.ts --dry            # fetch, report, write nothing
 //   npx tsx scripts/administration/fetch_eforms.ts --allow-shrink   # a month really was withdrawn
 //
-// One listDatasets call plus one getResourceData per month (~23), serial.
+// One listDatasets call plus one getResourceTable per month (~23), serial.
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { getResourceData, listDatasetsByIds } from "../budget/lib/egov_api";
+import { getResourceTable, listDatasetsByIds } from "../budget/lib/egov_api";
 import {
   EFORMS_DATASET_ID,
   EFORMS_DATASET_URI,
@@ -20,7 +20,6 @@ import {
   parseEformsTable,
   periodOfResourceName,
   serialiseEforms,
-  tableOf,
   type EformsMonth,
   type EformsSnapshot,
 } from "./eforms";
@@ -49,11 +48,7 @@ const main = async (): Promise<void> => {
     if (!period) throw new Error(`resource ${r.uri} names no month: ${r.name}`);
     if (months.some((m) => m.period === period))
       throw new Error(`two resources claim ${period} — refusing to pick one`);
-    // The API hands back the {headers,rowN} object under `data`, not the typed 2D array.
-    const rows = parseEformsTable(
-      tableOf(await getResourceData(r.uri)),
-      period,
-    );
+    const rows = parseEformsTable(await getResourceTable(r.uri), period);
     months.push({
       period,
       resourceUri: r.uri,

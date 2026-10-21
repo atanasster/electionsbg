@@ -263,9 +263,13 @@ or a bounded next step. Completed implementation histories belong in Git, not he
     public source: `opendata.his.bg` only publishes the pharmacy, drugstore and outpatient-facility
     registers. Revisit only via a ЗДОИ request to МЗ / НЗИС.
 - **Social & Pensions (МТСП / НОИ)**:
-  - НОИ 28-ТП territorial map (requires ingesting pensioners-by-ТП from `data.egov.bg` + pre-2023
-    B1 backfill). The input exists: НОИ's „Брой на пенсионерите по териториални поделения на НОИ"
-    CSV covers 2010–2025, with 28 ТП plus a „Международни спогодби/договори" row.
+  - НОИ 28-ТП territorial map. The INPUT is ingested (2026-10-21): `npm run noi:pensioners-by-tp`
+    → `data/budget/noi/pensioners_by_tp.json` (data.egov.bg 10480; 2010–2025; 28 ТП on the
+    canonical oblast buckets, София-град `SOFIA_CITY` and София-област `SFO` apart, ТП 29
+    „Международни спогодби/договори" kept unplaced; every year sums exactly to „Общо"). Still
+    open: the map itself (a choropleth on `/pensions`, captioned „по ТП, където се администрира
+    пенсията", which is not always where the pensioner lives), a watcher on the dataset, the
+    pre-2023 B1 backfill, and `bucket:sync` of the new file.
   - IF an АКСУ social-homes register is ingested: an earlier note reported 14 unmatched rows
     (`1,182 / 1,196` municipality match), to be resolved by joining settlement names via
     `data/ekatte.json` when a row names a village rather than an община. ⚠️ No AKSU homes artifact

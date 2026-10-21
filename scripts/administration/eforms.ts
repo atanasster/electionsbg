@@ -61,24 +61,6 @@ export const periodOfResourceName = (name: string): string | null => {
   return mo >= 1 && mo <= 12 ? `${m[1]}-${m[2]}` : null;
 };
 
-const cell = (v: unknown): string => (v == null ? "" : String(v).trim());
-
-/** getResourceData returns either `{headers, row1, row2, …}` (this dataset) or a plain 2D
- *  array (the budget datasets). Both become [headers, ...rows]. */
-export const tableOf = (data: unknown): string[][] => {
-  if (Array.isArray(data)) return data.map((r) => (r as unknown[]).map(cell));
-  if (data && typeof data === "object") {
-    const o = data as Record<string, unknown>;
-    if (!Array.isArray(o.headers)) return [];
-    const rows = Object.keys(o)
-      .filter((k) => /^row\d+$/.test(k))
-      .sort((a, b) => Number(a.slice(3)) - Number(b.slice(3)))
-      .map((k) => (o[k] as unknown[]).map(cell));
-    return [(o.headers as unknown[]).map(cell), ...rows];
-  }
-  return [];
-};
-
 /** One month's table → rows. Throws on anything that is not the three-column shape with a
  *  non-negative integer count: a silently skipped row is a service whose requests vanish. A
  *  service listed twice in one month is SUMMED — it is the same service's requests either way,
