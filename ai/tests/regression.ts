@@ -1191,7 +1191,8 @@ const CASES: Case[] = [
     q: "Има ли частични местни избори?",
     tool: "chmiEvents",
     kind: "table",
-    facts: { total: { num: 392 } },
+    // 392 → 406 on 2026-10-21: the 2026_10_18_chmi cycle (14 partial elections on 18.10.2026).
+    facts: { total: { num: 406 } },
     // the extraordinary-elections feed -> its dedicated page, not the cycle landing
     links: ["/local/chmi"],
   },
