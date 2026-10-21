@@ -226,19 +226,25 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   - НОИ 28-ТП territorial map (requires ingesting pensioners-by-ТП from `data.egov.bg` + pre-2023
     B1 backfill). The input exists: НОИ's „Брой на пенсионерите по териториални поделения на НОИ"
     CSV covers 2010–2025, with 28 ТП plus a „Международни спогодби/договори" row.
-  - Resolve the 14 unmatched AKSU rows (`1,182 / 1,196` municipality match) by joining settlement
-    names via `data/ekatte.json` when an AKSU row names a village rather than an община.
-    ⚠️ Path to re-locate: `data/social/aksu_homes.json`, named here earlier, does not exist in the
-    tree or in git history.
-- **Revenue (НАП)**: Keep the issuers cross-check as a standalone probe only — joining
+  - IF an АКСУ social-homes register is ingested: an earlier note reported 14 unmatched rows
+    (`1,182 / 1,196` municipality match), to be resolved by joining settlement names via
+    `data/ekatte.json` when a row names a village rather than an община. ⚠️ No AKSU homes artifact
+    exists — not in the tree, not in git history, not in any script
+    (checked 2026-10-21). The match figure therefore has no reproducible source; re-derive it
+    from a fresh АКСУ register pull before acting on it.
+- **Revenue (НАП)**: If an issuers cross-check is ever built, keep it a standalone probe only — joining
   `nap_issuers` to `contracts` over-counts multi-activity retailers (fuel chains, telecoms,
-  pharmacies) because `contracts.cpv_code` is 99.66% NULL in the АОП portal CSV. ⚠️ Path to
-  re-locate: `scripts/nap/Cross_check_issuers.ts`, named here earlier, does not exist in the tree.
+  pharmacies) because `contracts.cpv_code` is 99.66% NULL in the АОП portal CSV. ⚠️ No such
+  probe exists in the repo (no script, no `nap_issuers` relation; checked 2026-10-21) — this is
+  the rule for one if it is built, not a description of code that ships.
 - **Tourism**: Build an automated scraper for `ntr.tourism.government.bg`. It is an IBM XPages
   app, not a hard block: a GET sets a `SessionID` cookie and results come from a form postback, so
   a cookie jar plus a POST should work without a browser. Also add a Eurostat `tour_occ_ninat`
-  watcher (annual, latest BG 2025; monthly `tour_occ_nim` reaches 2026-08). ⚠️ The static snapshot
-  was said to live in `data/tourism/ntr.json`, which does not exist (only `visitors.json`).
+  watcher (annual, latest BG 2025; monthly `tour_occ_nim` reaches 2026-08). There is no static НТР
+  snapshot to replace — the repo holds no НТР data at all (its tourism data is the
+  Eurostat-backed `data/tourism/visitors.json`, `src/lib/tourismReferenceData.ts` and the
+  PG-served tourism procurement figures; checked 2026-10-21). Note the existing `eurostat_tourism`
+  watcher already covers `tour_occ_nim` and `tour_occ_ninraw`; only `tour_occ_ninat` is new.
 - **Water (`/water`)**:
   - Keep `water_quality_zones` separate from `vik_performance`: РЗИ / МЗ drinking-water monitoring
     zones (Наредба № 9/2001; БАБХ has no role here) are supply-zone strings (`Зона Пловдив`,
