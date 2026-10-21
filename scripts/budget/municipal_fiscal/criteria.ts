@@ -11,6 +11,19 @@
 // These releases close that gap: all seven, stated, for every year-end they
 // cover. Where they reach, the verdict stops being ours.
 //
+// SEVEN COLUMNS, SIX STATUTORY CONDITIONS. чл. 130а, ал. 1 ЗПФ (ДВ бр. 43/2016,
+// unamended; read 2026-10-21) lists six; МФ splits its т. 1 („фискалните правила
+// по чл. 32, ал. 1 и 2") into two columns:
+//   МФ 1 ↔ т. 1, чл. 32 ал. 1 — debt service > 15% of own revenue + subsidy
+//   МФ 2 ↔ т. 1, чл. 32 ал. 2 — guarantees > 5%
+//   МФ 3 ↔ т. 2 — expenditure liabilities > 15% of the 4-year average
+//   МФ 4 ↔ т. 3 — commitments > 50% of the 4-year average
+//   МФ 5 ↔ т. 4 — arrears > 5% of the year's expenditure
+//   МФ 6 ↔ т. 5 — negative balance in each of three years
+//   МФ 7 ↔ т. 6 — collection of ДНИ + ДПС below the national mean
+// This reader keeps МФ's numbering; the ≥3 threshold folds МФ 1+2 into one
+// condition (`statutoryConditionsMet`, scripts/db/load_municipal_fiscal_pg.ts).
+//
 // THE SHEET IS NOT THE QUARTERLY ONE and must never be read with its parser:
 // it is one row per município per YEAR-END with per-year expenditure columns,
 // not three period columns per indicator. `parsePokazateli` refuses it via the

@@ -110,18 +110,32 @@ const pgArray = (v: readonly (string | number)[] | null | undefined) =>
  *
  *  An earlier model had six and numbered obligations/commitments/arrears
  *  2/3/4 — it had dropped the GUARANTEES criterion and renumbered everything
- *  after it one low. That published „N от 6" against a statute that asks for
- *  seven, and stored `criteria_met` indices naming the wrong criteria. Verified
+ *  after it one low, so `criteria_met` indices named the wrong criteria. Verified
  *  against every Q4-anchored release in the cache (2016-2024): all seven, same
  *  order, every year.
  *
+ *  ⚠️ SEVEN COLUMNS, SIX STATUTORY CONDITIONS — and the threshold counts the six.
+ *  чл. 130а, ал. 1 ЗПФ (ДВ бр. 43/2016, unamended; read 2026-10-21) lists six:
+ *  т. 1 „не се спазват фискалните правила по чл. 32, ал. 1 и 2", then the five
+ *  that are МФ's 3–7. МФ SPLITS т. 1 into its two rules — чл. 32 ал. 1 (debt
+ *  service ≤ 15%) is МФ 1, ал. 2 (guarantees ≤ 5%) is МФ 2. So `criteria_met`
+ *  keeps МФ's seven-way numbering (it is МФ's data), but „three or more of the
+ *  conditions" folds 1 and 2 into ONE: see `statutoryConditionsMet`. Measured
+ *  2026-10-21, no year-end row breaches both, so no verdict moved — the fold
+ *  matters the first time one does.
+ *
  *  Three of the seven are computable here, and saying so is the point of the
- *  pair. т. 1 needs debt SERVICE (плащания) — the workbook publishes only the
- *  debt STOCK. т. 2 needs the guarantee nominal. т. 6 needs three consecutive
- *  years of budget balance. т. 7 needs the national collection mean. Reporting
+ *  pair. МФ 1 needs debt SERVICE (плащания) — the workbook publishes only the
+ *  debt STOCK. МФ 2 needs the guarantee nominal. МФ 6 needs three consecutive
+ *  years of budget balance. МФ 7 needs the national collection mean. Reporting
  *  „2 met" without reporting „of 3 checked" invites the reader to apply the ≥3
  *  rule to a partial count. */
 export const CRITERIA_TOTAL = 7;
+
+/** How many чл. 130а ал. 1 CONDITIONS a set of МФ criteria satisfies: МФ 1 and 2
+ *  are the two halves of statutory т. 1 and count once (see CRITERIA_TOTAL). */
+export const statutoryConditionsMet = (met: readonly number[]): number =>
+  new Set(met.map((c) => (c === 2 ? 1 : c))).size;
 
 export const evaluateCriteria = (
   r: MunicipalFiscalQuarter,
@@ -141,12 +155,29 @@ export const evaluateCriteria = (
   // This is not a shortcut around the derivation: it is the difference between
   // „at least N of the three we could check" and „N, per the ministry". On the
   // year-ends it covers, nothing here is ours.
+  //
+  // ONE EXCEPTION, and it is the ministry's own ambiguity: МФ's „Брой на
+  // критериите" counts its seven columns, while чл. 130а counts six conditions
+  // (МФ 1+2 = т. 1). Where the two counts fall on OPPOSITE sides of three — both
+  // debt rules breached plus exactly one more — the column count says „три" and
+  // the statute says „две", and nothing in the release says which the ministry
+  // applies. That case is NULL, with a warning naming the município, rather than
+  // a silent override of the official figure either way. It has never occurred
+  // (measured 2026-10-21).
   if (r.officialCriteriaMet) {
     const all = Array.from({ length: CRITERIA_TOTAL }, (_, i) => i + 1);
+    const byColumns = r.officialCriteriaMet.length >= 3;
+    const byConditions = statutoryConditionsMet(r.officialCriteriaMet) >= 3;
+    if (byColumns !== byConditions)
+      console.warn(
+        `[municipal-fiscal] ${r.obshtina} (${r.nameBg}) ${r.fiscalYear}: МФ criteria ` +
+          `[${r.officialCriteriaMet.join(",")}] are ${r.officialCriteriaMet.length} columns but ` +
+          `${statutoryConditionsMet(r.officialCriteriaMet)} чл. 130а conditions — verdict left unknown`,
+      );
     return {
       met: r.officialCriteriaMet,
       evaluable: all,
-      meetsThreshold: r.officialCriteriaMet.length >= 3,
+      meetsThreshold: byColumns === byConditions ? byConditions : null,
     };
   }
 
@@ -172,21 +203,25 @@ export const evaluateCriteria = (
   };
   // МФ's own numbering — see CRITERIA_TOTAL. These three are the computable
   // ones; 1, 2, 6 and 7 need inputs this workbook does not publish.
-  // т. 3 — налични задължения за разходи > 15% of the 4-year average
+  // МФ 3 (= т. 2) — налични задължения за разходи > 15% of the 4-year average
   consider(3, r.ratios.obligationsPct, "expenseObligations", 15);
-  // т. 4 — налични поети ангажименти > 50% of the 4-year average
+  // МФ 4 (= т. 3) — налични поети ангажименти > 50% of the 4-year average
   consider(4, r.ratios.commitmentsPct, "commitments", 50);
-  // т. 5 — налични просрочени задължения > 5% of the year's reported expenditure
+  // МФ 5 (= т. 4) — налични просрочени задължения > 5% of the year's reported expenditure
   consider(5, r.ratios.arrearsPct, "arrears", 5);
 
-  // The чл. 130а rule is "three or more of SEVEN", and the criteria are
-  // MONOTONE:
+  // The чл. 130а rule is "three or more of the SIX conditions" (МФ 1+2 = т. 1),
+  // and the criteria are MONOTONE:
   // an unevaluated one can only ever add to the count. So three met is already
   // decisive TRUE even with three unchecked, and — the other direction — a
   // verdict is only FALSE when every criterion was evaluable and fewer than
   // three were met. Everything between is genuinely unknown.
   const meetsThreshold =
-    met.length >= 3 ? true : evaluable.length === CRITERIA_TOTAL ? false : null;
+    statutoryConditionsMet(met) >= 3
+      ? true
+      : evaluable.length === CRITERIA_TOTAL
+        ? false
+        : null;
   return { met, evaluable, meetsThreshold };
 };
 

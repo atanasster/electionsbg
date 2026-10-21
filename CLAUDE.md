@@ -2835,16 +2835,27 @@ Five things about it are easy to get backwards:
   nothing reads — the shape that once pushed ~16.8k company-connection shards.
 
 - **`meets_threshold` is NULL on almost every row WITHOUT an official verdict, and that is
-  correct.** The statute has **SEVEN** criteria, not six — МФ's year-end-anchored releases
-  enumerate them 1..7 and `scripts/budget/municipal_fiscal/criteria.ts` reads them, so on the
-  year-ends those releases cover (2018, 2020, 2021, 2023, 2024 today) the verdict is the
-  ministry's and is decisive in BOTH directions. Elsewhere only three of the seven are
-  computable from this source — т. 1 needs debt SERVICE
-  (the workbook publishes only the debt STOCK), т. 5 three consecutive years, т. 6 the
+  correct.** ⚠️ **SEVEN МФ COLUMNS, SIX STATUTORY CONDITIONS.** чл. 130а, ал. 1 ЗПФ
+  (ДВ бр. 43/2016, unamended; read 2026-10-21) lists six conditions; its т. 1 is „не се
+  спазват фискалните правила по чл. 32, ал. 1 и 2", and МФ's year-end-anchored releases SPLIT
+  it into two columns — МФ 1 = чл. 32 ал. 1 (debt service ≤ 15%), МФ 2 = ал. 2 (guarantees
+  ≤ 5%) — then МФ 3–7 = т. 2–6. `criteria_met` keeps МФ's 1..7 numbering (it is their data,
+  read by `scripts/budget/municipal_fiscal/criteria.ts`), but the „three or more" threshold
+  counts CONDITIONS, so МФ 1 and 2 count once (`statutoryConditionsMet` in
+  `load_municipal_fiscal_pg.ts`). Where МФ's own column count and the condition count fall on
+  opposite sides of three, nothing in the release says which the ministry applies, so the
+  verdict is NULL and the loader warns, naming the município. This file said „the statute has SEVEN criteria" until
+  2026-10-21. No year-end row has ever breached both debt rules, so no verdict moved; the fold
+  matters the first time one does. ⚠️ The reader-facing copy still says „N от 7" and „3 или
+  повече критерия" over МФ's columns — accurate as a column count, not as the statutory test.
+  On the year-ends МФ's releases cover (2018, 2020, 2021, 2023, 2024 today) the verdict is the
+  ministry's data and decisive in BOTH directions. Elsewhere only three of the seven are
+  computable from this source (МФ 3, 4, 5); МФ 1 needs debt SERVICE (the workbook publishes
+  only the debt STOCK), МФ 2 the guarantee nominal, МФ 6 three consecutive years, МФ 7 the
   national collection mean. `criteria_evaluable` records which were checkable, so „2 met"
-  cannot be read as „2 of 6". A verdict is TRUE only when three are actually met (decisive
-  by monotonicity, whatever the unchecked ones say) and FALSE only when all six were
-  evaluable. Measured 2026-08-12: 5 municipalities decisive TRUE, and all 5 are
+  cannot be read as „2 of 7". A verdict is TRUE only when three conditions are actually met
+  (decisive by monotonicity, whatever the unchecked ones say) and FALSE only when all seven
+  columns were evaluable. Measured 2026-08-12: 5 municipalities decisive TRUE, and all 5 are
   independently on the official чл. 130д recovery list.
 
 `interreg_programmes` / `interreg_operations` / `interreg_partners` (migration 137,
