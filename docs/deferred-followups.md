@@ -4,24 +4,20 @@ This is the compact home for work deliberately left outside an otherwise complet
 implementation. Entries stay only while they name an unresolved decision, a concrete trigger,
 or a bounded next step. Completed implementation histories belong in Git, not here.
 
-## Pending production publishes (deferred-followups-verification-fixes-v1, 2026-10-21)
+## Production publish (deferred-followups-verification-fixes-v1) — done 2026-10-21
 
-Everything below is committed and loaded LOCALLY; none of it has reached production. Each was
-checked against what production serves on 2026-10-21 before being listed here.
+Published and verified against local the same day: `open_calls` 88 → 119 (Interreg ×6, АХУ, АЗ;
+row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company-place`
+(`company_public_money` equal to the cent, `tr_company_place` 359,094 rows equal),
+`admin_service_requests` (2,918 rows equal), the gzip uploads of `data_map.json` +
+`governments.json` and the two new bucket files, and hosting → `deploy:db` → hosting (bundle
+`index-B9gWD1hk.js` on `/`, `/person`, `/company`). Still open:
 
-- `npm run db:load:open-calls:pg:cloud` — Interreg (6 programmes), АХУ, АЗ (see EU Funds below).
-- `npm run db:load:interreg:pg:cloud`, then `db:load:graph:pg:cloud` and
-  `db:load:tr-company-place:pg:cloud` (CLAUDE.md's Interreg order) — the derived keep.eu coverage
-  notes; programme counts are unchanged.
-- `npm run db:load:admin-service-requests:pg:cloud` — еФорми volumes (migration 201, new table).
-- `npm run bucket:sync` — `data/data_map.json`, `data/budget/noi/pensioners_by_tp.json` and
-  `data/tourism/ntr_summary.json`.
-- `npm run bucket:gz` — `governments.json` with gzip encoding.
-- `npm run db:load:municipal-fiscal:pg:cloud` — optional: no verdict differs (all 11,130 rows
-  match prod on 2026-10-21).
 - Firebase: clear the domain-level redirect on `ai.electionsbg.com` (see the AI app entry).
-- `npm run deploy` — the reader-facing copy fixes (open-calls coverage line, municipal-fiscal
-  criteria wording).
+- `npm run db:load:municipal-fiscal:pg:cloud` — optional; no verdict differs.
+- ⚠️ Cloud `person_role` at tr/ngo is 2,431 rows (1.2%) behind local — cloud last resolved
+  2026-09-27 — which is past CLAUDE.md's ~1% trigger for the cloud person chain. It shows as
+  2,434 fewer `graph_edge` rows on prod; money is unaffected.
 
 ## Companies & Commerce Registry
 
