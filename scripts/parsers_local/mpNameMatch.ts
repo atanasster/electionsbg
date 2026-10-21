@@ -98,3 +98,9 @@ export const matchMp = (
   if (tokenCount(key) < 2) return undefined;
   return idx.byFull.get(key);
 };
+
+/** True when `name`'s full-name key is held by 2+ MPs — the case `matchMp` refuses. */
+export const isAmbiguousMpName = (
+  name: string | undefined,
+  idx: MpNameIndex,
+): boolean => !!name && idx.ambiguous.has(normaliseMpName(name));

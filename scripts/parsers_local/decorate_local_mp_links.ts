@@ -31,7 +31,12 @@ import type {
   LocalMayorResult,
   LocalCouncilCandidate,
 } from "./types";
-import { loadMpNameIndex, matchMp, type MpNameIndex } from "./mpNameMatch";
+import {
+  isAmbiguousMpName,
+  loadMpNameIndex,
+  matchMp,
+  type MpNameIndex,
+} from "./mpNameMatch";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,37 +46,50 @@ const DATA_ROOT = path.join(ROOT, "data");
 type DecorationStats = {
   considered: number;
   stamped: number;
+  /** Rows that carried an mpId before this run and no longer match. */
+  removed: number;
+  /** Rows whose full name is held by 2+ MPs, so no MP was chosen. */
+  ambiguous: number;
+};
+
+const emptyStats = (): DecorationStats => ({
+  considered: 0,
+  stamped: 0,
+  removed: 0,
+  ambiguous: 0,
+});
+
+const stampRow = (
+  row: { mpId?: number },
+  name: string,
+  idx: MpNameIndex,
+  stats: DecorationStats,
+): void => {
+  stats.considered++;
+  const id = matchMp(name, idx)?.id;
+  if (id !== undefined) {
+    row.mpId = id;
+    stats.stamped++;
+    return;
+  }
+  if (isAmbiguousMpName(name, idx)) stats.ambiguous++;
+  if ("mpId" in row) {
+    if (row.mpId !== undefined) stats.removed++;
+    delete row.mpId;
+  }
 };
 
 const stampMayor = (
   m: LocalMayorResult,
   idx: MpNameIndex,
   stats: DecorationStats,
-): void => {
-  stats.considered++;
-  const id = matchMp(m.candidateName, idx)?.id;
-  if (id !== undefined) {
-    m.mpId = id;
-    stats.stamped++;
-  } else if ("mpId" in m) {
-    delete m.mpId;
-  }
-};
+): void => stampRow(m, m.candidateName, idx, stats);
 
 const stampCouncillor = (
   c: LocalCouncilCandidate,
   idx: MpNameIndex,
   stats: DecorationStats,
-): void => {
-  stats.considered++;
-  const id = matchMp(c.name, idx)?.id;
-  if (id !== undefined) {
-    c.mpId = id;
-    stats.stamped++;
-  } else if ("mpId" in c) {
-    delete c.mpId;
-  }
-};
+): void => stampRow(c, c.name, idx, stats);
 
 const decorateBundle = (
   bundle: LocalMunicipalityBundle,
@@ -109,12 +127,12 @@ const main = (dryRun: boolean): void => {
   );
 
   const cycles = localCycleDirs();
-  const totals = { bundles: 0, considered: 0, stamped: 0 };
+  const totals = { bundles: 0, ...emptyStats() };
   for (const cycle of cycles) {
     const dir = path.join(DATA_ROOT, cycle, "municipalities");
     if (!fs.existsSync(dir)) continue;
     const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
-    const stats: DecorationStats = { considered: 0, stamped: 0 };
+    const stats = emptyStats();
     for (const f of files) {
       const file = path.join(dir, f);
       const bundle = JSON.parse(
@@ -128,13 +146,17 @@ const main = (dryRun: boolean): void => {
     totals.bundles += files.length;
     totals.considered += stats.considered;
     totals.stamped += stats.stamped;
+    totals.removed += stats.removed;
+    totals.ambiguous += stats.ambiguous;
     const pct =
       stats.considered === 0
         ? "0%"
         : `${((stats.stamped / stats.considered) * 100).toFixed(2)}%`;
     console.log(
       `[decorate-local] ${cycle}: ${files.length} bundle(s), ` +
-        `${stats.stamped}/${stats.considered} candidate rows stamped (${pct})`,
+        `${stats.stamped}/${stats.considered} candidate rows stamped (${pct}), ` +
+        `${stats.removed} removed (previously stamped, no longer matches), ` +
+        `${stats.ambiguous} on a name shared by 2+ MPs (skipped)`,
     );
   }
   const pct =
@@ -144,7 +166,8 @@ const main = (dryRun: boolean): void => {
   console.log(
     `[decorate-local] ${dryRun ? "dry-run " : ""}done — ` +
       `${totals.bundles} bundle(s) across ${cycles.length} cycle(s), ` +
-      `${totals.stamped}/${totals.considered} stamped (${pct})`,
+      `${totals.stamped}/${totals.considered} stamped (${pct}), ` +
+      `${totals.removed} removed, ${totals.ambiguous} ambiguous-name rows skipped`,
   );
 };
 
