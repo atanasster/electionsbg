@@ -133,3 +133,29 @@ name-hash slugs). It is committed so the pairing survives the lock rows it was d
 **On the cloud side** the same two steps run in order — `--apply` before
 `db:resolve:persons:cloud`, `--prune-dead --file <the same flip file>` after it — and the
 redirects are re-derived there rather than loaded from this file.
+
+## `chmi_2026_10_18_reslug.json`
+
+`{ "<old person slug>": "<new person slug>" }` — 11 entries, the 2026-10-18 partial local
+elections.
+
+**What it is.** The first parse of that by-election read every race as an общинa mayor, so
+its winners were minted under `local:2026_10_18_chmi:<code>:mayor`. The fix in `60dc5c9ec6`
+takes the race type from ЦИК's tab labels, and 11 of those races are кметство races. They
+became `local:2026_10_18_chmi:<code>:kmetstvo:0`: the same ОИК code, race and person, under a
+new mention id and therefore a new slug. The resolver pairs retired slugs by diffing the lock
+on `mention_id`, so a mention whose SHAPE changed cannot be paired. The old slugs were left
+with no person and no redirect, and `person_slug_retired.data.test.ts` plus
+`local_person_continuity.data.test.ts` A3 failed on them.
+
+**How it was applied (local, 2026-10-21).** Each `…:mayor` lock row whose slug was dead was
+paired with the `…:kmetstvo:0` row of the same code. All 11 pair 1:1 with identical names,
+and every target is `active` + `is_public_figure`. The redirect went into
+`person_slug_retired` and the dead lock row was deleted, the same disposition
+`kmetstvo_flips.ts --prune-dead` uses. Two other races in the cycle (VRC05, VTR26) also
+changed mention but name DIFFERENT people, and their old slugs still resolve, so they are not
+here.
+
+**Who reads it.** Nothing at runtime: like the 2007 re-slug map it is a RECORD. On Cloud SQL,
+check whether the old slugs were ever locked there before writing the same redirects (the
+person-layer cloud resolve was withheld from the 2026-10-21 publish).
