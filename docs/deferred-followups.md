@@ -39,6 +39,30 @@ or a bounded next step. Completed implementation histories belong in Git, not he
   ⚠️ The UBO comparison needs a legal/GDPR decision first: since ДВ бр. 49/2025 (new чл. 63б
   ЗМИП) access to beneficial-owner data is limited to authorities, obliged entities and persons
   with a „законен интерес", even though the TR open-data feed still carries the names.
+  **UBO exposure today (inventory, local Postgres, 2026-10-21)** — the question for counsel is
+  not only the planned comparison but what ALREADY renders:
+  - `tr_person_roles` role `actual_owner`: 21,162 rows (20,579 not erased), parsed from feed
+    field 05500 (`parse_daily_filing.ts` → `ActualOwners`) and CR Deeds `CR_F_550_L`. Stored per
+    person: name, position, country. No address and no identifier — `Indent` is deliberately
+    not extracted.
+  - `company_person_roles` (022) → `/company/:eik/officers`: **19,037** rows, i.e. every
+    company's beneficial owners by name, public figure or not.
+  - Two functions read `tr_person_roles` DIRECTLY, with no person-layer gate:
+    `company_officers(eik)` (008) → `/api/db/company` → the officers preview on `/company/:eik`
+    and `/awarder/:eik` and the AI chat company tool (`ai/tools/company.ts`); and
+    `person_roles(q)` (008) → `/api/db/person?name=` → the name-keyed `/person/:name` page and the
+    AI chat portfolio tool (`ai/tools/person.ts`), which returns ANY name's UBO rows.
+  - `person_role` (source `tr`): 2,461 roles held by 1,950 people — 211 of those roles (174
+    people) on active public figures, 2,250 on Tier-V private owners → `/person` roles,
+    `graph_edge` (2,461 `tr_owner` edges → `/connections`), `company_politicians` (23 rows →
+    procurement relation labels).
+    **Owner decision with GDPR counsel (the pending lawyer review of the published-persons
+    notice; no outcome recorded as of 2026-10-21):** whether
+    displaying registry-sourced UBOs is still covered by the journalistic exemption after чл. 63б,
+    and if not, which of the surfaces above to withdraw — all four paths carry UBOs, so withdrawing
+    only the officers page would leave `company_officers`, `person_roles` and the AI tools
+    publishing them. Until decided,
+    do NOT build the UBO-vs-registered-owner signal.
 - **Component test harness for `CompanyDbScreen`**: Build a mock payload fixture (~30 fields) so
   `CompanyDbScreen` can be mounted in unit tests like `PersonScreen.test.tsx`.
 
