@@ -95,9 +95,12 @@ const TENDER_NORMALCY_BUILD_FILE = path.join(
 //
 // The 067b windowed build once needed shipping from local because the shared-core
 // db-g1-small could not build it at all: the rank() sort spilled past that tier's
-// temp_file_limit → 53400. On the upgraded db-perf-optimized-N-2 that failure is
-// gone — measured 2026-08-21, 067b completes under the new tier's 3.04 GB
+// temp_file_limit → 53400. On the upgraded db-perf-optimized-N-2 that failure was
+// gone — measured 2026-08-21, 067b completes under that tier's 3.04 GB
 // temp_file_limit at its own work_mem=512MB (92 s locally, peak temp < 3.04 GB).
+// The box moved to db-custom-2-13312 on 2026-08-27; re-checked 2026-10-21 BY SETTING
+// ONLY (not re-run): its temp_file_limit is 3.63 GB (3,807,390 kB), above the 3.04 GB
+// the build fit under — but the corpus has grown since, so the ship fallback stays.
 // Building in-place removes the F36 coupling (db:load:tenders:pg:cloud no longer
 // reads local Postgres for this cache). See docs/plans/cloud-deploy-speed-v1.md §v2-f.
 //
@@ -308,7 +311,8 @@ export const loadTendersPg = async (): Promise<{
   // Per-tender "how typical is this tender?" payloads (067). 067 installs the fn
   // + the empty cache TABLE (migrating the old matview if present); then 067b
   // computes the windowed payloads IN-PLACE on both local and cloud (v2-f — the
-  // old-tier 53400 that once forced shipping is gone on db-perf-optimized-N-2),
+  // shared-core 53400 that once forced shipping was gone on db-perf-optimized-N-2;
+  // on the current db-custom-2-13312 only the temp_file_limit SETTING was re-checked),
   // with a ship fallback only for a residual temp-spill. See buildOrShipTenderNormalcy.
   await exec(readFileSync(TENDER_NORMALCY_FILE, "utf8"));
   await buildOrShipTenderNormalcy();

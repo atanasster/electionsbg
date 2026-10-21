@@ -73,32 +73,47 @@ npm run deploy:db    # Deploy the `db` Cloud Function (/api/db, the /officials 3
 npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
 
-### The serving instance — and why every Cloud SQL timing below is an upper bound
+### The serving instance — and why a Cloud SQL timing means nothing without its tier
 
 **Prod Cloud SQL is `electionsbg-pg` (`elections-bg:europe-west3:electionsbg-pg`, proxy
-`127.0.0.1:5434`, password in the repo-local `.pgpass`), and as of 2026-08-22 it is
-`db-perf-optimized-N-2` on the ENTERPRISE_PLUS edition** — PG16, 37 GB PD_SSD, ZONAL.
-Reported by the server: `shared_buffers` **5332 MB**, `effective_cache_size` ~6.25 GB,
-`work_mem` 16 MB.
+`127.0.0.1:5434`, password in the repo-local `.pgpass`), and since 2026-08-27 it is
+`db-custom-2-13312` on the ENTERPRISE edition** — 2 vCPU / 13 GB, PG16, 37 GB PD_SSD, ZONAL.
+Reported by the server 2026-10-21: `shared_buffers` **4324 MB**, `effective_cache_size`
+~5.07 GB, `work_mem` 16 MB, `max_connections` 400.
 
-⚠️ **It was `db-g1-small` until then — a SHARED-CORE box with ~1.7 GB of RAM and
-`shared_buffers` of 128–300 MB — and essentially every Cloud SQL wall-clock figure written
-anywhere in this repo predates the upgrade.** That includes the ones in this file, in
+⚠️ **The instance has been on THREE tiers, and a timing is only meaningful with the one it was
+measured on.** From the Cloud Audit Log (`cloudsql.instances.update`, settings.tier):
+
+| window (UTC) | tier | edition | `shared_buffers` |
+| ------------ | ---- | ------- | ---------------- |
+| until 2026-08-20 08:57 | `db-g1-small` — SHARED-CORE, ~1.7 GB RAM | ENTERPRISE | 128–300 MB |
+| 2026-08-20 08:57 → 2026-08-27 02:54 | `db-perf-optimized-N-2` | ENTERPRISE_PLUS | 5332 MB |
+| since 2026-08-27 02:54 (done ~03:00) | `db-custom-2-13312` | ENTERPRISE | 4324 MB |
+
+So the 2026-08-22 and 2026-08-27 tables below are N-2 figures (the 08-27 re-measure was
+committed at 02:56Z, its runs finished before the change), while every figure from
+**2026-08-29 on** — the person chain, the 2026-09-04 outage poll — was taken on
+`db-custom-2-13312`. Essentially every older Cloud SQL wall-clock figure written anywhere in
+this repo predates even the first change, including the ones in this file, in
 `.claude/skills/**`, in `docs/plans/**` and in the assistant's memory. Those numbers were
-honestly measured; they are now **upper bounds**, not predictions.
+honestly measured; read them as **upper bounds**, not predictions — and note the current box
+has LESS `shared_buffers` than N-2, so an N-2 figure is not automatically an upper bound for
+today.
 
 Two rules follow, and the second is the one that matters:
 
-- **Never relabel an old measurement with the new tier.** A figure keeps the box it was
-  measured on ("measured 2026-08-06 on the then-current `db-g1-small`"). Restamping it
-  `db-perf-optimized-N-2` manufactures a claim nobody made — the exact defect this file
-  warns about everywhere else.
-- **The upgrade does NOT retire a single *ordering* or *locking* rule.** `shared_buffers`
-  moved from ~0.3 GB to 5.3 GB, so the RAM-starvation arguments are weaker — but an
-  AccessExclusiveLock still blocks readers, a `DROP … CASCADE` still deletes dependents, a
-  matview created `WITH NO DATA` still raises `55000`, and the `10 s` pool
-  `statement_timeout` (set by the app, not the server — the server's own is `0`) is
-  unchanged. Read a fast timing as "this window is shorter", never as "this window is gone".
+- **Never relabel a measurement with another tier.** A figure keeps the box it was measured
+  on ("measured 2026-08-06 on the then-current `db-g1-small`"). Restamping it with a later
+  tier manufactures a claim nobody made — the exact defect this file warns about everywhere
+  else. (Four 2026-08-29 / 2026-09-04 figures carried the N-2 stamp after the box had already
+  moved on; corrected 2026-10-21 from the audit log.)
+- **No tier change retires a single *ordering* or *locking* rule — up OR down.**
+  `shared_buffers` went ~0.3 GB → 5.3 GB → 4.3 GB, so the RAM-starvation arguments are weaker
+  than on the shared-core box — but an AccessExclusiveLock still blocks readers, a
+  `DROP … CASCADE` still deletes dependents, a matview created `WITH NO DATA` still raises
+  `55000`, and the `10 s` pool `statement_timeout` (set by the app, not the server — the
+  server's own is `0`) is unchanged. Read a fast timing as "this window is shorter", never as
+  "this window is gone".
 
 `docs/plans/**` deliberately keeps its original figures: those are dated design records
 whose reasoning ("we precomputed this because it was 801 ms") was correct when written, and
@@ -143,10 +158,14 @@ file that were still quoting the retired `db-g1-small`:
 ⚠️ **The two top rows are the ones that mattered, because both were being used to AVOID work.**
 "the cloud TR publish is not reader-safe: it is 34.9 min" and "budget a quarter of an hour and do
 not chain `mp_similarity` behind anything urgent" were both being read as reasons not to run a
-step; both were measured on the retired shared-core box and neither survives contact with the
-current one. Both call sites below have been corrected in place to point here. The TRUNCATE
-window on a TR publish is under five minutes, and the roll-call derived rebuild is a ~70 s step.
-Re-measure before quoting either as a reason not to run something.
+step; both were measured on the retired shared-core box and neither survived contact with the
+N-2 box that replaced it. Both call sites below have been corrected in place to point here. On
+N-2 the TRUNCATE window on a TR publish was under five minutes and the roll-call derived
+rebuild a ~70 s step. ⚠️ **On today's `db-custom-2-13312` both are slower**: the publish traces
+(`state/perf/upload-watch-changes.jsonl`, 2026-08-29 → 2026-09-09) show
+`db:load:tr:pg:cloud` at **497–670 s** and `db:load:rollcall-derived:pg:cloud` at **188–202 s**.
+Still nowhere near the shared-core figures, so neither is a reason to avoid running a step —
+but re-measure before quoting any of them.
 
 
 ⚠️ **THE UPGRADE DID NOT MAKE EVERYTHING FASTER, AND THE ONE THAT GOT SLOWER IS THE LESSON.**
@@ -1507,7 +1526,7 @@ two commands works and costs a measured **~8 minutes of 500s** on `/persons`,
 `/officials/assets`, `/mp-assets` and `/declarations/crypto` (phase 1 NULLs every
 `person_id`; phase 2 runs 090's `DROP MATERIALIZED VIEW … CASCADE`, and a DbDataTable
 resource has no `missingMigration` degrade). **Re-measured 2026-08-29 on
-`db-perf-optimized-N-2`, 61,743 filings: phase 1 = 39 s, phase 2 = 4m52s** — so the PAIR is
+`db-custom-2-13312`, 61,743 filings: phase 1 = 39 s, phase 2 = 4m52s** — so the PAIR is
 ~5m30s of loader wall-clock. ⚠️ That is the loaders' runtime, NOT a re-measurement of the
 outage. Note the window is bounded by the pair only when nothing runs BETWEEN them —
 insert a resolve, as the person chain does, and the degraded span is the whole span.
@@ -1521,7 +1540,7 @@ Probed `/api/db/table` for `persons`, `officials_rankings`, `crypto_holdings` an
 
 Read that as ONE measurement, not a guarantee: `mp_assets_rankings` was not probed, a 30 s
 interval cannot exclude a sub-30 s blip, and this was an idle-hours run on
-`db-perf-optimized-N-2`. But the claim it replaces was never measured at all — the sentence
+`db-custom-2-13312`. But the claim it replaces was never measured at all — the sentence
 here used to say so — and an unmeasured figure had been load-bearing in arguments against
 running the chain. If a future run does degrade these pages, re-measure and say so here rather
 than restoring the old number. The values are derived from immutable filings,
@@ -1669,7 +1688,7 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg npx tsx scripts/db/a
 Measured: 21.8 s local, **8m02s on Cloud SQL**, during which `/persons`, `/officials/assets`
 and `/declarations/crypto` answer **500** — DbDataTable resources have no `missingMigration`
 degrade. Off-peak only. Prefer `db:load:declarations:pg:cloud -- --resolve` (which applies the
-same files in its own order — **measured 4m52s on `db-perf-optimized-N-2`, 2026-08-29**, i.e.
+same files in its own order — **measured 4m52s on `db-custom-2-13312`, 2026-08-29**, i.e.
 about half the hand-run apply above) unless the CASCADE dependents have been resolved against the
 TARGET database, which is what makes the short command safe.
 
@@ -3863,7 +3882,7 @@ Three things keep it benign, and the first is the one worth checking rather than
   is what `graph_company_node` denormalizes — is **81,474 rows on BOTH** databases. The
   divergence is in the person↔company edge set from resolve history, never in the money.
 
-⚠️ **THE WHOLE CHAIN WAS RE-MEASURED 2026-08-29 on `db-perf-optimized-N-2`** (61,743
+⚠️ **THE WHOLE CHAIN WAS RE-MEASURED 2026-08-29 on `db-custom-2-13312`** (61,743
 filings, 1,023,014-company TR corpus), end to end in manifest order — **18m14s for all 13
 steps**, against the ~37 min this section used to quote for the resolve ALONE. The old
 figure was measured 2026-08-11 on the retired `db-g1-small`; it over-stated by ~4×, and it

@@ -467,7 +467,7 @@ test.skipIf(mutationSkip)(
     // Those are LOCAL figures on that date, and the 10,274 the ceiling above was written
     // against was measured on the pre-index body — not restamped onto this box.
     //
-    // ⚠️ CLOUD SQL, measured on `db-perf-optimized-N-2` via the proxy, READ-ONLY (no DDL — see
+    // ⚠️ CLOUD SQL, measured on `db-custom-2-13312` via the proxy, READ-ONLY (no DDL — see
     // the mutationSkip note above for why this test never drops there). The premises transfer
     // exactly, re-verified 2026-08-31: person_role is 325,686 rows against local's 325,761,
     // `source='mp'` is **3,852 on both**, visibility map 100% on both (7,630/7,630 pages), all

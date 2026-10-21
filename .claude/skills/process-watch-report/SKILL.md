@@ -1154,7 +1154,7 @@ first, then re-run the orchestrator.
    npm run db:load:declarations:pg:cloud       # phase 1 — rewrites subject_ref AND is what the
                                                #   resolve reads for the register gold key
    npm run db:resolve:persons:cloud            # 7m 35s measured 2026-08-29 on
-                                               #   db-perf-optimized-N-2 (61,743 filings).
+                                               #   db-custom-2-13312 (61,743 filings).
                                                #   Earlier figures on this line — "~5 min"
                                                #   (2026-08-05) then 1733 s / 28.9 min
                                                #   (2026-08-11, db-g1-small) — are both
