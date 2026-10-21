@@ -1211,5 +1211,48 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "120",
+    "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-oktomvri-2026-120.html",
+    "title": "Обществено–политически нагласи - Октомври 2026",
+    "publishedAt": "2026-10-21",
+    "agencyId": "ML",
+    "pubIds": [
+      "120"
+    ],
+    "discoveredAt": "2026-10-21T21:48:02.511Z",
+    "latestHash": "73d16d4f4cb151460455adfa2c433a52a01eb4273ff66fb4f76c23841449a151",
+    "versions": [
+      {
+        "sha256": "73d16d4f4cb151460455adfa2c433a52a01eb4273ff66fb4f76c23841449a151",
+        "capturePath": "raw_data/polls/market_links/120",
+        "capturedAt": "2026-10-21T22:47:43.201Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-120-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-21T22:47:49.478Z",
+            "draftHash": "ab9b6c38f0a4214a36f5aff763f5226e190670f38d4973dd6c74dca60e8433d5",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
   }
 ]

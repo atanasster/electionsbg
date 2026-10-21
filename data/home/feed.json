@@ -1,48 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-20T23:59:59.999Z",
+  "computedAt": "2026-10-21T23:59:59.999Z",
   "windowDays": 30,
   "events": [
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-20T00:00:00.000Z",
-      "firstSeenAt": "2026-10-20T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/limoni",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "ЛИМОНИ",
-        "pct": 58,
-        "promoEur": "0.89",
-        "regularEur": "2.14",
-        "chains": 4
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8285714285714286,
-      "actionability": 0.85
-    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-20T00:00:00.000Z",
-      "firstSeenAt": "2026-10-20T00:00:00.000Z",
+      "occurredAt": "2026-10-21T00:00:00.000Z",
+      "firstSeenAt": "2026-10-21T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -71,11 +38,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-10-16",
+      "id": "parliament:sitting:2026-10-21",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-10-16T00:00:00.000Z",
-      "firstSeenAt": "2026-10-16T00:00:00.000Z",
+      "occurredAt": "2026-10-21T00:00:00.000Z",
+      "firstSeenAt": "2026-10-21T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -87,17 +54,50 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-10-16",
+      "route": "/votes/2026-10-21",
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
-        "items": 41,
-        "sittings": 13,
+        "items": 2,
+        "sittings": 14,
         "windowDays": 30
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 1,
       "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:byalo-zele",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-21T00:00:00.000Z",
+      "firstSeenAt": "2026-10-21T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/byalo-zele",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "БЯЛО ЗЕЛЕ",
+        "pct": 55,
+        "promoEur": "0.49",
+        "regularEur": "1.10",
+        "chains": 3
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7857142857142857,
+      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -197,11 +197,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:byalo-zele",
+      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-20T00:00:00.000Z",
-      "firstSeenAt": "2026-10-20T00:00:00.000Z",
+      "occurredAt": "2026-10-21T00:00:00.000Z",
+      "firstSeenAt": "2026-10-21T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -214,18 +214,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/byalo-zele",
+      "route": "/product/shokolad-lacmi-mlechen-90-gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "БЯЛО ЗЕЛЕ",
-        "pct": 55,
-        "promoEur": "0.49",
-        "regularEur": "1.10",
-        "chains": 3
+        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
+        "pct": 53,
+        "promoEur": "0.79",
+        "regularEur": "1.69",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7857142857142857,
+      "materiality": 0.7571428571428571,
       "actionability": 0.85
     },
     {
@@ -930,21 +930,21 @@
     },
     "opencalls": {
       "available": true,
-      "asOf": "2026-09-21",
-      "observedAt": "2026-10-16",
+      "asOf": "2026-09-24",
+      "observedAt": "2026-10-21",
       "staleAfterDays": 45,
       "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-10-16",
+      "asOf": "2026-10-21",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-20",
-      "observedAt": "2026-10-20",
+      "asOf": "2026-10-21",
+      "observedAt": "2026-10-21",
       "staleAfterDays": 5,
       "stale": false
     }

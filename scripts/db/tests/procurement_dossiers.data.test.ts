@@ -625,10 +625,15 @@ test.skipIf(skip)(
     // slice (adds the €18.4M flagship + provisioning), minus the €47k legal subs. A
     // drop toward €59M = the contractor anchor regressed; a jump toward €106M = the
     // компютърна-обработка / клипове over-recall leaked back in.
+    //
+    // Re-pinned 2026-10-22: two ЦИК → Сиела Норма contracts signed 2026-10-20 for
+    // the November vote (04312-2026-0009: €11.24M maintenance/consumables +
+    // €1.22M transport of the machines) took the anchored total €92.3M → €104.8M,
+    // exactly their sum. Real growth inside the supplier anchor, not over-recall.
     const eur = MASH!.summary.contractedEur;
     assert.ok(
-      eur > 85_000_000 && eur < 100_000_000,
-      `mashinno contractedEur €${(eur / 1e6).toFixed(1)}M outside [85M, 100M] — anchor regressed or over-recall leaked`,
+      eur > 97_000_000 && eur < 112_000_000,
+      `mashinno contractedEur €${(eur / 1e6).toFixed(1)}M outside [97M, 112M] — anchor regressed or over-recall leaked`,
     );
     // The €18.4M flagship device-supply procedure — the record the term threads
     // missed and the whole reason for the contractor anchor.

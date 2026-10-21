@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-21T15:54:58.436Z",
+  "generatedAt": "2026-10-21T23:32:46.069Z",
   "nodes": [
     {
       "id": "src:water",
@@ -135,7 +135,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-16T21:41:09.131Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -146,7 +146,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-10-16T21:41:09.131Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "parliament_mps",
@@ -589,7 +589,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-20T21:44:25.284Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-procurement"
       ],
@@ -599,7 +599,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-10-20T21:44:25.284Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         }
       ],
       "x": 28,
@@ -791,7 +791,7 @@
       "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-15T21:40:59.711Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-open-calls"
       ],
@@ -801,7 +801,7 @@
           "label": "ИСУН — отворени процедури",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
           "cadence": "daily",
-          "freshness": "2026-10-15T21:40:59.711Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "sp2023_indicative",
@@ -815,7 +815,7 @@
           "label": "Interreg — трансгранични покани",
           "url": "https://www.greece-bulgaria.eu/calls/",
           "cadence": "daily",
-          "freshness": "2026-08-10T06:09:31.438Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "ahu_calls",
@@ -1209,7 +1209,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-19T21:44:24.874Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1228,7 +1228,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-10-19T21:44:24.874Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "municipal_naredba",
@@ -1448,7 +1448,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-10-20T21:44:25.284Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1460,7 +1460,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-10-20T21:44:25.284Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "eurostat_policy",
@@ -1775,7 +1775,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-20T21:44:25.284Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-prices"
       ],
@@ -1785,7 +1785,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-10-20T21:44:25.284Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         }
       ],
       "issue": {
@@ -2320,7 +2320,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-10-20T21:44:25.284Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-procurement"
       ],
@@ -2330,7 +2330,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-10-20T21:44:25.284Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         }
       ],
       "issue": {
@@ -2636,7 +2636,7 @@
       "url": "https://alpharesearch.bg/",
       "origin": "community",
       "cadence": "daily",
-      "freshness": "2026-10-19T21:44:24.874Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-polls"
       ],
@@ -2660,7 +2660,7 @@
           "label": "Polls — Маркет ЛИНКС",
           "url": "https://www.marketlinks.bg",
           "cadence": "daily",
-          "freshness": "2026-09-30T22:44:47.997Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "polls_sova_harris",
@@ -2725,7 +2725,7 @@
       "url": "https://bg.wikipedia.org/",
       "origin": "community",
       "cadence": "daily",
-      "freshness": "2026-10-20T21:44:25.284Z",
+      "freshness": "2026-10-21T21:48:02.511Z",
       "skills": [
         "update-polls"
       ],
@@ -2735,7 +2735,7 @@
           "label": "BG Wikipedia polls (cross-check only)",
           "url": "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2026)",
           "cadence": "daily",
-          "freshness": "2026-10-20T21:44:25.284Z"
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "wiki_governments",
@@ -7434,8 +7434,8 @@
         {
           "node": "ds:connections",
           "text": {
-            "bg": "Този ЕИК е ключът към Търговския регистър — 18 816 изпълнителя се намират там като фирми със собственици и управители.",
-            "en": "That company number is the key into the Commerce Registry — 18,816 contractors are found there as companies with owners and directors."
+            "bg": "Този ЕИК е ключът към Търговския регистър — 18 822 изпълнителя се намират там като фирми със собственици и управители.",
+            "en": "That company number is the key into the Commerce Registry — 18,822 contractors are found there as companies with owners and directors."
           }
         },
         {
@@ -7598,7 +7598,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18816,
+      "overlap": 18822,
       "query": "contractors-in-the-registry"
     },
     {

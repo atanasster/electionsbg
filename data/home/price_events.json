@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-20",
+  "computedAt": "2026-10-21",
   "thresholds": {
     "basketPids": [
       1,
@@ -75,23 +75,13 @@
   ],
   "promotions": [
     {
-      "slug": "limoni",
-      "title": "ЛИМОНИ",
-      "atOrBelowSince": "2026-10-15",
-      "promoEur": 0.89,
-      "regularEur": 2.14,
-      "discountPct": 58,
-      "stores": 348,
-      "chains": 4
-    },
-    {
       "slug": "krave-maslo-d-markenbutter-250gr",
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
       "atOrBelowSince": "2026-09-24",
       "promoEur": 1.79,
       "regularEur": 4.07,
       "discountPct": 56,
-      "stores": 200,
+      "stores": 186,
       "chains": 2
     },
     {
@@ -103,6 +93,16 @@
       "discountPct": 55,
       "stores": 202,
       "chains": 3
+    },
+    {
+      "slug": "shokolad-lacmi-mlechen-90-gr",
+      "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
+      "atOrBelowSince": "2026-10-15",
+      "promoEur": 0.79,
+      "regularEur": 1.69,
+      "discountPct": 53,
+      "stores": 48,
+      "chains": 2
     }
   ]
 }

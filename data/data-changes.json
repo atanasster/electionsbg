@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-10-20T22:53:20.421Z",
+  "updatedAt": "2026-10-21T23:32:07.363Z",
   "entries": [
+    {
+      "timestamp": "2026-10-21T23:32:07.363Z",
+      "date": "2026-10-21",
+      "skill": "update-procurement",
+      "summary": "+155 ЦАИС ЕОП contracts (77 buyers) through 2026-10-21; 240,993 tenders; TED 222,535 notices",
+      "source": "ЦАИС ЕОП open data"
+    },
+    {
+      "timestamp": "2026-10-21T23:19:41.188Z",
+      "date": "2026-10-21",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 902 лица, 125 104 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-10-21T22:36:22.166Z",
+      "date": "2026-10-21",
+      "skill": "update-open-calls",
+      "summary": "ИСУН 54 open calls; Interreg 28 calls (BG-MK/RS/TR, RO-BG back; BSB down); АЗ 3",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-10-21T22:29:57.569Z",
+      "date": "2026-10-21",
+      "skill": "update-macro",
+      "summary": "Eurostat refresh: 10 releases (gov_10a_*, nama_10_gdp, namq_10_a10, une_rt_m…); cofog + peers re-fetched",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-21T22:28:59.400Z",
+      "date": "2026-10-21",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-21 (+1 daily archive; 982,042 store rows, 168 settlements, 67 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-21"
+    },
+    {
+      "timestamp": "2026-10-21T22:23:35.037Z",
+      "date": "2026-10-21",
+      "skill": "update-rollcall",
+      "summary": "1 new session through 2026-10-21 (640 plenary days, 17231 items)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-10-20T22:53:20.421Z",
       "date": "2026-10-20",

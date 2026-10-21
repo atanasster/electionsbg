@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T22:04:09.592Z",
+  "generatedAt": "2026-10-21T22:50:07.280Z",
   "total": 117,
   "entries": [
     {
@@ -114,9 +114,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 363115381.59,
+      "totalEur": 363118651.59,
       "totalOther": {},
-      "contractCount": 359,
+      "contractCount": 360,
       "awardCount": 0,
       "byYear": [
         {
@@ -211,8 +211,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 44,
-          "totalEur": 37702573.61,
+          "contractCount": 45,
+          "totalEur": 37705843.61,
           "totalOther": {}
         }
       ],
@@ -1017,9 +1017,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 48083730,
+      "totalEur": 48108681.77,
       "totalOther": {},
-      "contractCount": 336,
+      "contractCount": 337,
       "awardCount": 0,
       "byYear": [
         {
@@ -1054,8 +1054,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 31,
-          "totalEur": 2741791.35,
+          "contractCount": 32,
+          "totalEur": 2766743.12,
           "totalOther": {}
         }
       ],
@@ -1280,9 +1280,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 35960404.23,
+      "totalEur": 37708733.73,
       "totalOther": {},
-      "contractCount": 151,
+      "contractCount": 152,
       "awardCount": 0,
       "byYear": [
         {
@@ -1377,8 +1377,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 10,
-          "totalEur": 5734883.35,
+          "contractCount": 11,
+          "totalEur": 7483212.85,
           "totalOther": {}
         }
       ],
@@ -1398,17 +1398,17 @@
           "totalOther": {}
         },
         {
+          "eik": "000057026",
+          "name": "Община Карнобат",
+          "contractCount": 13,
+          "totalEur": 4544226.18,
+          "totalOther": {}
+        },
+        {
           "eik": "000695089",
           "name": "Агенция \"Пътна инфраструктура\"",
           "contractCount": 1,
           "totalEur": 3241418.04,
-          "totalOther": {}
-        },
-        {
-          "eik": "000057026",
-          "name": "Община Карнобат",
-          "contractCount": 12,
-          "totalEur": 2795896.68,
           "totalOther": {}
         },
         {
@@ -5110,6 +5110,92 @@
       ]
     },
     {
+      "mpId": 5206,
+      "mpName": "Надежда Георгиева Йорданова",
+      "contractorEik": "175271486",
+      "contractorName": "Научни иновативни решения ЕООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "1000",
+          "declarationYear": 2023
+        }
+      ],
+      "totalEur": 565830.6,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 3,
+          "totalEur": 7004.7,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 4,
+          "totalEur": 14551.36,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 4857.27,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 30421.87,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 508995.4,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000852932",
+          "name": "Община Град добрич",
+          "contractCount": 2,
+          "totalEur": 508995.4,
+          "totalOther": {}
+        },
+        {
+          "eik": "000320566",
+          "name": "ОБЩИНА БОЙЧИНОВЦИ",
+          "contractCount": 1,
+          "totalEur": 30421.87,
+          "totalOther": {}
+        },
+        {
+          "eik": "000056814",
+          "name": "Община Бургас",
+          "contractCount": 1,
+          "totalEur": 8405.64,
+          "totalOther": {}
+        },
+        {
+          "eik": "130169256",
+          "name": "Министерство на икономиката и енергетиката /МИЕ/ - Старо наименование - Министерство на икономиката, енергетиката и туризма /МИЕТ/ /Старо наименование - Министерство на икономиката и енергетиката /МИЕ//",
+          "contractCount": 3,
+          "totalEur": 7004.7,
+          "totalOther": {}
+        },
+        {
+          "eik": "000852544",
+          "name": "Община Балчик",
+          "contractCount": 1,
+          "totalEur": 4857.27,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 1488,
       "mpName": "Хасан Илияз Хаджихасан",
       "contractorEik": "207351676",
@@ -6529,86 +6615,6 @@
           "name": "Министерство на туризма",
           "contractCount": 1,
           "totalEur": 62500,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 5206,
-      "mpName": "Надежда Георгиева Йорданова",
-      "contractorEik": "175271486",
-      "contractorName": "Научни иновативни решения ООД",
-      "relations": [
-        {
-          "kind": "stake",
-          "shareSize": "1000",
-          "declarationYear": 2023
-        }
-      ],
-      "totalEur": 56835.2,
-      "totalOther": {},
-      "contractCount": 9,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 3,
-          "totalEur": 7004.7,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 4,
-          "totalEur": 14551.36,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 1,
-          "totalEur": 4857.27,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 1,
-          "totalEur": 30421.87,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000320566",
-          "name": "ОБЩИНА БОЙЧИНОВЦИ",
-          "contractCount": 1,
-          "totalEur": 30421.87,
-          "totalOther": {}
-        },
-        {
-          "eik": "000056814",
-          "name": "Община Бургас",
-          "contractCount": 1,
-          "totalEur": 8405.64,
-          "totalOther": {}
-        },
-        {
-          "eik": "130169256",
-          "name": "Министерство на икономиката и енергетиката /МИЕ/ - Старо наименование - Министерство на икономиката, енергетиката и туризма /МИЕТ/ /Старо наименование - Министерство на икономиката и енергетиката /МИЕ//",
-          "contractCount": 3,
-          "totalEur": 7004.7,
-          "totalOther": {}
-        },
-        {
-          "eik": "000852544",
-          "name": "Община Балчик",
-          "contractCount": 1,
-          "totalEur": 4857.27,
-          "totalOther": {}
-        },
-        {
-          "eik": "000351558",
-          "name": "Община Белово",
-          "contractCount": 2,
-          "totalEur": 4059.65,
           "totalOther": {}
         }
       ]

@@ -41,9 +41,9 @@
     },
     {
       "id": "government_debt_gdp",
-      "value": 28.5,
+      "value": 28.7,
       "basis": {
-        "period": "2026-Q1",
+        "period": "2026-Q2",
         "frequency": "quarterly",
         "unit": "pct_gdp",
         "comparison": "snapshot"
@@ -79,7 +79,7 @@
     },
     "governance": {
       "tileId": "governance",
-      "value": 63607,
+      "value": 63619,
       "unit": "count",
       "basisKey": "home_basis_governance_people",
       "to": "/governance",
@@ -87,7 +87,7 @@
     },
     "procurement": {
       "tileId": "procurement",
-      "value": 94526363467,
+      "value": 94562601358,
       "unit": "eur",
       "basisKey": "home_basis_procurement_contracted_all",
       "to": "/procurement?pscope=all",
@@ -102,7 +102,7 @@
     },
     "eurostat_gov_10q_ggdebt": {
       "available": true,
-      "asOf": "2026-Q1",
+      "asOf": "2026-Q2",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggdebt/default/table",
       "datasetCode": "gov_10q_ggdebt"
     },

@@ -1,50 +1,50 @@
 {
-  "generatedAt": "2026-10-20T22:02:47.419Z",
-  "count": 1881,
+  "generatedAt": "2026-10-21T22:50:39.793Z",
+  "count": 1883,
   "sources": {
     "tr": 121,
-    "name+oblast": 73,
+    "name+oblast": 72,
     "ri": 1157,
     "name": 247,
-    "ocds": 197,
+    "ocds": 200,
     "mon": 31,
     "mon+oblast": 54,
     "school": 1
   },
   "run": {
-    "candidates": 2433,
-    "resolved": 1881,
-    "unresolved": 552
+    "candidates": 2434,
+    "resolved": 1883,
+    "unresolved": 551
   },
   "carriedOver": {},
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-10-20T22:02:47.419Z"
+      "lastFreshAt": "2026-10-21T22:50:39.793Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-10-20T22:02:47.419Z"
+      "lastFreshAt": "2026-10-21T22:50:39.793Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-10-20T22:02:47.419Z"
+      "lastFreshAt": "2026-10-21T22:50:39.793Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-10-20T22:02:47.419Z"
+      "lastFreshAt": "2026-10-21T22:50:39.793Z"
     },
     "mon": {
       "status": "ok",
-      "lastFreshAt": "2026-10-20T22:02:47.419Z"
+      "lastFreshAt": "2026-10-21T22:50:39.793Z"
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-10-20T22:02:47.419Z"
+      "lastFreshAt": "2026-10-21T22:50:39.793Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-10-20T22:02:47.419Z"
+      "lastFreshAt": "2026-10-21T22:50:39.793Z"
     }
   },
   "awarders": {
@@ -2668,6 +2668,11 @@
       "source": "name",
       "confidence": "name_only"
     },
+    "000010681": {
+      "ekatte": "17395",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "000010891": {
       "ekatte": "02676",
       "source": "ri",
@@ -4001,6 +4006,11 @@
     "000134063": {
       "ekatte": "10447",
       "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000134070": {
+      "ekatte": "16359",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000150808": {
@@ -6305,7 +6315,7 @@
     },
     "000459014": {
       "ekatte": "56784",
-      "source": "name+oblast",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000459021": {
