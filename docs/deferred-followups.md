@@ -465,9 +465,24 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
     Any implementation must limit itself to address-rule matches and decide what a code missing
     from 2023 means; then decide per station before changing published numbers.
   - Долно Езерово before 2016 is placeable only from an era-correct section address list. ЦИК's
-    CSV bundles carry no address field: 020400309–315 first appear in pvrnr2016, and mi2015 stops at 020400290. The ЦИК archive HTML is Cloudflare-blocked. The realistic source is Община Бургас's
-    заповеди за образуване на избирателни секции (2011 / 2015 / 2016) or the РИК/ОИК decisions. Do
-    not guess codes.
+    CSV bundles carry no address field: 020400309–315 first appear in pvrnr2016, and mi2015 stops at 020400290. The ЦИК archive HTML is Cloudflare-blocked. Do not guess codes.
+    **2015 — FOUND (2026-10-21):** ОИК Бургас Решение № 11 „Формиране единните номера на
+    избирателните секции" (2015-09-09, under the mayor's Заповед № 2241/07.09.2015) lists the
+    sections numbered up to 292 (291 distinct codes — 00166 is printed twice, 00233 skipped; most rows
+    say only „гр.Бургас") and tags **020400252–257** „гр.Бургас–кв.Д. Езерово" and **020400119–120**
+    „кв. Горно Езерово". Read from the Wayback copy of
+    `oik0204.cik.bg/minr2015/decisions/11/2015-09-09` (the live ОИК pages 403; the attached
+    `upload/1258/_11_.doc` still downloads directly). Not wired in: the matcher places by address
+    (`addressIncludes`), so it needs a per-cycle code list with this citation before 2015 can
+    match — a published-number change, so it waits for that decision.
+    ⚠️ **It also shows a PUBLISHED 2015 placement is wrong.** `gorno_ezerovo` matches 2015 sections
+    020400148–150 because their 2026 address names Горно Езерово; the ОИК list has those as plain
+    гр.Бургас and Горно Езерово at 119–120. 2011 matches the same 148–150 and is almost certainly
+    wrong too. `problem_sections_local.data.test.ts` requires the 2015 match, so the gate currently
+    locks it in. Correcting it changes published numbers and belongs with the per-cycle code-list
+    change above.
+    **2011 — still open:** `oik0204.cik.bg/mi2011` has no Wayback captures; the ЗДОИ route to
+    Община Бургас (Заповед за образуване на секции, 2011) is the remaining one.
 - **Parliamentary votes & bills**:
   - Decide whether to prerender a scored subset of `/votes/:date/:slug` item pages (top engaged
     URL family in the parliament module, currently SPA-only).

@@ -78,7 +78,7 @@ const NOT_MATCHABLE: Record<string, { id: string; why: string }[]> = {
   "2015_10_25_mi": [
     {
       id: "dolno_ezerovo",
-      why: "Burgas codes 020400309-315 were created ~2016 (290 stations in 2015); the earlier stations are unaddressable — every address we hold is 2022+",
+      why: "Burgas codes 020400309-315 were created ~2016 (the 2015 results stop at 020400290). An era-correct list EXISTS — ОИК Бургас Решение № 11 of 2015-09-09 tags 020400252-257 „кв. Д. Езерово“ — but the matcher places by address only and every address we hold is 2022+, so it is not wired in yet (see docs/deferred-followups.md)",
     },
   ],
 };
