@@ -500,12 +500,17 @@ or a bounded next step. Completed implementation histories belong in Git, not he
 ## Infrastructure, Database & Site Hygiene
 
 - **Cloud SQL tier selection (`electionsbg-pg`)**: Currently running `Enterprise / db-custom-2-13312`
-  (confirmed by `gcloud sql instances describe` 2026-10-21 — CLAUDE.md's „db-perf-optimized-N-2"
-  header is stale)
   (~$160/mo, 1.56× slower under 8-way concurrency with a 778 ms `person_connections` tail vs
-  `Enterprise Plus / db-perf-optimized-N-2` at ~$229/mo). Decide whether to stay on
-  `db-custom-2-13312`, move to `db-custom-2-15360` (~$173/mo) to eliminate buffer-pool evictions,
-  or return to `db-perf-optimized-N-2`.
+  `Enterprise Plus / db-perf-optimized-N-2` at ~$229/mo; confirmed by `gcloud sql instances describe`
+  2026-10-21, and CLAUDE.md's header was corrected in `7b62716bb7`). Tier windows from the Cloud
+  Audit Log: `db-g1-small` until 2026-08-20 08:57Z → `db-perf-optimized-N-2` until 2026-08-27 02:54Z
+  → `db-custom-2-13312` since, unchanged for eight weeks; `shared_buffers` 4324 MB now vs 5332 MB on
+  N-2. Every figure dated 2026-08-29 or later is a measurement of the CURRENT box — e.g. the person
+  chain at 7m35s, and in the publish traces TR at 497–670 s and roll-call derived at 188–202 s over
+  2026-08-29 → 2026-09-09 (later runs reach TR 687–742 s, once 1,189 s, and roll-call derived
+  237–260 s). The 08-22 / 08-27 tables are N-2. Decide whether to stay on `db-custom-2-13312`, move
+  to `db-custom-2-15360` (~$173/mo) to eliminate buffer-pool evictions, or return to
+  `db-perf-optimized-N-2`.
 - **Cloud loader resilience & deploy speed**:
   - Suppress per-loader matview double-refresh during multi-loader runs (`--defer-refresh` /
     `NAIASNO_DEFER_REFRESH=1`).
