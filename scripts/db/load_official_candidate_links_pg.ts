@@ -39,11 +39,11 @@ import { copyRows } from "./lib/copy";
 import {
   buildSlateIndex,
   loadMiBundle,
-  loadParliamentByName,
   officialsToMi,
   resolveCandidateLink,
   type SlateIndex,
 } from "../officials/candidate_link_join";
+import { loadMpNameIndex } from "../parsers_local/mpNameMatch";
 
 // The roster roles that carry a candidateLink (DECORATED_ROLES). Pushed into the SQL WHERE
 // so the loader never fetches chief_architect / other rows it would only discard.
@@ -76,9 +76,9 @@ const main = async (): Promise<void> => {
     `[official-candidate-links] ${listings.length} decoratable municipal listing(s)`,
   );
 
-  const parliamentByName = loadParliamentByName();
+  const mpIndex = loadMpNameIndex();
   console.log(
-    `[official-candidate-links] parliament index: ${parliamentByName.size} MPs by name`,
+    `[official-candidate-links] parliament index: ${mpIndex.byFull.size} unique MP full names`,
   );
 
   // Cache one slate index per mi-code so a município's rows (contiguous after the ORDER BY)
@@ -98,11 +98,7 @@ const main = async (): Promise<void> => {
   let partyHits = 0;
   let photoHits = 0;
   for (const l of listings) {
-    const link = resolveCandidateLink(
-      l.name,
-      slateFor(l.obshtina),
-      parliamentByName,
-    );
+    const link = resolveCandidateLink(l.name, slateFor(l.obshtina), mpIndex);
     if (!link) continue;
     if (link.partyCanonicalId !== null || link.partyName !== "") partyHits++;
     if (link.photoUrl) photoHits++;

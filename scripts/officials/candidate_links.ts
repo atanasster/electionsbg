@@ -44,12 +44,14 @@ import {
   DECORATED_ROLES,
   buildSlateIndex,
   loadMiBundle,
-  loadParliamentByName,
   officialsToMi,
   resolveCandidateLink,
-  type MpRow,
   type SlateIndex,
 } from "./candidate_link_join";
+import {
+  loadMpNameIndex,
+  type MpNameIndex,
+} from "../parsers_local/mpNameMatch";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -74,7 +76,7 @@ type ShardStats = {
 const decorateShard = (
   shardPath: string,
   slateIdx: SlateIndex | null,
-  parliamentByName: Map<string, MpRow>,
+  mpIndex: MpNameIndex,
 ): ShardStats => {
   const shard = JSON.parse(
     fs.readFileSync(shardPath, "utf8"),
@@ -90,7 +92,7 @@ const decorateShard = (
       continue;
     }
     total++;
-    const link = resolveCandidateLink(entry.name, slateIdx, parliamentByName);
+    const link = resolveCandidateLink(entry.name, slateIdx, mpIndex);
     if (!link) {
       delete (entry as Partial<MunicipalIndexEntry>).candidateLink;
       continue;
@@ -105,9 +107,9 @@ const decorateShard = (
 };
 
 const main = (dryRun: boolean, shardDir: string) => {
-  const parliamentByName = loadParliamentByName();
+  const mpIndex = loadMpNameIndex();
   console.log(
-    `[decorate] loaded parliament index: ${parliamentByName.size} MPs by name`,
+    `[decorate] loaded parliament index: ${mpIndex.byFull.size} unique MP full names`,
   );
 
   const shardFiles = fs
@@ -135,7 +137,7 @@ const main = (dryRun: boolean, shardDir: string) => {
       totals.entries += considered;
       continue;
     }
-    const stats = decorateShard(shardPath, slateIdx, parliamentByName);
+    const stats = decorateShard(shardPath, slateIdx, mpIndex);
     totals.entries += stats.total;
     totals.party += stats.partyHits;
     totals.photo += stats.photoHits;

@@ -23,6 +23,7 @@ import type {
   OfficialCandidateLink,
 } from "../../src/data/dataTypes";
 import { editDistance } from "../judiciary/judicialBodies";
+import { matchMp, type MpNameIndex } from "../parsers_local/mpNameMatch";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,7 +31,6 @@ const ROOT = path.resolve(__dirname, "../..");
 
 export const MI_CYCLE = "2023_10_29_mi";
 const MI_DIR = path.join(ROOT, "data", MI_CYCLE, "municipalities");
-const PARLIAMENT_INDEX = path.join(ROOT, "data", "parliament", "index.json");
 
 // Obshtina-code mapping when the officials tier and the local-election tier use different
 // keys. Only Sofia city-wide ("SFO_CITY" in officials ↔ "SOF" in mi2023) needs translation
@@ -181,31 +181,10 @@ export const loadMiBundle = (miCode: string): MiMuni | null => {
 };
 
 // --- Parliament photo index -----------------------------------------------
-
-export type MpRow = { id: number; normalizedName: string; photoUrl?: string };
-
-export const loadParliamentByName = (): Map<string, MpRow> => {
-  const idx = JSON.parse(fs.readFileSync(PARLIAMENT_INDEX, "utf8")) as {
-    mps: Array<{ id: number; normalizedName?: string; photoUrl?: string }>;
-  };
-  const map = new Map<string, MpRow>();
-  for (const m of idx.mps) {
-    if (!m.normalizedName) continue;
-    const key = normalise(m.normalizedName);
-    // Keep the entry that has a photo — when a name maps to multiple MPs (sons-of,
-    // namesakes), a photo-bearing one is the better display candidate. Otherwise
-    // first-wins.
-    const existing = map.get(key);
-    if (!existing || (m.photoUrl && !existing.photoUrl)) {
-      map.set(key, {
-        id: m.id,
-        normalizedName: m.normalizedName,
-        photoUrl: m.photoUrl,
-      });
-    }
-  }
-  return map;
-};
+//
+// Exact full name held by one MP — the shared rule in scripts/parsers_local/mpNameMatch.ts,
+// so this join and the local-election decorator cannot drift. No first+last tier: against
+// the national MP index a first+last collision is the norm, not a typo.
 
 // --- The join ---------------------------------------------------------------
 
@@ -225,13 +204,10 @@ export const DECORATED_ROLES: ReadonlySet<MunicipalOfficialRole> = new Set([
 export const resolveCandidateLink = (
   name: string,
   slateIdx: SlateIndex | null,
-  parliamentByName: Map<string, MpRow>,
+  mpIndex: MpNameIndex,
 ): OfficialCandidateLink | null => {
-  const fullKey = normalise(name);
-  const flKey = firstLastKey(name);
-
   const slateRow = slateIdx ? resolveSlateRow(name, slateIdx) : undefined;
-  const mp = parliamentByName.get(fullKey) ?? parliamentByName.get(flKey);
+  const mp = matchMp(name, mpIndex);
 
   if (!slateRow && !mp) return null;
 
