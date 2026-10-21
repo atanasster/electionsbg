@@ -66,8 +66,8 @@ data/<YYYY_MM_DD_pvr>/
 The watcher discovers the slug; the ingest needs the archive URLs, which only a human can confirm. Open `https://results.cik.bg/` and the new archive, then add an entry to `PRESIDENTIAL_SOURCES`:
 
 ```ts
-"2026_11_08_pvr": {
-  cycle: "2026_11_08_pvr",
+"2026_10_25_pvr": {
+  cycle: "2026_10_25_pvr",
   slug: "pvr2026",              // whatever ЦИК actually used
   era: "2021",                  // the newest reader, unless the format moved
   encoding: "utf8",
@@ -77,7 +77,7 @@ The watcher discovers the slug; the ingest needs the archive URLs, which only a 
 },
 ```
 
-⚠ **A runoff is a separate publish about a week later.** Add the round-2 archive when it exists; until then the round-2 entry may be absent and the ingest handles a one-round cycle.
+⚠ **A runoff is a separate publish about a week later — but it is NOT a separate cycle.** Add the round-2 archive to the SAME entry — its URL under `archives`, its `rounds[2]` pointing at that key — when it exists. ⚠ **Until then the ingest CANNOT run on that cycle**: `PresidentialSource.rounds` is a `Record` over both rounds (an entry with only round 1 fails `tsc -b`) and `download.ts` reads `source.rounds[2]` unguarded. Publishing round 1 alone, in the week before the runoff, needs that made optional first. The folder id is always the ROUND-1 date: 2026 is round 1 on **25.10.2026** and the runoff on **01.11.2026** (НС decision of 31.07.2026, ДВ 04.08.2026), so the tree is `2026_10_25_pvr` with `tur2/` inside it — never a `2026_11_01_pvr` folder. The pages follow the same rule: `/presidential/:cycle` takes the round-1 id and the round is a toggle on it, not a route of its own.
 
 The catalogue `src/data/json/presidential_elections.json` is REGENERATED, never hand-edited — but it reads `raw_data/`, so it runs **after Step 2's download**, not here:
 
@@ -147,7 +147,7 @@ npx vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/
 ### 6. Publish
 
 ```bash
-npm run bucket:sync:paths -- <cycle>          # e.g. 2026_11_08_pvr — the id ALREADY ends in _pvr
+npm run bucket:sync:paths -- <cycle>          # e.g. 2026_10_25_pvr — the id ALREADY ends in _pvr
 npm run db:load:election-national:pg:cloud    # the national summary → migration 195's tables
 npm run build && npm run deploy               # prerendered pages + og cards + the sitemap
 ```

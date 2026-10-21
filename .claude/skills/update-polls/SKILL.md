@@ -236,7 +236,7 @@ Then, for each source-reviewed draft:
 ```bash
 npm run polls:accept -- <pollId>
 npm run polls:accept -- <pollId> --genre forecast              # override the extractor's genre call
-npm run polls:accept -- <pollId> --election 2026-11-08          # assign a supported parliamentary election date
+npm run polls:accept -- <pollId> --election 2026-04-19          # assign a supported parliamentary election date
 npm run polls:accept -- <pollId> --locked-by agency_pdf         # override the default agency_website tier
 npm run polls:accept -- <pollId> --replace                      # preserve a full prior snapshot
 npm run polls:accept -- <pollId> --cycle 2021_11_14_pvr          # presidential, when supported

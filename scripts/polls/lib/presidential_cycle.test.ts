@@ -14,7 +14,7 @@ describe("presidential cycle assignment", () => {
   it("keeps between-round polls in their year and leaves older unknowns unresolved", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "pvr-cycle-"));
     try {
-      for (const cycle of ["2021_11_14_pvr", "2026_11_08_pvr"])
+      for (const cycle of ["2021_11_14_pvr", "2026_10_25_pvr"])
         fs.mkdirSync(path.join(root, "data", cycle), { recursive: true });
       fs.writeFileSync(
         path.join(root, "data/2021_11_14_pvr/national_summary.json"),

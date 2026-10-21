@@ -16,11 +16,11 @@
 //
 //   npm run polls:accept -- tr-2026-04-16
 //   npm run polls:accept -- tr-2026-04-16 --genre forecast
-//   npm run polls:accept -- tr-2026-04-16 --election 2026-11-08
+//   npm run polls:accept -- tr-2026-04-16 --election 2026-04-19
 //   npm run polls:accept -- tr-2026-04-16 --locked-by agency_pdf
 //   npm run polls:accept -- tr-2026-04-16 --replace
 //   npm run polls:accept -- gm-2026-07-11
-//   npm run polls:accept -- gm-2026-07-11 --cycle 2026_11_08_pvr
+//   npm run polls:accept -- gm-2026-07-11 --cycle 2026_10_25_pvr
 //
 // `--cycle` is presidential-only (decision 11) and OPTIONAL: a 2026
 // draft's own `poll.cycle` is `null` at extraction time (no round-1
@@ -771,7 +771,7 @@ export const main = (argv: string[]): void => {
   }
   if (opts.cycle !== undefined && !presidentialRound1Date(opts.cycle)) {
     console.error(
-      `--cycle "${opts.cycle}" must be a round-1 folder id (e.g. "2026_11_08_pvr")`,
+      `--cycle "${opts.cycle}" must be a round-1 folder id (e.g. "2026_10_25_pvr")`,
     );
     process.exitCode = 1;
     return;

@@ -429,7 +429,7 @@ export const buildSplitTicket = (
   // ⚠ DERIVED, NEVER WRITTEN OUT. The builder is generic over cycles and the counts are right
   // here; a hardcoded „Девет … инициативни комитети" survives verbatim onto a corpus with a
   // different ballot — and the tile renders `coverage.basis` unaltered, so it reaches the reader
-  // with no gate in between. `2026_11_08_pvr` is already this skill's worked example.
+  // with no gate in between. `2026_10_25_pvr` is already this skill's worked example.
   const committees = refused.filter((r) => r.reason === "committee").length;
   const unmatched = refused.length - committees;
   // ⚠⚠ THE FINALIST SENTENCE COUNTS THE ONES STILL UNCOVERED, not every finalist the nominator

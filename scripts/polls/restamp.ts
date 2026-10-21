@@ -7,7 +7,7 @@
 // `polls:analyze`, so nobody has to remember that step by hand.
 //
 //   npm run polls:restamp -- --race parliamentary --to 2027-03-14
-//   npm run polls:restamp -- --race presidential --cycle 2026_11_08_pvr
+//   npm run polls:restamp -- --race presidential --cycle 2026_10_25_pvr
 //
 // Presidential restamping requires a matching intended election year and
 // fieldwork before the recorded final round. Historical unknowns remain unset.
@@ -181,7 +181,7 @@ const restampPresidential = (cycleId: string): void => {
   const round1Date = presidentialRound1Date(cycleId);
   if (!round1Date) {
     console.error(
-      `--cycle "${cycleId}" must be a round-1 folder id (e.g. "2026_11_08_pvr")`,
+      `--cycle "${cycleId}" must be a round-1 folder id (e.g. "2026_10_25_pvr")`,
     );
     process.exitCode = 1;
     return;

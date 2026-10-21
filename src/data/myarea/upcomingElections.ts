@@ -33,7 +33,7 @@ export type UpcomingElectionKind =
   | "local";
 
 export type UpcomingElection = {
-  date: string; // ISO date — "2026-11-08"
+  date: string; // ISO date — "2026-10-25"
   kind: UpcomingElectionKind;
   confidence: "scheduled" | "estimated";
 };

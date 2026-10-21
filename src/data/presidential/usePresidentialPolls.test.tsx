@@ -79,7 +79,7 @@ describe("usePresidentialCycleAccuracy", () => {
   it("returns 'unscored' — never an empty band — for a cycle with no scored poll", async () => {
     vi.spyOn(globalThis, "fetch").mockResolvedValue(jsonResponse(ACCURACY));
     const { result } = renderHook(
-      () => usePresidentialCycleAccuracy("2026_11_08_pvr"),
+      () => usePresidentialCycleAccuracy("2026_10_25_pvr"),
       { wrapper },
     );
     await waitFor(() => expect(result.current.status).toBe("unscored"));

@@ -168,7 +168,7 @@ export type Poll = {
   race?: Race;
   provenance?: PollProvenance;
   // Presidential only (decision 10/11) — the round-1 folder id
-  // ("2026_11_08_pvr") once the cycle's results tree exists, `null` while
+  // ("2026_10_25_pvr") once the cycle's results tree exists, `null` while
   // only an estimated electionDate is known. Always absent on a
   // parliamentary poll; never read there.
   cycle?: string | null;

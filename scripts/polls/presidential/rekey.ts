@@ -195,7 +195,7 @@ export const main = (argv: string[]): void => {
   const cycleId = opts.cycle;
   if (!CYCLE_ID_RE.test(cycleId)) {
     console.error(
-      `--cycle "${cycleId}" must be a round-1 folder id (e.g. "2026_11_08_pvr")`,
+      `--cycle "${cycleId}" must be a round-1 folder id (e.g. "2026_10_25_pvr")`,
     );
     process.exitCode = 1;
     return;
