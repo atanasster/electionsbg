@@ -32,6 +32,7 @@
 // it stays polite.
 //
 //   npx tsx scripts/judiciary/crawl_declarations.ts [--limit N] [--conc 4] [--probe]
+//                                                   [--backfill-money]
 //
 // `--probe` fetches a handful and reports, to gauge the block state before committing hours.
 
@@ -52,6 +53,11 @@ import {
   type Item,
   type Row,
 } from "./declarationTables";
+import {
+  readMoneyTables,
+  type MoneyTable,
+  type MoneyTableResult,
+} from "./moneyTables";
 import { IVSS_REGISTER } from "./sources";
 // The repo's own checkpoint writer. writeFileSync TRUNCATES before it writes, so a kill
 // inside the write window leaves invalid JSON and the next run dies in JSON.parse with no
@@ -125,6 +131,11 @@ export interface FilingRecord {
   table1: DataRow[] | { refused: string };
   /** Таблица 2 — property transferred away in the period. */
   table2: DataRow[] | { refused: string };
+  /** Таблици 10 / 11 / 13 — cash, bank accounts, debts (moneyTables.ts). STORAGE ONLY, see
+   *  202_magistrate_filing_money.sql. Absent on a record crawled before the money reader
+   *  existed — `--backfill-money` fills it — which the loader keeps distinct from „read,
+   *  nothing declared". */
+  money?: Record<MoneyTable, MoneyTableResult | { refused: string }>;
 }
 
 const pagesOf = async (bytes: Uint8Array): Promise<Row[][]> => {
@@ -174,7 +185,15 @@ const parse = (
     periodYear: meta.periodYear,
     table1: readOne(pages, /Право на собственост и ограничени вещни права/, 12),
     table2: readOne(pages, /Прехвърляне на имоти през предходната година/, 10),
+    money: readMoney(pages),
   };
+};
+
+const readMoney = (pages: Row[][]): FilingRecord["money"] => {
+  const t = readMoneyTables(pages);
+  const one = (r: (typeof t)[MoneyTable]) =>
+    isRefusal(r) ? { refused: r.kind } : r;
+  return { "10": one(t["10"]), "11": one(t["11"]), "13": one(t["13"]) };
 };
 
 /** A string flag's value, or null. Mirrors `arg` above, which is numeric-only. */
@@ -220,9 +239,25 @@ const main = async (): Promise<void> => {
   // refuse, and it would bake an assumption into 11,584 stored prices. Refused filings are
   // skipped because they store no price to attach a unit to.
   const backfillCurrency = process.argv.includes("--backfill-currency");
+  // `--backfill-money` re-reads every cached CURRENT-FORM filing (v3.0/v4.0) that has no
+  // `money` yet. Older forms are skipped, not re-fetched: moneyTables.ts refuses them, so the
+  // fetch would buy a refusal. The refusal is still RECORDED for them on their next ordinary
+  // parse — skipping here only saves the register ~30k requests that cannot yield a row.
+  const backfillMoney = process.argv.includes("--backfill-money");
   const reparse = strArg("--reparse");
   let todo = index.filter((e) => !cache[e.pdf]);
-  if (backfillCurrency) {
+  if (backfillMoney) {
+    const wanted = index.filter((e) => {
+      const r = cache[e.pdf];
+      return (
+        !!r && !r.money && (r.formVersion === "3.0" || r.formVersion === "4.0")
+      );
+    });
+    console.log(
+      `--backfill-money: ${wanted.length} current-form filing(s) have no money tables yet`,
+    );
+    todo = wanted;
+  } else if (backfillCurrency) {
     const wanted = index.filter((e) => {
       const r = cache[e.pdf];
       if (!r || r.priceCurrency) return false;

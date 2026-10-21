@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-21T13:10:09.991Z",
+  "generatedAt": "2026-10-21T15:54:58.436Z",
   "nodes": [
     {
       "id": "src:water",
@@ -3404,7 +3404,9 @@
         "magistrate",
         "magistrate_company",
         "magistrate_filing",
-        "magistrate_filing_asset"
+        "magistrate_filing_asset",
+        "magistrate_filing_money",
+        "magistrate_filing_money_read"
       ],
       "x": 378,
       "y": 1222,

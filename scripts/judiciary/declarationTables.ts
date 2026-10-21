@@ -380,7 +380,7 @@ export const priceCurrency = (pages: Row[][]): "BGN" | "EUR" | null => {
  *
  *  That is the opposite of the pre-v3.0 case below, where the count is also 12 and the ORDER
  *  differs — which is why version alone can never stand in for either check. */
-const SUPPORTED_FORMS = new Set([
+export const SUPPORTED_FORMS = new Set([
   "3.0",
   "4.0",
   "2.0",
@@ -480,7 +480,7 @@ export const TABLE_COLUMNS = {
  *  The label block wraps across several visual rows („Цена на" / „придоби-" / „ване" /
  *  „/лева/"), so every fragment between the caption and the ordinal row is a candidate and
  *  they must agree. Disagreement returns null, which the caller treats as "cannot verify". */
-const columnOfLabel = (
+export const columnOfLabel = (
   rows: Row[],
   capIdx: number,
   hdrIdx: number,

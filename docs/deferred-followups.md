@@ -339,10 +339,22 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   rectors, MEPs and the President. Re-check whether any `person_source` facet is still empty, and
   close if not.
 - **Judiciary (ИВСС) declarations**:
-  - Enter ИВСС money tables 10/11/13 into `person_wealth_year`. All three are point-in-time stocks
-    (verified 2026-10-21 on a 2026 filing): № 10 cash, № 11 bank accounts, № 13 debts over
-    10,000 лв. The flows are № 18 (income) and № 20 (expenses). They map like cacbg tables 4/5/7.
-    The form still prints thresholds in лева.
+  - ИВСС money tables 10/11/13 → `person_wealth_year`: **PARSED AND STORED, NOT PUBLISHED —
+    blocked on one owner decision.** All three are point-in-time stocks (verified 2026-10-21):
+    № 10 cash, № 11 bank accounts, № 13 debts; the flows are № 18 / № 20. Since 2026-10-21
+    `scripts/judiciary/moneyTables.ts` reads them (v3.0 and the v4.0 euro reissue, which DROPPED
+    the equivalence column) and migration 202 stores them in `magistrate_filing_money` with
+    **no `app_readonly` GRANT**, so nothing serves them; `magistrate_filing_money.data.test.ts`
+    fails if a grant or a stored reader appears. Validation: 160 random v3.0 filings, 450 rows
+    passing the document's own equivalence identity, the 2 misses printed so in the PDF; 25
+    v4.0 filings hand-read. Phase 6's two failures were re-examined: Ковачев's 24% undercount
+    was the reader snapping a right-aligned amount to the currency column (fixed by anchoring
+    on the currency token), and Шутова's „false positive" 6,854 лв is her real 3,500 EUR
+    deposit — a misdiagnosis, not a misread.
+    **What blocks publishing:** 090 keeps ONE declaration per (person, period_year), and a
+    person with both an ИВСС and a КПКОНПИ / Сметна палата filing for a year needs a written
+    rule for which register wins. Adding the GRANT is that decision. Cloud: nothing to run until
+    then beyond `db:load:magistrate-filing-assets:pg:cloud`, which carries 202.
   - Interleave ИВСС and КПКОНПИ/Сметна палата filings chronologically into a single career timeline
     on `/person/:slug`.
 - **Person identity & electoral history**:

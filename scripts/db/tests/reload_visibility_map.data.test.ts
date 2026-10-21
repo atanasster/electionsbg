@@ -330,6 +330,15 @@ const RELOADED: ReadonlyArray<{
     table: "magistrate_filing_asset",
     loader: "load_magistrate_filing_assets_pg.ts",
   },
+  // The ИВСС money tables (202), same loader, same TRUNCATE + COPY transaction.
+  {
+    table: "magistrate_filing_money",
+    loader: "load_magistrate_filing_assets_pg.ts",
+  },
+  {
+    table: "magistrate_filing_money_read",
+    loader: "load_magistrate_filing_assets_pg.ts",
+  },
   // The ДФЗ family — THREE different reload shapes, listed together because one
   // loader owns them all. `agri_subsidies` is DELETE + INSERT in one transaction
   // (the canonical map-losing shape); `agri_payloads` is stage-merged, so it

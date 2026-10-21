@@ -249,6 +249,17 @@ SELECT count(*) FROM magistrate WHERE real_estate_count_parsed IS NOT NULL;  -- 
 SELECT count(*) FROM magistrate_filing WHERE kind IS NOT NULL;               -- ~36,995 of 37,023
 ```
 
+**The same loader also fills the ИВСС MONEY tables (migration 202,
+`magistrate_filing_money` + `magistrate_filing_money_read`) — STORAGE ONLY.** 202 grants
+`app_readonly` nothing, by owner decision (2026-10-21): no page, route or wealth figure may
+read them until a rule says which register wins when one person has both an ИВСС and a
+КПКОНПИ / Сметна палата filing for a year. Do not add the GRANT as a "fix" — it IS that
+decision; `magistrate_filing_money.data.test.ts` fails on it. A cache crawled before the
+money reader existed carries no `money` on its records; fill it with
+`npx tsx scripts/judiciary/crawl_declarations.ts --backfill-money` (current-form filings
+only, ~19.8k, ~80 min at the default politeness), then re-run this loader. The loader's
+`money tables (storage only): N filing(s) parsed` line says how far that has got.
+
 ⚠️ **`db:resolve:persons:cloud` is not optional, and every loader above it publishes
 nothing to `/person` without it.** `judicial_body` / `judicial_body_alias` are a DIMENSION:
 the resolve is what reads the alias table and rebuilds `person_role`. Stop at

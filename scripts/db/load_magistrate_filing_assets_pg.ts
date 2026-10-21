@@ -57,6 +57,12 @@ const SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/185_magistrate_filing_assets.sql",
 );
+// 202 — the money tables (10/11/13). STORAGE ONLY: 202 grants app_readonly nothing, so no
+// served route can read what this writes. See that file's header before changing either.
+const MONEY_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/202_magistrate_filing_money.sql",
+);
 const SRC = path.join(ROOT, "raw_data/judiciary/filing_cache.json");
 
 /** As emitted by crawl_declarations.ts. `cells` is keyed by the column number the FORM
@@ -81,6 +87,25 @@ interface FilingRecord {
   periodYear: number | null;
   table1: DataRow[] | { refused: string };
   table2: DataRow[] | { refused: string };
+  /** Absent on a record crawled before the money reader existed (`--backfill-money`). */
+  money?: Record<
+    "10" | "11" | "13",
+    | {
+        equivUnit: "BGN" | "EUR" | null;
+        rows: Array<{
+          ord: number;
+          amount: number;
+          currency: string;
+          equiv: number | null;
+          valueBasis: "equiv" | "amount-bgn" | "amount-eur" | null;
+          valueEur: number | null;
+          /** Absent on a record parsed before the field existed. */
+          lead?: string;
+          rest: string;
+        }>;
+      }
+    | { refused: string }
+  >;
 }
 
 const REGISTER = "http://62.176.124.194";
@@ -120,6 +145,7 @@ const COLS = TABLE_COLUMNS;
 
 const run = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA, "utf8"));
+  await exec(readFileSync(MONEY_SCHEMA, "utf8"));
 
   if (!existsSync(SRC)) {
     console.warn(
@@ -161,6 +187,9 @@ const run = async (): Promise<void> => {
   let noEra = 0;
   let unmerged = 0;
   const duplicateOrds: string[] = [];
+  let moneyFilings = 0;
+  let moneyRows = 0;
+  let moneyRefused = 0;
 
   await withClient(async (client) => {
     await client.query("BEGIN");
@@ -298,6 +327,84 @@ const run = async (): Promise<void> => {
       })(),
     );
 
+    // The money tables (202). Same input, same transaction, same roster filter — a filing
+    // whose record carries no `money` was never parsed for it and gets NO read row, which is
+    // the third state 202 keeps apart from „read, nothing declared".
+    await client.query(
+      "TRUNCATE magistrate_filing_money, magistrate_filing_money_read",
+    );
+    const moneyTables = ["10", "11", "13"] as const;
+    await copyRows(
+      client,
+      "magistrate_filing_money_read",
+      ["source_url", "table_num", "refused", "row_count"],
+      (function* () {
+        for (const r of usable) {
+          if (!r.money) continue;
+          moneyFilings++;
+          for (const t of moneyTables) {
+            const m = r.money[t];
+            if ("refused" in m) {
+              moneyRefused++;
+              yield [urlOf(r), t, m.refused, 0];
+            } else yield [urlOf(r), t, null, m.rows.length];
+          }
+        }
+      })(),
+    );
+    await copyRows(
+      client,
+      "magistrate_filing_money",
+      [
+        "source_url",
+        "magistrate_name",
+        "table_num",
+        "ord",
+        "amount",
+        "currency",
+        "equiv",
+        "equiv_unit",
+        "value_basis",
+        "value_eur",
+        "lead",
+        "rest",
+      ],
+      (function* () {
+        for (const r of usable) {
+          if (!r.money) continue;
+          const url = urlOf(r);
+          for (const t of moneyTables) {
+            const m = r.money[t];
+            if ("refused" in m) continue;
+            const seen = new Set<number>();
+            for (const row of m.rows) {
+              // Same COPY-vs-PK hazard as the asset rows above: drop and report.
+              if (seen.has(row.ord)) {
+                duplicateOrds.push(`${url} table ${t} ord ${row.ord}`);
+                continue;
+              }
+              seen.add(row.ord);
+              moneyRows++;
+              yield [
+                url,
+                known.get(url) ?? r.name,
+                t,
+                row.ord,
+                row.amount,
+                row.currency,
+                row.equiv,
+                m.equivUnit,
+                row.valueBasis,
+                row.valueEur,
+                txt(row.lead),
+                txt(row.rest),
+              ];
+            }
+          }
+        }
+      })(),
+    );
+
     // Stamp the three document-only facts onto the filing rows. An UPDATE rather than part of
     // the magistrate loader's COPY, because the two have different inputs and different
     // cadences: the roster reloads whenever the ИВСС publishes, this only after a crawl.
@@ -355,7 +462,12 @@ const run = async (): Promise<void> => {
     await client.query("COMMIT");
   });
 
-  await vacuumAfterReload("magistrate_filing_asset", "magistrate_filing");
+  await vacuumAfterReload(
+    "magistrate_filing_asset",
+    "magistrate_filing",
+    "magistrate_filing_money",
+    "magistrate_filing_money_read",
+  );
 
   // What the two counting methods say, so a shift in either is visible in the run's own
   // output rather than only on a page. See 070's real_estate_count_parsed comment.
@@ -383,6 +495,14 @@ const run = async (): Promise<void> => {
       (noEra ? `, ${noEra} table(s) on an unmapped form revision` : "") +
       (unmerged
         ? `, ${unmerged} kind(s) recovered from a merged ordinal cell`
+        : ""),
+  );
+  console.log(
+    `  money tables (storage only): ${moneyFilings} filing(s) parsed, ` +
+      `${moneyRows} row(s), ${moneyRefused} table refusal(s)` +
+      (moneyFilings < usable.length
+        ? ` — ${usable.length - moneyFilings} filing(s) not yet parsed for money ` +
+          `(crawl_declarations.ts --backfill-money)`
         : ""),
   );
   if (duplicateOrds.length)

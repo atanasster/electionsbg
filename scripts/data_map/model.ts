@@ -2338,6 +2338,10 @@ export const DATASETS: DatasetDef[] = [
       "magistrate_company",
       "magistrate_filing",
       "magistrate_filing_asset",
+      // STORAGE ONLY (202 grants app_readonly nothing) — claimed here so the map shows where
+      // it lives, not because any page reads it.
+      "magistrate_filing_money",
+      "magistrate_filing_money_read",
     ],
     tags: ["fiscal"],
   },
