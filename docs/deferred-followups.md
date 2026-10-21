@@ -148,7 +148,11 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
     organisation-scoped `experts` module);
     AOP's 2021/2024 posts on www2.aop.bg describe the move. Migration 174 keeps the HISTORICAL
     list (aop.bg/ets.php), which that migration explains. Reopen only if ЦАИС publishes it.
-  - Сметна палата audit reports (no migration or loader yet).
+  - Сметна палата audit reports — **scoped 2026-10-21, not built**: see
+    [docs/plans/bulnao-audit-reports-v1.md](plans/bulnao-audit-reports-v1.md). ~4,500 documents
+    across listings that overlap slightly; the high-value part is the ГФО tree (2,853
+    annual-statement audits, 2014–2025, one ISSAI opinion each, PDF from 2018 bar two). First build proposed: municipal opinions
+    2018–2025 joined to `obshtina_code`.
   - ЗМИП beneficial owners — subject to the access limits of чл. 63б ЗМИП (ДВ бр. 49/2025); see
     the CR Deeds entry.
 
