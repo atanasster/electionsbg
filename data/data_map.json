@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-21T23:32:46.069Z",
+  "generatedAt": "2026-10-22T07:10:32.243Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1482,6 +1482,13 @@
           "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim/default/table",
           "cadence": "weekly",
           "freshness": "2026-10-18T00:10:53.793Z"
+        },
+        {
+          "id": "eurostat_tourism_annual",
+          "label": "Eurostat tourism (BG): annual nights spent (tour_occ_ninat)",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_ninat/default/table",
+          "cadence": "monthly",
+          "freshness": "2026-10-21T21:48:02.511Z"
         },
         {
           "id": "eurostat_env",

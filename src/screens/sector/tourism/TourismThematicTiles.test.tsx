@@ -27,6 +27,9 @@ vi.mock("react-i18next", () => ({
 }));
 
 // The visitor tiles fetch their own artifact and are not the subject here.
+vi.mock("./TourismAnnualNightsTile", () => ({
+  TourismAnnualNightsTile: () => null,
+}));
 vi.mock("./TourismSeasonalityTile", () => ({
   TourismSeasonalityTile: () => null,
 }));

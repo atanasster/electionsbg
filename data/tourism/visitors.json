@@ -5,7 +5,7 @@
     "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim",
     "note": "Nights spent at hotels & similar (NACE I551), Bulgaria, by guest residence."
   },
-  "generatedAt": "2026-09-27T22:52:13.145Z",
+  "generatedAt": "2026-10-22T07:01:42.970Z",
   "unit": "nights",
   "seasonalityYear": 2025,
   "peakMonth": 8,
@@ -159,6 +159,92 @@
       "code": "EL",
       "name": "Greece",
       "nights": 221647
+    }
+  ],
+  "annualNightsSource": {
+    "publisher": "Eurostat",
+    "dataset": "tour_occ_ninat",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_ninat",
+    "note": "Nights spent at all tourist accommodation (NACE I551-I553), Bulgaria, by guest residence."
+  },
+  "annualNights": [
+    {
+      "year": 2013,
+      "total": 21617474,
+      "domestic": 7247048,
+      "foreign": 14370426
+    },
+    {
+      "year": 2014,
+      "total": 21698391,
+      "domestic": 7620593,
+      "foreign": 14077798
+    },
+    {
+      "year": 2015,
+      "total": 21397816,
+      "domestic": 8045535,
+      "foreign": 13352281
+    },
+    {
+      "year": 2016,
+      "total": 25185996,
+      "domestic": 9035330,
+      "foreign": 16150666
+    },
+    {
+      "year": 2017,
+      "total": 26054096,
+      "domestic": 8948529,
+      "foreign": 17105567
+    },
+    {
+      "year": 2018,
+      "total": 26845013,
+      "domestic": 9096088,
+      "foreign": 17748925
+    },
+    {
+      "year": 2019,
+      "total": 27154791,
+      "domestic": 9674945,
+      "foreign": 17479846
+    },
+    {
+      "year": 2020,
+      "total": 11968483,
+      "domestic": 7312194,
+      "foreign": 4656289
+    },
+    {
+      "year": 2021,
+      "total": 17620268,
+      "domestic": 9626501,
+      "foreign": 7993767
+    },
+    {
+      "year": 2022,
+      "total": 24173291,
+      "domestic": 11286336,
+      "foreign": 12886955
+    },
+    {
+      "year": 2023,
+      "total": 26865046,
+      "domestic": 12311004,
+      "foreign": 14554042
+    },
+    {
+      "year": 2024,
+      "total": 27646201,
+      "domestic": 12588156,
+      "foreign": 15058045
+    },
+    {
+      "year": 2025,
+      "total": 28816601,
+      "domestic": 12733315,
+      "foreign": 16083286
     }
   ]
 }

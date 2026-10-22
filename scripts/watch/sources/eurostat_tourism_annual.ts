@@ -1,14 +1,13 @@
-// Eurostat tour_occ_ninat — ANNUAL nights spent at tourist accommodation, Bulgaria. Its own
-// watcher rather than a third entry in eurostat_tourism.ts: that one's action is
-// `npm run data:tourism` (visitors.json, built from the MONTHLY tour_occ_nim/ninraw), and
-// nothing in the repo reads ninat yet — folding it in would re-run that ingest once a year for
-// a dataset it never touches. So this is WATCH-ONLY (scripts/data_map/model.ts): a flip means
-// the new year has landed and an operator decides whether a surface should use it.
+// Eurostat tour_occ_ninat — ANNUAL nights spent at tourist accommodation, Bulgaria. Since
+// 2026-10-22 it feeds `annualNights` in data/tourism/visitors.json (the „Нощувки по години"
+// tile on /sector/tourism), written by the same `npm run data:tourism` as the monthly
+// series. It keeps its own watcher rather than joining eurostat_tourism.ts because it
+// publishes once a year on its own calendar: a flip re-runs that one fetch.
 //
 // The fingerprint is the latest YEAR plus Bulgaria's VALUE for it. Eurostat's `updated` stamp is
-// dataset-wide — any country's revision moves it — and on a watch-only source every flip is a
-// manual action, so it rides in the detail line only. A new year, or a revision to Bulgaria's
-// own figure, flips it.
+// dataset-wide — any country's revision moves it — so it rides in the detail line only, or
+// another country's revision would re-run the fetch for nothing. A new year, or a revision to
+// Bulgaria's own figure, flips it.
 
 import type { WatchSource, Fingerprint } from "../types";
 import { fetchJson } from "../fingerprint";

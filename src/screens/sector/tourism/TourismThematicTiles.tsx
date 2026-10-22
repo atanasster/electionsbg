@@ -35,6 +35,7 @@ import {
   TOURISM_CAT_LABELS,
   type TourismCat,
 } from "./tourismCategories";
+import { TourismAnnualNightsTile } from "./TourismAnnualNightsTile";
 import { TourismSeasonalityTile } from "./TourismSeasonalityTile";
 import { TourismSourceMarketsTile } from "./TourismSourceMarketsTile";
 import { TourismSpendVsNightsTile } from "./TourismSpendVsNightsTile";
@@ -251,6 +252,8 @@ export const TourismThematicTiles: FC = () => (
       <TourismSeasonalityTile />
       <TourismSourceMarketsTile />
     </div>
+    {/* The long view: every year since 2013, all accommodation (Eurostat). */}
+    <TourismAnnualNightsTile />
     {/* The fusion: МТ's contract spend vs the visitor outcome it targets. */}
     <TourismSpendVsNightsTile />
     {/* Procurement-detail row: where the money goes (ЗОП). */}

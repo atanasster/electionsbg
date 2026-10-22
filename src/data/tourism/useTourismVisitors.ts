@@ -32,6 +32,23 @@ export interface TourismVisitorsFile {
   sourceMarketsYear: number;
   sourceMarketsForeignTotal: number; // that year's total foreign nights (share base)
   sourceMarkets: TourismOriginMarket[]; // top origin countries, nights desc
+  /** Eurostat tour_occ_ninat — official annual nights over ALL accommodation
+   *  (I551-I553), 2013+. Broader than the hotels-only fields above, so never
+   *  mix the two in one figure. Optional: a blob built before it existed lacks it. */
+  annualNightsSource?: {
+    publisher: string;
+    dataset: string;
+    url: string;
+    note: string;
+  };
+  annualNights?: TourismAnnualNights[];
+}
+
+export interface TourismAnnualNights {
+  year: number;
+  total: number; // = domestic + foreign (the fetch refuses otherwise)
+  domestic: number;
+  foreign: number;
 }
 
 export const useTourismVisitors = () =>

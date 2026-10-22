@@ -14,6 +14,13 @@
  *   - annualForeign: last ~8 years of total foreign nights (a trend).
  *   - sourceMarkets: top countries of origin by nights (tour_occ_ninraw).
  *   - peakMonth, summer/winter shares (headline framing).
+ *   - annualNights: Eurostat `tour_occ_ninat` — the official ANNUAL nights over
+ *     ALL tourist accommodation (NACE I551-I553: hotels + holiday/short-stay +
+ *     camping), total / domestic / foreign. Broader than the hotels-only monthly
+ *     series above, so the two are never mixed in one figure. Starts at
+ *     ANNUAL_FIRST_YEAR because the domestic split is gappy before it (2012 and
+ *     most of 1991-2010 are missing); every emitted year satisfies
+ *     total = domestic + foreign, or the run refuses to write.
  *
  * Usage: tsx scripts/tourism/fetch_eurostat_tourism.ts
  */
@@ -52,6 +59,65 @@ const fetchNights = async (
     if (typeof v === "number") out[period] = v;
   }
   return out;
+};
+
+const ANNUAL_DATASET = "tour_occ_ninat";
+const ANNUAL_FIRST_YEAR = 2013;
+
+export interface AnnualNights {
+  year: number;
+  total: number;
+  domestic: number;
+  foreign: number;
+}
+
+/** One BG annual series over all accommodation (I551-I553) → { year: nights }. */
+const fetchAnnual = async (
+  cResid: "TOTAL" | "DOM" | "FOR",
+): Promise<Map<number, number>> => {
+  const url =
+    `${BASE}/${ANNUAL_DATASET}?geo=BG&format=JSON&lang=EN&unit=NR` +
+    `&nace_r2=I551-I553&c_resid=${cResid}`;
+  const r = await fetch(url);
+  if (!r.ok)
+    throw new Error(`Eurostat ${ANNUAL_DATASET} ${cResid} → HTTP ${r.status}`);
+  const d = (await r.json()) as {
+    dimension: { time: { category: { index: Record<string, number> } } };
+    value: Record<string, number>;
+  };
+  const out = new Map<number, number>();
+  for (const [period, i] of Object.entries(d.dimension.time.category.index)) {
+    const v = d.value[String(i)];
+    if (typeof v === "number") out.set(Number(period), v);
+  }
+  return out;
+};
+
+/** Years from ANNUAL_FIRST_YEAR on, each with all three series present. A
+ *  missing year INSIDE the range, or a total that is not domestic + foreign,
+ *  throws: a hole or a mismatch would plot as a real collapse in tourism. */
+export const buildAnnualNights = (
+  total: Map<number, number>,
+  domestic: Map<number, number>,
+  foreign: Map<number, number>,
+): AnnualNights[] => {
+  const last = Math.max(...total.keys());
+  const rows: AnnualNights[] = [];
+  for (let y = ANNUAL_FIRST_YEAR; y <= last; y++) {
+    const t = total.get(y);
+    const d = domestic.get(y);
+    const f = foreign.get(y);
+    if (t === undefined || d === undefined || f === undefined)
+      throw new Error(`${ANNUAL_DATASET}: ${y} is missing a series`);
+    if (Math.abs(t - (d + f)) > 1)
+      throw new Error(
+        `${ANNUAL_DATASET}: ${y} total ${t} != domestic ${d} + foreign ${f}`,
+      );
+    rows.push({ year: y, total: t, domestic: d, foreign: f });
+  }
+  if (rows.length < 5)
+    throw new Error(`${ANNUAL_DATASET}: only ${rows.length} usable year(s)`);
+  return rows;
 };
 
 const MARKETS_DATASET = "tour_occ_ninraw";
@@ -109,10 +175,14 @@ const yearMonths = (series: Record<string, number>, year: number): number =>
   Object.keys(series).filter((k) => k.startsWith(`${year}-`)).length;
 
 const main = async (): Promise<void> => {
-  const [foreign, domestic] = await Promise.all([
+  const [foreign, domestic, annTotal, annDom, annFor] = await Promise.all([
     fetchNights("FOR"),
     fetchNights("DOM"),
+    fetchAnnual("TOTAL"),
+    fetchAnnual("DOM"),
+    fetchAnnual("FOR"),
   ]);
+  const annualNights = buildAnnualNights(annTotal, annDom, annFor);
   if (Object.keys(foreign).length < 24)
     throw new Error(
       `Eurostat returned too few foreign months (${Object.keys(foreign).length}) — aborting`,
@@ -189,17 +259,27 @@ const main = async (): Promise<void> => {
     sourceMarketsYear,
     sourceMarketsForeignTotal: foreignTotalMarketsYear,
     sourceMarkets: sourceMarkets.slice(0, 10),
+    annualNightsSource: {
+      publisher: "Eurostat",
+      dataset: ANNUAL_DATASET,
+      url: `https://ec.europa.eu/eurostat/databrowser/view/${ANNUAL_DATASET}`,
+      note: "Nights spent at all tourist accommodation (NACE I551-I553), Bulgaria, by guest residence.",
+    },
+    annualNights,
   };
 
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
   console.log(
     `wrote ${OUT_FILE} — seasonality ${seasonalityYear}, peak month ${peakMonth}, ` +
-      `summer ${(summerShareForeign * 100).toFixed(0)}% / winter ${(winterShareForeign * 100).toFixed(0)}% of foreign nights`,
+      `summer ${(summerShareForeign * 100).toFixed(0)}% / winter ${(winterShareForeign * 100).toFixed(0)}% of foreign nights; ` +
+      `annual ${annualNights[0].year}–${annualNights.at(-1)!.year} (${annualNights.at(-1)!.total} nights in ${annualNights.at(-1)!.year})`,
   );
 };
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Only when run as a script: the test imports buildAnnualNights.
+if (process.argv[1] === __filename)
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
