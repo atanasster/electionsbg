@@ -44,7 +44,7 @@ export const TourismAnnualNightsTile: FC = () => {
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {bg
-            ? `${latest.year}: ${total} нощувки${isRecord ? " — най-много от 2013 г." : ""}${vsBase !== null ? ` ${signed(vsBase)} спрямо ${PRE_COVID_YEAR} г.` : ""} Чужденците са ${foreignPct}%.`
+            ? `${latest.year}: ${total} нощувки${isRecord ? " — най-много от 2013 г. насам" : ""}${vsBase !== null ? `, ${signed(vsBase)} спрямо ${PRE_COVID_YEAR} г` : ""}. Чужденците са ${foreignPct}%.`
             : `${latest.year}: ${total} nights${isRecord ? " — the most since 2013" : ""}${vsBase !== null ? `, ${signed(vsBase)} vs ${PRE_COVID_YEAR}` : ""}. Foreign guests are ${foreignPct}%.`}
         </p>
       </CardHeader>
@@ -59,7 +59,7 @@ export const TourismAnnualNightsTile: FC = () => {
                 title={`${r.year}: ${formatCompact(r.total, locale)} ${bg ? "общо" : "total"} · ${formatCompact(r.foreign, locale)} ${bg ? "чужди" : "foreign"} · ${formatCompact(r.domestic, locale)} ${bg ? "местни" : "domestic"}`}
               >
                 {isLatest && (
-                  <div className="text-[10px] font-semibold tabular-nums text-foreground">
+                  <div className="self-end whitespace-nowrap text-[10px] font-semibold tabular-nums text-foreground">
                     {total}
                   </div>
                 )}
