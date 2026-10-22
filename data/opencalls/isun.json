@@ -1,6 +1,6 @@
 {
   "source": "isun",
-  "crawledAt": "2026-10-21T22:31:10.564Z",
+  "crawledAt": "2026-10-22T22:52:54.875Z",
   "calls": [
     {
       "source": "isun",
@@ -309,6 +309,10 @@
         {
           "label": "Заповед за обявяване на прием",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/1007fb47-81e2-485d-af52-b7525f4817cf?fileKey=3fb25255-0142-4359-ba3b-8397f5892db7"
+        },
+        {
+          "label": "Въпроси и отговори",
+          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/1007fb47-81e2-485d-af52-b7525f4817cf?fileKey=3b98568c-9c95-4cdd-8d0c-4307f23e94df"
         }
       ]
     },
@@ -576,61 +580,6 @@
         {
           "label": "Заповед за утвърждаване",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a2c20e0-3fe1-4b04-a3a1-a1fae183e2f8?fileKey=a6edf229-1a1e-49b1-b484-202674750efa"
-        }
-      ]
-    },
-    {
-      "source": "isun",
-      "sourceKey": "2a9efd3e-2ea1-4947-aa13-50d42a339546",
-      "code": "BG16FFPR002-4.003",
-      "kind": "call",
-      "title": "Мониторинг и прилагане на мерки за превенция и защита при неблагоприятни геодинамични процеси",
-      "programmeCode": "BG16FFPR002",
-      "programmeName": "Програма \"Околна среда\" 2021-2027",
-      "objective": "Ограничаване въздействието на неблагоприятните геодинамични процеси - ерозии, абразии, срутища, свлачища по продължението на републиканската пътна мрежа, където са идентифицирани като заплаха за живота и здравето на населението.",
-      "datePrecision": "exact",
-      "opensAt": "2024-02-23T12:00:00.000Z",
-      "closesAt": "2024-06-22T14:30:00.000Z",
-      "periodLabel": null,
-      "budgetEur": null,
-      "budgetNote": null,
-      "aidRatePct": null,
-      "grantMinEur": null,
-      "grantMaxEur": null,
-      "beneficiariesRaw": null,
-      "audience": [
-        "unknown"
-      ],
-      "territory": null,
-      "sourceUrl": "https://eumis2020.government.bg/bg/s/Procedure/Info/2a9efd3e-2ea1-4947-aa13-50d42a339546",
-      "docs": [
-        {
-          "label": "Заповед за утвърждаване",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a9efd3e-2ea1-4947-aa13-50d42a339546?fileKey=16bb96ec-c719-4d9d-bd36-bb4e0472eee9"
-        },
-        {
-          "label": "Условия за кандидатстване",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a9efd3e-2ea1-4947-aa13-50d42a339546?fileKey=a4286f2d-1ad8-4fce-9234-be8100dd9a6f"
-        },
-        {
-          "label": "Условия за изпълнение",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a9efd3e-2ea1-4947-aa13-50d42a339546?fileKey=2e57bf9b-d81f-4460-88e7-10cd361ae7cc"
-        },
-        {
-          "label": "Приложения към условия за кандидатстване",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a9efd3e-2ea1-4947-aa13-50d42a339546?fileKey=e2e91ab7-9ca8-4fd2-afc1-2c16067a82ce"
-        },
-        {
-          "label": "Приложения към условия за изпълнение",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a9efd3e-2ea1-4947-aa13-50d42a339546?fileKey=2860d92e-26ff-4125-8b4a-024a213fac04"
-        },
-        {
-          "label": "Писмо от Министерство на финансите",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a9efd3e-2ea1-4947-aa13-50d42a339546?fileKey=0e332213-dfc2-4146-8619-703977bf2760"
-        },
-        {
-          "label": "Покана за участие в процедура чрез директно предоставяне",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/2a9efd3e-2ea1-4947-aa13-50d42a339546?fileKey=f9051a4e-a760-4cd5-b861-b0a3a24da535"
         }
       ]
     },
@@ -1164,6 +1113,45 @@
     },
     {
       "source": "isun",
+      "sourceKey": "4869f9d3-70f2-4f91-9505-2bcdb60eced2",
+      "code": "BG14MFPR001-4.001",
+      "kind": "call",
+      "title": "Морско наблюдение",
+      "programmeCode": "BG14MFPR001",
+      "programmeName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "objective": "Прилагането на вида дейност 4.1.1 „Морско наблюдение” ще допринесе за насърчаване на изпълнението на ОПОР в рамките на приоритет на Съюза 4 „Укрепване на международното управление на океаните и осигуряване на условия за безопасност, сигурност, чистота и устойчиво стопанисване на моретата и океаните” от Европейския фонд за морско дело рибарство и аквакултури (ЕФМДРА).",
+      "datePrecision": "exact",
+      "opensAt": "2024-10-10T14:00:00.000Z",
+      "closesAt": "2027-12-31T15:00:00.000Z",
+      "periodLabel": null,
+      "budgetEur": null,
+      "budgetNote": null,
+      "aidRatePct": null,
+      "grantMinEur": null,
+      "grantMaxEur": null,
+      "beneficiariesRaw": null,
+      "audience": [
+        "unknown"
+      ],
+      "territory": null,
+      "sourceUrl": "https://eumis2020.government.bg/bg/s/Procedure/Info/4869f9d3-70f2-4f91-9505-2bcdb60eced2",
+      "docs": [
+        {
+          "label": "Покана",
+          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/4869f9d3-70f2-4f91-9505-2bcdb60eced2?fileKey=cfabac23-1d31-4654-8cd9-d62d763768b0"
+        },
+        {
+          "label": "Условия за кандидатстване, Условия за изпълнение и приложенията",
+          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/4869f9d3-70f2-4f91-9505-2bcdb60eced2?fileKey=20adcd90-e143-43b5-be6c-04ffea66cca5"
+        },
+        {
+          "label": "Заповед за изменение и изменени общи условия",
+          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/4869f9d3-70f2-4f91-9505-2bcdb60eced2?fileKey=e8b6ac87-acf2-4dc9-b05f-3ff52f1d4bbb"
+        }
+      ]
+    },
+    {
+      "source": "isun",
       "sourceKey": "490fb2d1-ca2d-4124-a405-7ddfc47b63f8",
       "code": "BG16FFPR001-4.001",
       "kind": "call",
@@ -1244,7 +1232,7 @@
         },
         {
           "label": "Въпроси и отговори",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/5023bcbb-36a8-441e-91ff-b92abdb79b9f?fileKey=4ea11985-857a-4e4a-863a-6b62ad1adaf6"
+          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/5023bcbb-36a8-441e-91ff-b92abdb79b9f?fileKey=48cd5ebd-cc24-424e-8073-1718eca20655"
         }
       ]
     },
@@ -2594,7 +2582,7 @@
         },
         {
           "label": "Въпроси и отговори",
-          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/e0ef7c16-5ac6-49eb-b17b-a03dff27a8c5?fileKey=4e6cb926-7af2-48aa-a452-e592fce35296"
+          "url": "https://eumis2020.government.bg/bg/s/Procedure/InfoDownload/e0ef7c16-5ac6-49eb-b17b-a03dff27a8c5?fileKey=4972ea77-ee35-4550-96ab-a5b6a73707e7"
         }
       ]
     },

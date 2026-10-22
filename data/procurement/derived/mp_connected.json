@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T22:50:07.280Z",
+  "generatedAt": "2026-10-22T21:59:21.592Z",
   "total": 117,
   "entries": [
     {
@@ -265,9 +265,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 209240657.28,
+      "totalEur": 209342657.28,
       "totalOther": {},
-      "contractCount": 749,
+      "contractCount": 750,
       "awardCount": 0,
       "byYear": [
         {
@@ -362,8 +362,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 58,
-          "totalEur": 12201470.42,
+          "contractCount": 59,
+          "totalEur": 12303470.42,
           "totalOther": {}
         }
       ],
@@ -416,9 +416,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 209240657.28,
+      "totalEur": 209342657.28,
       "totalOther": {},
-      "contractCount": 749,
+      "contractCount": 750,
       "awardCount": 0,
       "byYear": [
         {
@@ -513,8 +513,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 58,
-          "totalEur": 12201470.42,
+          "contractCount": 59,
+          "totalEur": 12303470.42,
           "totalOther": {}
         }
       ],
@@ -1017,9 +1017,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 48108681.77,
+      "totalEur": 48258681.77,
       "totalOther": {},
-      "contractCount": 337,
+      "contractCount": 338,
       "awardCount": 0,
       "byYear": [
         {
@@ -1054,8 +1054,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 32,
-          "totalEur": 2766743.12,
+          "contractCount": 33,
+          "totalEur": 2916743.12,
           "totalOther": {}
         }
       ],
@@ -2481,9 +2481,9 @@
           "isCurrent": false
         }
       ],
-      "totalEur": 9390953.31,
+      "totalEur": 9540915.41,
       "totalOther": {},
-      "contractCount": 82,
+      "contractCount": 83,
       "awardCount": 0,
       "byYear": [
         {
@@ -2578,8 +2578,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 4,
-          "totalEur": 933957.58,
+          "contractCount": 5,
+          "totalEur": 1083919.68,
           "totalOther": {}
         }
       ],
@@ -6177,6 +6177,45 @@
       ]
     },
     {
+      "mpId": 5204,
+      "mpName": "Маломир Василев Власов",
+      "contractorEik": "116550331",
+      "contractorName": "Власови ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": false
+        }
+      ],
+      "totalEur": 109732.4,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 71232.4,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 38500,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000505928",
+          "name": "Община Самуил",
+          "contractCount": 3,
+          "totalEur": 109732.4,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 4059,
       "mpName": "Цветелина Калинова Симеонова-Заркин",
       "contractorEik": "121125663",
@@ -6477,39 +6516,6 @@
           "name": "ОБЩИНА СВИЛЕНГРАД",
           "contractCount": 1,
           "totalEur": 74341.44,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 5204,
-      "mpName": "Маломир Василев Власов",
-      "contractorEik": "116550331",
-      "contractorName": "Власови ООД",
-      "relations": [
-        {
-          "kind": "partner",
-          "isCurrent": false
-        }
-      ],
-      "totalEur": 71232.4,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2025",
-          "contractCount": 2,
-          "totalEur": 71232.4,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000505928",
-          "name": "Община Самуил",
-          "contractCount": 2,
-          "totalEur": 71232.4,
           "totalOther": {}
         }
       ]

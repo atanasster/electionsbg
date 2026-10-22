@@ -1,6 +1,55 @@
 {
-  "updatedAt": "2026-10-22T07:10:35.073Z",
+  "updatedAt": "2026-10-22T23:07:26.772Z",
   "entries": [
+    {
+      "timestamp": "2026-10-22T23:07:26.772Z",
+      "date": "2026-10-22",
+      "skill": "update-council-minutes",
+      "summary": "Сливен: +2 council resolutions",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-10-22T22:54:29.273Z",
+      "date": "2026-10-22",
+      "skill": "update-macro",
+      "summary": "Eurostat Q2 2026 national accounts refreshed (GDP growth through 2026 Q2)",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-22T22:53:50.185Z",
+      "date": "2026-10-22",
+      "skill": "update-open-calls",
+      "summary": "ИСУН 54 open procedures; АХУ 5 competitions; АЗ 3 intake windows",
+      "source": "ИСУН 2020 / АХУ / АЗ"
+    },
+    {
+      "timestamp": "2026-10-22T22:51:32.214Z",
+      "date": "2026-10-22",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-22 (+1 daily archive; 886,322 store rows, 168 settlements, 65 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-22"
+    },
+    {
+      "timestamp": "2026-10-22T22:45:50.989Z",
+      "date": "2026-10-22",
+      "skill": "update-procurement",
+      "summary": "+165 ЦАИС ЕОП contracts (64 buyers) through 2026-10-21; tenders refreshed; TED 222,535 notices",
+      "source": "ЦАИС ЕОП open data + TED"
+    },
+    {
+      "timestamp": "2026-10-22T22:34:28.554Z",
+      "date": "2026-10-22",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 912 лица, 125 104 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-10-22T07:10:35.073Z",
       "date": "2026-10-22",

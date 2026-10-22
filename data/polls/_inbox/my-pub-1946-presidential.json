@@ -1,0 +1,52 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "my-pub-1946-presidential",
+    "agencyId": "MY",
+    "source": "https://myara.bg/electoral-snapshot-october-bnr-1946/",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": "2026-10-22",
+    "respondents": 1009,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://myara.bg/electoral-snapshot-october-bnr-1946/",
+      "fetchedAt": "2026-10-22T23:07:38.226Z",
+      "sha256": "b04e7b26271805a745f6ee6e6535bef5f3984219d508d1ec1a3c85f83a9dcbde",
+      "extractor": "MY",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1009 пълнолетни"
+      }
+    },
+    "publicationId": "MY:1946"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "MY",
+  "evidence": {
+    "sampleSize": "сред 1009 пълнолетни"
+  },
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "Моментна картина на електоралните нагласи към средата на октомври - МЯРА"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

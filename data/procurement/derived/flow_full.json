@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T22:51:36.285Z",
+  "generatedAt": "2026-10-22T21:59:26.207Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -6602,6 +6602,11 @@
       "label": "Димитър Колев Гочев"
     },
     {
+      "id": "mp:5204",
+      "type": "mp",
+      "label": "Маломир Василев Власов"
+    },
+    {
       "id": "mp:4059",
       "type": "mp",
       "label": "Цветелина Калинова Симеонова-Заркин"
@@ -6650,11 +6655,6 @@
       "id": "mp:2642",
       "type": "mp",
       "label": "Никола Илиев Динков"
-    },
-    {
-      "id": "mp:5204",
-      "type": "mp",
-      "label": "Маломир Василев Власов"
     },
     {
       "id": "mp:4456",
@@ -8327,6 +8327,11 @@
       "label": "Юрий Тодоров Воев"
     },
     {
+      "id": "official:tsvetelina-gavrilova-hubenova-eb377d",
+      "type": "official",
+      "label": "Цветелина Гаврилова Хубенова"
+    },
+    {
       "id": "official:dimitr-petrov-gandzhov-1740ec",
       "type": "official",
       "label": "Димитър Петров Ганджов"
@@ -8520,11 +8525,6 @@
       "id": "official:chavdar-todorov-stefanov-5d0831",
       "type": "official",
       "label": "Чавдар Тодоров Стефанов"
-    },
-    {
-      "id": "official:tsvetelina-gavrilova-hubenova-eb377d",
-      "type": "official",
-      "label": "Цветелина Гаврилова Хубенова"
     },
     {
       "id": "official:bozhidar-atanasov-zhelyazkov-384d26",
@@ -12636,7 +12636,7 @@
     {
       "source": "awarder:000093524",
       "target": "contractor:206117083",
-      "valueEur": 332339.72
+      "valueEur": 482339.72
     },
     {
       "source": "awarder:000093524",
@@ -13666,7 +13666,7 @@
     {
       "source": "awarder:000505928",
       "target": "contractor:116550331",
-      "valueEur": 71232.4
+      "valueEur": 109732.4
     },
     {
       "source": "awarder:000505981",
@@ -20225,13 +20225,13 @@
     },
     {
       "source": "awarder:829053806",
-      "target": "contractor:200852966",
-      "valueEur": 270609.92
+      "target": "contractor:116011316",
+      "valueEur": 386509.4
     },
     {
       "source": "awarder:829053806",
-      "target": "contractor:116011316",
-      "valueEur": 236547.3
+      "target": "contractor:200852966",
+      "valueEur": 270609.92
     },
     {
       "source": "awarder:829053806",
@@ -20296,7 +20296,7 @@
     {
       "source": "awarder:831385737",
       "target": "contractor:175040885",
-      "valueEur": 927077.12
+      "valueEur": 927844.02
     },
     {
       "source": "awarder:831462482",
@@ -20641,12 +20641,12 @@
     {
       "source": "contractor:121396123",
       "target": "mp:1129",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "mp:938",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:203740812",
@@ -20676,7 +20676,7 @@
     {
       "source": "contractor:206117083",
       "target": "mp:2093",
-      "valueEur": 48108681.77
+      "valueEur": 48258681.77
     },
     {
       "source": "contractor:175203485",
@@ -20746,7 +20746,7 @@
     {
       "source": "contractor:116011316",
       "target": "mp:2093",
-      "valueEur": 9390953.31
+      "valueEur": 9540915.41
     },
     {
       "source": "contractor:101732851",
@@ -20999,6 +20999,11 @@
       "valueEur": 122710.05
     },
     {
+      "source": "contractor:116550331",
+      "target": "mp:5204",
+      "valueEur": 109732.4
+    },
+    {
       "source": "contractor:121125663",
       "target": "mp:4059",
       "valueEur": 106732.18
@@ -21032,11 +21037,6 @@
       "source": "contractor:126736213",
       "target": "mp:2642",
       "valueEur": 74341.44
-    },
-    {
-      "source": "contractor:116550331",
-      "target": "mp:5204",
-      "valueEur": 71232.4
     },
     {
       "source": "contractor:205590667",
@@ -21351,87 +21351,87 @@
     {
       "source": "contractor:121396123",
       "target": "official:antonii-ventsislavov-krstev-4aea1b",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:darin-velichkov-matov-51da48",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:elena-georgieva-aleksandrova-georgieva-1d1d4c",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:elitsa-kirilova-popova-4f097b",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:emiliya-dimitrova-facheva-82c030",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:filip-nikolov-aleksiev-003584",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:ivailo-ivov-epitropov-6342ef",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:martin-rumenov-angelov-d7c390",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:martin-tsvetkov-bogdanov-2ffe4b",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:miko-stanimirov-milanov-64bbff",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:nadezhda-petrova-mazova-3442f3",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:pavel-ivanov-masov-e19cc2",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:radoslav-borislavov-bozhkov-46e412",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:radoslav-stefanov-benevreshki-e2bb9b",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:stanislav-dochev-dochev-0c377d",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:tsvetiliya-ivanova-stoilkova-50e652",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:121396123",
       "target": "official:zdravko-asenov-anakiev-2af2c1",
-      "valueEur": 209240657.28
+      "valueEur": 209342657.28
     },
     {
       "source": "contractor:831609046",
@@ -22036,7 +22036,7 @@
     {
       "source": "contractor:175040885",
       "target": "official:decho-petrov-dechev-154400",
-      "valueEur": 22529376.74
+      "valueEur": 22530143.64
     },
     {
       "source": "contractor:201892554",
@@ -22679,6 +22679,11 @@
       "valueEur": 2933806.49
     },
     {
+      "source": "contractor:203172982",
+      "target": "official:tsvetelina-gavrilova-hubenova-eb377d",
+      "valueEur": 2847533.13
+    },
+    {
       "source": "contractor:812115210",
       "target": "official:dimitr-petrov-gandzhov-1740ec",
       "valueEur": 2843707.92
@@ -22872,11 +22877,6 @@
       "source": "contractor:131288789",
       "target": "official:chavdar-todorov-stefanov-5d0831",
       "valueEur": 2041168.99
-    },
-    {
-      "source": "contractor:203172982",
-      "target": "official:tsvetelina-gavrilova-hubenova-eb377d",
-      "valueEur": 2039453.13
     },
     {
       "source": "contractor:126004284",

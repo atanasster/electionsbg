@@ -1,15 +1,48 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-21T23:59:59.999Z",
+  "computedAt": "2026-10-22T23:59:59.999Z",
   "windowDays": 30,
   "events": [
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-10-22T00:00:00.000Z",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 65,
+        "promoEur": "0.70",
+        "regularEur": "1.99",
+        "chains": 6
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.9285714285714286,
+      "actionability": 0.85
+    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-21T00:00:00.000Z",
-      "firstSeenAt": "2026-10-21T00:00:00.000Z",
+      "occurredAt": "2026-10-22T00:00:00.000Z",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -65,39 +98,6 @@
       "verification": "automatic",
       "materiality": 1,
       "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:byalo-zele",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-10-21T00:00:00.000Z",
-      "firstSeenAt": "2026-10-21T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/byalo-zele",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "БЯЛО ЗЕЛЕ",
-        "pct": 55,
-        "promoEur": "0.49",
-        "regularEur": "1.10",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7857142857142857,
-      "actionability": 0.85
     },
     {
       "schemaVersion": 1,
@@ -197,11 +197,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-lacmi-mlechen-90-gr",
+      "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-21T00:00:00.000Z",
-      "firstSeenAt": "2026-10-21T00:00:00.000Z",
+      "occurredAt": "2026-10-22T00:00:00.000Z",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -214,19 +214,50 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-lacmi-mlechen-90-gr",
+      "route": "/product/byalo-zele",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД LACMI МЛЕЧЕН 90 ГР",
-        "pct": 53,
-        "promoEur": "0.79",
-        "regularEur": "1.69",
-        "chains": 2
+        "title": "БЯЛО ЗЕЛЕ",
+        "pct": 55,
+        "promoEur": "0.49",
+        "regularEur": "1.10",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7571428571428571,
+      "materiality": 0.7857142857142857,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-10-22",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-10-22T00:00:00.000Z",
+      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_up",
+      "factArgs": {
+        "pct": "2.4",
+        "costEur": "16.17",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.60725,
+      "actionability": 0.5
     },
     {
       "schemaVersion": 1,
@@ -931,7 +962,7 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-09-24",
-      "observedAt": "2026-10-21",
+      "observedAt": "2026-10-22",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -943,8 +974,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-21",
-      "observedAt": "2026-10-21",
+      "asOf": "2026-10-22",
+      "observedAt": "2026-10-22",
       "staleAfterDays": 5,
       "stale": false
     }
