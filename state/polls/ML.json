@@ -1231,16 +1231,24 @@
         "attachmentFailures": [],
         "drafts": [
           {
-            "pollId": "ml-pub-120-presidential",
+            "pollId": "ml-2026-10-19",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-22T06:57:44.996Z",
+            "draftHash": "6081e9389f521d014f8ea31a7059f784e81018390eaf8401dc198c1a761e5a6a",
+            "refused": [],
+            "reviewedAt": "2026-10-22T06:57:44.996Z",
+            "acceptedAt": "2026-10-22T06:57:44.996Z",
+            "acceptedDraftHash": "6081e9389f521d014f8ea31a7059f784e81018390eaf8401dc198c1a761e5a6a"
+          },
+          {
+            "pollId": "ml-2026-10-19-presidential",
             "race": "presidential",
             "extractedAt": "2026-10-21T22:47:49.478Z",
-            "draftHash": "ab9b6c38f0a4214a36f5aff763f5226e190670f38d4973dd6c74dca60e8433d5",
-            "refused": [
-              "fieldwork",
-              "respondents",
-              "questions",
-              "methodology"
-            ]
+            "draftHash": "7ea994e6d4721a85b3d61102a0c6c5c2d408c00855e78bbcc14a262f6f3f938c",
+            "refused": [],
+            "reviewedAt": "2026-10-22T06:57:45.459Z",
+            "acceptedAt": "2026-10-22T06:57:45.459Z",
+            "acceptedDraftHash": "7ea994e6d4721a85b3d61102a0c6c5c2d408c00855e78bbcc14a262f6f3f938c"
           }
         ]
       }
