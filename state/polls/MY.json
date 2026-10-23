@@ -381,5 +381,46 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "1946",
+    "url": "https://myara.bg/electoral-snapshot-october-bnr-1946/",
+    "title": "Моментна картина на електоралните нагласи към средата на октомври",
+    "publishedAt": "2026-10-22",
+    "agencyId": "MY",
+    "pubIds": [
+      "1946"
+    ],
+    "discoveredAt": "2026-10-22T21:40:56.661Z",
+    "latestHash": "b04e7b26271805a745f6ee6e6535bef5f3984219d508d1ec1a3c85f83a9dcbde",
+    "versions": [
+      {
+        "sha256": "b04e7b26271805a745f6ee6e6535bef5f3984219d508d1ec1a3c85f83a9dcbde",
+        "capturePath": "raw_data/polls/myara/1946",
+        "capturedAt": "2026-10-22T23:07:38.226Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "my-2026-10-19-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-22T23:07:47.803Z",
+            "draftHash": "c4dfddca4dc259e4b23ede2ec5b2a72866710b6012fc705a8bd437f247937637",
+            "refused": [],
+            "reviewedAt": "2026-10-23T13:32:25.305Z",
+            "acceptedAt": "2026-10-23T13:32:25.305Z",
+            "acceptedDraftHash": "c4dfddca4dc259e4b23ede2ec5b2a72866710b6012fc705a8bd437f247937637"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
   }
 ]

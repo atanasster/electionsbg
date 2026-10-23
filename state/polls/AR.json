@@ -7697,5 +7697,121 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "1056",
+    "url": "https://alpharesearch.bg/post/1056-obshtestveni-naglasi-na-finala-na-kampaniata-za-prezidentski-izbori-2026.html",
+    "title": "Обществени нагласи на финала на кампанията за Президентски избори 2026",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1056"
+    ],
+    "discoveredAt": "2026-10-22T21:40:56.661Z",
+    "latestHash": "0f4537c30b362745ed7c4ce9f3efaf27142fb5d1d342cb38945e3ced81e53529",
+    "versions": [
+      {
+        "sha256": "13b50c46f7861d93cb48d5b5094f5da97e85f9dce669c10ffaeb8fe758267b30",
+        "capturePath": "raw_data/polls/alpha_research/1056",
+        "capturedAt": "2026-10-22T23:07:36.869Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-1056",
+            "race": "parliamentary",
+            "extractedAt": "2026-10-22T23:07:44.087Z",
+            "draftHash": "c6c604cf382953362c28cce3bfe123a7c667a9f416fb5255d8d4f18caa8d736b",
+            "refused": [
+              "sampleSize",
+              "poll.id"
+            ]
+          }
+        ]
+      },
+      {
+        "sha256": "0f4537c30b362745ed7c4ce9f3efaf27142fb5d1d342cb38945e3ced81e53529",
+        "capturePath": "raw_data/polls/alpha_research/1056.v2",
+        "capturedAt": "2026-10-23T13:30:37.013Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-2026-10-22-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-23T13:30:50.465Z",
+            "draftHash": "14db82dca4be8381f4cc039d5db4fb4d458216cfaa2eaa16d906f3089e9a2d10",
+            "refused": [],
+            "reviewedAt": "2026-10-23T13:32:24.953Z",
+            "acceptedAt": "2026-10-23T13:32:24.953Z",
+            "acceptedDraftHash": "14db82dca4be8381f4cc039d5db4fb4d458216cfaa2eaa16d906f3089e9a2d10"
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Presidential-only publication; no parliamentary vote-intention question",
+            "reviewedAt": "2026-10-23"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "1055",
+    "url": "https://alpharesearch.bg/post/1055-prezidentski-izbori-2026-alfa-risurch-publikuva-informacia-za-mediinite-si-partniori.html",
+    "title": "Президентски избори 2026: Алфа Рисърч публикува информация за медийните си партньори",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1055"
+    ],
+    "discoveredAt": "2026-10-22T21:40:56.661Z",
+    "latestHash": "9a3e9f2f87736986f608f663130182ed2de403a8d0471ba6336a28506ffb16b3",
+    "versions": [
+      {
+        "sha256": "9a3e9f2f87736986f608f663130182ed2de403a8d0471ba6336a28506ffb16b3",
+        "capturePath": "raw_data/polls/alpha_research/1055",
+        "capturedAt": "2026-10-22T23:07:36.959Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-1055-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-22T23:07:44.898Z",
+            "draftHash": "ab36b0dd4357a057d11d01c6624436b97b16bb1e50a69f4ae5ab5447c5197957",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Announcement of media partners for election night (BNT, bTV, BNR); no survey data",
+            "reviewedAt": "2026-10-23"
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
   }
 ]

@@ -4001,11 +4001,108 @@
     ]
   },
   {
+    "agencyId": "AR",
+    "publicationId": "1056",
+    "url": "https://alpharesearch.bg/post/1056-obshtestveni-naglasi-na-finala-na-kampaniata-za-prezidentski-izbori-2026.html",
+    "title": "Обществени нагласи на финала на кампанията за Президентски избори 2026",
+    "publishedAt": null,
+    "status": "reviewed",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Presidential-only publication; no parliamentary vote-intention question",
+        "reviewedAt": "2026-10-23"
+      }
+    ],
+    "refused": [],
+    "drafts": [
+      {
+        "id": "ar-2026-10-22-presidential",
+        "race": "presidential"
+      }
+    ]
+  },
+  {
+    "agencyId": "AR",
+    "publicationId": "1055",
+    "url": "https://alpharesearch.bg/post/1055-prezidentski-izbori-2026-alfa-risurch-publikuva-informacia-za-mediinite-si-partniori.html",
+    "title": "Президентски избори 2026: Алфа Рисърч публикува информация за медийните си партньори",
+    "publishedAt": null,
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "presidential",
+        "reason": "Announcement of media partners for election night (BNT, bTV, BNR); no survey data",
+        "reviewedAt": "2026-10-23"
+      }
+    ],
+    "refused": [
+      "fieldwork",
+      "respondents",
+      "questions",
+      "methodology"
+    ],
+    "drafts": [
+      {
+        "id": "ar-pub-1055-presidential",
+        "race": "presidential"
+      }
+    ]
+  },
+  {
     "agencyId": "EX",
     "publicationId": "1bdb98cca076fcce",
-    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOYzFsY0twWnZaemVlQ05HUjlaSm9CWmpKUUN6SFFpUmphQ0N3R2NlNWJhQ2VqZVN0U21EQmtreFp6NUl1dWRobGZMczhLckE2cVdfT21IaUkwdF9xV1FjbzN2VkFqRi1JUzQwZ1RpR1JrckwtV3c3SWM3azZNVEhpLXk0XzZCVzVTeWwxejFseHhQMWc4eURwVQ?oc=5",
+    "url": "https://www.segabg.com/hot/category-bulgaria/ekzakta-gerb-sds-bie-pp-db-nad-4-pri-izbori-dnes",
     "title": "\"Екзакта\": ГЕРБ-СДС бие ПП-ДБ с над 4% при избори днес - segabg.com",
     "publishedAt": "2023-06-26T07:00:00.000Z",
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+        "reviewedAt": "2026-10-19"
+      },
+      {
+        "race": "presidential",
+        "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+        "reviewedAt": "2026-10-19"
+      }
+    ],
+    "refused": [],
+    "drafts": []
+  },
+  {
+    "agencyId": "EX",
+    "publicationId": "85eba4bdd72198e2",
+    "url": "https://www.actualno.com/politics/ekzakta-sedem-partii-s-shans-za-parlamenta-gerb-vodi-ubeditelno-grafika-news_2326316.html",
+    "title": "\"Екзакта\": Седем партии с шанс за парламента, ГЕРБ води убедително (ГРАФИКА) - Actualno.com",
+    "publishedAt": "2024-10-25T07:00:00.000Z",
+    "status": "excluded",
+    "error": null,
+    "exclusions": [
+      {
+        "race": "parliamentary",
+        "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+        "reviewedAt": "2026-10-19"
+      },
+      {
+        "race": "presidential",
+        "reason": "Not a new Екзакта publication: a 2023/2024 press article re-surfaced by Google News; operator-reviewed 2026-10-20",
+        "reviewedAt": "2026-10-19"
+      }
+    ],
+    "refused": [],
+    "drafts": []
+  },
+  {
+    "agencyId": "GIB",
+    "publicationId": "07884a8b793211d2",
+    "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNOEJxckFwOGY4RDMtNmFYY2wzNXAyMlFMbGg4UFB0Z3Q5YjVXcTliR05HckRtVGtlaHVXY1lvVEpHMi1iS25ydG9MQ3MtMEZtb3hQZXRmZm5pbzVVTFZWZjFNaVlLdmtpSDdnN05yZXdQRUJvb0VLM0tpSGVmWHRkbzFYNW1iWEQ5b01XZnhzWHBucXpXeGVURWVlRDV1dw?oc=5",
+    "title": "„Галъп“: Седем партии влизат в новия парламент - BNT",
+    "publishedAt": "2026-10-09T05:31:20.000Z",
     "status": "pending_capture",
     "error": null,
     "exclusions": [],
@@ -4664,6 +4761,27 @@
     ]
   },
   {
+    "agencyId": "ML",
+    "publicationId": "120",
+    "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-oktomvri-2026-120.html",
+    "title": "Обществено–политически нагласи - Октомври 2026",
+    "publishedAt": "2026-10-21",
+    "status": "accepted",
+    "error": null,
+    "exclusions": [],
+    "refused": [],
+    "drafts": [
+      {
+        "id": "ml-2026-10-19",
+        "race": "parliamentary"
+      },
+      {
+        "id": "ml-2026-10-19-presidential",
+        "race": "presidential"
+      }
+    ]
+  },
+  {
     "agencyId": "MY",
     "publicationId": "1291",
     "url": "https://myara.bg/current-data-on-political-and-public-issues-1291/",
@@ -4864,6 +4982,23 @@
     "drafts": [
       {
         "id": "my-2026-10-04-presidential",
+        "race": "presidential"
+      }
+    ]
+  },
+  {
+    "agencyId": "MY",
+    "publicationId": "1946",
+    "url": "https://myara.bg/electoral-snapshot-october-bnr-1946/",
+    "title": "Моментна картина на електоралните нагласи към средата на октомври",
+    "publishedAt": "2026-10-22",
+    "status": "accepted",
+    "error": null,
+    "exclusions": [],
+    "refused": [],
+    "drafts": [
+      {
+        "id": "my-2026-10-19-presidential",
         "race": "presidential"
       }
     ]
