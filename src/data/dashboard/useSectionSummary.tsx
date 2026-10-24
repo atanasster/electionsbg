@@ -5,7 +5,7 @@ import {
   PaperMachineSummary,
   PartyChange,
 } from "./dashboardTypes";
-import { useSectionsVotes } from "../sections/useSectionsVotes";
+import { useSectionsVotesQuery } from "../sections/useSectionsVotes";
 import { useSectionStats } from "../sections/useSectionStats";
 import { useElectionContext } from "../ElectionContext";
 import { usePartyInfo } from "../parties/usePartyInfo";
@@ -23,7 +23,7 @@ export const useSectionSummary = (
   sectionCode?: string | null,
 ): { data?: NationalSummary; isLoading: boolean } => {
   const { selected, priorElections } = useElectionContext();
-  const section = useSectionsVotes(sectionCode);
+  const { section, isPending } = useSectionsVotesQuery(sectionCode);
   const { prevVotes } = useSectionStats(sectionCode);
   const { parties: partyInfos } = usePartyInfo();
 
@@ -209,6 +209,6 @@ export const useSectionSummary = (
 
   return {
     data,
-    isLoading: !section || (!!sectionCode && !partyInfos),
+    isLoading: isPending || (!!section && !partyInfos),
   };
 };

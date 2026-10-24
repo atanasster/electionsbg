@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { useParams } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   ShieldAlert,
@@ -25,6 +25,9 @@ import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 import { SectionRiskBadge } from "./components/riskScore/SectionRiskBadge";
+import { useSectionViewAvailability } from "@/data/sections/useSectionViewAvailability";
+import { useSectionStats } from "@/data/sections/useSectionStats";
+import { presidentialUrl } from "@/data/elections/presidentialRoutes";
 
 const AuditChip: FC<{
   href: string;
@@ -47,8 +50,42 @@ const AuditChip: FC<{
 export const SectionScreen = () => {
   const { id: sectionCode } = useParams();
   const { t, i18n } = useTranslation();
-  const { selected } = useElectionContext();
+  const { elections, selected, setSelected } = useElectionContext();
   const section = useSectionsVotes(sectionCode);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const views = useSectionViewAvailability(sectionCode);
+  const { stats } = useSectionStats(sectionCode);
+  // ⚠ THE DEFAULT VIEW FOLLOWS THE DATA. A bare /section/:code whose station is missing from
+  // the latest parliamentary cycle would otherwise open on an empty page: send it to the
+  // presidential station when that cycle has it, else to the newest parliamentary cycle that
+  // does. An explicit `?elections=` is the reader's choice and is never overridden — that
+  // case renders SectionDashboardCards' "did not exist in this election" notice instead.
+  const explicitCycle = searchParams.has("elections");
+  useEffect(() => {
+    if (!sectionCode || explicitCycle || views.parliamentary !== false) return;
+    if (views.presidential === undefined) return;
+    const presidentialHref = views.presidential
+      ? presidentialUrl(views.presidentialCycle, "section", sectionCode)
+      : null;
+    if (presidentialHref) {
+      navigate(presidentialHref, { replace: true });
+      return;
+    }
+    const latest = elections.find((e) => stats?.some((s) => s.name === e));
+    if (latest && latest !== selected) setSelected(latest);
+  }, [
+    sectionCode,
+    explicitCycle,
+    views.parliamentary,
+    views.presidential,
+    views.presidentialCycle,
+    navigate,
+    elections,
+    stats,
+    selected,
+    setSelected,
+  ]);
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();

@@ -5,6 +5,8 @@ import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useSectionSummary } from "@/data/dashboard/useSectionSummary";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { useSectionStats } from "@/data/sections/useSectionStats";
+import { useElectionContext } from "@/data/ElectionContext";
+import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -54,6 +56,7 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
   const { data, isLoading } = useSectionSummary(sectionCode);
   const section = useSectionsVotes(sectionCode);
   const { stats } = useSectionStats(sectionCode);
+  const { elections, selected, setSelected } = useElectionContext();
 
   const basePath = `/section/${sectionCode}`;
 
@@ -69,6 +72,44 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
         <div className="grid gap-3 grid-cols-1 mt-3">
           <SkeletonCard className="h-[440px]" />
         </div>
+      </section>
+    );
+  }
+
+  // The station did not exist in the selected election — section codes are re-cut between
+  // cycles. Say so and offer the cycles it does have, rather than an empty page.
+  if (!section) {
+    const cycles = (stats ?? [])
+      .map((s) => s.name)
+      .filter((name) => name !== selected && elections.includes(name));
+    return (
+      <section
+        aria-label={t("dashboard")}
+        className="my-4 rounded-xl border bg-card p-4 text-sm shadow-sm"
+      >
+        <p>
+          {t("section_not_in_election", {
+            section: sectionCode,
+            date: friendlyCycleDate(selected),
+          })}
+        </p>
+        {cycles.length ? (
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="text-muted-foreground">
+              {t("section_other_elections")}
+            </span>
+            {cycles.map((name) => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => setSelected(name)}
+                className="rounded-full border px-3 py-1 text-xs font-medium hover:bg-muted"
+              >
+                {friendlyCycleDate(name)}
+              </button>
+            ))}
+          </div>
+        ) : null}
       </section>
     );
   }

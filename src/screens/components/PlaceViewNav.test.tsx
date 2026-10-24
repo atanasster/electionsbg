@@ -32,6 +32,18 @@ vi.mock("@/data/local/useLocalElectionIndex", () => ({
 vi.mock("@/data/presidential/useLatestPresidentialCycle", () => ({
   useLatestPresidentialCycle: () => "2021_11_14_pvr",
 }));
+// Each station's per-view availability is a fetch; by default every view has it, and the
+// "hides a view with no results" case overrides it.
+const availability = vi.hoisted(() => ({
+  value: {
+    parliamentary: true as boolean | undefined,
+    presidential: true as boolean | undefined,
+    presidentialCycle: "2021_11_14_pvr",
+  },
+}));
+vi.mock("@/data/sections/useSectionViewAvailability", () => ({
+  useSectionViewAvailability: () => availability.value,
+}));
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
     t: (k: string) => (bg as Record<string, string>)[k] ?? k,
@@ -160,5 +172,44 @@ describe("kind switching from a polling section", () => {
     ).toBe("/sections/55155");
     expect(screen.getByText(LOCAL_NOTE)).toBeTruthy();
     expect(screen.queryByText(NOTE)).toBeNull();
+  });
+});
+
+describe("a station's pills follow its data", () => {
+  it("hides the parliamentary pill when the station is absent from that cycle", () => {
+    // 073500021: presidential 2021 results, no station in parliamentary 2026.
+    availability.value = { ...availability.value, parliamentary: false };
+    try {
+      mount({
+        active: "presidential",
+        level: "section",
+        sectionCode: "073500021",
+        ekatte: "55155",
+        obshtina: "PAZ19",
+        oblast: "PAZ",
+      });
+      // The nav still renders (Президент + Местни), so the absence is not a vacuous pass.
+      expect(screen.getByText(bg.cross_to_presidential)).toBeTruthy();
+      expect(screen.queryByText(bg.cross_to_parliamentary)).toBeNull();
+    } finally {
+      availability.value = { ...availability.value, parliamentary: true };
+    }
+  });
+
+  it("keeps a pill while its availability is still loading", () => {
+    availability.value = { ...availability.value, presidential: undefined };
+    try {
+      mount({
+        active: "parliamentary",
+        level: "section",
+        sectionCode: "073500021",
+        ekatte: "55155",
+        obshtina: "PAZ19",
+        oblast: "PAZ",
+      });
+      expect(screen.getByText(bg.cross_to_presidential)).toBeTruthy();
+    } finally {
+      availability.value = { ...availability.value, presidential: true };
+    }
   });
 });

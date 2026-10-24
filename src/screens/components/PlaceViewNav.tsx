@@ -11,7 +11,9 @@
 // presidentialViewUrl (also in placeViews.ts) resolves whenever the CODE SHAPE
 // is one it can place, without checking whether that cycle actually published a
 // surface there, because an uncovered presidential place still renders an
-// honest "not published" page rather than a dead link — see its own header. The
+// honest "not published" page rather than a dead link — see its own header.
+// The exception is a polling STATION: both national pills hide when that station
+// has no results in the cycle they would open (useSectionViewAvailability). The
 // local pill is different: it self-hides when the place
 // has no data in the active local cycle (the cycle index is the guard, same rule
 // as CrossElectionLink's ToLocalLink), because that destination is a genuine
@@ -42,6 +44,7 @@ import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLatestPresidentialCycle } from "@/data/presidential/useLatestPresidentialCycle";
+import { useSectionViewAvailability } from "@/data/sections/useSectionViewAvailability";
 import { PLACE_VIEW_META } from "./placeViewMeta";
 
 // Stable left-to-right order of the views.
@@ -116,12 +119,24 @@ export const PlaceViewNav: FC<Props> = ({
               (m) => m.obshtinaCode === localLookupObshtina,
             ));
 
+  // ⚠ A STATION CODE LINKS ONLY WHERE THAT STATION HAS RESULTS. Codes are re-cut between
+  // cycles, so a shape-valid code can open an empty page (073500021: presidential 2021, absent
+  // from parliamentary 2026). Still-loading keeps the pill, so the common case never flickers.
+  const stationViews = useSectionViewAvailability(
+    level === "section" ? place.section : undefined,
+  );
+
   const urlFor = (view: PlaceView): string | null => {
     if (view === "governance") return governanceUrl(place);
-    if (view === "parliamentary") return parliamentaryUrl(place);
+    if (view === "parliamentary")
+      return stationViews.parliamentary === false
+        ? null
+        : parliamentaryUrl(place);
     if (view === "consumption") return consumptionUrl(place);
     if (view === "presidential")
-      return presidentialViewUrl(place, presidentialCycle);
+      return stationViews.presidential === false
+        ? null
+        : presidentialViewUrl(place, presidentialCycle);
     return localAvailable ? localUrl(place, cycle) : null;
   };
 

@@ -20,14 +20,25 @@ const queryFn = async ({
   return response.json();
 };
 
-export const useSectionsVotes = (section?: string | null) => {
+/** The section plus whether its oblast shard is still in flight. `section: undefined` with
+ *  `isPending: false` means the station did not exist in the selected election — codes come
+ *  and go between cycles, and a page reading `!section` as "loading" spins forever on them. */
+export const useSectionsVotesQuery = (section?: string | null) => {
   const { selected } = useElectionContext();
   const oblast = section?.slice(0, 2);
-  const { data: oblastData } = useQuery({
+  const enabled = !!section && !!selected && !!oblast;
+  const { data: oblastData, isPending } = useQuery({
     queryKey: ["sections_oblast", selected || "", oblast || ""],
     queryFn,
-    enabled: !!section && !!selected && !!oblast,
+    enabled,
   });
 
-  return section ? oblastData?.[section] : undefined;
+  return {
+    section: section ? oblastData?.[section] : undefined,
+    // An unresolved election is still loading, not absence.
+    isPending: !!section && (!enabled || isPending),
+  };
 };
+
+export const useSectionsVotes = (section?: string | null) =>
+  useSectionsVotesQuery(section).section;
