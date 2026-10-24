@@ -6,11 +6,10 @@
 //   npm run prices -- --build-only       rebuild catalog + payloads from Postgres
 //   npm run prices -- --backfill --from 2026-01-02 --to 2026-07-09
 //                                        one-off historical replay, OLDEST FIRST
-//   npm run prices -- --archive          also cold-archive raw ZIPs to GCS
 //
 // Backfill is a flag-gated operator step, never in the watcher/CI. raw_data/prices
-// is gitignored; the durable copy is the private Coldline archive, because
-// kolkostruva.bg advertises only ~14 days.
+// is gitignored and a symlink onto the external /Volumes/Storage drive, which
+// holds the only copy of every day kolkostruva.bg no longer advertises (~14 days).
 //
 // See docs/plans/consumption-pg-v1.md.
 
@@ -31,7 +30,6 @@ const ROOT = path.resolve(
   "..",
   "..",
 );
-const RAW_DIR = path.join(ROOT, "raw_data/prices");
 
 // ⚠️ 000 FIRST, AND IT IS NOT OPTIONAL. 048 declares `price_products.title_fold` as
 // `GENERATED ALWAYS AS (translit_bg_latin(title)) STORED`, and a generated expression is
@@ -68,7 +66,6 @@ const loadedDays = async (): Promise<Set<string>> => {
 };
 
 const main = async (): Promise<void> => {
-  const archive = has("--archive");
   const loaded: DayStats[] = [];
 
   // Idempotent DDL, once per run. 048 has no other applier — the price tables
@@ -120,13 +117,8 @@ const main = async (): Promise<void> => {
 
     for (const date of dates) {
       if (already.has(date) && !has("--force")) continue;
-      const local = path.join(RAW_DIR, `${date}.zip`);
-      // downloadDay skips the fetch when the ZIP is already on disk, but still
-      // archives it (cp -n). Never bypass it when --archive is set.
-      const zip =
-        fs.existsSync(local) && !archive
-          ? local
-          : await downloadDay(date, { archive });
+      // downloadDay skips the fetch when the ZIP is already on disk.
+      const zip = await downloadDay(date);
       if (!zip) {
         console.log(`[prices] ${date}: not published yet (404), skipping`);
         continue;

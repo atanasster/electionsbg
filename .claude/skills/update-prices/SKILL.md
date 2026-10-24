@@ -33,7 +33,7 @@ npm run prices:ingest:cloud  # against the Cloud SQL proxy (:5434) — the real 
 ```
 
 This:
-1. reads the advertised dates from `/opendata`, downloads each ZIP not already loaded (tracked by `price_grid_days.day`) to `raw_data/prices/<date>.zip`, **always cold-archiving it** to the private Coldline bucket `gs://naiasno-archive-prices/prices/_archive/` (`cp -n`; `raw_data/prices/` is gitignored, so this is the only durable copy — kolkostruva.bg advertises only ~14 days),
+1. reads the advertised dates from `/opendata`, downloads each ZIP not already loaded (tracked by `price_grid_days.day`) to `raw_data/prices/<date>.zip` — a gitignored symlink onto the external drive (`/Volumes/Storage/data-bg/raw_data/prices`), which is the ONLY copy of any day kolkostruva.bg no longer advertises (~14 days). With the drive unmounted the ingest throws rather than skipping old days as "not published yet"; a fresh machine needs the symlink recreated (`ln -s /Volumes/Storage/data-bg/raw_data/prices raw_data/prices`) before a `--backfill`,
 2. `load_day.ts` COPYs every chain CSV into `price_stage`, upserts the dimension tables, then writes the **SCD-2 delta**: closes runs whose price moved, opens new runs (~25–40k rows/day, not 1.4M), and rewrites `price_current` + `price_grid_days` + `price_chain_grid_days` from the day's own observations (BOM / `,`-vs-`;` / quoting absorbed; EKATTE normalized incl. Sofia `-NN` → `68134`; product codes outside 1–101 skipped),
 3. rebuilds the catalogue + serving blobs:
    - `rebuild_catalog.ts` — clusters the ~95k SKU names into ~118k canonical products (no EAN — identity is name-derived; see the memory), materializes `current_min_eur` + `pct_since_euro` (median-to-median),
