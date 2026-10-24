@@ -17,7 +17,8 @@ import { useQueries } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import type { SettlementGeoJSON } from "@/screens/components/maps/mapTypes";
 
-export const ABROAD_CONTINENTS = ["AF", "AS", "EU", "NA", "OC", "SA"] as const;
+import { ABROAD_CONTINENTS } from "@/data/local/abroadOblast";
+export { ABROAD_CONTINENTS };
 
 const fetchContinent = async (code: string): Promise<SettlementGeoJSON> => {
   const res = await fetch(dataUrl(`/maps/municipalities/${code}.json`));

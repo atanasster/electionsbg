@@ -9,6 +9,7 @@ import {
   isSofiaRayonObshtina,
 } from "@/data/local/placeViews";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
+import { isAbroadCountryCode } from "@/data/local/abroadOblast";
 import { SEO } from "@/ux/SEO";
 import { placeResultsTitle } from "@/ux/seoTitle";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
@@ -73,8 +74,9 @@ export const SettlementsScreen = () => {
   // with a letter (e.g. TGV35, S2401), so a leading-digit test cleanly
   // separates the two without dropping the composite case. The plain
   // settlement URLs are prerendered + indexed by Google, so route both
-  // shapes to the settlement view rather than breaking the page.
-  if (/^\d/.test(muniCode)) {
+  // shapes to the settlement view rather than breaking the page. An abroad
+  // country (ISO code, e.g. NZ) is a settlement too — see isAbroadCountryCode.
+  if (/^\d/.test(muniCode) || isAbroadCountryCode(muniCode)) {
     return <SectionsScreen />;
   }
   // The Sofia city bundle (synthetic SOF00 / local SOF) has no município row

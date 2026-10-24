@@ -22,6 +22,7 @@ import {
   Votes,
 } from "@/data/dataTypes";
 import { EURO_ADOPTION } from "@/data/prices/euroBaseline";
+import { ABROAD_CONTINENTS } from "@/data/local/abroadOblast";
 import { hasCrawlableId, latestBel } from "@/data/schools/schoolBel";
 import {
   everyReportPage,
@@ -95,6 +96,7 @@ import {
   formatElectionDateEn,
   type DiasporaCountry,
   type GovernanceRegionMuni,
+  settlementResultsPath,
 } from "./bodyBuilders";
 import {
   educationBodyFor,
@@ -472,6 +474,10 @@ export const buildSettlementRoutes = (
     for (const s of bundle) {
       if (!s.ekatte || seen.has(s.ekatte)) continue;
       seen.add(s.ekatte);
+      // A country whose ISO code is also a continent's (AF, SA) cannot own
+      // /settlement/:code — the SPA renders the continent there, so this HTML
+      // would title Africa „Афганистан". Its page is /sections/:code.
+      if ((ABROAD_CONTINENTS as readonly string[]).includes(s.ekatte)) continue;
       const fullName = `${s.t_v_m ? s.t_v_m + " " : ""}${s.name ?? ""}`.trim();
       const oblastName = s.oblast ? oblastNames.get(s.oblast) : undefined;
       const labelWithOblast = oblastName
@@ -2402,7 +2408,7 @@ export const buildSectionRoutes = (
     if (ekatte) {
       breadcrumb.push({
         name: settlement,
-        url: `${SITE_URL}/settlement/${ekatte}`,
+        url: `${SITE_URL}/${settlementResultsPath(ekatte)}`,
       });
     }
     breadcrumb.push({ name: `№${section}`, url });

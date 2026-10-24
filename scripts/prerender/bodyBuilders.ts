@@ -23,6 +23,13 @@ import type {
   Runoff,
 } from "@/data/polls/pollsTypes";
 
+/** The parliamentary results page of a settlement. A domestic EKATTE (leading digit) keeps
+ *  its `/settlement/:ekatte` URL; an abroad country (ISO code) goes to `/sections/:code`,
+ *  because `/settlement/` is the município route and two country codes (AF, SA) are also
+ *  continent codes there — see isAbroadCountryCode. */
+export const settlementResultsPath = (ekatte: string): string =>
+  /^\d/.test(ekatte) ? `settlement/${ekatte}` : `sections/${ekatte}`;
+
 // ── Site-wide section navigation ──────────────────────────────────────────
 // A crawlable link block appended to the (hidden) #ssg-content body of EVERY
 // prerendered page (see index.ts renderBodyBlock). Before this existed, the
@@ -1095,7 +1102,7 @@ export const buildSectionBody = (input: SectionBodyInput): string => {
   const navLinks: string[] = [];
   if (ekatte) {
     navLinks.push(
-      `<a href="${SITE_URL}/settlement/${ekatte}">${escapeHtml(settlement)}</a>`,
+      `<a href="${SITE_URL}/${settlementResultsPath(ekatte)}">${escapeHtml(settlement)}</a>`,
     );
   }
   if (oblastCode && oblastName) {
@@ -1332,8 +1339,13 @@ export const buildGovernancePlaceBody = (
   }
   navLinks.push(
     `<a href="${SITE_URL}/sections/${ekatte}">Секции и резултати в ${escapeHtml(settlement)}</a>`,
-    `<a href="${SITE_URL}/settlement/${ekatte}">Резултати по партии</a>`,
   );
+  // An abroad country has no /settlement/ page of its own (see settlementResultsPath).
+  if (/^\d/.test(ekatte)) {
+    navLinks.push(
+      `<a href="${SITE_URL}/settlement/${ekatte}">Резултати по партии</a>`,
+    );
+  }
   parts.push(`<p>${navLinks.join(" · ")}</p>`);
   // ~290 settlements have a school of their own; the rest carry their
   // município's figures, disclosed by the section itself.

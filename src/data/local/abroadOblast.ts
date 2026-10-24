@@ -19,3 +19,21 @@
 // Refusing here rather than at each call site is the point: `isAbroad` was a rendering flag
 // held by one component, and a second consumer had no way to know.
 export const ABROAD_OBLAST = "32";
+
+// The six МИР 32 "municipalities" — continent buckets keyed by a two-letter code.
+export const ABROAD_CONTINENTS = ["AF", "AS", "EU", "NA", "OC", "SA"] as const;
+
+/** ⚠ A COUNTRY CODE AND A CONTINENT CODE SHARE THE /settlement/:id URL SPACE. That route is
+ *  the MUNICIPALITY dashboard and drops to the settlement view only for an id it recognises
+ *  as a settlement — historically "starts with a digit", which every domestic EKATTE does and
+ *  no abroad country does. So `/settlement/NZ` (prerendered with New Zealand's title, linked
+ *  from its section breadcrumbs) hydrated into „Община NZ" with empty tiles. A country is any
+ *  two-character id that is not a continent — Kosovo's key is the Cyrillic `КО`, so this is a
+ *  length test, not `[A-Z]{2}`. Two countries collide with a continent and LOSE here: AF
+ *  (Afghanistan / Africa) and SA (Saudi Arabia / South America) — their only unambiguous
+ *  parliamentary URL is `/sections/:code`, which is why no builder may mint `/settlement/` for
+ *  a country. */
+export const isAbroadCountryCode = (id?: string): boolean =>
+  !!id &&
+  [...id].length === 2 &&
+  !(ABROAD_CONTINENTS as readonly string[]).includes(id);
