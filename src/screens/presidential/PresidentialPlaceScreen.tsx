@@ -312,7 +312,8 @@ export const PresidentialPlaceScreen: FC<{
 
   // ⚠ THE ROUND-1 DATE, NOT THE CYCLE ID — `cycleIsoDate` returns "" for a `_pvr` folder and
   // `formatDate` would print the folder name verbatim. A cycle the build does not catalogue
-  // simply gets no scope line rather than a fabricated one.
+  // simply gets no scope line rather than a fabricated one. Used only by the header-less
+  // fallback below; PlaceHeader's eyebrow already carries the date.
   const scope = entry ? (
     <ElectionScopeBar cycle={entry.round1Date} status="final" />
   ) : undefined;
@@ -333,7 +334,8 @@ export const PresidentialPlaceScreen: FC<{
           }
           fallbackName={name}
           cycle={cycle}
-          scope={scope}
+          // No ElectionScopeBar: its only content for a final result is the date, which the
+          // eyebrow already carries — beside the pills it read as a stray duplicate.
         />
       ) : (
         <header>

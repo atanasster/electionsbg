@@ -29,6 +29,9 @@ vi.mock("@/data/local/useLocalElectionIndex", () => ({
     data: { municipalities: [{ obshtinaCode: "PAZ19", oblast: "PAZ" }] },
   }),
 }));
+vi.mock("@/data/presidential/useLatestPresidentialCycle", () => ({
+  useLatestPresidentialCycle: () => "2021_11_14_pvr",
+}));
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
     t: (k: string) => (bg as Record<string, string>)[k] ?? k,
@@ -36,6 +39,7 @@ vi.mock("react-i18next", () => ({
 }));
 
 const NOTE = bg.place_view_nav_section_note;
+const LOCAL_NOTE = bg.place_view_nav_local_section_note;
 
 const mount = (props: Parameters<typeof PlaceViewNav>[0]) =>
   render(
@@ -110,5 +114,51 @@ describe("kind switching from a polling section", () => {
     });
     expect(screen.getByText(bg.cross_to_local)).toBeTruthy();
     expect(screen.getByText(bg.cross_to_parliamentary)).toBeTruthy();
+  });
+
+  it("keeps the STATION on the presidential pill — the two national kinds share numbering", () => {
+    mount({
+      active: "parliamentary",
+      level: "section",
+      sectionCode: "130300019",
+      ekatte: "55155",
+      obshtina: "PAZ19",
+      oblast: "PAZ",
+    });
+    const link = screen.getByText(bg.cross_to_presidential).closest("a");
+    expect(link?.getAttribute("href")).toBe(
+      "/presidential/2021_11_14_pvr/section/130300019",
+    );
+    // …while Местни still drops to the settlement, which is what the note is about.
+    expect(
+      screen.getByText(bg.cross_to_local).closest("a")?.getAttribute("href"),
+    ).toBe("/local/2023_10_29_mi/settlement/55155");
+  });
+
+  it("from a LOCAL station, the national pills drop to the settlement and the note says so", () => {
+    // ⚠ The code must not cross here: local stations use a different numbering, and half of
+    // the codes that resolve on the other side name another town.
+    mount({
+      active: "local",
+      level: "section",
+      sectionCode: "130300019",
+      ekatte: "55155",
+      obshtina: "PAZ19",
+      oblast: "PAZ",
+    });
+    expect(
+      screen
+        .getByText(bg.cross_to_presidential)
+        .closest("a")
+        ?.getAttribute("href"),
+    ).toBe("/presidential/2021_11_14_pvr/settlement/55155");
+    expect(
+      screen
+        .getByText(bg.cross_to_parliamentary)
+        .closest("a")
+        ?.getAttribute("href"),
+    ).toBe("/sections/55155");
+    expect(screen.getByText(LOCAL_NOTE)).toBeTruthy();
+    expect(screen.queryByText(NOTE)).toBeNull();
   });
 });

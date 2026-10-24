@@ -16,6 +16,7 @@ import {
   oblastGovernanceUrl,
   parliamentaryUrl,
   placeViewUrl,
+  presidentialViewUrl,
 } from "./placeViews";
 
 const CYCLE = "2023_10_29_mi";
@@ -144,6 +145,46 @@ describe("parliamentaryUrl / consumptionUrl", () => {
       consumptionUrl({ level: "municipality", obshtina: "SFO_CITY" }),
     ).toBe("/consumption/SOF00");
     expect(consumptionUrl({ level: "section", ekatte: "11394" })).toBeNull();
+  });
+});
+
+describe("a polling section across the two national kinds", () => {
+  // Parliamentary and presidential share one station numbering, so a section carrying its
+  // code links station-to-station; without one it still drops to the settlement.
+  // `scripts/elections/sectionCodeCrossKind.data.test.ts` holds the measurement.
+  const CYC = "2021_11_14_pvr";
+  it("links a parliamentary station to the same presidential station", () => {
+    expect(
+      presidentialViewUrl(
+        { level: "section", ekatte: "68134", section: "234608023" },
+        CYC,
+      ),
+    ).toBe(`/presidential/${CYC}/section/234608023`);
+  });
+
+  it("covers Sofia, whose composite settlement id has no presidential page", () => {
+    expect(
+      presidentialViewUrl({ level: "section", ekatte: "68134-2346" }, CYC),
+    ).toBeNull();
+    expect(
+      presidentialViewUrl(
+        { level: "section", ekatte: "68134-2346", section: "234608023" },
+        CYC,
+      ),
+    ).toBe(`/presidential/${CYC}/section/234608023`);
+  });
+
+  it("links a presidential station back to the same parliamentary station", () => {
+    expect(
+      parliamentaryUrl({
+        level: "section",
+        ekatte: "11394",
+        section: "021700054",
+      }),
+    ).toBe("/section/021700054");
+    expect(parliamentaryUrl({ level: "section", ekatte: "11394" })).toBe(
+      "/sections/11394",
+    );
   });
 });
 

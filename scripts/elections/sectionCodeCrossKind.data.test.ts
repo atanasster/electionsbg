@@ -44,6 +44,7 @@ const PARL = "2026_04_19";
 const PARL_PREV = "2024_10_27";
 const LOCAL = "2023_10_29_mi";
 const LOCAL_PREV = "2019_10_27_mi";
+const PRES = "2021_11_14_pvr";
 
 /** Parliamentary stations live in one file per oblast, keyed by station code. */
 const parliamentaryStations = (cycle: string): Map<string, string> => {
@@ -78,6 +79,21 @@ const localStations = (cycle: string): Map<string, string> => {
   return out;
 };
 
+/** Presidential stations: one file per oblast under the round-1 tree, a list of rows. */
+const presidentialStations = (cycle: string): Map<string, string> => {
+  const dir = path.join(DATA_ROOT, cycle, "tur1", "sections");
+  const out = new Map<string, string>();
+  if (!fs.existsSync(dir)) return out;
+  for (const f of fs.readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+    const rows = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as {
+      code: string;
+      placeName?: string;
+    }[];
+    for (const r of rows) out.set(r.code, (r.placeName ?? "").trim());
+  }
+  return out;
+};
+
 /** Settlement names are compared folded, so „гр.Банско" and „гр. Банско" are one place — a
  *  punctuation difference is not a station moving town, and counting it as one would inflate
  *  the very figure this gate exists to keep honest. */
@@ -87,12 +103,14 @@ const parl = parliamentaryStations(PARL);
 const parlPrev = parliamentaryStations(PARL_PREV);
 const loc = localStations(LOCAL);
 const locPrev = localStations(LOCAL_PREV);
+const pres = presidentialStations(PRES);
 
 const missing = [
   [PARL, parl],
   [PARL_PREV, parlPrev],
   [LOCAL, loc],
   [LOCAL_PREV, locPrev],
+  [PRES, pres],
 ]
   .filter(([, m]) => (m as Map<string, string>).size === 0)
   .map(([c]) => c as string);
@@ -134,6 +152,24 @@ describe.skipIf(skip)("what a station number survives", () => {
     );
     expect(elsewhere.length).toBeGreaterThan(0);
     expect((100 * elsewhere.length) / named.length).toBeLessThan(25);
+  });
+
+  it("DOES carry over between the two NATIONAL kinds — why Президент keeps the station", () => {
+    // ⚠ The presidential pill on a parliamentary section links to the SAME code
+    // (placeViews.ts presidentialViewUrl). That is only defensible while the two kinds share a
+    // numbering about as well as two parliamentary cycles do — which the election selector
+    // already crosses by code. Measured 2026-10-24: 12,132 of 12,721 shared, 3.0% naming a
+    // different settlement, against 2.0% for parliamentary 2024 → 2026.
+    expect(share(parl, pres).pct).toBeGreaterThan(90);
+    const misplaced = (a: Map<string, string>, b: Map<string, string>) => {
+      const named = [...a.keys()].filter((c) => a.get(c) && b.get(c));
+      const off = named.filter((c) => fold(a.get(c)!) !== fold(b.get(c)!));
+      return (100 * off.length) / named.length;
+    };
+    const presOff = misplaced(parl, pres);
+    expect(presOff).toBeLessThan(5);
+    // …and within a small margin of what a cycle switch already accepts.
+    expect(presOff).toBeLessThan(misplaced(parl, parlPrev) + 2);
   });
 
   it("the settlement comparison discriminates — it is not folding everything equal", () => {

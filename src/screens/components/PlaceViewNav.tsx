@@ -59,6 +59,9 @@ type Props = {
   ekatte?: string;
   obshtina?: string;
   oblast?: string;
+  // Polling-station code when level="section" — the presidential pill links to the same
+  // station (see presidentialViewUrl).
+  sectionCode?: string;
   align?: "start" | "center";
   className?: string;
 };
@@ -69,6 +72,7 @@ export const PlaceViewNav: FC<Props> = ({
   ekatte,
   obshtina,
   oblast,
+  sectionCode,
   align = "center",
   className,
 }) => {
@@ -78,7 +82,16 @@ export const PlaceViewNav: FC<Props> = ({
   const { data: index } = useLocalElectionIndex(cycle);
   const presidentialCycle = useLatestPresidentialCycle();
 
-  const place = { level, ekatte, obshtina, oblast };
+  // The station code crosses only between the two NATIONAL kinds, which share one numbering;
+  // a local station's code is a different scheme (see the note below), so from a local section
+  // every other pill keeps dropping to the settlement.
+  const place = {
+    level,
+    ekatte,
+    obshtina,
+    oblast,
+    section: active === "local" ? undefined : sectionCode,
+  };
 
   // Local availability: the place's município (or, for a region, any of its
   // municípios) must be present in the active cycle's index. The country always
@@ -115,9 +128,10 @@ export const PlaceViewNav: FC<Props> = ({
   const items = ORDER.map((view) => ({ view, to: urlFor(view) }));
 
   // ⚠ FROM A POLLING SECTION EVERY PILL LEADS SOMEWHERE ELSE, AND THE READER IS NEVER TOLD.
-  // Governance and Consumption stop above the station, so they are filtered out below; the
-  // two that remain both drop to the PARENT SETTLEMENT (placeViews.ts), which is the right
-  // destination and a silent one — a reader on station №132900019 taps „Местни" and lands on
+  // Governance and Consumption stop above the station, so they are filtered out below;
+  // Президент keeps the same station (shared national numbering — see presidentialViewUrl);
+  // Местни drops to the PARENT SETTLEMENT (placeViews.ts), which is the right destination
+  // and a silent one — a reader on station №132900019 taps „Местни" and lands on
   // с. Виноградец with nothing saying the station was left behind.
   //
   // ⚠ AND THE REASON IS NOT „the cycles differ" — it is the KIND boundary, measured
@@ -137,7 +151,19 @@ export const PlaceViewNav: FC<Props> = ({
   const shown = items.filter((it) => it.view === active || it.to);
   if (shown.length < 2) return null;
 
-  const noteId = fromSection ? "place-view-nav-section-note" : undefined;
+  // The note is about the Местни pill alone — Президент keeps the station (shared numbering),
+  // and Governance/Consumption are not offered here — so it shows only when that pill does.
+  // From a LOCAL station the roles flip: Парламент and Президент are the pills that drop to
+  // the settlement, so the note names them instead.
+  const localShown = shown.some((it) => it.view === "local" && it.to);
+  const fromLocal = active === "local";
+  const noteId =
+    fromSection && (fromLocal || localShown)
+      ? "place-view-nav-section-note"
+      : undefined;
+  const noteKey = fromLocal
+    ? "place_view_nav_local_section_note"
+    : "place_view_nav_section_note";
 
   return (
     <nav
@@ -196,7 +222,7 @@ export const PlaceViewNav: FC<Props> = ({
             align === "center" ? "text-center" : "text-left"
           }`}
         >
-          {t("place_view_nav_section_note")}
+          {t(noteKey)}
         </p>
       )}
     </nav>

@@ -33,6 +33,7 @@ type Props = {
   ekatte?: string;
   obshtina?: string;
   oblast?: string;
+  sectionCode?: string;
   // Fully-resolved presentational identity.
   titleText: string;
   narrative: ReactNode;
@@ -168,6 +169,7 @@ export const PlaceHeaderView: FC<Props> = ({
   ekatte,
   obshtina,
   oblast,
+  sectionCode,
   titleText,
   narrative,
   loc,
@@ -371,6 +373,7 @@ export const PlaceHeaderView: FC<Props> = ({
               ekatte={ekatte}
               obshtina={obshtina}
               oblast={oblast}
+              sectionCode={sectionCode}
               align="start"
             />
           )}

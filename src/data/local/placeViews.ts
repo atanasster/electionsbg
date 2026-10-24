@@ -61,6 +61,7 @@ export interface PlaceRef {
   ekatte?: string; // settlement EKATTE (numeric or "68134-2401" composite)
   obshtina?: string; // obshtina code (e.g. "S2401", "BGS01", "SOF00")
   oblast?: string; // oblast code (e.g. "S24", "BGS")
+  section?: string; // polling-station code (level "section" only)
 }
 
 // A Sofia район shard — its own município in the local tree, a single
@@ -185,6 +186,9 @@ export const parliamentaryUrl = (p: PlaceRef): string | null => {
   // A polling section drops to its parent settlement's parliamentary page:
   // section numbering isn't stable across local↔parliamentary cycles, so the
   // settlement is the finest granularity that cross-links reliably.
+  // …unless the caller carries the station code (a presidential section — the two national
+  // kinds share one numbering, see presidentialViewUrl): then the same station.
+  if (p.level === "section" && p.section) return `/section/${p.section}`;
   if (p.level === "section" && p.ekatte) return `/sections/${p.ekatte}`;
   if (p.level === "municipality" && p.obshtina)
     return `/settlement/${p.obshtina}`;
@@ -203,8 +207,16 @@ export const parliamentaryUrl = (p: PlaceRef): string | null => {
 //   - every Пловдив/Варна район, for the same "no verified mapping" reason;
 //   - a composite settlement id (a Sofia район's "68134-2401") — the presidential settlement
 //     file keys on plain numeric EKATTE only.
-// A polling section drops to its parent settlement, the same rule every other view here applies
-// (section numbering does not carry across election kinds).
+// ⚠ A POLLING SECTION IS THE ONE PLACE THIS DIFFERS FROM THE LOCAL VIEW: it links to the
+// presidential SECTION with the same code, not the parent settlement. Presidential and
+// parliamentary elections share one station numbering (both are national, run by the same
+// РИК/МИР scheme), so a code survives across them about as well as it survives across two
+// parliamentary cycles — measured 2026-10-24, parliamentary 2026 ∩ presidential 2021 shares
+// 12,132 of 12,721 codes, 3.0% of them naming a different settlement, against 2.0% for
+// parliamentary 2024 → 2026, which the election selector already crosses by code.
+// `sectionCodeCrossKind.data.test.ts` holds both figures. A station the presidential cycle
+// lacks lands on the boundary's honest "not published" state. Without a code it falls back to
+// the parent settlement.
 //
 // ⚠ AN UNCOVERED PLACE IS NOT A DEAD LINK. Roughly a fifth of settlements have no presidential
 // surface in a given cycle (measured on 2021: 4,184 of 5,364) — smaller settlements with no
@@ -229,6 +241,8 @@ export const presidentialViewUrl = (
     if (findCityRayon(p.obshtina)) return null;
     return presidentialUrl(cycle, "municipality", p.obshtina);
   }
+  if (p.level === "section" && p.section)
+    return presidentialUrl(cycle, "section", p.section);
   if ((p.level === "settlement" || p.level === "section") && p.ekatte) {
     if (!/^\d+$/.test(p.ekatte)) return null;
     return presidentialUrl(cycle, "settlement", p.ekatte);

@@ -292,6 +292,7 @@ export const PlaceHeader: FC<Props> = ({
       ekatte={ekatte}
       obshtina={obshtina}
       oblast={oblast}
+      sectionCode={sectionCode}
       titleText={titleText}
       narrative={narrative}
       loc={loc}

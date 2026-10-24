@@ -22,7 +22,7 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { SectionDashboardCards } from "./dashboard/SectionDashboardCards";
 import { ElectionSurfaceBoundary } from "@/screens/elections/ElectionSurfaceBoundary";
 import { ElectionResultsShell } from "@/screens/elections/ElectionResultsShell";
-import { ElectionScopeBar } from "@/screens/elections/ElectionScopeBar";
+import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { ElectionSurfaceSkeleton } from "@/screens/elections/ElectionSurfaceSkeleton";
 import { SectionRiskBadge } from "./components/riskScore/SectionRiskBadge";
 
@@ -168,7 +168,10 @@ export const SectionScreen = () => {
         oblast={section?.oblast}
         extra={headerExtra}
         className="my-4"
-        scope={<ElectionScopeBar cycle={selected} status="final" />}
+        // The date rides the eyebrow („ПАРЛАМЕНТ · 19.04.2026"), as on the local section
+        // page, rather than ElectionScopeBar beside the pills: a section's switcher carries
+        // a note under it, so the scope line floated detached beside a two-row block.
+        eyebrowSuffix={friendlyCycleDate(selected)}
       />
       {/* ⚠ NO MAP AND NO DIGEST HERE, and both are rules rather than omissions. The section
           descriptor declares `maps: []` — one polling station has no geography to answer a
