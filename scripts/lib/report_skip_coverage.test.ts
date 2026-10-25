@@ -178,6 +178,16 @@ const EXEMPT: Record<string, string> = {
     "synthetic fixture written under a per-test temporary root",
   "scripts/polls/review.test.ts → unasserted-committed-input: data/polls/_inbox":
     "synthetic fixture written under a per-test temporary root",
+  // generatedPathsTouched() maps a commit's changed-file LIST onto the registry; these
+  // paths are string arguments to a pure function and are never read from disk.
+  "scripts/lib/upload-manifest.test.ts → unasserted-committed-input: data/procurement/derived/sector_stats.json":
+    "a string argument to a pure path mapper, not a file the test reads",
+  "scripts/lib/upload-manifest.test.ts → unasserted-committed-input: data/roads/derived/hub_stats.json":
+    "a string argument to a pure path mapper, not a file the test reads",
+  "scripts/lib/upload-manifest.test.ts → unasserted-committed-input: data/water/derived/hub_stats.json":
+    "a string argument to a pure path mapper, not a file the test reads",
+  "scripts/lib/upload-manifest.test.ts → unasserted-committed-input: data/water/flood_maintenance.json":
+    "a string argument to a pure path mapper, not a file the test reads",
 };
 
 /**

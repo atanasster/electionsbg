@@ -1780,7 +1780,10 @@ describe("a hub's og capture anchors on its head", () => {
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
       project: indicatorsFigures,
-      md5: "f8ba0f9063e793ad87e645df2c99feea",
+      md5: "bb0bffc66a60fcb12c37a298c20ccff2",
+      // ⚠️ RE-SHOT 2026-10-25 (UTC) — government debt advanced from 2026-Q1 to Q2, moving
+      // 28.5% / rank 3 of 27 to 28.7% / rank 4 of 27. LOOKED AT: both are on the card; the
+      // other three KPIs and the growth/unemployment ranks are unchanged.
       // ⚠️ RE-SHOT 2026-10-12 (UTC) — re-shot with the sixteen other hub cards whose commit
       // dates had fallen behind `HubHead.tsx`. LOOKED AT: the four KPIs are unchanged; the
       // rank rail now reads „9 от 27" for growth (a 27th member state has reported 2026-Q2)
@@ -1813,7 +1816,7 @@ describe("a hub's og capture anchors on its head", () => {
       // lands on, because its 2026-Q2 return is the one still coming in. Expect it again
       // until the band clamps past 2026-Q2, at which point the capture entry's own
       // „THIS CLAUSE HAS AN EXPIRY" note takes over and the rail drops out entirely.
-      shot: "2026-10-12",
+      shot: "2026-10-25",
       figures:
         "gdpGrowth=2.8% [Растеж на реалния БВП · % спрямо същия период предходна " +
         "година (реален, SCA) · 2026-Q2] " +
@@ -1821,8 +1824,8 @@ describe("a hub's og capture anchors on its head", () => {
         "тримес. ср.) · 2026-Q2] " +
         "unemployment=3.4% [Безработица · % от активното население (сезонно " +
         "изгладено) · 2026-Q2] " +
-        "govDebt=28.5% [Брутен държавен дълг · % от БВП · 2026-Q1] " +
-        "| gdpGrowth=9/27 unemployment=3/27 govDebt=3/27",
+        "govDebt=28.7% [Брутен държавен дълг · % от БВП · 2026-Q2] " +
+        "| gdpGrowth=9/27 unemployment=3/27 govDebt=4/27",
     },
   };
 

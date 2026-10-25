@@ -149,6 +149,7 @@ const mpSkip =
   (fs.existsSync(PARLIAMENT_INDEX)
     ? false
     : "data/parliament/index.json absent");
+reportSkip(import.meta.url, mpSkip);
 test.skipIf(mpSkip)(
   "every mp_id names an MP with an identical full name",
   async () => {
@@ -192,6 +193,7 @@ const patronymicsClose = (a: string, b: string): boolean => {
 const slateSkip =
   skip ||
   (loadMiBundle("SOF") ? false : "data/2023_10_29_mi/municipalities absent");
+reportSkip(import.meta.url, slateSkip);
 test.skipIf(slateSkip)(
   "every first+last slate match agrees on the patronymic",
   async () => {
