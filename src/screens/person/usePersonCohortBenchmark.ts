@@ -40,7 +40,7 @@ export const usePersonCohortBenchmark = (
       return;
     }
     fetch(`/api/db/person-cohort-benchmark?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: CohortBenchmark) => {
         if (live)
           setData(j && typeof j === "object" && !Array.isArray(j) ? j : null);

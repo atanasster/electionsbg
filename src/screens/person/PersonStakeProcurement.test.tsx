@@ -44,7 +44,7 @@ const row = (o: Partial<StakeProcurementRow> = {}): StakeProcurementRow => ({
 const stub = (rows: StakeProcurementRow[]) =>
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => ({ json: async () => rows }) as Response),
+    vi.fn(async () => ({ ok: true, json: async () => rows }) as Response),
   );
 
 const draw = (slug = "x") =>

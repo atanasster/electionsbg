@@ -38,7 +38,7 @@ export const usePersonAccumulationGap = (
       return;
     }
     fetch(`/api/db/person-accumulation-gap?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: AccumulationGap) => {
         if (live) setGap(j && typeof j === "object" && j.slug ? j : null);
       })

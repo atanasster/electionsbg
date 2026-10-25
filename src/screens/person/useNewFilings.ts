@@ -32,7 +32,7 @@ export const useAllNewFilings = (limit = 200): NewFilingRow[] | undefined => {
     let live = true;
     setRows(undefined);
     fetch(`/api/db/new-filings?limit=${limit}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: NewFilingRow[]) => live && setRows(Array.isArray(j) ? j : []))
       .catch(() => live && setRows([]));
     return () => {

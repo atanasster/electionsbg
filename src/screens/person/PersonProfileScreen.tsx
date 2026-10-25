@@ -149,7 +149,7 @@ const PersonDashboardBody: FC<{
   useEffect(() => {
     let live = true;
     fetch(`/api/db/person-connections?slug=${encodeURIComponent(p.slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: PersonConnectionsData | null) => live && setConn(j))
       .catch(() => {});
     return () => {
@@ -802,7 +802,7 @@ const PersonDashboardBody: FC<{
 // call happened to fall over, and answering a transient 500 by telling the crawler to drop
 // the page is the failure this branch exists to prevent. The prerendered HTML already
 // carries `index, follow`; leaving it untouched is the whole fix.
-const PersonProfileUnavailable: FC = () => {
+export const PersonProfileUnavailable: FC = () => {
   const { t } = useTranslation();
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 text-center">

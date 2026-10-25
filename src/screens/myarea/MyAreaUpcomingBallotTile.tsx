@@ -59,7 +59,13 @@ export const MyAreaUpcomingBallotTile: FC = () => {
                 </span>
               </div>
               <span className="text-xs tabular-nums px-2 py-0.5 rounded-full bg-primary/10 text-primary shrink-0">
-                {lang === "bg" ? `след ${days} дни` : `in ${days} days`}
+                {days === 0
+                  ? lang === "bg"
+                    ? "днес"
+                    : "today"
+                  : lang === "bg"
+                    ? `след ${days} ${days === 1 ? "ден" : "дни"}`
+                    : `in ${days} day${days === 1 ? "" : "s"}`}
               </span>
             </li>
           );

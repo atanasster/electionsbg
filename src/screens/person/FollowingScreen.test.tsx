@@ -39,7 +39,9 @@ const FEED = [
 let fetchSpy: ReturnType<typeof vi.fn>;
 beforeEach(() => {
   localStorage.clear();
-  fetchSpy = vi.fn(async () => ({ json: async () => FEED }) as Response);
+  fetchSpy = vi.fn(
+    async () => ({ ok: true, json: async () => FEED }) as Response,
+  );
   vi.stubGlobal("fetch", fetchSpy);
 });
 afterEach(() => vi.unstubAllGlobals());

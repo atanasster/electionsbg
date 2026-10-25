@@ -41,7 +41,7 @@ export const usePersonWealth = (slug: string): PersonWealth | undefined => {
       return;
     }
     fetch(`/api/db/person-wealth?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: PersonWealth) => {
         if (live) setWealth(j && Array.isArray(j.series) ? j : null);
       })

@@ -41,7 +41,7 @@ export const usePersonDeclarationEvents = (
       return;
     }
     fetch(`/api/db/person-declaration-events?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: DeclarationEventRow[]) => {
         if (live) setRows(Array.isArray(j) ? j : []);
       })

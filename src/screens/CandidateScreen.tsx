@@ -26,7 +26,10 @@ import type { Namesake } from "@/data/candidates/useCandidatePerson";
 import { Candidate } from "./components/candidates/Candidate";
 import { PersonNamesakeChooser } from "./components/candidates/PersonNamesakeChooser";
 import { SharedNameNotice } from "./components/candidates/SharedNameNotice";
-import { PersonDashboard } from "./person/PersonProfileScreen";
+import {
+  PersonDashboard,
+  PersonProfileUnavailable,
+} from "./person/PersonProfileScreen";
 import { usePersonProfileState } from "./person/usePersonProfile";
 
 /** The chooser is a disambiguation page under a URL whose prerendered head describes ONE
@@ -62,9 +65,10 @@ export const CandidateScreen = () => {
   // Still resolving the candidate → person mapping.
   if (personSlug === undefined) return <div className="w-full" />;
 
-  // The lookup itself fell over. Hold the blank rather than mounting the name-keyed body:
-  // reading a 500 as "no such person" is how a transient fault publishes a conflation.
-  if (failed) return <div className="w-full" />;
+  // The lookup itself fell over. Never mount the name-keyed body: reading a 500 (or a 429)
+  // as "no such person" is how a transient fault publishes a conflation. Say so and offer a
+  // retry instead of an empty page — a blank was all a reader (and Googlebot) got before.
+  if (failed) return <PersonProfileUnavailable />;
 
   // Resolved to a person: render the shared dashboard under the candidate URL, keeping the
   // candidate-framed <title> so the SEO page is unchanged.
@@ -93,7 +97,7 @@ export const CandidateScreen = () => {
       );
     // `failed` here is a fault on the PROFILE call for a person we already resolved. Same
     // rule as above — never fall through to the body that would merge this name.
-    if (profile.status === "failed") return <div className="w-full" />;
+    if (profile.status === "failed") return <PersonProfileUnavailable />;
   }
 
   // Several public people answer to this name — say so instead of merging them.

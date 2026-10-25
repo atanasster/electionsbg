@@ -52,7 +52,7 @@ export const PersonMoneyTimeline: FC<{ slug: string }> = ({ slug }) => {
   useEffect(() => {
     let live = true;
     fetch(`/api/db/person-money?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: Bucket[]) => live && setBuckets(Array.isArray(j) ? j : []))
       .catch(() => live && setBuckets([]));
     return () => {

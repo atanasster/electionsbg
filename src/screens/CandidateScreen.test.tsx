@@ -56,6 +56,7 @@ vi.mock("./person/PersonProfileScreen", () => ({
   PersonDashboard: ({ p }: { p: { slug: string } }) => (
     <div data-testid="person-dashboard">{p.slug}</div>
   ),
+  PersonProfileUnavailable: () => <div data-testid="person-unavailable" />,
 }));
 vi.mock("./components/candidates/Candidate", () => ({
   Candidate: ({ name }: { name: string }) => (

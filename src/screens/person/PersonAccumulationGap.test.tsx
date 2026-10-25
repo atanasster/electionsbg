@@ -30,7 +30,7 @@ import { PersonAccumulationGap } from "./PersonAccumulationGap";
 const stub = (payload: AccumulationGap) =>
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => ({ json: async () => payload }) as Response),
+    vi.fn(async () => ({ ok: true, json: async () => payload }) as Response),
   );
 
 const gap = (o: Partial<NonNullable<AccumulationGap>> = {}) => ({

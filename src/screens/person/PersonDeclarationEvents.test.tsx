@@ -40,7 +40,7 @@ const row = (o: Partial<DeclarationEventRow> = {}): DeclarationEventRow => ({
 const stub = (rows: DeclarationEventRow[]) =>
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => ({ json: async () => rows }) as Response),
+    vi.fn(async () => ({ ok: true, json: async () => rows }) as Response),
   );
 
 afterEach(() => vi.unstubAllGlobals());

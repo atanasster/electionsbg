@@ -122,6 +122,7 @@ const stubWith = (detail: Record<string, unknown>) =>
   vi.stubGlobal(
     "fetch",
     vi.fn(async (url: string) => ({
+      ok: true,
       json: async () =>
         String(url).includes("declaration-detail") ? detail : [row],
     })) as unknown as typeof fetch,

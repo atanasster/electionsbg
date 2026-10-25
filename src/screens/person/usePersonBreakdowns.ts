@@ -37,7 +37,7 @@ export const usePersonBreakdowns = (
       return;
     }
     fetch(`/api/db/person-breakdowns?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: PersonBreakdowns) => {
         if (live)
           setData({

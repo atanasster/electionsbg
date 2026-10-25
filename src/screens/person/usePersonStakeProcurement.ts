@@ -57,7 +57,7 @@ export const usePersonStakeProcurement = (
       return;
     }
     fetch(`/api/db/person-stake-procurement?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: StakeProcurementRow[]) => {
         if (live) setRows(Array.isArray(j) ? j : []);
       })

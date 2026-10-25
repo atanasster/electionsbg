@@ -31,7 +31,7 @@ import { padGapYears } from "./wealthGapYears";
 const stubFetch = (payload: PersonWealth) => {
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => ({ json: async () => payload }) as Response),
+    vi.fn(async () => ({ ok: true, json: async () => payload }) as Response),
   );
 };
 

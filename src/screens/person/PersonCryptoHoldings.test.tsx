@@ -67,7 +67,9 @@ const assetRow = (o: Record<string, unknown>) => ({
 });
 
 const stub = (detail: DeclarationDetail) => {
-  const fn = vi.fn(async () => ({ json: async () => detail }) as Response);
+  const fn = vi.fn(
+    async () => ({ ok: true, json: async () => detail }) as Response,
+  );
   vi.stubGlobal("fetch", fn);
   return fn;
 };

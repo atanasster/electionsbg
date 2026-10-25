@@ -90,6 +90,7 @@ const stub = (rows: DeclarationListItem[]) =>
       ({
         // The detail join is a separate payload; handing the LIST back for it would let a
         // future case assert a property card off rows that endpoint never serves.
+        ok: true,
         json: async () =>
           String(url).includes("declaration-detail") ? null : rows,
       }) as unknown as Response) as unknown as typeof fetch,

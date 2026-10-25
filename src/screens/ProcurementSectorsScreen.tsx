@@ -70,7 +70,9 @@ export const ProcurementSectorsScreen: FC = () => {
         if (from) qs.set("from", from);
         if (to) qs.set("to", to);
         fetch(`/api/db/sector-peers?${qs.toString()}`)
-          .then((r) => r.json())
+          .then((r) =>
+            r.ok ? r.json() : Promise.reject(new Error(`${r.status}`)),
+          )
           .then((d: PeersResp) =>
             setPeers((c) => ({
               ...c,

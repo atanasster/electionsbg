@@ -75,7 +75,7 @@ const fetchList = (slug: string): Promise<DeclarationListItem[]> => {
   let p = listCache.get(slug);
   if (!p) {
     p = fetch(`/api/db/person-declarations?slug=${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: DeclarationListItem[]) => (Array.isArray(j) ? j : []))
       .catch(() => []);
     listCache.set(slug, p);
@@ -227,7 +227,7 @@ const fetchDetail = (id: number): Promise<DeclarationDetail> => {
   let p = detailCache.get(id);
   if (!p) {
     p = fetch(`/api/db/declaration-detail?id=${id}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: DeclarationDetail) => j ?? null)
       .catch(() => null);
     detailCache.set(id, p);

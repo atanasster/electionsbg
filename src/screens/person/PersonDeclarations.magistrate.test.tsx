@@ -94,6 +94,7 @@ const stubSp = (rows: DeclarationListItem[]) =>
   vi.spyOn(globalThis, "fetch").mockImplementation(
     (async (url: string) =>
       ({
+        ok: true,
         json: async () =>
           String(url).includes("declaration-detail") ? null : rows,
       }) as unknown as Response) as unknown as typeof fetch,

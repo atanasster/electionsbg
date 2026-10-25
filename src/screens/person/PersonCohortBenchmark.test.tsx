@@ -30,12 +30,32 @@ const data = (
 const stub = (d: CohortBenchmark) =>
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => ({ json: async () => d }) as Response),
+    vi.fn(async () => ({ ok: true, json: async () => d }) as Response),
   );
 
 afterEach(() => vi.unstubAllGlobals());
 
 describe("PersonCohortBenchmark", () => {
+  // The /api/db rate limiter answers 429 with `{ error }` — an object, so before the ok check
+  // it was accepted as a benchmark and rendered `pp_cohort_undefined` (seen on live person
+  // pages, and served to Googlebot's renderer).
+  it("self-hides on a non-OK response instead of rendering the error body", async () => {
+    const fetchMock = vi.fn(
+      async () =>
+        ({
+          ok: false,
+          status: 429,
+          json: async () => ({ error: "rate limit" }),
+        }) as Response,
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    const { container } = render(<PersonCohortBenchmark slug="mp-1" />);
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    await new Promise((r) => setTimeout(r, 0));
+    expect(screen.queryByText("pp_cohort_title")).not.toBeInTheDocument();
+    expect(container.textContent).not.toMatch(/undefined/);
+  });
+
   it("renders the percentile alongside the declared and median figures", async () => {
     stub(data());
     render(<PersonCohortBenchmark slug="mp-1" />);

@@ -27,10 +27,14 @@ export const MyAreaActionBand: FC<Props> = ({ obshtina }) => {
   const dateLabel = formatLongDate(e.date, lang);
   const kindLabel = t(`election_kind_${e.kind}`);
   const eyebrow = lang === "bg" ? "Предстои гласуване" : "Vote coming up";
+  // Election day itself is daysOut 0 — "след 0 дни" reads as a glitch on the one day
+  // the band matters most.
   const lead =
-    lang === "bg"
-      ? `${kindLabel} след ${action.daysOut} ${action.daysOut === 1 ? "ден" : "дни"}`
-      : `${kindLabel} in ${action.daysOut} day${action.daysOut === 1 ? "" : "s"}`;
+    action.daysOut === 0
+      ? `${kindLabel} — ${lang === "bg" ? "днес" : "today"}`
+      : lang === "bg"
+        ? `${kindLabel} след ${action.daysOut} ${action.daysOut === 1 ? "ден" : "дни"}`
+        : `${kindLabel} in ${action.daysOut} day${action.daysOut === 1 ? "" : "s"}`;
   const detail =
     e.confidence === "estimated"
       ? lang === "bg"
