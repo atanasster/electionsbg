@@ -1,265 +1,70 @@
 {
   "obshtina": "PER32",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.014-0033",
-      "title": "Подобряване на енергийната ефективност на сградата на Съдебна палата – Перник",
-      "type": "new",
-      "totalEur": 2421077.93,
-      "paidEur": 0,
+      "contractNumber": "BG16RFPR001-1.001-0310",
+      "title": "Разработване на специализирана иновативна ERP- система за Доставчици на интернет услуги",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 340861.26,
+      "totalEur": 340861.26,
+      "paidEur": 177913.18,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Административен СЪД – перник",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.014-0016",
-      "title": "„Внедряване на мерки за енергийна ефективност в сградите на РДПБЗН-Перник и РСПБЗН-Брезник“",
-      "type": "new",
-      "totalEur": 2046421.42,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Перник",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0112",
-      "title": "Инсталиране на фотоволтаични системи и закупуване на електромобил в социалните услуги на територията на Община Перник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 587001.81,
-      "totalEur": 427185.1,
-      "paidEur": 427185.1,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Перник",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0529",
-      "title": "Изграждане на мрежа от 13 дигитални клуба",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 325382.43,
-      "totalEur": 295434.86,
-      "paidEur": 295434.86,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Младежки форум 21 век",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0036",
-      "title": "Закупуване на електрическо превозно средство и зарядна станция за социални услуги в община Перник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 91213.76,
-      "totalEur": 89149.73,
-      "paidEur": 89149.73,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "община Перник",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0125",
-      "title": "Дигитален клуб - Народно читалище \"Зуница - 2012\", гр. Перник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26566.73,
-      "totalEur": 26480.76,
-      "paidEur": 26480.77,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Зуница - 2012\" гр. Перник",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0105",
-      "title": "Дигитален клуб - Народно Читалище \"Просвета 1909\", кв. Църква гр. Перник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26566.73,
-      "totalEur": 16255.76,
-      "paidEur": 16255.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Просвета 1909\", кв. Църква гр. Перник",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0720",
-      "title": "Изграждане на дигитален клуб в град БАТАНОВЦИ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 14081.2,
-      "paidEur": 14081.2,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Просвета-1909г.-гр.Батановци“",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0085",
-      "title": "Дигитален клуб - Народно Читалище \"Елин Пелин - 1903\" гр. Перник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26566.73,
-      "totalEur": 13430.71,
-      "paidEur": 13430.71,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Елин Пелин - 1903\" гр. Перник",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1345",
-      "title": "Подобряване на производствения капацитет на \"САМОСТОЯТЕЛНА МЕДИКО ТЕХНИЧЕСКА ЛАБОРАТОРИЯ ЛЮСИ ДЕНТ\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 13303.3,
-      "totalEur": 13090.67,
-      "paidEur": 9818.01,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Самостоятелна медико Техническа лаборатория люси дент\" ЕООД",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Перник ЛАН ООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0069",
-      "title": "Дигитален клуб - НЧ „Чичо Стоян - 1927“ с. Дивотино",
+      "contractNumber": "BG-RRP-4.032-0173",
+      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в \"НИГ БГ\" ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 17363.47,
-      "totalEur": 10309.06,
-      "paidEur": 10309.06,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 320580.01,
+      "totalEur": 320580.01,
+      "paidEur": 160272.86,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Чичо Стоян - 1927“ с. Дивотино",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "НИГ БГ ООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0129",
-      "title": "Дигитален клуб Народно Читалище \"Васил Левски - 1968\" с. Рударци",
+      "contractNumber": "BG-RRP-1.015-0248",
+      "title": "Изграждане на училищна СТЕМ среда и ВОСКС",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
         "status"
       ],
-      "prevTotalEur": 17381.88,
-      "totalEur": 10131.56,
-      "paidEur": 10131.56,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 92656.16,
+      "totalEur": 92656.16,
+      "paidEur": 92656.15,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Васил Левски - 1968\" с. Рударци",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Спортно училище \"Олимпиец\" - перник",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0104",
-      "title": "Дигитален клуб - НЧ \"П.К. Яворов - 1926\", с. Мещица",
+      "contractNumber": "BG16RFPR001-1.012-0336",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 14314.13,
-      "totalEur": 9475.54,
-      "paidEur": 9475.54,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „П.К. Яворов -1926\", с. Мещица",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0128",
-      "title": "Дигитален клуб Народно Читалище \"Христо Ботев - 1940\" с. Ярджиловци",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 7852.27,
-      "paidEur": 7852.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Христо Ботев - 1940\" с. Ярджиловци",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2757",
-      "title": "Модернизиране и оптимизиране на процесите в Радио Ултра за устойчиво повишаване на производствения капацитет",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 75671.2,
-      "totalEur": 0,
+      "prevTotalEur": 33374.58,
+      "totalEur": 33374.58,
       "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ултра медия ЕООД",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Диалдент 2000 ЕООД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

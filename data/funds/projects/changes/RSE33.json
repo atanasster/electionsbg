@@ -1,168 +1,25 @@
 {
   "obshtina": "RSE33",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0021",
-      "title": "Създаване на дигитален клуб в Сливо поле",
+      "contractNumber": "BG16RFPR001-1.004-0994",
+      "title": "Подобряване на производствения капацитет на „Тосита” АД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 15703.27,
-      "paidEur": 15703.26,
+      "prevTotalEur": 71729.14,
+      "totalEur": 69773.65,
+      "paidEur": 52330.24,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Ботев 1928\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0086",
-      "title": "Изграждане на дигитален клуб в село Стамболово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13412.93,
-      "paidEur": 13132.58,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище Отец Паисий 1928",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0179",
-      "title": "Изграждане на дигитален клуб в село Юделник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13211.36,
-      "paidEur": 13211.36,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Владимир Маяковски 1929",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0482",
-      "title": "Изграждане на дигитален клуб в с. Бабово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14311.07,
-      "totalEur": 12790.83,
-      "paidEur": 12790.83,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Никола Йонков Вапцаров 1927г.",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0084",
-      "title": "Изграждане на дигитален клуб в село Малко Враново",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 12725.69,
-      "paidEur": 12725.69,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище Христо Ботев 1928",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0181",
-      "title": "Изграждане на дигитален клуб в село Ряхово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14819.29,
-      "totalEur": 12521.9,
-      "paidEur": 12521.9,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Познай себе си 1911",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0075",
-      "title": "Изграждане на дигитален клуб в село с. Бръшлен",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 11660.59,
-      "paidEur": 11660.59,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище Братство 1906",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0079",
-      "title": "Изграждане на дигитален клуб в село Кошарна",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 10257,
-      "paidEur": 10257,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище Иван Вазов 1927",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1309",
-      "title": "Създаване на дигитален клуб на територията на село Голямо Враново",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 6973.61,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Светлина 1923 г.",
-      "detectedAt": "2026-10-18"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Тосита АД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

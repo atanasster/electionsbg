@@ -1,42 +1,38 @@
 {
   "obshtina": "PER36",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0024",
-      "title": "Закупуване на електрически автомобил и зарядна станция за предоставяне на социални услуги в община Радомир.",
+      "contractNumber": "BG-RRP-4.036-0076",
+      "title": "Изграждане на самостоятелно съоръжение за съхранение на електрическа енергия присъединено към електропреносната мрежа на ЕСО ЕАД с директна оптична връзка към телекомуникационната мрежа на ЕСО ЕАД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 57846.2,
-      "paidEur": 57846.2,
+      "prevTotalEur": 40500069.36,
+      "totalEur": 40500069.36,
+      "paidEur": 8989145.04,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Лкмк Солар ЕАД",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0079",
+      "title": "РЕКОНСТРУКЦИЯ НА ДОМ ЗА СТАРИ ХОРА „СВ. ИВАН РИЛСКИ“ ГР. РАДОМИР",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2797512.29,
+      "totalEur": 2797512.29,
+      "paidEur": 2056319.65,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Радомир",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2110",
-      "title": "Повишаване на конкурентоспособността на ЕНИ тур ООД чрез внедряване на съвременни аудио-визуални технологии за телевизионни програми и подкасти",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 24331.54,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕНИ тур ООД",
-      "detectedAt": "2026-10-18"
+      "detectedAt": "2026-10-24"
     }
   ]
 }

@@ -1,56 +1,39 @@
 {
   "obshtina": "MON24",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-2.006-0112",
-      "title": "Комбинирани интегрирани териториални инвестиции (ИТИ) на територията на Общините Лом, Димово и Оряхово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur"
-      ],
-      "prevTotalEur": 87809748.84,
-      "totalEur": 86108167.46,
-      "paidEur": 24001988.85,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Агенция \"Пътна инфраструктура\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG05SFPR001-3.008-0006",
-      "title": "\"Строим бъдеще\"",
+      "contractNumber": "BG-RRP-4.032-0159",
+      "title": "Изграждане на ЛОКАЛНА СИСТЕМА ЗА СЪХРАНЕНИЕ на енергия с инсталирана мощност 1,6 MW и инсталиран капацитет 4 MWh към фотоволтаична централа в имот с идентификатор 44238.508.138 по КК на град Лом, община Лом",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 173257.61,
-      "totalEur": 173257.61,
-      "paidEur": 34651.52,
+      "prevTotalEur": 1533824.51,
+      "totalEur": 1533824.51,
+      "paidEur": 664679.41,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по производствени технологии",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0154",
-      "title": "Въвеждане на ЕСМ и мерки за екологосъобразна мобилност на социалните услуги, делегирана от държавата дейност, в Община Лом",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 192358.38,
-      "totalEur": 158277.12,
-      "paidEur": 158277.11,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Лом",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Азахар ЕООД",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0116",
+      "title": "Изграждане на училищна STEM среда в IV ОУ „Христо Ботев“ гр. Лом",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 92736.74,
+      "totalEur": 92736.74,
+      "paidEur": 92736.72,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Четвърто основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

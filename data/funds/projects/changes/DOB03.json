@@ -1,43 +1,55 @@
 {
   "obshtina": "DOB03",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-2079",
-      "title": "Подобряване на производствения капацитет на „Нериум“ ООД",
+      "contractNumber": "BG-RRP-4.034-0099",
+      "title": "Изграждане и присъединяване към мрежата на ЕСО на батериен парк в ПИ 02508.55.3, град Балчик, област Добрич",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
+        "paidEur"
+      ],
+      "prevTotalEur": 2758419.7,
+      "totalEur": 2758419.7,
+      "paidEur": 1113766.87,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Зърнени храни българия АД",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG-RRP-4.025-0029",
+      "title": "Енергийно ефективна модернизация на селищните системи за външно изкуствено осветление на гр. Балчик, с. Кранево, с.Оброчище и с. Рогачево",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 457967.24,
+      "totalEur": 457967.24,
+      "paidEur": 456393.3,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Балчик",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1413",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 72048.94,
-      "totalEur": 66701.13,
-      "paidEur": 50025.83,
+      "prevTotalEur": 35324.64,
+      "totalEur": 35324.64,
+      "paidEur": 24727.25,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Нериум ООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0142",
-      "title": "Изграждане на дигитален клуб в сградата на НЧ „Паисий Хилендарски - 1870“ - Балчик",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 20451.67,
-      "totalEur": 15300.8,
-      "paidEur": 15300.8,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Паисий Хилендарски - 1870“ - Балчик",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Шоколино ООД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

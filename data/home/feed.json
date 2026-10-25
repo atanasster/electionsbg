@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-22T23:59:59.999Z",
+  "computedAt": "2026-10-24T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-22T00:00:00.000Z",
-      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "occurredAt": "2026-10-24T00:00:00.000Z",
+      "firstSeenAt": "2026-10-24T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -26,23 +26,23 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "ЛИМОНИ",
-        "pct": 65,
-        "promoEur": "0.70",
+        "pct": 52,
+        "promoEur": "0.95",
         "regularEur": "1.99",
-        "chains": 6
+        "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.9285714285714286,
+      "materiality": 0.7428571428571429,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
+      "id": "prices:promotion:1kg-kafe-edusho-krema-strong-za",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-22T00:00:00.000Z",
-      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "occurredAt": "2026-10-24T00:00:00.000Z",
+      "firstSeenAt": "2026-10-24T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -55,18 +55,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krave-maslo-d-markenbutter-250gr",
+      "route": "/product/1kg-kafe-edusho-krema-strong-za",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-        "pct": 56,
-        "promoEur": "1.79",
-        "regularEur": "4.07",
+        "title": "1КГ КАФЕ ЕДУШО КРЕМА СТРОНГ ЗЪ",
+        "pct": 48,
+        "promoEur": "12.98",
+        "regularEur": "24.77",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8,
+      "materiality": 0.6857142857142857,
       "actionability": 0.85
     },
     {
@@ -91,7 +91,7 @@
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 2,
-        "sittings": 14,
+        "sittings": 12,
         "windowDays": 30
       },
       "backfill": false,
@@ -197,11 +197,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:byalo-zele",
+      "id": "prices:promotion:pryasno-mlyako-bozhentsi-3-6-1l",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-22T00:00:00.000Z",
-      "firstSeenAt": "2026-10-22T00:00:00.000Z",
+      "occurredAt": "2026-10-24T00:00:00.000Z",
+      "firstSeenAt": "2026-10-24T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -214,18 +214,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/byalo-zele",
+      "route": "/product/pryasno-mlyako-bozhentsi-3-6-1l",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "БЯЛО ЗЕЛЕ",
-        "pct": 55,
-        "promoEur": "0.49",
-        "regularEur": "1.10",
+        "title": "ПРЯСНО МЛЯКО БОЖЕНЦИ 3.6% 1Л.",
+        "pct": 48,
+        "promoEur": "0.99",
+        "regularEur": "1.89",
         "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7857142857142857,
+      "materiality": 0.6857142857142857,
       "actionability": 0.85
     },
     {
@@ -861,69 +861,6 @@
       "verification": "automatic",
       "materiality": 0.7263256490977231,
       "actionability": 0.2
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:9a1210fb-84d1-44e2-bb6e-9d9f83d942c4",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-24T09:30:00.000Z",
-      "deadlineAt": "2027-01-04T21:59:00.000Z",
-      "firstSeenAt": "2026-09-24T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/9a1210fb-84d1-44e2-bb6e-9d9f83d942c4"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Актуализация на политиките и националната нормативна рамка за подобряване на качеството на въздуха",
-        "programme": "Програма \"Околна среда\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-09-23",
-      "kind": "basket_moved",
-      "category": "prices",
-      "occurredAt": "2026-09-23T00:00:00.000Z",
-      "firstSeenAt": "2026-09-23T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/consumption",
-      "factKey": "home_fact_basket_down",
-      "factArgs": {
-        "pct": "2.1",
-        "costEur": "15.56",
-        "days": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.53475,
-      "actionability": 0.5
     }
   ],
   "sourceCoverage": {
@@ -974,8 +911,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-22",
-      "observedAt": "2026-10-22",
+      "asOf": "2026-10-24",
+      "observedAt": "2026-10-24",
       "staleAfterDays": 5,
       "stale": false
     }

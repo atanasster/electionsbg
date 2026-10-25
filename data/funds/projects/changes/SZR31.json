@@ -1,734 +1,125 @@
 {
   "obshtina": "SZR31",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0529",
-      "title": "Изграждане на мрежа от 13 дигитални клуба",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 325382.43,
-      "totalEur": 295434.86,
-      "paidEur": 295434.86,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Младежки форум 21 век",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.019-0154",
-      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
-      "type": "modified",
-      "changedFields": [
-        "grantEur"
-      ],
-      "prevTotalEur": 140093.94,
-      "totalEur": 140093.94,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-2460",
-      "title": "Изграждане на Локални съоръжения за съхранение на енергия (батерии в комбинация с инвертори) за \"ЛАЙФ ГАРД 88 ЕООД\"",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 105434.83,
-      "totalEur": 105434.83,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Лайф гард 88 ЕООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1803",
-      "title": "Подкрепа за семейното предприятие Кадуоркс Плюс ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 87891.07,
-      "totalEur": 87526.35,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Кадуоркс Плюс ООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0873",
-      "title": "Подобряване условията на труд в динамична пазарна среда",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 80031.62,
-      "totalEur": 79651.15,
-      "paidEur": 79651.15,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Бонанза – Професионално почистване ЕООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.001-0366",
-      "title": "Разработване на устройство за позициониране и отделяне/бране/ на разцъфнали цветове на растения от тяхната среда на развитие",
+      "contractNumber": "BG-RRP-4.034-0102",
+      "title": "Локална система за съхранение на електрическа енергия, присъединена към електропреносната мрежа – разположена в гр. Стара Загора, общ. Стара Загора, обл. Стара Загора",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 66979.24,
-      "totalEur": 66979.24,
-      "paidEur": 20579.69,
+      "prevTotalEur": 35456637.34,
+      "totalEur": 35456637.34,
+      "paidEur": 11599047.73,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Авротин ООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0366",
-      "title": "Подобряване капацитета на Гочев стил ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 90498.66,
-      "totalEur": 65583.87,
-      "paidEur": 49187.91,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Гочев стил ЕООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1337",
-      "title": "Инсталиране на високоефективни охладители за въздух",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 59618.68,
-      "totalEur": 59618.68,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Роял Фуудс ЕООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0732",
-      "title": "Създаване на дигитален клуб в Регионална библиотека „Захарий Княжески“ – Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26587.18,
-      "totalEur": 26498.98,
-      "paidEur": 26498.99,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Регионална библиотека „Захарий Княжески“",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Дениз 2001 ЕООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0718",
-      "title": "Дигитален клуб „Железник“ – цифрово приобщаване за общността",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26566.73,
-      "totalEur": 26089.54,
-      "paidEur": 26089.54,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Железник-1988“",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0060",
-      "title": "Дигитален клуб ЛОУ КАРБ ФЕКТОРИ – възможност за всеки",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 24685.17,
-      "totalEur": 23407.76,
-      "paidEur": 23407.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЛОУ Карб фектори ЕООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2344",
-      "title": "Подобряване на работната среда в МАРВИН ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 51786.69,
-      "totalEur": 22757.46,
-      "paidEur": 22757.46,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Марвин ООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0723",
-      "title": "„Дигитален клуб „Христо Танев“ – технологии и умения за общността на Стара Загора“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26566.73,
-      "totalEur": 22162.67,
-      "paidEur": 22162.67,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Танев - 2020\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0733",
-      "title": "„Дигитален клуб \"Настроение\" – отворени врати към знанието и бъдещето“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 24235.24,
-      "totalEur": 21189.24,
-      "paidEur": 21189.24,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Настроение 2017 г.\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0699",
-      "title": "Изграждане на дигитален клуб в Св. Климент Охридски 1858 г. в гр. Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26587.18,
-      "totalEur": 20618.55,
-      "paidEur": 20618.55,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Св. Климент Охридски 1858 г.",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1040",
-      "title": "Изграждане на дигитален клуб във филиал \"Лозенец\" на библиотека \"Родина, Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 20784.12,
-      "totalEur": 17705.14,
-      "paidEur": 17705.14,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Родина-1860\", Стара Загора",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0838",
-      "title": "„Дигитален клуб за достъп до технологии и обучение в НЧ „Отец Паисий – 1947“, гр. Стара Загора – създаване на модерна среда за развитие на дигитални умения, социално приобщаване и учене през целия живот за всички възрастови и социални групи от квартал „Зора“ и общността на града.“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26566.73,
-      "totalEur": 17682.72,
-      "paidEur": 17682.72,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Отец Паисий - 1947\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0884",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"РАЗВИТИЕ - 1878 г.\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 16868.56,
-      "paidEur": 16868.57,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище ,,Развитие 1878\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0398",
-      "title": "Дигитален клуб към НЧ „Иванка Терзиева – 1927“, с. Богомилово – мост към цифровото бъдеще",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17363.47,
-      "totalEur": 16336.65,
-      "paidEur": 16336.65,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Иванка Терзиева – 1927“",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0704",
-      "title": "„Традиции и технологии – дигитален клуб към НЧ „Стефан Генчев – 1901“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17363.47,
-      "totalEur": 15947.19,
-      "paidEur": 15947.19,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Стефан Генчев - 1901\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0437",
-      "title": "Създаване на дигитален клуб в Народно читалище \"Георги Бакалов 1933\" , Стара Загора.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26587.18,
-      "totalEur": 14571.82,
-      "paidEur": 14571.82,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Георги Бакалов 1933\", Стара Загора.",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1300",
-      "title": "Изграждане на дигитален клуб в с. Братя Кунчеви",
+      "contractNumber": "BG16RFPR002-1.009-0004",
+      "title": "Обучение за високи постижения в нанотехнологиите за синтетични кислородни носители за перфузия на алографти за трансплантация (REDBUL)",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14290.11,
-      "totalEur": 14290.11,
-      "paidEur": 0,
+      "prevTotalEur": 1499853.75,
+      "totalEur": 1499853.75,
+      "paidEur": 949389.24,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо БОТЕВ-1929 г.\"",
-      "detectedAt": "2026-10-18"
+      "programCode": "2021BG16RFPR002",
+      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
+      "beneficiaryName": "Тракийски Университет",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0343",
-      "title": "Изграждане на дигитален клуб в с. Петрово , Стара Загора",
+      "contractNumber": "BG16FFPR003-4.001-0132",
+      "title": "Изпълнение на мерки за енергийна ефективност на многофамилна жилищна сграда на ул. „Професор Никола Кожухаров“ № 2, включително за намаляване на енергийната бедност в град Стара Загора",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 1415078.08,
+      "totalEur": 1415078.08,
+      "paidEur": 495277.33,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община - стара загора",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1029",
+      "title": "Подобряване условията на труд в \"БРБ-Инженеринг\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14259.61,
-      "paidEur": 14259.61,
+      "prevTotalEur": 138676.47,
+      "totalEur": 138281.44,
+      "paidEur": 138281.43,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \" Св. Св. Кирил и Методий 2002 \"",
-      "detectedAt": "2026-10-18"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "БРБ - Инженеринг ЕООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1314",
-      "title": "Изграждане на дигитален клуб в село Яворово, община Стара Загора. Да помогнем на възрастни хора, хора в неравностойно положение и младежи да повишат своите дигитални умения и опит, като превенция на социалната изолация чрез добиване на базово и средно равнище на компютърна грамотност.",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 14249.7,
-      "totalEur": 14249.7,
-      "paidEur": 14249.7,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Пробуда-1925\" село Яворово, община Стара Загора",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0574",
-      "title": "Създаване на дигитален клуб в Библиотека на НЧ \"Христо Ботев - 1952\", село Старозагорски бани, община Стара Загора",
+      "contractNumber": "BG05SFPR002-1.004-1150",
+      "title": "Адаптирана работна среда в Информат ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 14133.77,
-      "paidEur": 14133.77,
+      "prevTotalEur": 30385.04,
+      "totalEur": 23972.42,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище ,,Христо Ботев-1952\"",
-      "detectedAt": "2026-10-18"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Информат ООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0710",
-      "title": "„Дигитален дом на общността – клуб към НЧ „Развитие 1918““",
+      "contractNumber": "BG16RFPR001-1.012-0140",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14312.08,
-      "totalEur": 13953.47,
-      "paidEur": 13953.47,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Развитие - 1918\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0777",
-      "title": "„Учене без граници – дигитален клуб към НЧ „Христо Ботев - 1928г. – с. Пряпорец“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 13827.55,
-      "paidEur": 13827.55,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Христо Ботев - 1928г. – с. Пряпорец“",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0339",
-      "title": "Изграждане на дигитален клуб към Народно читалище \"Христо Ботев-1928г.\" с. Памукчии, общ. Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 14090.18,
-      "totalEur": 13770.21,
-      "paidEur": 12174.63,
+      "prevTotalEur": 5031.11,
+      "totalEur": 5031.11,
+      "paidEur": 3521.78,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Ботев - 1928г.\" С.ПАМУКЧИИ, ОБЩ. Стара загора",
-      "detectedAt": "2026-10-18"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Ресита ЕООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0690",
-      "title": "„Светлини на знанието – дигиталният път на Християново“",
+      "contractNumber": "BG16RFPR001-2.004-0911",
+      "title": "Подобряване енергийната ефективност на \"Ригелет\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 13567.6,
-      "paidEur": 13567.6,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Съзнание - 1933\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0741",
-      "title": "„Дигитално пробуждане за Кирилово – клуб за знания и общуване“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 13463.79,
-      "paidEur": 13463.79,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Изгрев - 1921 г.\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0450",
-      "title": "„Дигитална перспектива за Ракитница – клуб към НЧ „Отец Паисий – 1906““",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 13358.16,
-      "paidEur": 13358.16,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Отец Паисий - 1906\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0488",
-      "title": "Изграждане на дигитален клуб в НЧ \"Св.Св.Кирил и Методий-1921\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 13801.81,
-      "totalEur": 13107.77,
-      "paidEur": 13107.77,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \"Св.СВ.Кирил и Методий - 1921\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1000",
-      "title": "„Култура и технологии – дигитален дом за с. Преславен“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 12845.13,
-      "paidEur": 12845.13,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Димитър Наумов 1908\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0666",
-      "title": "Изграждане на дигитален клуб в с. Загоре",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 12766.61,
-      "paidEur": 12766.61,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Пробуда - 1928\", с.Загоре, общ. Стара Загора",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0736",
-      "title": "„Свързани в знанието – дигитален клуб към НЧ „Кольо Ганчев – 1940“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26382.66,
-      "totalEur": 12705.68,
-      "paidEur": 12705.68,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Кольо Ганчев - 1940\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0981",
-      "title": "„Калояновец онлайн – дигитален клуб към НЧ „Възраждане – 1927““",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 12566.76,
-      "paidEur": 12566.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Възраждане 1927\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0773",
-      "title": "„От традиция към бъдеще: дигиталният клуб на НЧ „Пробуда-1921 г.“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 12538.24,
-      "paidEur": 12538.24,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище пробуда - 1921 г. НЧ",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0784",
-      "title": "„Интернет за всички – дигитален клуб към НЧ „Васил Левски – 1921““",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 12383.11,
-      "paidEur": 12383.11,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Васил Левски - 1921\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0973",
-      "title": "„Традиции в нова светлина – дигитализация в Могила“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 12002.63,
-      "paidEur": 12002.63,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Св. Климент Охридски 1930\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1014",
-      "title": "„Тракия онлайн – дигитален клуб към НЧ „Тракия – 2007““",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 11991.84,
-      "paidEur": 11991.84,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Тракия - 2007\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0691",
-      "title": "„Дигитален клуб за общността – Ново село в крачка към бъдещето“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 11672.16,
-      "paidEur": 11672.16,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Гранит - 1928\"",
-      "detectedAt": "2026-10-18"
+      "prevTotalEur": 60695.23,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Ригелет\" ООД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

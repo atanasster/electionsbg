@@ -1,62 +1,60 @@
 {
   "obshtina": "DOB28",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0677",
-      "title": "Изграждане на мрежа от 14 дигитални клуба",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 348179.62,
-      "totalEur": 318480.34,
-      "paidEur": 318480.34,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2404",
-      "title": "Осигуравяна на адаптирана работна среда в Булкредо ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 148564.68,
-      "totalEur": 144332.08,
-      "paidEur": 144332.07,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Булкредо ООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.019-0154",
-      "title": "Насърчаване на заетостта и развитието на умения в ДЗИ - ОБЩО ЗАСТРАХОВАНЕ ЕАД",
+      "contractNumber": "BG05SFPR002-1.004-2319",
+      "title": "Адаптирана работна среда в \"Каменица\" АД",
       "type": "modified",
       "changedFields": [
         "grantEur"
       ],
-      "prevTotalEur": 140093.94,
-      "totalEur": 140093.94,
+      "prevTotalEur": 126475.97,
+      "totalEur": 126475.97,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ДЗИ - Общо застраховане ЕАД",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Каменица АД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2377",
-      "title": "Подобряване на производствения капацитет на \"ЕС ДИ МОД\" ЕООД",
+      "contractNumber": "BG05SFPR002-1.004-1890",
+      "title": "Здравословна и безопасна работна среда в ОФИС В ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 120618.96,
+      "totalEur": 120611.54,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Офис в ООД",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1660",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"ЦЕРБ ЕЛИА\" ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 103333.56,
+      "totalEur": 103333.56,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "„Церб Елиа“ ЕАД",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0955",
+      "title": "ПОДОБРЯВАНЕ НА ПРОИЗВОДСТВЕНИЯ КАПАЦИТЕТ НА \"ГАБИНА\" ЕООД В ОБЛАСТТА НА ОБУЩАРСТВОТО",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -64,177 +62,30 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 85385.51,
-      "totalEur": 85370.61,
-      "paidEur": 64027.97,
+      "prevTotalEur": 101900.47,
+      "totalEur": 101133.52,
+      "paidEur": 75850.15,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕС ДИ МОД ЕООД",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Габина ЕООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0918",
-      "title": "Изграждане на дигитален клуб Народно читалище „Добрич-2017“",
+      "contractNumber": "BG16RFPR001-2.004-1101",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Тео стил 74 ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 26480.47,
-      "totalEur": 26439.17,
-      "paidEur": 26439.17,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Добрич-2017“",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0054",
-      "title": "Изграждане на Дигитален клуб в град Добрич",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 51791.12,
-      "totalEur": 25895.56,
-      "paidEur": 25895.56,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сдружение \"Търговско-промишлена палата\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0078",
-      "title": "ИЗГРАЖДАНЕ НА ДИГИТАЛЕН КЛУБ В ГРАД ДОБРИЧ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26575.84,
-      "totalEur": 25496.94,
-      "paidEur": 25496.94,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Синдикален регионален съюз \"Подкрепа\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0859",
-      "title": "Изграждане на дигитален клуб при Народно читалище \"Йордан Йовков-1870 г.\" гр. Добрич",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26002.76,
-      "totalEur": 24026.86,
-      "paidEur": 24026.86,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище\" Йордан Йовков-1870 г.\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2326",
-      "title": "Устойчив растеж и повишаване на конкурентоспособността на ВЕСТ СТРОЙ ООД чрез подобряване на производствения капацитет и оптимизиране на бизнес процесите.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 23192.2,
-      "totalEur": 23058.74,
-      "paidEur": 17294.06,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 101004.68,
+      "totalEur": 101004.68,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Вест строй ООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0432",
-      "title": "Изграждане на дигитален клуб в град Добрич",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 24556.33,
-      "totalEur": 22926.51,
-      "paidEur": 22926.51,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Регионална библиотека \"Дора Габе\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0820",
-      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Палитра - 2022\" , град Добрич",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 21908.36,
-      "totalEur": 20593.35,
-      "paidEur": 20593.35,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Палитра - 2022\" , град Добрич",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1791",
-      "title": "Подобряване на производствения капацитет и ефективността на процесите в Лотос Н ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 21039.44,
-      "totalEur": 20230,
-      "paidEur": 15172.5,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Лотос - н ЕООД",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1138",
-      "title": "Изграждане на дигитален клуб в НЧ Мевляна-гр.Добрич",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 25909.72,
-      "totalEur": 19767.05,
-      "paidEur": 19767.05,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Мевляна-2012\"",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Тео стил 74 ООД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T21:59:21.592Z",
+  "generatedAt": "2026-10-24T22:40:05.603Z",
   "total": 117,
   "entries": [
     {
@@ -1280,9 +1280,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 37708733.73,
+      "totalEur": 37766988.49,
       "totalOther": {},
-      "contractCount": 152,
+      "contractCount": 153,
       "awardCount": 0,
       "byYear": [
         {
@@ -1377,8 +1377,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 11,
-          "totalEur": 7483212.85,
+          "contractCount": 12,
+          "totalEur": 7541467.61,
           "totalOther": {}
         }
       ],
@@ -1386,8 +1386,8 @@
         {
           "eik": "000970496",
           "name": "Община Ямбол",
-          "contractCount": 32,
-          "totalEur": 12719077.5,
+          "contractCount": 33,
+          "totalEur": 12777332.26,
           "totalOther": {}
         },
         {
@@ -3042,6 +3042,153 @@
       ]
     },
     {
+      "mpId": 5094,
+      "mpName": "Николай Иванов Косев",
+      "contractorEik": "107564054",
+      "contractorName": "ЕВРОХИМ-ГРУП ЕООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 4891419.3,
+      "totalOther": {},
+      "contractCount": 78,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 2,
+          "totalEur": 41625.55,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 3,
+          "totalEur": 82278.93,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 223549.39,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 9,
+          "totalEur": 70267.62,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 115408.8,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 10,
+          "totalEur": 202387.08,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 2,
+          "totalEur": 43976.16,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 11,
+          "totalEur": 662029.74,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 3,
+          "totalEur": 102391.72,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 9,
+          "totalEur": 1002271.15,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 8,
+          "totalEur": 469026.19,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 6,
+          "totalEur": 166240.15,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 7,
+          "totalEur": 1263700.05,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 4,
+          "totalEur": 446266.77,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "117505556",
+          "name": "Университетска многопрофилна болница за активно лечение \"Канев\" АД",
+          "contractCount": 3,
+          "totalEur": 1427790.8,
+          "totalOther": {}
+        },
+        {
+          "eik": "104510514",
+          "name": "Многопрофилна областна болница за активно лечение \"Д-Р стефан Черкезов\" АД",
+          "contractCount": 4,
+          "totalEur": 633858.76,
+          "totalOther": {}
+        },
+        {
+          "eik": "107507217",
+          "name": "Многопрофилна болница за активно лечение \"Д-Р тота Венкова\" АД",
+          "contractCount": 9,
+          "totalEur": 545944.09,
+          "totalOther": {}
+        },
+        {
+          "eik": "118501906",
+          "name": "Многопрофилна болница за активно ЛЕЧЕНИЕ-СИЛИСТРА АД",
+          "contractCount": 4,
+          "totalEur": 510831.72,
+          "totalOther": {}
+        },
+        {
+          "eik": "125501290",
+          "name": "Многопрофилна болница за активно лечение - търговище АД",
+          "contractCount": 3,
+          "totalEur": 453221.01,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 722,
       "mpName": "Веселин Борисов Черкезов",
       "contractorEik": "148075985",
@@ -3127,153 +3274,6 @@
           "name": "Община Варна",
           "contractCount": 1,
           "totalEur": 3113.6,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 5094,
-      "mpName": "Николай Иванов Косев",
-      "contractorEik": "107564054",
-      "contractorName": "ЕВРОХИМ-ГРУП ЕООД",
-      "relations": [
-        {
-          "kind": "manager",
-          "isCurrent": true
-        },
-        {
-          "kind": "partner",
-          "isCurrent": true
-        },
-        {
-          "kind": "sole_owner",
-          "isCurrent": true
-        }
-      ],
-      "totalEur": 4616419.3,
-      "totalOther": {},
-      "contractCount": 77,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 2,
-          "totalEur": 41625.55,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 3,
-          "totalEur": 82278.93,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 3,
-          "totalEur": 223549.39,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 9,
-          "totalEur": 70267.62,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 1,
-          "totalEur": 115408.8,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 10,
-          "totalEur": 202387.08,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 2,
-          "totalEur": 43976.16,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 11,
-          "totalEur": 662029.74,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 3,
-          "totalEur": 102391.72,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 9,
-          "totalEur": 1002271.15,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 8,
-          "totalEur": 469026.19,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 6,
-          "totalEur": 166240.15,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 7,
-          "totalEur": 1263700.05,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 3,
-          "totalEur": 171266.77,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "117505556",
-          "name": "Университетска многопрофилна болница за активно лечение \"Канев\" АД",
-          "contractCount": 3,
-          "totalEur": 1427790.8,
-          "totalOther": {}
-        },
-        {
-          "eik": "104510514",
-          "name": "Многопрофилна областна болница за активно лечение \"Д-Р стефан Черкезов\" АД",
-          "contractCount": 4,
-          "totalEur": 633858.76,
-          "totalOther": {}
-        },
-        {
-          "eik": "107507217",
-          "name": "Многопрофилна болница за активно лечение \"Д-Р тота Венкова\" АД",
-          "contractCount": 9,
-          "totalEur": 545944.09,
-          "totalOther": {}
-        },
-        {
-          "eik": "118501906",
-          "name": "Многопрофилна болница за активно ЛЕЧЕНИЕ-СИЛИСТРА АД",
-          "contractCount": 4,
-          "totalEur": 510831.72,
-          "totalOther": {}
-        },
-        {
-          "eik": "116503980",
-          "name": "Многопрофилна болница за активно лечение \"СВ.ИВАН Рилски\" - разград АД",
-          "contractCount": 6,
-          "totalEur": 323673.34,
           "totalOther": {}
         }
       ]

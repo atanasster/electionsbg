@@ -1,78 +1,72 @@
 {
   "obshtina": "BLG33",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0020",
-      "title": "Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в община Петрич",
+      "contractNumber": "BG-RRP-4.032-0124",
+      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия, в обект в с. Марикостиново с инвеститор \"ЕКО ВАТ 08\" ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 273976.98,
-      "totalEur": 261349.9,
-      "paidEur": 261349.9,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 530209.68,
+      "totalEur": 530209.68,
+      "paidEur": 205305.86,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Петрич",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "ЕКО ВАТ 08 ООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1089",
-      "title": "Дигитални пространства",
+      "contractNumber": "BG-RRP-4.032-0129",
+      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия с инсталирана мощност от 0.40 MW в \"МОНОЛИТ-21 - АНДОНОВ И ЗАХОВ\" ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 79360.68,
-      "totalEur": 59661.78,
-      "paidEur": 59661.78,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 265871.78,
+      "totalEur": 265871.78,
+      "paidEur": 132036.02,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Специализирани бизнес системи АД",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "МОНОЛИТ-21 - Андонов и Захов ООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1350",
-      "title": "Изграждане на дигитален клуб в село Беласица",
+      "contractNumber": "BG16RFPR001-2.004-0907",
+      "title": "Подобряване на енергийната ефективност на производството на \"ФЛЕЙМ ТРЕЙД\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 74304.95,
+      "totalEur": 74304.95,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Флейм трейд\" ЕООД",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0616",
+      "title": "Подкрепа за увеличаване на възможностите за производство и развитие на семейно предприятие САКИС 78",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 13045.9,
-      "paidEur": 13045.9,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета - 1936\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2574",
-      "title": "Подобряване на конкурентоспособността на Футболна агенция-Заков ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 28526,
+      "prevTotalEur": 75717.21,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Футболна агенция-Заков ЕООД",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Сакис 78 ЕООД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

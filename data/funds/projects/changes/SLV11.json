@@ -1,61 +1,22 @@
 {
   "obshtina": "SLV11",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0096",
-      "title": "Изграждане на дигитален клуб НЧ Съгласие - Напредък 1870, гр. Котел",
+      "contractNumber": "BG-RRP-4.032-0130",
+      "title": "Производство на електроенергия от възобновяеми източници и съхранение наелектроенергия с инсталирана мощност 1,9734 MW",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 15154.06,
-      "paidEur": 15077.38,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 474268.5,
+      "totalEur": 474268.5,
+      "paidEur": 237134.24,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ Съгласие - Напредък 1870",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1104",
-      "title": "Изграждане на дигитален клуб в Народно читалище Аврора-2012",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 12950.24,
-      "paidEur": 12950.24,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Аврора-2012",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0121",
-      "title": "Дигитален клуб - Народно Читалище \"Единство 1870\" с. Жеравна",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.72,
-      "totalEur": 12189.84,
-      "paidEur": 12189.84,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Единство 1870\" с. Жеравна",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Зелена енергия - котел ООД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

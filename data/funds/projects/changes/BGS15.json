@@ -1,58 +1,93 @@
 {
   "obshtina": "BGS15",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG14MFPR001-2.001-0010",
-      "title": "Разширение на съществуващата дейност на дружеството",
+      "contractNumber": "BG16FFPR002-5.001-0011",
+      "title": "Несебър е за по-чист въздух",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 4739020.28,
+      "totalEur": 4739020.28,
+      "paidEur": 941862.36,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Несебър",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0154",
+      "title": "Изграждане на училищна STEM среда в Основно училище „Св. св. Кирил и Методий“, гр. Свети Влас",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 156641.26,
-      "totalEur": 143320.48,
-      "paidEur": 78320.63,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "Морски Риболов - несебър ООД",
-      "detectedAt": "2026-10-18"
+      "prevTotalEur": 128961.83,
+      "totalEur": 252227.4,
+      "paidEur": 128961.83,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0909",
+      "title": "Повишване на енергийната ефективност в Хотел „Тива дел Мар”",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 85879.03,
+      "totalEur": 77029.29,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Елина АД ЕООД",
+      "detectedAt": "2026-10-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-0242",
       "title": "Изграждане на дигитален клуб в град Несебър",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 20451.68,
-      "totalEur": 20451.68,
+      "totalEur": 17465.92,
       "paidEur": 17465.92,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно Читалище \"Яна Лъскова-1905\"",
-      "detectedAt": "2026-10-18"
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0896",
-      "title": "„Изграждане на дигитален клуб в град Обзор“",
+      "contractNumber": "BG16RFPR001-1.004-2173",
+      "title": "„Подобряване на производствения капацитет на ВАГ-ИНВЕСТМЪНТ АД чрез внедряване на иновативни решения за настаняване, модерно кухненско оборудване и ефективно управление на ресурсите.“",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 15674.39,
-      "totalEur": 13437.44,
-      "paidEur": 13437.44,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Изгрев 1927\"",
-      "detectedAt": "2026-10-18"
+      "prevTotalEur": 88824.18,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ВАГ- Инвестмънт АД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

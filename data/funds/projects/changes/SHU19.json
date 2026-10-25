@@ -1,24 +1,22 @@
 {
   "obshtina": "SHU19",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0010",
-      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в социалните услуги ЦНСТДБУ \"Слънце\" гр. Каспичан и ДЦПЛУ с. Кюлевча, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги\"",
+      "contractNumber": "BG-RRP-4.028-0064",
+      "title": "Въвеждане на енергийно ефективна система за външно изкуствено осветление в община Каспичан",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 108435.8,
-      "totalEur": 95885.67,
-      "paidEur": 95885.67,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 900289.64,
+      "totalEur": 900289.64,
+      "paidEur": 878471.18,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Каспичан",
-      "detectedAt": "2026-10-18"
+      "detectedAt": "2026-10-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-0623",
@@ -26,35 +24,16 @@
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 17361.94,
-      "totalEur": 15346.81,
+      "prevTotalEur": 15346.81,
+      "totalEur": 14505.77,
       "paidEur": 15346.81,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Христо Ботев 1896\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0518",
-      "title": "изграждане на дигитален клуб в Народно читалище Каменен стълб 1888 - с.Кюлевча",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13773.49,
-      "paidEur": 13773.49,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Каменен стълб 1888 - с.Кюлевча",
-      "detectedAt": "2026-10-18"
+      "detectedAt": "2026-10-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-0626",
@@ -62,18 +41,16 @@
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 14295.73,
-      "totalEur": 9714.31,
+      "prevTotalEur": 9714.31,
+      "totalEur": 9153.61,
       "paidEur": 8312.57,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Васил Левски 1927\"",
-      "detectedAt": "2026-10-18"
+      "detectedAt": "2026-10-24"
     }
   ]
 }

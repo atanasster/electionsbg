@@ -1,130 +1,22 @@
 {
   "obshtina": "VAR13",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.011-0034",
-      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Долни чифлик.",
+      "contractNumber": "BG-RRP-4.036-0042",
+      "title": "Изграждане и въвеждане в експлоатация на ССЕЕ от СО Сторидж",
       "type": "modified",
       "changedFields": [
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 58082.76,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 53964252.97,
+      "totalEur": 53964252.97,
+      "paidEur": 8981561,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Долни чифлик",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0964",
-      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище „Баръш-2004“, град Долни чифлик",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 16802,
-      "paidEur": 16802,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „БАРЪШ-2004“",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0208",
-      "title": "изграждане на дигитален клуб в НЧ \"Васил Левски - 1924\" с.Пчелник, Общ.Долни Чифлик",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 16253.44,
-      "paidEur": 16253.44,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Васил Левски-1924\" - с.Пчелник, общ.Долни Чифлик",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0239",
-      "title": "изграждане на дигитален клуб в Народно читалище \" Пробуда 1922 - Старо Оряхово\" - с.Старо Оряхово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 16034.61,
-      "paidEur": 16034.61,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \" Пробуда 1922 - Старо Оряхово\" - с.Старо Оряхово",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0243",
-      "title": "изграждане на дигитални клубове в Народно читалище \"Изгрев 1919- гр.Долни Чифлик\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 15419.37,
-      "paidEur": 15419.37,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Изгрев -1919 - гр.Долни чифлик",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0233",
-      "title": "изграждане на дигитален клуб в Народно читалище Кирил Господинов-1903г-с.Гроздьово",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 14473.07,
-      "paidEur": 14473.07,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Нардоно читалище Кирил Господинов-1903г - с.Гроздьово",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1157",
-      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище „Хаджи Димитър-1927“, село Рудник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14165.44,
-      "paidEur": 14165.44,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Хаджи Димитър-1927“, село Рудник",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "СО Сторидж ЕООД",
+      "detectedAt": "2026-10-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-0221",
@@ -132,53 +24,16 @@
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 13003.76,
+      "prevTotalEur": 13003.76,
+      "totalEur": 10618.43,
       "paidEur": 13003.76,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище Любен Каравело - 1908 - с,Горен Чифлик",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0613",
-      "title": "Изграждане на дигитален клуб в Народно читалище - \"Пробуда-1962\" с. Шкорпиловци, община Долни Чифлик",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 13200.54,
-      "totalEur": 11295.01,
-      "paidEur": 11295.01,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище - \"Пробуда-1962\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0344",
-      "title": "изграждане на дигитален клуб в Народно читалище Христо Ботев 1928 - с.Детелина",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 9212.78,
-      "paidEur": 9212.78,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Христо Ботев - 1928 - с.Детелина",
-      "detectedAt": "2026-10-18"
+      "detectedAt": "2026-10-24"
     }
   ]
 }

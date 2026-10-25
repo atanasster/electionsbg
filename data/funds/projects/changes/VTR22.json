@@ -1,22 +1,23 @@
 {
   "obshtina": "VTR22",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG14MFPR001-2.005-0013",
-      "title": "Прилагането на система за компенсации за производство на аквакултури на \"Дитекс МС\" ЕООД, осигуряващо екологични услуги в мрежата на НАТУРА 2000",
+      "contractNumber": "BG16RFPR001-2.004-0474",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Раковски ЕООД.",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 21227.96,
-      "totalEur": 21227.96,
-      "paidEur": 7075.98,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "Дитекс МС ЕООД",
-      "detectedAt": "2026-10-18"
+      "prevTotalEur": 98845.24,
+      "totalEur": 98845.24,
+      "paidEur": 49422.62,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Раковски ЕООД",
+      "detectedAt": "2026-10-24"
     },
     {
       "contractNumber": "BG-RRP-1.024-1121",
@@ -24,17 +25,16 @@
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 9251.82,
+      "prevTotalEur": 9251.82,
+      "totalEur": 8129.34,
       "paidEur": 9251.82,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище Добра Надежда - 1896",
-      "detectedAt": "2026-10-18"
+      "detectedAt": "2026-10-24"
     }
   ]
 }

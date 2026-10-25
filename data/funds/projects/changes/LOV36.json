@@ -1,24 +1,60 @@
 {
   "obshtina": "LOV36",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0060",
-      "title": "Доставка на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Угърчин",
+      "contractNumber": "BG-RRP-1.024-1290",
+      "title": "Изграждане на дигитален клуб с три работни станции в НЧ \"Вълчо Русковски -1894\" гр. Угърчин.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 53583.79,
-      "paidEur": 53583.79,
+      "prevTotalEur": 16412.47,
+      "totalEur": 15192.31,
+      "paidEur": 15192.31,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Угърчин",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Народно читалище \"Вълчо Русковски - 1894 г.",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0982",
+      "title": "Изграждане на дигитален клуб в Народно читалище ВЪЛО РАДЕВ - 1923 в с. Лесидрен",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13083.98,
+      "paidEur": 11887.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Въло Радев - 1923",
+      "detectedAt": "2026-10-24"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1197",
+      "title": "Изграждане на дигитален клуб",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14021.25,
+      "totalEur": 11632.45,
+      "paidEur": 11632.45,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Пробуда - 1927г.\" село Кирчево",
+      "detectedAt": "2026-10-24"
     }
   ]
 }

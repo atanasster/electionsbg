@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T21:59:26.207Z",
+  "generatedAt": "2026-10-24T22:40:18.257Z",
   "nodes": [
     {
       "id": "contractor:121699202",
@@ -80,6 +80,11 @@
       "id": "contractor:129008074",
       "type": "contractor",
       "label": "Терем – холдинг ЕАД"
+    },
+    {
+      "id": "contractor:129006778",
+      "type": "contractor",
+      "label": "Интендантско обслужване ЕАД"
     },
     {
       "id": "awarder:000695388",
@@ -702,6 +707,26 @@
       "label": "Стефан Добрев Стайков"
     },
     {
+      "id": "official:emil-stoyanov-botov-546b40",
+      "type": "official",
+      "label": "Емил Стоянов Ботов"
+    },
+    {
+      "id": "official:ivailo-elkov-tsekov-0a949c",
+      "type": "official",
+      "label": "Ивайло Елков Цеков"
+    },
+    {
+      "id": "official:mihail-dimitrov-stoyanov-c8aa3b",
+      "type": "official",
+      "label": "Михаил Димитров Стоянов"
+    },
+    {
+      "id": "official:svetlozar-veselinov-morfov-52ec61",
+      "type": "official",
+      "label": "Светлозар Веселинов Морфов"
+    },
+    {
       "id": "official:elvira-petrova-shopova-c52d82",
       "type": "official",
       "label": "Елвира Петрова Шопова"
@@ -800,31 +825,6 @@
       "id": "official:byanka-svetlozar-racheva-3bdfc3",
       "type": "official",
       "label": "Бянка Светлозар Рачева"
-    },
-    {
-      "id": "official:denitsa-zlatkova-zlateva-281fce",
-      "type": "official",
-      "label": "Деница Златкова Златева"
-    },
-    {
-      "id": "official:diana-stoyanova-boneva-06a7ca",
-      "type": "official",
-      "label": "Диана Стоянова Бонева"
-    },
-    {
-      "id": "official:dimitr-vladimirov-spasov-e45aa5",
-      "type": "official",
-      "label": "Димитър Владимиров Спасов"
-    },
-    {
-      "id": "official:ivan-dimitrov-topchiiski-7f6ffb",
-      "type": "official",
-      "label": "Иван Димитров Топчийски"
-    },
-    {
-      "id": "official:lyudmil-ventsislavov-iotsov-86b261",
-      "type": "official",
-      "label": "Людмил Венциславов Йоцов"
     }
   ],
   "links": [
@@ -936,7 +936,7 @@
     {
       "source": "contractor:200852966",
       "target": "official:dimitr-ivanov-radev-364ab0",
-      "valueEur": 624880119.26
+      "valueEur": 636799566.26
     },
     {
       "source": "awarder:831913661",
@@ -979,6 +979,11 @@
       "valueEur": 363118651.59
     },
     {
+      "source": "awarder:831913661",
+      "target": "contractor:200852966",
+      "valueEur": 240434539.23
+    },
+    {
       "source": "contractor:130800278",
       "target": "official:radoslav-todorov-milenkov-aee1d6",
       "valueEur": 229387269.78
@@ -987,11 +992,6 @@
       "source": "contractor:130800278",
       "target": "official:tanya-zdravkova-georgieva-2cb015",
       "valueEur": 229387269.78
-    },
-    {
-      "source": "awarder:831913661",
-      "target": "contractor:200852966",
-      "valueEur": 228515092.23
     },
     {
       "source": "contractor:121396123",
@@ -1394,6 +1394,26 @@
       "valueEur": 68360960.43
     },
     {
+      "source": "contractor:129006778",
+      "target": "official:emil-stoyanov-botov-546b40",
+      "valueEur": 62048241.79
+    },
+    {
+      "source": "contractor:129006778",
+      "target": "official:ivailo-elkov-tsekov-0a949c",
+      "valueEur": 62048241.79
+    },
+    {
+      "source": "contractor:129006778",
+      "target": "official:mihail-dimitrov-stoyanov-c8aa3b",
+      "valueEur": 62048241.79
+    },
+    {
+      "source": "contractor:129006778",
+      "target": "official:svetlozar-veselinov-morfov-52ec61",
+      "valueEur": 62048241.79
+    },
+    {
       "source": "awarder:177549112",
       "target": "contractor:203740812",
       "valueEur": 60033613.44
@@ -1402,6 +1422,11 @@
       "source": "contractor:831453003",
       "target": "mp:4719",
       "valueEur": 58989020.05
+    },
+    {
+      "source": "awarder:000695324",
+      "target": "contractor:129006778",
+      "valueEur": 58054300.78
     },
     {
       "source": "awarder:175203478",
@@ -1551,31 +1576,6 @@
     {
       "source": "contractor:175203485",
       "target": "official:byanka-svetlozar-racheva-3bdfc3",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
-      "target": "official:denitsa-zlatkova-zlateva-281fce",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
-      "target": "official:diana-stoyanova-boneva-06a7ca",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
-      "target": "official:dimitr-vladimirov-spasov-e45aa5",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
-      "target": "official:ivan-dimitrov-topchiiski-7f6ffb",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
-      "target": "official:lyudmil-ventsislavov-iotsov-86b261",
       "valueEur": 44680073.88
     },
     {

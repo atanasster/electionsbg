@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T00:55:27.029Z",
+  "generatedAt": "2026-10-24T23:13:12.270Z",
   "totalContracts": 3794,
   "contracts": [
     {
@@ -490,7 +490,7 @@
       "totalEur": 203238522.78,
       "grantEur": 203238522.78,
       "ownCofinanceEur": 0,
-      "paidEur": 187923579.31,
+      "paidEur": 192582588.5,
       "durationMonths": 54,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -631,7 +631,7 @@
       "totalEur": 169620029.22,
       "grantEur": 169620029.22,
       "ownCofinanceEur": 0,
-      "paidEur": 71128126.92,
+      "paidEur": 81977170.75,
       "durationMonths": 58,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -1292,7 +1292,7 @@
       "totalEur": 78751118.6,
       "grantEur": 78751118.6,
       "ownCofinanceEur": 0,
-      "paidEur": 53706099.2,
+      "paidEur": 73708911.34,
       "durationMonths": 26,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -3280,7 +3280,7 @@
       "totalEur": 22496842.77,
       "grantEur": 22496842.77,
       "ownCofinanceEur": 0,
-      "paidEur": 17722479.14,
+      "paidEur": 17887880.99,
       "durationMonths": 42,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -5572,7 +5572,7 @@
       "totalEur": 8691961.98,
       "grantEur": 8691961.98,
       "ownCofinanceEur": 0,
-      "paidEur": 3072144.22,
+      "paidEur": 3647794.04,
       "durationMonths": 50,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -5856,7 +5856,7 @@
       "totalEur": 7925024.16,
       "grantEur": 7925024.16,
       "ownCofinanceEur": 0,
-      "paidEur": 1711467.05,
+      "paidEur": 1946254.78,
       "durationMonths": 62,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -6069,7 +6069,7 @@
       "totalEur": 7432164.5,
       "grantEur": 7432164.5,
       "ownCofinanceEur": 0,
-      "paidEur": 2901579.26,
+      "paidEur": 3251259.01,
       "durationMonths": 66,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -7340,7 +7340,7 @@
       "totalEur": 5109391.6,
       "grantEur": 5109391.6,
       "ownCofinanceEur": 0,
-      "paidEur": 1822609.96,
+      "paidEur": 2285097.78,
       "durationMonths": 36,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -8243,7 +8243,7 @@
       "totalEur": 4123149.22,
       "grantEur": 4123149.22,
       "ownCofinanceEur": 0,
-      "paidEur": 4123149.22,
+      "paidEur": 2891565.15,
       "durationMonths": 25,
       "status": "Приключен (към датата на приключване)",
       "location": {
@@ -9936,7 +9936,7 @@
       "totalEur": 2985944.59,
       "grantEur": 2985944.59,
       "ownCofinanceEur": 0,
-      "paidEur": 787019.53,
+      "paidEur": 913546.31,
       "durationMonths": 65,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -19571,6 +19571,32 @@
       }
     },
     {
+      "programCode": "2021BG16RFTA001",
+      "programName": "Програма \"Техническа помощ\" 2021-2027",
+      "beneficiaryEik": "000590654",
+      "beneficiaryName": "Община Сливен",
+      "orgType": "Държавна администрация",
+      "orgKind": "Общинска администрация",
+      "orgForm": "Публично правна",
+      "hqAddress": "България, гр.Сливен, 8800, бул. ЦАР ОСВОБОДИТЕЛ, № 1",
+      "locationRaw": "Сливен (BG342)",
+      "contractNumber": "BG16RFTA001-1.006-0009",
+      "title": "Областен информационен център Сливен",
+      "totalEur": 520756.88,
+      "grantEur": 520756.88,
+      "ownCofinanceEur": 0,
+      "paidEur": 258386.28,
+      "durationMonths": 72,
+      "status": "В изпълнение (от дата на стартиране)",
+      "location": {
+        "kind": "region",
+        "raw": "Сливен (BG342)",
+        "nutsCodes": [
+          "BG342"
+        ]
+      }
+    },
+    {
       "programCode": "2014BG05SFOP001",
       "programName": "Добро управление",
       "beneficiaryEik": "177057545",
@@ -19752,32 +19778,6 @@
       "location": {
         "kind": "national",
         "raw": "България"
-      }
-    },
-    {
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryEik": "000590654",
-      "beneficiaryName": "Община Сливен",
-      "orgType": "Държавна администрация",
-      "orgKind": "Общинска администрация",
-      "orgForm": "Публично правна",
-      "hqAddress": "България, гр.Сливен, 8800, бул. ЦАР ОСВОБОДИТЕЛ, № 1",
-      "locationRaw": "Сливен (BG342)",
-      "contractNumber": "BG16RFTA001-1.006-0009",
-      "title": "Областен информационен център Сливен",
-      "totalEur": 504309.34,
-      "grantEur": 504309.34,
-      "ownCofinanceEur": 0,
-      "paidEur": 258386.28,
-      "durationMonths": 72,
-      "status": "В изпълнение (от дата на стартиране)",
-      "location": {
-        "kind": "region",
-        "raw": "Сливен (BG342)",
-        "nutsCodes": [
-          "BG342"
-        ]
       }
     },
     {
@@ -27924,7 +27924,7 @@
       "totalEur": 192280.51,
       "grantEur": 192280.51,
       "ownCofinanceEur": 0,
-      "paidEur": 218476.53,
+      "paidEur": 192280.52,
       "durationMonths": 24,
       "status": "Приключен (към датата на приключване)",
       "location": {
@@ -32879,7 +32879,7 @@
       "totalEur": 149997.69,
       "grantEur": 149997.69,
       "ownCofinanceEur": 0,
-      "paidEur": 30226.93,
+      "paidEur": 30390.66,
       "durationMonths": 40,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -41961,7 +41961,7 @@
       "ownCofinanceEur": 0,
       "paidEur": 92577.47,
       "durationMonths": 32,
-      "status": "Приключен (към датата на приключване)",
+      "status": "В изпълнение (от дата на стартиране)",
       "location": {
         "kind": "national",
         "raw": "България"
@@ -42273,7 +42273,7 @@
       "ownCofinanceEur": 0,
       "paidEur": 91596.82,
       "durationMonths": 12,
-      "status": "Приключен (към датата на приключване)",
+      "status": "В изпълнение (от дата на стартиране)",
       "location": {
         "kind": "national",
         "raw": "България"

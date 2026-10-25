@@ -1,113 +1,38 @@
 {
   "obshtina": "PDV12",
-  "generatedAt": "2026-10-18T00:54:58.477Z",
+  "generatedAt": "2026-10-24T23:12:50.892Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0223",
-      "title": "Топъл обяд в община Калояново",
+      "contractNumber": "BG-RRP-4.032-0011",
+      "title": "Фотоволтаична централа (ФЕЦ) Житница-1, ФЕЦ 2MW AC и батерии (ЛСС) 1MW/3.4MWh",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 326402.81,
-      "totalEur": 326402.81,
-      "paidEur": 245289.83,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Калояново",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1221",
-      "title": "\"Подобряване на производствения капацитет и качеството на предоставяните услуги в семейното предприятие ЕТ \"МОТА 6 ЛАБОРАТОРИ - СТОЯНКА РОГАНСКА\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 54288.59,
-      "totalEur": 54287.96,
-      "paidEur": 40716,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕТ Мота 6 лаборатори - стоянка Роганска",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0614",
-      "title": "Изграждане на дигитален клуб в сградата на Народно читалище \"Народни будители - 2013\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 15198.77,
-      "paidEur": 15198.77,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 575203.37,
+      "totalEur": 575203.37,
+      "paidEur": 184701.9,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Народни будители - 2013\"",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Системен анализ ООД",
+      "detectedAt": "2026-10-24"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0807",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ВАСИЛ ЛЕВСКИ - 1927\"",
+      "contractNumber": "BG-RRP-4.032-0012",
+      "title": "Фотоволтаична централа (ФЕЦ) Житница-2, 1.2MW AC с ЛСС 0.5MW/1.7MWh",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 14355.19,
-      "paidEur": 14355.19,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 303707.38,
+      "totalEur": 303707.38,
+      "paidEur": 134840.69,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Васил Левски - 1927\"",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0082",
-      "title": "Изграждане на дигитален клуб в сградата на НЧ „Георги Кирков – 1908“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 12271.01,
-      "totalEur": 11323.45,
-      "paidEur": 11323.45,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ „Георги Кирков – 1908“",
-      "detectedAt": "2026-10-18"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1317",
-      "title": "ПРОЕКТ ЗА СЪЗДАВАНЕ НА ДИГИТАЛЕН КЛУБ Народно читалище \"Христо Ботев - 1929\" с. Дуванлий",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14152.56,
-      "totalEur": 9621.85,
-      "paidEur": 9621.85,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Ботев - 1929\" с. Дуванлий",
-      "detectedAt": "2026-10-18"
+      "beneficiaryName": "Системен анализ ООД",
+      "detectedAt": "2026-10-24"
     }
   ]
 }
