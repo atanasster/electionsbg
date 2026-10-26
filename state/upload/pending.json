@@ -1,0 +1,27 @@
+{
+  "session": "20261025T224953Z-6506",
+  "createdAt": "2026-10-25T23:02:40.123Z",
+  "skills": [],
+  "paths": [],
+  "cloudCommands": [
+    "npm run db:load:place-dim:pg:cloud",
+    "npm run db:load:municipal-fiscal:pg:cloud",
+    "npm run db:load:budget:pg:cloud",
+    "npm run db:load:budget-muni:pg:cloud",
+    "npm run db:load:budget-hub:pg:cloud",
+    "npm run prices:ingest:cloud",
+    "npm run db:load:pg:cloud",
+    "npm run db:load:annexes:pg:cloud",
+    "npm run db:load:tenders:pg:cloud",
+    "npm run db:load:awarder-seats:pg:cloud",
+    "npm run db:load:transport-project-map:pg:cloud",
+    "npm run db:load:water-operator-map:pg:cloud",
+    "npm run db:load:mvr-directorate-map:pg:cloud",
+    "npm run db:load:transport-facility-map:pg:cloud",
+    "npm run db:load:employer-links:pg:cloud",
+    "npm run db:load:grant-links:pg:cloud",
+    "npm run db:load:persons-browse:pg:cloud",
+    "npm run db:load:graph:pg:cloud",
+    "npm run db:load:tr-company-place:pg:cloud"
+  ]
+}

@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-24T22:40:03.878Z",
-  "total": 884,
-  "officialCount": 812,
+  "generatedAt": "2026-10-25T23:18:40.881Z",
+  "total": 885,
+  "officialCount": 813,
   "entries": [
     {
       "slug": "daniel-stanimirov-mihalev-b6f569",
@@ -48247,6 +48247,87 @@
           "name": "ОБЩИНА ПАВЛИКЕНИ",
           "contractCount": 4,
           "totalEur": 20743.11,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "georgi-ivanov-marinchev-5e6fb6",
+      "name": "Георги Иванов Маринчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "contractorEik": "102655436",
+      "contractorName": "Пепеляшка ООД - Бургас",
+      "totalEur": 356136.33,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50",
+          "valueEur": 1278.23
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 3,
+          "totalEur": 39282.55,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 32794.26,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 104357.54,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 84301.81,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 2,
+          "totalEur": 4296.39,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 3,
+          "totalEur": 91103.78,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000056814",
+          "name": "Община Бургас",
+          "contractCount": 8,
+          "totalEur": 294367.16,
+          "totalOther": {}
+        },
+        {
+          "eik": "131063188",
+          "name": "Териториална дирекция на Национална агенция за приходите /ТД на НАП/ - Бургас",
+          "contractCount": 2,
+          "totalEur": 50111.72,
+          "totalOther": {}
+        },
+        {
+          "eik": "121082521",
+          "name": "Териториално поделение \"Социално осигуряване\" на Национален осигурителен институт /ТП на НОИ/ - Бургас",
+          "contractCount": 1,
+          "totalEur": 11657.45,
           "totalOther": {}
         }
       ]

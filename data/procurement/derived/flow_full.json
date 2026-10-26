@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T22:40:18.257Z",
+  "generatedAt": "2026-10-25T23:18:50.231Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -9285,6 +9285,16 @@
       "id": "official:gyunai-ibryamov-tefikov-70c90d",
       "type": "official",
       "label": "Гюнай Ибрямов Тефиков"
+    },
+    {
+      "id": "contractor:102655436",
+      "type": "contractor",
+      "label": "Пепеляшка ООД - Бургас"
+    },
+    {
+      "id": "official:georgi-ivanov-marinchev-5e6fb6",
+      "type": "official",
+      "label": "Георги Иванов Маринчев"
     },
     {
       "id": "contractor:831524005",
@@ -23664,6 +23674,11 @@
       "valueEur": 358581.17
     },
     {
+      "source": "contractor:102655436",
+      "target": "official:georgi-ivanov-marinchev-5e6fb6",
+      "valueEur": 356136.33
+    },
+    {
       "source": "contractor:831524005",
       "target": "official:petya-lyubomirova-kabakchieva-2d127b",
       "valueEur": 352586.88
@@ -26047,6 +26062,21 @@
       "source": "awarder:000056814",
       "target": "contractor:200151591",
       "valueEur": 447179.07
+    },
+    {
+      "source": "awarder:000056814",
+      "target": "contractor:102655436",
+      "valueEur": 294367.16
+    },
+    {
+      "source": "awarder:131063188",
+      "target": "contractor:102655436",
+      "valueEur": 50111.72
+    },
+    {
+      "source": "awarder:121082521",
+      "target": "contractor:102655436",
+      "valueEur": 11657.45
     },
     {
       "source": "awarder:000695114",

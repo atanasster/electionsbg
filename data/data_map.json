@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-25T00:02:48.960Z",
+  "generatedAt": "2026-10-26T00:38:43.808Z",
   "nodes": [
     {
       "id": "src:water",
@@ -589,7 +589,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-24T21:44:27.194Z",
+      "freshness": "2026-10-25T22:44:11.466Z",
       "skills": [
         "update-procurement"
       ],
@@ -599,7 +599,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-10-24T21:44:27.194Z"
+          "freshness": "2026-10-25T22:44:11.466Z"
         }
       ],
       "x": 28,
@@ -1210,7 +1210,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-23T21:41:05.993Z",
+      "freshness": "2026-10-25T22:44:11.466Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1229,7 +1229,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-10-23T21:41:05.993Z"
+          "freshness": "2026-10-25T22:44:11.466Z"
         },
         {
           "id": "municipal_naredba",
@@ -1783,7 +1783,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-24T21:44:27.194Z",
+      "freshness": "2026-10-25T22:44:11.466Z",
       "skills": [
         "update-prices"
       ],
@@ -1793,7 +1793,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-10-24T21:44:27.194Z"
+          "freshness": "2026-10-25T22:44:11.466Z"
         }
       ],
       "issue": {
@@ -2644,7 +2644,7 @@
       "url": "https://alpharesearch.bg/",
       "origin": "community",
       "cadence": "daily",
-      "freshness": "2026-10-23T21:41:05.993Z",
+      "freshness": "2026-10-25T22:44:11.466Z",
       "skills": [
         "update-polls"
       ],
@@ -2661,7 +2661,7 @@
           "label": "Polls — Алфа Рисърч",
           "url": "https://alpharesearch.bg",
           "cadence": "daily",
-          "freshness": "2026-10-22T21:40:56.661Z"
+          "freshness": "2026-10-25T22:44:11.466Z"
         },
         {
           "id": "polls_market_links",
@@ -7463,8 +7463,8 @@
         {
           "node": "ds:officials",
           "text": {
-            "bg": "А през лицата се затваря кръгът: 5 615 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-            "en": "And people close the circle: 5,615 officials who file asset declarations also hold a role in the company registry."
+            "bg": "А през лицата се затваря кръгът: 5 616 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,616 officials who file asset declarations also hold a role in the company registry."
           }
         }
       ]
@@ -7693,7 +7693,7 @@
         "bg": "българските партньори по Interreg като фирми в регистъра",
         "en": "Bulgarian Interreg partners as registered companies"
       },
-      "overlap": 131
+      "overlap": 130
     },
     {
       "id": "interreg|procurement|eik",
@@ -7795,7 +7795,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5615,
+      "overlap": 5616,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7820,7 +7820,7 @@
         "bg": "кой кандидат участва и във фирми",
         "en": "which candidates also hold company roles"
       },
-      "overlap": 7364
+      "overlap": 7365
     }
   ]
 }
