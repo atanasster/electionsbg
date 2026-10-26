@@ -56,8 +56,13 @@ const SOURCE_ID = "cik_presidential";
  *  else was on the ballot" suffix (`nr` a national referendum, `ns` a snap parliamentary
  *  vote). The leading `[a-z]*` catches `mipvr2011`, the one cycle whose slug leads with the
  *  LOCAL family it shared a day with. */
+/*
+ *  ⚠ THE YEAR MAY CARRY A MONTH. 2026's slug is `pvr202610` (YYYYMM), and a pattern that
+ *  demanded a non-digit straight after the year rejected it — so the watcher reported
+ *  „0 not yet ingested" through the 25 October 2026 election. The optional two digits are
+ *  captured INTO the slug but not into the year. */
 const SLUG_RE =
-  /(?<![A-Za-z0-9_])([a-z]*(?:pvr|prezident)[a-z]*_?(\d{4}))(?![A-Za-z0-9])/g;
+  /(?<![A-Za-z0-9_])([a-z]*(?:pvr|prezident)[a-z]*_?(\d{4})(?:0[1-9]|1[0-2])?)(?![A-Za-z0-9])/g;
 
 /** The slugs this repo has already ingested — the baseline a discovery is new against. */
 const KNOWN_SLUGS = new Set(

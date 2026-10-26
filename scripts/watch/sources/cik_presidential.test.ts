@@ -52,6 +52,14 @@ describe("discoverSlugs", () => {
     ]);
   });
 
+  it("admits a YYYYMM slug — ЦИК's real 2026 archive is pvr202610", () => {
+    // ⚠ The year-then-non-digit anchor rejected this, so the watcher saw nothing new
+    // through the whole 2026 publish window.
+    expect(discoverSlugs(href("pvr202610"))).toEqual([
+      { slug: "pvr202610", year: "2026" },
+    ]);
+  });
+
   it("finds a presidential slug in a MIXED index — the realistic input", () => {
     // Every foil above appears on the SAME page as the real thing; testing them apart proves
     // less than testing them together, because the failure mode is a pattern that matches
