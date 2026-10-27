@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-25T23:59:59.999Z",
+  "computedAt": "2026-10-26T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:limoni",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-25T00:00:00.000Z",
-      "firstSeenAt": "2026-10-25T00:00:00.000Z",
+      "occurredAt": "2026-10-26T00:00:00.000Z",
+      "firstSeenAt": "2026-10-26T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -26,14 +26,14 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "ЛИМОНИ",
-        "pct": 52,
-        "promoEur": "0.95",
+        "pct": 60,
+        "promoEur": "0.79",
         "regularEur": "1.99",
         "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7428571428571429,
+      "materiality": 0.8571428571428571,
       "actionability": 0.85
     },
     {
@@ -41,8 +41,8 @@
       "id": "prices:promotion:1kg-kafe-edusho-krema-strong-za",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-25T00:00:00.000Z",
-      "firstSeenAt": "2026-10-25T00:00:00.000Z",
+      "occurredAt": "2026-10-26T00:00:00.000Z",
+      "firstSeenAt": "2026-10-26T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -200,8 +200,8 @@
       "id": "prices:promotion:pryasno-mlyako-bozhentsi-3-6-1l",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-25T00:00:00.000Z",
-      "firstSeenAt": "2026-10-25T00:00:00.000Z",
+      "occurredAt": "2026-10-26T00:00:00.000Z",
+      "firstSeenAt": "2026-10-26T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -227,6 +227,37 @@
       "verification": "automatic",
       "materiality": 0.6857142857142857,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-10-26",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-10-26T00:00:00.000Z",
+      "firstSeenAt": "2026-10-26T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_up",
+      "factArgs": {
+        "pct": "2.1",
+        "costEur": "15.43",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.527,
+      "actionability": 0.5
     },
     {
       "schemaVersion": 1,
@@ -911,8 +942,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-25",
-      "observedAt": "2026-10-25",
+      "asOf": "2026-10-26",
+      "observedAt": "2026-10-26",
       "staleAfterDays": 5,
       "stale": false
     }

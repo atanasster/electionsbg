@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-25",
+  "computedAt": "2026-10-26",
   "thresholds": {
     "basketPids": [
       1,
@@ -61,17 +61,27 @@
       "prevCostEur": 15.789,
       "cohortCells": 1720,
       "cohortShare": 0.9472
+    },
+    {
+      "peakDay": "2026-10-26",
+      "startDay": "2026-10-26",
+      "endDay": "2026-10-26",
+      "pctChange": 2.108,
+      "costEur": 15.429,
+      "prevCostEur": 15.11,
+      "cohortCells": 1531,
+      "cohortShare": 0.8643
     }
   ],
   "promotions": [
     {
       "slug": "limoni",
       "title": "ЛИМОНИ",
-      "atOrBelowSince": "2026-10-15",
-      "promoEur": 0.95,
+      "atOrBelowSince": "2026-10-26",
+      "promoEur": 0.79,
       "regularEur": 1.99,
-      "discountPct": 52,
-      "stores": 186,
+      "discountPct": 60,
+      "stores": 183,
       "chains": 4
     },
     {

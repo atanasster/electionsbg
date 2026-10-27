@@ -7813,5 +7813,91 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "1057",
+    "url": "https://alpharesearch.bg/post/1057-25-oktomvri-2026-izbori-za-prezident-i-viceprezident-25-october-2026-presidential-election.html",
+    "title": "25 октомври 2026: избори за президент и вицепрезидент / 25 October 2026: Presidential Election",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1057"
+    ],
+    "discoveredAt": "2026-10-25T22:44:11.466Z",
+    "latestHash": "c2af89a3354f83f80fe9ee827dd02437e8fb5efdd2fa1be5e4f5058aacbe497f",
+    "versions": [
+      {
+        "sha256": "c2af89a3354f83f80fe9ee827dd02437e8fb5efdd2fa1be5e4f5058aacbe497f",
+        "capturePath": "raw_data/polls/alpha_research/1057",
+        "capturedAt": "2026-10-26T23:20:08.989Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-1057-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-26T23:20:20.450Z",
+            "draftHash": "5199523a214e4794f1fc2f9b6b134123fe9217ad87b7410c27fec12f1f8a455f",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "1058",
+    "url": "https://alpharesearch.bg/post/1058-25-oktomvri-2026-demografski-profil-na-glasuvalite-na-izborite-za-prezident-i-viceprezident.html",
+    "title": "25 октомври 2026: демографски профил на гласувалите на изборите за президент и вицепрезидент",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1058"
+    ],
+    "discoveredAt": "2026-10-26T20:48:58.384Z",
+    "latestHash": "ca5903f044795b4cf2fbb34057a4bdc789e3ff8c7416327ba4570e61f9c7c4e5",
+    "versions": [
+      {
+        "sha256": "ca5903f044795b4cf2fbb34057a4bdc789e3ff8c7416327ba4570e61f9c7c4e5",
+        "capturePath": "raw_data/polls/alpha_research/1058",
+        "capturedAt": "2026-10-26T23:20:08.901Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-1058-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-10-26T23:20:20.464Z",
+            "draftHash": "14b92a0c894aa07fa259349fd66e462a74dfeb13a5edbca2b1f0c7b283bf2408",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
   }
 ]

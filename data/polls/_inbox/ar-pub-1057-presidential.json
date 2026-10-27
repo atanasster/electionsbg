@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-1057-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1057-25-oktomvri-2026-izbori-za-prezident-i-viceprezident-25-october-2026-presidential-election.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1057-25-oktomvri-2026-izbori-za-prezident-i-viceprezident-25-october-2026-presidential-election.html",
+      "fetchedAt": "2026-10-26T23:20:08.989Z",
+      "sha256": "c2af89a3354f83f80fe9ee827dd02437e8fb5efdd2fa1be5e4f5058aacbe497f",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1057"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "25 октомври 2026: избори за президент и вицепрезидент / 25 October 2026: Presidential Election -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}
