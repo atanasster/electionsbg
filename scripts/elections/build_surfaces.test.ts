@@ -251,8 +251,11 @@ describe("the run reports what §5.0 asks for", () => {
     // ~240,000-object shape §5.0 rejects rather than the tenth it asks for. `sectionArtifactCycle`
     // bounds them to the latest cycle and abroad is one page rather than 302; see
     // `KINDS_NOT_PUBLISHED`, which is empty now that both reasons are closed.
+    // ⚠ Re-measured 2026-10-27 with a SIXTH presidential cycle: 18,117 + 5,562 + 39,318
+    // (2026's 12,719 sections replace 2021's as the section cycle) = 62,997. The bound moved
+    // with the cycle count, not with the per-cycle shape.
     expect(all.length).toBeGreaterThan(20_000);
-    expect(all.length).toBeLessThan(60_000);
+    expect(all.length).toBeLessThan(65_000);
   });
 
   it.runIf(hasCorpus)("dry-runs by default and writes nothing", () => {

@@ -15,6 +15,7 @@ import { readEra2006Round } from "./era2006";
 import { readEra2011Round } from "./era2011";
 import { readEra2016Round } from "./era2016";
 import { readEra2021Round } from "./era2021";
+import { readEra2026Round } from "./era2026";
 import {
   PRESIDENTIAL_CYCLES,
   presidentialSource,
@@ -51,6 +52,7 @@ export const PRESIDENTIAL_READERS: Record<PresidentialEra, EraReader> = {
   "2011": readEra2011Round,
   "2016": readEra2016Round,
   "2021": readEra2021Round,
+  "2026": readEra2026Round,
 };
 
 /**

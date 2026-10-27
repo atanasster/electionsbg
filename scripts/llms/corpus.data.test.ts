@@ -257,9 +257,24 @@ test("llms-full.txt: every presidential row agrees with the committed catalogue"
     const [date, president, vice, decided, tickets] = cells;
     const e = byDate.get(date);
     assert.ok(e, `no catalogue entry for ${date}`);
-    assert.equal(president, e.winnerTicket.president, `${date}: president`);
-    assert.equal(vice, e.winnerTicket.vicePresident, `${date}: vice-president`);
-    assert.equal(decided, String(e.decidedInRound), `${date}: decided in`);
+    if (e.winnerTicket === null) {
+      // RUNOFF PENDING: the row must name nobody as elected.
+      assert.equal(e.decidedInRound, null, `${date}: pending without a round`);
+      assert.match(
+        president,
+        /балотажът предстои|runoff pending/,
+        `${date}: president`,
+      );
+      assert.equal(decided, "—", `${date}: decided in`);
+    } else {
+      assert.equal(president, e.winnerTicket.president, `${date}: president`);
+      assert.equal(
+        vice,
+        e.winnerTicket.vicePresident,
+        `${date}: vice-president`,
+      );
+      assert.equal(decided, String(e.decidedInRound), `${date}: decided in`);
+    }
     assert.equal(tickets, String(e.tickets), `${date}: ticket count`);
   }
   // Both directions: a cycle the catalogue lists and the corpus omits is a table built from a

@@ -47,7 +47,7 @@ describe("presidential catalogue", () => {
     // is why it is worth pinning while it is still green.
     for (const source of Object.values(PRESIDENTIAL_SOURCES)) {
       for (const round of [1, 2] as const) {
-        const declared = source.rounds[round].flashRecords;
+        const declared = source.rounds[round]?.flashRecords;
         if (declared) {
           expect(
             flashTreeHasRecords(declared),
@@ -167,6 +167,9 @@ describe("presidential catalogue", () => {
     // round is round 2 in all five — and the round-1 leader is the same person in all
     // five too, which is exactly why reading the wrong round would look correct.
     for (const entry of buildCatalogue()) {
+      // A pending cycle has no deciding round and no winner — asserted in its own test.
+      if (entry.decidedInRound === null || entry.winnerTicket === null)
+        continue;
       const deciding = corpusRound(entry.name, entry.decidedInRound);
       const names = new Set(deciding.tickets.map((t) => t.president));
       expect(
@@ -175,7 +178,7 @@ describe("presidential catalogue", () => {
           `${entry.decidedInRound}`,
       ).toBe(true);
       const ticket = deciding.tickets.find(
-        (t) => t.number === entry.winnerTicket.number,
+        (t) => t.number === entry.winnerTicket!.number,
       );
       expect(ticket?.president).toBe(entry.winnerTicket.president);
       expect(ticket?.vicePresident).toBe(entry.winnerTicket.vicePresident);

@@ -6,7 +6,7 @@ import catalogue from "./json/presidential_elections.json";
 
 describe("presidentialAsOf", () => {
   it("defaults to the newest cycle when nothing is selected", () => {
-    expect(presidentialAsOf().cycle).toBe("2021_11_14_pvr");
+    expect(presidentialAsOf().cycle).toBe("2026_10_25_pvr");
     expect(presidentialAsOf().clampedToOldest).toBe(false);
   });
 
@@ -16,7 +16,16 @@ describe("presidentialAsOf", () => {
     // destination be about another, at a 200.
     expect(presidentialAsOf("2013_05_12").cycle).toBe("2011_10_23_pvr");
     expect(presidentialAsOf("2017_03_26").cycle).toBe("2016_11_06_pvr");
-    expect(presidentialAsOf("2026_04_19").cycle).toBe("2021_11_14_pvr");
+    expect(presidentialAsOf("2024_10_27").cycle).toBe("2021_11_14_pvr");
+  });
+
+  it("treats the NEWEST parliamentary vote as now, not as a point in time", () => {
+    // ⚠ It is the selector's default. Anchored by date, 19.04.2026 would resolve to 2021 and
+    // hide the 2026 presidential vote from every reader who never opened the menu.
+    expect(presidentialAsOf("2026_04_19").cycle).toBe("2026_10_25_pvr");
+    expect(presidentialAsOf("2026-04-19").cycle).toBe("2026_10_25_pvr");
+    // The control: the rule is about the newest vote only, so its predecessor still anchors.
+    expect(presidentialAsOf("2024_10_27").cycle).toBe("2021_11_14_pvr");
   });
 
   it("anchors on round 1, so a vote held between the rounds is inside that election", () => {
@@ -43,7 +52,7 @@ describe("presidentialAsOf", () => {
     );
     // The control: the newest selection still resolves to the newest cycle, so a rule that
     // simply returned the oldest would not pass.
-    expect(presidentialAsOf("2026-04-19").cycle).toBe("2021_11_14_pvr");
+    expect(presidentialAsOf("2026-04-19").cycle).toBe("2026_10_25_pvr");
   });
 
   it("clamps below the corpus and SAYS SO", () => {

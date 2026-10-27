@@ -80,8 +80,8 @@ type SummaryRound = {
 
 type Summary = {
   cycle: string;
-  decidedInRound: 1 | 2;
-  winner: { president: string; vicePresident: string };
+  decidedInRound: 1 | 2 | null;
+  winner: { president: string; vicePresident: string } | null;
   rounds: SummaryRound[];
 };
 
@@ -121,7 +121,8 @@ export const resolvePresidentialRound = (
   const n = typeof raw === "number" ? raw : parseInt(String(raw ?? ""), 10);
   const asked = n === 1 || n === 2 ? (n as 1 | 2) : undefined;
   if (asked === 2 && !entry.round2Date) return 1;
-  return asked ?? entry.decidedInRound;
+  // A pending cycle has only round 1 to show.
+  return asked ?? entry.decidedInRound ?? 1;
 };
 
 const roundLabel = (pvrCycle: string, round: 1 | 2, lang: Lang): string => {
@@ -327,26 +328,30 @@ export const presidentialResults = async (
   const conditions = bg
     ? `${sr.outcome.meetsMajority ? "мнозинството е налице" : "няма мнозинство"}, ${sr.outcome.meetsTurnout ? "активността е достатъчна" : "активността е недостатъчна"}`
     : `${sr.outcome.meetsMajority ? "majority met" : "majority not met"}, ${sr.outcome.meetsTurnout ? "turnout met" : "turnout not met"}`;
-  const verdict = electedHere
-    ? bg
-      ? `избран в този тур: ${summary.winner.president}`
-      : `elected in this round: ${summary.winner.president}`
-    : sr.round === 1
-      ? // ⚠ THE TWO CONDITIONS ONLY WHERE THE RULE APPLIES. Printed beside a runoff they
-        // describe a test that does not govern it.
-        bg
-        ? `няма избран в първи тур (${conditions}) — насрочва се балотаж`
-        : `nobody elected in round 1 (${conditions}) — a runoff follows`
-      : bg
-        ? "няма избран в този тур"
-        : "nobody elected in this round";
+  const verdict =
+    electedHere && summary.winner
+      ? bg
+        ? `избран в този тур: ${summary.winner.president}`
+        : `elected in this round: ${summary.winner.president}`
+      : sr.round === 1
+        ? // ⚠ THE TWO CONDITIONS ONLY WHERE THE RULE APPLIES. Printed beside a runoff they
+          // describe a test that does not govern it.
+          bg
+          ? `няма избран в първи тур (${conditions}) — ${summary.winner ? "насрочва се балотаж" : "балотажът предстои, резултатите му още не са публикувани"}`
+          : `nobody elected in round 1 (${conditions}) — ${summary.winner ? "a runoff follows" : "the runoff is pending and not yet published"}`
+        : bg
+          ? "няма избран в този тур"
+          : "nobody elected in this round";
 
   const facts: Record<string, string | number> = {
     [bg ? "избор" : "election"]: label,
     [bg ? "изход" : "outcome"]: verdict,
-    [bg ? "избран президент" : "president elected"]:
-      `${summary.winner.president} (${bg ? "тур" : "round"} ${summary.decidedInRound})`,
   };
+  // ⚠ No such fact while the runoff is pending — the round-1 leader is not president-elect.
+  if (summary.winner) {
+    facts[bg ? "избран президент" : "president elected"] =
+      `${summary.winner.president} (${bg ? "тур" : "round"} ${summary.decidedInRound})`;
+  }
   const candidateQuery = firstString(args.candidate);
   if (candidateQuery) {
     const queryTokens = translitKey(candidateQuery).split(" ").filter(Boolean);

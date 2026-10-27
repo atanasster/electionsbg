@@ -39,11 +39,11 @@ export type UpcomingElection = {
 };
 
 export const UPCOMING_ELECTIONS: UpcomingElection[] = [
-  // SCHEDULED: round one is 25 October 2026. Recorded 2026-10-06 from the agencies' own
-  // captured questionnaires — Маркет ЛИНКС's September report asks „На 25 октомври предстоят
-  // избори за президент и вицепрезидент…" and Сова Харис's „На 25 октомври 2026 г. ще се
-  // проведат избори за президент". It replaced a 2026-11-08 estimate.
-  { date: "2026-10-25", kind: "presidential", confidence: "scheduled" },
+  // SCHEDULED: the 2026 RUNOFF, 1 November 2026 (НС decision of 31.07.2026, ДВ 04.08.2026).
+  // Round one (25.10.2026) is ingested and so retired from this list; round one elected
+  // nobody, so the runoff is the presidential ballot still ahead. Drop this once
+  // `presidential_elections.json` carries the 2026 runoff.
+  { date: "2026-11-01", kind: "presidential", confidence: "scheduled" },
   { date: "2027-10-24", kind: "local", confidence: "estimated" },
   { date: "2029-06-06", kind: "european", confidence: "estimated" },
 ];

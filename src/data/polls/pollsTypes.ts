@@ -478,8 +478,10 @@ export type PresidentialRoundAccuracy = {
 export type PresidentialCycleAccuracy = {
   cycle: string;
   round1Date: string;
-  decidedInRound: 1 | 2;
-  winner: CandidateKey;
+  /** `null` while the runoff is pending. */
+  decidedInRound: 1 | 2 | null;
+  /** `null` while the runoff is pending — never the round-1 leader. */
+  winner: CandidateKey | null;
   // Round-1 actual results, real candidates at ≥1% only (a display list,
   // not itself the scored set of any one poll — see `PresidentialAgencyError`).
   actualResults: { key: CandidateKey; name_bg: string; pct: number }[];

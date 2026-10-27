@@ -120,7 +120,9 @@ describe("roundUrl", () => {
     // detection was dead on three of five cycles, with the report reading healthy.
     for (const src of Object.values(PRESIDENTIAL_SOURCES))
       for (const round of [1, 2] as const) {
-        const declared = src.archives[src.rounds[round].archive]?.url;
+        const spec = src.rounds[round];
+        if (!spec) continue;
+        const declared = src.archives[spec.archive]?.url;
         if (!declared) continue;
         const got = roundUrl(src.slug, round);
         expect(got.url, `${src.slug} tur${round}`).toBe(declared);

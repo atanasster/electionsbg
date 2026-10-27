@@ -59,8 +59,8 @@ type SummaryRound = {
 
 type Summary = {
   round1Date: string;
-  decidedInRound: 1 | 2;
-  winner: { president: string; vicePresident: string };
+  decidedInRound: 1 | 2 | null;
+  winner: { president: string; vicePresident: string } | null;
   rounds: SummaryRound[];
 };
 
@@ -272,15 +272,22 @@ export const buildPresidentialCycleRoutes = (
     const title = `Президентски избори ${f.date} — резултати | Наясно`;
     // ⚠ THE DESCRIPTION NAMES THE ROUND THE FIGURE IS FROM. „49.42%" without „на първи тур"
     // reads as the final result, which in every one of these five cycles it is not.
-    const description = `Резултати от президентските избори на ${f.date} — избран: ${w.president} и ${w.vicePresident}${
-      f.summary.decidedInRound === 2 ? " (на балотаж)" : " (на първи тур)"
-    }. На първи тур води ${lead.president} с ${pct(lead.shareOfValid)} от действителните гласове.`;
+    // ⚠ A PENDING CYCLE NAMES NO WINNER: round 1 elected nobody and the runoff is not
+    // published, so the description names the two finalists (art. 93 (4)) instead.
+    const runner = r1.ranking[1];
+    const description = w
+      ? `Резултати от президентските избори на ${f.date} — избран: ${w.president} и ${w.vicePresident}${
+          f.summary.decidedInRound === 2 ? " (на балотаж)" : " (на първи тур)"
+        }. На първи тур води ${lead.president} с ${pct(lead.shareOfValid)} от действителните гласове.`
+      : `Резултати от първия тур на президентските избори на ${f.date} — никой не е избран, балотаж между ${lead.president} (${pct(lead.shareOfValid)}) и ${runner.president} (${pct(runner.shareOfValid)}).`;
     const titleEn = `Bulgarian Presidential Election ${f.date} — Results | Naiasno`;
-    const descriptionEn = `Results of the ${f.date} Bulgarian presidential election — elected: ${w.president} and ${w.vicePresident}${
-      f.summary.decidedInRound === 2
-        ? " (in the runoff)"
-        : " (in the first round)"
-    }. ${lead.president} led the first round with ${pct(lead.shareOfValid)} of the valid votes.`;
+    const descriptionEn = w
+      ? `Results of the ${f.date} Bulgarian presidential election — elected: ${w.president} and ${w.vicePresident}${
+          f.summary.decidedInRound === 2
+            ? " (in the runoff)"
+            : " (in the first round)"
+        }. ${lead.president} led the first round with ${pct(lead.shareOfValid)} of the valid votes.`
+      : `First-round results of the ${f.date} Bulgarian presidential election — nobody was elected; runoff between ${lead.president} (${pct(lead.shareOfValid)}) and ${runner.president} (${pct(runner.shareOfValid)}).`;
     const turnout =
       r1.turnout.pct === null
         ? ""
@@ -298,12 +305,12 @@ export const buildPresidentialCycleRoutes = (
       // the same cut the local family makes. A municipality `ogImage` naming a file nothing
       // renders would serve a 404 to every social preview.
       ogImage: `/og/presidential/${cycle}.png`,
-      bodyHtml: `<h1>Президентски избори ${f.date}</h1><p>${r1.ranking.length} двойки на първи тур, ${int(r1.votes.valid)} действителни гласа.${turnout} Избрани: ${esc(w.president)} и ${esc(w.vicePresident)}.</p>${pollsBand.bg}`,
+      bodyHtml: `<h1>Президентски избори ${f.date}</h1><p>${r1.ranking.length} двойки на първи тур, ${int(r1.votes.valid)} действителни гласа.${turnout} ${w ? `Избрани: ${esc(w.president)} и ${esc(w.vicePresident)}.` : `Никой не е избран на първи тур — балотаж между ${esc(lead.president)} и ${esc(runner.president)}.`}</p>${pollsBand.bg}`,
       jsonLd: [buildWebPageLd({ title, description, url })],
       english: {
         title: titleEn,
         description: descriptionEn,
-        bodyHtml: `<h1>Bulgarian presidential election ${f.date}</h1><p>${r1.ranking.length} tickets in the first round, ${intEn(r1.votes.valid)} valid votes.${turnoutEn} Elected: ${esc(w.president)} and ${esc(w.vicePresident)}.</p>${pollsBand.en}`,
+        bodyHtml: `<h1>Bulgarian presidential election ${f.date}</h1><p>${r1.ranking.length} tickets in the first round, ${intEn(r1.votes.valid)} valid votes.${turnoutEn} ${w ? `Elected: ${esc(w.president)} and ${esc(w.vicePresident)}.` : `Nobody was elected in the first round — runoff between ${esc(lead.president)} and ${esc(runner.president)}.`}</p>${pollsBand.en}`,
         jsonLd: [
           buildWebPageLd({
             title: titleEn,

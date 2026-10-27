@@ -88,7 +88,7 @@ describe("presidential_elections.json", () => {
     // one cycle whose rate excludes the country's abroad sections — 144 of them report
     // neither a roll nor a signature count while casting 46,113 valid votes.
     expect(entry("2021_11_14_pvr").rounds[1].turnoutPct).toBe(40.3);
-    expect(entry("2021_11_14_pvr").rounds[2].turnoutPct).toBe(34.63);
+    expect(entry("2021_11_14_pvr").rounds[2]!.turnoutPct).toBe(34.63);
     // ⚠ DERIVED, NOT LISTED — the claim is „2006 is the only cycle whose rate drops abroad",
     // so a sixth cycle is covered the day it lands, and BOTH rounds are pinned because Tier 5
     // renders round 2.
@@ -116,7 +116,11 @@ describe("presidential_elections.json", () => {
     // ⚠ The positive control. Without it „every entry is well-formed" passes on a
     // validator that returns `true` unconditionally, which is the one implementation the
     // assertion above cannot distinguish from a working one.
-    const good = catalogue[0] as unknown as Record<string, unknown>;
+    // ⚠ The newest DECIDED cycle: `catalogue[0]` is now 2026, runoff pending, and the
+    // mutations below are written against a two-round entry.
+    const good = catalogue.find(
+      (e) => e.decidedInRound !== null,
+    ) as unknown as Record<string, unknown>;
     expect(isPresidentialElectionEntry({ ...good, decidedInRound: 3 })).toBe(
       false,
     );
@@ -191,13 +195,37 @@ describe("presidential_elections.json", () => {
     ).toBe(false);
   });
 
+  it("accepts the runoff-pending 2026 row, and only in its consistent shape", () => {
+    const pending = catalogue.find(
+      (e) => e.name === "2026_10_25_pvr",
+    ) as unknown as Record<string, unknown>;
+    expect(pending).toBeDefined();
+    expect(pending.decidedInRound).toBeNull();
+    expect(pending.winnerTicket).toBeNull();
+    expect(pending.round2Date).toBeNull();
+    expect(Object.keys(pending.rounds as object)).toEqual(["1"]);
+    expect(isPresidentialElectionEntry(pending)).toBe(true);
+    // A pending row that names a winner names a president nobody elected.
+    const decided = catalogue.find((e) => e.decidedInRound !== null)!;
+    expect(
+      isPresidentialElectionEntry({
+        ...pending,
+        winnerTicket: decided.winnerTicket,
+      }),
+    ).toBe(false);
+  });
+
   it("refuses a cycle whose runoff and deciding round disagree", () => {
     // ⚠ THE BICONDITIONAL, BOTH ARMS. The rejection in the test above never reaches it —
     // `{ round2Date: null, decidedInRound: 1 }` keeps `good`'s two round keys, so the
     // KEYS check refuses it first and the `decidedInRound` guard could be deleted with
     // every assertion still passing. These carry a matching `rounds` so execution gets
     // there.
-    const good = catalogue[0] as unknown as Record<string, unknown>;
+    // ⚠ The newest DECIDED cycle: `catalogue[0]` is now 2026, runoff pending, and the
+    // mutations below are written against a two-round entry.
+    const good = catalogue.find(
+      (e) => e.decidedInRound !== null,
+    ) as unknown as Record<string, unknown>;
     const caps = (good.rounds as Record<string, unknown>)["1"];
     expect(
       isPresidentialElectionEntry({

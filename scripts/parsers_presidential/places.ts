@@ -68,6 +68,7 @@ export const ABROAD_PREFIX_BY_ERA: Record<PresidentialEra, string> = {
   "2011": "29",
   "2016": "32",
   "2021": "32",
+  "2026": "32",
 };
 
 /**

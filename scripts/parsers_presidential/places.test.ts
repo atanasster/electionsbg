@@ -12,6 +12,7 @@ import {
   COMMITTED_ROUND_DIRS,
   CYCLES_OLDEST_FIRST,
   corpusRound,
+  cycleRounds,
 } from "./testCorpus";
 
 assertCommitted(...COMMITTED_ROUND_DIRS, "data/settlements.json");
@@ -103,7 +104,7 @@ describe("the two grids", () => {
 describe("nothing is dropped", () => {
   it("places every section of every round, or lists it", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
-      for (const round of [1, 2] as const) {
+      for (const round of cycleRounds(cycle)) {
         const p = placed(cycle, round);
         const total = corpusRound(cycle, round).sections.length;
         expect(
@@ -353,7 +354,7 @@ describe("abroad", () => {
     // every committed cycle and round: not one does — and the rule refuses a mixed group
     // anyway, so this is the check that says the refusal has never had to fire on a real one.
     for (const cycle of CYCLES_OLDEST_FIRST) {
-      for (const round of [1, 2] as const) {
+      for (const round of cycleRounds(cycle)) {
         const p = placed(cycle, round);
         const byGroup = new Map<string, Set<string>>();
         for (const [code, where] of p.abroad) {
@@ -366,7 +367,15 @@ describe("abroad", () => {
           if (!byGroup.has(g)) byGroup.set(g, new Set());
           byGroup.get(g)!.add(where.country);
         }
-        if (byGroup.size === 1) {
+        if (cycle === "2026_10_25_pvr") {
+          // ⚠ 2026 MOVED THE ORDINAL to three digits (`32 001 …` is Australia), so the
+          // two-digit field this fallback reads mixes countries. Harmless only because
+          // every 2026 station names its own country and the fallback never fires.
+          expect([...byGroup.values()].some((set) => set.size > 1)).toBe(true);
+          expect(p.report.abroadByCodeGroup, `${cycle} r${round}`).toHaveLength(
+            0,
+          );
+        } else if (byGroup.size === 1) {
           // 2006 and only 2006: a constant `99` field, so its ONE group legitimately spans 48
           // countries. Hoisted out of the loop — the exemption is per ROUND, not per group, and
           // inside the loop it read as the latter.
@@ -414,6 +423,7 @@ describe("abroad", () => {
         "2011_10_23_pvr": { city: 150, "code-group": 10, none: 1 },
         "2016_11_06_pvr": { name: 325 },
         "2021_11_14_pvr": { name: 750 },
+        "2026_10_25_pvr": { name: 613 },
       },
       2: {
         "2001_11_11_pvr": { city: 110, "code-group": 16, none: 6 },
@@ -423,8 +433,8 @@ describe("abroad", () => {
         "2021_11_14_pvr": { name: 749 },
       },
     };
-    for (const round of [1, 2] as const)
-      for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_OLDEST_FIRST)
+      for (const round of cycleRounds(cycle)) {
         const p = placed(cycle, round);
         const tally: Record<string, number> = {};
         for (const a of p.abroad.values()) {
@@ -470,7 +480,7 @@ describe("abroad", () => {
   // that every section the abroad branch claims REALLY IS abroad.
   it("routes only genuinely abroad sections through the city table", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
-      for (const round of [1, 2] as const) {
+      for (const round of cycleRounds(cycle)) {
         const p = placed(cycle, round);
         const era = corpusRound(cycle, round).sourceEra;
         const prefix = ABROAD_PREFIX_BY_ERA[era];

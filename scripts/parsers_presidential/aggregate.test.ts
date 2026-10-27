@@ -13,6 +13,7 @@ import {
   COMMITTED_ROUND_DIRS,
   CYCLES_OLDEST_FIRST,
   corpusRound,
+  cycleRounds,
 } from "./testCorpus";
 
 assertCommitted(...COMMITTED_ROUND_DIRS, "data/settlements.json");
@@ -45,7 +46,7 @@ const roundVotes = (cycle: string, round: 1 | 2): number =>
 describe("each roll-up declares what it covers", () => {
   it("reconciles the oblast roll-up plus abroad against the round, minus refusals", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
-      for (const round of [1, 2] as const) {
+      for (const round of cycleRounds(cycle)) {
         const a = agg(cycle, round);
         const total = roundVotes(cycle, round);
         const placedVotes = sumOf(a.regions) + sumOf(a.abroad);

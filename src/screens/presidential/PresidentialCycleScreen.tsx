@@ -13,7 +13,7 @@
 // verdict rather than re-deriving one — a second implementation of the constitutional test is
 // exactly the drift that makes two surfaces disagree about who was elected.
 
-import { FC, useMemo } from "react";
+import { FC, Fragment, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { usePresidentialSummary } from "@/data/presidential/usePresidentialSummary";
@@ -529,19 +529,36 @@ const PresidentialCycleBody: FC<{ cycle: string }> = ({ cycle }) => {
         }
       />
       <div>
-        <p className="mt-1 text-sm">
-          {t(
-            summary.decidedInRound === 1
-              ? "presidential_decided_round1"
-              : "presidential_decided_runoff",
-          )}
-          {": "}
-          <strong>
-            <PresidentialPersonName name={summary.winner.president} />
-          </strong>
-          {" · "}
-          <PresidentialPersonName name={summary.winner.vicePresident} />
-        </p>
+        {summary.winner ? (
+          <p className="mt-1 text-sm">
+            {t(
+              summary.decidedInRound === 1
+                ? "presidential_decided_round1"
+                : "presidential_decided_runoff",
+            )}
+            {": "}
+            <strong>
+              <PresidentialPersonName name={summary.winner.president} />
+            </strong>
+            {" · "}
+            <PresidentialPersonName name={summary.winner.vicePresident} />
+          </p>
+        ) : (
+          // ⚠ RUNOFF PENDING: round 1 elected nobody and ЦИК has not published the runoff.
+          // The two names are the top two by law (art. 93 (4)), read off round 1's own
+          // ranking — never presented as a result.
+          <p className="mt-1 text-sm">
+            {t("presidential_runoff_pending_between")}{" "}
+            {summary.rounds[0].ranking.slice(0, 2).map((r, i) => (
+              <Fragment key={r.number}>
+                {i > 0 ? ` ${t("presidential_versus")} ` : null}
+                <strong>
+                  <PresidentialPersonName name={r.president} />
+                </strong>
+              </Fragment>
+            ))}
+          </p>
+        )}
         {/* ⚠ THE OTHER DIRECTION OF THE SAME CROSS-LINK. A pill on only one side is a route a
             reader can take once and never find again — and this side is the one where „local
             elections were held the same day" is the more surprising fact.

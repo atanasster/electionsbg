@@ -51,8 +51,8 @@ interface NationalSummaryFile {
   cycle: string;
   round1Date: string;
   round2Date?: string | null;
-  decidedInRound: 1 | 2;
-  winner: { number: number; president: string };
+  decidedInRound: 1 | 2 | null;
+  winner: { number: number; president: string } | null;
   rounds: NationalSummaryRound[];
 }
 const MINOR_FLOOR_PCT = 1;
@@ -300,7 +300,8 @@ const scoreQuestion = (
     runoffPairCalled:
       complete &&
       q.round === 1 &&
-      summary.decidedInRound === 2 &&
+      // A pending runoff is still a runoff between the top two (art. 93 (4)).
+      summary.decidedInRound !== 1 &&
       ranked.length >= 2 &&
       !tiedPair
         ? ranked.slice(0, 2).every((r) => actualPair.includes(r.key))
@@ -440,7 +441,8 @@ export const parliamentaryRuleAgencies = (
           ? ranked[0].key === actualLeader
           : null,
       runoffPairCalled:
-        summary.decidedInRound === 2 &&
+        // A pending runoff is still a runoff between the top two (art. 93 (4)).
+        summary.decidedInRound !== 1 &&
         ranked.length > 2 &&
         ranked[1].polled !== ranked[2].polled
           ? ranked.slice(0, 2).every((r) => actualPair.includes(r.key))
@@ -574,7 +576,8 @@ export const computeCycleAccuracy = (
     cycle: summary.cycle,
     round1Date: summary.round1Date,
     decidedInRound: summary.decidedInRound,
-    winner: foldCandidateName(summary.winner.president),
+    // `null` while the runoff is pending — never the round-1 leader.
+    winner: summary.winner ? foldCandidateName(summary.winner.president) : null,
     actualResults: summary.rounds[0].ranking
       .filter((t) => round(t.shareOfValid * 100) >= MINOR_FLOOR_PCT)
       .map((t) => ({

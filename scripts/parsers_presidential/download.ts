@@ -31,6 +31,7 @@ import {
   type DownloadStrategy,
   type PresidentialSource,
   type RoundNumber,
+  type RoundSource,
 } from "./sources";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -253,14 +254,12 @@ export const mergeStamp = (
     stampedAt: prior?.stampedAt ?? now(),
     archives,
     rounds: Object.fromEntries(
-      ([1, 2] as RoundNumber[]).map((r) => [
-        String(r),
-        {
-          archive: source.rounds[r].archive,
-          subtree: source.rounds[r].subtree,
-          date: source.rounds[r].date,
-        },
-      ]),
+      (Object.entries(source.rounds) as [string, RoundSource][]).map(
+        ([r, spec]) => [
+          r,
+          { archive: spec.archive, subtree: spec.subtree, date: spec.date },
+        ],
+      ),
     ),
     note: source.note,
   };
@@ -387,7 +386,7 @@ export const downloadPresidentialCycle = async (
 
       extractZipCp866(zipPath, staging);
       for (const round of needed) {
-        const spec = source.rounds[round];
+        const spec = source.rounds[round]!;
         const dest = path.join(RAW_ROOT, source.cycle, roundFolderName(round));
         const placed = placeSubtree(staging, spec.subtree, dest);
         console.log(

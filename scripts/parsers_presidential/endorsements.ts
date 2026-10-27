@@ -118,3 +118,61 @@ export const TICKET_ENDORSEMENTS: Record<string, TicketEndorsement[]> = {
 
 export const endorsementsFor = (cycle: string): TicketEndorsement[] =>
   TICKET_ENDORSEMENTS[cycle] ?? [];
+
+/**
+ * The ONE party whose colour a committee-nominated ticket wears.
+ *
+ * ⚠ A COLOUR CLAIM, NOT AN ARITHMETIC ONE — kept apart from `TICKET_ENDORSEMENTS` above on
+ * purpose. That table licenses a split-ticket floor and so demands exactly one backer WITH A
+ * LIST; this one only answers „whose colour does a reader expect beside this name", which a
+ * multi-backed pair can still have (the party that put the candidate forward). Each entry is
+ * curated, names a party exactly as `party_colors.json` spells it, and carries the
+ * announcement it rests on. A ticket with no entry keeps a neutral colour — silence means
+ * „nobody has curated this", never „nobody backed them".
+ */
+export interface TicketColorBacker {
+  /** The presidential ballot number. */
+  ticket: number;
+  /** The backing party, as a `party_colors.json` key spells it (folded by `nameKey`). */
+  party: string;
+  /** ⚠ REQUIRED. Where the backing was announced. */
+  sourceUrl: string;
+}
+
+export const TICKET_COLOR_BACKERS: Record<string, TicketColorBacker[]> = {
+  "2026_10_25_pvr": [
+    {
+      // Илияна Йотова / Кирил Вълчев ← Прогресивна България, announced by Радев 28.07.2026.
+      ticket: 25,
+      party: "Прогресивна България",
+      sourceUrl:
+        "https://btvnovinite.bg/bulgaria/progresivna-balgarija-podkrepja-kandidaturata-na-ilijana-jotova-za-prezident.html",
+    },
+    {
+      // Андрей Гюров / Георги Кандев ← ПП и ДБ, who stood together as ПП-ДБ.
+      ticket: 4,
+      party: "Коалиция Продължаваме промяната – Демократична България",
+      sourceUrl:
+        "https://news.bg/politics/pp-i-db-shte-podkrepyat-kandidaturata-na-gyurov-za-prezident-a-na-kandev-za-vitseprezident.html",
+    },
+  ],
+  "2021_11_14_pvr": [
+    // The two single-backer entries above, re-used: same announcements, same parties.
+    {
+      ticket: 15,
+      party: "ГЕРБ-СДС",
+      sourceUrl:
+        "https://webcafe.bg/politika/gerb-podkrepya-kandidaturata-na-atanas-gerdzhikov-za-prezident.html",
+    },
+    {
+      ticket: 19,
+      party:
+        "Демократична България – Обединение (ДА България, ДСБ, Зелено движение)",
+      sourceUrl:
+        "https://dabulgaria.bg/demokratichna-balgariya-podkrepya-lozan-panov-za-prezident/",
+    },
+  ],
+};
+
+export const colorBackersFor = (cycle: string): TicketColorBacker[] =>
+  TICKET_COLOR_BACKERS[cycle] ?? [];

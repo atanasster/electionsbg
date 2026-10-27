@@ -19,7 +19,9 @@ import { buildPartyColors } from "./build_party_colors";
 import {
   COMMITTED_ROUND_DIRS,
   CYCLES_OLDEST_FIRST,
+  CYCLES_WITH_RUNOFF,
   corpusRound,
+  cycleRounds,
 } from "./testCorpus";
 
 const PROJECT_ROOT = path.resolve(
@@ -34,7 +36,7 @@ const catalogue = (cycle: string): TicketCatalogue => {
   const hit = cache.get(cycle);
   if (hit) return hit;
   const c = buildTicketCatalogue(
-    [1, 2].map((r) => corpusRound(cycle, r as 1 | 2)),
+    cycleRounds(cycle).map((r) => corpusRound(cycle, r)),
   );
   cache.set(cycle, c);
   return c;
@@ -48,6 +50,7 @@ describe("the ballot", () => {
       "2011_10_23_pvr": 18,
       "2016_11_06_pvr": 21,
       "2021_11_14_pvr": 23,
+      "2026_10_25_pvr": 27,
     };
     for (const cycle of CYCLES_OLDEST_FIRST) {
       const c = catalogue(cycle);
@@ -64,7 +67,13 @@ describe("the ballot", () => {
   });
 
   it("records which rounds each ticket stood in", () => {
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    // ⚠ 2026's runoff is pending, so every ticket so far stood in round 1 only.
+    expect(
+      catalogue("2026_10_25_pvr").tickets.every(
+        (t) => t.rounds.length === 1 && t.rounds[0] === 1,
+      ),
+    ).toBe(true);
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       const c = catalogue(cycle);
       const inRunoff = c.tickets.filter((t) => t.rounds.includes(2));
       expect(inRunoff, cycle).toHaveLength(2);
@@ -163,6 +172,27 @@ describe("where a colour comes from", () => {
     expect(tsacheva.color).toBe(plevneliev.color);
   });
 
+  it("colours a curated endorsement as `endorsed-party`, and only that", () => {
+    const basis = (cycle: string) =>
+      Object.fromEntries(
+        catalogue(cycle)
+          .tickets.filter((t) => t.colorBasis === "endorsed-party")
+          .map((t) => [t.number, t.color]),
+      );
+    // 2026: Йотова ← Прогресивна България, Гюров ← ПП-ДБ.
+    expect(basis("2026_10_25_pvr")).toEqual({
+      25: "#034a3f",
+      4: "rgb(66, 0, 255)",
+    });
+    expect(catalogue("2026_10_25_pvr").neutralTickets).toBe(22);
+    // 2021: Герджиков ← ГЕРБ-СДС, Панов ← ДБ.
+    expect(Object.keys(basis("2021_11_14_pvr")).map(Number).sort()).toEqual([
+      15, 19,
+    ]);
+    for (const cycle of ["2001_11_11_pvr", "2006_10_22_pvr", "2011_10_23_pvr"])
+      expect(basis(cycle), cycle).toEqual({});
+  });
+
   it("gives every 2001 and 2006 ticket a neutral colour, because no ballot names a body", () => {
     // ⚠ Not a gap in the matching — those two bundles publish no nominator at all, for
     // any ticket, so every colour there is a chart colour and can never be anything else.
@@ -190,7 +220,9 @@ describe("where a colour comes from", () => {
     // string, so the list length is not the number of tickets carrying a colour that
     // asserts nothing — `neutralTickets` is.
     expect(c.neutralTickets).toBe(neutral.length);
-    expect(c.neutralTickets).toBe(17);
+    // 15, not 17: Герджиков (15) and Панов (19) carry an ENDORSED colour — their
+    // nominators are unmatched committees, but a curated backer names the party.
+    expect(c.neutralTickets).toBe(15);
     expect(c.unmatchedNominators.length).toBe(17);
     // ⚠ Every unmatched name is either absent from the party index OR present with the
     // placeholder — those are two different reasons for the same outcome, and only the
@@ -291,11 +323,12 @@ describe("where a colour comes from", () => {
   it("assigns a colour to every ticket, and a stable one", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
       for (const t of catalogue(cycle).tickets) {
-        expect(t.color, `${cycle}/${t.number}`).toMatch(/^(rgb\(|#|[a-z]+$)/);
+        // `rgba(` too: the parliamentary catalogue spells one 2026 colour that way.
+        expect(t.color, `${cycle}/${t.number}`).toMatch(/^(rgba?\(|#|[a-z]+$)/);
       }
       // A second build over the same rounds gives the same colours.
       const again = buildTicketCatalogue(
-        [1, 2].map((r) => corpusRound(cycle, r as 1 | 2)),
+        cycleRounds(cycle).map((r) => corpusRound(cycle, r)),
       );
       expect(
         again.tickets.map((t) => t.color),
@@ -396,19 +429,27 @@ describe("the party index", () => {
         file,
         JSON.stringify({ builtFrom: "test", parties: {} }),
       );
+      // ⚠ 2016, not 2021: a cycle with a curated ENDORSED backer refuses an empty table
+      // outright (asserted below), so the degrade-to-neutral control needs one without.
       const without = buildTicketCatalogue(
-        [1, 2].map((r) => corpusRound("2021_11_14_pvr", r as 1 | 2)),
+        [1, 2].map((r) => corpusRound("2016_11_06_pvr", r as 1 | 2)),
         { partyColorsFile: file },
       );
       expect(without.neutralTickets, "everything goes neutral").toBe(
         without.tickets.length,
       );
-      // …against six real brand colours with the committed table.
-      expect(catalogue("2021_11_14_pvr").neutralTickets).toBe(17);
+      // …against two real brand colours with the committed table.
+      expect(catalogue("2016_11_06_pvr").neutralTickets).toBe(19);
       expect(
         without.tickets.map((t) => t.color),
         "and the colours actually differ",
-      ).not.toEqual(catalogue("2021_11_14_pvr").tickets.map((t) => t.color));
+      ).not.toEqual(catalogue("2016_11_06_pvr").tickets.map((t) => t.color));
+      expect(() =>
+        buildTicketCatalogue(
+          [1, 2].map((r) => corpusRound("2021_11_14_pvr", r as 1 | 2)),
+          { partyColorsFile: file },
+        ),
+      ).toThrow(/carries no colour in party_colors\.json/);
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }

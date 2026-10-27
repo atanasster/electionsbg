@@ -32,6 +32,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { PresidentialRound, Ticket } from "./types";
+import { colorBackersFor } from "./endorsements";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -193,6 +194,9 @@ export const ticketDefaults = (file?: string): TicketDefaults => {
 export type ColorBasis =
   /** Its nominator matches a party in the parliamentary catalogue. */
   | "parliamentary-party"
+  /** A committee ticket wearing the colour of the ONE party that publicly backed it —
+   *  curated, with its source, in `endorsements.ts`'s `TICKET_COLOR_BACKERS`. */
+  | "endorsed-party"
   /** Nothing identified it; a neutral palette entry, asserting nothing. */
   | "neutral-palette";
 
@@ -298,11 +302,26 @@ export const buildTicketCatalogue = (
         : undefined;
       // ⚠ The placeholder is not a colour. A party carrying it is still a match for its
       // SHORT LABEL, which is a real fact, but not for a brand colour.
-      const brandColor =
+      const nominatorColor =
         party?.color && party.color !== PLACEHOLDER_COLOR
           ? party.color
           : undefined;
-      if (lookupKey && !brandColor) unmatched.add(t.nominatedBy.name);
+      // ⚠ ONLY WHEN THE NOMINATOR NAMED NO PARTY. A ballot-recorded party is a fact from the
+      // source and outranks a curated endorsement; the endorsement fills the committee gap.
+      const backer = nominatorColor
+        ? undefined
+        : colorBackersFor(round.cycle).find((b) => b.ticket === t.number);
+      const backerColor = backer
+        ? parties.get(nameKey(backer.party))?.color
+        : undefined;
+      if (backer && (!backerColor || backerColor === PLACEHOLDER_COLOR)) {
+        throw new Error(
+          `tickets: ${round.cycle} ticket ${t.number} is curated as backed by ` +
+            `"${backer.party}", which carries no colour in party_colors.json`,
+        );
+      }
+      const brandColor = nominatorColor ?? backerColor;
+      if (lookupKey && !nominatorColor) unmatched.add(t.nominatedBy.name);
       const nick =
         party?.nickName ??
         (lookupKey && Object.prototype.hasOwnProperty.call(nickNames, lookupKey)
@@ -314,7 +333,11 @@ export const buildTicketCatalogue = (
       byNumber.set(t.number, {
         ...t,
         color: brandColor ?? neutralColor(neutralCount++),
-        colorBasis: brandColor ? "parliamentary-party" : "neutral-palette",
+        colorBasis: nominatorColor
+          ? "parliamentary-party"
+          : backerColor
+            ? "endorsed-party"
+            : "neutral-palette",
         ...(nick ? { nickName: nick } : {}),
         rounds: [round.round],
       });

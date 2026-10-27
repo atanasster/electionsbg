@@ -47,7 +47,7 @@ import {
   type PresidentialSection,
   type Ticket,
 } from "./types";
-import { PRESIDENTIAL_SOURCES } from "./sources";
+import { PRESIDENTIAL_SOURCES, roundSpec } from "./sources";
 import type { PresidentialSource, RoundNumber } from "./sources";
 
 /** Protocol forms that carry the section's electorate figures. Exactly one per
@@ -292,7 +292,7 @@ export const readEra2021Round = (
   return {
     cycle: source.cycle,
     round,
-    date: source.rounds[round].date,
+    date: roundSpec(source, round).date,
     tickets,
     sections: [...sections.values()],
     sourceEra: "2021",

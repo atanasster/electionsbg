@@ -148,7 +148,7 @@ afterEach(() => clearDataCache());
 
 describe("resolvePresidentialCycle", () => {
   it("defaults to the latest, and resolves a bare year", () => {
-    expect(resolvePresidentialCycle().name).toBe("2021_11_14_pvr");
+    expect(resolvePresidentialCycle().name).toBe("2026_10_25_pvr");
     expect(resolvePresidentialCycle("2016").name).toBe("2016_11_06_pvr");
     expect(resolvePresidentialCycle("2016_11_06_pvr").name).toBe(
       "2016_11_06_pvr",
@@ -159,8 +159,8 @@ describe("resolvePresidentialCycle", () => {
     // ⚠ THE CATALOGUE, NOT A SHAPE. Matching `\\d{4}_\\d{2}_\\d{2}_pvr` would let
     // „2019_11_14_pvr" through to a 404 the chat renders as „no data" — a statement about a
     // cycle that never happened.
-    expect(resolvePresidentialCycle("2019").name).toBe("2021_11_14_pvr");
-    expect(resolvePresidentialCycle("nonsense").name).toBe("2021_11_14_pvr");
+    expect(resolvePresidentialCycle("2019").name).toBe("2026_10_25_pvr");
+    expect(resolvePresidentialCycle("nonsense").name).toBe("2026_10_25_pvr");
   });
 });
 
@@ -185,6 +185,8 @@ describe("resolvePresidentialRound", () => {
   });
 });
 
+// ⚠ The fixture is 2021, and „latest" is now the runoff-pending 2026 — so every call names its
+// cycle rather than leaning on the default.
 describe("presidentialResults", () => {
   it("carries the art. 93 (3) verdict on ROUND 1 — the round the rule tests", async () => {
     // ⚠ THE 2006 SHAPE: 64.05% of the valid vote and NOT elected, because turnout was 43.88%.
@@ -202,7 +204,7 @@ describe("presidentialResults", () => {
       throw new Error(`unexpected ${p}`);
     });
     const facts = JSON.stringify(
-      (await presidentialResults({ round: 1 }, ctx)).facts,
+      (await presidentialResults({ cycle: "2021", round: 1 }, ctx)).facts,
     );
     expect(facts).toMatch(/няма избран в първи тур/);
     // ⚠ ONE BRANCH, NOT AN ALTERNATION. `/няма мнозинство|мнозинството е налице/` is true for
@@ -217,7 +219,9 @@ describe("presidentialResults", () => {
     // elected in the round that elected the president — true of 2021 (34.63% turnout), 2011
     // (48.24%) and 2006 (41.69%), i.e. three of five cycles and the DEFAULT query.
     serve();
-    const facts = JSON.stringify((await presidentialResults({}, ctx)).facts);
+    const facts = JSON.stringify(
+      (await presidentialResults({ cycle: "2021" }, ctx)).facts,
+    );
     expect(facts).not.toMatch(/няма избран/);
     expect(facts).toMatch(/избран в този тур: Румен Радев/);
     // …and the two conditions are absent here: they describe a test that does not govern it.
@@ -239,18 +243,18 @@ describe("presidentialResults", () => {
       if (p.includes("region_votes.json")) return regionVotes;
       throw new Error(`unexpected ${p}`);
     });
-    const env = await presidentialResults({ round: 1 }, ctx);
+    const env = await presidentialResults({ cycle: "2021", round: 1 }, ctx);
     expect(JSON.stringify(env.facts)).toMatch(/избран в този тур: Румен Радев/);
     expect(env.title).toMatch(/първи тур/);
   });
 
   it("names the round in the title, both times", async () => {
     serve();
-    const runoff = await presidentialResults({}, ctx);
+    const runoff = await presidentialResults({ cycle: "2021" }, ctx);
     expect(runoff.title).toMatch(/балотаж/);
     clearDataCache();
     serve();
-    const first = await presidentialResults({ round: 1 }, ctx);
+    const first = await presidentialResults({ cycle: "2021", round: 1 }, ctx);
     expect(first.title).toMatch(/първи тур/);
   });
 
@@ -258,7 +262,7 @@ describe("presidentialResults", () => {
     // ⚠ ABSENT, NOT ZERO. Three of the five cycles predate the line; a 0 would report that
     // nobody chose an option nobody was offered.
     serve();
-    const withIt = await presidentialResults({}, ctx);
+    const withIt = await presidentialResults({ cycle: "2021" }, ctx);
     expect(JSON.stringify(withIt.facts)).toMatch(/не подкрепям никого/);
     clearDataCache();
     const s = summary();
@@ -271,7 +275,7 @@ describe("presidentialResults", () => {
       if (p.includes("region_votes.json")) return regionVotes;
       throw new Error(`unexpected ${p}`);
     });
-    const without = await presidentialResults({}, ctx);
+    const without = await presidentialResults({ cycle: "2021" }, ctx);
     expect(JSON.stringify(without.facts)).not.toMatch(/не подкрепям никого/);
   });
 
@@ -279,7 +283,7 @@ describe("presidentialResults", () => {
     // The ingest resolved each pair's colour once; the map, the page and this tool must not
     // each pick a different one for the same person.
     serve();
-    const env = await presidentialResults({}, ctx);
+    const env = await presidentialResults({ cycle: "2021" }, ctx);
     expect(env.geo?.areas?.[0]).toMatchObject({
       code: "BLG",
       color: "#111111",
@@ -289,7 +293,10 @@ describe("presidentialResults", () => {
 
   it("answers for one município, and says whose share the % is", async () => {
     serve();
-    const env = await presidentialResults({ place: "Благоевград" }, ctx);
+    const env = await presidentialResults(
+      { cycle: "2021", place: "Благоевград" },
+      ctx,
+    );
     expect(new URL(siteLinks(env)[0].href).pathname).toBe(
       "/presidential/2021_11_14_pvr/municipality/BLG01",
     );
@@ -308,7 +315,10 @@ describe("presidentialResults", () => {
     // pvr tree, so a plain municipality lookup answers „no data" about the largest município in
     // the country, with the numbers one file away.
     serve();
-    const env = await presidentialResults({ place: "София" }, ctx);
+    const env = await presidentialResults(
+      { cycle: "2021", place: "София" },
+      ctx,
+    );
     expect(siteLinks(env)).toEqual([]);
     expect(JSON.stringify(env.facts)).not.toMatch(/няма данни/);
     expect(env.kind).toBe("table");
@@ -323,7 +333,10 @@ describe("presidentialResults", () => {
     // a municipality-first single argument answered „област Пловдив" with the city's numbers —
     // about half the votes, under a title naming neither scope.
     serve();
-    const env = await presidentialResults({ place: "област Благоевград" }, ctx);
+    const env = await presidentialResults(
+      { cycle: "2021", place: "област Благоевград" },
+      ctx,
+    );
     expect(new URL(siteLinks(env)[0].href).pathname).toBe(
       "/presidential/2021_11_14_pvr/region/BLG",
     );
@@ -332,7 +345,10 @@ describe("presidentialResults", () => {
       false,
     );
     expect(env.title).toMatch(/област/);
-    const viaArg = await presidentialResults({ oblast: "Благоевград" }, ctx);
+    const viaArg = await presidentialResults(
+      { cycle: "2021", oblast: "Благоевград" },
+      ctx,
+    );
     expect(viaArg.title).toMatch(/област/);
   });
 
@@ -340,7 +356,10 @@ describe("presidentialResults", () => {
     // `tickets.json` exists for the winner map's colours and the place arms never touch it;
     // `provenance` is the citation surface, so listing it there is a small untruth.
     serve();
-    const env = await presidentialResults({ place: "Благоевград" }, ctx);
+    const env = await presidentialResults(
+      { cycle: "2021", place: "Благоевград" },
+      ctx,
+    );
     expect(new URL(siteLinks(env)[0].href).pathname).toBe(
       "/presidential/2021_11_14_pvr/municipality/BLG01",
     );
@@ -358,7 +377,9 @@ describe("presidentialResults", () => {
 
   it("answers in English without leaking Bulgarian label keys", async () => {
     serve();
-    const env = await presidentialResults({}, { lang: "en" } as ToolContext);
+    const env = await presidentialResults({ cycle: "2021" }, {
+      lang: "en",
+    } as ToolContext);
     expect(env.title).toBe("Presidential election — 2021, runoff");
     expect(Object.keys(env.facts)).toEqual(
       expect.arrayContaining(["election", "outcome", "president elected"]),
@@ -386,7 +407,7 @@ describe("presidentialResults", () => {
       if (p.includes("tickets.json")) return { tickets: [] };
       throw new Error("404");
     });
-    const env = await presidentialResults({}, ctx);
+    const env = await presidentialResults({ cycle: "2021" }, ctx);
     expect(env.kind).toBe("table");
     expect(env.rows?.length).toBeGreaterThan(0);
     expect(env.geo?.areas).toEqual([]);
@@ -396,7 +417,10 @@ describe("presidentialResults", () => {
     // ⚠ THE SILENT FALLBACK IS THE DEFECT. A national table under the title „Резултати за
     // Мордор" is a working answer to a question nobody asked.
     serve();
-    const env = await presidentialResults({ place: "Мордор" }, ctx);
+    const env = await presidentialResults(
+      { cycle: "2021", place: "Мордор" },
+      ctx,
+    );
     expect(env.kind).toBe("scalar");
     expect(JSON.stringify(env.facts)).toMatch(/непознато място/);
   });

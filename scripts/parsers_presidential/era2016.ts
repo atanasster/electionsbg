@@ -53,7 +53,7 @@ import {
   type PresidentialSection,
   type Ticket,
 } from "./types";
-import { PRESIDENTIAL_SOURCES } from "./sources";
+import { PRESIDENTIAL_SOURCES, roundSpec } from "./sources";
 import type { PresidentialSource, RoundNumber } from "./sources";
 
 /** Field indices, from the round's own readme (which numbers from 1). */
@@ -329,7 +329,7 @@ export const readEra2016Round = (
   return {
     cycle: source.cycle,
     round,
-    date: source.rounds[round].date,
+    date: roundSpec(source, round).date,
     tickets,
     sections: [...sections.values()],
     sourceEra: "2016",

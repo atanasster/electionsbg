@@ -38,7 +38,7 @@
 
 import { num, readBundleFile, sectionLookup } from "./readerKit";
 import type { PresidentialEncoding } from "./encoding";
-import { PRESIDENTIAL_SOURCES } from "./sources";
+import { PRESIDENTIAL_SOURCES, roundSpec } from "./sources";
 import {
   addTicketVotes,
   canonicalTicketKey,
@@ -378,7 +378,7 @@ export const readEra2006Round = (
   return {
     cycle: source.cycle,
     round,
-    date: source.rounds[round].date,
+    date: roundSpec(source, round).date,
     tickets: columns.map((c) => c.ticket),
     sections: [...sections.values()],
     sourceEra: "2006",

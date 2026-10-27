@@ -143,7 +143,8 @@ describe("UPCOMING_ELECTIONS", () => {
     );
     // …and the real anchor passes the same function, so the two above are not simply
     // rejecting everything.
-    expect(cadenceViolations(bad("2026-11-08"), ROUND1)).toEqual([]);
+    // (Five years after the newest ingested round 1, 2026-10-25.)
+    expect(cadenceViolations(bad("2031-10-26"), ROUND1)).toEqual([]);
   });
 
   it("exempts a SCHEDULED entry from the cadence, and would catch it estimated", () => {

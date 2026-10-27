@@ -311,9 +311,10 @@ const cell = (v: string | number | null | undefined): string =>
 type PresidentialCycleRow = {
   cycle: string;
   date: string;
-  decidedInRound: 1 | 2;
-  president: string;
-  vicePresident: string;
+  /** `null` = the runoff is pending; `president`/`vicePresident` are then null too. */
+  decidedInRound: 1 | 2 | null;
+  president: string | null;
+  vicePresident: string | null;
   tickets: number;
   leadPresident: string;
   leadShareOfValid: number;
@@ -341,14 +342,14 @@ const readPresidentialCycles = (
     try {
       const s = JSON.parse(fs.readFileSync(file, "utf-8"));
       const r1 = s.rounds?.[0];
-      if (!r1?.ranking?.length || !s.winner) continue;
+      if (!r1?.ranking?.length) continue;
       const [y, m, d] = String(s.round1Date).split("-");
       out.push({
         cycle,
         date: `${d}.${m}.${y}`,
-        decidedInRound: s.decidedInRound,
-        president: s.winner.president,
-        vicePresident: s.winner.vicePresident,
+        decidedInRound: s.decidedInRound ?? null,
+        president: s.winner?.president ?? null,
+        vicePresident: s.winner?.vicePresident ?? null,
         tickets: r1.ranking.length,
         leadPresident: r1.ranking[0].president,
         leadShareOfValid: r1.ranking[0].shareOfValid,
@@ -725,9 +726,13 @@ const buildCorpus = (
         cell(c.date),
         // ⚠ Bulgarian in BOTH corpora and never transliterated — the reader is matching these
         // against a ballot or a protocol scan, both of which print Cyrillic.
-        cell(c.president),
-        cell(c.vicePresident),
-        fmtInt(c.decidedInRound, lang),
+        // A pending runoff names nobody — the round-1 leader has a column of their own.
+        cell(
+          c.president ??
+            (lang === "bg" ? "балотажът предстои" : "runoff pending"),
+        ),
+        cell(c.vicePresident ?? "—"),
+        c.decidedInRound === null ? "—" : fmtInt(c.decidedInRound, lang),
         fmtInt(c.tickets, lang),
         cell(c.leadPresident),
         // ⚠ `fmtPct`, NOT `.toFixed` — it is the file's own formatter and it writes a COMMA

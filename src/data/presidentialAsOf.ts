@@ -18,6 +18,7 @@
 // Plan: docs/plans/presidential-elections-v1.md T4.4.
 
 import catalogue from "./json/presidential_elections.json";
+import parliamentary from "./json/elections.json";
 import type { PresidentialElectionEntry } from "./presidentialCatalogue";
 
 export type PresidentialAsOf = {
@@ -44,6 +45,21 @@ const CYCLES: PresidentialElectionEntry[] = (
 )
   .slice()
   .sort((a, b) => b.round1Date.localeCompare(a.round1Date));
+
+/**
+ * The newest PARLIAMENTARY vote, as an ISO date.
+ *
+ * ⚠ SELECTING IT MEANS „NOW", NOT „AS OF THAT DAY". It is the selector's default, so a reader
+ * who never touched it is standing on it — and anchoring them to the presidency in effect on
+ * that day would hide a newer presidential vote (19.04.2026 → 2021 while 2026 exists). The
+ * time anchor still applies to every OLDER selection, which is the case it exists for.
+ */
+const LATEST_PARLIAMENTARY: string | undefined = (
+  parliamentary as { name: string }[]
+)
+  .map((e) => e.name.replace(/_/g, "-"))
+  .sort()
+  .at(-1);
 
 /**
  * `2013_05_12` → `2013-05-12`, and an ISO date through unchanged.
@@ -74,12 +90,13 @@ const at = (
  *   (`2019-10-27`), or nothing for „the newest". ⚠ A suffixed id works because the suffix
  *   sorts after the date it follows („2019-10-27-mi" > „2019-10-27"), so it lands on the
  *   same side of every comparison — but the DATE is the value to pass when you have it.
- * @returns The newest cycle when nothing is selected; otherwise the most recent one whose
- *   first round had been held by then, clamping to the oldest with `clampedToOldest`.
+ * @returns The newest cycle when nothing is selected or the newest parliamentary vote is;
+ *   otherwise the most recent one whose first round had been held by then, clamping to the
+ *   oldest with `clampedToOldest`.
  */
 export const presidentialAsOf = (selectedDate?: string): PresidentialAsOf => {
   const asOf = toIso(selectedDate);
-  if (!asOf) return at(CYCLES[0], false);
+  if (!asOf || asOf === LATEST_PARLIAMENTARY) return at(CYCLES[0], false);
   const match = CYCLES.find((e) => e.round1Date <= asOf);
   return match ? at(match, false) : at(CYCLES[CYCLES.length - 1], true);
 };

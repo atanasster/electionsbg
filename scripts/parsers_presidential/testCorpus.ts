@@ -14,12 +14,33 @@
 // Plan: docs/plans/presidential-elections-v1.md T2.6.
 
 import { readPresidentialRound } from "./readers";
-import { PRESIDENTIAL_CYCLES, roundFolderName } from "./sources";
+import {
+  PRESIDENTIAL_CYCLES,
+  PRESIDENTIAL_SOURCES,
+  roundFolderName,
+  type RoundNumber,
+} from "./sources";
 import { tallyRound, type RoundTally } from "./winnerRule";
 import type { PresidentialRound } from "./types";
 
 /** The cycle ids oldest first — the order a gate iterating history should use. */
 export const CYCLES_OLDEST_FIRST: string[] = [...PRESIDENTIAL_CYCLES].reverse();
+
+/**
+ * The rounds a cycle's `sources.ts` entry declares, ascending.
+ *
+ * ⚠ NOT always `[1, 2]`: a cycle whose runoff ЦИК has not yet published (2026) carries
+ * round 1 alone, so a gate that hard-codes both rounds reads a folder that does not exist.
+ */
+export const cycleRounds = (cycle: string): RoundNumber[] =>
+  (
+    Object.keys(PRESIDENTIAL_SOURCES[cycle].rounds).map(Number) as RoundNumber[]
+  ).sort((a, b) => a - b);
+
+/** The cycles whose runoff is published — every outcome-shaped gate's population. */
+export const CYCLES_WITH_RUNOFF: string[] = CYCLES_OLDEST_FIRST.filter((c) =>
+  cycleRounds(c).includes(2),
+);
 
 /**
  * Every committed round folder, for `assertCommitted`.
@@ -29,7 +50,7 @@ export const CYCLES_OLDEST_FIRST: string[] = [...PRESIDENTIAL_CYCLES].reverse();
  * exactly the half-restored working copy the helper exists to catch.
  */
 export const COMMITTED_ROUND_DIRS: string[] = CYCLES_OLDEST_FIRST.flatMap((c) =>
-  [1, 2].map((r) => `raw_data/${c}/${roundFolderName(r as 1 | 2)}`),
+  cycleRounds(c).map((r) => `raw_data/${c}/${roundFolderName(r)}`),
 );
 
 const rounds = new Map<string, PresidentialRound>();

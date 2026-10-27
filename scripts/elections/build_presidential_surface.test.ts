@@ -37,7 +37,10 @@ const CYCLES = [
   "2011_10_23_pvr",
   "2016_11_06_pvr",
   "2021_11_14_pvr",
+  "2026_10_25_pvr",
 ];
+/** The cycle whose sections are emitted — the newest, round 1 only while its runoff is pending. */
+const LATEST = "2026_10_25_pvr";
 
 const cache = new Map<string, ReturnType<typeof buildPresidentialSurfaces>>();
 const built = (cycle: string) => {
@@ -58,11 +61,11 @@ describe.runIf(hasCorpus)("presidential surfaces", () => {
     // asks for. Bounding them mirrors how every other kind is bounded (parliamentary: the
     // latest; local: the latest two) and keeps every PLACE level for all five, which is what a
     // reader actually browses.
-    expect(sectionArtifactCycle()).toBe("2021_11_14_pvr");
+    expect(sectionArtifactCycle()).toBe(LATEST);
     expect(
-      built("2021_11_14_pvr").filter((b) => b.level === "section").length,
+      built(LATEST).filter((b) => b.level === "section").length,
     ).toBeGreaterThan(10_000);
-    for (const cycle of CYCLES.filter((c) => c !== "2021_11_14_pvr"))
+    for (const cycle of CYCLES.filter((c) => c !== LATEST))
       expect(
         built(cycle).filter((b) => b.level === "section"),
         cycle,
@@ -76,7 +79,7 @@ describe.runIf(hasCorpus)("presidential surfaces", () => {
     // ⚠ DERIVED FROM THE POLICY, not a list. The orchestrator throws when a level emits and
     // has no producer, so this is the other direction — a producer for a level the policy
     // does NOT emit would write objects nothing serves.
-    const levels = new Set(built("2021_11_14_pvr").map((b) => b.level));
+    const levels = new Set(built(LATEST).map((b) => b.level));
     expect([...levels].sort()).toEqual(
       [...emittedLevels("presidential")].sort(),
     );
@@ -107,6 +110,10 @@ describe.runIf(hasCorpus)("presidential surfaces", () => {
     expect(s.ballots[0].totals.validVotes).not.toBe(
       s.ballots[1].totals.validVotes,
     );
+    // ⚠ A runoff-pending cycle carries round 1 ALONE — never an empty round-2 ballot.
+    expect(at(LATEST, "region", "BGS").ballots.map((b) => b.round)).toEqual([
+      1,
+    ]);
   });
 
   it("ranks a PERSON, with the ballot number and no party id", () => {
@@ -177,17 +184,17 @@ describe.runIf(hasCorpus)("presidential surfaces", () => {
           `${cycle}/${b.level}/${b.id}`,
         ).not.toContain("paper_machine");
     // ⚠ THE CONTROL, AND IT WAS A TAUTOLOGY — `expect(x || true).toBe(true)` passes for every
-    // x, so the sweep above was asserting that a rule which never fires never fires. 2021 must
-    // actually carry the fact.
-    const with2021 = built("2021_11_14_pvr").filter((b) =>
+    // x, so the sweep above was asserting that a rule which never fires never fires. The
+    // latest cycle — the one with sections — must actually carry the fact.
+    const withMachines = built(LATEST).filter((b) =>
       b.surface.facts.some((f) => f.code === "paper_machine"),
     );
-    expect(with2021.length).toBeGreaterThan(1_000);
+    expect(withMachines.length).toBeGreaterThan(1_000);
     // ⚠ AND A MACHINE NOBODY USED IS A MEASURED 0%, not an absence. 22 sections across 2016
     // and 2021 have a machine present and zero machine votes; a rule keyed on the vote TOTAL
     // dropped the fact on every one of them, leaving three facts where the level declares
     // four. This is the other direction of the same distinction.
-    const zeroWithMachine = built("2021_11_14_pvr").filter(
+    const zeroWithMachine = built(LATEST).filter(
       (b) =>
         b.level === "section" &&
         b.surface.facts.some(
@@ -315,7 +322,7 @@ describe.runIf(hasCorpus)("presidential surfaces", () => {
             );
             sectionsWithLink += 1;
           } else {
-            // 1,601 of 2021's sections have no ЕКАТТЕ — abroad, mobile boxes, ships.
+            // Sections with no ЕКАТТЕ — abroad, mobile boxes, ships.
             expect(cr.reason, where).toBe("no_data_for_place");
           }
           continue;

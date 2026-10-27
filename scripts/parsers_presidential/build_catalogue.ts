@@ -164,7 +164,9 @@ export const buildCatalogueEntry = (
 
   const tally1 = tallyRound(round1);
   const tally2 = runoff ? tallyRound(runoff) : undefined;
-  const outcome = decideCycle(tally1, tally2);
+  const outcome = decideCycle(tally1, tally2, {
+    runoffPending: !source.rounds[2],
+  });
   const rounds: PresidentialElectionEntry["rounds"] = {
     1: roundCapabilities(round1, tally1, source.rounds[1].flashRecords),
   };
@@ -172,7 +174,7 @@ export const buildCatalogueEntry = (
     rounds[2] = roundCapabilities(
       runoff,
       tally2,
-      source.rounds[2].flashRecords,
+      source.rounds[2]?.flashRecords,
     );
   }
   return {
@@ -180,7 +182,7 @@ export const buildCatalogueEntry = (
     round1Date: round1.date,
     round2Date: runoff ? runoff.date : null,
     decidedInRound: outcome.decidedInRound,
-    winnerTicket: {
+    winnerTicket: outcome.winner && {
       number: outcome.winner.number,
       president: outcome.winner.president,
       vicePresident: outcome.winner.vicePresident,
@@ -205,7 +207,7 @@ const main = (): void => {
   for (const e of built) {
     console.log(
       `[catalogue] ${e.name}: ${e.tickets} ticket(s), decided in round ` +
-        `${e.decidedInRound} by ${e.winnerTicket.president}; ` +
+        `${e.decidedInRound ?? "— (runoff pending)"} by ${e.winnerTicket?.president ?? "nobody yet"}; ` +
         Object.entries(e.rounds)
           .map(
             ([r, c]) =>

@@ -89,8 +89,10 @@ export interface PresidentialSummary {
   cycle: string;
   round1Date: string;
   round2Date: string | null;
-  decidedInRound: 1 | 2;
-  winner: { number: number; president: string; vicePresident: string };
+  /** `null` = RUNOFF PENDING: round 1 elected nobody and the runoff is not published. */
+  decidedInRound: 1 | 2 | null;
+  /** `null` while the runoff is pending — never the round-1 leader. */
+  winner: { number: number; president: string; vicePresident: string } | null;
   rounds: PresidentialSummaryRound[];
   /** ⚠ `null` when there was no runoff — and a ticket absent from the runoff did not fall to
    *  zero, it was not standing, which is why this covers the survivors only. */
@@ -169,9 +171,19 @@ export const isPresidentialSummary = (v: unknown): v is PresidentialSummary => {
   if (typeof v !== "object" || v === null) return false;
   const s = v as Record<string, unknown>;
   if (typeof s.cycle !== "string" || !s.cycle) return false;
-  if (s.decidedInRound !== 1 && s.decidedInRound !== 2) return false;
+  if (
+    s.decidedInRound !== 1 &&
+    s.decidedInRound !== 2 &&
+    s.decidedInRound !== null
+  ) {
+    return false;
+  }
   if (!Array.isArray(s.rounds) || s.rounds.length === 0) return false;
   if (!s.rounds.every(isRound)) return false;
-  const w = s.winner as Record<string, unknown> | undefined;
+  // Pending ⇔ no winner, and pending is a round-1-only state.
+  if (s.decidedInRound === null) {
+    return s.winner === null && s.rounds.length === 1;
+  }
+  const w = s.winner as Record<string, unknown> | null | undefined;
   return typeof w?.president === "string" && typeof w?.number === "number";
 };

@@ -179,8 +179,13 @@ export const presidentialSearchSource = (
         href: CYCLE_SURFACE.presidential.href(e.name),
         // ⚠ THE YEAR, NOT THE FOLDER ID. „2021_11_14_pvr" is a key; this module's siblings
         // learned the same lesson on `_mi`.
-        label: `${e.round1Date.slice(0, 4)} — ${e.winnerTicket.president}`,
-        sub: e.winnerTicket.vicePresident,
+        // A pending cycle has no winner yet: name the state instead of the round-1
+        // leader, who is not the president-elect. Cyrillic like every other label here —
+        // the entries are names, which are not translated either.
+        label: e.winnerTicket
+          ? `${e.round1Date.slice(0, 4)} — ${e.winnerTicket.president}`
+          : `${e.round1Date.slice(0, 4)} — първи тур, балотаж предстои`,
+        sub: e.winnerTicket?.vicePresident ?? "",
       }),
       // ⚠ THE VICE-PRESIDENT IS A SEARCH KEY TOO. A ticket is a pair, and a reader looking
       // for Йотова is looking for a person who was on the ballot and won.
@@ -192,8 +197,8 @@ export const presidentialSearchSource = (
       // the 75 tickets those cycles carried.
       (e) => [
         e.round1Date.slice(0, 4),
-        ...e.winnerTicket.president.split(/\s+/),
-        ...e.winnerTicket.vicePresident.split(/\s+/),
+        ...(e.winnerTicket?.president.split(/\s+/) ?? []),
+        ...(e.winnerTicket?.vicePresident.split(/\s+/) ?? []),
       ],
       // Newest first, matching every other cycle list on this hub. ⚠ The WHOLE date, not
       // the year: two cycles in one calendar year would otherwise tie and fall back to

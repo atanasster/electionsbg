@@ -248,9 +248,11 @@ export interface CycleOutcome {
   cycle: string;
   round1: RoundTally;
   runoff?: RoundTally;
-  decidedInRound: 1 | 2;
-  /** The elected ticket, from the round that decided it. */
-  winner: TicketStanding;
+  /** `null` = RUNOFF PENDING: round 1 elected nobody and the runoff is not published
+   *  yet. Never a guessed round. */
+  decidedInRound: 1 | 2 | null;
+  /** The elected ticket, from the round that decided it — `null` while pending. */
+  winner: TicketStanding | null;
 }
 
 /**
@@ -258,13 +260,18 @@ export interface CycleOutcome {
  *
  * @param round1 - The first round's tally.
  * @param runoff - The runoff's tally, when the cycle had one.
+ * @param opts.runoffPending - `sources.ts` catalogues no runoff archive yet (the runoff
+ *   is a separate ЦИК publish a week after round 1). Only then may a non-decisive round 1
+ *   stand alone, and the outcome is `decidedInRound: null`, `winner: null` — never the
+ *   round-1 leader. A round 1 that elects outright is decided whatever this says.
  * @throws If round 1 was won outright and a runoff is supplied anyway, or if it was not
- *   and no runoff is — both are contradictions between the rule and the corpus, and
- *   resolving either silently would publish an outcome nothing supports.
+ *   and no runoff is (and none is pending) — both are contradictions between the rule and
+ *   the corpus, and resolving either silently would publish an outcome nothing supports.
  */
 export const decideCycle = (
   round1: RoundTally,
   runoff?: RoundTally,
+  opts: { runoffPending?: boolean } = {},
 ): CycleOutcome => {
   // ⚠ The two tallies are separate arguments, so nothing but this stops a caller pairing
   // one cycle's first round with another's runoff — which would publish a winner who
@@ -292,6 +299,14 @@ export const decideCycle = (
         `of valid votes, ${((round1.turnout ?? 0) * 100).toFixed(2)}% turnout), yet a ` +
         `runoff was held — the rule and the corpus disagree`,
     );
+  }
+  if (opts.runoffPending && runoff) {
+    throw new Error(
+      `winnerRule: ${round1.cycle} is marked runoff-pending, but a runoff was supplied`,
+    );
+  }
+  if (!round1.winsOutright && !runoff && opts.runoffPending) {
+    return { cycle: round1.cycle, round1, decidedInRound: null, winner: null };
   }
   if (!round1.winsOutright && !runoff) {
     throw new Error(

@@ -102,9 +102,10 @@ export const UNAVAILABLE_SIGNALS: {
   {
     id: "suemgMismatch",
     reason:
-      "Няма сравнение с флаш паметта по секции — само национално, и то само за 2021 г.",
-    reasonEn:
-      "No per-section flash-memory comparison — national totals only, and only for 2021.",
+      // ⚠ No year list: every machine-voting cycle now carries the national comparison
+      // (2021, 2026), and a named year goes stale with the next one.
+      "Няма сравнение с флаш паметта по секции — само на национално ниво.",
+    reasonEn: "No per-section flash-memory comparison — national totals only.",
   },
 ];
 

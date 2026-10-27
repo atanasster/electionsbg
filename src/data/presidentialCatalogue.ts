@@ -100,8 +100,11 @@ export interface PresidentialElectionEntry {
    * five cycles in this corpus went to a runoff, so a surface that assumes 1 is testable
    * only against a cycle that has not happened yet.
    */
-  decidedInRound: 1 | 2;
-  /** The elected pair, from the round that decided it. */
+  decidedInRound: 1 | 2 | null;
+  /** The elected pair, from the round that decided it.
+   *
+   * ⚠ `null` together with `decidedInRound: null` = RUNOFF PENDING: round 1 elected
+   * nobody and ЦИК has not published the runoff yet. Never the round-1 leader. */
   winnerTicket: {
     /**
      * Ballot number.
@@ -115,7 +118,7 @@ export interface PresidentialElectionEntry {
     number: number;
     president: string;
     vicePresident: string;
-  };
+  } | null;
   /**
    * Ballot lines in ROUND 1.
    *
@@ -162,7 +165,7 @@ export const PRESIDENTIAL_CATALOGUE = catalogue as PresidentialElectionEntry[];
  * `electionsHubCycle.ts` anyway. There is no byte cost either way: the registry is lazy and
  * those JSONs are in the entry chunk through `ElectionContext`.
  */
-export const LATEST_PRESIDENTIAL_CYCLE = "2021_11_14_pvr";
+export const LATEST_PRESIDENTIAL_CYCLE = "2026_10_25_pvr";
 
 /**
  * One cycle's catalogue row, by folder id.
@@ -226,19 +229,29 @@ export const isPresidentialElectionEntry = (
   if (typeof e.name !== "string" || !e.name.endsWith("_pvr")) return false;
   if (!isIsoDate(e.round1Date)) return false;
   if (e.round2Date !== null && !isIsoDate(e.round2Date)) return false;
-  if (e.decidedInRound !== 1 && e.decidedInRound !== 2) return false;
+  if (
+    e.decidedInRound !== 1 &&
+    e.decidedInRound !== 2 &&
+    e.decidedInRound !== null
+  ) {
+    return false;
+  }
   // ⚠ INTEGER, and at least two: art. 93 (4) sends the top TWO to a runoff, so a cycle
   // cannot have had fewer ballot lines than that. A bare `>= 2` admits `2.5`.
   if (!Number.isInteger(e.tickets) || (e.tickets as number) < 2) return false;
-  const w = e.winnerTicket as Record<string, unknown> | undefined;
+  const w = e.winnerTicket as Record<string, unknown> | null | undefined;
+  // Pending ⇔ no winner: a winner beside `decidedInRound: null` names a president nobody
+  // elected, and a null winner beside a decided round hides one who was.
+  if ((w === null) !== (e.decidedInRound === null)) return false;
   if (
-    typeof w !== "object" ||
-    w === null ||
-    !isBallotNumber(w.number) ||
-    typeof w.president !== "string" ||
-    !w.president ||
-    typeof w.vicePresident !== "string" ||
-    !w.vicePresident
+    w !== null &&
+    (typeof w !== "object" ||
+      w === null ||
+      !isBallotNumber(w.number) ||
+      typeof w.president !== "string" ||
+      !w.president ||
+      typeof w.vicePresident !== "string" ||
+      !w.vicePresident)
   ) {
     return false;
   }
@@ -256,6 +269,7 @@ export const isPresidentialElectionEntry = (
   // Checking one way admits `{ round2Date: "…", decidedInRound: 1 }` — the shape a
   // hand-edit of a single field produces, on the field every consumer branches on to pick
   // which round to render as the result.
-  if ((e.round2Date === null) !== (e.decidedInRound === 1)) return false;
+  // A pending cycle has no runoff yet, so it sits on the round2Date-null side.
+  if ((e.round2Date === null) !== (e.decidedInRound !== 2)) return false;
   return keys.every((k) => isRoundInfo(rounds[k]));
 };

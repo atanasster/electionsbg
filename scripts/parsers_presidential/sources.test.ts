@@ -10,8 +10,10 @@ import {
   roundFolderName,
   type RoundNumber,
   type RoundSource,
+  roundSpec,
 } from "./sources";
 import { decodeBundleText } from "./encoding";
+import { DATA_FOLDER_2026 } from "./era2026";
 import { PRESIDENT_BLOCK } from "../machines_memory/index";
 import {
   electionFolderIsoDate,
@@ -26,8 +28,9 @@ const RAW = path.join(PROJECT_ROOT, "raw_data");
 const entries = Object.values(PRESIDENTIAL_SOURCES);
 
 describe("the source map is internally consistent", () => {
-  it("covers the five machine-readable cycles", () => {
+  it("covers the six machine-readable cycles", () => {
     expect(PRESIDENTIAL_CYCLES).toEqual([
+      "2026_10_25_pvr",
       "2021_11_14_pvr",
       "2016_11_06_pvr",
       "2011_10_23_pvr",
@@ -65,6 +68,8 @@ describe("the source map is internally consistent", () => {
 
   it("holds round 2 a week after round 1, as the constitution requires", () => {
     for (const source of entries) {
+      // A cycle between its two publishes catalogues round 1 alone.
+      if (!source.rounds[2]) continue;
       const r1 = Date.parse(`${source.rounds[1].date}T00:00:00Z`);
       const r2 = Date.parse(`${source.rounds[2].date}T00:00:00Z`);
       expect((r2 - r1) / 86_400_000, source.cycle).toBe(7);
@@ -74,7 +79,9 @@ describe("the source map is internally consistent", () => {
   it("points every round at an archive that exists in its own entry", () => {
     for (const source of entries) {
       for (const round of [1, 2] as RoundNumber[]) {
-        const key = source.rounds[round].archive;
+        const spec = source.rounds[round];
+        if (!spec) continue;
+        const key = spec.archive;
         expect(
           Object.keys(source.archives),
           `${source.cycle} round ${round}`,
@@ -159,7 +166,11 @@ describe("the map matches the trees on disk", () => {
       // A real skip, not a bare return: Vitest renders a green tick for the latter, so
       // a `git mv` of a tree would turn this test PASSED rather than red — the exact
       // defect it exists to catch.
-      for (const round of [1, 2] as RoundNumber[]) {
+      // ⚠ The rounds the map DECLARES, not `[1, 2]`: a runoff-pending cycle has no ТУР2.
+      const rounds = Object.keys(PRESIDENTIAL_SOURCES[cycle].rounds).map(
+        Number,
+      ) as RoundNumber[];
+      for (const round of rounds) {
         const roundDir = path.join(dir, roundFolderName(round));
         expect(fs.existsSync(roundDir), `${cycle}/ТУР${round}`).toBe(true);
         expect(
@@ -189,6 +200,7 @@ describe("the map matches the trees on disk", () => {
     expect(PRESIDENTIAL_SOURCES["2011_10_23_pvr"].encoding).toBe("cp1251");
     expect(PRESIDENTIAL_SOURCES["2016_11_06_pvr"].encoding).toBe("utf8");
     expect(PRESIDENTIAL_SOURCES["2021_11_14_pvr"].encoding).toBe("utf8");
+    expect(PRESIDENTIAL_SOURCES["2026_10_25_pvr"].encoding).toBe("utf8");
   });
 
   // ⚠ A length check protects nothing — forty characters of any text passes. The
@@ -197,6 +209,7 @@ describe("the map matches the trees on disk", () => {
   // cycle different.
   it("says how each cycle differs, in words that are in the note", () => {
     const mustMention: Record<string, RegExp> = {
+      "2026_10_25_pvr": /RUNOFF PENDING/,
       "2021_11_14_pvr": /suemg|machine/i,
       "2016_11_06_pvr": /referendum/i,
       "2011_10_23_pvr": /oblast|ОИК/i,
@@ -204,6 +217,8 @@ describe("the map matches the trees on disk", () => {
       "2001_11_11_pvr": /Деметра/,
     };
     for (const source of entries) {
+      // ⚠ An unlisted cycle would hand `toMatch` undefined and pass vacuously.
+      expect(mustMention[source.cycle], source.cycle).toBeInstanceOf(RegExp);
       expect(source.note, source.cycle).toMatch(mustMention[source.cycle]);
     }
   });
@@ -261,7 +276,10 @@ describe("the map matches the trees on disk", () => {
   for (const cycle of Object.keys(PRESIDENTIAL_SOURCES)) {
     it(`${cycle} decodes with its OWN declared encoding`, () => {
       const source = PRESIDENTIAL_SOURCES[cycle];
-      const dir = path.join(RAW, cycle, roundFolderName(1));
+      // ⚠ 2026 nests its text files one level down, in „Актуализирана база данни/".
+      const roundDir = path.join(RAW, cycle, roundFolderName(1));
+      const nested = path.join(roundDir, DATA_FOLDER_2026);
+      const dir = fs.existsSync(nested) ? nested : roundDir;
       const file = fs
         .readdirSync(dir)
         .filter((f) => /\.(txt|201)$/i.test(f))
@@ -323,8 +341,11 @@ describe("each ТУРn holds its own round, not its sibling's", () => {
         const dir = path.join(RAW, cycle, roundFolderName(round));
         const names = fs.readdirSync(dir);
         const other = (round === 1 ? 2 : 1) as RoundNumber;
-        const mine = ROUND_FINGERPRINT[cycle](round, source.rounds[round]);
-        const theirs = ROUND_FINGERPRINT[cycle](other, source.rounds[other]);
+        const mine = ROUND_FINGERPRINT[cycle](round, roundSpec(source, round));
+        const theirs = ROUND_FINGERPRINT[cycle](
+          other,
+          roundSpec(source, other),
+        );
         expect(
           names.some((n) => mine.test(n)),
           `${cycle}/ТУР${round} carries its own round (${mine})`,
@@ -342,8 +363,8 @@ describe("each ТУРn holds its own round, not its sibling's", () => {
   it("the fingerprints discriminate", () => {
     for (const cycle of Object.keys(ROUND_FINGERPRINT)) {
       const s = PRESIDENTIAL_SOURCES[cycle];
-      const one = ROUND_FINGERPRINT[cycle](1, s.rounds[1]).source;
-      const two = ROUND_FINGERPRINT[cycle](2, s.rounds[2]).source;
+      const one = ROUND_FINGERPRINT[cycle](1, roundSpec(s, 1)).source;
+      const two = ROUND_FINGERPRINT[cycle](2, roundSpec(s, 2)).source;
       expect(one, cycle).not.toBe(two);
     }
   });

@@ -38,7 +38,8 @@ describe("presidentialRows", () => {
       [...(catalogue as PresidentialElectionEntry[])].reverse(),
     );
     expect(scrambled.map((r) => r.name)).toEqual(rows.map((r) => r.name));
-    expect(rows[0].name).toBe("2021_11_14_pvr");
+    expect(rows[0].name).toBe("2026_10_25_pvr");
+    expect(rows[1].name).toBe("2021_11_14_pvr");
   });
 
   it("labels a row with its round-1 date, formatted", () => {
@@ -67,8 +68,17 @@ describe("presidentialRows", () => {
     // ⚠ 2006 publishes a TWO-part name („Георги Първанов"), so „the third token" would be
     // empty here — the row would render a date and a bare separator.
     expect(byName.get("2006_10_22_pvr")!.winnerSurname).toBe("Първанов");
-    // Every cycle in this corpus went to a runoff, which is why the row says so.
-    expect(rows.every((r) => r.decidedInRound === 2)).toBe(true);
+    // Every DECIDED cycle in this corpus went to a runoff, which is why the row says so.
+    const decided = rows.filter((r) => r.name !== "2026_10_25_pvr");
+    expect(decided).toHaveLength(5);
+    expect(decided.every((r) => r.decidedInRound === 2)).toBe(true);
+    // ⚠ 2026 is RUNOFF PENDING: no round, and no surname — never the round-1 leader's.
+    const pending = byName.get("2026_10_25_pvr")!;
+    expect(pending.decidedInRound).toBeNull();
+    expect(pending.winnerSurname).toBe("");
+    expect(decidedLabelKey(pending.decidedInRound)).toBe(
+      "presidential_runoff_pending",
+    );
   });
 });
 
@@ -111,6 +121,8 @@ describe("decidedLabelKey", () => {
     // would otherwise render „балотаж" — a specific claim — rather than nothing.
     expect(decidedLabelKey(3)).toBeNull();
     expect(decidedLabelKey(0)).toBeNull();
+    // `null` is the pending state, and it is the ONLY non-round value with a label.
+    expect(decidedLabelKey(null)).toBe("presidential_runoff_pending");
   });
 });
 

@@ -5,7 +5,11 @@ import path from "node:path";
 import { assertCommitted } from "../lib/assert_committed";
 import { ingestAllPresidential, ingestPresidentialCycle } from "./ingest";
 import { fileURLToPath } from "node:url";
-import { COMMITTED_ROUND_DIRS, CYCLES_OLDEST_FIRST } from "./testCorpus";
+import {
+  COMMITTED_ROUND_DIRS,
+  CYCLES_OLDEST_FIRST,
+  cycleRounds,
+} from "./testCorpus";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -45,7 +49,7 @@ describe("the tree a run writes", () => {
           `${cycle}/${name}`,
         ).toBe(true);
       }
-      for (const round of [1, 2]) {
+      for (const round of cycleRounds(cycle)) {
         for (const name of [
           "region_votes.json",
           "municipality_votes.json",
@@ -58,6 +62,12 @@ describe("the tree a run writes", () => {
             `${cycle}/tur${round}/${name}`,
           ).toBe(true);
         }
+      }
+      // …and no runoff folder for a cycle whose runoff is not yet published.
+      if (!cycleRounds(cycle).includes(2)) {
+        expect(fs.existsSync(path.join(withTree(), cycle, "tur2")), cycle).toBe(
+          false,
+        );
       }
     }
   });
@@ -206,8 +216,8 @@ describe("region_votes reconciles with national_summary", () => {
   it("agrees with the summary about the winner and the ticket totals", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
       const summary = read(cycle, "national_summary.json") as {
-        winner: { number: number };
-        decidedInRound: number;
+        winner: { number: number } | null;
+        decidedInRound: number | null;
         rounds: {
           round: number;
           ranking: { number: number; votes: number }[];
@@ -217,12 +227,17 @@ describe("region_votes reconciles with national_summary", () => {
         tickets: { number: number; rounds: number[] }[];
       };
       // The winner is on the ballot the catalogue publishes, and stood in the round
-      // that decided it.
-      const winner = tickets.tickets.find(
-        (t) => t.number === summary.winner.number,
-      );
-      expect(winner, cycle).toBeDefined();
-      expect(winner!.rounds, cycle).toContain(summary.decidedInRound);
+      // that decided it. ⚠ A runoff-pending cycle (2026) has neither, and says so.
+      if (!cycleRounds(cycle).includes(2)) {
+        expect(summary.winner, cycle).toBeNull();
+        expect(summary.decidedInRound, cycle).toBeNull();
+      } else {
+        const winner = tickets.tickets.find(
+          (t) => t.number === summary.winner!.number,
+        );
+        expect(winner, cycle).toBeDefined();
+        expect(winner!.rounds, cycle).toContain(summary.decidedInRound);
+      }
 
       // Every ranked ticket is in the catalogue, and vice versa for round 1.
       const r1 = summary.rounds.find((r) => r.round === 1)!;

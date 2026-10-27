@@ -23,7 +23,9 @@ import { PRESIDENTIAL_SOURCES, roundFolderName } from "./sources";
 import {
   COMMITTED_ROUND_DIRS,
   CYCLES_OLDEST_FIRST,
+  CYCLES_WITH_RUNOFF,
   corpusRound,
+  cycleRounds,
   corpusTally as tally,
 } from "./testCorpus";
 import { decideCycle, type RoundTally } from "./winnerRule";
@@ -68,7 +70,8 @@ const votesOf = (t: RoundTally, surnames: string[]): Record<string, number> => {
  */
 const ANCHORS: Record<
   string,
-  { round1: Record<string, number>; round2: Record<string, number> }
+  // ⚠ `round2` is absent only for a runoff-pending cycle (2026).
+  { round1: Record<string, number>; round2?: Record<string, number> }
 > = {
   "2001_11_11_pvr": {
     round1: {
@@ -122,6 +125,16 @@ const ANCHORS: Record<
     },
     round2: { Радев: 1_539_650, Герджиков: 733_791 },
   },
+  // ЦИК's round-1 protocol (2026-10-27); the runoff is not published yet.
+  "2026_10_25_pvr": {
+    round1: {
+      Йотова: 528_951,
+      Гюров: 486_232,
+      Костадинов: 190_910,
+      Василев: 70_127,
+      Михайлов: 57_643,
+    },
+  },
 };
 
 /**
@@ -154,9 +167,10 @@ describe("the §2.4 anchors, through the dispatcher", () => {
       }
     });
 
+    if (!CYCLES_WITH_RUNOFF.includes(cycle)) continue;
     it(`${cycle} round 2`, () => {
       // A runoff lists BOTH its tickets, so this is exhaustive for every cycle.
-      const want = ANCHORS[cycle].round2;
+      const want = ANCHORS[cycle].round2!;
       const t = tally(cycle, 2);
       expect(votesOf(t, Object.keys(want))).toEqual(want);
       expect(t.ranking).toHaveLength(2);
@@ -170,6 +184,19 @@ describe("the published valid-vote totals", () => {
     // the official share is computed over.
     expect(tally("2021_11_14_pvr", 1).validVotes).toBe(2_675_935);
     expect(tally("2016_11_06_pvr", 1).validVotes).toBe(3_827_650);
+  });
+
+  it("reproduces 2026's round-1 protocol, with its known −2 residue", () => {
+    const t = tally("2026_10_25_pvr", 1);
+    expect(t.registeredVoters).toBe(6_584_025);
+    expect(t.signatures).toBe(1_525_034);
+    expect(t.noneOfTheAbove).toBe(67_353);
+    // ⚠ votes.txt sums two short of the protocols' own valid total.
+    expect(t.validVotes).toBe(1_521_710);
+    expect(t.protocolValidVotes).toBe(1_521_712);
+    const r = corpusRound("2026_10_25_pvr", 1);
+    expect(r.sections).toHaveLength(12_719);
+    expect(r.sections.filter((x) => x.code.startsWith("32"))).toHaveLength(613);
   });
 
   it("reproduces 2006's three published electorate figures", () => {
@@ -221,8 +248,8 @@ describe("the computed outcome against the corpus's own witness", () => {
       tally("2011_10_23_pvr", 2),
     );
     expect(o.decidedInRound).toBe(2);
-    expect(o.winner.number).toBe(elected[0].number);
-    expect(o.winner.votes).toBe(elected[0].votes);
+    expect(o.winner!.number).toBe(elected[0].number);
+    expect(o.winner!.votes).toBe(elected[0].votes);
   });
 
   it("agrees with 2016's elected flag", () => {
@@ -239,7 +266,7 @@ describe("the computed outcome against the corpus's own witness", () => {
       tally("2016_11_06_pvr", 2),
     );
     expect(o.decidedInRound).toBe(2);
-    expect(o.winner.number).toBe(r2.electedNumbers[0]);
+    expect(o.winner!.number).toBe(r2.electedNumbers[0]);
   });
 
   // ⚠ 2001 publishes a THIRD witness that nothing reads yet: its `[MAJ]` rows carry an
@@ -271,7 +298,7 @@ describe("the per-section residue in the runoffs", () => {
         .filter((x) => x !== 0);
       return { n: d.length, net: d.reduce((a, b) => a + b, 0) };
     };
-    for (const cycle of CYCLES_OLDEST_FIRST.filter(
+    for (const cycle of CYCLES_WITH_RUNOFF.filter(
       (c) => c !== "2021_11_14_pvr",
     )) {
       expect(residue(cycle), cycle).toEqual({ n: 0, net: 0 });
@@ -293,7 +320,7 @@ describe("invariants every era shares", () => {
       expect(r.cycle, source.cycle).toBe(source.cycle);
       expect(r.date, source.cycle).toBe(source.rounds[1].date);
     }
-    expect(CYCLES_OLDEST_FIRST).toHaveLength(5);
+    expect(CYCLES_OLDEST_FIRST).toHaveLength(6);
   });
 
   it("refuses a cycle it does not know", () => {
@@ -303,7 +330,7 @@ describe("invariants every era shares", () => {
   });
 
   it("gives every runoff exactly two tickets, both from round 1", () => {
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       const r2 = corpusRound(cycle, 2);
       expect(r2.tickets, cycle).toHaveLength(2);
       const r1 = new Set(corpusRound(cycle, 1).tickets.map((t) => t.number));
@@ -325,6 +352,7 @@ describe("invariants every era shares", () => {
       "2011_10_23_pvr": "29",
       "2016_11_06_pvr": "32",
       "2021_11_14_pvr": "32",
+      "2026_10_25_pvr": "32",
     };
     for (const [cycle, prefix] of Object.entries(expected)) {
       const codes = new Set(
@@ -339,7 +367,7 @@ describe("invariants every era shares", () => {
 
   it("gives every section a nine-digit code, unique within its round", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
-      for (const round of [1, 2] as const) {
+      for (const round of cycleRounds(cycle)) {
         const s = corpusRound(cycle, round).sections;
         expect(
           s.every((x) => /^\d{9}$/.test(x.code)),
@@ -357,7 +385,7 @@ describe("invariants every era shares", () => {
   // source inconsistency and no allowlist.
   it("splits every vote into paper and machine exactly", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
-      for (const round of [1, 2] as const) {
+      for (const round of cycleRounds(cycle)) {
         for (const s of corpusRound(cycle, round).sections) {
           for (const v of s.votes) {
             expect(
@@ -396,7 +424,7 @@ describe("invariants every era shares", () => {
     }
   });
 
-  it("has machine votes only in 2016 and 2021", () => {
+  it("has machine votes only from 2016 on", () => {
     const machineVotes = (cycle: string): number =>
       corpusRound(cycle, 1).sections.reduce(
         (a, s) => a + s.votes.reduce((b, v) => b + (v.machineVotes ?? 0), 0),
@@ -404,11 +432,12 @@ describe("invariants every era shares", () => {
       );
     expect(machineVotes("2016_11_06_pvr")).toBeGreaterThan(0);
     expect(machineVotes("2021_11_14_pvr")).toBeGreaterThan(0);
+    expect(machineVotes("2026_10_25_pvr")).toBeGreaterThan(0);
   });
 
   it("gives every ticket a president, a vice-president and a canonical key", () => {
     for (const cycle of CYCLES_OLDEST_FIRST) {
-      for (const round of [1, 2] as const) {
+      for (const round of cycleRounds(cycle)) {
         for (const t of corpusRound(cycle, round).tickets) {
           expect(
             t.president.trim().length,
@@ -456,10 +485,12 @@ describe("invariants every era shares", () => {
       );
     expect([...parts("2006_10_22_pvr")], "2006 is two-part").toEqual([2]);
     for (const cycle of CYCLES_OLDEST_FIRST.filter(
-      (c) => c !== "2006_10_22_pvr",
+      (c) => c !== "2006_10_22_pvr" && c !== "2026_10_25_pvr",
     )) {
       expect([...parts(cycle)], `${cycle} is three-part`).toEqual([3]);
     }
+    // ⚠ 2026 has one FOUR-part name (Боян Боянов Станков Расате) — still never two.
+    expect([...parts("2026_10_25_pvr")].sort(), "2026").toEqual([3, 4]);
     // The consequence, stated as the measurement it is.
     expect(keyOf("2006_10_22_pvr", "Сидеров")).toBe("волен сидеров");
     expect(keyOf("2011_10_23_pvr", "Сидеров")).toBe("волен николов сидеров");

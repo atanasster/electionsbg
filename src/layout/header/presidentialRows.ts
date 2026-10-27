@@ -55,7 +55,8 @@ export type PresidentialRow = {
    */
   winnerSurname: string;
   /** 1 or 2. Rendered as words, never as a bare digit. */
-  decidedInRound: 1 | 2;
+  /** `null` = the runoff is still pending (and `winnerSurname` is empty). */
+  decidedInRound: 1 | 2 | null;
 };
 
 /**
@@ -100,7 +101,10 @@ export const surnameOf = (president: string): string => {
  * @param round - `decidedInRound` from the catalogue.
  * @returns A translation key, or `null` when the round is not one this corpus can describe.
  */
-export const decidedLabelKey = (round: number): string | null => {
+export const decidedLabelKey = (round: number | null): string | null => {
+  // ⚠ `null` is the catalogue's RUNOFF-PENDING state, and only `null` — an `undefined`
+  // from a malformed row still renders nothing rather than a claim about the future.
+  if (round === null) return "presidential_runoff_pending";
   if (round === 1) return "presidential_decided_round1";
   if (round === 2) return "presidential_decided_runoff";
   return null;
@@ -156,6 +160,6 @@ export const presidentialRows = (
       // catalogue publishes the date as data. A future cycle id that is not date-shaped
       // would render as „Invalid Date" from `name` and correctly from here.
       local: localDate(e.round1Date.replace(/-/g, "_")),
-      winnerSurname: surnameOf(e.winnerTicket.president),
+      winnerSurname: e.winnerTicket ? surnameOf(e.winnerTicket.president) : "",
       decidedInRound: e.decidedInRound,
     }));

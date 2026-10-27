@@ -32,6 +32,7 @@
 // tree, and "there were no files to measure" must not read as "every level is inside budget".
 
 import fs from "node:fs";
+import { PRESIDENTIAL_SOURCES } from "../parsers_presidential/sources";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -129,8 +130,15 @@ describe("surface budgets — §5.0's emit column against the corpus", () => {
       const wrong: string[] = [];
       for (const { kind, cycle } of CYCLES)
         for (const r of measureCycle(kind, cycle)) {
-          const min = EXPECTED_MIN_FILES[`${kind}/${r.level}`];
+          let min = EXPECTED_MIN_FILES[`${kind}/${r.level}`];
           if (min === undefined) continue;
+          // ⚠ A runoff-pending presidential cycle has ONE round, so one file per level.
+          if (
+            kind === "presidential" &&
+            min === 2 &&
+            !PRESIDENTIAL_SOURCES[cycle]?.rounds[2]
+          )
+            min = 1;
           if (r.files < min)
             wrong.push(
               `${kind}/${r.level} @ ${cycle}: ${r.files} files, expected at least ${min} ` +

@@ -9,7 +9,9 @@ import {
 import {
   COMMITTED_ROUND_DIRS,
   CYCLES_OLDEST_FIRST,
+  CYCLES_WITH_RUNOFF,
   corpusRound,
+  cycleRounds,
   pct,
 } from "./testCorpus";
 
@@ -19,8 +21,12 @@ const cache = new Map<string, NationalSummary>();
 const summary = (cycle: string): NationalSummary => {
   const hit = cache.get(cycle);
   if (hit) return hit;
-  const rounds = [1, 2].map((r) => corpusRound(cycle, r as 1 | 2));
-  const s = buildNationalSummary(rounds, rounds.map(aggregateRound));
+  // ⚠ The rounds the cycle HAS — 2026 is round 1 alone, its runoff pending.
+  const present = cycleRounds(cycle);
+  const rounds = present.map((r) => corpusRound(cycle, r));
+  const s = buildNationalSummary(rounds, rounds.map(aggregateRound), {
+    runoffPending: !present.includes(2),
+  });
   cache.set(cycle, s);
   return s;
 };
@@ -34,13 +40,44 @@ describe("the outcome", () => {
       "2016_11_06_pvr": "Румен Георгиев Радев",
       "2021_11_14_pvr": "Румен Георгиев Радев",
     };
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       const s = summary(cycle);
       expect(s.decidedInRound, cycle).toBe(2);
-      expect(s.winner.president, cycle).toBe(expected[cycle]);
+      expect(s.winner!.president, cycle).toBe(expected[cycle]);
       expect(s.round2Date, cycle).not.toBeNull();
       expect(s.rounds).toHaveLength(2);
     }
+  });
+
+  it("leaves 2026 pending: no winner, no runoff, no swing", () => {
+    const s = summary("2026_10_25_pvr");
+    expect(s.decidedInRound).toBeNull();
+    expect(s.winner).toBeNull();
+    expect(s.round2Date).toBeNull();
+    expect(s.swing).toBeNull();
+    expect(s.rounds).toHaveLength(1);
+    expect(s.rounds[0].outcome).toEqual({
+      meetsMajority: false,
+      meetsTurnout: false,
+      winsOutright: false,
+    });
+    // The top two — who go to the runoff — are Йотова (25) and Гюров (4).
+    expect(s.rounds[0].ranking.slice(0, 2).map((r) => r.number)).toEqual([
+      25, 4,
+    ]);
+    expect(pct(s.rounds[0].ranking[0].shareOfValid)).toBe("34.76");
+    expect(pct(s.rounds[0].ranking[1].shareOfValid)).toBe("31.95");
+    expect(pct(s.rounds[0].turnout.pct!)).toBe("23.16");
+    // ЦИК's round-1 protocol figures.
+    expect(s.rounds[0].votes.invalid).toBe(3_278);
+    expect(s.rounds[0].votes.noneOfTheAbove).toBe(67_353);
+    expect(s.rounds[0].votes.validResidue).toBe(-2);
+    expect(s.rounds[0].abroad.sections).toBe(613);
+    // ⚠ A summary without the flag is still a contradiction, never a silent pending.
+    const r = corpusRound("2026_10_25_pvr", 1);
+    expect(() => buildNationalSummary([r], [aggregateRound(r)])).toThrow(
+      /elects nobody/,
+    );
   });
 
   it("carries both art. 93 (3) conditions per round, not just their conjunction", () => {
@@ -196,7 +233,7 @@ describe("named bases", () => {
 // describe a collapse that never happened.
 describe("the round-to-round swing", () => {
   it("covers exactly the two tickets that reached the runoff", () => {
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       const s = summary(cycle);
       expect(s.swing, cycle).not.toBeNull();
       expect(s.swing!.tickets, cycle).toHaveLength(2);
@@ -223,7 +260,7 @@ describe("the round-to-round swing", () => {
   });
 
   it("reports the deltas as the arithmetic they are", () => {
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       for (const t of summary(cycle).swing!.tickets) {
         expect(t.deltaVotes, `${cycle}/${t.number}`).toBe(
           t.round2Votes - t.round1Votes,
@@ -238,13 +275,13 @@ describe("the round-to-round swing", () => {
     // eliminated candidates' voters. Turnout, by contrast, falls in four of the five —
     // 2001 is the exception, and a summary that assumed either direction would be wrong
     // somewhere.
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       for (const t of summary(cycle).swing!.tickets) {
         expect(t.deltaVotes, `${cycle}/${t.number}`).toBeGreaterThan(0);
       }
     }
     expect(summary("2001_11_11_pvr").swing!.turnoutDeltaPct).toBeGreaterThan(0);
-    for (const cycle of CYCLES_OLDEST_FIRST.filter(
+    for (const cycle of CYCLES_WITH_RUNOFF.filter(
       (c) => c !== "2001_11_11_pvr",
     )) {
       expect(summary(cycle).swing!.turnoutDeltaPct, cycle).toBeLessThan(0);
@@ -284,7 +321,7 @@ describe("the swing's join key", () => {
     expect(numbers("2001_11_11_pvr", 2)).toEqual([2, 5]);
     // …and in every cycle the two survivors keep their round-1 identity, which is what
     // makes the corpus safe today and the guard a control rather than a live fix.
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       for (const t of summary(cycle).swing!.tickets) {
         const r1 = summary(cycle).rounds[0].ranking.find(
           (x) => x.number === t.number,
@@ -297,7 +334,7 @@ describe("the swing's join key", () => {
   it("says whether the two rounds' turnout figures share a basis", () => {
     // ⚠ `turnoutDeltaPct` subtracts two ratios; the flag is what tells a consumer the
     // subtraction is meaningful. In 2006 both rounds are domestic-only, so it is.
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       expect(summary(cycle).swing!.turnoutBasesMatch, cycle).toBe(true);
     }
     expect(summary("2006_10_22_pvr").rounds[1].turnout.basis).toContain(

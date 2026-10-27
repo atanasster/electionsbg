@@ -241,7 +241,11 @@ describe("roundIsPresent", () => {
   // ~170 MB and rewrite trees that are already correct.
   for (const cycle of Object.keys(PRESIDENTIAL_SOURCES)) {
     it(`${cycle} is already on disk`, () => {
-      for (const round of [1, 2] as RoundNumber[]) {
+      // Only the rounds the map declares — a runoff-pending cycle has no ТУР2 yet.
+      const rounds = Object.keys(PRESIDENTIAL_SOURCES[cycle].rounds).map(
+        Number,
+      ) as RoundNumber[];
+      for (const round of rounds) {
         expect(roundIsPresent(cycle, round), `${cycle}/ТУР${round}`).toBe(true);
       }
     });

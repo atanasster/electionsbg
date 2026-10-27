@@ -742,8 +742,8 @@ const main = async () => {
   // bare „49.42%" on a share card reads as the final result — which it never was.
   type PvrSummary = {
     round1Date: string;
-    decidedInRound: 1 | 2;
-    winner: { president: string; vicePresident: string };
+    decidedInRound: 1 | 2 | null;
+    winner: { president: string; vicePresident: string } | null;
     rounds: {
       ranking: { number: number; president: string; shareOfValid: number }[];
       turnout: { pct: number | null };
@@ -782,12 +782,19 @@ const main = async () => {
           // one person is spelled the same on the card and in the menu — the hyphenated
           // „Боян Боянов Станков-Расате" (2021) is the only president whose name it has to
           // normalise at all.
-          label: "избран президент",
-          value: surnameOf(sum.winner.president),
+          // ⚠ A PENDING CYCLE HAS NO PRESIDENT-ELECT — the card names the round-1
+          // leader as exactly that, never as „избран".
+          label: sum.winner ? "избран президент" : "води на I тур",
+          value: surnameOf((sum.winner ?? r1.ranking[0]).president),
         },
         {
           label: "решен на",
-          value: sum.decidedInRound === 2 ? "балотаж" : "първи тур",
+          value:
+            sum.decidedInRound === 2
+              ? "балотаж"
+              : sum.decidedInRound === 1
+                ? "първи тур"
+                : "балотаж предстои",
         },
         { label: "двойки на I тур", value: `${r1.ranking.length}` },
         {
@@ -850,7 +857,12 @@ const main = async () => {
           { label: "гласове", value: lead.votes.toLocaleString("bg-BG") },
           {
             label: "решен на",
-            value: sum.decidedInRound === 2 ? "балотаж" : "първи тур",
+            value:
+              sum.decidedInRound === 2
+                ? "балотаж"
+                : sum.decidedInRound === 1
+                  ? "първи тур"
+                  : "балотаж предстои",
           },
         ],
         `presidential/region/${cycle}/${code}.png`,

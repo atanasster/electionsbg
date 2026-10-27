@@ -28,7 +28,7 @@ import { aggregateRound, writeRound, type AggregatedRound } from "./aggregate";
 import { buildNationalSummary } from "./nationalSummary";
 import { describePlacement } from "./places";
 import { readPresidentialRound } from "./readers";
-import { PRESIDENTIAL_CYCLES } from "./sources";
+import { PRESIDENTIAL_CYCLES, presidentialSource } from "./sources";
 import { buildTicketCatalogue } from "./tickets";
 import type { PresidentialRound } from "./types";
 import type { RoundNumber } from "./sources";
@@ -111,7 +111,11 @@ export const ingestPresidentialCycle = (
     aggs.push(aggregateRound(r));
   }
 
-  const summary = buildNationalSummary(rounds, aggs);
+  // ⚠ PENDING is a statement about the CATALOGUE, not about the folder: a cycle whose
+  // runoff archive is not in `sources.ts` yet is between its two publishes.
+  const summary = buildNationalSummary(rounds, aggs, {
+    runoffPending: !presidentialSource(cycle)?.rounds[2],
+  });
   const tickets = buildTicketCatalogue(rounds);
 
   const files: string[] = [];
@@ -129,8 +133,11 @@ export const ingestPresidentialCycle = (
   files.push(path.join(cycle, "tickets.json"));
 
   log(
-    `[pvr] ${cycle}: ${summary.winner.president} elected in round ` +
-      `${summary.decidedInRound}; ${files.length} files`,
+    (summary.winner
+      ? `[pvr] ${cycle}: ${summary.winner.president} elected in round ` +
+        `${summary.decidedInRound}`
+      : `[pvr] ${cycle}: round 1 elected nobody — RUNOFF PENDING`) +
+      `; ${files.length} files`,
   );
   // ⚠ Named whenever there is something to name, and SILENT otherwise. „13.1% of this
   // round is not in the per-oblast files" is a fact an operator has to be told rather than

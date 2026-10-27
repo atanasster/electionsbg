@@ -14,7 +14,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { bgCorpus, enCorpus } from "@/locales/allKeys";
 import { ElectionsHubScreen } from "./ElectionsHubScreen";
-import { ELECTIONS_BANDS, withLocalCycle } from "./electionsRegistry";
+import { ELECTIONS_BANDS, withCycle } from "./electionsRegistry";
 import {
   LATEST_ELECTION_EVENT,
   LATEST_RESOLVABLE_EVENT,
@@ -204,11 +204,11 @@ describe("the resolved cycle", () => {
     expect(
       document.querySelector("[data-elections-switch-latest]"),
     ).toBeTruthy();
-    expect(LATEST_ELECTION_EVENT.id).toBe("2026_04_19");
-    // ⚠ The control writes the latest RESOLVABLE event. Writing an id `resolveHubCycle`
-    // refuses would make the button a no-op that produces an apology — which is what the
-    // bare latest becomes the day a presidential cycle is the newest catalogued one.
-    expect(LATEST_RESOLVABLE_EVENT.id).toBe("2026_04_19");
+    // ⚠ The 2026 presidential round 1 postdates the April parliamentary vote, so the newest
+    // event is presidential — and, presidential being servable, also the newest RESOLVABLE
+    // one, which is what the control writes.
+    expect(LATEST_ELECTION_EVENT.id).toBe("2026_10_25_pvr");
+    expect(LATEST_RESOLVABLE_EVENT.id).toBe("2026_10_25_pvr");
   });
 });
 
@@ -254,9 +254,13 @@ describe("the tile bands", () => {
       for (const tile of b.tiles)
         expect(
           linkTo(
-            tile.cycleScoped
-              ? withLocalCycle(tile.to, LATEST_LOCAL_CYCLE)
-              : tile.to,
+            // ⚠ With no param the hub resolves to the newest event — the 2026 presidential
+            // cycle — so its presidential tile points THERE, not at the registry's literal.
+            tile.cycleScoped === "presidential"
+              ? withCycle(tile.to, "presidential", LATEST_RESOLVABLE_EVENT.id)
+              : tile.cycleScoped
+                ? withCycle(tile.to, "local", LATEST_LOCAL_CYCLE)
+                : tile.to,
           ),
           tile.id,
         ).toBeTruthy();

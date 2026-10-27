@@ -3,6 +3,7 @@ import { assertCommitted } from "../lib/assert_committed";
 import {
   COMMITTED_ROUND_DIRS,
   CYCLES_OLDEST_FIRST,
+  CYCLES_WITH_RUNOFF,
   corpusRound,
   corpusTally as tally,
   pct,
@@ -195,7 +196,9 @@ describe("art. 93 (3) — both conditions", () => {
 
 describe("decideCycle", () => {
   it("puts every cycle in the corpus into a runoff, and names the winner", () => {
-    // All five, and each winner is the runoff's plurality — the runoff has no threshold.
+    // All five decided cycles, and each winner is the runoff's plurality — the runoff
+    // has no threshold. 2026 is pending and has its own test below.
+    expect(CYCLES_WITH_RUNOFF).toHaveLength(5);
     const expected: Record<string, string> = {
       "2001_11_11_pvr": "Георги Седефчов Първанов",
       "2006_10_22_pvr": "Георги Първанов",
@@ -203,15 +206,37 @@ describe("decideCycle", () => {
       "2016_11_06_pvr": "Румен Георгиев Радев",
       "2021_11_14_pvr": "Румен Георгиев Радев",
     };
-    for (const cycle of CYCLES_OLDEST_FIRST) {
+    for (const cycle of CYCLES_WITH_RUNOFF) {
       const o = decideCycle(tally(cycle, 1), tally(cycle, 2));
       expect(o.decidedInRound, cycle).toBe(2);
-      expect(o.winner.president, cycle).toBe(expected[cycle]);
+      expect(o.winner!.president, cycle).toBe(expected[cycle]);
       expect(o.runoff, cycle).toBeDefined();
       // The winner comes from the RUNOFF's ranking, not round 1's — they agree in every
       // real cycle here, but 2021 is the case where they need not: Радев led both.
-      expect(o.winner.votes, cycle).toBe(o.runoff!.ranking[0].votes);
+      expect(o.winner!.votes, cycle).toBe(o.runoff!.ranking[0].votes);
     }
+  });
+
+  // ⚠ 2026's round 1 elected nobody and its runoff is not published: the outcome is
+  // PENDING, never the round-1 leader.
+  it("leaves 2026 pending, and never promotes the round-1 leader", () => {
+    const t = tally("2026_10_25_pvr", 1);
+    expect(t.winsOutright).toBe(false);
+    expect(t.meetsMajority).toBe(false);
+    expect(t.meetsTurnout).toBe(false);
+    expect(t.ranking.slice(0, 2).map((r) => r.number)).toEqual([25, 4]);
+    expect(t.ranking[0].president).toBe("Илияна Малинова Йотова");
+    expect(t.ranking[1].president).toBe("Андрей Атанасов Гюров");
+    const o = decideCycle(t, undefined, { runoffPending: true });
+    expect(o.decidedInRound).toBeNull();
+    expect(o.winner).toBeNull();
+    expect(o.runoff).toBeUndefined();
+    // Without the flag it is still a contradiction, not a silent pending.
+    expect(() => decideCycle(t)).toThrow(/elects nobody/);
+    // And pending with a runoff supplied is refused.
+    expect(() =>
+      decideCycle(t, tally("2021_11_14_pvr", 2), { runoffPending: true }),
+    ).toThrow();
   });
 
   // ⚠ Refuses rather than reconciling. Both directions are a disagreement between the
@@ -258,7 +283,7 @@ describe("decideCycle", () => {
     const t = tally("2006_10_22_pvr", 1);
     const o = decideCycle({ ...t, meetsTurnout: true, winsOutright: true });
     expect(o.decidedInRound).toBe(1);
-    expect(o.winner.president).toBe("Георги Първанов");
+    expect(o.winner!.president).toBe("Георги Първанов");
     expect(o.runoff).toBeUndefined();
   });
 });
@@ -275,6 +300,7 @@ describe("the second valid-vote basis", () => {
       "2011_10_23_pvr": 6,
       "2016_11_06_pvr": 3_913,
       "2021_11_14_pvr": -1_929,
+      "2026_10_25_pvr": -2,
     };
     for (const [cycle, want] of Object.entries(residues)) {
       const t = tally(cycle, 1);
@@ -360,6 +386,7 @@ describe("turnout", () => {
       "2011_10_23_pvr": "52.28",
       "2016_11_06_pvr": "57.65",
       "2021_11_14_pvr": "40.30",
+      "2026_10_25_pvr": "23.16",
     };
     for (const [cycle, want] of Object.entries(expected)) {
       const t = tally(cycle, 1);
@@ -372,6 +399,9 @@ describe("turnout", () => {
       "само в страната",
     );
     expect(tally("2021_11_14_pvr", 1).turnoutBasis).toContain(
+      "включително в чужбина",
+    );
+    expect(tally("2026_10_25_pvr", 1).turnoutBasis).toContain(
       "включително в чужбина",
     );
   });

@@ -1,0 +1,23 @@
+{
+  "cycle": "2026_10_25_pvr",
+  "slug": "pvr202610",
+  "stampedAt": "2026-10-27T18:26:46.905Z",
+  "archives": {
+    "tur1": {
+      "url": "https://results.cik.bg/pvr202610/opendata/export.zip",
+      "strategy": "goto",
+      "bytes": 18397341,
+      "md5": "434c25393b8a54d1564b38c1433d7205",
+      "downloadedHere": true
+    }
+  },
+  "rounds": {
+    "1": {
+      "archive": "tur1",
+      "subtree": "",
+      "date": "2026-10-25"
+    }
+  },
+  "note": "Round 1 published 27.10.2026; the runoff (01.11.2026) is a separate publish, so until it lands this cycle is RUNOFF PENDING — round 1 elected nobody.",
+  "fetchedAt": "2026-10-27T18:26:46.905Z"
+}

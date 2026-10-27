@@ -173,8 +173,10 @@ export interface NationalSummary {
   cycle: string;
   round1Date: string;
   round2Date: string | null;
-  decidedInRound: 1 | 2;
-  winner: { number: number; president: string; vicePresident: string };
+  /** `null` = RUNOFF PENDING — round 1 elected nobody and the runoff is unpublished. */
+  decidedInRound: 1 | 2 | null;
+  /** `null` while the runoff is pending; never the round-1 leader. */
+  winner: { number: number; president: string; vicePresident: string } | null;
   rounds: RoundSummary[];
   /**
    * Per-ticket movement between the rounds, and the change in turnout.
@@ -287,13 +289,16 @@ const summariseRound = (
  *
  * @param rounds - Round 1, and the runoff when there was one, in order.
  * @param aggs - The matching aggregations, same order.
- * @returns The summary. ⚠ `swing` is null for a cycle decided in round 1.
+ * @param opts.runoffPending - See `decideCycle`: the runoff is not catalogued yet.
+ * @returns The summary. ⚠ `swing` is null for a cycle decided in round 1, and
+ *   `decidedInRound`/`winner` are null while the runoff is pending.
  * @throws Via `decideCycle` when the computed rule and the corpus disagree about whether
  *   a runoff happened — that is a contradiction, not something to reconcile silently.
  */
 export const buildNationalSummary = (
   rounds: PresidentialRound[],
   aggs: AggregatedRound[],
+  opts: { runoffPending?: boolean } = {},
 ): NationalSummary => {
   if (!rounds.length || rounds.length > 2 || rounds.length !== aggs.length) {
     throw new Error(
@@ -322,7 +327,7 @@ export const buildNationalSummary = (
     }
   });
   const tallies = rounds.map((r) => tallyRound(r));
-  const outcome = decideCycle(tallies[0], tallies[1]);
+  const outcome = decideCycle(tallies[0], tallies[1], opts);
   const summaries = rounds.map((r, i) =>
     summariseRound(tallies[i], aggs[i], r),
   );
@@ -380,7 +385,7 @@ export const buildNationalSummary = (
     round1Date: rounds[0].date,
     round2Date: rounds[1]?.date ?? null,
     decidedInRound: outcome.decidedInRound,
-    winner: {
+    winner: outcome.winner && {
       number: outcome.winner.number,
       president: outcome.winner.president,
       vicePresident: outcome.winner.vicePresident,

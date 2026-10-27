@@ -52,7 +52,8 @@ describe("the event catalogue", () => {
     // correctly right up until a cycle is appended rather than prepended.
     const dates = ELECTION_EVENTS.map((e) => e.date);
     expect(dates).toEqual([...dates].sort().reverse());
-    expect(LATEST_ELECTION_EVENT.id).toBe("2026_04_19");
+    // The newest event of ANY kind — the 2026 presidential round 1 postdates the April vote.
+    expect(LATEST_ELECTION_EVENT.id).toBe("2026_10_25_pvr");
   });
 
   it("dates a local cycle from its round-1 date, not from its id", () => {

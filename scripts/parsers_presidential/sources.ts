@@ -41,7 +41,13 @@ export type RoundNumber = 1 | 2;
 export type DownloadStrategy = "goto" | "click";
 
 /** The five publication formats. Each has its own reader in this directory. */
-export type PresidentialEra = "2001" | "2006" | "2011" | "2016" | "2021";
+export type PresidentialEra =
+  | "2001"
+  | "2006"
+  | "2011"
+  | "2016"
+  | "2021"
+  | "2026";
 
 export type Archive = {
   /** Absolute URL of the zip. */
@@ -99,7 +105,13 @@ export type PresidentialSource = {
   era: PresidentialEra;
   encoding: PresidentialEncoding;
   archives: Record<string, Archive>;
-  rounds: Record<RoundNumber, RoundSource>;
+  /**
+   * ⚠ ROUND 2 IS OPTIONAL, and not only for a cycle decided in round 1. The runoff is a
+   * separate ЦИК publish about a week after round 1, so in that week the catalogue holds
+   * round 1 alone and the corpus is „runoff pending" (2026: round 1 published 27.10,
+   * runoff 01.11). Every reader of `rounds[2]` must handle its absence.
+   */
+  rounds: { 1: RoundSource; 2?: RoundSource };
   /** Why this cycle is shaped unlike its neighbours. Rendered by the downloader so an
    *  operator reads it before wondering why a path looks wrong. */
   note: string;
@@ -108,6 +120,37 @@ export type PresidentialSource = {
 const RESULTS = "https://results.cik.bg";
 
 export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
+  "2026_10_25_pvr": {
+    cycle: "2026_10_25_pvr",
+    slug: "pvr202610",
+    era: "2026",
+    encoding: "utf8",
+    archives: {
+      // ⚠ A NEW PATH SHAPE: the machine-readable archive sits under `opendata/`, not
+      // under `tur1/` as in 2021 (checked in a browser 2026-10-27, ЦИК decision
+      // 416-ПВР/27.10.2026). The runoff's archive is added here when it is published.
+      tur1: {
+        url: `${RESULTS}/pvr202610/opendata/export.zip`,
+        warmUrl: `${RESULTS}/pvr202610/opendata/index.html`,
+        strategy: "goto",
+      },
+    },
+    rounds: {
+      // The archive root, kept as-is: the text files are nested one level down in
+      // „Актуализирана база данни/" (era2026's `dataDir2026`), and `suemg/` is their
+      // sibling — hoisting the text files would orphan the flash records.
+      1: {
+        archive: "tur1",
+        subtree: "",
+        date: "2026-10-25",
+        flashRecords: "raw_data/2026_10_25_pvr/ТУР1/suemg",
+      },
+    },
+    note:
+      "Round 1 published 27.10.2026; the runoff (01.11.2026) is a separate publish, " +
+      "so until it lands this cycle is RUNOFF PENDING — round 1 elected nobody.",
+  },
+
   "2021_11_14_pvr": {
     cycle: "2021_11_14_pvr",
     slug: "pvrns2021",
@@ -316,6 +359,26 @@ export const presidentialSource = (key: string): PresidentialSource | null => {
   return (
     Object.values(PRESIDENTIAL_SOURCES).find((s) => s.slug === key) ?? null
   );
+};
+
+/**
+ * A round's source spec, or a loud error when the catalogue does not carry it.
+ *
+ * The readers are only ever called for a round whose `ТУРn` folder exists, so a missing
+ * spec there means the folder and `sources.ts` disagree — reported, never a silent
+ * `undefined.date`.
+ */
+export const roundSpec = (
+  source: PresidentialSource,
+  round: RoundNumber,
+): RoundSource => {
+  const spec = source.rounds[round];
+  if (!spec) {
+    throw new Error(
+      `${source.cycle}: round ${round} is not in sources.ts — add its archive first`,
+    );
+  }
+  return spec;
 };
 
 /**

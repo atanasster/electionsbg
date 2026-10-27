@@ -135,7 +135,8 @@ describe("presidentialSearchSource", () => {
 
   it("orders newest first, like every other cycle list on this hub", () => {
     const src = presidentialSearchSource(LABEL, []) as IndexSource;
-    expect(src.index!.rows[0].href).toBe("/presidential/2021_11_14_pvr");
+    expect(src.index!.rows[0].href).toBe("/presidential/2026_10_25_pvr");
+    expect(src.index!.rows[1].href).toBe("/presidential/2021_11_14_pvr");
     expect(src.index!.rows.at(-1)!.href).toBe("/presidential/2001_11_11_pvr");
   });
 });
