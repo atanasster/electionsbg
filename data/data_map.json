@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-10-27T00:46:02.455Z",
+  "generatedAt": "2026-10-27T20:24:29.968Z",
   "nodes": [
     {
       "id": "src:water",
@@ -78,7 +78,7 @@
       "url": "https://results.cik.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-10-20T21:44:25.284Z",
+      "freshness": "2026-10-27T19:47:16.170Z",
       "skills": [
         "update-local-elections",
         "update-presidential-elections"
@@ -96,7 +96,7 @@
           "label": "ЦИК presidential-elections results bundles",
           "url": "https://results.cik.bg/",
           "cadence": "daily",
-          "freshness": "2026-09-06T21:39:15.256Z"
+          "freshness": "2026-10-27T19:47:16.170Z"
         }
       ],
       "issue": {
