@@ -1,8 +1,8 @@
 {
-  "detail": "4 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle",
-  "fingerprint": "4ef5155ce423ff23",
-  "lastChanged": "2026-09-06T21:39:15.256Z",
-  "lastChecked": "2026-10-26T20:48:58.384Z",
+  "detail": "5 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle · 1 with a GUESSED archive URL",
+  "fingerprint": "019b1569eb29e0f1",
+  "lastChanged": "2026-10-27T19:47:16.170Z",
+  "lastChecked": "2026-10-27T19:47:16.170Z",
   "meta": {
     "cycles": [
       {
@@ -45,6 +45,29 @@
             "round": 2,
             "url": "https://pvr2006.cik.bg/results_2/export_t2.zip",
             "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          }
+        ]
+      },
+      {
+        "slug": "pvr202610",
+        "year": "2026",
+        "known": true,
+        "rounds": [
+          {
+            "round": 1,
+            "url": "https://results.cik.bg/pvr202610/opendata/export.zip",
+            "guessedUrl": false,
+            "status": 403,
+            "lastModified": null,
+            "contentLength": null
+          },
+          {
+            "round": 2,
+            "url": "https://results.cik.bg/pvr202610/tur2/export.zip",
+            "guessedUrl": true,
             "status": 403,
             "lastModified": null,
             "contentLength": null
@@ -98,6 +121,6 @@
         ]
       }
     ],
-    "discoveredAt": "2026-10-26T20:51:55.453Z"
+    "discoveredAt": "2026-10-27T19:47:20.153Z"
   }
 }
