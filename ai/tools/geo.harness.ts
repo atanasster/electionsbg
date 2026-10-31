@@ -1,5 +1,5 @@
 // Geo-overlay integrity + coverage harness for the chat's map answers.
-// Run: npx tsx ai/tools/geo.harness.ts   (part of `npm run ai:test:all`)
+// Run: pnpm exec tsx ai/tools/geo.harness.ts   (part of `pnpm run ai:test:all`)
 //
 // Two jobs in one pass over a probe per geographic tool:
 //   1. INTEGRITY (hard fail) — for every tool whose envelope carries an

@@ -26,12 +26,12 @@ would put every first visit behind a Cloud SQL connection. The one step that rea
 ## 2. The whole procedure
 
 ```bash
-npm run db:gen-home-hub-stats     # folds the sibling hubs — run it FIRST
-npm run db:gen-home-price-events  # the only step that reads Postgres
-npm run db:gen-home-feed          # reads the file the previous step wrote
-npm run home:health               # both freshness arms — exits non-zero
-npm run home:publish              # bucket:sync:paths -- home  &&  bucket:gz
-npm run home:health -- --public   # …and confirm the bucket now serves what we committed
+pnpm run db:gen-home-hub-stats     # folds the sibling hubs — run it FIRST
+pnpm run db:gen-home-price-events  # the only step that reads Postgres
+pnpm run db:gen-home-feed          # reads the file the previous step wrote
+pnpm run home:health               # both freshness arms — exits non-zero
+pnpm run home:publish              # bucket:sync:paths -- home  &&  bucket:gz
+pnpm run home:health --public   # …and confirm the bucket now serves what we committed
 ```
 
 `db:refresh` carries the first three at the end of its chain — but **not** the health check and
@@ -66,7 +66,7 @@ one orchestrator run, each fold catching whichever siblings had not yet finished
 
 ## 3. Healthy, stale, absent — three states that all answer 200
 
-`npm run home:health` exits non-zero on any of them and prints a per-family table.
+`pnpm run home:health` exits non-zero on any of them and prints a per-family table.
 
 | symptom | what it means | fix |
 | --- | --- | --- |
@@ -78,9 +78,9 @@ one orchestrator run, each fold catching whichever siblings had not yet finished
 | `unavailable — prices: declares a 5d cadence but no vintage` | the family is available with no date | check that adapter's `newest` |
 | `stale — prices: last moved 2026-08-24, 8d behind, ceiling 5d` | the SOURCE is behind its cadence | investigate the ingest, not the generator |
 | `stale — prices: built against a 400d ceiling, the code now declares 5d` | someone tuned `STALE_AFTER_DAYS` | regenerate the feed |
-| `unpublished — home/feed.json → HTTP 404` | committed and never uploaded | `npm run home:publish` |
-| `unpublished — home/feed.json is stored as identity` | synced without `bucket:gz` | `npm run bucket:gz` |
-| `drifted — home/feed.json differs from the committed file` | the bucket holds an older vintage | `npm run home:publish` |
+| `unpublished — home/feed.json → HTTP 404` | committed and never uploaded | `pnpm run home:publish` |
+| `unpublished — home/feed.json is stored as identity` | synced without `bucket:gz` | `pnpm run bucket:gz` |
+| `drifted — home/feed.json differs from the committed file` | the bucket holds an older vintage | `pnpm run home:publish` |
 
 ⚠️ **`db:check-generated` CANNOT see the middle rows, and that is the point of `home:health`.**
 It compares local bytes against the bucket — „was this published?", never „is this current?".
@@ -143,7 +143,7 @@ crawler, no watcher — so a terms error would publish as a claim about the Repu
 borrowing with nothing able to catch it.
 
 ```bash
-npx tsx scripts/db/gen_home/feed.ts --include-review   # list what is staged
+pnpm exec tsx scripts/db/gen_home/feed.ts --include-review   # list what is staged
 ```
 
 Promoting the family is a one-field change once a structured authority exists. Until then the
@@ -154,7 +154,7 @@ rows are built, counted and listable, and none is published.
 ## 6. Replaying and re-deciding the price thresholds
 
 ```bash
-npx tsx scripts/db/gen_home/price_events.ts --replay --days 90
+pnpm exec tsx scripts/db/gen_home/price_events.ts --replay --days 90
 ```
 
 Prints the percentile distribution, the cohort range, and — for each candidate threshold — the
@@ -179,7 +179,7 @@ corpus change.
 | an artifact was published with a bad vintage | regenerate (§2) and republish; the objects are overwritten in place |
 | a generator aborted mid-run | nothing was written — the rename is atomic. Re-run it |
 | the committed file is wrong and the bucket is right | `git checkout -- data/home/…` then regenerate |
-| the bucket is wrong and the committed file is right | `npm run home:publish` |
+| the bucket is wrong and the committed file is right | `pnpm run home:publish` |
 | both are wrong | regenerate from source, verify with `home:health`, then publish |
 | a source is stale | fix the ingest. Regenerating changes nothing — the feed reports what it has |
 

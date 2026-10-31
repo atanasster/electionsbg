@@ -18,7 +18,7 @@
 // measured 28 corrections on the current corpus.
 //
 // Needs the local Postgres up (contracts + awarder_seats) for the name-match
-// fallback. Run AFTER build_index.ts. `npx tsx scripts/schools/match_eik.ts`.
+// fallback. Run AFTER build_index.ts. `pnpm exec tsx scripts/schools/match_eik.ts`.
 
 import fs from "node:fs";
 import path from "node:path";

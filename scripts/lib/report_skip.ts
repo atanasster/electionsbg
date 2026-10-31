@@ -6,7 +6,7 @@
 // throw the sentence away. `test.skipIf()` takes a CONDITION, so a non-empty string
 // works correctly as truthy and is recorded nowhere.
 //
-// That silence is total in CI. .github/workflows/test.yml runs `npm run test:unit` on
+// That silence is total in CI. .github/workflows/test.yml runs `pnpm run test:unit` on
 // ubuntu-latest with no database and no gitignored corpora — its own step comment says
 // "Hermetic — no browser, emulator or database" — so every one of these gates skips on
 // every push. Measured 2026-08-25 with DATABASE_URL pointed at a dead port: 162 files

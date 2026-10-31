@@ -27,8 +27,8 @@
 // Read-only: it never uploads. It PRINTS the publish command and exits 1 so a
 // chain or an orchestrator can gate on it.
 //
-//   npx tsx scripts/db/check_generated_artifacts.ts
-//   npx tsx scripts/db/check_generated_artifacts.ts --quiet   # only the verdict
+//   pnpm exec tsx scripts/db/check_generated_artifacts.ts
+//   pnpm exec tsx scripts/db/check_generated_artifacts.ts --quiet   # only the verdict
 
 import { createHash } from "node:crypto";
 import { readFileSync, existsSync } from "node:fs";
@@ -169,7 +169,7 @@ const main = async () => {
     `\n${needsPublish.length} artifact(s) not published. Publish them with:\n`,
   );
   console.log(
-    `  npm run bucket:sync:paths -- ${needsPublish.map((r) => r.bucketPath).join(" ")}\n`,
+    `  pnpm run bucket:sync:paths ${needsPublish.map((r) => r.bucketPath).join(" ")}\n`,
   );
   // Deliberately NOT run for the operator. The bucket is production, and this
   // repo's standing rule is that an orchestrator emits the publish command

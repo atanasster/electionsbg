@@ -19,7 +19,7 @@
 //     allEvents[].candidateName
 //
 // Idempotent — running twice is a no-op (helper short-circuits on strings
-// that already mix case). Run once: `npx tsx scripts/parsers_local/backfill_name_case.ts`.
+// that already mix case). Run once: `pnpm exec tsx scripts/parsers_local/backfill_name_case.ts`.
 
 import fs from "fs";
 import path from "path";

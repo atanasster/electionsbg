@@ -10,7 +10,7 @@
 // copy required only a CODE. All three are gone with the copy.
 //
 // What remains checkable, and is:
-//   • the COMMITTED shard still matches what the builders emit — `npm run sitemap` is a manual
+//   • the COMMITTED shard still matches what the builders emit — `pnpm run sitemap` is a manual
 //     command (nothing in `build`/`postbuild` mints it), so „someone changed the builders and
 //     did not re-mint" is a real state and this is the only thing that reports it;
 //   • the settlement and section levels are in NEITHER — ~87,500 pages across five cycles;
@@ -68,13 +68,13 @@ const shardPaths = (): { bg: string[]; en: string[] } => {
 
 describe.skipIf(skipNoCorpus)("the committed presidential shard", () => {
   it("exists — an absent shard is a broken working copy, not a skip", () => {
-    // ⚠ IT IS A COMMITTED ARTIFACT served from `public/`, and `npm run sitemap` PRUNES every
+    // ⚠ IT IS A COMMITTED ARTIFACT served from `public/`, and `pnpm run sitemap` PRUNES every
     // `sitemap_*.xml` before writing — so a mint on a machine without the corpus deletes it,
     // drops it from the index and exits 0. `families.data.test.ts` carries the floor that
     // catches that in CI; this only catches it here.
     expect(
       fs.existsSync(SHARD),
-      `${SHARD} is missing — run npm run sitemap`,
+      `${SHARD} is missing — run pnpm run sitemap`,
     ).toBe(true);
   });
 
@@ -87,11 +87,11 @@ describe.skipIf(skipNoCorpus)("the committed presidential shard", () => {
     const extra = bg.filter((p) => !want.has(p));
     expect(
       missing.slice(0, 5),
-      `${missing.length} prerendered page(s) not submitted — re-run npm run sitemap`,
+      `${missing.length} prerendered page(s) not submitted — re-run pnpm run sitemap`,
     ).toEqual([]);
     expect(
       extra.slice(0, 5),
-      `${extra.length} submitted URL(s) with no prerendered page — re-run npm run sitemap`,
+      `${extra.length} submitted URL(s) with no prerendered page — re-run pnpm run sitemap`,
     ).toEqual([]);
     expect([...en].sort()).toEqual([...bg].sort());
     // Non-vacuity: an empty corpus satisfies every comparison above.

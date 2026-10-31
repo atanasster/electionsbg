@@ -21,7 +21,7 @@
 // unloaded — each with its own reason, because „the guard is enforced" and „nothing was
 // checked" must never look the same.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -58,7 +58,7 @@ const trLoaded =
 const skip = !haveDb
   ? "Postgres unreachable"
   : !applied
-    ? "migration 200 not applied — run: npx tsx scripts/db/apply_functions.ts 200_person_office_links.sql"
+    ? "migration 200 not applied — run: pnpm exec tsx scripts/db/apply_functions.ts 200_person_office_links.sql"
     : !trLoaded
       ? "tr_name_fold_people is empty — run db:load:tr-name-fold-people:pg (the registry-uniqueness guard demands POSITIVE evidence, so with it empty both functions correctly return nothing)"
       : false;

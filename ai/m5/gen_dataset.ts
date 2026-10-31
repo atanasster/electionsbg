@@ -2,7 +2,7 @@
 // the tool registry, so a small Bulgarian-native model (BgGPT) becomes
 // reliable at tool selection over the fixed tool surface (74 tools).
 //
-// Run: npx tsx ai/m5/gen_dataset.ts
+// Run: pnpm exec tsx ai/m5/gen_dataset.ts
 // Writes chat-format JSONL (messages: system + user + assistant) to
 // ai/m5/dataset/toolcalls.{train,eval}.jsonl — usable by HF/PEFT/unsloth/axolotl
 // LoRA tooling, then convert the adapter and compile per ai/m0/README.md.

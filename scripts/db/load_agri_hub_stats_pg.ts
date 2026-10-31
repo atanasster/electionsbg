@@ -1,7 +1,7 @@
 // Rebuild the /subsidies hub stat cache (migration 162) on its own.
 //
-//   npm run db:load:agri-hub-stats:pg          (local)
-//   npm run db:load:agri-hub-stats:pg:cloud    (Cloud SQL proxy :5434)
+//   pnpm run db:load:agri-hub-stats:pg          (local)
+//   pnpm run db:load:agri-hub-stats:pg:cloud    (Cloud SQL proxy :5434)
 //
 // WHY THIS EXISTS SEPARATELY FROM `db:load:agri:pg`, which also applies and refreshes
 // 162: the cache has FIVE inputs and the agri ingest owns only one of them.
@@ -17,7 +17,7 @@
 // FIRST run, against a person layer 081 has just created empty, it is not merely stale
 // but zero. That is a claim, not an absence, and it is what plan §13.2 left open.
 //
-// The obvious fix — a second `npm run db:load:agri:pg` late in the chain — re-parses
+// The obvious fix — a second `pnpm run db:load:agri:pg` late in the chain — re-parses
 // and re-publishes 2.48M rows (5m44s measured) to rebuild one matview that takes 5.9 s.
 // This does only the second part. It is also the right command to run by hand after any
 // of the five inputs above is reloaded, on either side, which the agri ingest is far too
@@ -105,7 +105,7 @@ const main = async (): Promise<void> => {
   if (political === null)
     console.warn(
       "[agri-hub-stats] the political arm is EMPTY — person_role carries no tr/ngo " +
-        "roles. Run npm run db:resolve:persons, then re-run this loader.",
+        "roles. Run pnpm run db:resolve:persons, then re-run this loader.",
     );
 };
 

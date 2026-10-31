@@ -8,9 +8,9 @@
 // it and writes nothing.
 //
 // Usage:
-//   npx tsx scripts/council/discover.ts            # check all
-//   npx tsx scripts/council/discover.ts --only SOF # check one
-//   npx tsx scripts/council/discover.ts --verbose  # include byte counts
+//   pnpm exec tsx scripts/council/discover.ts            # check all
+//   pnpm exec tsx scripts/council/discover.ts --only SOF # check one
+//   pnpm exec tsx scripts/council/discover.ts --verbose  # include byte counts
 //
 // This does NOT scrape resolutions — that's scrape.ts (Phase 1). Treat
 // discover.ts as the "is the recipe still valid" canary, runnable from

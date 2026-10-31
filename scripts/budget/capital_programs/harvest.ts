@@ -8,11 +8,11 @@
 // terminology and prints a tabular report.
 //
 // Usage:
-//   npx tsx scripts/budget/capital_programs/harvest.ts [muniSlug...]
+//   pnpm exec tsx scripts/budget/capital_programs/harvest.ts [muniSlug...]
 //
 // With no args, runs against the catalogue of deferred Tier-2 общини
 // (see CANDIDATES below). With one or more muniSlug args, runs only
-// those (e.g. `npx tsx ... harvest.ts smolyan vidin`).
+// those (e.g. `pnpm exec tsx ... harvest.ts smolyan vidin`).
 //
 // Output is intentionally a human-readable report — the operator picks
 // the URL they want, downloads it into raw_data/budget/capital_programs/

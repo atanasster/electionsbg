@@ -6,7 +6,7 @@
  * are the same mark rather than two drawings that drifted.
  *
  * Run:
- *   npm run brand:icons
+ *   pnpm run brand:icons
  *
  * ## What it replaces
  *

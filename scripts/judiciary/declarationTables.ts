@@ -120,7 +120,7 @@ export const columnMapFor = (
 /** Generic so it narrows `readTable`'s result too, not only `columnMapFor`'s. Typed to
  *  `ColumnMap | TableRefusal` it made every `readTable` call site a TS2345 — and because
  *  Vitest never typechecks, 17 green tests and a clean lint sat on top of a `tsc -b` that
- *  fails, i.e. a broken `npm run build`. */
+ *  fails, i.e. a broken `pnpm run build`. */
 export const isRefusal = <T>(v: T | TableRefusal): v is TableRefusal =>
   typeof v === "object" && v !== null && "kind" in v;
 

@@ -32,7 +32,7 @@
 // freshness is a pure function of the officials ingest + the local-election corpus (both
 // already tracked). A separate changelog line would be misleading noise, not a new dataset.
 //
-// Run: `npm run db:load:official-candidate-links:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:official-candidate-links:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { allRows, exec, withClient, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";

@@ -18,7 +18,7 @@ const [{ n } = { n: "0" }] = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : n === "0"
-    ? "adfi_inspection is empty — run npm run db:load:adfi:pg"
+    ? "adfi_inspection is empty — run pnpm run db:load:adfi:pg"
     : false;
 reportSkip(import.meta.url, skip);
 

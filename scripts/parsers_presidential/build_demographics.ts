@@ -1,8 +1,8 @@
 // Which places voted which way — Pearson correlations between a TICKET's municipal vote share
 // and each Census 2021 indicator, per cycle and per round.
 //
-//   npx tsx scripts/parsers_presidential/build_demographics.ts <cycle> [--write]
-//   npx tsx scripts/parsers_presidential/build_demographics.ts all --write
+//   pnpm exec tsx scripts/parsers_presidential/build_demographics.ts <cycle> [--write]
+//   pnpm exec tsx scripts/parsers_presidential/build_demographics.ts all --write
 //
 // ⚠⚠ AN ECOLOGICAL CORRELATION, AND THE CAVEAT TRAVELS IN THE FILE. „r = +0.72 against
 // ethnicTurkish" says municipalities with more Turkish residents gave this pair a larger share

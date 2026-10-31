@@ -4,7 +4,7 @@
  *   • electricity → nrg_pc_204 (medium band 2500-4999 kWh) → data/energy/prices.json
  *   • natural gas → nrg_pc_202 (medium band 20-199 GJ)     → data/energy/gas_prices.json
  *
- *   npx tsx scripts/energy/fetch_prices.ts
+ *   pnpm exec tsx scripts/energy/fetch_prices.ts
  *
  * The story: BG has among the LOWEST household electricity AND gas prices in the
  * EU (~half the EU average) — the citizen-facing counterpoint to the state-energy

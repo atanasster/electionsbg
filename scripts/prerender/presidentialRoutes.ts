@@ -5,7 +5,7 @@
 // rather than re-deriving the population. That is one definition, not two kept in step: a first
 // cut duplicated the rules and review found three ways the copy could already have drifted.
 // `presidentialFamily.data.test.ts` still compares the COMMITTED shard against them, because
-// `npm run sitemap` is a manual command and „changed the builders, did not re-mint" is real.
+// `pnpm run sitemap` is a manual command and „changed the builders, did not re-mint" is real.
 //
 // ⚠ EVERY BODY CARRIES FACTS FROM THE CORPUS, never boilerplate. A prerendered page whose text
 // is the same on all 1,325 municipality URLs is thin content that earns a penalty rather than

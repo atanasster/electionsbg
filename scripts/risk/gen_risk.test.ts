@@ -9,7 +9,7 @@
 // That is worse than the drift the catalogue was created to end, because the
 // document is the copy people quote.
 //
-// So: `npm run gen:risk -- --check` exits non-zero when either artifact is stale,
+// So: `pnpm run gen:risk --check` exits non-zero when either artifact is stale,
 // and this runs it. Same shape as gen_sql/shlyo_query_fold.test.ts.
 //
 // The content assertions below are NOT a second copy of the generator. They pin
@@ -64,7 +64,7 @@ const readCatalogue = (): unknown => {
     throw new Error(
       `${JSON_OUT} is not valid JSON. A previous run of this file's staleness ` +
         "test was almost certainly interrupted while the artifact was mutated. " +
-        "Run `npm run gen:risk` to restore it.\n" +
+        "Run `pnpm run gen:risk` to restore it.\n" +
         String(e),
     );
   }
@@ -97,10 +97,14 @@ describe("the published spec is current", () => {
   test("`gen:risk --check` passes", () => {
     // Fails the moment the catalogue moves without the generator being re-run.
     expect(() =>
-      execFileSync("npx", ["tsx", "scripts/risk/gen_risk.ts", "--check"], {
-        cwd: ROOT,
-        stdio: "pipe",
-      }),
+      execFileSync(
+        "pnpm",
+        ["exec", "tsx", "scripts/risk/gen_risk.ts", "--check"],
+        {
+          cwd: ROOT,
+          stdio: "pipe",
+        },
+      ),
     ).not.toThrow();
   }, 60_000);
 
@@ -119,10 +123,14 @@ describe("the published spec is current", () => {
       try {
         fs.writeFileSync(file, `${original}\nMUTATED\n`);
         expect(() =>
-          execFileSync("npx", ["tsx", "scripts/risk/gen_risk.ts", "--check"], {
-            cwd: ROOT,
-            stdio: "pipe",
-          }),
+          execFileSync(
+            "pnpm",
+            ["exec", "tsx", "scripts/risk/gen_risk.ts", "--check"],
+            {
+              cwd: ROOT,
+              stdio: "pipe",
+            },
+          ),
         ).toThrow();
       } finally {
         fs.writeFileSync(file, original);

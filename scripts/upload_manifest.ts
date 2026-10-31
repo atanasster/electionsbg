@@ -1,12 +1,12 @@
 // CLI: read/write the ingest→publish handoff at state/upload/pending.json.
 // The API lives in scripts/lib/upload-manifest.ts.
 //
-//   npx tsx scripts/upload_manifest.ts write --session <id> --commit <sha> \
+//   pnpm exec tsx scripts/upload_manifest.ts write --session <id> --commit <sha> \
 //     --skills update-procurement,update-funds \
 //     --paths myarea,data_map.json \
-//     --cloud "npm run db:load:pg:cloud" --cloud "npm run db:load:tenders:pg:cloud"
-//   npx tsx scripts/upload_manifest.ts show
-//   npx tsx scripts/upload_manifest.ts done --session <publish session id>
+//     --cloud "pnpm run db:load:pg:cloud" --cloud "pnpm run db:load:tenders:pg:cloud"
+//   pnpm exec tsx scripts/upload_manifest.ts show
+//   pnpm exec tsx scripts/upload_manifest.ts done --session <publish session id>
 //
 // `write` MERGES into any pending manifest rather than replacing it — see
 // mergeManifest's header for why that matters.

@@ -14,8 +14,8 @@
 // updates a changed slug and removes a personSlug whose person no longer resolves (retired /
 // merged away / went private). Only ELECTED winners are stamped — losing candidates get no page.
 //
-//   npx tsx scripts/parsers_local/decorate_local_person_links.ts [--dry-run]
-//   DATABASE_URL=… npx tsx scripts/parsers_local/decorate_local_person_links.ts
+//   pnpm exec tsx scripts/parsers_local/decorate_local_person_links.ts [--dry-run]
+//   DATABASE_URL=… pnpm exec tsx scripts/parsers_local/decorate_local_person_links.ts
 
 import fs from "fs";
 import path from "path";

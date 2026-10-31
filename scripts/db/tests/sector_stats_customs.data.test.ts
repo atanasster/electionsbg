@@ -3,7 +3,7 @@
 // register that pack ranks. Audit 2026-08-19,
 // docs/plans/customs-sector-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Its own file, like the revenue / social / environment / regional siblings,
 // because what it reads — an AGENCY budget file rather than a ministries node, a
@@ -96,7 +96,7 @@ const reachable = async (): Promise<boolean> => {
 };
 
 // `test.skipIf(bool)`, never `test(name, { skip }, fn)` — Vitest's `skip` option
-// is typed `boolean`, so a `false | string` is a TS2769 and `npm run build` is
+// is typed `boolean`, so a `false | string` is a TS2769 and `pnpm run build` is
 // `tsc -b && vite build`. Vitest does not typecheck, so the file would run green
 // while the build is red. Every sibling here uses skipIf.
 const haveDb = await reachable();

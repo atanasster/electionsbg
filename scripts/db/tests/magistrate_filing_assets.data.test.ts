@@ -19,7 +19,7 @@
 // Auto-skips when Postgres is down or the table is unloaded (its input is a ~3.5-hour operator
 // crawl, absent on a fresh clone), like the other *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -406,7 +406,7 @@ test("a stored price always knows what unit it is in", async () => {
   // assumes, off by 1.95583 against a named judge, in a figure that looks entirely ordinary.
   // readTable refuses a document that states no unit, so every row the loader stores has one
   // — a NULL here means a corpus crawled before the unit was read, and the repair is
-  // `npx tsx scripts/judiciary/crawl_declarations.ts --backfill-currency`.
+  // `pnpm exec tsx scripts/judiciary/crawl_declarations.ts --backfill-currency`.
   const [{ n }] = await allRows<{ n: string }>(
     `SELECT count(*)::text n FROM magistrate_filing_asset
       WHERE price_lv IS NOT NULL AND price_currency IS NULL`,

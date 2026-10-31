@@ -1,8 +1,8 @@
 // Is the person-identity layer on the SERVING database still consistent with the
 // committed /person prerender manifest — and how far has local drifted from it?
 //
-//   npm run person:parity                    (local vs the Cloud SQL proxy)
-//   npm run person:parity -- --from <url> --to <url>
+//   pnpm run person:parity                    (local vs the Cloud SQL proxy)
+//   pnpm run person:parity --from <url> --to <url>
 //
 // READ-ONLY. Every statement is a SELECT; nothing here writes, and it is safe to
 // run against production at any time.
@@ -119,7 +119,7 @@ const main = async (): Promise<number> => {
 
   if (!fs.existsSync(MANIFEST)) {
     console.error(
-      `No ${path.relative(ROOT, MANIFEST)} — mint it with \`npm run person:slugs:cloud\`. ` +
+      `No ${path.relative(ROOT, MANIFEST)} — mint it with \`pnpm run person:slugs:cloud\`. ` +
         "The manifest is the artifact this probe checks; without it there is nothing to say.",
     );
     return 1;
@@ -150,7 +150,7 @@ const main = async (): Promise<number> => {
       console.error(
         "\n✗ both flags resolve to the SAME database — this would report perfect " +
           "parity and mean nothing. Point --to at the Cloud SQL proxy " +
-          "(`npm run db:proxy:cloud`).",
+          "(`pnpm run db:proxy:cloud`).",
       );
       return 1;
     }
@@ -166,7 +166,7 @@ const main = async (): Promise<number> => {
         `\n✗ --to is not the serving database (${redactUrl(toUrl)}). This probe's ` +
           "whole output is phrased as claims about production — running it against " +
           "anything else produces confident, wrong conclusions. Start the proxy with " +
-          "`npm run db:proxy:cloud` and re-run.",
+          "`pnpm run db:proxy:cloud` and re-run.",
       );
       return 1;
     }
@@ -230,7 +230,7 @@ const main = async (): Promise<number> => {
             .map((e) => e.slug)
             .join(", ")}\n` +
           "  The manifest was almost certainly minted from a database that does not serve " +
-          "production. Re-mint it: `npm run person:slugs:cloud`.\n" +
+          "production. Re-mint it: `pnpm run person:slugs:cloud`.\n" +
           "  ⚠️ Do NOT re-resolve the serving database to make these appear — that converges " +
           "nothing (person_slug_lock accumulates per database) and takes four pages to 500 " +
           "for ~8 minutes. See docs/plans/kzk-columnshift-and-cloud-parity-v1.md §2.4.",

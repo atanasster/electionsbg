@@ -13,7 +13,7 @@
 -- view, rolling the whole file back (loud and atomic — the good direction, but
 -- it does abort). db:load:tr:pg applies 003 → 008 → 022 in order; the
 -- standalone function hatch must name both:
---   npx tsx scripts/db/apply_functions.ts 003_tr_search.sql 008_connections.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 003_tr_search.sql 008_connections.sql
 
 CREATE TABLE IF NOT EXISTS company_politicians (
   eik        text NOT NULL,

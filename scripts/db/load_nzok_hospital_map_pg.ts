@@ -16,7 +16,7 @@
 // is pinned here — it has no settlements.json row — exactly as
 // scripts/judiciary/__write_court_load.ts does.
 //
-// Run: `npm run db:load:nzok-hospital-map:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:nzok-hospital-map:pg` (local) / `:cloud` (Cloud SQL proxy).
 // Must run AFTER db:load:awarder-seats:pg AND the НЗОК hospital-payments load (it
 // reads awarder_seats + nzok_hospital_payments).
 

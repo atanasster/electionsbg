@@ -13,8 +13,8 @@
 // is inline d3 SVG, so 2× costs little and keeps the text crisp.
 //
 // Run with the dev server up (needs /api/db for the fund-payload muni map):
-//   npm run dev    # another shell
-//   npx tsx scripts/og/screenshot_regional.ts
+//   pnpm run dev    # another shell
+//   pnpm exec tsx scripts/og/screenshot_regional.ts
 // Point at a non-default dev port with OG_BASE_URL=http://localhost:5174.
 //
 // Output: public/og/sector-regional.png (referenced by SECTOR_PAGES in

@@ -1,7 +1,7 @@
 // The ONE artifact behind the money-map article and the video —
 // `docs/plans/home-flyover-v1.md` §3 and §6.2.
 //
-//   npm run db:gen-home-flyover
+//   pnpm run db:gen-home-flyover
 //
 // Writes the COMMITTED `data/home/flyover.json`: pre-projected geometry, three money layers
 // by oblast, the buyer→contractor flow matrix, the elections and prices overlays, and the
@@ -14,7 +14,7 @@
 //
 // ⚠️ EVERY NUMBER HERE NAMES ITS BASIS, because three of them are nearly equal and none is
 // interchangeable with another. Measured 2026-09-06 against the local corpus at
-// `computedAt=2026-09-04`; re-measure with `npm run db:gen-home-flyover -- --dry-run`, which
+// `computedAt=2026-09-04`; re-measure with `pnpm run db:gen-home-flyover --dry-run`, which
 // prints the whole table. The RELATIONSHIPS are the durable content, not the digits:
 //
 //   €94,189,514,880  the corpus at `tag = 'contract'`               → `flows.coverage.totalEur`
@@ -749,7 +749,7 @@ export const buildArtifact = async (): Promise<FlyoverArtifactV1 | null> => {
     warnSkip(
       "home_flyover",
       `missing relation(s): ${absent.join(", ")}`,
-      "run the loaders that build them, then npm run db:gen-home-flyover",
+      "run the loaders that build them, then pnpm run db:gen-home-flyover",
     );
     return null;
   }
@@ -764,7 +764,7 @@ export const buildArtifact = async (): Promise<FlyoverArtifactV1 | null> => {
     warnSkip(
       "home_flyover",
       "contracts holds no row at tag = 'contract'",
-      "run npm run db:load:pg, then npm run db:gen-home-flyover",
+      "run pnpm run db:load:pg, then pnpm run db:gen-home-flyover",
     );
     return null;
   }
@@ -776,7 +776,7 @@ export const buildArtifact = async (): Promise<FlyoverArtifactV1 | null> => {
     warnSkip(
       "home_flyover",
       "procurement_scopes is empty",
-      "run npm run db:load:procurement-scopes:pg, then npm run db:gen-home-flyover",
+      "run pnpm run db:load:procurement-scopes:pg, then pnpm run db:gen-home-flyover",
     );
     return null;
   }
@@ -793,7 +793,7 @@ export const buildArtifact = async (): Promise<FlyoverArtifactV1 | null> => {
     warnSkip(
       "home_flyover",
       "procurement_scopes carries no `all` row",
-      "run npm run db:load:procurement-scopes:pg, then npm run db:gen-home-flyover",
+      "run pnpm run db:load:procurement-scopes:pg, then pnpm run db:gen-home-flyover",
     );
     return null;
   }

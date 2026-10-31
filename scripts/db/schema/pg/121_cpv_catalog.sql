@@ -21,7 +21,7 @@
 --
 -- ⚠️ Populated by scripts/db/load_tenders_pg.ts, which calls
 -- rebuild_cpv_catalog() at the end of every tenders load. On the cloud side that
--- is `npm run db:load:tenders:pg:cloud` — the same command that already ships the
+-- is `pnpm run db:load:tenders:pg:cloud` — the same command that already ships the
 -- tenders corpus, so no new deploy step. A database that has this file applied
 -- but has never run the loader serves an EMPTY catalogue, which is exactly the
 -- failure the route used to have; cpv_catalog.data.test.ts fails on it.

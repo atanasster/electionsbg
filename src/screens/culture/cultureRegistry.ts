@@ -22,7 +22,7 @@
 //
 // ⚠️ NO FIGURE IS WRITTEN IN THE COPY BELOW. The tiles' numbers come from
 // `data/culture/derived/hub_stats.json` via `tileMetric()`, which
-// `npm run db:gen-culture-hub-stats` derives from Postgres. The first cut quoted
+// `pnpm run db:gen-culture-hub-stats` derives from Postgres. The first cut quoted
 // eight of them as literals — beside film figures the PRERENDER interpolates —
 // so half this page self-updated and half did not, with nothing to tell them
 // apart. Prose here says what a tile IS; the blob says how big it is.

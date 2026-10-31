@@ -1,7 +1,7 @@
 // Playwright captures for the dashboard-type OG images. Run while the
 // Vite dev server is up at http://localhost:5173:
 //
-//   npx tsx scripts/og/capture-screens.ts
+//   pnpm exec tsx scripts/og/capture-screens.ts
 //
 // Each entry tells Playwright which selector to wait for, what to scroll
 // to the top of the viewport, and which element's bounding box should
@@ -1348,7 +1348,7 @@ const captures: Capture[] = [
     //
     // ⚠️ THE WAIT NAMES THE TWO OPTIONAL CELLS BY THEIR OWN DESTINATIONS, and nothing else
     // works. Two of the four cells come from fields that are OPTIONAL on the wire (`budget`
-    // and `films` ship via bucket:sync, a different command from `npm run deploy`), so a
+    // and `films` ship via bucket:sync, a different command from `pnpm run deploy`), so a
     // short band is a live state — and it is exactly the state that must not overwrite a
     // good card.
     //

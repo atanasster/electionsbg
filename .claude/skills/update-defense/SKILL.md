@@ -15,7 +15,7 @@ change in one does not force re-parsing the others.
 
 | Artifact | Source | Watcher | Script / method |
 |---|---|---|---|
-| `data/defense/gdp_share.json` + `category_split.json` | NATO annual report (PDF) | `nato_defexp` | **`npx tsx scripts/defense/__write_nato.ts`** (automated — downloads + parses Tables 3 & 8a) |
+| `data/defense/gdp_share.json` + `category_split.json` | NATO annual report (PDF) | `nato_defexp` | **`pnpm exec tsx scripts/defense/__write_nato.ts`** (automated — downloads + parses Tables 3 & 8a) |
 | `data/defense/exports.json` | Ministry of Economy export-control report | `moe_arms_exports` | MANUAL — edit the euro figures (МИ has no stable machine-readable feed) |
 | `data/defense/readiness.json` | МО "Доклад за състоянието на отбраната" (PDF) | `mod_defense_report` | MANUAL — the vacancy/reserve figures move each year's report |
 | `data/defense/programs.json` | ratification laws + press (curated) | — | MANUAL edit only |
@@ -48,8 +48,8 @@ it, pulls Bulgaria's row out of Table 3 (share of real GDP) and Table 8a
 the 2019-spike note and a sum==100 assert:
 
 ```
-npx tsx scripts/defense/__write_nato.ts               # download the latest
-npx tsx scripts/defense/__write_nato.ts --pdf <path>  # or parse a local PDF
+pnpm exec tsx scripts/defense/__write_nato.ts               # download the latest
+pnpm exec tsx scripts/defense/__write_nato.ts --pdf <path>  # or parse a local PDF
 ```
 
 The `targets` block (2% Wales, 3.5% core, 5% total by 2035) is written from the
@@ -77,10 +77,10 @@ split (`personnelEur`, `capitalEur`) comes from the State Budget Law МО line
 
 1. Sanity-check every file loads and the latest year is present:
    `for f in data/defense/*.json; do node -e "JSON.parse(require('fs').readFileSync('$f'))"; done`
-2. `npm run typecheck` (the hooks read the exact field names).
+2. `pnpm run typecheck` (the hooks read the exact field names).
 3. Stamp the ingest:
    ```
-   npx tsx scripts/stamp-ingest.ts update-defense --summary "gdp <first>-<last>, exports <year>"
+   pnpm exec tsx scripts/stamp-ingest.ts update-defense --summary "gdp <first>-<last>, exports <year>"
    ```
 4. Commit `data/defense/` + `bucket:sync data/defense/` (served from the bucket in
    prod). The /defense prerender + OG re-generate on the next build.

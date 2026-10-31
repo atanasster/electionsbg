@@ -1,7 +1,7 @@
 // Fold the three national municipal-stock series into an existing
 // `data/macro.json`, without the full network refresh `fetch_eurostat.ts` does.
 //
-//   npm run macro:municipal-stocks
+//   pnpm run macro:municipal-stocks
 //
 // **This is not the durable writer.** `fetch_eurostat.ts` rebuilds macro.json
 // from its indicator list and pushes the same three entries itself, so a macro
@@ -14,9 +14,9 @@
 // the other a quarter behind at a 200.** After a new workbook lands, the
 // municipal-fiscal procedure is three commands, not two:
 //
-//   npx tsx scripts/budget/municipal_fiscal/ingest.ts   # → the per-município JSON
-//   npm run db:load:municipal-fiscal:pg                 # → the municipal_fiscal table
-//   npm run macro:municipal-stocks                      # → the three series in macro.json
+//   pnpm exec tsx scripts/budget/municipal_fiscal/ingest.ts   # → the per-município JSON
+//   pnpm run db:load:municipal-fiscal:pg                 # → the municipal_fiscal table
+//   pnpm run macro:municipal-stocks                      # → the three series in macro.json
 //
 // The third is this script. `/governance` reads Postgres and moves after the
 // second; `/indicators/fiscal` is bucket-served from the committed macro.json

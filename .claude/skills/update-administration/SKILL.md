@@ -27,12 +27,12 @@ it refreshes with /update-procurement.
 ## Run
 
 ```bash
-npx tsx scripts/administration/fetch_egov.ts              # egov.json (Eurostat)
-npx tsx scripts/administration/fetch_digital_skills.ts    # digital_skills.json (Eurostat isoc_sk_dskl_i21)
-npx tsx scripts/administration/fetch_services.ts          # services_overview.json + services_catalog.json (ИИСДА scrape)
-npx tsx scripts/administration/parse_service_quality.ts   # service_quality.json (from cached doklad-*.txt)
-npm run admin:build-context                               # context.json (from personnel + macro + cofog)
-DATABASE_URL=… npm run db:load:admin-services:pg          # load admin_services into LOCAL Postgres
+pnpm exec tsx scripts/administration/fetch_egov.ts              # egov.json (Eurostat)
+pnpm exec tsx scripts/administration/fetch_digital_skills.ts    # digital_skills.json (Eurostat isoc_sk_dskl_i21)
+pnpm exec tsx scripts/administration/fetch_services.ts          # services_overview.json + services_catalog.json (ИИСДА scrape)
+pnpm exec tsx scripts/administration/parse_service_quality.ts   # service_quality.json (from cached doklad-*.txt)
+pnpm run admin:build-context                               # context.json (from personnel + macro + cofog)
+DATABASE_URL=… pnpm run db:load:admin-services:pg          # load admin_services into LOCAL Postgres
 ```
 
 Notes:
@@ -51,8 +51,8 @@ Notes:
 ### еФорми e-service request volumes
 
 ```bash
-npm run admin:eforms                          # data.egov.bg 20218 → data/administration/eforms_requests.json
-npm run db:load:admin-service-requests:pg     # → admin_service_requests + admin_service_requests_month
+pnpm run admin:eforms                          # data.egov.bg 20218 → data/administration/eforms_requests.json
+pnpm run db:load:admin-service-requests:pg     # → admin_service_requests + admin_service_requests_month
 ```
 
 REQUESTS through the еФорми system only — not completions, and not every e-service (one a
@@ -65,19 +65,19 @@ when no month changed. The snapshot is a PG load source and is excluded from buc
 ## Publish
 
 - **Static artifacts** (egov / service_quality / services_overview / context + the
-  services_catalog ingest source): the ordinary `npm run bucket:sync` ships
+  services_catalog ingest source): the ordinary `pnpm run bucket:sync` ships
   `data/administration/` to GCS (it is not excluded from the sync).
 - **admin_services (Postgres)**: apply migration `068_admin_services.sql` to Cloud SQL
   and load it, then it serves via `/api/db/table?resource=admin_services`:
   ```bash
-  npm run db:load:admin-services:pg:cloud
+  pnpm run db:load:admin-services:pg:cloud
   ```
   (`admin_services` is small; keep it in the standard cloud refresh alongside
   `db:load:schools:pg:cloud`.)
 - **admin_service_requests (Postgres, 201)**: nothing reads it yet, but load it with the
   rest so prod is not a vintage behind when a surface ships:
   ```bash
-  npm run db:load:admin-service-requests:pg:cloud
+  pnpm run db:load:admin-service-requests:pg:cloud
   ```
 
 ## Finish

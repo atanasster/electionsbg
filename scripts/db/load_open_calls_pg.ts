@@ -1,9 +1,9 @@
 // Load the committed open-calls snapshots into `open_calls` (migration 142).
 //
-//   npm run db:load:open-calls:pg           (needs `npm run db:pg:up`)
-//   npm run db:load:open-calls:pg:cloud     (against the Cloud SQL proxy)
+//   pnpm run db:load:open-calls:pg           (needs `pnpm run db:pg:up`)
+//   pnpm run db:load:open-calls:pg:cloud     (against the Cloud SQL proxy)
 //
-// Reads data/opencalls/<source>.json — the artifacts `npm run opencalls:isun` and
+// Reads data/opencalls/<source>.json — the artifacts `pnpm run opencalls:isun` and
 // `opencalls:sp2023` write. Both migrations it needs (005 for the changelog tables, 142 for
 // the corpus) are applied here, so a cold database needs nothing else.
 //

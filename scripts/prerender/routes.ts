@@ -4070,7 +4070,7 @@ ${accumulationGapHtml("en")}`.trim(),
   staticPage({
     path: "culture/procurement",
     // Shares the SECTOR HUB's card rather than naming a file the capture has not
-    // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
+    // made. `pnpm run og` shoots what `capture-screens.ts` lists, so pointing at
     // /og/culture-procurement.png before that entry exists would put a 404 in
     // every share preview — strictly worse than a truthful sector card. Give it
     // its own once a capture entry and a `data-og` anchor land together.
@@ -4122,7 +4122,7 @@ ${accumulationGapHtml("en")}`.trim(),
   staticPage({
     path: "culture/funds",
     // Shares the SECTOR HUB's card rather than naming a file the capture has not
-    // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
+    // made. `pnpm run og` shoots what `capture-screens.ts` lists, so pointing at
     // /og/culture-procurement.png before that entry exists would put a 404 in
     // every share preview — strictly worse than a truthful sector card. Give it
     // its own once a capture entry and a `data-og` anchor land together.
@@ -4350,7 +4350,7 @@ ${accumulationGapHtml("en")}`.trim(),
   staticPage({
     path: "culture/institutions",
     // Shares the SECTOR HUB's card rather than naming a file the capture has not
-    // made. `npm run og` shoots what `capture-screens.ts` lists, so pointing at
+    // made. `pnpm run og` shoots what `capture-screens.ts` lists, so pointing at
     // /og/culture-procurement.png before that entry exists would put a 404 in
     // every share preview — strictly worse than a truthful sector card. Give it
     // its own once a capture entry and a `data-og` anchor land together.

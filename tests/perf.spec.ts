@@ -107,7 +107,7 @@ const entryChunk = (html: string): string => {
   const match = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/);
   if (!match) {
     throw new Error(
-      `no entry chunk in ${DIST_DIR}/index.html — run \`npm run build\` first`,
+      `no entry chunk in ${DIST_DIR}/index.html — run \`pnpm run build\` first`,
     );
   }
   return match[0].replace("assets/", "");
@@ -696,7 +696,7 @@ test.describe("performance", () => {
     const file = catchAllVendorChunk();
     expect(
       file,
-      "catch-all vendor chunk not found — run `npm run build`",
+      "catch-all vendor chunk not found — run `pnpm run build`",
     ).toBeTruthy();
     // vendor-editor / -charts / -pdf all statically import `vendor`. If
     // `vendor` imports one of them back, the split becomes a cycle and
@@ -993,7 +993,7 @@ test.describe("performance", () => {
       .find((f) => /^vendor-react-.*\.js$/.test(f));
     expect(
       file,
-      "vendor-react chunk not found — run `npm run build`",
+      "vendor-react chunk not found — run `pnpm run build`",
     ).toBeTruthy();
     // vendor-react is the foundational chunk AND the home of Vite's
     // __vitePreload helper, so every dynamic-importing chunk depends on it. It

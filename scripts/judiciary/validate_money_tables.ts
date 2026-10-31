@@ -2,7 +2,7 @@
 // filings, BEFORE anything is stored or published — the precondition the magistrate plan set
 // („the bar is not ‚it parsed', it is ‚we can tell when it didn't'").
 //
-//   npx tsx scripts/judiciary/validate_money_tables.ts [--n 40] [--seed 2026]
+//   pnpm exec tsx scripts/judiciary/validate_money_tables.ts [--n 40] [--seed 2026]
 //                                                      [--form 4.0] [--print]
 //
 // ⚠️ v4.0 CANNOT BE SELF-CHECKED. The euro reissue dropped the equivalence column, so its rows

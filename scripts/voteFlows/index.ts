@@ -8,7 +8,7 @@
 //
 // Splitting per scope means the home dashboard fetches ~12KB instead of
 // the ~436KB combined file used previously. Run on demand via
-// `npm run data -- --flows`, and as part of `npm run prod` when --all is
+// `pnpm run data --flows`, and as part of `pnpm run prod` when --all is
 // set.
 
 import fs from "fs";

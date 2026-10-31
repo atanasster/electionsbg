@@ -278,7 +278,7 @@ describe("column mapping", () => {
 
 describe("sheetToGrid", () => {
   test("reads the cached XLSX and agrees with the committed fixture", () => {
-    // Regenerate: `npx tsx scripts/opencalls/sp2023_fetch.ts` (writes the gitignored cache),
+    // Regenerate: `pnpm exec tsx scripts/opencalls/sp2023_fetch.ts` (writes the gitignored cache),
     // then re-freeze the grid. Skips when the cache is absent, e.g. on a fresh clone.
     const xlsx = "raw_data/opencalls/sp2023/igg_2026.xlsx";
     if (!existsSync(xlsx)) return;

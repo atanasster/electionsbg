@@ -35,7 +35,7 @@
 // TOP-LEVEL and feeds test.skipIf (docs/testing-standards.md): an early `return` inside a test
 // body scores as a PASS, so CI would report this green while asserting nothing.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -64,7 +64,7 @@ const skip =
   dbState === "no-server"
     ? "Postgres unreachable"
     : dbState === "no-mp-roles"
-      ? "person_role holds no source='mp' rows — run npm run db:resolve:persons"
+      ? "person_role holds no source='mp' rows — run pnpm run db:resolve:persons"
       : false;
 reportSkip(import.meta.url, skip);
 

@@ -1,8 +1,8 @@
 // Load data/procurement/adfi.json into `adfi_inspection` + `adfi_coverage`
 // (migration 173, plan P7), resolving each inspected body to an ЕИК by NAME.
 //
-//   npm run db:load:adfi:pg
-//   npm run db:load:adfi:pg:cloud
+//   pnpm run db:load:adfi:pg
+//   pnpm run db:load:adfi:pg:cloud
 
 import fs from "node:fs";
 import path from "node:path";
@@ -24,7 +24,7 @@ const main = async (): Promise<void> => {
   if (!fs.existsSync(SRC)) {
     console.warn(
       `⚠ ${path.relative(process.cwd(), SRC)} is absent — schema applied, no ` +
-        `rows loaded. Run \`npm run adfi:ingest -- --apply\`.`,
+        `rows loaded. Run \`pnpm run adfi:ingest --apply\`.`,
     );
     return;
   }

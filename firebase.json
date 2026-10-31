@@ -485,7 +485,7 @@
           "headers": [
             {
               "key": "Cache-Control",
-              "comment": "Unlike the /officials, /company and /funds entries above, this glob covers a large STATICALLY served family: 25,167 prerendered person pages the db function never sees, plus the ~101k it does. Function responses override this with their own header, so the value here is the one PRERENDERED pages hand to browsers — which is why it carries no browser max-age. `npm run deploy` replaces dist/, deleting the previous /assets/index-<hash>.js, and main.tsx's stale-chunk recovery only listens for dynamic-import failures: if the ENTRY bundle 404s no JS runs at all, so a browser-cached person page across a deploy is an unrecoverable white screen. s-maxage keeps the CDN caching (it is purged on deploy); must-revalidate keeps the browser asking.",
+              "comment": "Unlike the /officials, /company and /funds entries above, this glob covers a large STATICALLY served family: 25,167 prerendered person pages the db function never sees, plus the ~101k it does. Function responses override this with their own header, so the value here is the one PRERENDERED pages hand to browsers — which is why it carries no browser max-age. `pnpm run deploy` replaces dist/, deleting the previous /assets/index-<hash>.js, and main.tsx's stale-chunk recovery only listens for dynamic-import failures: if the ENTRY bundle 404s no JS runs at all, so a browser-cached person page across a deploy is an unrecoverable white screen. s-maxage keeps the CDN caching (it is purged on deploy); must-revalidate keeps the browser asking.",
               "value": "public, max-age=0, s-maxage=3600, must-revalidate"
             }
           ]
@@ -627,11 +627,11 @@
         }
       ],
       "predeploy": [
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run budget:test",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run ai:test",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run ai:harness",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run lint",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run budget:test",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run ai:test",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run ai:harness",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run build",
         "node scripts/articles/package.mjs --check-production"
       ]
     },
@@ -692,8 +692,8 @@
         }
       ],
       "predeploy": [
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run ai:harness",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build:ai"
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run ai:harness",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run build:ai"
       ],
       "redirects": [
         {
@@ -807,7 +807,7 @@
         }
       ],
       "predeploy": [
-        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build:news"
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run build:news"
       ]
     }
   ]

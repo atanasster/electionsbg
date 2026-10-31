@@ -3,7 +3,7 @@
 // group-model aggregates (buildXxxModelFromAggregates, the new server path) —
 // checked both whole-corpus AND over a half-open [from,to) window (the seam where
 // the SQL date guard must match TS scopeByWindow).
-//   npx tsx scripts/defense/__parity_check.ts
+//   pnpm exec tsx scripts/defense/__parity_check.ts
 import { allRows } from "../db/lib/pg";
 import { scopeByWindow } from "@/data/procurement/useAwarderContracts";
 import type { ProcurementContract } from "@/data/dataTypes";

@@ -10,7 +10,7 @@
 // abroad totalActualVoters derivation) is deliberately excluded or exempted so
 // the suite never false-fails on the current good corpus.
 //
-//   npm run test:unit -- scripts/tests/election/shards
+//   pnpm run test:unit scripts/tests/election/shards
 //
 // Auto-skips when the corpus isn't on disk. See electionData.ts.
 

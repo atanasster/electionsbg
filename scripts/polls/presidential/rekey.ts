@@ -1,4 +1,4 @@
-// Tier 4, T4.3 — `npm run polls:presidential:rekey -- --cycle <cycle-id>`
+// Tier 4, T4.3 — `pnpm run polls:presidential:rekey --cycle <cycle-id>`
 // (docs/plans/polls-agency-watchers-v1.md §7, decision 16). Once a
 // cycle's `tickets.json` exists (ЦИК has registered the tickets), this:
 //
@@ -188,7 +188,7 @@ export const parseArgv = (argv: string[]): Opts => ({
 export const main = (argv: string[]): void => {
   const opts = parseArgv(argv);
   if (!opts.cycle) {
-    console.error("usage: polls:presidential:rekey -- --cycle <cycle-id>");
+    console.error("usage: polls:presidential:rekey --cycle <cycle-id>");
     process.exitCode = 1;
     return;
   }

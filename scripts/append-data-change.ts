@@ -3,13 +3,13 @@
 // /data-changes page can show "what changed on which date".
 //
 // Usage:
-//   npx tsx scripts/append-data-change.ts <skill-name> \
+//   pnpm exec tsx scripts/append-data-change.ts <skill-name> \
 //     --summary "<one-line recap>" \
 //     [--source "<upstream label>"] \
 //     [--at <iso>]
 //
 // Examples:
-//   npx tsx scripts/append-data-change.ts update-macro \
+//   pnpm exec tsx scripts/append-data-change.ts update-macro \
 //     --summary "22 indicators refreshed; 7 series got new releases through 2026 Q1" \
 //     --source "Eurostat macro (BG)"
 //

@@ -3,7 +3,7 @@
  * instead of burned-in text, plus the transcript that goes under the on-page
  * embed.
  *
- *   npm run video:vtt -- t1
+ *   pnpm run video:vtt t1
  *
  * Cue offsets are computed from the SAME per-scene clip durations the composition
  * measures itself from, plus the same tail — so the sidecar and the burned-in
@@ -47,7 +47,7 @@ const main = () => {
   const spec = key ? SPECS[key] : undefined;
   if (!spec) {
     console.error(
-      `Usage: npm run video:vtt -- <${Object.keys(SPECS).join("|")}>`,
+      `Usage: pnpm run video:vtt <${Object.keys(SPECS).join("|")}>`,
     );
     process.exit(1);
   }
@@ -58,7 +58,7 @@ const main = () => {
     const file = resolve("video/public", audioPath(spec.slug, scene.id));
     if (!existsSync(file)) {
       console.error(
-        `Missing audio for scene ${scene.id}. Run \`npm run video:voice -- ${key}\` first.`,
+        `Missing audio for scene ${scene.id}. Run \`pnpm run video:voice ${key}\` first.`,
       );
       process.exit(1);
     }

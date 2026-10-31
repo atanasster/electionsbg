@@ -16,7 +16,7 @@
 // of running the name-normalize compare on every render. When a future
 // CIK cycle (mi2027 et seq.) lands, re-run this script to refresh.
 //
-// Run: `npx tsx scripts/parsers_local/backfill_kmetstvo_ekatte.ts`
+// Run: `pnpm exec tsx scripts/parsers_local/backfill_kmetstvo_ekatte.ts`
 
 import fs from "node:fs";
 import path from "node:path";

@@ -13,7 +13,7 @@
 //   * …and that same rule must carry NO browser max-age. This glob is unlike its siblings:
 //     /officials/** covers one static page, /company/** and /funds/contract/** cover none,
 //     but /person/** blankets 25,167 PRERENDERED pages the function never sees. Those pages
-//     hand this value straight to browsers. `npm run deploy` replaces dist/ and deletes the
+//     hand this value straight to browsers. `pnpm run deploy` replaces dist/ and deletes the
 //     previous /assets/index-<hash>.js, and main.tsx's stale-chunk recovery cannot help: it
 //     listens for dynamic-import failures, and a 404 on the ENTRY bundle runs no JS at all.
 //     A browser-cached person page across a deploy is an unrecoverable white screen.

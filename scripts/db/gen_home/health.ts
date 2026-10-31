@@ -1,7 +1,7 @@
 // Is the home page's data current, and is what the browser fetches what we committed?
 //
-//   npm run home:health               # the committed artifacts
-//   npm run home:health -- --public   # …and what the bucket actually serves
+//   pnpm run home:health               # the committed artifacts
+//   pnpm run home:health --public   # …and what the bucket actually serves
 //
 // ⚠️ IT ANSWERS FOUR QUESTIONS THAT LOOK LIKE ONE, AND THEY FAIL DIFFERENTLY.
 //
@@ -320,7 +320,7 @@ export const checkPublic = async (): Promise<Problem[]> => {
       problems.push({
         kind: "unpublished",
         detail:
-          `${object} is stored as ${storedEncoding ?? "identity"} — run npm run bucket:gz ` +
+          `${object} is stored as ${storedEncoding ?? "identity"} — run pnpm run bucket:gz ` +
           `(a bucket:sync:paths reverts it)`,
       });
     try {

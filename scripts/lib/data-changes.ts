@@ -201,7 +201,7 @@ export type AppendArgs = {
 };
 
 /** A PUBLISH is not a data change, and a self-reporting ingest cannot tell the
- *  difference by itself: `prices:ingest:cloud` is literally `npm run prices`
+ *  difference by itself: `prices:ingest:cloud` is literally `pnpm run prices`
  *  with DATABASE_URL pointed at the Cloud SQL proxy, so the same code path that
  *  ingested the day locally runs again to publish it and reports it a second
  *  time. The data changed once; the feed is reader-facing and must say so once.

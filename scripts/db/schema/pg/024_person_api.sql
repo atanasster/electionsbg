@@ -22,7 +22,7 @@
 -- `db:load:pg:cloud` lands the company half and leaves THIS one on the old body
 -- indefinitely, with every row count reconciling and nothing red. Ship a guard change with
 -- BOTH files named, never by waiting for a loader:
---   npx tsx scripts/db/apply_functions.ts \
+--   pnpm exec tsx scripts/db/apply_functions.ts \
 --     114_procurement_annexes.sql 011_company_api.sql 024_person_api.sql
 --
 -- ⚠️ 114 IS IN THAT COMMAND FOR A THIRD-LOADER REASON — `carannex` below reads

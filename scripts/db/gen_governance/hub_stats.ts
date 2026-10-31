@@ -1,6 +1,6 @@
 // The /governance hub's figures, as ONE small committed JSON.
 //
-//   npx tsx scripts/db/gen_governance/hub_stats.ts
+//   pnpm exec tsx scripts/db/gen_governance/hub_stats.ts
 //
 // WHY A BLOB (dashboard-hub skill §1 and §3.1 rule 3). /governance made ZERO page-specific
 // fetches and showed ZERO numbers — measured 2026-08-22, the first figure on the page was a
@@ -364,7 +364,7 @@ const run = async (): Promise<void> => {
     warnSkip(
       "governance_hub_stats",
       "no source answered — every figure would be absent",
-      "run npm run db:refresh",
+      "run pnpm run db:refresh",
     );
     await end();
     return;

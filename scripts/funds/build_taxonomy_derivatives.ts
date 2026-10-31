@@ -7,7 +7,7 @@
 //
 // All reads come from /data/funds/projects/* (already written by the
 // projects ingest). No external fetch. Standalone runnable:
-//   npx tsx scripts/funds/build_taxonomy_derivatives.ts
+//   pnpm exec tsx scripts/funds/build_taxonomy_derivatives.ts
 // Folded into the funds:ingest-projects chain.
 
 import fs from "fs";

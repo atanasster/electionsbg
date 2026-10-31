@@ -1,7 +1,7 @@
 // CLI: rebuild „Разлика с флаш паметта" for every presidential round that has flash records.
 //
-//   npm run presidential:flash                 # every cycle the catalogue declares a tree for
-//   npm run presidential:flash -- 2021_11_14_pvr
+//   pnpm run presidential:flash                 # every cycle the catalogue declares a tree for
+//   pnpm run presidential:flash 2021_11_14_pvr
 //
 // ⚠ IT IS NOT IN ANY CHAIN, and that is deliberate. The input is `raw_data/**/suemg` — ~24,000
 // zip archives across the two 2021 rounds, gitignored, ~60 s to walk — so it is an operator

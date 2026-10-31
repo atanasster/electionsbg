@@ -6,7 +6,7 @@
 // geodata half (who is at risk) is a later phase; this shows who spent on
 // cleaning and where.
 //
-// Run: npm run db:gen-water-flood (a db:refresh step — REFRESH_GENERATORS).
+// Run: pnpm run db:gen-water-flood (a db:refresh step — REFRESH_GENERATORS).
 //
 // ⚠️ THIS FILE WENT THREE MONTHS STALE ONCE. Until 2026-10-12 nothing ran it — no
 // npm script, no chain step, no skill — so the 2026-07-12 snapshot kept serving

@@ -1,7 +1,7 @@
 /**
  * OG image (1200×630) for the article `2026-08-18-otvoreni-signali`.
  *
- *   npx tsx scripts/brand/generate_og_otvoreni_signali.ts
+ *   pnpm exec tsx scripts/brand/generate_og_otvoreni_signali.ts
  *
  * The article's actual argument is a calibration one — the flags do NOT fire
  * everywhere — so the card leads with that number rather than with a scare

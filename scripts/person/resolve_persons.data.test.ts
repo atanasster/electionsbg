@@ -13,7 +13,7 @@
 // Auto-skips when Postgres is down or the corpus is not loaded+resolved, like the other
 // *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

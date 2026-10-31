@@ -2,8 +2,8 @@ import { installRollcallQuery } from "./lib/installRollcallQuery";
 // Load the municipal-council corpus into council_muni / council_muni_code /
 // council_resolution / council_vote (migration 160).
 //
-//   npm run db:load:council:pg
-//   npm run db:load:council:pg:cloud
+//   pnpm run db:load:council:pg
+//   pnpm run db:load:council:pg:cloud
 //
 // THE INPUT IS THE DURABLE SHARD TREE — data/council/<code>/<YYYY>/<id>.json —
 // and deliberately NOT index.json or votes/*.json. Both of those are lossy

@@ -21,7 +21,7 @@
 -- check_function_bodies, so the SET below gives this no cover: on a database
 -- whose 003 predates tr_owner_share this file raises 42P01 and rolls back.
 -- db:load:tr:pg applies 003 → 008 → 022 in order; a standalone apply must be
---   npx tsx scripts/db/apply_functions.ts 003_tr_search.sql 022_company_officers.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 003_tr_search.sql 022_company_officers.sql
 
 SET check_function_bodies = off;
 

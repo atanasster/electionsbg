@@ -39,7 +39,7 @@ none of the voice-over. The failure is loud for audio (a 404 aborts the render) 
 **silent for fonts**: a missing face falls back to whatever headless Chromium has, and
 Cyrillic can come out as tofu with nothing in the logs.
 
-Fonts are the site's own Cyrillic Inter, mirrored by `npm run video:fonts` (which
+Fonts are the site's own Cyrillic Inter, mirrored by `pnpm run video:fonts` (which
 refuses to write if no Cyrillic unicode-range survives its filter). The woff2 files
 are committed despite being derived, precisely because their absence fails silently.
 
@@ -176,7 +176,7 @@ Test the **pure logic** (caption pagination, timing, VTT formatting) there. Veri
 the **compositions** by rendering and reading frames — a component test that mounts a
 Remotion scene proves far less than one extracted frame.
 
-`npm run build` does NOT typecheck `video/`. `npm run video:check` does.
+`pnpm run build` does NOT typecheck `video/`. `pnpm run video:check` does.
 
 ## Verify the artefact, not the preview
 

@@ -13,7 +13,7 @@
 //   - junk / unknown ids degrade to []/null, never a 500.
 //
 // Auto-skips when Postgres is down or the person layer is missing — like the other gates.
-//   npm run test:data
+//   pnpm run test:data
 
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";

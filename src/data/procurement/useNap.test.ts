@@ -1,7 +1,7 @@
 // Gate for the НАП tax-revenue composition — the `/sector/revenue` + `/awarder/
 // 131063188` band-1 card. Audit 2026-08-19, docs/plans/revenue-sector-audit-v1.md.
 //
-//   npx vitest run src/data/procurement/useNap.test.ts
+//   pnpm exec vitest run src/data/procurement/useNap.test.ts
 //
 // It exists because `TAX_REVENUE_GROUP` had no gate at all, and the bug it now
 // carries anchors against was invisible to every other check in the repo: the

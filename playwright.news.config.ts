@@ -13,7 +13,7 @@ export default defineConfig({
     viewport: { width: 1440, height: 1000 },
   },
   webServer: {
-    command: "npm run dev:news -- --host 127.0.0.1",
+    command: "pnpm run dev:news --host 127.0.0.1",
     url: `${BASE_URL}/test-fixtures/story-cards.html`,
     reuseExistingServer: true,
     timeout: 30_000,

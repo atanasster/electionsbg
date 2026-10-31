@@ -17,8 +17,8 @@
  *
  * Idempotent, and dry-run by default:
  *
- *   npx tsx scripts/declarations/reclassify_credit_limits.ts            # report only
- *   npx tsx scripts/declarations/reclassify_credit_limits.ts --apply    # rewrite
+ *   pnpm exec tsx scripts/declarations/reclassify_credit_limits.ts            # report only
+ *   pnpm exec tsx scripts/declarations/reclassify_credit_limits.ts --apply    # rewrite
  */
 
 import fs from "fs";

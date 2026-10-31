@@ -32,7 +32,7 @@
 // the reason this header used to over-claim: a fixture list that says it covers
 // a shape, and does not, is worse than one that admits the gap.
 //
-//   npm run test:nzok
+//   pnpm run test:nzok
 //
 // Each `tail` is the text AFTER the 10-digit Рег.№ (what ROW_START_RE's `(.*)`
 // captures), in `pdftotext -layout` shape: WIDE gutters between the two amount

@@ -1,17 +1,17 @@
-// `npm run polls:fetch` — Tier 2, T2a (docs/plans/polls-agency-watchers-v1.md
+// `pnpm run polls:fetch` — Tier 2, T2a (docs/plans/polls-agency-watchers-v1.md
 // §6.2, decisions 7, 13, 17). For each electoral publication newer than the
 // last ingest: save the page HTML, every PDF attachment, and (Sova Harris)
 // the bulletin images under `raw_data/polls/<agency>/<pubId>/`, with a
 // `SOURCE.json` stamp. Skips an already-captured `pubId` unless `--force`;
 // a changed hash on a forced re-fetch is captured as `.v2` (or `.v3`, …).
 //
-//   npm run polls:fetch                       # every pending site item, all 7 fetchable agencies
-//   npm run polls:fetch -- --agency TR        # just Trend
-//   npm run polls:fetch -- --agency TR --pub 1052
-//   npm run polls:fetch -- --since 2026-01-01 --agency GIB   # backlog walk, past what the watcher tracks
-//   npm run polls:fetch -- --url <outletArticleUrl> --agency MD   # third-party press capture (decision 2)
-//   npm run polls:fetch -- --archive <waybackUrl> --agency AR     # decision 17
-//   npm run polls:fetch -- --force            # re-check every pending item's hash, version if changed
+//   pnpm run polls:fetch                       # every pending site item, all 7 fetchable agencies
+//   pnpm run polls:fetch --agency TR        # just Trend
+//   pnpm run polls:fetch --agency TR --pub 1052
+//   pnpm run polls:fetch --since 2026-01-01 --agency GIB   # backlog walk, past what the watcher tracks
+//   pnpm run polls:fetch --url <outletArticleUrl> --agency MD   # third-party press capture (decision 2)
+//   pnpm run polls:fetch --archive <waybackUrl> --agency AR     # decision 17
+//   pnpm run polls:fetch --force            # re-check every pending item's hash, version if changed
 //
 // The watcher never opens an individual post or PDF (the "one request per
 // source" rule) — that request is this command's job, which is also why a

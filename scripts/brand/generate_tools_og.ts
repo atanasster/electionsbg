@@ -1,7 +1,7 @@
 /**
  * OG image (1200×630) for the /tools reference page (ai.electionsbg.com/tools).
  *
- *   npx tsx scripts/brand/generate_tools_og.ts
+ *   pnpm exec tsx scripts/brand/generate_tools_og.ts
  *
  * Number-led, on-brand (navy + coral, the site theme): the live tool count as
  * the hero, with a per-domain breakdown panel so it reads as a real reference

@@ -3,7 +3,7 @@
 // SAME model + prefix the browser uses for queries, so the two share one space.
 // Re-run whenever the tool registry changes (descriptions / examples / new tools):
 //
-//   npx tsx ai/llm/buildToolVectors.ts        → ai/llm/tool_vectors.json
+//   pnpm exec tsx ai/llm/buildToolVectors.ts        → ai/llm/tool_vectors.json
 //
 // This is a Node script (excluded from ai/tsconfig.json). The output JSON is a
 // lazy chunk imported by semanticRetrieve.ts only when the constrained router runs.

@@ -47,7 +47,7 @@ you invented, not a number the document states. Omit it.
 ### 1. See what needs work
 
 ```bash
-npm run opencalls:enrich -- --list
+pnpm run opencalls:enrich --list
 ```
 
 Lists every ИСУН row at `enrichment='none'` with at least one document, in deadline order, and
@@ -62,7 +62,7 @@ single-label rule would leave four fifths of the corpus untouched.
 ### 2. Fetch one procedure's document
 
 ```bash
-npm run opencalls:enrich -- --key <source_key>
+pnpm run opencalls:enrich --key <source_key>
 ```
 
 Downloads it, extracts the text, and writes a worksheet to
@@ -102,8 +102,8 @@ Five rules, all enforced mechanically in the next step:
 ### 4. Gate and store
 
 ```bash
-npm run opencalls:enrich-review              # gate every proposal, print the queue
-npm run opencalls:enrich-review -- --apply   # … and store the survivors at enrichment='auto'
+pnpm run opencalls:enrich-review              # gate every proposal, print the queue
+pnpm run opencalls:enrich-review --apply   # … and store the survivors at enrichment='auto'
 ```
 
 `scripts/opencalls/enrich_gate.ts` re-checks both halves: the quote is a plain
@@ -131,7 +131,7 @@ with an unreviewed inference would be a downgrade disguised as an enrichment.
 ### 5. Human sign-off
 
 ```bash
-npm run opencalls:enrich-review -- --promote <source_key>
+pnpm run opencalls:enrich-review --promote <source_key>
 ```
 
 Prints the proposed values with their quotes, then promotes that ONE row to
@@ -166,7 +166,7 @@ fill-never-blank, so clear it in the same statement if the old text was wrong.
 Nothing here reaches prod on its own:
 
 ```bash
-npm run db:load:open-calls:pg:cloud
+pnpm run db:load:open-calls:pg:cloud
 ```
 
 But note the loader ships `data/opencalls/*.json`, and **enrichment lives only in Postgres** —
@@ -174,7 +174,7 @@ it is not in those snapshots. So enrichment done locally does not travel. Enrich
 database you intend to serve, or re-run the skill against Cloud SQL:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run opencalls:enrich -- --list
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm run opencalls:enrich --list
 ```
 
 ## The one rule that must not bend

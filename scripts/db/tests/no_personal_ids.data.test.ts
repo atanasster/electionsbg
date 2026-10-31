@@ -14,7 +14,7 @@
 // broad (every text key column that can carry a supplier-supplied id) rather than
 // pinned to the one column that broke.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store; auto-skips when Postgres is unreachable or the
 // contracts table is absent, exactly like invariants_pg.data.test.ts.

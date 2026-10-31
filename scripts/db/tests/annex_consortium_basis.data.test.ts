@@ -23,7 +23,7 @@
 // the table is only as fresh as the last `db:load:annexes:pg`, and a gate that goes green because
 // somebody re-ran a loader is measuring the operator, not the rule.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

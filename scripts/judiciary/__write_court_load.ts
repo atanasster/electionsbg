@@ -24,7 +24,7 @@
 // already trust.
 //
 // Run (uses PDFs cached by __write_caseload.ts; run that first if raw_data is empty):
-//   npx tsx scripts/judiciary/__write_court_load.ts
+//   pnpm exec tsx scripts/judiciary/__write_court_load.ts
 
 import fs from "fs";
 import path from "path";

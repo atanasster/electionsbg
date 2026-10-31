@@ -25,7 +25,7 @@
 //      returns nulls for anyone the browse matview does not carry, which is a real state in
 //      the window between a resolve and the declarations phase-2 that rebuilds it.
 //
-//   npx vitest run src/layout/search/SearchItems.test.tsx
+//   pnpm exec vitest run src/layout/search/SearchItems.test.tsx
 
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";

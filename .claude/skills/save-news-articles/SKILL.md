@@ -694,7 +694,7 @@ still wrong (Step 2).
 | `news/scripts/test_save_articles.py` | regression suite for the saver — body gate, rejection ledger, HTML cache, `--reextract` and its three guards, charset decoding, CLI contract, and extraction against the frozen fixtures. Run it after touching the script. |
 | `news/scripts/capture_fixtures.py` | freezes one real page per known failure class into `tests/fixtures/*.html.gz` + `expectations.json`. `--list` shows what is frozen, `--refresh` re-fetches. |
 | `news/scripts/harvest_browser.mjs` | the browser tier, headless: clears the JS challenge (never clicks), harvests links or pulls the feed from the page's JS context |
-| `news/scripts/harvest_browser.test.mjs` | its decision logic — registry reader, robots parser, same-site rule, link filter, and the never-click guard. Runs under vitest (`npm run news:test`) |
+| `news/scripts/harvest_browser.test.mjs` | its decision logic — registry reader, robots parser, same-site rule, link filter, and the never-click guard. Runs under vitest (`pnpm run news:test`) |
 | `news/scripts/save_all_browser.sh` | the browser-tier sweep: harvest → save → intake report. SEQUENTIAL; budget an hour |
 | `news/scripts/tests/fixtures/` | 18 gzipped real pages (1.0 MB, COMMITTED) + `expectations.json` (GENERATED — edit the seed) + a README on provenance. The only thing standing between an extractor change and a 4,700-page sweep. |
 | `news/data/_rejected/<domain>.jsonl` | body-gate rejection ledger: url, reason, chars, title, timestamp. Untracked; entries expire after 30 days. |

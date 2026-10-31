@@ -14,7 +14,7 @@
 // adapts to the cycle: preferential voting only exists from 2014, problem_sections
 // only from 2009, so those blocks skip when the file is absent.
 //
-//   npm run test:unit -- scripts/tests/election/partiesCandidates
+//   pnpm run test:unit scripts/tests/election/partiesCandidates
 
 import { describe, test, expect } from "vitest";
 import fs from "node:fs";

@@ -10,7 +10,7 @@
 // MP names from data/parliament/mp-cars.json — see the chat transcript for
 // the setup SQL. This script only READS that isolated instance.
 //
-//   npx tsx ai/llm/personSearchThresholdTest.ts
+//   pnpm exec tsx ai/llm/personSearchThresholdTest.ts
 
 import { Client } from "pg";
 

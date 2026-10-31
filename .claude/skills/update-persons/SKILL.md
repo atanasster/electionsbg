@@ -50,20 +50,20 @@ must not be broadened into a same-name heuristic. After editing it, run the full
 ## How to run
 
 ```bash
-npm run db:resolve:persons        # applies 081+085+082-084 schema + resolves + rebuilds person_*
-npm run db:load:declarations:pg   # phase 1 rewrites declaration.subject_ref after roster re-slugging
-npm run db:load:declarations:pg -- --resolve  # phase 2 restores declaration.person_id
-npm run db:load:company-politicians:pg  # re-keys company_politicians.person_id — the resolve renumbered it
-npm run db:load:official-candidate-links:pg  # restores the official/candidate projection
-npm run db:load:person-elections:pg  # loads candidate_person + person_election_stats (the merged /candidate block)
-npm run db:load:council:pg        # restores council_vote.person_id (resolve clears it via ON DELETE SET NULL)
-npm run db:load:persons-browse:pg
-npm run db:gen-declarations-hub-stats # refreshes committed counts copied from person_browse_table
-npm run db:load:person-search:pg  # refreshes the combined-search person tier
-npm run db:load:graph:pg          # refreshes graph nodes, edges and person payloads last
-npm run data:local-person-refresh # re-stamps local-election bundles with the surviving slug
-npm run test:person               # the §7a gold-set + hermetic matcher tests
-npm run test:data                 # PG invariants incl. person_resolve.data.test.ts (zero-false-public-merge, tr-bridge licensing, connections public-safety)
+pnpm run db:resolve:persons        # applies 081+085+082-084 schema + resolves + rebuilds person_*
+pnpm run db:load:declarations:pg   # phase 1 rewrites declaration.subject_ref after roster re-slugging
+pnpm run db:load:declarations:pg --resolve  # phase 2 restores declaration.person_id
+pnpm run db:load:company-politicians:pg  # re-keys company_politicians.person_id — the resolve renumbered it
+pnpm run db:load:official-candidate-links:pg  # restores the official/candidate projection
+pnpm run db:load:person-elections:pg  # loads candidate_person + person_election_stats (the merged /candidate block)
+pnpm run db:load:council:pg        # restores council_vote.person_id (resolve clears it via ON DELETE SET NULL)
+pnpm run db:load:persons-browse:pg
+pnpm run db:gen-declarations-hub-stats # refreshes committed counts copied from person_browse_table
+pnpm run db:load:person-search:pg  # refreshes the combined-search person tier
+pnpm run db:load:graph:pg          # refreshes graph nodes, edges and person payloads last
+pnpm run data:local-person-refresh # re-stamps local-election bundles with the surviving slug
+pnpm run test:person               # the §7a gold-set + hermetic matcher tests
+pnpm run test:data                 # PG invariants incl. person_resolve.data.test.ts (zero-false-public-merge, tr-bridge licensing, connections public-safety)
 ```
 
 The resolver self-applies its schema (081 core, **085 electoral tables — must precede 082**,
@@ -91,7 +91,7 @@ attached) so no wrong same-named person is ever publicly accused. To add a desig
    - If they are an MP and unique → add `"mpId": <id>` and `"resolved": true`.
    - If the name is ambiguous / not an MP → add the entry with `"resolved": false` and a
      `note`; it will be HELD (the resolver logs `held N name-ambiguous sanction(s)`).
-3. `npm run db:resolve:persons` and confirm the profile shows the red "Санкции" tile
+3. `pnpm run db:resolve:persons` and confirm the profile shows the red "Санкции" tile
    (e.g. `/person/mp-5100` for Delyan Peevski → US Global Magnitsky, OFAC, 2021-06-02).
 
 ## The regulator register — the Court-of-Audit feed now covers most of it
@@ -144,7 +144,7 @@ attached). To add an affiliation:
    - Match → add `"mpId": <id>`, `"birthDate": "<YYYY-MM-DD>"`, `"resolved": true`.
    - Mismatch / no birth date in the решение / not an MP → add with `"resolved": false` and
      a `note`; it is HELD (the resolver logs `held N name-ambiguous ДС affiliation(s)`).
-3. `npm run db:resolve:persons` and confirm the profile shows the amber "Досие ДС" tile
+3. `pnpm run db:resolve:persons` and confirm the profile shows the amber "Досие ДС" tile
    (e.g. `/person/mp-902` for Ahmed Dogan → агент „Сергей", реш. № 14/2007-09-04).
 ## The regulators register (data/person/regulators.json) — manually curated
 
@@ -166,7 +166,7 @@ layer. To add / refresh a member:
    If the name is NOT unique (namesake_risk > 1, or several same-named people) → flip the
    entry to `"resolved": false` with a `note`; it is HELD (`held N name-ambiguous
    regulator seat(s)`) and never attached.
-3. `npm run db:resolve:persons` and confirm the profile shows the neutral "Регулатори /
+3. `pnpm run db:resolve:persons` and confirm the profile shows the neutral "Регулатори /
    независими органи" tile + the `Регулатор` facet chip (e.g. `/person/pavlina-panova-…`).
    Seat labels live under the `pp_reg_seat_<seat>` i18n keys — add a new seat there.
 
@@ -177,8 +177,8 @@ the local-election bundles. After ANY re-resolve, re-stamp + rebuild + publish, 
 dashboards (settlement / município / national list / chmi feed) keep linking to stale slugs:
 
 ```bash
-npm run data:local-person-refresh   # decorate personSlug from LOCAL person_role + rebuild rollups/trends/chmi
-npm run bucket:sync                  # the bundles + trends are gitignored → bucket-only
+pnpm run data:local-person-refresh   # decorate personSlug from LOCAL person_role + rebuild rollups/trends/chmi
+pnpm run bucket:sync                  # the bundles + trends are gitignored → bucket-only
 ```
 
 **For a PROD publish, stamp from the SERVING database, not local Postgres.** Local and Cloud SQL
@@ -188,14 +188,14 @@ proxy the `:cloud` resolves use), exactly as `person:slugs:cloud` mints the prer
 from Cloud SQL:
 
 ```bash
-npm run data:local-person-refresh:cloud   # decorate from Cloud SQL, then rebuild the local artifacts
-npm run bucket:sync
+pnpm run data:local-person-refresh:cloud   # decorate from Cloud SQL, then rebuild the local artifacts
+pnpm run bucket:sync
 ```
 
 `emit_prerender_slugs` (the `person:slugs` step below) also now folds municipal officials +
 village/район mayors into the /person prerender + sitemap set — a deliberate, staging-measured
 addition on top of the exec cap. **Measure the
-`dist/` file count on a `npm run staging` deploy before shipping to prod** — the local-officials
+`dist/` file count on a `pnpm run staging` deploy before shipping to prod** — the local-officials
 set adds ~30k files.
 
 ## Publishing to production (Cloud SQL)
@@ -218,21 +218,21 @@ against the cloud proxy:
 # ~2,700 judicial roles resolve via judicial_body instead and KEEP their label, the damage
 # looks partial rather than total. Cheap and idempotent: run it unconditionally rather than
 # reasoning about whether settlements.json/municipalities.json moved.
-npm run db:load:place-dim:pg:cloud
+pnpm run db:load:place-dim:pg:cloud
 # The judicial dimension: db:resolve:persons reads judicial_body_alias to give every
 # magistrate their court. Skipping it publishes ~2,700 magistrates with no institution.
-npm run db:load:judicial-bodies:pg:cloud
+pnpm run db:load:judicial-bodies:pg:cloud
 # Bridge B's evidence table. `db:resolve:persons` REFUSES to run without it — it throws
 # naming this command — because Bridge B needs positive proof that a name belongs to ONE
 # registry person, and an empty table would mint nothing and empty every public figure's
 # company list. That is the good failure, but on Cloud SQL it aborts a ~5 min resolve, so
 # load it first. Input is the committed data/person/tr_name_fold_people.tsv.
-npm run db:load:tr-name-fold-people:pg:cloud
+pnpm run db:load:tr-name-fold-people:pg:cloud
 # Verify ALL THREE landed before resolving — after the resolve it is too late to tell:
 #   select count(*) from place_dim;            -- must be non-zero (~5,700)
 #   select count(*) from judicial_body_alias;  -- must be non-zero (~530)
 #   select count(*) from tr_name_fold_people;  -- must be non-zero (the resolve throws on 0)
-npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + rebuilds person_* on Cloud SQL
+pnpm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + rebuilds person_* on Cloud SQL
 # ~5 min on Cloud SQL, measured 2026-08-05 (~124k persons) — NOT the "multi-hour" CLAUDE.md
 # claims. Worth knowing: the multi-hour belief is why this resolve gets left out of chains
 # it belongs in.
@@ -245,46 +245,46 @@ npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + 
 # drops off /person and out of the "с декларация" facet while every row count reconciles.
 # --resolve prints `N/total still NULL`; a single-digit N against ~48k reads as ordinary
 # residue, which is how 1 of 47,983 was missed on 2026-07-31.
-npm run db:load:declarations:pg:cloud               # phase 1 — rewrites subject_ref
-npm run db:load:declarations:pg:cloud -- --resolve
+pnpm run db:load:declarations:pg:cloud               # phase 1 — rewrites subject_ref
+pnpm run db:load:declarations:pg:cloud --resolve
 # MANDATORY: company_politicians STORES person_id, which the resolve just renumbered. Skip
 # this and every procurement link on /person and /connections names the neighbouring
 # ordinal's person (849 of 1,001 rows when it happened locally, 2026-10-21). The graph
 # loader below refuses on that drift, so a skipped step fails loudly rather than shipping.
-npm run db:load:company-politicians:pg:cloud
-npm run db:load:official-candidate-links:pg:cloud  # re-decorates + REFRESHes that matview
-npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
+pnpm run db:load:company-politicians:pg:cloud
+pnpm run db:load:official-candidate-links:pg:cloud  # re-decorates + REFRESHes that matview
+pnpm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
 # MANDATORY after every resolve: deleting/rebuilding person fires council_vote.person_id's
 # ON DELETE SET NULL. Without this reload every named council vote loses attribution at 200.
-npm run db:load:council:pg:cloud
+pnpm run db:load:council:pg:cloud
 # LAST — it folds everything above (plus place_dim + contracts) into the /persons browser
 # matview (120). Run it after any of them changes; see the two-trigger note below.
-npm run db:load:persons-browse:pg:cloud
+pnpm run db:load:persons-browse:pg:cloud
 # The committed declarations hub snapshot copies its people count from person_browse_table.
 # Read the SERVING projection, commit the result, then bucket-sync it.
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:gen-declarations-hub-stats
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm run db:gen-declarations-hub-stats
 # The combined-search ranked index (126). Standalone — nothing on the cloud side runs it.
 # Its route degrades a MISSING table to empty tiers, so a first deploy never 500s, but a
 # STALE table serves the previous vintage at a 200.
-npm run db:load:person-search:pg:cloud
+pnpm run db:load:person-search:pg:cloud
 # THE CONNECTIONS GRAPH reads person_browse facets (above) + the tr / persons / procurement
 # layers, so it re-derives LAST. It applies 127/128/129 and rebuilds graph_* + graph_payloads
 # behind /connections + person_connections(). Stale ⇒ /connections + the /person "Свързани
 # лица" tile serve the previous vintage. Same SECOND-trigger note as persons-browse: a
 # procurement reload also moves company money on the graph's company nodes.
-npm run db:load:graph:pg:cloud
+pnpm run db:load:graph:pg:cloud
 # The officials re-slug maps, then the prerender manifest. The maps UPSERT, so each dated
 # map composes; add a line here whenever a new one lands. They must precede person:slugs —
 # the continuity half of the selection calls officials_person_slug(), which falls through to
 # person_slug_retired, so with the maps unloaded a re-slugged official resolves to nothing
 # and silently drops out of the prerender set.
-npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_24.json
-npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_29.json
+pnpm run person:slug-redirects:cloud raw_data/person/officials_reslug_2026_07_24.json
+pnpm run person:slug-redirects:cloud raw_data/person/officials_reslug_2026_07_29.json
 # data/person/prerender_slugs.json — the ONE artifact that must be minted from the SERVING
 # database, never local docker (emit_prerender_slugs.ts refuses local unless --local).
 # person_slug_lock accumulates per database, so the two sides hand the same people different
 # slugs; a locally-minted manifest names people prod cannot serve. COMMIT the result.
-npm run person:slugs:cloud
+pnpm run person:slugs:cloud
 ```
 
 ALL of these are required. The resolver rebuilds the identity/roles/connections layer;
@@ -308,7 +308,7 @@ right order (085 before 082); if you ever hit `relation "person_election_stats" 
 on an older checkout, apply `085_person_elections.sql` by hand first, then re-run.
 
 The route layer (`functions/db_routes.js` person-profile / person-lookup / person-connections)
-ships with the normal `npm run deploy` (functions deploy) — until that deploy runs, prod
+ships with the normal `pnpm run deploy` (functions deploy) — until that deploy runs, prod
 returns `{"error":"unknown db route"}` for the person routes.
 
 CAVEAT (like `reference_contracts_reload_lock`): the resolver TRUNCATE+COPYs `person_*`, so
@@ -329,7 +329,7 @@ never see this layer. Both are skipped when the derivation resolves zero persons
 clone or a wrong `DATABASE_URL`): a marker claiming success there would make the
 orchestrator skip the layer silently. `db:resolve:persons:cloud` passes `--no-stamp` — the
 marker answers "when was the LOCAL layer last rebuilt", so a cloud-only publish must not
-advance it. Pass it yourself for a scratch run (`npm run db:resolve:persons -- --no-stamp`,
+advance it. Pass it yourself for a scratch run (`pnpm run db:resolve:persons --no-stamp`,
 note the `--`).
 
 Under `/process-watch-report` the orchestrator stamps the same file again in its step 5, so
@@ -340,7 +340,7 @@ To re-stamp by hand — e.g. after a run that only did the person-elections load
 shared CLI every other skill uses:
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-persons --summary "<one line>"
+pnpm exec tsx scripts/stamp-ingest.ts update-persons --summary "<one line>"
 ```
 
 Then commit the changed curated register(s) — `data/person/link_overrides.json` /

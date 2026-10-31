@@ -2,7 +2,7 @@
 // /api/db/procurement-* dashboard routes. Sibling of contractor_rank.data.test.ts,
 // cpv_catalog.data.test.ts and procurement_settlement_payloads.data.test.ts.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires Postgres + `db:load:procurement-scopes:pg`; auto-skips when Postgres or the
 // contracts corpus is absent — like the other *.data.test.ts gates.
@@ -71,7 +71,7 @@ test.skipIf(skip)("the matview exists and is populated", async () => {
   assert.equal(
     t?.ok,
     true,
-    "procurement_payloads does not exist — run `npm run db:load:procurement-scopes:pg`",
+    "procurement_payloads does not exist — run `pnpm run db:load:procurement-scopes:pg`",
   );
   // Reading a WITH NO DATA matview raises 55000 rather than returning zero rows, so this
   // has to be caught and re-reported: an unhandled 55000 reads as an infrastructure error
@@ -82,7 +82,7 @@ test.skipIf(skip)("the matview exists and is populated", async () => {
     assert.fail(
       e?.code === "55000"
         ? "procurement_payloads exists but was never REFRESHed (WITH NO DATA) — " +
-            "run `npm run db:load:procurement-scopes:pg`"
+            "run `pnpm run db:load:procurement-scopes:pg`"
         : `procurement_payloads is unreadable (${e?.code})`,
     );
   });
@@ -191,7 +191,7 @@ test.skipIf(skip)(
             rows[0]?.same,
             true,
             `${kind}/${scope_key}: stored payload differs from live — the matview is STALE. ` +
-              `Run \`npm run db:load:procurement-scopes:pg\`.`,
+              `Run \`pnpm run db:load:procurement-scopes:pg\`.`,
           );
         }
       }
@@ -238,7 +238,7 @@ test.skipIf(skip)(
       stale,
       0,
       "a stored `oblast` diverges from awarder_seats — refresh 124 " +
-        "(`npm run db:load:awarder-seats:pg` now does it; a hand-run reload may not have)",
+        "(`pnpm run db:load:awarder-seats:pg` now does it; a hand-run reload may not have)",
     );
   },
 );

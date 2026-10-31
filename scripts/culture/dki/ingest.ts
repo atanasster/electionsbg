@@ -2,9 +2,9 @@
 // them, resolve each institute to an EIK against the corpus, and write
 // data/culture/dki_register.json.
 //
-//   npx tsx scripts/culture/dki/ingest.ts            # dry run, prints the diff
-//   npx tsx scripts/culture/dki/ingest.ts --apply    # write the artifact
-//   npx tsx scripts/culture/dki/ingest.ts --apply --offline   # re-parse the cache
+//   pnpm exec tsx scripts/culture/dki/ingest.ts            # dry run, prints the diff
+//   pnpm exec tsx scripts/culture/dki/ingest.ts --apply    # write the artifact
+//   pnpm exec tsx scripts/culture/dki/ingest.ts --apply --offline   # re-parse the cache
 //
 // A DRY RUN STILL REFRESHES THE RAW CACHE (`raw_data/culture/dki/`, gitignored).
 // That is deliberate — it is what makes the `--offline` re-parse afterwards read

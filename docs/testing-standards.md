@@ -8,8 +8,8 @@ subsystem tests the same way.
 
 | Layer                   | Runner         | Scope                                                                                          | Command             |
 | ----------------------- | -------------- | ---------------------------------------------------------------------------------------------- | ------------------- |
-| Unit + component        | **Vitest**     | pure functions, data transforms, resolver/matching logic, SQL-payload shape, React hooks/tiles | `npm run test:unit` |
-| End-to-end / SEO / perf | **Playwright** | prerendered HTML, route smoke, resource budgets, responsive layout                             | `npm test`          |
+| Unit + component        | **Vitest**     | pure functions, data transforms, resolver/matching logic, SQL-payload shape, React hooks/tiles | `pnpm run test:unit` |
+| End-to-end / SEO / perf | **Playwright** | prerendered HTML, route smoke, resource budgets, responsive layout                             | `pnpm test`         |
 
 Vitest is the unit/component runner because it is Vite-native: it reuses the
 `@/*` alias (via `vite-tsconfig-paths`, reading the same tsconfig the app build
@@ -30,7 +30,7 @@ do not overlap.
 The Firebase Functions package (`functions/`) is deployed independently, is
 CommonJS, has its own `node_modules`, and keeps its self-contained,
 zero-dependency `node --test` gate (wired into `deploy:functions`). Run it with
-`npm run functions:test`. Do not pull it into the root Vitest run.
+`pnpm run functions:test`. Do not pull it into the root Vitest run.
 
 ## File naming and location
 
@@ -130,10 +130,10 @@ See `src/data/fetchJson.test.tsx` for the full `renderHook` + `QueryClientProvid
 
 The Postgres exception: the `scripts/db/tests/*.data.test.ts` integration gates
 DO query Postgres — but they **auto-skip when it is unreachable** (a top-level
-probe feeds `test.skipIf`), so `npm run test:unit` stays green on a fresh clone
+probe feeds `test.skipIf`), so `pnpm run test:unit` stays green on a fresh clone
 or in CI with no database. When Postgres is up they run for real. Run them on
-purpose with `npm run test:data`, or the golden/manifest comparisons with
-`npm run db:verify` (`DB_VERIFY=1`).
+purpose with `pnpm run test:data`, or the golden/manifest comparisons with
+`pnpm run db:verify` (`DB_VERIFY=1`).
 
 **A gate that stands down must SAY SO — `reportSkip` is not optional decoration.**
 Compute the reason as a value, then report it:
@@ -144,7 +144,7 @@ import { reportSkip } from "../../lib/report_skip";
 const skip = !haveDb
   ? "Postgres unreachable"
   : n === "0"
-    ? "adfi_inspection is empty — run npm run db:load:adfi:pg"
+    ? "adfi_inspection is empty — run pnpm run db:load:adfi:pg"
     : false;
 reportSkip(import.meta.url, skip);
 
@@ -210,7 +210,7 @@ so there is no need to churn them. Do not mix the two styles within one file.
 
 ## Coverage
 
-Coverage is v8 (`npm run test:coverage`, HTML report in `coverage/`). The
+Coverage is v8 (`pnpm run test:coverage`, HTML report in `coverage/`). The
 expectation is pragmatic: **cover the modules you add or change**, not a global
 percentage. A PR that adds a pure util or a payload builder should add its test;
 a PR that changes matching logic should extend the fixture set. We do not gate
@@ -220,14 +220,14 @@ math, the security-sensitive routes).
 
 ## Where it runs
 
-- **Local, while working:** `npm run test:unit` (or `npm run test:unit:watch`).
-  Namespaced subsets exist for a tight loop: `npm run test:lib`,
-  `npm run test:nzok`, `npm run test:person`, etc. — `test:<subsystem>` maps to
+- **Local, while working:** `pnpm run test:unit` (or `pnpm run test:unit:watch`).
+  Namespaced subsets exist for a tight loop: `pnpm run test:lib`,
+  `pnpm run test:nzok`, `pnpm run test:person`, etc. — `test:<subsystem>` maps to
   `vitest run <path>`.
-- **Pre-commit / pre-push (recommended):** `npm run lint && npm run test:unit`.
+- **Pre-commit / pre-push (recommended):** `pnpm run lint && pnpm run test:unit`.
   Both are fast and need no services.
 - **CI:** the workflow runs `lint` -> `build` -> Playwright today. Add
-  `npm run test:unit` as a step after `lint` (before `build`) — it is hermetic
+  `pnpm run test:unit` as a step after `lint` (before `build`) — it is hermetic
   and needs no browser, emulator, or database. The `*.data.test.ts` Postgres
   gates auto-skip in CI (no container); run them in the data-refresh job that
-  already has Postgres up, via `npm run test:data` / `npm run db:verify`.
+  already has Postgres up, via `pnpm run test:data` / `pnpm run db:verify`.

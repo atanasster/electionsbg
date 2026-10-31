@@ -1,7 +1,7 @@
 // „Рискови гласове" for a presidential round — how the flagged Roma neighbourhoods voted.
 //
-//   npx tsx scripts/parsers_presidential/build_neighborhoods.ts <cycle> [--write]
-//   npx tsx scripts/parsers_presidential/build_neighborhoods.ts all --write
+//   pnpm exec tsx scripts/parsers_presidential/build_neighborhoods.ts <cycle> [--write]
+//   pnpm exec tsx scripts/parsers_presidential/build_neighborhoods.ts all --write
 //
 // ⚠⚠ THE CATALOGUE IS A CLAIM ABOUT A PLACE, NOT ABOUT AN ELECTION, and that is the whole
 // licence for reading it here. `PROBLEM_NEIGHBORHOODS` is a curated list of eight districts

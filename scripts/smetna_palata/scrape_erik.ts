@@ -3,7 +3,7 @@
 //
 // Previous campaign-finance data was downloaded by hand. This script reproduces
 // the exact raw_data/<election>/smetna_palata/ layout the manual process built,
-// so the existing parser (parseFinancing, run via `npm run data -- --financing`)
+// so the existing parser (parseFinancing, run via `pnpm run data --financing`)
 // consumes it unchanged:
 //
 //   raw_data/<election>/smetna_palata/
@@ -16,9 +16,9 @@
 //
 // All ЕРИК endpoints are plain-HTTP JSON (DataTables) — see erik_client.ts.
 //
-// CLI:  npx tsx scripts/smetna_palata/scrape_erik.ts [<election|electionId>]
+// CLI:  pnpm exec tsx scripts/smetna_palata/scrape_erik.ts [<election|electionId>]
 //       (defaults to ERIK_ELECTIONS[0], the latest election)
-// Or via the pipeline:  npm run data -- --erik [<election>]
+// Or via the pipeline:  pnpm run data --erik [<election>]
 
 import fs from "fs";
 import path from "path";

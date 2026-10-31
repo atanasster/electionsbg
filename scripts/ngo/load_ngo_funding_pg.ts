@@ -3,7 +3,7 @@
 // foreign grantmakers. Every source is name-keyed, so we match to a BG EIK via
 // VAT (FTS only) → exact folded-name → fuzzy trigram, scoped to the NGO surface.
 //
-//   npm run db:load:ngo-funding:pg
+//   pnpm run db:load:ngo-funding:pg
 //
 // FOUR inputs, in three tiers of absence-handling (gaps plan T4.2 — the tier is
 // "does git carry the file", the same axis refresh_coverage.ts uses):

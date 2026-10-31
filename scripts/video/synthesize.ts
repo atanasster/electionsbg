@@ -1,8 +1,8 @@
 /**
  * Per-scene voice-over for a video spec — step 5 of the `naiasno-video` skill.
  *
- *   npm run video:voice -- t1            # synthesize every scene
- *   npm run video:voice -- t1 --force    # re-synthesize clips that already exist
+ *   pnpm run video:voice t1            # synthesize every scene
+ *   pnpm run video:voice t1 --force    # re-synthesize clips that already exist
  *
  * ONE CLIP PER SCENE, never one for the whole video. Two independent reasons:
  * `bg-BG` has no SSML break tag on any provider we use, so the pause BETWEEN
@@ -135,7 +135,7 @@ const main = async () => {
   const spec = key ? SPECS[key] : undefined;
   if (!spec) {
     console.error(
-      `Usage: npm run video:voice -- <${Object.keys(SPECS).join("|")}> [--force]`,
+      `Usage: pnpm run video:voice <${Object.keys(SPECS).join("|")}> [--force]`,
     );
     process.exit(1);
   }

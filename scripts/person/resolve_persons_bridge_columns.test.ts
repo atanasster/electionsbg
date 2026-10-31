@@ -25,7 +25,7 @@
 // Correctness of the stamped values belongs to `person_resolve.data.test.ts`, which reads
 // them from the database. A static gate that pretended otherwise would be worse than none.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import fs from "node:fs";
 import path from "node:path";

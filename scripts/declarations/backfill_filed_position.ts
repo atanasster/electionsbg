@@ -2,9 +2,9 @@
  * Fill `declaration.filed_institution` / `filed_position` — the declarant's OWN institution
  * and job, from each filing's `<Personal><Work>` and `<Personal><Position>`.
  *
- *   npx tsx scripts/declarations/backfill_filed_position.ts --slug mp-5104 --apply
- *   npx tsx scripts/declarations/backfill_filed_position.ts --all --cache-only --apply
- *   npx tsx scripts/declarations/backfill_filed_position.ts --all --apply [--limit N]
+ *   pnpm exec tsx scripts/declarations/backfill_filed_position.ts --slug mp-5104 --apply
+ *   pnpm exec tsx scripts/declarations/backfill_filed_position.ts --all --cache-only --apply
+ *   pnpm exec tsx scripts/declarations/backfill_filed_position.ts --all --apply [--limit N]
  *
  * `--cache-only` never touches the network: it fills what raw_data/declarations already
  * holds and skips the rest. Measured 2026-08-16 that is 6,288 of 61,725 outstanding filings

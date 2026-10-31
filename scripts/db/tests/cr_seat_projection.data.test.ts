@@ -21,7 +21,7 @@
 // must never read as one — the change is INERT until the corpus is re-derived, exactly like
 // the `table_num` / `value_basis` / `held_scope` backfills in 089.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -73,7 +73,7 @@ const skip = !haveDb
     : seated <= PRE_PROJECTION_SEATED
       ? `corpus predates the CR seat projection (${seated} seated, ` +
         `${PRE_PROJECTION_SEATED} before it) — re-derive with ` +
-        "`npm run tr:daily-refresh` then `npm run db:load:tr:pg`, or this gate is vacuous"
+        "`pnpm run tr:daily-refresh` then `pnpm run db:load:tr:pg`, or this gate is vacuous"
       : false;
 reportSkip(import.meta.url, skip);
 
@@ -144,7 +144,7 @@ test.skipIf(skip)(
       placed > PRE_PROJECTION_PLACED,
       `tr_company_place holds ${placed} rows, against ${PRE_PROJECTION_PLACED} before the ` +
         `CR seat ` +
-        `projection — run \`npm run db:load:tr-company-place:pg\` to re-resolve, or the ` +
+        `projection — run \`pnpm run db:load:tr-company-place:pg\` to re-resolve, or the ` +
         `seats reached the column and no place surface`,
     );
   },

@@ -14,14 +14,14 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 // WHAT THE MOVE COMMITS YOU TO REGENERATING, none of it automatic:
 //
-//   • `npm run sitemap` — /culture/subsidies needs its own <loc> in BOTH language
+//   • `pnpm run sitemap` — /culture/subsidies needs its own <loc> in BOTH language
 //     shards, and `ogAndSitemapCoverage.test.ts` fails until it has one. Already
 //     run; re-run it if either page's path changes again.
-//   • `npm run og` — `scripts/og/capture-screens.ts` shoots the film hero, which
+//   • `pnpm run og` — `scripts/og/capture-screens.ts` shoots the film hero, which
 //     now lives on /culture/subsidies. The entry was repointed; until the capture
 //     is re-run, /og/culture.png still shows the dashboard as it looked at the old
 //     URL. Both pages declare that same image.
-//   • `npm run build` — the prerender reads data/culture/overview.json at BUILD
+//   • `pnpm run build` — the prerender reads data/culture/overview.json at BUILD
 //     time for both bodies, so a stale checkout emits stale figures with no error.
 //
 // The figures in COPY below are FROZEN STRINGS and cannot self-correct.

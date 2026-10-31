@@ -5,7 +5,7 @@
 // indicators tile, which is Eurostat/НСИ only). This is what makes the promise
 // true in the static HTML as well as in the SPA.
 //
-// It reads the COMMITTED data/schools/index.json, so `npm run build` produces
+// It reads the COMMITTED data/schools/index.json, so `pnpm run build` produces
 // the education section on any checkout — deliberately unlike the /court family,
 // where seo_courts.ts needs a local Postgres and silently emits nothing without
 // one. The aggregation itself is the same `buildPlacePayloads` the Postgres

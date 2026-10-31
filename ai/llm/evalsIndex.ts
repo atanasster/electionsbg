@@ -1,6 +1,6 @@
 // Build the eval page's manifest from the published artifacts.
 //
-//   npx tsx ai/llm/evalsIndex.ts   →  data/ai/evals/index.json
+//   pnpm exec tsx ai/llm/evalsIndex.ts   →  data/ai/evals/index.json
 //
 // WHY A MANIFEST: the eval screen used to hardcode two filenames, so adding a run meant
 // editing the page and a renamed artifact broke it silently. The page now reads this

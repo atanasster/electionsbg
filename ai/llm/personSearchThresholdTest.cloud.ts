@@ -6,9 +6,9 @@
 //
 // `SET pg_trgm.word_similarity_threshold` is SESSION-scoped — nothing here
 // persists past this script's one connection, and nothing writes. The proxy
-// must already be running: `npm run db:proxy:cloud` (port 5434).
+// must already be running: `pnpm run db:proxy:cloud` (port 5434).
 //
-//   PGPASSFILE=.pgpass npx tsx ai/llm/personSearchThresholdTest.cloud.ts
+//   PGPASSFILE=.pgpass pnpm exec tsx ai/llm/personSearchThresholdTest.cloud.ts
 
 import { Client } from "pg";
 

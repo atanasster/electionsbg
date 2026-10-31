@@ -6,7 +6,7 @@
 // shipped — leaves a reader unable to tell whether „Автомобили на депутати" is a page about
 // forty cars or two thousand.
 //
-//   npx tsx scripts/db/gen_governance/declarations_hub_stats.ts
+//   pnpm exec tsx scripts/db/gen_governance/declarations_hub_stats.ts
 //
 // ===========================================================================
 // FIVE OF THE SIX FIGURES ARE NOT count(*) ON THE TILE'S TABLE, AND THE FIRST DRAFT OF THIS
@@ -123,7 +123,7 @@ const run = async (): Promise<void> => {
     warnSkip(
       "declarations_hub_stats",
       `missing ${missing.join(", ")}`,
-      "run npm run db:refresh (or the loader for the named relation)",
+      "run pnpm run db:refresh (or the loader for the named relation)",
     );
     await end();
     return;
@@ -146,7 +146,7 @@ const run = async (): Promise<void> => {
     warnSkip(
       "declarations_hub_stats",
       "person_browse_table has no public-tier rows",
-      "run npm run db:load:persons-browse:pg",
+      "run pnpm run db:load:persons-browse:pg",
     );
     await end();
     return;
@@ -192,7 +192,7 @@ const run = async (): Promise<void> => {
     warnSkip(
       "declarations_hub_stats",
       "company_browse_table absent — companies tile ships without a figure",
-      "run npm run db:load:declarations:pg -- --resolve",
+      "run pnpm run db:load:declarations:pg --resolve",
     );
   } else {
     const [oc] = await allRows<{ n: string; people: string }>(
@@ -231,7 +231,7 @@ const run = async (): Promise<void> => {
       warnSkip(
         "declarations_hub_stats",
         "company_browse_table is EMPTY — companies tile ships without a figure",
-        "run npm run db:load:declarations:pg -- --resolve",
+        "run pnpm run db:load:declarations:pg --resolve",
       );
     }
   }

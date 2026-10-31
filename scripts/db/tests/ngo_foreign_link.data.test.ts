@@ -10,7 +10,7 @@
 //     when an eik qualifies both ways it is tagged 'direct' (direct beats
 //     connected), never 'connected'.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Auto-skips when Postgres is unreachable or the table is absent (fresh CI
 // checkout / TR-only DB), exactly like invariants_pg.data.test.ts.

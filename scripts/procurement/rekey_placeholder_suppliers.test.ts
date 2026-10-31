@@ -1,6 +1,6 @@
 // Gate for `reidentify` — the re-key one-off's identity recomputation.
 //
-//   npx vitest run scripts/procurement/rekey_placeholder_suppliers.test.ts
+//   pnpm exec vitest run scripts/procurement/rekey_placeholder_suppliers.test.ts
 //
 // WHY THIS EXISTS. The script is a one-off, but it is committed and re-runnable,
 // and `reidentify` is the part that decides what a row's contract `key` BECOMES.
@@ -224,7 +224,7 @@ describe("the two defects this test found", () => {
 
   it("importing this module does not run the CLI", () => {
     // The first guard was an unanchored substring match on argv[1], which matches
-    // this very file's path — so `npx tsx …test.ts` still walked all 406,722 rows.
+    // this very file's path — so `pnpm exec tsx …test.ts` still walked all 406,722 rows.
     // It only looked fixed because vitest puts its own binary in argv[1].
     const src = readFileSync(
       new URL("./rekey_placeholder_suppliers.ts", import.meta.url),

@@ -23,8 +23,8 @@
 // Output: data/procurement/derived/mon_ri_eik_crosswalk.json
 //   { generatedAt, source, count, awarders: { <eik>: { ekatte, neispuo } } }
 //
-// Run: `npx tsx scripts/procurement/mon_ri_crawl.ts`  (then re-run
-// awarder_geo_map.ts + npm run procurement:ingest to apply).
+// Run: `pnpm exec tsx scripts/procurement/mon_ri_crawl.ts`  (then re-run
+// awarder_geo_map.ts + pnpm run procurement:ingest to apply).
 
 import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
@@ -149,7 +149,7 @@ const main = async (): Promise<void> => {
       `(${badEik} malformed eik, ${badEkatte} non-registry ekatte skipped)`,
   );
   console.log(
-    `→ now re-run: npx tsx scripts/procurement/awarder_geo_map.ts && npm run procurement:ingest`,
+    `→ now re-run: pnpm exec tsx scripts/procurement/awarder_geo_map.ts && pnpm run procurement:ingest`,
   );
 };
 

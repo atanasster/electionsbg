@@ -2,7 +2,7 @@
 // /sector/security (МВР) dashboard behind it. Audit 2026-08-19,
 // docs/plans/sector-security-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // A separate file per sector, following the environment / regional precedent.
 //

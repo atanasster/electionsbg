@@ -1,5 +1,5 @@
 // Create the `app_readonly` role on the local docker Postgres, so a fresh clone can
-// complete `npm run db:refresh`.
+// complete `pnpm run db:refresh`.
 //
 // WHY THIS EXISTS. `roles_readonly.sql` is the only thing in the repo that creates the
 // role, and until now nothing invoked it — it was a documented one-time MANUAL step. But
@@ -170,7 +170,7 @@ export const waitForPostgres = async (
   throw new Error(
     `Postgres did not accept a connection after ${attempts} attempts ` +
       `(~${Math.round((attempts * delayMs) / 1000)}s) at ${redactUrl(connectionUrl())}. ` +
-      `Is the container up? \`npm run db:pg:up\`\n  Last error: ${formatPgError(last)}`,
+      `Is the container up? \`pnpm run db:pg:up\`\n  Last error: ${formatPgError(last)}`,
   );
 };
 

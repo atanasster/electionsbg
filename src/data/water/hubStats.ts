@@ -1,5 +1,5 @@
 // The /water hub's figures, read from the committed blob that
-// `npm run db:gen-water-hub-stats` derives from Postgres plus the two committed
+// `pnpm run db:gen-water-hub-stats` derives from Postgres plus the two committed
 // water artifacts (docs/plans/water-hub-v1.md T2).
 //
 // WHY A BLOB: the hub must not fetch the group model, the funds rollup, the НСИ

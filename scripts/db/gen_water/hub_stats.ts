@@ -1,4 +1,4 @@
-// `npm run db:gen-water-hub-stats` → data/water/derived/hub_stats.json, the
+// `pnpm run db:gen-water-hub-stats` → data/water/derived/hub_stats.json, the
 // /water hub's KPI band, operator rail, finder index and band figures
 // (docs/plans/water-hub-v1.md T2). The shape is WaterHubStats
 // (src/data/water/hubStats.ts).
@@ -61,7 +61,7 @@ const main = async () => {
     warnSkip(
       "water hub_stats",
       `missing relation(s): ${missing.map((m) => `${m} (${INPUTS[m]})`).join(", ")}`,
-      "Run the loader(s) named in brackets, or the whole chain: npm run db:refresh",
+      "Run the loader(s) named in brackets, or the whole chain: pnpm run db:refresh",
     );
     await end();
     process.exit(0);
@@ -70,7 +70,7 @@ const main = async () => {
     warnSkip(
       "water hub_stats",
       "contracts is empty (db:load:pg)",
-      "Load the procurement corpus first: npm run db:load:pg",
+      "Load the procurement corpus first: pnpm run db:load:pg",
     );
     await end();
     process.exit(0);

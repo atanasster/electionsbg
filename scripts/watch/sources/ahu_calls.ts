@@ -1,5 +1,5 @@
 // АХУ (Агенция за хората с увреждания) — its grant competitions, as open calls. Maps to
-// `update-open-calls` (`npm run opencalls:ahu`).
+// `update-open-calls` (`pnpm run opencalls:ahu`).
 //
 // cadence: daily, publishes: irregular. АХУ announces each programme's competition once a year,
 // mostly in February, with windows of about five weeks — a week's lag costs a reader a fifth of

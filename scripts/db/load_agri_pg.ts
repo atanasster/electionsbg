@@ -2,10 +2,10 @@
 // of the fetch/load split (gaps plan T2). Reads ONLY the raw_data/agri/ cache
 // (egov year sheets + СЕУ CSVs) and publishes agri_subsidies + agri_payloads
 // via the stage build + DELETE+INSERT publish / stage merge in
-// scripts/agri/ingest.ts; it never touches the network. The fetch+load path stays `npm run agri:ingest` (update-agri skill).
+// scripts/agri/ingest.ts; it never touches the network. The fetch+load path stays `pnpm run agri:ingest` (update-agri skill).
 //
-//   npm run db:load:agri:pg          (local)
-//   npm run db:load:agri:pg:cloud    (Cloud SQL proxy :5434)
+//   pnpm run db:load:agri:pg          (local)
+//   pnpm run db:load:agri:pg:cloud    (Cloud SQL proxy :5434)
 //
 // raw_data/agri/ is GITIGNORED, so on a fresh clone the cache is legitimately
 // absent — skip-and-warn (the &&-chained db:refresh survives; gaps plan T1.0).
@@ -29,7 +29,7 @@ const main = async (): Promise<void> => {
   if (!existsSync(AGRI_CACHE_DIR) || readdirSync(AGRI_CACHE_DIR).length === 0) {
     console.warn(
       `[agri] no ${AGRI_CACHE_DIR} cache — load skipped ` +
-        "(fill it with `npm run agri:seu && npm run agri:ingest`).",
+        "(fill it with `pnpm run agri:seu && pnpm run agri:ingest`).",
     );
     return;
   }

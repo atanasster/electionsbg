@@ -1,5 +1,5 @@
 // The /sector/roads hub's figures come from a COMMITTED artifact —
-// data/roads/derived/hub_stats.json, written by `npm run db:gen-roads-hub-stats`
+// data/roads/derived/hub_stats.json, written by `pnpm run db:gen-roads-hub-stats`
 // — so they fail the way every committed-derived artifact fails: the corpus
 // reloads underneath the file and the hub keeps stating the old number at a 200.
 //

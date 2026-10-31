@@ -39,9 +39,9 @@
 //      a "Your MP voted on…" event (keyword-alerts, simulated)
 //
 // Combined feed sorted by event date desc, capped at 30 per município to
-// keep payloads small. Run as part of `npm run prod`.
+// keep payloads small. Run as part of `pnpm run prod`.
 //
-// Run: `npx tsx scripts/myarea/build_alerts.ts`
+// Run: `pnpm exec tsx scripts/myarea/build_alerts.ts`
 
 import type { AlertKind } from "@/data/alerts/alertKinds";
 import fs from "node:fs";

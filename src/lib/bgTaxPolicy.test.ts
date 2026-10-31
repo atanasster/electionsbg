@@ -1,7 +1,7 @@
 // Coverage for the month-weighted МОД aggregates in bgTaxPolicy.
 //
 // These functions were previously guarded only by tsx smoke scripts, which do
-// NOT run in `npm run test:unit` — and the smoke script validated a locally
+// NOT run in `pnpm run test:unit` — and the smoke script validated a locally
 // re-implemented base rather than calling the engine, so a real defect in
 // `scoreModCap`'s segmented path shipped green (each segment's gain was kept
 // while its losses were discarded, over-reporting a straddling target by ~3.7×).

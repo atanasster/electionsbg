@@ -1,7 +1,7 @@
 // Regression net for the REGIONAL sector — the /governance/sectors tile and the
 // /sector/regional dashboard behind it. Audit 2026-08-14.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Its own file rather than an extension of sector_stats.data.test.ts, for the same
 // reason sector_stats_environment.data.test.ts is: regional is budget-basis, so its
@@ -88,7 +88,7 @@ const STATS = "data/procurement/derived/sector_stats.json";
 const NODE = `data/budget/ministries/${REGIONAL_BUDGET_NODE}.json`;
 const skipNode = exists(NODE)
   ? false
-  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run pnpm run budget:ingest";
 reportSkip(import.meta.url, skipNode);
 // TRACKED, so these carry no skip: a missing tracked file is a real defect.
 const ADMIN_REGISTRY = "data/budget/classification/admin.json";
@@ -160,7 +160,7 @@ describe("regional sector — the hub headline is a BUDGET", () => {
       undefined,
       "y:2019 is unavailable again — the 2019 slice has been orphaned onto a " +
         "second admin node. Check scripts/lib/slug.ts strips invisible marks " +
-        "and re-run npm run budget:ingest.",
+        "and re-run pnpm run budget:ingest.",
     );
     assert.equal(r.year, 2019);
     assert.ok(

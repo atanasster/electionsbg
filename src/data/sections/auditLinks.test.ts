@@ -21,7 +21,7 @@
 // 32.4% of the country** — while leaving regions 10–31 working, i.e. a failure that looks
 // regional rather than systematic.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import fs from "node:fs";
 import path from "node:path";

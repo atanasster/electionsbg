@@ -4,10 +4,10 @@
 //
 // Brings the Postgres container up, reloads the store from the current contracts,
 // then runs every generator in dependency order. Two modes:
-//   npm run db:build            → VERIFY (default): each generator compares its
+//   pnpm run db:build            → VERIFY (default): each generator compares its
 //                                 output to on-disk (no writes). Proves the whole
 //                                 corpus reproduces from SQL. Safe.
-//   npm run db:build -- --write → FLIP: each generator writes its output from
+//   pnpm run db:build --write → FLIP: each generator writes its output from
 //                                 SQL (+ orphan sweep). This regenerates
 //                                 production data (shards/lists/by-id get one
 //                                 canonical field order → a one-time bucket
@@ -44,13 +44,9 @@ console.log(
 
 const failed: string[] = [];
 for (const [script, supportsWrite] of STEPS) {
-  const args = [
-    "run",
-    script,
-    ...(write && supportsWrite ? ["--", "--write"] : []),
-  ];
+  const args = ["run", script, ...(write && supportsWrite ? ["--write"] : [])];
   console.log(`\n──▶ ${script}${write && supportsWrite ? " --write" : ""}`);
-  const r = spawnSync("npm", args, { stdio: "inherit" });
+  const r = spawnSync("pnpm", args, { stdio: "inherit" });
   if (r.status !== 0) {
     failed.push(script);
     // Keep going in verify mode to surface every drift; stop on the first
@@ -67,6 +63,6 @@ if (failed.length) {
 }
 console.log(
   write
-    ? "\n✓ db:build --write complete — review the diff, then `npm run db:snapshot` + `npm run bucket:sync:all`"
+    ? "\n✓ db:build --write complete — review the diff, then `pnpm run db:snapshot` + `pnpm run bucket:sync:all`"
     : "\n✓ db:build verify complete — the entire procurement corpus reproduces from Postgres",
 );

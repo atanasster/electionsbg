@@ -2,7 +2,7 @@
 //
 // WHY THIS EXISTS. This repo has a whole documented class of change it calls
 // "applied, never loaded": a serving FUNCTION, VIEW or INDEX carries no data, so
-// no `db:load:*` ships it, and `npm run deploy:db` ships function CODE in
+// no `db:load:*` ships it, and `pnpm run deploy:db` ships function CODE in
 // `functions/` — a different thing from a Postgres function. CLAUDE.md names the
 // hazard in prose and gives the `apply_functions.ts` hatch. Nothing checked.
 //
@@ -44,8 +44,8 @@
 // some `schema/pg/*.sql` file still creates it — the same discriminator
 // `collateral_drop.ts` uses, and one that needs no allowlist to keep in step.
 //
-//   npm run db:check-cloud
-//   npm run db:check-cloud -- --quiet    # only the verdict
+//   pnpm run db:check-cloud
+//   pnpm run db:check-cloud --quiet    # only the verdict
 //
 // Read-only. It never applies anything: it prints the `apply_functions.ts` line
 // and exits 1, because this repo's standing rule is that a checker emits the
@@ -121,7 +121,7 @@ const read = async (url: string, label: string): Promise<Map<string, Obj>> => {
     throw new Error(
       `could not read ${label} (${url.replace(/:[^:@/]+@/, ":***@")}): ${(e as Error).message}` +
         (label === "cloud"
-          ? "\n  The Cloud SQL proxy is a real failure mode. Check `nc -z 127.0.0.1 5434`; restart with `npm run db:proxy:cloud`."
+          ? "\n  The Cloud SQL proxy is a real failure mode. Check `nc -z 127.0.0.1 5434`; restart with `pnpm run db:proxy:cloud`."
           : ""),
     );
   } finally {
@@ -255,7 +255,7 @@ const main = async (): Promise<number> => {
   if (files.length) {
     console.log(`\nApply to Cloud SQL — ⚠️ READ EACH FILE'S HEADER FIRST:\n`);
     console.log(
-      `  DATABASE_URL=${CLOUD_DATABASE_URL} npx tsx scripts/db/apply_functions.ts \\\n    ${files.join(" \\\n    ")}\n`,
+      `  DATABASE_URL=${CLOUD_DATABASE_URL} pnpm exec tsx scripts/db/apply_functions.ts \\\n    ${files.join(" \\\n    ")}\n`,
     );
     // NOT a blind command. Several of these files open with DROP MATERIALIZED
     // VIEW and rebuild WITH DATA inside one transaction, so applying them blocks

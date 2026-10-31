@@ -2,8 +2,8 @@ import { installFundingQuery } from "./lib/installFundingQuery";
 // Load the ИСУН EU-funds corpus into Postgres so the whole /funds surface is
 // DB-served (no GCS static-JSON fetch) — mirrors the procurement PG migration.
 //
-//   npm run db:load:funds:pg           (needs `npm run db:pg:up` first)
-//   npm run db:load:funds:pg:cloud     (targets the Cloud SQL proxy on :5434)
+//   pnpm run db:load:funds:pg           (needs `pnpm run db:pg:up` first)
+//   pnpm run db:load:funds:pg:cloud     (targets the Cloud SQL proxy on :5434)
 //
 // Three targets, all rebuilt from the on-disk data/funds/ shards the ingest
 // writes (JSON → PG; never the reverse — see [[feedback_no_json_from_pg]]):
@@ -358,7 +358,7 @@ const waitForPg = async (): Promise<void> => {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
-  throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
+  throw new Error("Postgres not reachable — run `pnpm run db:pg:up`.");
 };
 
 export const loadFundsPg = async (
@@ -377,7 +377,7 @@ export const loadFundsPg = async (
   await exec(
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
   );
-  // 189 is GENERATED (npm run gen:culture-sql) — the two ИСУН serving views behind
+  // 189 is GENERATED (pnpm run gen:culture-sql) — the two ИСУН serving views behind
   // /culture/funds/isun-eik and /culture/funds/isun-name. It is applied HERE and
   // nowhere else: a view's query resolves at CREATE time, so the file must be
   // applied by the loader that owns its base table, in the same run that created
@@ -639,7 +639,7 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   // because the cost survives it, and because `--payloads-only` remains the
   // right answer when only a precomputed payload changed. Historically this was
   // an OUTAGE rather than merely work: `npm run
-  // db:load:funds:pg:cloud -- --payloads-only` used to nest a second `npm run`,
+  // db:load:funds:pg:cloud --payloads-only` used to nest a second `npm run`,
   // which swallows `--` args, so the flag vanished and the full load ran
   // anyway. The script now demands the intent in writing.
   if (

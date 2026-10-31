@@ -1,8 +1,8 @@
 // Ingest the МФ „Финансови показатели за общините" workbooks into
 // data/budget/municipal_fiscal/{year}-Q{q}.json + index.json.
 //
-//   npx tsx scripts/budget/municipal_fiscal/ingest.ts
-//   npx tsx scripts/budget/municipal_fiscal/ingest.ts --dry-run
+//   pnpm exec tsx scripts/budget/municipal_fiscal/ingest.ts
+//   pnpm exec tsx scripts/budget/municipal_fiscal/ingest.ts --dry-run
 //
 // Input is the gitignored drop directory (see its README). Output is COMMITTED,
 // and is loader input only — it is NOT bucket-synced, because the serving path

@@ -15,7 +15,7 @@
 // re-run with the Phase 1 walk (the operator step in the plan's verification section), so this
 // gate is green on a DB resolved before Phase 1 and turns into a real assertion after.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

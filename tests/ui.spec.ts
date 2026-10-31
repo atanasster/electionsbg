@@ -221,7 +221,7 @@ test.describe("UI rendering", () => {
   }) => {
     test.skip(
       !PARTY_DATA_PRESENT,
-      "party data not generated — run `npm run data` first",
+      "party data not generated — run `pnpm run data` first",
     );
     await page.goto(`/party/${enc(SAMPLE_PARTY)}`, {
       waitUntil: "networkidle",
@@ -699,7 +699,7 @@ const HUB_HEAD_BUDGETS: {
   //
   // NOT skipped, deliberately: „the migration has not landed yet" must not read as „the head is
   // within budget". The fix is the operator action CLAUDE.md names — 188's only CREATE path is
-  // `npm run db:load:declarations:pg:cloud -- --resolve`, followed by `db:load:graph:pg:cloud`,
+  // `pnpm run db:load:declarations:pg:cloud --resolve`, followed by `db:load:graph:pg:cloud`,
   // `db:load:tr-company-place:pg:cloud` and `db:load:pg:cloud` for its three denormalized
   // sources.
   //
@@ -738,7 +738,7 @@ const HUB_HEAD_BUDGETS: {
   // ⚠️ AND IF THE COUNT COMES IN UNDER 4, IT IS NOT A CODE CHANGE. This is the only
   // entry here whose cell count depends on BUCKET-SYNCED optional fields: `budget` and
   // `films` ship in data/culture/derived/hub_stats.json via `bucket:sync`, a different
-  // command from `npm run deploy`, so a deployed blob minted before those fields exist
+  // command from `pnpm run deploy`, so a deployed blob minted before those fields exist
   // yields a two-cell band. Run `bucket:sync` for `culture/derived/`. That this fails at
   // all is a bonus — it doubles as a bucket-freshness gate.
   // 483 with the band alone; 495 once the evidence aside landed.

@@ -119,7 +119,7 @@ Rules that have each been learned the hard way:
   `db:gen-sector-stats`, `db:gen-culture-hub-stats`, `db:gen-declarations-hub-stats`) writes a
   committed file straight out of the database and uploads nothing. Its publish path is a
   scoped `bucket:sync:paths`, declared as `bucketPath` in **`REFRESH_GENERATORS`**
-  (`scripts/db/refresh_coverage.ts`) and verified by `npm run db:check-generated`.
+  (`scripts/db/refresh_coverage.ts`) and verified by `pnpm run db:check-generated`.
 
   That registry asserted chain-membership, git-tracking and generator-references-artifact —
   every one a property of the file on DISK — and nothing about the bucket. So all three were
@@ -595,7 +595,7 @@ Three more, each shipped once:
 
 **Shliokavitsa must work, and on the server it used to not.** `src/lib/shlyoRules.ts` is the
 one rule table; `translitSearch.ts` consumes the client half and `pg/141_shlyo_query_fold.sql`
-is GENERATED from it (`npm run gen:shlyo-sql`). A search route composes it with
+is GENERATED from it (`pnpm run gen:shlyo-sql`). A search route composes it with
 `translit_bg_latin()` on the QUERY side only, as a SECOND probe issued after the plain one —
 never ORed inline, because a database without 141 then raises 42883 for the whole statement
 and returns nothing at all. Two traps if you touch it: the client table has already collapsed
@@ -617,7 +617,7 @@ writing a new gate here**, and add to it rather than beside it.
 | Artifact            | Declared in                                                                                | What its absence costs                                                                  |
 | ------------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
 | **Static page**     | `staticPage({…})` in `scripts/prerender/routes.ts`                                         | The SPA shell is served — to a crawler the page is a duplicate of the homepage          |
-| **Sitemap `<loc>`** | BOTH lists in `scripts/sitemap/route_defs.ts`, then `npm run sitemap`, then COMMIT the XML | The page is never enumerated; discovery depends on a crawler following an internal link |
+| **Sitemap `<loc>`** | BOTH lists in `scripts/sitemap/route_defs.ts`, then `pnpm run sitemap`, then COMMIT the XML | The page is never enumerated; discovery depends on a crawler following an internal link |
 | **og:image**        | `ogImage:` on the route **and** a captured file in `public/og/`                            | The share card is the site-wide default, so every page in the module shares one picture |
 
 Do all three in the **same commit as the screen**. Each lives in a different file from the
@@ -637,7 +637,7 @@ english: {…} })`. Four things to get right:
   checks body length only for routes listed there.
 - **Add the `english:` block**, or the page has no EN mirror and an `/en` sitemap entry for
   it would be a claim about a page that does not exist.
-- **Verify the file.** `npm run build`, then check `dist/<path>/index.html` is there. The
+- **Verify the file.** `pnpm run build`, then check `dist/<path>/index.html` is there. The
   prerender exits 0 when it writes nothing.
 
 **Do not prerender per-entity parameterised routes** (2,120 members = 2,120 files against a
@@ -662,7 +662,7 @@ Three traps, all of which had shipped:
 - **A `file:` that does not exist SKIPS THE ENTRY SILENTLY.** `scripts/sitemap/index.ts` does
   `if (!fileExists) return;`, so a typo in that path costs the page its `<loc>` with no
   warning and no failure.
-- **`npm run sitemap` is manual and its output is COMMITTED.** Adding both entries changes
+- **`pnpm run sitemap` is manual and its output is COMMITTED.** Adding both entries changes
   nothing until you run it and commit `public/sitemap*.xml`. `/budget/explorer`,
   `/budget/ministries` and `/budget/revenue` had their entries and no `<loc>`, because the
   committed XML predated them — and `/budget/spending` was in the same state a day later.
@@ -708,8 +708,8 @@ Mechanics that are easy to get wrong:
 - **The captures are MANUAL.** `postbuild` runs `generate.ts` only; nothing runs Playwright.
 
   ```bash
-  npm run dev                                       # another shell
-  npx tsx scripts/og/capture-screens.ts <slug>      # ONE slug
+  pnpm run dev                                       # another shell
+  pnpm exec tsx scripts/og/capture-screens.ts <slug>      # ONE slug
   ```
 
   Always pass the slug. Re-shooting the whole table re-frames cards you did not change, and a
@@ -899,7 +899,7 @@ Not optional, and each exists because its absence shipped something:
 | Every routed sub-page of the module has a `staticPage` entry                                                                 | The shell served to crawlers as a homepage duplicate                                                                   |
 | Every routed sub-page has a BG `routeDefs` entry, and an `ENGLISH_STATIC_PAGES` one iff it has an `english:` block           | The `/sofia/*` + `/consumption/*` class — the mirror indexed, the original not                                         |
 | Every `routeDefs` `file:` exists on disk                                                                                     | The silent skip that costs a page its `<loc>`                                                                          |
-| Every prerendered path in the module has a `<loc>` in the COMMITTED sitemap                                                  | Both entries present, `npm run sitemap` never re-run                                                                   |
+| Every prerendered path in the module has a `<loc>` in the COMMITTED sitemap                                                  | Both entries present, `pnpm run sitemap` never re-run                                                                   |
 | Every sub-page carries its own `ogImage` (or is on a reasoned exemption list)                                                | A whole module sharing the site-wide default card                                                                      |
 | Every `ogImage` path resolves to a file under `public/og/`                                                                   | An `og:image` that 404s — the absolute-URL check passes                                                                |
 | Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route                                   | A card shot and wired to nothing                                                                                       |
@@ -990,18 +990,18 @@ Hosting last, always. The two manual `public/` writers come FIRST, because `vite
 copies `public/` into `dist/` — run them after the build and they ship one deploy late.
 
 ```bash
-npm run dev                                    # 0. another shell, for the captures
-npx tsx scripts/og/capture-screens.ts <slug>   # 1. og card → public/og/<slug>.png
-npm run sitemap                                # 2. rewrites public/sitemap*.xml — COMMIT it
-npm run db:load:<x>:pg:cloud                   # 3. tables the routes read
-npm run deploy:db                              # 4. the function
-npm run bucket:sync:paths -- <path>            # 5. bucket-served artifacts
-npm run build                                  # 6. prerender + og cards + png→webp
-npm run deploy                                 # 7. hosting
+pnpm run dev                                    # 0. another shell, for the captures
+pnpm exec tsx scripts/og/capture-screens.ts <slug>   # 1. og card → public/og/<slug>.png
+pnpm run sitemap                                # 2. rewrites public/sitemap*.xml — COMMIT it
+pnpm run db:load:<x>:pg:cloud                   # 3. tables the routes read
+pnpm run deploy:db                              # 4. the function
+pnpm run bucket:sync:paths <path>            # 5. bucket-served artifacts
+pnpm run build                                  # 6. prerender + og cards + png→webp
+pnpm run deploy                                 # 7. hosting
 ```
 
 **Steps 1 and 2 are the ones that get skipped**, because neither is wired into anything:
-`postbuild` runs `generate.ts` but no Playwright capture, and `npm run sitemap` is a manual
+`postbuild` runs `generate.ts` but no Playwright capture, and `pnpm run sitemap` is a manual
 command whose output is committed. Skipping 1 ships an `og:image` pointing at a file that
 does not exist; skipping 2 ships a page with no `<loc>`. Both are 200s.
 
@@ -1011,8 +1011,8 @@ ships and its data-driven bands silently render nothing — the fetch 404s, the 
 it from a green build:
 
 ```bash
-npm run db:check-generated     # every committed hub blob, byte-compared against the bucket
-npm run db:check-cloud         # every serving fn/view: is Cloud SQL on the same body as local?
+pnpm run db:check-generated     # every committed hub blob, byte-compared against the bucket
+pnpm run db:check-cloud         # every serving fn/view: is Cloud SQL on the same body as local?
 ```
 
 **A NEW blob is `MISSING`, not stale, and the check prints its own remedy** — it reports
@@ -1027,7 +1027,7 @@ generator in `db:refresh`, every gate green, and the bucket object **404**. The 
 a 404 to „no figure" deliberately, so the page rendered its tiles blank at a 200 with nothing
 red anywhere. See §1 for why the module's own pipeline never noticed.
 
-`npm run deploy` does **not** build. Deploying without building ships a stale `dist/`.
+`pnpm run deploy` does **not** build. Deploying without building ships a stale `dist/`.
 
 **Probing a route before it exists pins a 404 at the CDN** for up to an hour. If a
 just-deployed route 404s, retry with a cache-buster before debugging.

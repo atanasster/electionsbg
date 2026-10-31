@@ -22,23 +22,23 @@ describe("deployCommands", () => {
     const { commands } = deployCommands(["contracts"], realScripts);
     expect(commands).toEqual(
       expect.arrayContaining([
-        "npm run db:load:pg:cloud",
-        "npm run db:load:graph:pg:cloud",
-        "npm run db:load:persons-browse:pg:cloud",
-        "npm run db:load:person-search:pg:cloud",
+        "pnpm run db:load:pg:cloud",
+        "pnpm run db:load:graph:pg:cloud",
+        "pnpm run db:load:persons-browse:pg:cloud",
+        "pnpm run db:load:person-search:pg:cloud",
       ]),
     );
     // dependency order carries through from the resolver
     const i = (s: string): number => commands.indexOf(s);
-    expect(i("npm run db:load:pg:cloud")).toBeLessThan(
-      i("npm run db:load:graph:pg:cloud"),
+    expect(i("pnpm run db:load:pg:cloud")).toBeLessThan(
+      i("pnpm run db:load:graph:pg:cloud"),
     );
-    expect(i("npm run db:load:persons-browse:pg:cloud")).toBeLessThan(
-      i("npm run db:load:person-search:pg:cloud"),
+    expect(i("pnpm run db:load:persons-browse:pg:cloud")).toBeLessThan(
+      i("pnpm run db:load:person-search:pg:cloud"),
     );
-    // every command names a real :cloud npm script (ignoring any `-- --flag` suffix)
+    // every command names a real :cloud npm script (ignoring any `--flag` suffix)
     for (const c of commands) {
-      const script = c.replace(/^npm run /, "").split(" ")[0];
+      const script = c.replace(/^pnpm run /, "").split(" ")[0];
       expect(realScripts.has(script), `${script} is a real npm script`).toBe(
         true,
       );
@@ -49,18 +49,18 @@ describe("deployCommands", () => {
     // contracts also stales hub_stats.json / sector_stats.json, whose generators
     // (db:gen-hub-stats / db:gen-sector-stats) have NO :cloud publish.
     const { commands, notes } = deployCommands(["contracts"], realScripts);
-    expect(commands).not.toContain("npm run db:gen-hub-stats:cloud");
+    expect(commands).not.toContain("pnpm run db:gen-hub-stats:cloud");
     expect(commands.some((c) => c.includes("db:gen"))).toBe(false);
     expect(notes.some((n) => n.includes("db:gen-hub-stats"))).toBe(true);
     expect(notes.some((n) => n.includes("bucket:sync"))).toBe(true);
   });
 
   it("bakes in a mandatory flag so an emitted command is not a silent no-op", () => {
-    // kzk:rejoin:cloud is a dry-run without `-- --apply`; a bare emission would
+    // kzk:rejoin:cloud is a dry-run without `--apply`; a bare emission would
     // publish nothing. The downstream of a kzk_appeals change must carry the flag.
     const { commands, notes } = deployCommands(["kzk_appeals"], realScripts);
-    expect(commands).toContain("npm run kzk:rejoin:cloud -- --apply");
-    expect(commands).not.toContain("npm run kzk:rejoin:cloud");
+    expect(commands).toContain("pnpm run kzk:rejoin:cloud --apply");
+    expect(commands).not.toContain("pnpm run kzk:rejoin:cloud");
     expect(notes.some((n) => n.includes("kzk_appeals"))).toBe(true);
   });
 
@@ -70,7 +70,7 @@ describe("deployCommands", () => {
       ["fund_beneficiaries"],
       realScripts,
     );
-    expect(commands).toContain("npm run db:load:funds:pg:cloud -- --full");
+    expect(commands).toContain("pnpm run db:load:funds:pg:cloud --full");
     expect(notes.some((n) => n.includes("--payloads-only"))).toBe(true);
   });
 

@@ -13,10 +13,10 @@
 // is fetched — one request per folder.
 //
 // Manual by design, per the repo's convention for one-off backfills: it is not
-// wired into `npm run data` and takes the folders explicitly.
+// wired into `pnpm run data` and takes the folders explicitly.
 //
-//   npx tsx scripts/declarations/backfill_from_cache.ts            # every cached folder
-//   npx tsx scripts/declarations/backfill_from_cache.ts 2022 2023  # just these
+//   pnpm exec tsx scripts/declarations/backfill_from_cache.ts            # every cached folder
+//   pnpm exec tsx scripts/declarations/backfill_from_cache.ts 2022 2023  # just these
 
 import fs from "fs";
 import path from "path";

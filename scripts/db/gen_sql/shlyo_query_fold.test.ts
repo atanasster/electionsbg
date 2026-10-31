@@ -31,7 +31,7 @@ describe("141_shlyo_query_fold.sql", () => {
     const sql = buildSql();
     expect(sql).toMatch(/GENERATED FILE — DO NOT EDIT/);
     expect(sql).toContain("src/lib/shlyoRules.ts");
-    expect(sql).toContain("npm run gen:shlyo-sql");
+    expect(sql).toContain("pnpm run gen:shlyo-sql");
   });
 
   it("emits an IMMUTABLE PARALLEL SAFE function — it rides an indexed predicate", () => {

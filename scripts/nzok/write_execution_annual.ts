@@ -242,7 +242,7 @@ const main = async (): Promise<void> => {
     await ocrCrossCheck();
   }
   console.log(
-    "\nNext: `npm run data:nzok -- --execution` (merges these into execution_history.json), then `npm run db:gen-sector-stats`.",
+    "\nNext: `pnpm run data:nzok --execution` (merges these into execution_history.json), then `pnpm run db:gen-sector-stats`.",
   );
 };
 

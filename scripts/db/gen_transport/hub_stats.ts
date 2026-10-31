@@ -1,4 +1,4 @@
-// `npm run db:gen-transport-hub-stats` → data/transport/derived/hub_stats.json,
+// `pnpm run db:gen-transport-hub-stats` → data/transport/derived/hub_stats.json,
 // the /sector/transport hub's KPI band, body rail, finder index and band figures
 // (docs/plans/transport-hub-v1.md T2). The shape is TransportHubStats
 // (src/data/transport/hubStats.ts).
@@ -77,12 +77,12 @@ const main = async () => {
   if (missing.length)
     await skipWith(
       `missing relation(s): ${missing.map((m) => `${m} (${INPUTS[m]})`).join(", ")}`,
-      "Run the loader(s) named in brackets, or the whole chain: npm run db:refresh",
+      "Run the loader(s) named in brackets, or the whole chain: pnpm run db:refresh",
     );
   if (await isEmpty("contracts"))
     await skipWith(
       "contracts is empty (db:load:pg)",
-      "Load the procurement corpus first: npm run db:load:pg",
+      "Load the procurement corpus first: pnpm run db:load:pg",
     );
 
   const eiks = [...TRANSPORT_SECTOR_EIKS];

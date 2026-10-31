@@ -7,8 +7,8 @@
  * Use after editing parse_declaration.ts or one of those builders so we do not
  * have to re-fetch every declaration just to see the build effect.
  *
- *   npx tsx scripts/declarations/rebuild_all_from_cache.ts
- *   npx tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
+ *   pnpm exec tsx scripts/declarations/rebuild_all_from_cache.ts
+ *   pnpm exec tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
  *
  * `--skip-reparse` drops phase 1 (the whole-corpus XML re-parse) — use it when
  * the edit is to a downstream builder rather than to the declaration parser.

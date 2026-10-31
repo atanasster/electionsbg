@@ -29,7 +29,7 @@ Index, which is why a stale outcome is not merely a blank field.
 
 1. **Headed Playwright.** A desktop browser window opens for ~2 minutes. Fine on a dev
    machine, which is why the orchestrator runs this unattended — but it is **never** a
-   CI or `npm run prod --all` step.
+   CI or `pnpm run prod --all` step.
 2. **Bulgarian egress.** `reg.cpc.bg` returns 403 to non-BG IPs. From elsewhere the crawl
    fails at page 1; there is no proxy path. Skip the skill and report it.
 
@@ -50,7 +50,7 @@ local URL inline rather than relying on the default:
 
 ```bash
 DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \
-  npx tsx scripts/procurement/kzk_appeals.ts --year <current-year> --apply
+  pnpm exec tsx scripts/procurement/kzk_appeals.ts --year <current-year> --apply
 ```
 
 The crawl is idempotent (`mergeWrite` on the JSON, `COALESCE` upserts in PG), and the
@@ -61,7 +61,7 @@ loses nothing and double-counts nothing.
 
 ```bash
 DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \
-  npx tsx scripts/procurement/kzk_appeals.ts --year 2026 --apply
+  pnpm exec tsx scripts/procurement/kzk_appeals.ts --year 2026 --apply
 ```
 
 Incremental by design — one calendar year. The full 2020→ history is behind `--backfill`
@@ -92,7 +92,7 @@ The intake crawl above **cannot write an outcome** — its upserts are
 `COALESCE(existing, EXCLUDED)` on `outcome`/`suspension`. So a `kzk_appeals` flip does not
 refresh tier 2, and for five weeks nothing noticed. Do the other arm too:
 
-**Pin the database, exactly as in Step 0.** The last two commands WRITE, and neither npm
+**Pin the database, exactly as in Step 0.** The last two commands WRITE, and neither package
 script sets `DATABASE_URL` — so in the poisoned shell Step 0 describes they hit **Cloud
 SQL**, where `kzk:rejoin` applies an `ALTER TABLE` + index build (ACCESS EXCLUSIVE on a
 serving table) and refreshes `upheld_ocids`.
@@ -100,10 +100,10 @@ serving table) and refreshes `upheld_ocids`.
 ```bash
 export KZK_LOCAL='postgres://postgres:postgres@localhost:5433/electionsbg'
 
-npm run kzk:decisions -- --probe                            # FIRST RUN on a machine, or after drift
-npm run kzk:decisions -- --year 2026 --apply                # headed browser + BG egress; no DB
-DATABASE_URL="$KZK_LOCAL" npm run db:load:kzk-decisions:pg  # ships the corpus into kzk_decisions (130)
-DATABASE_URL="$KZK_LOCAL" npm run kzk:rejoin -- --apply     # folds it into kzk_appeals.outcome
+pnpm run kzk:decisions --probe                            # FIRST RUN on a machine, or after drift
+pnpm run kzk:decisions --year 2026 --apply                # headed browser + BG egress; no DB
+DATABASE_URL="$KZK_LOCAL" pnpm run db:load:kzk-decisions:pg  # ships the corpus into kzk_decisions (130)
+DATABASE_URL="$KZK_LOCAL" pnpm run kzk:rejoin --apply     # folds it into kzk_appeals.outcome
 ```
 
 Step 1's `--apply` prints the tier-2 watermark and warns when it is more than 45 days
@@ -120,12 +120,12 @@ not optional. Forgetting them is caught by Gate A (below), not by a green crawl.
 ## Step 2 — Verify the outcomes survived (MANDATORY)
 
 ```bash
-npx vitest run scripts/db/tests/kzk_decisions.data.test.ts \
+pnpm exec vitest run scripts/db/tests/kzk_decisions.data.test.ts \
                scripts/db/tests/kzk_appeals_provenance.data.test.ts \
                scripts/db/tests/kzk_suspension.data.test.ts
 ```
 
-(Not `npm run test:data -- kzk`: vitest treats positional args as OR-ed path filters, so
+(Not `pnpm run test:data kzk`: vitest treats positional args as OR-ed path filters, so
 that runs the whole 88-file PG suite *plus* every `*kzk*` file elsewhere — and an unrelated
 gate failing would send you into the "stop, do not sync to cloud" branch below.)
 
@@ -179,7 +179,7 @@ ratchet — read the failure message, which names the recovery.
 ## Step 3 — Rebuild the AI summary
 
 ```bash
-npm run kzk:summary
+pnpm run kzk:summary
 ```
 
 Writes `data/procurement/derived/kzk_appeals_summary.json` — the file the
@@ -199,11 +199,11 @@ the client never fetches them.
 # PIN THE DATABASE, exactly as Step 0 and Step 1b require — see the warning below.
 export KZK_LOCAL='postgres://postgres:postgres@localhost:5433/electionsbg'
 
-DATABASE_URL="$KZK_LOCAL" npm run db:gen-hub-stats               # rewrites the committed blob
-DATABASE_URL="$KZK_LOCAL" npx vitest run scripts/db/tests/procurement_hub_stats.data.test.ts
+DATABASE_URL="$KZK_LOCAL" pnpm run db:gen-hub-stats               # rewrites the committed blob
+DATABASE_URL="$KZK_LOCAL" pnpm exec vitest run scripts/db/tests/procurement_hub_stats.data.test.ts
 git commit -m "procurement: refresh hub stats after the КЗК ingest" -- data/procurement/derived/hub_stats.json
-npm run bucket:sync:paths -- procurement/derived/hub_stats.json  # ← readers fetch THIS, not the repo
-npm run db:check-generated                                       # byte-compares bucket vs disk
+pnpm run bucket:sync:paths procurement/derived/hub_stats.json  # ← readers fetch THIS, not the repo
+pnpm run db:check-generated                                       # byte-compares bucket vs disk
 ```
 
 ⚠️⚠️ **THE PIN IS NOT BOILERPLATE HERE, AND ITS ABSENCE IS UNCATCHABLE.** Neither
@@ -243,7 +243,7 @@ committed lockfile — so run it unpinned in this section and the "restore point
 snapshot of Cloud SQL that has clobbered the real one:
 
 ```bash
-DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' npm run db:dump
+DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' pnpm run db:dump
 ```
 
 Procurement's CORPUS is served from Cloud SQL, so there is no `bucket:sync` for the
@@ -264,11 +264,11 @@ migration yourself first. It's idempotent (`CREATE TABLE IF NOT EXISTS` +
 ```bash
 # 1. (only if 042 hasn't reached this DB) table + tender_appeals() + kzk_recent_appeals()
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-  npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql
+  pnpm exec tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql
 
 # 2. re-crawl straight into Cloud SQL
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-  npx tsx scripts/procurement/kzk_appeals.ts --year 2026 --apply
+  pnpm exec tsx scripts/procurement/kzk_appeals.ts --year 2026 --apply
 ```
 
 `apply_functions.ts` takes **bare filenames** relative to `scripts/db/schema/pg/`, not
@@ -276,7 +276,7 @@ paths. Both commands need the Cloud SQL proxy on `127.0.0.1:5434` with the `.pgp
 present — here the password-less URL is *correct*, which is exactly why it must never leak
 into a local invocation (Step 0).
 
-> **`npm run db:dump:cloud` does NOT publish this.** `scripts/db/dump.ts` is a
+> **`pnpm run db:dump:cloud` does NOT publish this.** `scripts/db/dump.ts` is a
 > snapshotter: it `pg_dump`s whatever `DATABASE_URL` points at and uploads the dump to GCS
 > for `db:restore`. Pointed at the proxy it dumps Cloud SQL *outward*. It writes nothing
 > into cloud and cannot create the table. Run it after the loaders if you want a restore
@@ -291,15 +291,15 @@ behave alike. `kzk_decisions` (migration 130) has a real loader, so its corpus s
 without a re-crawl:
 
 ```bash
-npm run db:load:kzk-decisions:pg:cloud
+pnpm run db:load:kzk-decisions:pg:cloud
 ```
 
 **Both commands, in this order** — the loader ships the corpus, but nothing on prod folds
 it into `kzk_appeals.outcome` until the rejoin runs there too:
 
 ```bash
-npm run db:load:kzk-decisions:pg:cloud
-npm run kzk:rejoin:cloud -- --apply
+pnpm run db:load:kzk-decisions:pg:cloud
+pnpm run kzk:rejoin:cloud --apply
 ```
 
 Run them after any `kzk_decisions.ts --apply` crawl, and on a first deploy **before**
@@ -311,7 +311,7 @@ invocation at Cloud SQL. `db:refresh` runs the local equivalent; nothing runs th
 side automatically.
 
 The alternative is the destructive
-whole-DB `npm run db:sync:cloud -- --yes`, which requires local to be source of truth
+whole-DB `pnpm run db:sync:cloud --yes`, which requires local to be source of truth
 first — including these unregenerable outcome rows.
 
 ## The tier-2 gap: merits outcomes
@@ -323,14 +323,14 @@ onto `kzk_appeals.outcome` via an **unambiguous** complainant + respondent + yea
 `suspension`, which the intake can only infer from `/спрян/` in `status`.
 
 **The crawler now exists** — `scripts/procurement/kzk_decisions.ts`
-(`npm run kzk:decisions`). Same two constraints as the intake arm: headed browser, BG
+(`pnpm run kzk:decisions`). Same two constraints as the intake arm: headed browser, BG
 egress. It writes only the JSON store; publishing is the loader plus the rejoin.
 
 ```bash
-npm run kzk:decisions -- --probe            # FIRST, on a new machine
-npm run kzk:decisions -- --year 2026 --apply
-npm run db:load:kzk-decisions:pg
-npm run kzk:rejoin -- --apply
+pnpm run kzk:decisions --probe            # FIRST, on a new machine
+pnpm run kzk:decisions --year 2026 --apply
+pnpm run db:load:kzk-decisions:pg
+pnpm run kzk:rejoin --apply
 ```
 
 **⚠ Run `--probe` before trusting a crawl on a new machine.** The decisions register's
@@ -369,12 +369,12 @@ stale while the intake arm kept reporting success.
 
 ```bash
 # intake (Step 1)
-npx tsx scripts/stamp-ingest.ts kzk_appeals --summary "КЗК appeals YYYY intake: N complaints, M total; tier-2 through <max decision_date>"
-npx tsx scripts/append-data-change.ts kzk_appeals --summary "КЗК procurement-appeals register refreshed: N complaints for YYYY" --source "КЗК (reg.cpc.bg)"
+pnpm exec tsx scripts/stamp-ingest.ts kzk_appeals --summary "КЗК appeals YYYY intake: N complaints, M total; tier-2 through <max decision_date>"
+pnpm exec tsx scripts/append-data-change.ts kzk_appeals --summary "КЗК procurement-appeals register refreshed: N complaints for YYYY" --source "КЗК (reg.cpc.bg)"
 
 # merits (Step 1b) — only if you ran it
-npx tsx scripts/stamp-ingest.ts kzk_decisions --summary "КЗК decisions YYYY: N acts, M total; outcomes now O"
-npx tsx scripts/append-data-change.ts kzk_decisions --summary "КЗК decisions register refreshed: N acts for YYYY" --source "КЗК (reg.cpc.bg)"
+pnpm exec tsx scripts/stamp-ingest.ts kzk_decisions --summary "КЗК decisions YYYY: N acts, M total; outcomes now O"
+pnpm exec tsx scripts/append-data-change.ts kzk_decisions --summary "КЗК decisions register refreshed: N acts for YYYY" --source "КЗК (reg.cpc.bg)"
 ```
 
 ⚠️ **Do not write "2,098 outcomes preserved" any more.** That line was literally true for
@@ -400,14 +400,14 @@ Only stamp after Step 2 passes.
 | Path | Purpose |
 |---|---|
 | `scripts/procurement/kzk_appeals.ts` | Headed crawl + JSON merge + PG upsert (`--year` / `--backfill` / `--apply` / `--dry-run`) |
-| `scripts/procurement/build_kzk_summary.ts` | `npm run kzk:summary` — the `procurementAppeals` AI-tool payload |
+| `scripts/procurement/build_kzk_summary.ts` | `pnpm run kzk:summary` — the `procurementAppeals` AI-tool payload |
 | `scripts/db/schema/pg/042_kzk_appeals.sql` | Table + `tender_appeals(unp)` + `kzk_recent_appeals(limit)` |
 | `scripts/db/apply_functions.ts` | Surgical idempotent DDL apply (bare filenames) |
 | `data/procurement/kzk_appeals.json` | Full complaint store — gitignored, PG-served |
 | `scripts/procurement/kzk_decisions.ts` | Headed decisions crawl (`--probe` / `--year` / `--backfill` / `--apply`) |
 | `scripts/procurement/kzk_decisions_store.ts` | Shared decision shape + validator (rejects column-shifted rows) |
 | `scripts/procurement/kzk_match.ts` | Pure decisions↔appeals join (multi-party split, year\|year-1 window) |
-| `scripts/procurement/kzk_rejoin.ts` | `npm run kzk:rejoin` — re-derive outcomes offline from the stored corpus |
+| `scripts/procurement/kzk_rejoin.ts` | `pnpm run kzk:rejoin` — re-derive outcomes offline from the stored corpus |
 | `scripts/db/load_kzk_decisions_pg.ts` | `db:load:kzk-decisions:pg` — ships the corpus into `kzk_decisions` (130) |
 | `data/procurement/kzk_decisions.json` | Tier-2 decisions corpus — gitignored; written by `kzk:decisions` |
 | `data/procurement/derived/kzk_appeals_summary.json` | AI summary — **committed** |

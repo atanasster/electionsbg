@@ -35,7 +35,7 @@ const haveCache = DKI_PAGES.every((p) =>
 const skip = !haveDb
   ? "Postgres unreachable"
   : !haveCache
-    ? "no raw_data/culture/dki cache — run `npm run culture:dki` once"
+    ? "no raw_data/culture/dki cache — run `pnpm run culture:dki` once"
     : false;
 reportSkip(import.meta.url, skip);
 
@@ -116,6 +116,6 @@ test.skipIf(skip)("the committed artifact is current", async () => {
     .map((i) => `${i.name}: stored ${i.eik}, corpus now ${live.get(i.name)}`);
   expect(
     drifted,
-    "re-run `npm run culture:dki -- --apply` and commit the artifact",
+    "re-run `pnpm run culture:dki --apply` and commit the artifact",
   ).toEqual([]);
 });

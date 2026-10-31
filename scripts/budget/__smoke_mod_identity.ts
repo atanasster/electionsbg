@@ -20,7 +20,7 @@
 // backtest — МФ's own estimate was ~250M BGN ≈ €128M.
 //
 // Usage:
-//   npx tsx scripts/budget/__smoke_mod_identity.ts
+//   pnpm exec tsx scripts/budget/__smoke_mod_identity.ts
 
 import fs from "fs";
 import path from "path";

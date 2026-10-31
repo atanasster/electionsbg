@@ -4,7 +4,7 @@
 // does the trigram/fuzzy search even SURFACE the right person under a
 // single-letter typo, before asking anything about disambiguation.
 //
-//   npx tsx ai/llm/personSearchTypoTest.ts [sampleSize]
+//   pnpm exec tsx ai/llm/personSearchTypoTest.ts [sampleSize]
 //
 // Names come from the COMMITTED data/parliament/mp-cars.json (real MPs, real
 // full names, no network needed to build the sample) — deterministic, evenly

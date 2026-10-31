@@ -30,7 +30,7 @@
 //   - the printed "% в срок" == round(withinDeadline / resolved)
 //
 // Run (fetches missing PDFs into raw_data/judiciary/, which is gitignored):
-//   npx tsx scripts/judiciary/__write_caseload.ts
+//   pnpm exec tsx scripts/judiciary/__write_caseload.ts
 
 import fs from "fs";
 import path from "path";

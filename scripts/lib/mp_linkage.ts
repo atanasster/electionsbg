@@ -109,7 +109,7 @@ export const readMpLinkRows = async (
       scope === "contractors"
         ? "Run db:load:tr:pg (which needs a resolved person layer) first."
         : "The gated person layer is empty — run db:resolve:persons, then " +
-          "db:load:declarations:pg -- --resolve.";
+          "db:load:declarations:pg --resolve.";
     throw new Error(
       `the MP↔company link set (scope=${scope}) yielded no usable mp rows ` +
         `(${raw.length} read, ${unparsed} with an unparseable ref) — ${emptyMeans} ${fix}`,

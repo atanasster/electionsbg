@@ -10,15 +10,15 @@
 // LOOKALIKE helper instead of the real one and was wrong, and a committed
 // harness importing the real functions cannot drift from what they do.
 //
-//   npx tsx scripts/funds/interreg/measure.ts                # every section
-//   npx tsx scripts/funds/interreg/measure.ts --full         # same (the plan's §Verification name)
-//   npx tsx scripts/funds/interreg/measure.ts --ranking-delta  # §6 only
-//   npx tsx scripts/funds/interreg/measure.ts --source=corpus  # no database
-//   npx tsx scripts/funds/interreg/measure.ts --json         # machine-readable
+//   pnpm exec tsx scripts/funds/interreg/measure.ts                # every section
+//   pnpm exec tsx scripts/funds/interreg/measure.ts --full         # same (the plan's §Verification name)
+//   pnpm exec tsx scripts/funds/interreg/measure.ts --ranking-delta  # §6 only
+//   pnpm exec tsx scripts/funds/interreg/measure.ts --source=corpus  # no database
+//   pnpm exec tsx scripts/funds/interreg/measure.ts --json         # machine-readable
 //
 // Against Cloud SQL (production), via the proxy — still read-only:
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-//     npx tsx scripts/funds/interreg/measure.ts
+//     pnpm exec tsx scripts/funds/interreg/measure.ts
 //
 // ── WHAT EACH SOURCE CAN AND CANNOT ANSWER, AND WHY THAT IS NOT A GAP ────────
 //
@@ -548,7 +548,7 @@ const main = async (): Promise<void> => {
       say(
         "  no EKATTE, because place resolution runs in the loader (plan §8).",
       );
-      say("  Start it with `npm run db:pg:up`, or pass --source=corpus.");
+      say("  Start it with `pnpm run db:pg:up`, or pass --source=corpus.");
     } else {
       // Ordered by dependency: the ranking is downstream of placement, and
       // T4's arm is downstream of both.

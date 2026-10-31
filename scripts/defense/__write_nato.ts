@@ -15,9 +15,9 @@
 // file-building + asserts below are identical. (.env.local → GEMINI_API_KEY.)
 //
 // Usage:
-//   npx tsx scripts/defense/__write_nato.ts --pdf <path>   # parse a local PDF
-//   npx tsx scripts/defense/__write_nato.ts                # download the latest
-//   npx tsx scripts/defense/__write_nato.ts --ocr          # force the OCR path
+//   pnpm exec tsx scripts/defense/__write_nato.ts --pdf <path>   # parse a local PDF
+//   pnpm exec tsx scripts/defense/__write_nato.ts                # download the latest
+//   pnpm exec tsx scripts/defense/__write_nato.ts --ocr          # force the OCR path
 //
 // The `targets` block (2% / 3.5% / 5%) and the arms-export / readiness / programs
 // files are NOT touched here — only the two NATO-sourced artifacts. See

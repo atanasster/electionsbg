@@ -3,8 +3,8 @@
 // plus the existing cross-reference outputs (mp_connected / pep_connected) which
 // the JS builders also consume as inputs.
 //
-//   npm run db:gen-derived            # verify only (default)
-//   npm run db:gen-derived -- --write # also write the files
+//   pnpm run db:gen-derived            # verify only (default)
+//   pnpm run db:gen-derived --write # also write the files
 //
 // cpv_competition / top_contractors / awarder_concentration are deterministic
 // (a final sort washes out read order) → byte-identical. flow / flow_full order

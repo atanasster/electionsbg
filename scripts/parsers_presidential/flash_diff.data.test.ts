@@ -35,7 +35,7 @@ describe.each(ROUNDS)("2021 round %i flash comparison", (round) => {
     // IS committed, so absence means somebody deleted it — reported with the command back.
     reportSkip(
       import.meta.url,
-      `data/${CYCLE}/tur${round}/flash.json is absent — rebuild with \`npm run presidential:flash -- ${CYCLE}\``,
+      `data/${CYCLE}/tur${round}/flash.json is absent — rebuild with \`pnpm run presidential:flash ${CYCLE}\``,
     );
     it.skip("skipped", () => {});
     return;

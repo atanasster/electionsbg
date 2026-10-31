@@ -11,7 +11,7 @@ allowed-tools:
 
 # Update Budget skill
 
-Ingests the Bulgarian state budget into `data/budget/`. **Four pillars** run from one CLI (`npm run budget:ingest`):
+Ingests the Bulgarian state budget into `data/budget/`. **Four pillars** run from one CLI (`pnpm run budget:ingest`):
 
 1. **КФП feed** (data.egov.bg) — monthly consolidated execution snapshots → time series, economic-grain plan-vs-actual, fiscal-year roll-ups, latest snapshot.
 2. **State Budget Law** (Държавен вестник HTML) — per-spending-unit appropriations → admin-grain + program-grain BudgetFacts at `stage: "law"`, the administrative + program classification registries, the law/amendment document index.
@@ -24,14 +24,14 @@ Plus the budget-journey document index, procurement cross-link (Phase 4), and pe
 
 | Trigger                                                                                                       | Action                                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data.egov.bg бюджет: N new monthly snapshot(s)`                                                              | Incremental ingest (`npm run budget:ingest`)                                                                                                                                              |
+| `data.egov.bg бюджет: N new monthly snapshot(s)`                                                              | Incremental ingest (`pnpm run budget:ingest`)                                                                                                                                              |
 | `Per-ministry execution reports: N updated`                                                                   | Same — the watcher's `describe()` names the changed ministries                                                                                                                            |
-| `Доклад за състоянието на администрацията: new year`                                                          | Resolve file id from /annual_report/<id> → add to `DOKLAD_FILE_IDS` in `scripts/budget/doklad.ts` → run `npm run budget:ingest`                                                           |
+| `Доклад за състоянието на администрацията: new year`                                                          | Resolve file id from /annual_report/<id> → add to `DOKLAD_FILE_IDS` in `scripts/budget/doklad.ts` → run `pnpm run budget:ingest`                                                           |
 | User says "refresh budget" / "update budget data"                                                             | Same — incremental                                                                                                                                                                        |
 | New fiscal year's reports publish (mid-year)                                                                  | Update each ministry's URL in `EXECUTION_REPORTS`; ingest; re-seed canaries                                                                                                               |
 | `data/budget/` empty (fresh clone)                                                                            | Cold-start ingest of every visible monthly resource + curated reports                                                                                                                     |
 | Canary mismatch warning surfaced                                                                              | Investigate the named parser in `scripts/budget/` BEFORE re-running                                                                                                                       |
-| A new КФП month lands (`data.egov.bg бюджет` flips)                                                        | After `budget:ingest`, also run `npx tsx scripts/budget/__write_fy2026_frame.ts` — the FY2026 frame annualises the year-to-date execution, and its band narrows with every month. Nothing else regenerates it, so without this the frame silently describes an older month than the data it sits beside. |
+| A new КФП month lands (`data.egov.bg бюджет` flips)                                                        | After `budget:ingest`, also run `pnpm exec tsx scripts/budget/__write_fy2026_frame.ts` — the FY2026 frame annualises the year-to-date execution, and its band narrows with every month. Nothing else regenerates it, so without this the frame silently describes an older month than the data it sits beside. |
 | `budget_law` flips / new ЗДБ year added to `LAW_DV_MATERIALS`                                              | After `budget:ingest`, also run `tsx scripts/budget/__write_izdrazhka.ts` (per-spending-unit издръжка series) **and** `tsx scripts/budget/__write_judiciary.ts` (judiciary budget by органи, feeds the ВСС pack); bucket:sync `data/budget/izdrazhka_by_institution.json` + `data/budget/vss/budget.json` |
 | Sanity-warning `⚠ admin-grain sanity (…)` surfaced                                                           | Investigate that ministry's report manually before committing                                                                                                                             |
 | `Eurostat policy-baseline (BG)` flips (`eurostat_policy`)                                                     | Policy-baseline sub-step — `run_consumption_coicop.ts` then `run_policy_baseline.ts` (see "Policy-baseline ingest" below)                                                                 |
@@ -40,7 +40,7 @@ Plus the budget-journey document index, procurement cross-link (Phase 4), and pe
 ## Step 1 — Ingest
 
 ```bash
-npm run budget:ingest
+pnpm run budget:ingest
 ```
 
 What it does:
@@ -107,7 +107,7 @@ Expect: `documents.json` + `index.json` modified (the only committed-tree budget
 ## Step 3 — Upload + commit
 
 ```bash
-npm run budget:ingest -- --upload
+pnpm run budget:ingest --upload
 git add data/budget/ tests/fixtures/budget/
 git commit -m "budget: ingest through YYYY-MM"
 ```
@@ -122,11 +122,11 @@ at all (`place-dim` was named in other skills; the four budget loaders were name
 nowhere). **Order matters at both ends:**
 
 ```bash
-npm run db:load:place-dim:pg:cloud         # HARD prerequisite of 149 — see below
-npm run db:load:municipal-fiscal:pg:cloud  # 149: municipal_fiscal + obshtina_population
-npm run db:load:budget:pg:cloud            # 152 КФП · 153 admin/programme · 157
-npm run db:load:budget-muni:pg:cloud       # 154: transfers, execution, capital + ИПОП projects
-npm run db:load:budget-hub:pg:cloud        # 156 — LAST, it reads all of the above
+pnpm run db:load:place-dim:pg:cloud         # HARD prerequisite of 149 — see below
+pnpm run db:load:municipal-fiscal:pg:cloud  # 149: municipal_fiscal + obshtina_population
+pnpm run db:load:budget:pg:cloud            # 152 КФП · 153 admin/programme · 157
+pnpm run db:load:budget-muni:pg:cloud       # 154: transfers, execution, capital + ИПОП projects
+pnpm run db:load:budget-hub:pg:cloud        # 156 — LAST, it reads all of the above
 ```
 
 Three things about that order are easy to get backwards:
@@ -173,12 +173,12 @@ Two complementary ingests live alongside the main budget pipeline but run indepe
 ### Single combined command (recommended)
 
 ```bash
-npm run budget:revenue-breakdown
+pnpm run budget:revenue-breakdown
 ```
 
 Runs both `scripts/budget/run_customs_revenue.ts` and `scripts/budget/run_nap_annual.ts` in sequence — covers every output under `data/budget/revenue_breakdown/{customs,vat,pit}/`. Use this when the orchestrator invokes `/update-budget` because `customs_revenue` or `nap_annual` flipped. Subsequent runs are cheap — both scripts cache the source PDFs under `raw_data/budget/` and skip re-download.
 
-Stamp the result with: `npx tsx scripts/stamp-ingest.ts update-budget --summary "revenue-breakdown: customs <years>, vat/pit <years>"`.
+Stamp the result with: `pnpm exec tsx scripts/stamp-ingest.ts update-budget --summary "revenue-breakdown: customs <years>, vat/pit <years>"`.
 
 The two scripts also run individually if you need finer control:
 
@@ -187,9 +187,9 @@ The two scripts also run individually if you need finer control:
 Source: `customs.bg/wps/portal/agency/media-center/customs-chronicle` — the annual "Митническа хроника" PDF, published in March of T+1.
 
 ```bash
-npx tsx scripts/budget/run_customs_revenue.ts             # all known years
-npx tsx scripts/budget/run_customs_revenue.ts --year 2025 # single year
-npx tsx scripts/budget/run_customs_revenue.ts --refresh   # bypass cache
+pnpm exec tsx scripts/budget/run_customs_revenue.ts             # all known years
+pnpm exec tsx scripts/budget/run_customs_revenue.ts --year 2025 # single year
+pnpm exec tsx scripts/budget/run_customs_revenue.ts --refresh   # bypass cache
 ```
 
 Output: `data/budget/revenue_breakdown/customs/<year>.json` per fiscal year — total collections, excise by product group (fuels → diesel/petrol/LPG/natural-gas/kerosene + tobacco + alcohol), import VAT, customs duties, fines, and top-5 country-of-origin split for customs duties.
@@ -205,9 +205,9 @@ Adding a new year: find the PDF URL via WebSearch (`site:customs.bg Mitnicheska_
 Source: `nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP` — the annual "Годишен отчет за дейността на НАП" PDF, approved by Council of Ministers in March of T+1.
 
 ```bash
-npx tsx scripts/budget/run_nap_annual.ts             # all known years
-npx tsx scripts/budget/run_nap_annual.ts --year 2024 # single year
-npx tsx scripts/budget/run_nap_annual.ts --refresh   # bypass cache
+pnpm exec tsx scripts/budget/run_nap_annual.ts             # all known years
+pnpm exec tsx scripts/budget/run_nap_annual.ts --year 2024 # single year
+pnpm exec tsx scripts/budget/run_nap_annual.ts --refresh   # bypass cache
 ```
 
 Output (two files per fiscal year):
@@ -237,15 +237,15 @@ The NAP parser shells out to `pdftotext -layout` (poppler-utils) because the NAP
 - **НАП** (`nap.json`): the НАП „Годишен отчет за дейността“ — the **same PDF** the `nap_annual` watcher already tracks and `run_nap_annual.ts` fetches. Table „Отчет на разходите на НАП“, column „Уточнен план“ (в хил. лв → EUR ÷ 1.95583). So when `nap_annual` flips, refresh this alongside the VAT/PIT ingest above.
 - **Митници** (`customs.json`): the customs.bg „Отчет за касовото изпълнение на бюджета“ (форма Б-3, декемврийски кумулативен), ред „II. РАЗХОДИ“, column „Годишен уточнен план“ — a *different* customs.bg form than the Митническа хроника `customs_revenue` watches, but the same annual cadence, so refresh it in the same pass.
 
-To refresh: read the new уточнен-план figure from the report, add/patch the `years[]` row (keep `source`), then **rerun `npm run db:gen-sector-stats`** (needs local PG + local `ministries/` files) so the two hub tiles pick up the new year. No new watcher — the `nap_annual` flip is the trigger for НАП; customs rides the same March cycle.
+To refresh: read the new уточнен-план figure from the report, add/patch the `years[]` row (keep `source`), then **rerun `pnpm run db:gen-sector-stats`** (needs local PG + local `ministries/` files) so the two hub tiles pick up the new year. No new watcher — the `nap_annual` flip is the trigger for НАП; customs rides the same March cycle.
 
 ## Policy-baseline ingest (tax-policy simulator)
 
 The `/budget/simulator` screen scores rate-change scenarios (ДДС standard + per-category, ДДФЛ flat, корпоративен, дивидент, МОД cap) against a single derived file. Two scripts, run in order:
 
 ```bash
-npx tsx scripts/budget/run_consumption_coicop.ts   # Eurostat → revenue_breakdown/consumption.json
-npx tsx scripts/budget/run_policy_baseline.ts      # joins everything → derived/policy_baseline.json
+pnpm exec tsx scripts/budget/run_consumption_coicop.ts   # Eurostat → revenue_breakdown/consumption.json
+pnpm exec tsx scripts/budget/run_policy_baseline.ts      # joins everything → derived/policy_baseline.json
 ```
 
 - `run_consumption_coicop.ts` fetches household consumption by COICOP purpose (Eurostat `nama_10_co3_p3`, BG structure lags ~2 years) plus the fresher `nama_10_gdp` P31_S14 totals used to scale it. **Unit hazard**: post-changeover Eurostat re-denominates BG "national currency" series to euros dataset-by-dataset, so the script anchor-validates each fetch against `macro.json` nominal GDP instead of trusting the unit label — never remove that check.
@@ -258,11 +258,11 @@ Self-validation (the script throws instead of writing):
 - **Round-trip guard** — the engine at current law must reproduce the calibration row for the baseline year (catches slice-join breakage).
 - **κ gate** — the fitted band grid at the flat 10% must reproduce the НАП employment-PIT line within ±8% (it landed at κ=1.000 on the 2024 anchors). A breach means the anchors disagree — re-check the СОД curation and the SES wave before touching tolerances.
 
-Smoke checks: `npx tsx scripts/budget/__smoke_vat_model.ts` (calibration table + scored scenarios through the shared engine), `npx tsx scripts/budget/__smoke_mod_identity.ts` (МОД-cap identity backtest vs МФ's scoring of the 2025 raise), and `npx tsx scripts/budget/__smoke_earnings.ts` (fit diagnostics, fitted-α backtest, bracket + МОД scenarios over the bands).
+Smoke checks: `pnpm exec tsx scripts/budget/__smoke_vat_model.ts` (calibration table + scored scenarios through the shared engine), `pnpm exec tsx scripts/budget/__smoke_mod_identity.ts` (МОД-cap identity backtest vs МФ's scoring of the 2025 raise), and `pnpm exec tsx scripts/budget/__smoke_earnings.ts` (fit diagnostics, fitted-α backtest, bracket + МОД scenarios over the bands).
 
 Triggers: the `eurostat_policy` watcher (any of the four datasets release — note `earn_ses_hourly` is a 4-yearly SES wave, next 2026), a КФП ingest that closes a fiscal year (new December snapshot — the simulator re-bases to it), or a `nap_annual` re-ingest. When a year's МОД cap changes by law, also update `MOD_BY_YEAR` in `src/lib/bgTax.ts`.
 
-Stamp with: `npx tsx scripts/stamp-ingest.ts update-budget --summary "policy baseline re-based to FY<year>, VAT factor <f>"`.
+Stamp with: `pnpm exec tsx scripts/stamp-ingest.ts update-budget --summary "policy baseline re-based to FY<year>, VAT factor <f>"`.
 
 ## Data sources — by source format
 
@@ -303,7 +303,7 @@ tsx scripts/budget/municipal_execution/ingest.ts --muni ruse --year 2024
 - **Coverage** is in the `REGISTRY` in `ingest.ts` — currently Русе (RSE27, org 157, 2016-2025) and Николаево (SZR38, org 281, 2019-2024). These are the only sizeable munis with fresh, portal-hosted, parseable B3; most общини either link out to their own site or stopped publishing ~2019-2020 (see the one-off survey in this conversation's history). To add a muni, append to `REGISTRY` with its org id, obshtina code, and the resource-name `resourcePref` regex; the parser is generic.
 - **Watcher**: `egov_municipal_execution` flags new/re-uploaded muni-year reports → re-run `--all`.
 
-> **Publish:** these rows reach production through `npm run db:load:budget-muni:pg:cloud` (migration 154) — see **Step 4**. The ingest writes a committed tree and stops; nothing else ships it, so a run that ends at `git commit` leaves the live page on the previous vintage.
+> **Publish:** these rows reach production through `pnpm run db:load:budget-muni:pg:cloud` (migration 154) — see **Step 4**. The ingest writes a committed tree and stops; nothing else ships it, so a run that ends at `git commit` leaves the live page on the previous vintage.
 
 - **The revenue side is OWN revenue** (собствени приходи: local taxes, fees, property income) — it funds only part of spending; the rest is state transfers + carry-over, which is why expense ≫ revenue. The tile labels and caption say so; don't "fix" the gap.
 - Output `{muni}/{year}.json` is ~12 KB (paragraph rollups only — под-§§ detail and the 9000-row РАЗХОДИ ПО ДЕЙНОСТИ section are dropped), so no tile-shrink sidecar. `index.json` carries `latestFullYear` so the tile defaults to a complete year, not a mid-year partial.
@@ -349,7 +349,7 @@ Some ministry sites (minfin.bg, mvr.bg) WAF-block automated clients on every end
 2. **Download the PDF** in that browser.
 3. **Save it** at exactly: `raw_data/budget/exec-<adminId>-<fy>.pdf`.
 4. **Uncomment** the entry in `EXECUTION_REPORTS` (manual-pdf entries default to commented-out so they don't fire the missing-file warning until activated).
-5. **Run** `npm run budget:ingest`. If the file isn't found, the run logs `⚠ <adminId> <year> [manual-pdf]: skipped — …` and continues (non-fatal); the rest of the pipeline still completes.
+5. **Run** `pnpm run budget:ingest`. If the file isn't found, the run logs `⚠ <adminId> <year> [manual-pdf]: skipped — …` and continues (non-fatal); the rest of the pipeline still completes.
 
 ### Playwright discovery for JS-rendered budget sections
 
@@ -357,10 +357,10 @@ Several ministries (МОН, МРРБ, МК, МЕ, МС, МВнР, МТС) render
 
 ```bash
 # Headed: opens chromium, pauses between ministries for inspection
-npx tsx scripts/budget/discover_execution_reports.ts --ministry mc
+pnpm exec tsx scripts/budget/discover_execution_reports.ts --ministry mc
 
 # Headless: batch sweep, writes the report and exits
-npx tsx scripts/budget/discover_execution_reports.ts --headless
+pnpm exec tsx scripts/budget/discover_execution_reports.ts --headless
 ```
 
 The scoring boosts canonical filename patterns (`<chapter>_Otchet_<date>.doc[x]`, `Otchet_programi_*`) and penalises known false-positive classes (АУЕР Forma ZEE energy-efficiency forms, EU operational-programme progress reports). The operator picks the right candidate from the report, saves to `raw_data/budget/exec-<adminId>-<fy>.pdf`, and adds a manual-pdf entry to EXECUTION_REPORTS. **This is a one-off discovery tool — not wired into the watcher or CI.**
@@ -482,7 +482,7 @@ Pre-existing condition the slice fixed: `writeIfChanged` now ignores `generatedA
 Stamp the ingest marker so `/process-watch-report` knows this skill is current:
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-budget --summary "<one-line recap>"
+pnpm exec tsx scripts/stamp-ingest.ts update-budget --summary "<one-line recap>"
 ```
 
 Suggested recap formats:
@@ -511,4 +511,4 @@ Suggested recap formats:
 - **Pension floor** — the НОИ quarterly **STATB** bulletin (`NOI_STATB_URL`, fetched + cached under `raw_data/budget/`, parsed with SheetJS): pension-size bands + at-minimum counts for the минимална-пенсия lever. **A new quarter is a new filename — bump `NOI_STATB_URL` when the `policy_baseline_local` watcher flags it.**
 - **Teachers' 125% peg** — live `educ_uoe_perp01` headcount (Eurostat) + NSI open-data id=612 wages (note: its JSON-stat `value` is a LIST, not Eurostat's dict).
 
-Curated constants to maintain in the script: `PENSIONER_COUNT`, `COVID_SUPPLEMENT_EUR_MONTHLY`, `MIN_WAGE_EUR` (update when МРЗ changes by law), `NATO_DEFENSE_PCT_GDP`, `CIVIL_SERVANTS_COUNT`/`CIVIL_SERVANTS_AVG_WAGE_EUR`, `EXEMPT_PERSONNEL_SHARE`, and `NOI_STATB_URL`. Watched by `eurostat_policy` (the five Eurostat datasets, incl. `educ_uoe_perp01`) and `policy_baseline_local` (НОИ STATB current+next quarter, NSI id=612). Smoke: `npx tsx scripts/budget/__smoke_expenditure.ts` (CPI-only pension indexation ≈ −€480M/yr; a −5% administration cut ≈ €0, fully absorbed by vacancies; teachers at the current ratio = exactly €0; prints the НОИ pension-floor validation check). The pension-floor validation reproduces НОИ's published top-up cost only within ×0.65 — band-midpoint coarseness — so it WARNS rather than throws; the raise lever is insulated (scores from the minimum itself).
+Curated constants to maintain in the script: `PENSIONER_COUNT`, `COVID_SUPPLEMENT_EUR_MONTHLY`, `MIN_WAGE_EUR` (update when МРЗ changes by law), `NATO_DEFENSE_PCT_GDP`, `CIVIL_SERVANTS_COUNT`/`CIVIL_SERVANTS_AVG_WAGE_EUR`, `EXEMPT_PERSONNEL_SHARE`, and `NOI_STATB_URL`. Watched by `eurostat_policy` (the five Eurostat datasets, incl. `educ_uoe_perp01`) and `policy_baseline_local` (НОИ STATB current+next quarter, NSI id=612). Smoke: `pnpm exec tsx scripts/budget/__smoke_expenditure.ts` (CPI-only pension indexation ≈ −€480M/yr; a −5% administration cut ≈ €0, fully absorbed by vacancies; teachers at the current ratio = exactly €0; prints the НОИ pension-floor validation check). The pension-floor validation reproduces НОИ's published top-up cost only within ×0.65 — band-midpoint coarseness — so it WARNS rather than throws; the raise lever is insulated (scores from the minimum itself).

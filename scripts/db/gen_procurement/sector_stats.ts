@@ -10,7 +10,7 @@
 //   y:<year>       — one calendar year
 //   all            — the full corpus
 //
-//   npm run db:gen-sector-stats   # reads PG (after db:refresh) + bespoke JSON
+//   pnpm run db:gen-sector-stats   # reads PG (after db:refresh) + bespoke JSON
 //
 // The headline answers "how much money does this sector spend from public
 // funds?" — so most sectors carry a BUDGET or PAYOUT figure, not their thin
@@ -497,7 +497,7 @@ const main = async (): Promise<void> => {
     warnSkip(
       "sector_stats",
       `missing relation(s): ${relGaps.join(", ")}`,
-      "Run `npm run db:refresh` — db:load:pg and db:load:agri:pg fill these.",
+      "Run `pnpm run db:refresh` — db:load:pg and db:load:agri:pg fill these.",
     );
     await end();
     return;
@@ -512,7 +512,7 @@ const main = async (): Promise<void> => {
     warnSkip(
       "sector_stats",
       "the contracts table is empty",
-      "Run the procurement ingest, then `npm run db:load:pg`.",
+      "Run the procurement ingest, then `pnpm run db:load:pg`.",
     );
     await end();
     return;

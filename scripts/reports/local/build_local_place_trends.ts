@@ -27,7 +27,7 @@
 // Sofia райони are only covered for cycles that ship a per-район light shard
 // (2015→), so they get a 3-cycle trend; 2011 has only the pooled SOF shard.
 //
-// Flag-gated operator step (not part of `--all`): `npm run data -- --local-place-trends`.
+// Flag-gated operator step (not part of `--all`): `pnpm run data --local-place-trends`.
 
 import fs from "fs";
 import path from "path";

@@ -1,5 +1,5 @@
 // The ЗБДОО plan block's two basis-critical rules. Nothing in this change was
-// covered by `npm run test:unit` before — the smoke script guards the DATA, but
+// covered by `pnpm run test:unit` before — the smoke script guards the DATA, but
 // a rendering rule that silently inverts (showing the НОИ line as a fund, or
 // printing the 2026 law under a 2019 heading) is a presentation bug the data
 // gate cannot see.

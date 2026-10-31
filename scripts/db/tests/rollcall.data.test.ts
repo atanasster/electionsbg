@@ -1,7 +1,7 @@
 // Gates for the roll-call corpus in Postgres (docs/plans/parliament-hub-v1.md §11).
 // Auto-skips when Postgres is down.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // The two that carry the most weight are the ones about IDENTITY, because both describe
 // source defects that no row count reveals and that the JSON layer has been absorbing
@@ -51,31 +51,31 @@ const tableExists = async (name: string): Promise<boolean> =>
 
 const skipItems =
   !haveDb || !(await tableExists("vote_item"))
-    ? "Postgres unreachable, or vote_item is absent — run npm run db:load:rollcall:pg"
+    ? "Postgres unreachable, or vote_item is absent — run pnpm run db:load:rollcall:pg"
     : false;
 const skipCasts =
   !haveDb || !(await tableExists("vote_cast"))
-    ? "Postgres unreachable, or vote_cast is absent — run npm run db:load:rollcall:pg"
+    ? "Postgres unreachable, or vote_cast is absent — run pnpm run db:load:rollcall:pg"
     : false;
 const skipSeats =
   !haveDb || !(await tableExists("mp_seat"))
-    ? "Postgres unreachable, or mp_seat is absent — run npm run db:load:rollcall:pg"
+    ? "Postgres unreachable, or mp_seat is absent — run pnpm run db:load:rollcall:pg"
     : false;
 const skipAttendance =
   !haveDb || !(await tableExists("mp_attendance"))
-    ? "Postgres unreachable, or mp_attendance is absent — run npm run db:load:rollcall-derived:pg"
+    ? "Postgres unreachable, or mp_attendance is absent — run pnpm run db:load:rollcall-derived:pg"
     : false;
 const skipDissent =
   !haveDb || !(await tableExists("mp_dissent"))
-    ? "Postgres unreachable, or mp_dissent is absent — run npm run db:load:rollcall-derived:pg"
+    ? "Postgres unreachable, or mp_dissent is absent — run pnpm run db:load:rollcall-derived:pg"
     : false;
 const skipSimilarity =
   !haveDb || !(await tableExists("mp_similarity"))
-    ? "Postgres unreachable, or mp_similarity is absent — run npm run db:load:rollcall-derived:pg"
+    ? "Postgres unreachable, or mp_similarity is absent — run pnpm run db:load:rollcall-derived:pg"
     : false;
 const skipCohesion =
   !haveDb || !(await tableExists("party_cohesion"))
-    ? "Postgres unreachable, or party_cohesion is absent — run npm run db:load:rollcall-derived:pg"
+    ? "Postgres unreachable, or party_cohesion is absent — run pnpm run db:load:rollcall-derived:pg"
     : false;
 reportSkip(import.meta.url, skipItems);
 reportSkip(import.meta.url, skipCasts);

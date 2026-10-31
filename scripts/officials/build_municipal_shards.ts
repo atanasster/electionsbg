@@ -24,15 +24,15 @@
 // ⚠️ WRITING THE SHARDS IS NOT PUBLISHING THEM. The municipality page stopped fetching these
 // files: `src/data/officials/useMunicipalOfficials.tsx` reads `municipal_officials_current`,
 // a view over the `municipal_officials_table` MATVIEW, whose only refresher in the repo is
-// `npm run db:load:official-candidate-links:pg`. So a corrected shard changes nothing a reader
+// `pnpm run db:load:official-candidate-links:pg`. So a corrected shard changes nothing a reader
 // sees until that runs — measured 2026-09-04, Разлог's carried mayor was in the shard, in
 // `official_roster` and marked sitting, and the served view still returned three deputy mayors,
 // a council chair and no mayor.
 //
 // The full local chain after a re-emit:
-//   npm run data -- --resolve-local-canonicals        # the officials_diff sidecars (/sverka)
-//   npm run db:load:ngo-board-links                   # official_roster
-//   npm run db:load:official-candidate-links:pg       # ← the one a reader sees
+//   pnpm run data --resolve-local-canonicals        # the officials_diff sidecars (/sverka)
+//   pnpm run db:load:ngo-board-links                   # official_roster
+//   pnpm run db:load:official-candidate-links:pg       # ← the one a reader sees
 //
 // `person_role.role` lags all of these; only `db:resolve:persons` moves it, and that is a
 // nine-command repair chain of its own (CLAUDE.md, "A LOCAL db:resolve:persons is never one
@@ -389,7 +389,7 @@ const cmd = command({
       throw new Error(
         `${result.unmatched.length} unresolved roster entr(ies) and ${result.stale.length} ` +
           "orphaned shard(s) — pin names in scripts/officials/_aliases.json, and run " +
-          "`npx tsx scripts/officials/municipality_join.ts --dry-run` for the diagnosis",
+          "`pnpm exec tsx scripts/officials/municipality_join.ts --dry-run` for the diagnosis",
       );
     }
 
@@ -419,7 +419,7 @@ const cmd = command({
         // the whole message.
         console.error(
           "⚠ shards were rewritten but NOT re-decorated — every candidateLink is currently " +
-            "missing. Re-run `npx tsx scripts/officials/decorate_candidate_links.ts` once " +
+            "missing. Re-run `pnpm exec tsx scripts/officials/decorate_candidate_links.ts` once " +
             "the cause below is fixed.",
         );
         throw err;

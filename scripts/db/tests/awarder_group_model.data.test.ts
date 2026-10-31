@@ -1,7 +1,7 @@
 // The PARITY GATE for `AwarderModel` — the one type this repo builds TWICE.
 // docs/plans/consortium-visibility-v1.md T4.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // `awarder_group_model()` (061) folds a group server-side and
 // `buildAwarderModelFromAggregates` shapes its output; `buildAwarderModel` folds
@@ -43,8 +43,8 @@ const reachable = async (): Promise<string | false> => {
     );
     return t?.ok
       ? false
-      : "contracts is absent (run npm run db:load:pg), or awarder_group_model() is — migration " +
-          "061 has no applier in scripts/, so apply it by hand: npx tsx scripts/db/apply_functions.ts 061_awarder_group_model.sql";
+      : "contracts is absent (run pnpm run db:load:pg), or awarder_group_model() is — migration " +
+          "061 has no applier in scripts/, so apply it by hand: pnpm exec tsx scripts/db/apply_functions.ts 061_awarder_group_model.sql";
   } catch {
     return "Postgres unreachable";
   }

@@ -7,7 +7,7 @@
 // the resolver's copyRows list comes back NULL for every row, with nothing failing — so the
 // helper must not depend on the two agreeing.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { describe, it, expect } from "vitest";
 import { isSharedNameIdentity } from "./sharedNameIdentity";

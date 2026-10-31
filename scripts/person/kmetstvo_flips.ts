@@ -29,9 +29,9 @@
 // Run AFTER the re-parse and BEFORE `db:resolve:persons` — it compares the FRESH bundles on disk
 // against the STILL-OLD person_role rows, which is the only window where both states exist.
 //
-//   npx tsx scripts/person/kmetstvo_flips.ts --emit                 # write the audit file
-//   npx tsx scripts/person/kmetstvo_flips.ts --apply                # rekey + purge the locks
-//   DATABASE_URL=… npx tsx scripts/person/kmetstvo_flips.ts --apply # …on Cloud SQL
+//   pnpm exec tsx scripts/person/kmetstvo_flips.ts --emit                 # write the audit file
+//   pnpm exec tsx scripts/person/kmetstvo_flips.ts --apply                # rekey + purge the locks
+//   DATABASE_URL=… pnpm exec tsx scripts/person/kmetstvo_flips.ts --apply # …on Cloud SQL
 //
 // `--emit` is read-only. `--apply` re-derives the same diff and refuses to run if it disagrees
 // with the committed file, so the thing reviewed is the thing applied.

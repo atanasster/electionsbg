@@ -10,7 +10,7 @@
 // Auto-skips when Postgres is down, and skips with a DISTINCT reason when the corpus has no
 // held_scope stamped — „no provenance yet" must never read as „the rule is enforced".
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

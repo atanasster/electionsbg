@@ -37,7 +37,7 @@ const haveFn = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : !haveFn
-    ? "budget_hub_stats() absent — run npm run db:load:budget-hub:pg"
+    ? "budget_hub_stats() absent — run pnpm run db:load:budget-hub:pg"
     : false;
 reportSkip(import.meta.url, skip);
 afterAll(async () => {

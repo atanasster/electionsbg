@@ -33,7 +33,7 @@ const skip = !(await dbReachable())
     : (await allRows(`SELECT 1 FROM myarea_alerts LIMIT 1`).catch(
           () => null,
         )) === null
-      ? "myarea_alerts is absent — run npm run myarea:alerts"
+      ? "myarea_alerts is absent — run pnpm run myarea:alerts"
       : false;
 reportSkip(import.meta.url, skip);
 
@@ -99,7 +99,7 @@ test.skipIf(skip)(
       [],
       `${orphans.length} stored council alert(s) name a resolution that is ` +
         `no longer in the corpus. The alerts build has fallen behind a council ` +
-        `reload — re-run \`npm run myarea:alerts\` (and \`:cloud\`)`,
+        `reload — re-run \`pnpm run myarea:alerts\` (and \`:cloud\`)`,
     );
   },
 );

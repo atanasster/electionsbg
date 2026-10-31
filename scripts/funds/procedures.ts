@@ -24,7 +24,7 @@
 //
 // Folded into funds:ingest-projects. Standalone (reads the committed programme
 // shards, no re-fetch) via:
-//   npm run funds:procedures
+//   pnpm run funds:procedures
 
 import fs from "fs";
 import path from "path";
@@ -370,7 +370,7 @@ export const writeProcedures = (data: ProceduresBuild): void => {
 const loadFromProgramShards = (): ProcedureAttributable[] => {
   if (!fs.existsSync(BY_PROGRAM_DIR)) {
     throw new Error(
-      `${BY_PROGRAM_DIR} is missing — run \`npm run funds:ingest-projects\` first.`,
+      `${BY_PROGRAM_DIR} is missing — run \`pnpm run funds:ingest-projects\` first.`,
     );
   }
   const rows: ProcedureAttributable[] = [];

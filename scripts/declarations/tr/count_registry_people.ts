@@ -1,8 +1,8 @@
 // Count how many DISTINCT people the Commerce Registry records under each name fold, and
 // persist ONLY the count. Plan: docs/plans/tr-attribution-basis-v1.md §2.3.
 //
-//   npm run tr:count-people            → data/person/tr_name_fold_people.tsv
-//   npm run tr:count-people -- --check  read-only; prints the summary, writes nothing
+//   pnpm run tr:count-people            → data/person/tr_name_fold_people.tsv
+//   pnpm run tr:count-people --check  read-only; prints the summary, writes nothing
 //
 // ─────────────────────────────────────────────────────────────────────────────
 // WHAT THIS READS, AND WHAT IT REFUSES TO KEEP.

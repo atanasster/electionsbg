@@ -39,7 +39,7 @@
 -- Applied, never loaded (CLAUDE.md). 133 owns `person_link_n` and its two partial indexes, so
 -- a database whose 133 predates them serves an empty page rather than a wrong one — the
 -- column defaults to 0. Ship a body change with:
---   npx tsx scripts/db/apply_functions.ts 151_place_mp_companies.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 151_place_mp_companies.sql
 --
 -- ═══════════════════════════════════════════════════════════════════════════════════════
 -- COST, MEASURED, AND WHERE THE CEILING IS.

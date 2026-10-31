@@ -2,7 +2,7 @@
 // code most likely to break silently when НЗОК reshuffles a column or a caption.
 // All three units are pure (no I/O), so they lock cheaply.
 //
-//   npm run test:nzok
+//   pnpm run test:nzok
 //
 // `num` has genuinely subtle thousands-vs-decimal comma handling; `derivePeriod`
 // parses free-text sheet names; `parseActivities` folds the (facility × procedure

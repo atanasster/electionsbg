@@ -1,6 +1,6 @@
 // Real-registry name-disambiguation probe for Jev (TypeSafe).
 //
-//   TYPESAFE_API_KEY=... npx tsx ai/llm/fcEval.jev.realNames.ts
+//   TYPESAFE_API_KEY=... pnpm exec tsx ai/llm/fcEval.jev.realNames.ts
 //
 // Unlike JEV_NAME_DISAMBIG_CASES in fcEval.jev.ts (4 hand-picked candidate
 // lists), this probe calls the REAL production fuzzy-search routes —

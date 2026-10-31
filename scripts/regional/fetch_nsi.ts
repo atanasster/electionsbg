@@ -23,7 +23,7 @@
  * into the regional.json it writes). The update-regional skill runs the
  * chain: fetch_eurostat → fetch_az_oblast → fetch_nsi.
  *
- * Usage: npx tsx scripts/regional/fetch_nsi.ts
+ * Usage: pnpm exec tsx scripts/regional/fetch_nsi.ts
  */
 
 import fs from "fs";

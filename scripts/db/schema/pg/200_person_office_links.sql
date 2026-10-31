@@ -125,7 +125,7 @@
 --
 -- ⚠️ APPLIED BY NO LOADER. Ship it by name, and note it reads `tr_name_fold_people`, whose
 -- only loader is `db:load:tr-name-fold-people:pg`:
---   npx tsx scripts/db/apply_functions.ts 200_person_office_links.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 200_person_office_links.sql
 --
 -- Plan: docs/plans/consortium-member-visibility-v1.md §6 (this closes that deferral).
 

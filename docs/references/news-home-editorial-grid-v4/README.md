@@ -7,7 +7,7 @@ nothing fails when they stop matching, and they are expected to look wrong.
 Regenerate with:
 
 ```bash
-UPDATE_NEWS_HOME_REFS=1 npx playwright test --config playwright.news.config.ts home-grid --grep captureable
+UPDATE_NEWS_HOME_REFS=1 pnpm exec playwright test --config playwright.news.config.ts home-grid --grep captureable
 ```
 
 ⚠️ **Do not regenerate them after the layout is fixed.** Their whole value is

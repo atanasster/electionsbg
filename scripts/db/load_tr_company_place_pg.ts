@@ -33,7 +33,7 @@
 // AccessExclusiveLock for the whole load and 500 the tile at the pool's
 // lock_timeout.
 //
-// Run: `npm run db:load:tr-company-place:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:tr-company-place:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -244,7 +244,7 @@ export const loadTrCompanyPlacePg = async (): Promise<{
   // previous vintage until the next full declarations resolve.
   //
   // ⚠️ FALLBACK CREATE, not merely a refresh. 188's ONLY create path is inside
-  // `db:load:declarations:pg -- --resolve`, gated on a preflight that requires
+  // `db:load:declarations:pg --resolve`, gated on a preflight that requires
   // company_public_money (127) and tr_company_place (this table) to already exist — but
   // db:refresh's own chain runs that resolve step BEFORE db:load:graph:pg (which builds 127)
   // and before THIS loader. So on a genuinely fresh bootstrap the preflight there finds both
@@ -269,7 +269,7 @@ export const loadTrCompanyPlacePg = async (): Promise<{
     if (missing.length) {
       console.warn(
         `[tr-company-place] company_browse_table still missing dependencies: ` +
-          `${missing.join(", ")} — skipping create. Run npm run db:refresh (or the loader ` +
+          `${missing.join(", ")} — skipping create. Run pnpm run db:refresh (or the loader ` +
           `that owns the named relation) then re-run this loader.`,
       );
     } else {

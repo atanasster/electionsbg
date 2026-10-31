@@ -16,7 +16,7 @@ control, ~16% faster). To put a challenger next to the incumbent on the same six
 facts:
 
 ```bash
-npm run video:bakeoff -- --only=Rasalgethi,<challenger> --variants=spoken
+pnpm run video:bakeoff --only=Rasalgethi,<challenger> --variants=spoken
 ```
 
 ## The rule that drives everything
@@ -164,7 +164,7 @@ both compute must come from one place.** They are built by different scripts, no
 watches a caption track next to a video for twelve minutes, and the failure is
 gradual rather than obvious.
 
-The spec declares its own window as `runtimeSeconds` and `npm run video:gate1`
+The spec declares its own window as `runtimeSeconds` and `pnpm run video:gate1`
 enforces it. Length is a property of the VIDEO, not of the format.
 
 Note this is the **`spoken`** rate — the whole point of the rule above is that
@@ -206,10 +206,10 @@ Phase 0 is closed, so this is now for **re-validation** — a provider ships a m
 a voice grates after real scripts — not for selection.
 
 ```bash
-npm run video:bakeoff -- --list                     # bg-BG voices per provider
-npm run video:bakeoff -- --dry-run                  # passage + cost, no API calls
-npm run video:bakeoff -- --only=Rasalgethi,<x> --variants=spoken   # challenger vs incumbent
-npm run video:bakeoff -- --providers=google --gender=male --voices=6
+pnpm run video:bakeoff --list                     # bg-BG voices per provider
+pnpm run video:bakeoff --dry-run                  # passage + cost, no API calls
+pnpm run video:bakeoff --only=Rasalgethi,<x> --variants=spoken   # challenger vs incumbent
+pnpm run video:bakeoff --providers=google --gender=male --voices=6
 ```
 
 It renders a blind compare page (Проба A/B/C) so the ear goes before the price list.

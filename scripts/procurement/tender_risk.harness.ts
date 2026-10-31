@@ -5,7 +5,7 @@
 // a short submission window is a red flag on a competitive procedure but the
 // statutory norm on a low-value / non-open one, so it must NOT fire there.
 //
-// Pure logic, no DB. Run: npx tsx scripts/procurement/tender_risk.harness.ts
+// Pure logic, no DB. Run: pnpm exec tsx scripts/procurement/tender_risk.harness.ts
 import { computeTenderRisk } from "@/data/procurement/computeTenderRisk";
 import type { Tender } from "@/lib/tenderTypes";
 import type { TenderAward } from "@/data/procurement/useTender";

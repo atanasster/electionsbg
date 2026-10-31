@@ -22,7 +22,7 @@
 // as failures.
 //
 // Usage:
-//   npx tsx scripts/budget/check_policy_anchors.ts [--source <id>|all] [--stamp]
+//   pnpm exec tsx scripts/budget/check_policy_anchors.ts [--source <id>|all] [--stamp]
 
 import { execFileSync } from "child_process";
 import path from "path";
@@ -718,13 +718,20 @@ const main = async (): Promise<void> => {
     }
     if (stamp) {
       execFileSync(
-        "npx",
-        ["tsx", "scripts/stamp-ingest.ts", id, "--summary", result.summary],
+        "pnpm",
+        [
+          "exec",
+          "tsx",
+          "scripts/stamp-ingest.ts",
+          id,
+          "--summary",
+          result.summary,
+        ],
         { cwd: PROJECT_ROOT, stdio: "inherit" },
       );
     } else {
       console.log(
-        `  (stamp with: npx tsx scripts/stamp-ingest.ts ${id} --summary "${result.summary}")`,
+        `  (stamp with: pnpm exec tsx scripts/stamp-ingest.ts ${id} --summary "${result.summary}")`,
       );
     }
   }

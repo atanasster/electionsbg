@@ -8,7 +8,7 @@
 // and МАТ (score in POINTS, 0–100) keyed by Код по НЕИСПУО. Same download flow +
 // HTML-poisoning guard as scripts/indicators/sources/mon_dzi.ts.
 //
-// Run: `npx tsx scripts/schools/fetch_nvo.ts`
+// Run: `pnpm exec tsx scripts/schools/fetch_nvo.ts`
 
 import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "node:fs";

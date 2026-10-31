@@ -55,7 +55,7 @@ reportSkip(import.meta.url, skipDb);
 const skipBlob =
   skipDb ||
   (!load()
-    ? "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats"
+    ? "the declarations hub-stats blob is absent — run pnpm run db:gen-declarations-hub-stats"
     : false);
 reportSkip(import.meta.url, skipBlob !== skipDb ? skipBlob : false);
 
@@ -76,7 +76,7 @@ const skipSource =
   skipBlob ||
   (!blobSource
     ? "the declarations hub-stats blob does not record which database minted it — re-run " +
-      "npm run db:gen-declarations-hub-stats against the database it should describe"
+      "pnpm run db:gen-declarations-hub-stats against the database it should describe"
     : blobSource !== connected
       ? `the declarations hub-stats blob was minted from the ${blobSource} database and this ` +
         `run is connected to the ${connected} one — its figures are compared only against ` +
@@ -116,7 +116,7 @@ test.skipIf(skipSource)(
     if (!blob) {
       reportSkip(
         import.meta.url,
-        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+        "the declarations hub-stats blob is absent — run pnpm run db:gen-declarations-hub-stats",
       );
       return t.skip();
     }
@@ -155,7 +155,7 @@ test.skipIf(skipSource)(
     if (!blob) {
       reportSkip(
         import.meta.url,
-        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+        "the declarations hub-stats blob is absent — run pnpm run db:gen-declarations-hub-stats",
       );
       return t.skip();
     }
@@ -183,7 +183,7 @@ test.skipIf(skipSource)(
     if (!blob) {
       reportSkip(
         import.meta.url,
-        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+        "the declarations hub-stats blob is absent — run pnpm run db:gen-declarations-hub-stats",
       );
       return t.skip();
     }
@@ -224,7 +224,7 @@ test.skipIf(skipSource)(
     if (!blob) {
       reportSkip(
         import.meta.url,
-        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+        "the declarations hub-stats blob is absent — run pnpm run db:gen-declarations-hub-stats",
       );
       return t.skip();
     }
@@ -234,7 +234,7 @@ test.skipIf(skipSource)(
     if (!row) {
       reportSkip(
         import.meta.url,
-        "company_browse_table is absent — run npm run db:load:declarations:pg -- --resolve",
+        "company_browse_table is absent — run pnpm run db:load:declarations:pg --resolve",
       );
       return t.skip();
     }
@@ -287,7 +287,7 @@ test.skipIf(skipSource)(
     if (!blob) {
       reportSkip(
         import.meta.url,
-        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+        "the declarations hub-stats blob is absent — run pnpm run db:gen-declarations-hub-stats",
       );
       return t.skip();
     }
@@ -309,14 +309,14 @@ test.skipIf(skipSource)(
     if (!blob) {
       reportSkip(
         import.meta.url,
-        "the declarations hub-stats blob is absent — run npm run db:gen-declarations-hub-stats",
+        "the declarations hub-stats blob is absent — run pnpm run db:gen-declarations-hub-stats",
       );
       return t.skip();
     }
     if (!blob.topNetWorth?.length) {
       reportSkip(
         import.meta.url,
-        "the blob predates the evidence rail — re-run npm run db:gen-declarations-hub-stats",
+        "the blob predates the evidence rail — re-run pnpm run db:gen-declarations-hub-stats",
       );
       return t.skip();
     }

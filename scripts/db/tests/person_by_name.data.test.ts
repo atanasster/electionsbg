@@ -3,7 +3,7 @@
 // guards a different property: not "does the search rank sensibly" but "does this point
 // lookup still PLAN as a point lookup".
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store + `db:resolve:persons`; auto-skips when Postgres or the person
 // layer is absent — like the other *.data.test.ts gates.

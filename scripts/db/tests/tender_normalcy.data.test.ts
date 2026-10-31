@@ -4,7 +4,7 @@
 // reference function (tender_normalcy(unp)) it precomputes — so the route's
 // cache-first fast path and its live fallback can never diverge.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store with tenders loaded (`db:load:tenders:pg`, which
 // applies 066). Auto-skips when Postgres or the tenders table is unreachable, so

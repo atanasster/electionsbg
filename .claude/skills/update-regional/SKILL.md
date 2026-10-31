@@ -27,9 +27,9 @@ Eurostat publishes these series on an annual cadence (typically February-March f
 ## Step 1 — Fetch
 
 ```bash
-npx tsx scripts/regional/fetch_eurostat.ts    # Eurostat NUTS 3 series
-npx tsx scripts/regional/fetch_az_oblast.ts   # merge АЗ ltUnemployment
-npx tsx scripts/regional/fetch_nsi.ts         # merge NSI open-data (FDI, museums, hospital beds, death rate)
+pnpm exec tsx scripts/regional/fetch_eurostat.ts    # Eurostat NUTS 3 series
+pnpm exec tsx scripts/regional/fetch_az_oblast.ts   # merge АЗ ltUnemployment
+pnpm exec tsx scripts/regional/fetch_nsi.ts         # merge NSI open-data (FDI, museums, hospital beds, death rate)
 ```
 
 Run **all three, in order** — `fetch_eurostat.ts` rewrites `data/regional.json` from scratch (the Eurostat NUTS3 series + the derived `theftRate` crime and `enterpriseDensity` business indicators), then the two mergers add their indicators into the file it wrote. `fetch_az_oblast.ts` reads the cached АЗ XLSX (downloaded by `update-indicators`) for `ltUnemployment`; `fetch_nsi.ts` pulls four NSI JSON-stat open-data datasets (`fdiPerCapita` id=629, `museumVisitsPer1000` id=844, `hospitalBedsPer1000` id=1206, `deathRatePer1000` id=1139), normalising each against the population series the first script wrote.
@@ -75,16 +75,16 @@ Eyeball:
 
 - Each indicator should report 31 oblasts — except `ltUnemployment` (30; АЗ doesn't split one Sofia МИР) and any indicator whose source froze (`enterpriseDensity` latest 2020).
 - `latest` should be the prior calendar year (or two prior in Q1 if Eurostat hasn't released the latest annual figures yet). `enterpriseDensity` will show 2020 (upstream frozen).
-- File size ~115 KB raw / ~16 KB gzipped (10 indicators). `regional.json` is in the `bucket:gz` hot-files list, so prod serves it compressed — run `npm run bucket:sync:all` (sync **then** gzip) so it doesn't ship uncompressed. >180 KB raw would indicate a regression.
+- File size ~115 KB raw / ~16 KB gzipped (10 indicators). `regional.json` is in the `bucket:gz` hot-files list, so prod serves it compressed — run `pnpm run bucket:sync:all` (sync **then** gzip) so it doesn't ship uncompressed. >180 KB raw would indicate a regression.
 - Spot-check a known-extreme oblast: Sofia city (S23) should have GDP/capita ~30,000+ EUR; Vidin (VID) ~8,000 EUR. If those flip, something is wrong with the NUTS 3 ↔ oblast mapping.
 
 ## Step 3 — Upload to bucket
 
 ```bash
-npm run bucket:sync
+pnpm run bucket:sync
 ```
 
-(Or `npm run bucket:sync:dry-run` first to preview.) This rsyncs `data/regional.json` (and any other changed data files) to `gs://data-electionsbg-com/`.
+(Or `pnpm run bucket:sync:dry-run` first to preview.) This rsyncs `data/regional.json` (and any other changed data files) to `gs://data-electionsbg-com/`.
 
 ## Step 4 — Commit
 

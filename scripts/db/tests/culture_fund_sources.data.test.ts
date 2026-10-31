@@ -120,7 +120,7 @@ const skipInterreg =
   skip ||
   (await corpusState(
     "interreg_partners",
-    "db:load:interreg:pg needs a keep.eu import (npm run funds:crawl-interreg)",
+    "db:load:interreg:pg needs a keep.eu import (pnpm run funds:crawl-interreg)",
   ));
 
 // ⚠️ ALL THREE causes are reported, not just the first. Without this, 6 of the
@@ -197,7 +197,7 @@ const near = (actual: number, expected: number, what: string) => {
   assert.ok(
     expected > 0,
     `${what}: the committed blob carries ${expected} — regenerate it with ` +
-      `npm run db:gen-culture-hub-stats`,
+      `pnpm run db:gen-culture-hub-stats`,
   );
   const drift = Math.abs(actual - expected) / expected;
   assert.ok(
@@ -205,7 +205,7 @@ const near = (actual: number, expected: number, what: string) => {
     `${what}: corpus says ${actual}, data/culture/derived/hub_stats.json says ` +
       `${expected} (${(drift * 100).toFixed(1)}% apart, band ${TOLERANCE * 100}%). ` +
       `The /culture/funds KPI band and its detail table would publish different ` +
-      `numbers for the same thing — run npm run db:gen-culture-hub-stats.`,
+      `numbers for the same thing — run pnpm run db:gen-culture-hub-stats.`,
   );
 };
 
@@ -287,7 +287,7 @@ test.skipIf(skip)(
       `the overlap is ${both} of ${allEik} but the committed blob says ` +
         `${b.eikExactAlsoByName} — /culture/funds renders the blob's figure in ` +
         `its copy, so it is currently telling readers the wrong relationship. ` +
-        `Run npm run db:gen-culture-hub-stats.`,
+        `Run pnpm run db:gen-culture-hub-stats.`,
     );
     // The claim the copy makes, in both directions. It said „a subset" until
     // 2026-08-25, when the overlap was measured at 46 of 47.
@@ -470,7 +470,7 @@ test.skipIf(skipInterreg)(
 const viewRows = async (v: string): Promise<number | string> =>
   rowCount(
     v,
-    "apply 189: npx tsx scripts/db/apply_functions.ts 189_culture_match.sql",
+    "apply 189: pnpm exec tsx scripts/db/apply_functions.ts 189_culture_match.sql",
   );
 
 /** The absence sentence `rowCount` authored, or `false` when there are rows to
@@ -502,7 +502,7 @@ test.skipIf(skip)(
       nameN,
       num(ref.name_n),
       `culture_isun_by_name serves ${nameN} rows, cultureNameSql selects ${num(ref.name_n)}. ` +
-        `The applied view predates the current rule — run npm run gen:culture-sql ` +
+        `The applied view predates the current rule — run pnpm run gen:culture-sql ` +
         `and re-apply 189.`,
     );
   },

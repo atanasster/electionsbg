@@ -1,15 +1,15 @@
 // Load tr_name_fold_people (migration 148) from the committed
 // data/person/tr_name_fold_people.tsv. Plan: docs/plans/tr-attribution-basis-v1.md §2.4.
 //
-//   npm run db:load:tr-name-fold-people:pg          (local)
-//   npm run db:load:tr-name-fold-people:pg:cloud    (Cloud SQL proxy)
+//   pnpm run db:load:tr-name-fold-people:pg          (local)
+//   pnpm run db:load:tr-name-fold-people:pg:cloud    (Cloud SQL proxy)
 //
 // WHAT THIS TABLE DECIDES. It is how many DISTINCT people the Commerce Registry itself records
 // under a name fold, and `resolve_persons` reads it to decide whether a public figure may be
 // given the companies registered to their name. A fold answering "1" mints; "2 or more" and
 // "never observed" both refuse.
 //
-// SO THE INPUT IS COMMITTED, NOT CRAWLED. `npm run tr:count-people` mints the TSV from the
+// SO THE INPUT IS COMMITTED, NOT CRAWLED. `pnpm run tr:count-people` mints the TSV from the
 // gitignored 15 GB TR feed on a machine that has one; everyone else — a fresh clone, CI, Cloud
 // SQL — loads the same file. That is the point: a guard that is present on one database and
 // absent on another publishes MORE on the machine without it, which is the "green locally,
@@ -75,7 +75,7 @@ const main = async (): Promise<void> => {
     // this file IS committed, so its absence means something is wrong.
     console.error(
       `missing ${path.relative(ROOT, SRC)} — it is committed, so this is not a fresh-clone ` +
-        `state. Mint it with \`npm run tr:count-people\` (needs raw_data/tr/daily).`,
+        `state. Mint it with \`pnpm run tr:count-people\` (needs raw_data/tr/daily).`,
     );
     process.exitCode = 1;
     return;
@@ -109,7 +109,7 @@ const main = async (): Promise<void> => {
     throw new Error(
       `refusing to shrink tr_name_fold_people from ${prev.toLocaleString()} to ` +
         `${rows.length.toLocaleString()} rows. Re-mint with ` +
-        `\`npm run tr:count-people\` before loading.`,
+        `\`pnpm run tr:count-people\` before loading.`,
     );
   if (prevShared && nextShared < prevShared * FLOOR)
     throw new Error(
@@ -117,7 +117,7 @@ const main = async (): Promise<void> => {
         `${prevShared.toLocaleString()} to ${nextShared.toLocaleString()} while the row count ` +
         `holds. That is an UNDER-COUNT, which fails OPEN — every fold that stops reading ">1" ` +
         `starts reading "one person", and Bridge B mints a namesake's companies onto a named ` +
-        `public figure. Re-mint with \`npm run tr:count-people\` and check its summary line.`,
+        `public figure. Re-mint with \`pnpm run tr:count-people\` and check its summary line.`,
     );
 
   // TRUNCATE + COPY in ONE transaction. The table is read by db:resolve:persons, never by a

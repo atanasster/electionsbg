@@ -16,7 +16,7 @@
 // by-oblast sections, risk_score) — each verified to hold with ZERO violations
 // across the current corpus. Auto-skips when the data tree isn't restored.
 //
-//   npm run test:unit -- scripts/tests/election/accompanying
+//   pnpm run test:unit scripts/tests/election/accompanying
 
 import { describe, test, expect } from "vitest";
 import fs from "node:fs";

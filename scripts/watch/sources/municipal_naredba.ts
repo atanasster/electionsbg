@@ -16,14 +16,14 @@
 // the watcher until the SPA bundle itself rebuilds. The downstream
 // re-ingest still produces a sourceHash flip because it fetches the
 // actual JSON content, so operators can force-refresh via
-// `npx tsx scripts/local_taxes/run_naredba.ts --force <code>` to catch
+// `pnpm exec tsx scripts/local_taxes/run_naredba.ts --force <code>` to catch
 // missed revisions. A future improvement: GET-probe the
 // `web-api.apis.bg/api/obshtina-{slug}/DocInfo` endpoint instead of
 // HEAD-probing the SPA shell for that domain.
 //
 // The describe-line names exactly which municípios' source URLs flipped
 // since last run, so the operator can run a targeted re-parse:
-//   npx tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01
+//   pnpm exec tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01
 //
 // Cadence: weekly. Naredbi typically change in late December (annual
 // rate roll) with stragglers through Q1 — weekly catches both windows.

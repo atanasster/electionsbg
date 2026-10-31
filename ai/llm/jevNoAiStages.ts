@@ -1,7 +1,7 @@
 // Measure the no-AI Jev lane's stages 1-3 on the robustness questions.
 //
 //   node --env-file=.env.local --import tsx ai/llm/jevNoAiStages.ts
-//   npx tsx ai/llm/jevNoAiStages.ts --rescore      # no API calls
+//   pnpm exec tsx ai/llm/jevNoAiStages.ts --rescore      # no API calls
 //
 // Writes ai/evals-internal/jev_noai_stages.json (every row, every stage) and
 // data/ai/evals/jev_noai_robustness.json — the stage-3 shares alone, which is

@@ -19,10 +19,10 @@
 // entry with no polygon so no voter is dropped.
 //
 // Derived from parliamentary section data, so it runs as part of the main
-// pipeline (the `--city-rayons` step, folded into `--all`/`npm run prod`) —
+// pipeline (the `--city-rayons` step, folded into `--all`/`pnpm run prod`) —
 // never a manual one-off that can lag behind a re-ingest. Standalone:
-// `npm run data -- --city-rayons` (or `npx tsx scripts/helpers/gen_city_rayon_data.ts`).
-// Output is gitignored + bucket-served: publish with `npm run bucket:sync:all`.
+// `pnpm run data --city-rayons` (or `pnpm exec tsx scripts/helpers/gen_city_rayon_data.ts`).
+// Output is gitignored + bucket-served: publish with `pnpm run bucket:sync:all`.
 
 import fs from "fs";
 import { Delaunay } from "d3-delaunay";
@@ -352,7 +352,7 @@ function buildMunicipalityShards(muni: keyof typeof CITIES, election: string) {
 
 // Rebuild every район artifact (geometry + per-election results + município
 // shards) from the current parliamentary section data. Folded into the main
-// pipeline (`npm run data -- --city-rayons`, and `--all`/`npm run prod`) so it
+// pipeline (`pnpm run data --city-rayons`, and `--all`/`pnpm run prod`) so it
 // can't go stale after a parliamentary re-ingest; also runnable standalone.
 export function generateCityRayonData() {
   const elections = fs
@@ -374,7 +374,7 @@ export function generateCityRayonData() {
   }
 }
 
-// Direct-run entry: `npx tsx scripts/helpers/gen_city_rayon_data.ts`.
+// Direct-run entry: `pnpm exec tsx scripts/helpers/gen_city_rayon_data.ts`.
 if (process.argv[1] && process.argv[1].endsWith("gen_city_rayon_data.ts")) {
   generateCityRayonData();
 }

@@ -1,6 +1,6 @@
 // Eurostat tour_occ_ninat — ANNUAL nights spent at tourist accommodation, Bulgaria. Since
 // 2026-10-22 it feeds `annualNights` in data/tourism/visitors.json (the „Нощувки по години"
-// tile on /sector/tourism), written by the same `npm run data:tourism` as the monthly
+// tile on /sector/tourism), written by the same `pnpm run data:tourism` as the monthly
 // series. It keeps its own watcher rather than joining eurostat_tourism.ts because it
 // publishes once a year on its own calendar: a flip re-runs that one fetch.
 //

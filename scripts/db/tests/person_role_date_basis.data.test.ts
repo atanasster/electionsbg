@@ -22,7 +22,7 @@
 // a test body scores as a PASS, so CI (which runs without a container) would report this
 // gate green while asserting nothing — the exact silent staleness it exists to catch.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

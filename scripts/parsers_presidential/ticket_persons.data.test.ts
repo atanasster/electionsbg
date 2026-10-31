@@ -110,7 +110,7 @@ describe.skipIf(skipNoDb)("the map against the live person layer", () => {
     expect(
       drifted.slice(0, 5),
       `${drifted.length} name(s) resolve differently now — re-run ` +
-        "`npx tsx scripts/parsers_presidential/build_ticket_persons.ts --write`",
+        "`pnpm exec tsx scripts/parsers_presidential/build_ticket_persons.ts --write`",
     ).toEqual([]);
     await end();
   });

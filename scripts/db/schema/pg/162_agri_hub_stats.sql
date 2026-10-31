@@ -4,8 +4,8 @@
 -- ⚠️ SHIPPING A CHANGE TO THIS FILE — INCLUDING A FUNCTION-ONLY ONE — GOES THROUGH THE LOADER,
 -- NEVER THROUGH apply_functions.ts:
 --
---     npm run db:load:agri-hub-stats:pg          # local
---     npm run db:load:agri-hub-stats:pg:cloud    # the serving database; nothing runs it
+--     pnpm run db:load:agri-hub-stats:pg          # local
+--     pnpm run db:load:agri-hub-stats:pg:cloud    # the serving database; nothing runs it
 --
 -- The usual escape hatch for a serving-function fix (`apply_functions.ts 162_…`) is WRONG
 -- here and fails in the quiet direction. This file opens with

@@ -7,7 +7,7 @@
 // then normalise ring winding for d3's spherical renderer. Bucket-served like
 // every other map — no JS-bundle weight.
 //
-//   npx tsx scripts/administration/build_europe_geo.ts
+//   pnpm exec tsx scripts/administration/build_europe_geo.ts
 //
 // Re-run only if the borders change (essentially never) — the asset is committed.
 

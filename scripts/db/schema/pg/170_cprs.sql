@@ -61,7 +61,7 @@ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON cprs_licence, cprs_firm TO app_readonly;
   ELSE
-    RAISE WARNING 'app_readonly is absent — cprs_licence/cprs_firm ship with no ACL. Run npm run db:pg:bootstrap (local) or roles_readonly.sql (cloud).';
+    RAISE WARNING 'app_readonly is absent — cprs_licence/cprs_firm ship with no ACL. Run pnpm run db:pg:bootstrap (local) or roles_readonly.sql (cloud).';
   END IF;
 END $$;
 

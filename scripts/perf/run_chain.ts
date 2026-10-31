@@ -1,6 +1,6 @@
 // CLI: run a package.json `&&`-chain script one link at a time, timing each.
 //
-//   npm run perf:chain -- db:refresh --run process-watch-report --session "$S"
+//   pnpm run perf:chain db:refresh --run process-watch-report --session "$S"
 //
 // `db:refresh` is a ~70-link chain and `tr:daily-refresh` is a 7-link one.
 // Wrapping the whole thing in `perf:step run` yields ONE number, which answers
@@ -11,9 +11,9 @@
 // Semantics are preserved exactly: links run in order, sequentially, and the
 // first non-zero exit aborts the rest — which is what `&&` does. The chain text
 // is READ FROM package.json rather than restated here, so it cannot drift from
-// what `npm run db:refresh` would have done.
+// what `pnpm run db:refresh` would have done.
 //
-// One level only: a link that is itself a chain (`npm run tr:daily-refresh`
+// One level only: a link that is itself a chain (`pnpm run tr:daily-refresh`
 // inside another chain) is timed as one step. Expand it with its own
 // `perf:chain` call when that is the level you need.
 
@@ -82,7 +82,7 @@ for (const [i, link] of links.entries()) {
   const startedAt = new Date();
   const t0 = Date.now();
   // `sh -c` because a link is shell text (it can carry `VAR=x cmd`, `--` args
-  // and redirections) — the same interpreter `npm run` hands the script to.
+  // and redirections) — the same interpreter `pnpm run` hands the script to.
   const res = spawnSync("sh", ["-c", link], { stdio: "inherit", cwd: REPO });
   const durationMs = Date.now() - t0;
   const exitCode = res.status ?? (res.error ? 1 : 0);
@@ -121,7 +121,7 @@ appendStep({
   seq: seqBase + links.length + 1,
   step: `${scriptName} (whole chain)`,
   phase,
-  command: `npm run ${scriptName}`,
+  command: `pnpm run ${scriptName}`,
   startedAt: new Date(t0Chain).toISOString(),
   durationMs: Date.now() - t0Chain,
   status: failed ? "error" : "ok",

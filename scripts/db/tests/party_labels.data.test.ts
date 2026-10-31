@@ -25,7 +25,7 @@
 //
 // Auto-skips when Postgres is down or the browse matview is absent.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -69,11 +69,11 @@ const canonicalIds = (): Set<string> => {
 
 const skipCandidateLink =
   !haveDb || !(await tableExists("official_candidate_link"))
-    ? "Postgres unreachable, or official_candidate_link is absent — run npm run db:load:official-candidate-links:pg"
+    ? "Postgres unreachable, or official_candidate_link is absent — run pnpm run db:load:official-candidate-links:pg"
     : false;
 const skipBrowse =
   !haveDb || !browseReady
-    ? "Postgres unreachable, or person_browse_table is absent — run npm run db:load:persons-browse:pg"
+    ? "Postgres unreachable, or person_browse_table is absent — run pnpm run db:load:persons-browse:pg"
     : false;
 reportSkip(import.meta.url, skipCandidateLink);
 reportSkip(import.meta.url, skipBrowse);
@@ -164,7 +164,7 @@ test.skipIf(skipCandidateLink)(
       // present but not loaded — a different fix from an absent table.
       reportSkip(
         import.meta.url,
-        "official_candidate_link is present but empty — run npm run db:load:official-candidate-links:pg",
+        "official_candidate_link is present but empty — run pnpm run db:load:official-candidate-links:pg",
       );
       return t.skip();
     }

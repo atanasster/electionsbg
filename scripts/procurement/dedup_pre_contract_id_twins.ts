@@ -2,8 +2,8 @@
 // then point the operator at the standard rebuild. No network calls — works from
 // data/procurement/ and the cached raw dumps in raw_data/procurement/legacy/.
 //
-//   npm run proc:dedup-pre-cid              # dry run (default)
-//   npm run proc:dedup-pre-cid -- --apply   # write onto the shards
+//   pnpm run proc:dedup-pre-cid              # dry run (default)
+//   pnpm run proc:dedup-pre-cid --apply   # write onto the shards
 //
 // Deliberately NO `:apply` twin — the reason dedup_stale_base_keys.ts gives: this is a one-shot
 // against a backlog that should end at zero, and an `:apply` script is one edit away from being
@@ -126,7 +126,7 @@ const reportAnnexImpact = async (evictedKeys: string[]): Promise<void> => {
     const n = Number(rows[0]?.n ?? 0);
     console.log(
       `\nannex impact — ${n} procurement_annexes row(s) reference an evicted key.` +
-        (n ? `\n  → \`npm run db:load:annexes:pg\` after the reload re-resolves them.` : ""), // prettier-ignore
+        (n ? `\n  → \`pnpm run db:load:annexes:pg\` after the reload re-resolves them.` : ""), // prettier-ignore
     );
   } catch {
     // „Could not check" is not a zero, and saying so is the point.
@@ -300,7 +300,7 @@ const main = async (): Promise<void> => {
   }
   console.log(`applied — wrote ${written} shard(s); backup at ${BACKUP_DIR}`);
   console.log(
-    "Next: npm run proc:backfill-unp:apply && npm run proc:reconcile:apply && npm run proc:rebuild-derived && npm run db:load:pg && npm run db:load:annexes:pg",
+    "Next: pnpm run proc:backfill-unp:apply && pnpm run proc:reconcile:apply && pnpm run proc:rebuild-derived && pnpm run db:load:pg && pnpm run db:load:annexes:pg",
   );
 };
 

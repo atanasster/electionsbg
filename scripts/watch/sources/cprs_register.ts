@@ -103,7 +103,7 @@ export const cprsRegister: WatchSource = {
     if ((a.down ?? 0) !== (b.down ?? 0))
       return `${b.sample ?? 0} firms sampled, but across a different set of cells than last time — not comparable`;
     if ((a.classes ?? 0) !== (b.classes ?? 0))
-      return `the licence TAXONOMY changed: ${a.classes} → ${b.classes} classes — re-run \`npm run cprs:ingest -- --apply --refresh\``;
+      return `the licence TAXONOMY changed: ${a.classes} → ${b.classes} classes — re-run \`pnpm run cprs:ingest --apply --refresh\``;
     const d = (b.sample ?? 0) - (a.sample ?? 0);
     if (d > 0) return `${d} builder(s) entered the register (sample)`;
     if (d < 0) return `${-d} builder(s) left the register (sample)`;

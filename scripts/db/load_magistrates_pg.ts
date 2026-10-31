@@ -5,7 +5,7 @@
 // company / search / judiciary surfaces then query by name / eik instead of
 // downloading the whole holdings + company-index + search JSON.
 //
-// Run: `npm run db:load:magistrates:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:magistrates:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -297,7 +297,7 @@ const run = async (): Promise<void> => {
   // NOT run it"). Since 2026-08-28 the chain runs the repair immediately after this loader
   // and refresh_coverage.test.ts's ORDER_PAIRS pins it there, so a full local refresh
   // self-heals. What still does NOT self-heal is every other way this loader runs: a
-  // hand-run `npm run db:load:magistrates:pg`, and above all
+  // hand-run `pnpm run db:load:magistrates:pg`, and above all
   // `db:load:magistrates:pg:cloud`, which nothing follows automatically — that is the path
   // an ivss_declarations watcher flip takes, so the warning stays.
   // ⚠️ TWO STATEMENTS, NOT ONE GUARDED BY to_regclass. 185 is applied only by the asset
@@ -326,7 +326,7 @@ const run = async (): Promise<void> => {
     console.warn(
       `  ⚠️  ${assets} parsed property row(s) are still loaded, but this reload cleared the ` +
         `per-magistrate counts derived from them — every card now shows NO property count. ` +
-        `Re-run: npm run db:load:magistrate-filing-assets:pg`,
+        `Re-run: pnpm run db:load:magistrate-filing-assets:pg`,
     );
   await end();
 };

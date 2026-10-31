@@ -5,8 +5,8 @@
 //   nzok_activity_monthly           — national monthly cases/ЗОЛ series (the trend)
 //   nzok_activity_facility_periods  — per-period facility roster (churn + coverage)
 //
-//   npm run db:load:nzok-activities:pg          (needs `npm run db:pg:up` first)
-//   npm run db:load:nzok-activities:pg:cloud    (targets the Cloud SQL proxy :5434)
+//   pnpm run db:load:nzok-activities:pg          (needs `pnpm run db:pg:up` first)
+//   pnpm run db:load:nzok-activities:pg:cloud    (targets the Cloud SQL proxy :5434)
 //
 // Source = data/budget/nzok/activities.json, produced by
 // scripts/nzok/write_activities.ts. The design rules (cases are volume not value;
@@ -63,15 +63,16 @@ const PATHWAY_SPEND_SCHEMA_FILE = path.join(
 // instead, which is how a BACKFILL is run: the write below is scoped to the
 // loaded year, so the two calls compose rather than replacing each other.
 //
-//   npm run db:load:nzok-activities:pg                 # latest
-//   npx tsx scripts/db/load_nzok_activities_pg.ts --year 2024
+//   pnpm run db:load:nzok-activities:pg                 # latest
+//   pnpm exec tsx scripts/db/load_nzok_activities_pg.ts --year 2024
 const YEAR_ARG = (() => {
   // NZOK_ACTIVITY_YEAR exists because `db:load:nzok-activities:pg:cloud` is a
-  // NESTED npm script and the inner `npm run` swallows `--year 2024` — argv
-  // arrives as ["2024"], the flag is gone, and this would fall back to the
-  // LATEST year, deleting and reloading the wrong year on Cloud SQL while
-  // reporting success. Verified. For a cloud backfill use:
-  //   NZOK_ACTIVITY_YEAR=2024 npm run db:load:nzok-activities:pg:cloud
+  // NESTED package script and, under npm, the inner `npm run` swallowed
+  // `--year 2024` — argv arrived as ["2024"], the flag was gone, and this fell
+  // back to the LATEST year, deleting and reloading the wrong year on Cloud SQL
+  // while reporting success. pnpm forwards the flag, but the env var stays the
+  // documented, runner-independent form. For a cloud backfill use:
+  //   NZOK_ACTIVITY_YEAR=2024 pnpm run db:load:nzok-activities:pg:cloud
   const env = Number(process.env.NZOK_ACTIVITY_YEAR);
   if (Number.isInteger(env)) return env;
   const i = process.argv.indexOf("--year");
@@ -254,7 +255,7 @@ const main = async (): Promise<void> => {
     await applySchemas();
     console.warn(
       `[nzok-activities] no ${JSON_FILE} — schemas 053+059 applied, load skipped ` +
-        "(regenerate with:  npm run data:nzok -- --activities).",
+        "(regenerate with:  pnpm run data:nzok --activities).",
     );
     await end();
     return;

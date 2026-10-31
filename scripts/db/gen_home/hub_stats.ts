@@ -1,6 +1,6 @@
 // The global home dashboard's figures, as ONE small committed JSON.
 //
-//   npx tsx scripts/db/gen_home/hub_stats.ts
+//   pnpm exec tsx scripts/db/gen_home/hub_stats.ts
 //
 // ===========================================================================
 // THIS IS A FOLD, NOT AN AGGREGATE — the same rule, and the same reason, as

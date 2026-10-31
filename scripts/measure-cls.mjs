@@ -13,11 +13,11 @@
 // route interception, and lets the data requests hit the real bucket.
 //
 // Usage:
-//   npm run build                                  # dist must be current
-//   npm run perf:cls -- /indicators/compare
-//   npm run perf:cls -- /indicators/compare --runs 5 --trace
-//   npm run perf:cls -- /indicators/compare --slow macro_peers.json:6000
-//   npm run perf:cls -- /indicators/compare --desktop
+//   pnpm run build                                  # dist must be current
+//   pnpm run perf:cls /indicators/compare
+//   pnpm run perf:cls /indicators/compare --runs 5 --trace
+//   pnpm run perf:cls /indicators/compare --slow macro_peers.json:6000
+//   pnpm run perf:cls /indicators/compare --desktop
 //
 // Flags:
 //   --runs N      repeat count (default 3). Arrival ORDER varies between runs
@@ -49,11 +49,11 @@ const RUNS = flag("runs", 3);
 const SETTLE_MS = flag("settle", 15000);
 const ROUTES = argv.filter((a) => a.startsWith("/"));
 if (!ROUTES.length) {
-  console.error("usage: npm run perf:cls -- /some/route [--runs N] [--trace]");
+  console.error("usage: pnpm run perf:cls /some/route [--runs N] [--trace]");
   process.exit(1);
 }
 if (!fs.existsSync(`${DIST}/assets`)) {
-  console.error(`no build at ${DIST} — run \`npm run build\` first`);
+  console.error(`no build at ${DIST} — run \`pnpm run build\` first`);
   process.exit(1);
 }
 

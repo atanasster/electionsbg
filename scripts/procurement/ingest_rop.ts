@@ -14,7 +14,7 @@
 //   tsx scripts/procurement/ingest.ts   # then rebuild derived (or db:load:pg to reload PG)
 //
 // It deliberately does NOT rebuild rollups/derived — do that the normal way
-// (single-sourced in ingest.ts), or just `npm run db:load:pg` which reads the
+// (single-sourced in ingest.ts), or just `pnpm run db:load:pg` which reads the
 // shards straight into Postgres.
 
 import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
@@ -405,7 +405,7 @@ const main = async (args: {
   console.log(
     `→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)`,
   );
-  console.log(`✓ done. Now reload PG:\n    npm run db:load:pg`);
+  console.log(`✓ done. Now reload PG:\n    pnpm run db:load:pg`);
 };
 
 const cli = command({

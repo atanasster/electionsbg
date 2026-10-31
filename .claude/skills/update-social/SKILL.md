@@ -41,8 +41,8 @@ households, child children, disability recipients) and flags drift. There is **n
 ## §1. Verify + update the АСП benefits (`benefits.json`)
 
 ```bash
-npx tsx scripts/social/fetch_asp_benefits.ts            # verify the latest report
-npx tsx scripts/social/fetch_asp_benefits.ts --year 2025  # a specific year's report
+pnpm exec tsx scripts/social/fetch_asp_benefits.ts            # verify the latest report
+pnpm exec tsx scripts/social/fetch_asp_benefits.ts --year 2025  # a specific year's report
 ```
 
 The verifier downloads the newest report from
@@ -63,7 +63,7 @@ Requires `pdftotext` (poppler) on PATH and Bulgarian-reachable egress.
 ## §2. Regenerate the poverty-impact series (`poverty_impact.json`)
 
 ```bash
-npx tsx scripts/social/fetch_poverty_impact.ts
+pnpm exec tsx scripts/social/fetch_poverty_impact.ts
 ```
 
 Fully automated — fetches Eurostat `ilc_li10` (AROP before transfers, pensions excluded) + `ilc_li02` (AROP
@@ -74,8 +74,8 @@ and writes the before/after series + the poverty-reduction effect (`pct`). Print
 ## §3. Verify + update the ГИТ inspection stats (`git_inspections.json`)
 
 ```bash
-npx tsx scripts/social/fetch_git_inspections.ts            # verify the latest report
-npx tsx scripts/social/fetch_git_inspections.ts --year 2025
+pnpm exec tsx scripts/social/fetch_git_inspections.ts            # verify the latest report
+pnpm exec tsx scripts/social/fetch_git_inspections.ts --year 2025
 ```
 
 Downloads the newest ГИТ „Доклад за дейността" from the Activity-Reports listing
@@ -100,4 +100,4 @@ static reference JSON (`feedback_no_json_from_pg`) — no `recent_updates` Postg
 ## Deploy
 
 The `data/social/` tree serves from the GCS data bucket in production (like `data/cofog.json`). After an
-update, push it: `npm run bucket:sync:paths -- social`.
+update, push it: `pnpm run bucket:sync:paths social`.

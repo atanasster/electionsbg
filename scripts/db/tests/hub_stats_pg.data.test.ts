@@ -39,7 +39,7 @@ test.skipIf(skipBlob)(
     } catch {
       reportSkip(
         import.meta.url,
-        "the rollcall matviews are not built here — run npm run db:load:rollcall-derived:pg",
+        "the rollcall matviews are not built here — run pnpm run db:load:rollcall-derived:pg",
       );
       return t.skip();
     }

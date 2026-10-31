@@ -35,19 +35,19 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
   "db:load:tender-dossier:pg": {
     axes: ["uncommitted-input"],
     ranBy:
-      "npx tsx scripts/procurement/ingest_eop_dossier.ts, by hand (CLAUDE.md, tender_dossier / migration 146 section)",
+      "pnpm exec tsx scripts/procurement/ingest_eop_dossier.ts, by hand (CLAUDE.md, tender_dossier / migration 146 section)",
     reason:
       "reads the gitignored raw_data/procurement/eop_dossier.sqlite capture — absent on a fresh clone, and re-earning it is a ~26h crawl of a shared public register",
   },
   "db:load:cr-founding:pg": {
     axes: ["uncommitted-input"],
-    ranBy: "npm run tr:daily-refresh (CLAUDE.md, CR Deeds section)",
+    ranBy: "pnpm run tr:daily-refresh (CLAUDE.md, CR Deeds section)",
     reason:
       "reads the gitignored raw_data/tr/cr_deeds.sqlite crawl cache — absent on a fresh clone",
   },
   "db:load:cr-nkid:pg": {
     axes: ["uncommitted-input"],
-    ranBy: "npm run tr:daily-refresh (CLAUDE.md, CR Deeds / NKID §8 B1)",
+    ranBy: "pnpm run tr:daily-refresh (CLAUDE.md, CR Deeds / NKID §8 B1)",
     reason:
       "the company_nkid half reads the same gitignored raw_data/tr/cr_deeds.sqlite crawl cache — absent on a fresh clone. (The crosswalk tables it also seeds come from the committed src/lib/naceCpv.ts, but with an empty company_nkid the nkidMismatch flag is unavailable regardless, so seeding them in db:refresh would buy nothing.)",
   },

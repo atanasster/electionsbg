@@ -36,7 +36,7 @@
 // Auto-skips only when Postgres is unreachable. It does NOT skip on an unresolved person
 // layer: the schema is the subject, and it is present the moment 081 has been applied.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

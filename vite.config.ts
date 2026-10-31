@@ -187,7 +187,7 @@ export default defineConfig(({ mode }) => {
         // subsidies, …) are served same-origin in prod via a hosting rewrite,
         // but the Vite dev server has no such function locally. Proxy them to
         // the deployed backend (or a functions emulator via VITE_DB_API_PROXY)
-        // so data-driven screens render in `npm run dev` without a local PG.
+        // so data-driven screens render in `pnpm run dev` without a local PG.
         "/api/db": {
           target: env.VITE_DB_API_PROXY || "https://electionsbg.com",
           changeOrigin: true,
@@ -198,7 +198,7 @@ export default defineConfig(({ mode }) => {
       // and every file event there falls through to Vite's "unknown file
       // change → full page reload" fallback. The prebuild script renames
       // dist/ → dist.old-<ts>/ and forks a detached rm -rf, so a single
-      // `npm run build` triggers thousands of delete events that storm the
+      // `pnpm run build` triggers thousands of delete events that storm the
       // dev server with full reloads for minutes. Exclude both from the
       // watcher so dev is unaffected by parallel builds.
       watch: {
@@ -402,7 +402,7 @@ export default defineConfig(({ mode }) => {
             //
             // style-mod / w3c-keyname / crelt are listed for a SIZE reason,
             // not a cycle reason: they are CodeMirror-only deps in this tree
-            // (`npm ls`), so leaving them out would strand them in the
+            // (`pnpm ls`), so leaving them out would strand them in the
             // always-preloaded catch-all and give back part of the saving.
             //
             // Cycle status: vendor-editor DOES statically import `vendor` —
@@ -472,7 +472,7 @@ export default defineConfig(({ mode }) => {
       },
       // Force a single React instance. Without this the dev dep-optimizer can
       // pull React in via two module paths ("Invalid hook call — more than one
-      // copy of React"), blanking the app in `npm run dev`.
+      // copy of React"), blanking the app in `pnpm run dev`.
       dedupe: ["react", "react-dom"],
     },
   };

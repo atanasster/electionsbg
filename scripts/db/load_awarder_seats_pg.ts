@@ -4,7 +4,7 @@
 // uses (geo EKATTE, else a unique name-parsed settlement) — so PG matches the
 // /awarder JSON page's seats. Full rebuild from the awarder shards.
 //
-//   npm run db:load:awarder-seats:pg     (needs `npm run db:pg:up` first)
+//   pnpm run db:load:awarder-seats:pg     (needs `pnpm run db:pg:up` first)
 //
 // See docs/plans/pg-datasets-roadmap.md + project_awarder_seat.
 
@@ -50,7 +50,7 @@ const waitForPg = async (): Promise<void> => {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
-  throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
+  throw new Error("Postgres not reachable — run `pnpm run db:pg:up`.");
 };
 
 export const loadAwarderSeatsPg = async (): Promise<{ rows: number }> => {
@@ -116,7 +116,7 @@ export const loadAwarderSeatsPg = async (): Promise<{ rows: number }> => {
     // failure class this call exists to prevent.
     console.error(
       "awarder_seats loaded OK, but the scoped precompute refresh failed. " +
-        "Re-run `npm run db:load:procurement-scopes:pg` to rebuild them.",
+        "Re-run `pnpm run db:load:procurement-scopes:pg` to rebuild them.",
     );
     throw err;
   }

@@ -1,8 +1,8 @@
 // How do the rules, Jev's raw pick and the Jev LANE hold up on questions the
 // rules were never built from?
 //
-//   TYPESAFE_API_KEY=… GEMINI_API_KEY=… npx tsx ai/llm/jevRobustness.ts
-//   npx tsx ai/llm/jevRobustness.ts --rescore      # no API calls
+//   TYPESAFE_API_KEY=… GEMINI_API_KEY=… pnpm exec tsx ai/llm/jevRobustness.ts
+//   pnpm exec tsx ai/llm/jevRobustness.ts --rescore      # no API calls
 //
 // Writes data/ai/evals/jev_robustness.json — NOT a `current_*.json`: the
 // manifest publishes every one of those as a run of the shipped router.

@@ -4,10 +4,10 @@ import { installFundingQuery } from "./lib/installFundingQuery";
 //
 // Tier T2 of docs/plans/interreg-funds-ingest-v1.md §8.
 //
-//   npm run funds:crawl-interreg      # keep.eu → raw_data/interreg/ (gitignored)
-//   npm run funds:ingest-interreg     # raw cache → data/funds/interreg/ (committed)
-//   npm run db:load:interreg:pg       # ← this, committed tree → Postgres
-//   npm run db:load:interreg:pg:cloud # the same, against the Cloud SQL proxy
+//   pnpm run funds:crawl-interreg      # keep.eu → raw_data/interreg/ (gitignored)
+//   pnpm run funds:ingest-interreg     # raw cache → data/funds/interreg/ (committed)
+//   pnpm run db:load:interreg:pg       # ← this, committed tree → Postgres
+//   pnpm run db:load:interreg:pg:cloud # the same, against the Cloud SQL proxy
 //
 // PLACE RESOLUTION HAPPENS HERE, not in the ingest, because Tiers L1/L2 read
 // `awarder_seats` and `tr_company_place` out of Postgres — an ingest that
@@ -74,7 +74,7 @@ const SCHEMA_DIR = path.join(ROOT, "scripts/db/schema/pg");
 // is invisible to every row count and prod runs the previous body indefinitely.
 // 139 must follow 137 (its view reads interreg_partners) and can be applied to
 // any database that has fund_payloads, which every funds-serving database does.
-// 191 is GENERATED (npm run gen:culture-sql) — the culture_interreg_thematic
+// 191 is GENERATED (pnpm run gen:culture-sql) — the culture_interreg_thematic
 // serving view behind /culture/funds/interreg. Applied here because this loader
 // owns both tables it reads: a view's query resolves at CREATE time, so it must
 // be applied by the loader that created its base tables, in the same run. The
@@ -205,7 +205,7 @@ interface PlaceDimRow {
   nuts3: string | null;
 }
 const readPlaceDim = async (): Promise<Map<string, PlaceDimRow>> => {
-  await requireRelation("place_dim", "npm run db:load:place-dim:pg");
+  await requireRelation("place_dim", "pnpm run db:load:place-dim:pg");
   const m = new Map<string, PlaceDimRow>();
   for (const r of await allRows<{
     code: string;
@@ -248,10 +248,10 @@ const requireRelation = async (table: string, cmd: string): Promise<void> => {
 };
 
 const readLookups = async (): Promise<PlaceLookups> => {
-  await requireRelation("awarder_seats", "npm run db:load:awarder-seats:pg");
+  await requireRelation("awarder_seats", "pnpm run db:load:awarder-seats:pg");
   await requireRelation(
     "tr_company_place",
-    "npm run db:load:tr-company-place:pg",
+    "pnpm run db:load:tr-company-place:pg",
   );
 
   const seatByEik = new Map<string, SeatRow>();
@@ -476,12 +476,12 @@ export const loadInterregPg = async (): Promise<{
     throw new Error(
       "interreg: awarder_seats is empty — Tier L1 would resolve to nothing and " +
         "the merge would write NULL over every eik:awarder_seats placement. " +
-        "Run `npm run db:load:awarder-seats:pg` first. Nothing was written.",
+        "Run `pnpm run db:load:awarder-seats:pg` first. Nothing was written.",
     );
   if (!lookups.trPlaceByEik.size)
     throw new Error(
       "interreg: tr_company_place is empty — Tier L2 would resolve to nothing. " +
-        "Run `npm run db:load:tr-company-place:pg` first. Nothing was written.",
+        "Run `pnpm run db:load:tr-company-place:pg` first. Nothing was written.",
     );
 
   const share = stats.placed / (stats.total || 1);

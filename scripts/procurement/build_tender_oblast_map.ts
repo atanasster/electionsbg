@@ -200,7 +200,7 @@ const main = async (args: {
       `  ${Object.keys(awarders).length} buyer(s) → modal oblast from ${tenders.toLocaleString()} tender(s) across ${cachedDays} cached day(s)`,
   );
   console.log(
-    `→ now rebuild the geo map: npx tsx scripts/procurement/awarder_geo_map.ts`,
+    `→ now rebuild the geo map: pnpm exec tsx scripts/procurement/awarder_geo_map.ts`,
   );
 };
 

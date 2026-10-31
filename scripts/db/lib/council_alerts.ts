@@ -158,7 +158,7 @@ export const readCouncilAlertsByObshtina = async (
         throw new Error(
           `[alerts] council_resolution is EMPTY — refusing to write alert files ` +
             `with the council source silently blank. Run ` +
-            `\`npm run db:load:council:pg\`, or set ALERTS_ALLOW_EMPTY=1 for a ` +
+            `\`pnpm run db:load:council:pg\`, or set ALERTS_ALLOW_EMPTY=1 for a ` +
             `deliberate run without the corpus.`,
         );
       }
@@ -180,7 +180,7 @@ export const readCouncilAlertsByObshtina = async (
     throw new Error(
       `[alerts] cannot read council_resolution from Postgres — refusing to write ` +
         `alert files with the council source silently blank. Run ` +
-        `\`npm run db:load:council:pg\`, or set ALERTS_ALLOW_EMPTY=1 for a ` +
+        `\`pnpm run db:load:council:pg\`, or set ALERTS_ALLOW_EMPTY=1 for a ` +
         `deliberate run without a database. Cause: ${
           e instanceof Error ? e.message : String(e)
         }`,

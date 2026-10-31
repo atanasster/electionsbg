@@ -1,8 +1,8 @@
 // Where a runoff's votes came from — an ESTIMATED transition matrix per cycle, and the
 // OBSERVED per-oblast swing that sits underneath it.
 //
-//   npx tsx scripts/parsers_presidential/build_runoff_transfer.ts <cycle> [--write]
-//   npx tsx scripts/parsers_presidential/build_runoff_transfer.ts all --write
+//   pnpm exec tsx scripts/parsers_presidential/build_runoff_transfer.ts <cycle> [--write]
+//   pnpm exec tsx scripts/parsers_presidential/build_runoff_transfer.ts all --write
 //
 // ⚠⚠ THE FILE CARRIES TWO KINDS OF CLAIM AND NAMES WHICH IS WHICH. `national.matrix` is an
 // ESTIMATE — nobody observes an individual switching from Каракачанов to Радев; what is

@@ -8,7 +8,7 @@
 // datasets, four of which db:refresh loads AFTER db:resolve:persons:
 //
 //   db:resolve:persons                  person / person_role      (the identity core)
-//   db:load:declarations:pg -- --resolve person_wealth_year        (net worth, delta) AND
+//   db:load:declarations:pg --resolve person_wealth_year        (net worth, delta) AND
 //                                        declaration.person_id     (has_declaration)
 //   db:load:official-candidate-links:pg  official_candidate_link   (the ≤192 non-MP photos)
 //   db:load:judicial-bodies:pg           judicial_body             (court name + oblast hop)
@@ -33,7 +33,7 @@
 // public_money_eur is computed from it, so a contracts refresh without this one lets the
 // money column drift away from /procurement/contracts with nothing failing.
 //
-// Run: `npm run db:load:persons-browse:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:persons-browse:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -91,7 +91,7 @@ const JOIN_KEYS: { table: string; column: string; fix: string }[] = [
   {
     table: "declaration",
     column: "person_id",
-    fix: "db:load:declarations:pg -- --resolve (phase 2 links declarations to the person layer)",
+    fix: "db:load:declarations:pg --resolve (phase 2 links declarations to the person layer)",
   },
   {
     table: "judicial_body",

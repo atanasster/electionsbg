@@ -5,7 +5,7 @@ import { installProcurementQuery } from "./lib/installProcurementQuery";
 // joinable store and (next) the source the derived tenders JSON is generated
 // from. Reuses the shared column⇄field map (lib/tenders_schema).
 //
-//   npm run db:load:tenders:pg     (needs `npm run db:pg:up` first)
+//   pnpm run db:load:tenders:pg     (needs `pnpm run db:pg:up` first)
 //
 // See docs/plans/pg-datasets-roadmap.md §0 (Tenders).
 
@@ -179,7 +179,7 @@ const waitForPg = async (): Promise<void> => {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
-  throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
+  throw new Error("Postgres not reachable — run `pnpm run db:pg:up`.");
 };
 
 export const loadTendersPg = async (): Promise<{

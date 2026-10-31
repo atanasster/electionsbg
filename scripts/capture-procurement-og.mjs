@@ -5,7 +5,7 @@
 // canvas), so it differs from the older article's /og/procurement.png.
 //
 // Usage:
-//   npm run dev
+//   pnpm run dev
 //   BASE=http://localhost:5173 node scripts/capture-procurement-og.mjs
 
 import { chromium } from "playwright";

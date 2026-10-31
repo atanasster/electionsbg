@@ -65,7 +65,7 @@ export const loadYearSheet = async (
   if (offline)
     throw new Error(
       `offline load: no cached sheet for FY${year} (${cacheFile}) — the cache is PARTIAL. ` +
-        "Run `npm run agri:ingest` (fetch+load) to fill it.",
+        "Run `pnpm run agri:ingest` (fetch+load) to fill it.",
     );
   const rows = await getResourceData(uri);
   // Don't cache a transient empty/failed pull — a 0-byte cache would masquerade

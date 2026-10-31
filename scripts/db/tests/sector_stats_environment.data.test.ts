@@ -2,7 +2,7 @@
 // the /sector/environment dashboard behind it. Audit 2026-08-13,
 // docs/plans/environment-sector-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // A separate file from sector_stats.data.test.ts on purpose: a concurrent
 // session held uncommitted work in that file while this was written, and the
@@ -115,7 +115,7 @@ const MINISTRY_NODE = `data/budget/ministries/${MOSV_BUDGET_NODE}.json`;
 
 const skipNode = exists(MINISTRY_NODE)
   ? false
-  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run pnpm run budget:ingest";
 reportSkip(import.meta.url, skipNode);
 // ── the hub headline ───────────────────────────────────────────────────────
 

@@ -3,7 +3,7 @@
 // layout offline (the ~1.4 MB engine never ships to the client) and write
 // the positioned graph to data/data_map.json.
 //
-//   npm run data:map
+//   pnpm run data:map
 //
 // The manifest lives under data/ (not public/) so it is served from the GCS
 // data bucket like every other dataset — a data refresh ships it via
@@ -308,7 +308,7 @@ const assertServedPath = (
  * than being found by an audit weeks later (which is how ds:interreg and
  * ds:health were both found).
  *
- * Postgres-OPTIONAL by design: `npm run prebuild` runs on machines and in CI
+ * Postgres-OPTIONAL by design: `pnpm run prebuild` runs on machines and in CI
  * with no database, and a coverage gate that cannot see the catalogue must
  * skip rather than fail — a false red on every no-DB build would get the gate
  * deleted. It logs the skip so the difference between "checked, clean" and
@@ -1025,7 +1025,7 @@ const main = async (): Promise<void> => {
 
 // Only build when RUN as a script. Without this guard, importing anything from
 // this module (model.test.ts imports validateDatasetServing) starts main(),
-// which lays the graph out and writes data/data_map.json — so `npm run
+// which lays the graph out and writes data/data_map.json — so `pnpm run
 // test:unit` silently repaired a stale committed manifest mid-run, turning the
 // drift test into "fail once, green on re-run" with the artifact quietly
 // modified. Measured: a manifest doctored to 174 edges came back as 178.

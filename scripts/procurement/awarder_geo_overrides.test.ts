@@ -204,7 +204,7 @@ describe("awarder_geo_overrides.json", () => {
         `tiers.${key} has been unavailable for ${ageDays.toFixed(1)}d ` +
           `(${t.reason ?? "no reason recorded"}). Its entries are being carried ` +
           `forward unverified. Rebuild the map:\n` +
-          `  npx tsx scripts/procurement/awarder_geo_map.ts\n` +
+          `  pnpm exec tsx scripts/procurement/awarder_geo_map.ts\n` +
           `That restamps this gate but does NOT reach by_settlement or the place ` +
           `tiles — for that the map needs an ingest, and it must be the FULL ` +
           `current-value chain from the update-procurement skill. A bare ` +

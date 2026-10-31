@@ -1,8 +1,8 @@
 // Project subcontractor declarations out of `tender_notice` into
 // `tender_subcontracting` (migration 171, plan P8).
 //
-//   npm run db:load:subcontractors:pg
-//   npm run db:load:subcontractors:pg:cloud
+//   pnpm run db:load:subcontractors:pg
+//   pnpm run db:load:subcontractors:pg:cloud
 //
 // Reads nothing but Postgres — its source is the ЦАИС dossier capture, so run it
 // after `db:load:tender-dossier:pg` and never on its own schedule.
@@ -37,7 +37,7 @@ const main = async (): Promise<void> => {
     console.warn(
       "⚠ tender_notice does not exist — schema applied, nothing projected. It " +
         "is created by migration 146, whose only applier is " +
-        "`npm run db:load:tender-dossier:pg` (a REFRESH_EXCLUSIONS member that " +
+        "`pnpm run db:load:tender-dossier:pg` (a REFRESH_EXCLUSIONS member that " +
         "reads the gitignored ЦАИС capture). This is the EXPECTED state on a " +
         "fresh clone.",
     );
@@ -51,7 +51,7 @@ const main = async (): Promise<void> => {
     // empty" and „the table does not exist" send an operator to different fixes.
     console.warn(
       "⚠ tender_notice exists but is empty — schema applied, nothing projected. " +
-        "Run `npm run db:load:tender-dossier:pg` (it needs the ЦАИС capture).",
+        "Run `pnpm run db:load:tender-dossier:pg` (it needs the ЦАИС capture).",
     );
     return;
   }

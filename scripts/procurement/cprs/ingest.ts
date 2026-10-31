@@ -1,10 +1,10 @@
 // ЦПРС ingest (plan P2) — crawl register.ksb.bg's licence register and write
 // data/procurement/cprs.json.
 //
-//   npx tsx scripts/procurement/cprs/ingest.ts --probe            # 3 областi × 6 classes
-//   npx tsx scripts/procurement/cprs/ingest.ts --apply            # the full 30 × 54
-//   npx tsx scripts/procurement/cprs/ingest.ts --apply --refresh  # a watcher flip — re-fetch
-//   npx tsx scripts/procurement/cprs/ingest.ts --apply --offline  # re-parse the cache
+//   pnpm exec tsx scripts/procurement/cprs/ingest.ts --probe            # 3 областi × 6 classes
+//   pnpm exec tsx scripts/procurement/cprs/ingest.ts --apply            # the full 30 × 54
+//   pnpm exec tsx scripts/procurement/cprs/ingest.ts --apply --refresh  # a watcher flip — re-fetch
+//   pnpm exec tsx scripts/procurement/cprs/ingest.ts --apply --offline  # re-parse the cache
 //
 // ⚠️ WITHOUT --refresh EVERY CACHED CELL IS REUSED, so on a `cprs_register`
 // watcher flip a bare --apply re-parses the PREVIOUS crawl, fetches nothing and

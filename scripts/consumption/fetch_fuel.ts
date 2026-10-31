@@ -12,7 +12,7 @@
 // column reorder can't break it. The price columns are ALREADY in EUR per 1000 L
 // (the sibling exchange_rate column is reference metadata for the pre-euro
 // national price, not a factor to apply), VAT-inclusive — so €/L is value / 1000,
-// consistent across the BGN→EUR changeover. Run: `npx tsx scripts/consumption/fetch_fuel.ts`.
+// consistent across the BGN→EUR changeover. Run: `pnpm exec tsx scripts/consumption/fetch_fuel.ts`.
 
 import fs from "node:fs";
 import path from "node:path";

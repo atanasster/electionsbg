@@ -13,7 +13,7 @@
 //
 // See docs/plans/transport-view-v1.md "Phase 3 scope". Fold the trigger into
 // update-budget (budget_law watcher) — re-run when a new ЗДБ lands. Run:
-//   npx tsx scripts/transport/parse_rail_subsidy.ts
+//   pnpm exec tsx scripts/transport/parse_rail_subsidy.ts
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";

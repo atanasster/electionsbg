@@ -6,7 +6,7 @@
 // A01 headline would leak the food total into the detail bars and only break at
 // runtime. This locks the invariant against the committed data.
 //
-//   npx vitest run scripts/macro/fetch_food_pli.test.ts
+//   pnpm exec vitest run scripts/macro/fetch_food_pli.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

@@ -15,7 +15,7 @@
 // serializer (buildVoteFlowScopeFiles) verbatim — only the reconcile step
 // is local-specific (see reconcile_local.ts).
 //
-// Flag-gated operator step (not part of `--all`): `npm run data -- --local-flows`.
+// Flag-gated operator step (not part of `--all`): `pnpm run data --local-flows`.
 // Local cycles land every ~4 years, so there's nothing to gain from running
 // this on every pipeline pass.
 

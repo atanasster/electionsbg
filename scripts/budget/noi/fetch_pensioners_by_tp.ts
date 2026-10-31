@@ -3,8 +3,8 @@
 // (Vite mounts data/ at the root, so /budget/noi/pensioners_by_tp.json). See
 // pensioners_by_tp.ts for the crosswalk and what the counts mean.
 //
-//   npm run noi:pensioners-by-tp            # fetch + write
-//   npm run noi:pensioners-by-tp -- --dry   # fetch, report, write nothing
+//   pnpm run noi:pensioners-by-tp            # fetch + write
+//   pnpm run noi:pensioners-by-tp --dry   # fetch, report, write nothing
 //
 // Updated about once a year (the 2025 column landed 2026-06-24).
 

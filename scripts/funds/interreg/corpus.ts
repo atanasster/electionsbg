@@ -49,7 +49,7 @@ export const readCorpus = (): InterregCorpusFiles => {
     if (!existsSync(path.join(CORPUS_DIR, f)))
       throw new Error(
         `interreg: ${path.relative(ROOT, path.join(CORPUS_DIR, f))} is missing. ` +
-          `Run \`npm run funds:ingest-interreg\` first.`,
+          `Run \`pnpm run funds:ingest-interreg\` first.`,
       );
   return {
     index: JSON.parse(

@@ -9,7 +9,7 @@
 //      multi-rate block surfaces the higher (standard) rate, not the
 //      first-in-document-order promotional one.
 //
-// Invoke with:  npx tsx scripts/local_taxes/probe_property_tax.ts
+// Invoke with:  pnpm exec tsx scripts/local_taxes/probe_property_tax.ts
 // Exits non-zero if any expectation fails.
 
 import fs from "node:fs";

@@ -26,8 +26,8 @@
 // across the corpus, so scoping by the tier→source SET and matching ref is exact.
 //
 // Run:
-//   npm run db:load:declarations:pg            # phase 1 (load)
-//   npm run db:load:declarations:pg -- --resolve   # phase 2 (fill person_id)
+//   pnpm run db:load:declarations:pg            # phase 1 (load)
+//   pnpm run db:load:declarations:pg --resolve   # phase 2 (fill person_id)
 //   …:cloud variants point DATABASE_URL at the Cloud SQL proxy.
 
 import fs from "node:fs";
@@ -932,7 +932,7 @@ const resolve = async () => {
       if (missing.length) {
         console.warn(
           `[declarations] skipping 188_company_browse — missing ${missing.join(", ")}. ` +
-            `Run npm run db:refresh (or the loader that owns the named relation).`,
+            `Run pnpm run db:refresh (or the loader that owns the named relation).`,
         );
       } else {
         await exec(fs.readFileSync(COMPANY_BROWSE_SCHEMA, "utf-8"));

@@ -5,7 +5,7 @@
 // treatment — by year. Static-JSON served like the flood artifact (plan §0b.5 /
 // §3 Tier B). The same NSI timeseries fetch pattern as scripts/indicators.
 //
-// Run: npm run water:stats -- --refresh
+// Run: pnpm run water:stats --refresh
 //
 // `--refresh` re-downloads the XLSX. Without it the raw_data/ cache wins, so a
 // re-run after the `nsi_water_stats` watcher flips would re-parse the OLD file

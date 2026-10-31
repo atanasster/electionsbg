@@ -11,7 +11,7 @@
  * Run after a refresh to surface new typos that should be added to the
  * override tables:
  *
- *   npx tsx scripts/declarations/check_suspicious_values.ts
+ *   pnpm exec tsx scripts/declarations/check_suspicious_values.ts
  *
  * Exit code is 0 either way — the script is informational. CI / automation
  * can grep stdout for "FLAG" lines.

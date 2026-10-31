@@ -32,9 +32,9 @@
 // created. resolve_persons applies 117 as CREATE TABLE IF NOT EXISTS, which means a
 // database that never ran this loader resolves and serves cleanly with an EMPTY dimension —
 // ~76.5k roles publish a null placeLabel, green locally and blank on prod. db:refresh
-// sequences it; the cloud side needs `npm run db:load:place-dim:pg:cloud` run by hand.
+// sequences it; the cloud side needs `pnpm run db:load:place-dim:pg:cloud` run by hand.
 //
-// Run: `npm run db:load:place-dim:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:place-dim:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -418,7 +418,7 @@ const main = async (): Promise<void> => {
     // the downstream refresh failed. Rethrown, but self-describing.
     console.error(
       "place_dim loaded OK, but the scoped precompute refresh failed. " +
-        "Re-run `npm run db:load:procurement-scopes:pg` to rebuild them.",
+        "Re-run `pnpm run db:load:procurement-scopes:pg` to rebuild them.",
     );
     throw err;
   }

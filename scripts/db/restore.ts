@@ -2,8 +2,8 @@
 // recorded in the committed lockfile. For a fresh clone / CI / a second machine
 // that has the repo but not the (regenerable) DB.
 //
-//   npm run db:restore                 → download from lockfile.snapshot.gcs
-//   npm run db:restore -- --local <dir> → read from a local dir (round-trip test)
+//   pnpm run db:restore                 → download from lockfile.snapshot.gcs
+//   pnpm run db:restore --local <dir> → read from a local dir (round-trip test)
 //
 // Verifies the download against the lockfile sha256, pg_restores into the DB,
 // then sanity-checks the restored DB's identity against the lockfile.
@@ -32,13 +32,13 @@ const main = async (): Promise<void> => {
   const lock = readLockfile();
   if (!lock) {
     console.error(
-      "No data/db/procurement.lock.json — run npm run db:dump first.",
+      "No data/db/procurement.lock.json — run pnpm run db:dump first.",
     );
     process.exit(1);
   }
   if (!lock.snapshot) {
     console.error(
-      "lockfile has no snapshot (dry-run only) — run a real npm run db:dump first.",
+      "lockfile has no snapshot (dry-run only) — run a real pnpm run db:dump first.",
     );
     process.exit(1);
   }

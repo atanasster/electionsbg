@@ -24,7 +24,7 @@
 // `muniCount` so a future consumer can attribute correctly (value/muniCount)
 // if it ever needs a place total from this file.
 //
-// Run: `npx tsx scripts/funds/build_geo_pins.ts`
+// Run: `pnpm exec tsx scripts/funds/build_geo_pins.ts`
 //
 // Outputs are deterministic — re-running over unchanged source produces
 // byte-identical output.

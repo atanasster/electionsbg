@@ -4,7 +4,7 @@
 // then fetches one year at a time from court_load_year() instead of the 531 KB
 // all-years JSON.
 //
-// Run: `npm run db:load:court-load:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:court-load:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";

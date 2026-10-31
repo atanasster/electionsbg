@@ -1,6 +1,6 @@
 // The home page's „what changed" feed, as ONE small committed JSON.
 //
-//   npx tsx scripts/db/gen_home/feed.ts
+//   pnpm exec tsx scripts/db/gen_home/feed.ts
 //
 // ===========================================================================
 // ⚠️ THE WINDOW ENDS AT `computedAt`, WHICH IS THE MAXIMUM SOURCE VINTAGE — NEVER `now`.

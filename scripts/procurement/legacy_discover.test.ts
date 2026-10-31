@@ -9,7 +9,7 @@
 // on disk. The fix records ingested years in data/procurement/legacy_ingested.json
 // and feeds them back in as `ingestedYears` / `ingestedUuids`.
 //
-//   npx vitest run scripts/procurement/legacy_discover.test.ts
+//   pnpm exec vitest run scripts/procurement/legacy_discover.test.ts
 
 import { test, afterEach, vi } from "vitest";
 import assert from "node:assert/strict";

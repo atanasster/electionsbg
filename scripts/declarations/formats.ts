@@ -10,7 +10,7 @@
  * part of the file's identity in git.
  *
  * Threading the global one through cost us a refresh with no clean
- * invocation at all. `npm run data -- --declarations` pretty-printed the
+ * invocation at all. `pnpm run data --declarations` pretty-printed the
  * parliament family (1,438 files, ~892k insertions of pure whitespace);
  * `--prod` wrote them correctly but flipped company_links.json to compact
  * (~928k deletions, also pure whitespace). Both diffs bury the handful of

@@ -17,7 +17,7 @@
 // not "no zeros" — it is "not EVERY row is empty", which is the only shape that can mean the
 // producer has nothing to put there.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import fs from "node:fs";
 import path from "node:path";

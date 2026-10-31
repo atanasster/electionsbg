@@ -22,7 +22,7 @@
 // company". Those are different events and the measured distribution below separates them
 // cleanly.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -232,7 +232,7 @@ test.skipIf(skip)(
         )}% ceiling. ⚠️ THIS IS NOT A RESOLVER BUG AND THE ROLES ARE NOT WRONG — ` +
         `every one was attached inside the cap; the TR corpus has moved underneath them since. ` +
         `The person layer is too far behind its licensing inputs to trust: run ` +
-        `\`npm run db:resolve:persons\` and its repair chain (CLAUDE.md, "A LOCAL ` +
+        `\`pnpm run db:resolve:persons\` and its repair chain (CLAUDE.md, "A LOCAL ` +
         `db:resolve:persons is never one command"). Do NOT widen FOOTPRINT_CAP to clear this ` +
         `— the cap is calibrated, and raising it changes whose companies get published.`,
     );

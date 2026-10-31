@@ -1,7 +1,7 @@
 // Tier 3 (Postgres-native) — the last-known price layer that lets an absent
 // chain keep a page.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // `price_current` is "today's truth" and is deliberately emptied of anything the
 // day's feed omits (048's header rule: absence is only knowable at observation

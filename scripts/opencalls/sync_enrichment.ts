@@ -1,8 +1,8 @@
 // Copy the open-calls ENRICHMENT OVERLAY from one database to another.
 //
-//   npm run opencalls:sync-enrichment -- --to <url>          dry run
-//   npm run opencalls:sync-enrichment:cloud                  dry run, local → Cloud SQL
-//   npm run opencalls:sync-enrichment:cloud -- --apply       … and write
+//   pnpm run opencalls:sync-enrichment --to <url>          dry run
+//   pnpm run opencalls:sync-enrichment:cloud                  dry run, local → Cloud SQL
+//   pnpm run opencalls:sync-enrichment:cloud --apply       … and write
 //
 // ═══════════════════════════════════════════════════════════════════════════════════════════
 // WHY THIS EXISTS. Everything else about `open_calls` travels: `db:load:open-calls:pg:cloud`
@@ -288,7 +288,7 @@ const tableExists = async (pool: Pool, label: string): Promise<void> => {
   if (!rows[0]?.t)
     throw new Error(
       `${label}: no open_calls table (migration 142 never applied there).\n` +
-        `  Run: npm run db:load:open-calls:pg${label === "target" ? ":cloud" : ""}`,
+        `  Run: pnpm run db:load:open-calls:pg${label === "target" ? ":cloud" : ""}`,
     );
 };
 
@@ -325,7 +325,7 @@ export const syncEnrichment = async (argv: string[]): Promise<void> => {
   const to = flagValue(argv, "--to") ?? process.env.DATABASE_URL;
   if (!to)
     throw new Error(
-      "no target: pass --to <url>, or use `npm run opencalls:sync-enrichment:cloud`, " +
+      "no target: pass --to <url>, or use `pnpm run opencalls:sync-enrichment:cloud`, " +
         "which sets DATABASE_URL to the Cloud SQL proxy.",
     );
   // A same-database sync is a no-op that reports „0 rows to update" — indistinguishable from

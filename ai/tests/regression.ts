@@ -1,5 +1,5 @@
 // Regression suite: prompt -> expected response, across every tool/dataset.
-// Run: npm run ai:test   (npx tsx ai/tests/regression.ts)
+// Run: pnpm run ai:test   (pnpm exec tsx ai/tests/regression.ts)
 //
 // Each case asserts two things end to end against the REAL data files:
 //   1. the deterministic router maps the prompt to the expected tool
@@ -37,7 +37,7 @@ setFetcher(async (path: string) => {
 });
 // DB-backed tools (procurement overview / rankings / search, …) run the SAME
 // functions/db_routes.js handlers against local Postgres — so their numbers are
-// verified against the exact route code prod serves. Requires `npm run db:pg:up`
+// verified against the exact route code prod serves. Requires `pnpm run db:pg:up`
 // (mirrors ai/tools/harness.ts).
 setDbFetcher(nodeDbFetcher);
 

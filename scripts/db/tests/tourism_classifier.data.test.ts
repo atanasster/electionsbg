@@ -10,8 +10,8 @@
 // 335 rows and production is 16.2%, not ~11% — so the two copies contradicted each
 // other with nothing saying which was current. Do not reintroduce a share here.
 //
-// Pure logic, no DB. Run: npm run test:data (tsx --test), or standalone:
-//   npx tsx --test scripts/db/tests/tourism_classifier.data.test.ts
+// Pure logic, no DB. Run: pnpm run test:data (tsx --test), or standalone:
+//   pnpm exec tsx --test scripts/db/tests/tourism_classifier.data.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

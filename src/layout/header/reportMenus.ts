@@ -54,7 +54,7 @@ export type MenuItem = {
   // Rendered only in the dev build (`import.meta.env.DEV`). For entries whose
   // page is itself dev-gated because its data is bucket-synced but not yet
   // shipped to production — a prod link would 404. Drop the flag here and on the
-  // matching <Route> once `npm run bucket:sync` has shipped the data.
+  // matching <Route> once `pnpm run bucket:sync` has shipped the data.
   devOnly?: boolean;
   // Desktop only, top-level menus: lay the section groups out in this many
   // columns instead of one tall single-column list. Set on menus with enough

@@ -4,7 +4,7 @@
 // so the resulting PNGs frame just the relevant chunk of UI.
 //
 // Usage:
-//   npm run dev           # in one terminal
+//   pnpm run dev           # in one terminal
 //   node scripts/capture-governance-shots.mjs
 
 import { chromium } from "playwright";

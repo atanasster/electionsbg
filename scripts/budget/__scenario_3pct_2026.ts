@@ -4,7 +4,7 @@
 // wage-bill cut, МОД→€2,300, subsidy cuts, etc. are already baked into 5.7%).
 // Figures are ANNUALISED (steady-state); mid-year starts dampen the 2026 effect.
 //
-// Usage: npx tsx scripts/budget/__scenario_3pct_2026.ts
+// Usage: pnpm exec tsx scripts/budget/__scenario_3pct_2026.ts
 
 import {
   computeVatRevenue,

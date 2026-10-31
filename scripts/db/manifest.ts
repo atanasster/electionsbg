@@ -8,7 +8,7 @@
 // All hashing is volatile-insensitive (see lib/canonical.ts) so a plain
 // regeneration produces an identical manifest — only real data changes move it.
 //
-//   npm run db:manifest        # write compact + full
+//   pnpm run db:manifest        # write compact + full
 //   tsx scripts/db/manifest.ts # compact only
 //
 // See docs/plans/sql-migration-v1.md (Phase 1).

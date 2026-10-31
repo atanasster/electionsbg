@@ -15,8 +15,8 @@
 // diff is the useful artifact, because it is the only thing that would catch a matview
 // drifting away from the JSON it reproduces.
 //
-//   npx tsx scripts/db/gen_parliament/hub_stats_pg.ts            # check, exit 1 on drift
-//   npx tsx scripts/db/gen_parliament/hub_stats_pg.ts --write    # take over the blob
+//   pnpm exec tsx scripts/db/gen_parliament/hub_stats_pg.ts            # check, exit 1 on drift
+//   pnpm exec tsx scripts/db/gen_parliament/hub_stats_pg.ts --write    # take over the blob
 
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -95,7 +95,7 @@ const run = async (): Promise<void> => {
   const write = process.argv.includes("--write");
   if (!existsSync(BLOB)) {
     console.warn(
-      `hub_stats_pg: ${BLOB} is absent — run npm run derived:rebuild first`,
+      `hub_stats_pg: ${BLOB} is absent — run pnpm run derived:rebuild first`,
     );
     await end();
     process.exitCode = 1;

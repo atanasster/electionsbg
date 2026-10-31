@@ -4,7 +4,7 @@
 // /customs/warehouses map then fetches excise_warehouses_map() instead of the
 // operator register file.
 //
-// Run: `npm run db:load:excise-warehouses:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:excise-warehouses:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";

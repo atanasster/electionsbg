@@ -6,8 +6,8 @@
 // recall_queries.json, so any overlap would leak the test. Every generated query
 // is deduped against (a) recall_queries.json and (b) the tool's own examples.
 //
-//   npx tsx ai/m0/finetune/gen_train_data.ts          # → train_queries.json (cache)
-//   npx tsx ai/m0/finetune/gen_train_data.ts --n 12   # queries per lang per tool
+//   pnpm exec tsx ai/m0/finetune/gen_train_data.ts          # → train_queries.json (cache)
+//   pnpm exec tsx ai/m0/finetune/gen_train_data.ts --n 12   # queries per lang per tool
 //
 // Then build pairs + fine-tune with ai/m0/finetune/finetune_embedder.py.
 

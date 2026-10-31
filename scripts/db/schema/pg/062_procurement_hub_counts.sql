@@ -1,7 +1,7 @@
 -- ⚠️⚠️ OFFLINE ONLY. THIS FUNCTION IS NOT SERVED, AND NO LIVE-SERVING BUDGET APPLIES TO IT.
 --
 -- It has exactly TWO consumers, both offline. The SQL call site is
--- `scripts/db/gen_procurement/hub_stats_source.ts`, shared by `npm run db:gen-hub-stats`
+-- `scripts/db/gen_procurement/hub_stats_source.ts`, shared by `pnpm run db:gen-hub-stats`
 -- (which writes the committed artifact `data/procurement/derived/hub_stats.json`) and by
 -- `scripts/db/tests/procurement_hub_stats.data.test.ts` (which re-derives from it to check
 -- that artifact against the corpus). Verified 2026-08-27: zero references in `functions/`,
@@ -33,11 +33,11 @@
 -- more thing to go stale. Plan: docs/plans/procurement-hub-stats-freshness-v1.md §0.
 --
 -- ⚠️ SHIPPING A CHANGE TO THIS FILE also means regenerating and PUBLISHING the artifact:
--- `npm run db:gen-hub-stats`, commit, then
--- `npm run bucket:sync:paths -- procurement/derived/hub_stats.json`. The browser reads the
+-- `pnpm run db:gen-hub-stats`, commit, then
+-- `pnpm run bucket:sync:paths procurement/derived/hub_stats.json`. The browser reads the
 -- blob from GCS, not from the repo, so a commit alone leaves production on the old numbers.
 -- `scripts/db/tests/procurement_hub_stats.data.test.ts` gates disk-vs-corpus and
--- `npm run db:check-generated` gates disk-vs-bucket; they catch different halves.
+-- `pnpm run db:check-generated` gates disk-vs-bucket; they catch different halves.
 --
 -- Lightweight scoped counts for the /procurement HUB stat tiles that aren't in
 -- the procurement_overview payload. Kept OUT of procurement_overview (a hot,
@@ -79,7 +79,7 @@
 -- assertion. Do not read the empty-string sentinel `'9999-99-99'` as a date: it is a TEXT
 -- upper bound and only works because these columns are text.
 --
--- ⚠️ APPLIED BY scripts/db/gen_procurement/hub_stats.ts (`npm run db:gen-hub-stats`),
+-- ⚠️ APPLIED BY scripts/db/gen_procurement/hub_stats.ts (`pnpm run db:gen-hub-stats`),
 -- which is its only APPLIER — the callers are the two named in the banner, and the SQL
 -- call site moved to hub_stats_source.ts in 2026-08. Until 2026-08-04 no script in the repo
 -- applied this file at all, so the function existed only where it had been applied by

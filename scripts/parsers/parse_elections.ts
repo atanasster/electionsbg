@@ -116,7 +116,7 @@ export const parseElections = async ({
     const kind = electionFolderKind(date);
     const hint =
       kind === "local" || kind === "chmi"
-        ? `it is a ${kind} cycle — use \`npm run data -- --local-ingest <slug>\``
+        ? `it is a ${kind} cycle — use \`pnpm run data --local-ingest <slug>\``
         : kind === "presidential"
           ? "it is a presidential cycle — the `--pvr` ingest is not built yet (presidential-elections-v1 T3.4)"
           : "it is not an election folder";

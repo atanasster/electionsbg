@@ -5,7 +5,7 @@
 // so a mis-parse does not degrade — it publishes a real product at a fraction of
 // its true unit price and puts it at the TOP of the board.
 //
-// Runs under `npm run test:unit` (CI). The corpus-derived defect cases live in
+// Runs under `pnpm run test:unit` (CI). The corpus-derived defect cases live in
 // scripts/db/tests/prices_canon.data.test.ts, which is the copy db:refresh's
 // final gate runs — see that file's header for the split.
 //

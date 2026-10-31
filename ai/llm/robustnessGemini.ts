@@ -1,7 +1,7 @@
 // Gemini alone, and Jev + Gemini, on the robustness questions.
 //
 //   node --env-file=.env.local --import tsx ai/llm/robustnessGemini.ts
-//   npx tsx ai/llm/robustnessGemini.ts --rescore      # no API calls
+//   pnpm exec tsx ai/llm/robustnessGemini.ts --rescore      # no API calls
 //
 // Reads the 1,953 variant questions from data/ai/evals/jev_robustness.json (as
 // written, with typos, reworded, Bulgarian in Latin letters) and adds the two

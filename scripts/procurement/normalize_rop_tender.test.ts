@@ -6,7 +6,7 @@
 //      back to the storage.eop.bg day bucket. This keeps citations correct after
 //      the two corpora are merged in the same rebuild.
 //
-//   npx vitest run scripts/procurement/ingest_rop_tenders.test.ts
+//   pnpm exec vitest run scripts/procurement/ingest_rop_tenders.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

@@ -2,7 +2,7 @@
 // against the budget-policy-simulator engine and the plan's own tables.
 // Source PDF: EC DBP 2027 page, 2027_dbp_bg_bg.pdf (Tables 1а, 3, 4, 5, 6).
 //
-// Usage: npx tsx scripts/budget/__scenario_dbp_2027.ts
+// Usage: pnpm exec tsx scripts/budget/__scenario_dbp_2027.ts
 
 import {
   computeVatRevenue,

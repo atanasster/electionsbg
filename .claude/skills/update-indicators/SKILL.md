@@ -40,7 +40,7 @@ AZ publishes its annual review in Q1 of the following year. Day-to-day this skil
 ## Step 1 — Fetch
 
 ```bash
-npx tsx scripts/indicators/fetch.ts
+pnpm exec tsx scripts/indicators/fetch.ts
 ```
 
 Expected output for a normal incremental run:
@@ -101,7 +101,7 @@ File size is ~75 KB for one indicator × 10 years × 265 munis. >200 KB suggests
 ## Step 3 — Stamp ingest + commit
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-indicators --summary "refresh through <latest year>"
+pnpm exec tsx scripts/stamp-ingest.ts update-indicators --summary "refresh through <latest year>"
 git add data/indicators.json state/ingest/update-indicators.json
 git commit -m "indicators: refresh through <latest year>"
 ```
@@ -116,10 +116,10 @@ git commit -m "indicators: add <indicatorId> from <source>"
 ## Step 4 — Upload to bucket (when applicable)
 
 ```bash
-npm run bucket:sync
+pnpm run bucket:sync
 ```
 
-(Or `npm run bucket:sync:dry-run` first.)
+(Or `pnpm run bucket:sync:dry-run` first.)
 
 ## Adding a new indicator (advanced)
 

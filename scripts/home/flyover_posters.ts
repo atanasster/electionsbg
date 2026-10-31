@@ -1,8 +1,8 @@
 // The money-map article's static images, drawn in Node by the SAME engine the browser runs.
 // `docs/plans/home-flyover-v1.md` §8.3.
 //
-//   npm run home:flyover-posters                          # the article's share card + chapter stills
-//   npm run home:flyover-posters -- --chapter goes --out /tmp/f.png   # one chapter, uncommitted
+//   pnpm run home:flyover-posters                          # the article's share card + chapter stills
+//   pnpm run home:flyover-posters --chapter goes --out /tmp/f.png   # one chapter, uncommitted
 //
 // ⚠️ A MANUAL, OPERATOR-RUN TOOL — it is in no chain. What it renders is one dated article's
 // share card (`public/og/money-map.png`) and its six chapter stills. They are COMMITTED and FROZEN:
@@ -10,7 +10,7 @@
 // every watcher run only put a pending hosting deploy on every day. Re-run this by hand when
 // the article's pictures should change, then commit and deploy hosting.
 //
-// ⚠️ COMMITTED, AND GENERATED BEFORE `npm run build`. Vite copies `public/` into `dist/`
+// ⚠️ COMMITTED, AND GENERATED BEFORE `pnpm run build`. Vite copies `public/` into `dist/`
 // during the build, so a `postbuild` step would write files the deploy never ships — the same
 // reason the OG capture and the sitemap run before the build rather than after it.
 //
@@ -54,7 +54,7 @@ const artifactBytes = (): Buffer => {
   const p = path.join(ROOT, ARTIFACT_REL);
   if (!fs.existsSync(p)) {
     throw new Error(
-      `flyover_posters: ${ARTIFACT_REL} is missing — run npm run db:gen-home-flyover`,
+      `flyover_posters: ${ARTIFACT_REL} is missing — run pnpm run db:gen-home-flyover`,
     );
   }
   return fs.readFileSync(p);

@@ -15,10 +15,10 @@
 // correct tool. The generated queries are cached to recall_queries.json so the
 // API cost is paid once; re-runs (and the recall math) are then free + offline.
 //
-//   npx tsx ai/m0/finetune/measure_recall.ts            # generate (if needed) + measure
-//   npx tsx ai/m0/finetune/measure_recall.ts --no-gen   # measure from cache only (offline)
-//   npx tsx ai/m0/finetune/measure_recall.ts --n 4      # queries per lang per tool (default 3)
-//   npx tsx ai/m0/finetune/measure_recall.ts --model gemini-3.1-flash-lite
+//   pnpm exec tsx ai/m0/finetune/measure_recall.ts            # generate (if needed) + measure
+//   pnpm exec tsx ai/m0/finetune/measure_recall.ts --no-gen   # measure from cache only (offline)
+//   pnpm exec tsx ai/m0/finetune/measure_recall.ts --n 4      # queries per lang per tool (default 3)
+//   pnpm exec tsx ai/m0/finetune/measure_recall.ts --model gemini-3.1-flash-lite
 //
 // Outputs: ai/m0/finetune/recall_queries.json (cache) + recall_report.json (result).
 

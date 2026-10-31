@@ -3,8 +3,8 @@
 // saves committed PNGs under public/og/ that the prerender step references.
 //
 // Run with the dev server up (pass the port if it's not 5173):
-//   npm run dev
-//   OG_BASE_URL=http://localhost:5173 npx tsx scripts/og/screenshot_consumption.ts
+//   pnpm run dev
+//   OG_BASE_URL=http://localhost:5173 pnpm exec tsx scripts/og/screenshot_consumption.ts
 //
 // Output: public/og/consumption-{eu,overview,fuel,electricity,gas}.png
 

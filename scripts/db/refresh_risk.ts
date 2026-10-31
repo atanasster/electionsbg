@@ -1,8 +1,8 @@
 import { installProcurementQuery } from "./lib/installProcurementQuery";
 // Refresh the procurement risk caches without running a full loader.
 //
-//   npm run db:refresh:risk          # local
-//   npm run db:refresh:risk:cloud    # Cloud SQL (via the proxy on :5434)
+//   pnpm run db:refresh:risk          # local
+//   pnpm run db:refresh:risk:cloud    # Cloud SQL (via the proxy on :5434)
 //
 // WHY: both caches are derived from `contracts` + the 033 views, but until now
 // the ONLY way to rebuild either was a complete db:load:pg / db:load:tr:pg /

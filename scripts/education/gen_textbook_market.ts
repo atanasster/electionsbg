@@ -8,7 +8,7 @@
 // groups via src/lib/textbookPublishers.ts (the Просвета group is 3 EIKs; Klett
 // is the Анубис+Булвест merge) so the concentration figure is honest.
 //
-// Run: `npx tsx scripts/education/gen_textbook_market.ts`
+// Run: `pnpm exec tsx scripts/education/gen_textbook_market.ts`
 
 import fs from "node:fs";
 import path from "node:path";

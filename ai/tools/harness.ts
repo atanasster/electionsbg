@@ -1,5 +1,5 @@
 // Node correctness harness for the deterministic tools layer (Brain 1).
-// Run: npx tsx ai/tools/harness.ts
+// Run: pnpm exec tsx ai/tools/harness.ts
 //
 // Swaps in a node fetcher that reads the local `data/` tree (instead of the
 // browser's bucket fetch), exercises every tool, prints results, and asserts a
@@ -37,7 +37,7 @@ setFetcher(async (path: string) => {
 });
 
 // Tools migrated to Postgres call fetchDb — run the real /api/db route handlers
-// against local PG (needs `npm run db:pg:up` + a loaded store).
+// against local PG (needs `pnpm run db:pg:up` + a loaded store).
 setDbFetcher(nodeDbFetcher);
 
 let failures = 0;
@@ -82,7 +82,7 @@ const run = async () => {
     console.error(
       "✗ ai:harness needs the local Postgres store — it runs the real " +
         "/api/db route handlers, not a re-implementation.\n" +
-        "  Start it with `npm run db:pg:up`, or set SKIP_PREDEPLOY=1 to skip " +
+        "  Start it with `pnpm run db:pg:up`, or set SKIP_PREDEPLOY=1 to skip " +
         "the predeploy gates entirely.",
     );
     process.exit(1);

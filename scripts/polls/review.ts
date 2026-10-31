@@ -8,10 +8,10 @@
 // this script calls no model and needs no API key), from the capture directory
 // alone, to the path `--prepare` hands out.
 //
-//   npm run polls:review -- --prepare           # list drafts needing a reading
-//   npm run polls:review                        # compare + accept on agreement
-//   npm run polls:review -- --dry-run           # report only, write nothing
-//   npm run polls:review -- --agency MY --pub 1918
+//   pnpm run polls:review --prepare           # list drafts needing a reading
+//   pnpm run polls:review                        # compare + accept on agreement
+//   pnpm run polls:review --dry-run           # report only, write nothing
+//   pnpm run polls:review --agency MY --pub 1918
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";

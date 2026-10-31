@@ -16,7 +16,7 @@
 //        "todo"     needs an ingestion we haven't built yet (flagged, gov number
 //                   carried so the total is complete but honestly labelled)
 //
-// Usage: npx tsx scripts/budget/budget2026_package.ts
+// Usage: pnpm exec tsx scripts/budget/budget2026_package.ts
 
 import fs from "fs";
 import path from "path";

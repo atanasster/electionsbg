@@ -9,7 +9,7 @@
 // gate tracks the CONTRACT, not the byte stream.
 //
 // Auto-skips when Postgres is down or the roster meta is missing — like the other gates.
-//   npm run test:data
+//   pnpm run test:data
 
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";

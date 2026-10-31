@@ -8,7 +8,7 @@
 -- covers the cloud path where the contracts table is NOT fully reloaded — apply it
 -- surgically:
 --
---   npx tsx scripts/db/apply_functions.ts 107_contract_date_signed_backfill.sql   (local)
+--   pnpm exec tsx scripts/db/apply_functions.ts 107_contract_date_signed_backfill.sql   (local)
 --   (cloud: the db:*:cloud apply flow)
 --
 -- `date` is unchanged, so no date-indexed aggregate, matview, or scope window is

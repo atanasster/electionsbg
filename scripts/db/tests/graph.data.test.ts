@@ -15,7 +15,7 @@
 // numbers twice — which reads as a corpus-wide defect when it is a local one. Measure a cloud
 // bridge with SQL instead.
 //
-// ⚠️ WHEN THE BRIDGE ARM FAILS, SUSPECT A STALE LOCAL GRAPH FIRST — `npm run db:load:graph:pg`.
+// ⚠️ WHEN THE BRIDGE ARM FAILS, SUSPECT A STALE LOCAL GRAPH FIRST — `pnpm run db:load:graph:pg`.
 // `tr:daily-refresh` rebuilds `company_politicians`, and until 2026-08-20 it did not re-run that
 // loader, so `graph_edge` was left a vintage behind its own input: measured 498/673 (74%) before
 // the reload, 643/673 (95.5%) after, while prod was at 95.5% throughout. The loader is in that

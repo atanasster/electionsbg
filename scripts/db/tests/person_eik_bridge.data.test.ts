@@ -12,7 +12,7 @@
 // derived from a name-similarity threshold, and its post-conditions are asserted here against
 // the loaded corpus rather than assumed from the file.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store; auto-skips when Postgres is unreachable or the contracts table is
 // absent, like invariants_pg.data.test.ts.
@@ -117,7 +117,7 @@ test.skipIf(skip)(
       rows.map((r) => `${r.contractor_eik} (${r.n} rows)`),
       [],
       `bridged np- key(s) still in the corpus. Run: ` +
-        `npx tsx scripts/procurement/reconcile_cross_source.ts --apply, then rebuild and reload.`,
+        `pnpm exec tsx scripts/procurement/reconcile_cross_source.ts --apply, then rebuild and reload.`,
     );
   },
 );

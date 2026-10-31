@@ -728,7 +728,7 @@ const cli = command({
       defaultValue: () => POLLS_DIR,
     }),
     // Tier 4, T4.7: the results→accuracy coupling names this command as
-    // `npm run polls:analyze -- --race presidential`, so the ONE
+    // `pnpm run polls:analyze --race presidential`, so the ONE
     // operator-facing entry point dispatches by race rather than making
     // the presidential family a second npm script to remember. `--polls`
     // is parliamentary-only (its historical meaning, `data/polls/`) —

@@ -1,23 +1,23 @@
 // CLI: time one orchestrator step and append it to the run's trace.
 //
 //   # wrap a command (exact timing, exit code propagated)
-//   npm run perf:step -- run --run process-watch-report --session "$S" \
-//     --step "myarea:alerts" --phase derive -- npm run myarea:alerts
+//   pnpm run perf:step run --run process-watch-report --session "$S" \
+//     --step "myarea:alerts" --phase derive -- pnpm run myarea:alerts
 //
 //   # a verifier whose non-zero exit is a FINDING, not a crash
-//   npm run perf:step -- run --run process-watch-report --session "$S" \
-//     --step "db:check-cloud" --phase verify --ok-exit 1 -- npm run db:check-cloud
+//   pnpm run perf:step run --run process-watch-report --session "$S" \
+//     --step "db:check-cloud" --phase verify --ok-exit 1 -- pnpm run db:check-cloud
 //
 //   # record a step this process did not run (a Skill invocation, a manual
 //   # download, an operator wait) — from a captured start time
-//   npm run perf:step -- record --run process-watch-report --session "$S" \
+//   pnpm run perf:step record --run process-watch-report --session "$S" \
 //     --step "update-procurement" --phase ingest --started "$T0" --status ok
 //
 //   # mint a session id (once per orchestrator invocation)
-//   npm run perf:step -- session
+//   pnpm run perf:step session
 //
 //   # read the trace back
-//   npm run perf:report -- --run process-watch-report --last 5
+//   pnpm run perf:report --run process-watch-report --last 5
 //
 // `run` is the mode to prefer: it measures the child process itself, so the
 // number cannot drift from what actually happened. `record` exists because an
@@ -129,7 +129,7 @@ const okExits = (flags: string[]): Set<number> => {
 
 const cmdRun = (flags: string[], cmd: string[]): void => {
   if (cmd.length === 0)
-    die("`run` needs a command after `--`, e.g. -- npm run db:refresh");
+    die("`run` needs a command after `--`, e.g. -- pnpm run db:refresh");
   const base = commonRecord(flags);
   const accepted = okExits(flags);
   const startedAt = new Date();

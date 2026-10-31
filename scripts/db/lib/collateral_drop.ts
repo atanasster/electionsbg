@@ -5,7 +5,7 @@
 // simply gone — and nothing fails, nothing logs, and no row count moves, because the
 // counts that would have moved belong to relations that no longer exist. Measured twice on
 // production: 2026-08-15 (a hand-run `apply_functions.ts 090_person_wealth.sql`) and
-// 2026-08-19 (an aborted `db:load:declarations:pg:cloud -- --resolve`), each leaving
+// 2026-08-19 (an aborted `db:load:declarations:pg:cloud --resolve`), each leaving
 // /persons, /officials/assets, /mp-assets and /declarations/crypto answering 500.
 //
 // The check is a POST-CONDITION rather than a dependency parse: snapshot the public
@@ -92,7 +92,7 @@ export const reportCollateralDrops = (
   console.error(
     `\nA DROP … CASCADE in one of the applied files took them. They are GONE from ` +
       `${target} and every route reading them answers 500 until they are rebuilt:\n\n` +
-      `  DATABASE_URL=${target} npx tsx scripts/db/apply_functions.ts ${owners.join(" ")}\n\n` +
+      `  DATABASE_URL=${target} pnpm exec tsx scripts/db/apply_functions.ts ${owners.join(" ")}\n\n` +
       `Check that order against each file's dependencies before running it, and add the ` +
       `owning files to the ORIGINAL command so the next apply is whole.`,
   );

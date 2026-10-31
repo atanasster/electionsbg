@@ -4,8 +4,8 @@
 // data/procurement/contracts/ holds ~300k rows built before that change. This
 // patches them in place, the way backfill_unp.ts did.
 //
-//   npx tsx scripts/procurement/fix_amount_overrides.ts           # dry run
-//   npx tsx scripts/procurement/fix_amount_overrides.ts --apply   # write
+//   pnpm exec tsx scripts/procurement/fix_amount_overrides.ts           # dry run
+//   pnpm exec tsx scripts/procurement/fix_amount_overrides.ts --apply   # write
 //
 // Multi-supplier awards. A contract's value is split across its suppliers at
 // normalize time, so a single shard row holds `total / n`, not the total. We

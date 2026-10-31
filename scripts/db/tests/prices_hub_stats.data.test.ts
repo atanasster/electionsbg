@@ -37,7 +37,7 @@ const idx0 = chainRows[0]?.b ?? null;
 const skip = !haveDb
   ? "Postgres unreachable"
   : !hub
-    ? "no hub-stats blob — run npm run prices:payloads"
+    ? "no hub-stats blob — run pnpm run prices:payloads"
     : false;
 reportSkip(import.meta.url, skip);
 afterAll(async () => {

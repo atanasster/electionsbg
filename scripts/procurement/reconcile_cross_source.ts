@@ -21,8 +21,8 @@
 // PIPELINE POSITION (both predecessors are mandatory):
 //   ingest → anexi_current_value.ts --apply → backfill_unp.ts --apply → THIS → rebuild_from_cache
 //
-//   npx tsx scripts/procurement/reconcile_cross_source.ts            # dry run
-//   npx tsx scripts/procurement/reconcile_cross_source.ts --apply
+//   pnpm exec tsx scripts/procurement/reconcile_cross_source.ts            # dry run
+//   pnpm exec tsx scripts/procurement/reconcile_cross_source.ts --apply
 
 import fs from "fs";
 import path from "path";
@@ -89,7 +89,7 @@ const reportAnnexImpact = async (evictedKeys: string[]): Promise<void> => {
     if (n)
       console.log(
         `annexes — ${n} procurement_annexes row(s) across ${r.k} contract key(s) lose their ` +
-          `target. Re-resolve them:  npm run db:load:annexes:pg   (…:cloud on the served side)`,
+          `target. Re-resolve them:  pnpm run db:load:annexes:pg   (…:cloud on the served side)`,
       );
     else
       console.log(
@@ -97,7 +97,7 @@ const reportAnnexImpact = async (evictedKeys: string[]): Promise<void> => {
       );
   } catch {
     console.log(
-      "annexes — could not check (no database reachable). Run `npm run db:load:annexes:pg` " +
+      "annexes — could not check (no database reachable). Run `pnpm run db:load:annexes:pg` " +
         "after the reload regardless; it re-resolves against contracts.",
     );
   }
@@ -341,7 +341,7 @@ const main = async (): Promise<void> => {
   }
   console.log(`applied — wrote ${shards.size} shard(s)`);
   console.log(
-    "Next: npm run proc:rebuild-derived && npm run db:load:pg && npm run db:load:annexes:pg",
+    "Next: pnpm run proc:rebuild-derived && pnpm run db:load:pg && pnpm run db:load:annexes:pg",
   );
 };
 

@@ -19,7 +19,7 @@ const [{ n } = { n: "0" }] = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : n === "0"
-    ? "cprs_licence is empty — run npm run db:load:cprs:pg"
+    ? "cprs_licence is empty — run pnpm run db:load:cprs:pg"
     : false;
 reportSkip(import.meta.url, skip);
 
@@ -40,7 +40,7 @@ test.skipIf(skip)("the register is whole", async () => {
   assert.ok(
     Number(r.firms) > 5000,
     `only ${r.firms} firms in cprs_licence — the ЦПРС holds ~8,400. A partial ` +
-      `crawl was loaded; re-run \`npm run cprs:ingest -- --apply\`.`,
+      `crawl was loaded; re-run \`pnpm run cprs:ingest --apply\`.`,
   );
   assert.ok(Number(r.classes) > 20, `only ${r.classes} licence classes`);
 });

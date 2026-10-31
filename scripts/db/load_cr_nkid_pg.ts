@@ -9,8 +9,8 @@
 //     cache (112) + TS scorer both read. Seeded every run so a crosswalk edit ships
 //     by re-running the loader.
 //
-//   npm run db:load:cr-nkid:pg          # local, from the CR store + artifact
-//   (then) npm run db:load:cr-nkid:pg:cloud   # ship to Cloud SQL
+//   pnpm run db:load:cr-nkid:pg          # local, from the CR store + artifact
+//   (then) pnpm run db:load:cr-nkid:pg:cloud   # ship to Cloud SQL
 //
 // Applies migration 140 itself (idempotent), so it works on a cold DB. The company_nkid
 // half is mtime-gated on the CR store (like db:load:cr-founding:pg) — but the crosswalk

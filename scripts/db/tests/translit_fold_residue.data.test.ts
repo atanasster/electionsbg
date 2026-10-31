@@ -1,6 +1,6 @@
 // Tier 3 (Postgres-native) — Cyrillic left behind in a Latin fold.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // `translit_bg_latin()` is the ONE Cyrillic→Latin fold: it produces the stored
 // `*_fold` columns on eleven tables AND folds the query on every search that reads

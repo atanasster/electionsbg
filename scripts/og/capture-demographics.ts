@@ -1,7 +1,7 @@
 // One-off Playwright capture for the /demographics OG image. Run while the
 // Vite dev server is up at http://localhost:5173:
 //
-//   npx tsx scripts/og/capture-demographics.ts
+//   pnpm exec tsx scripts/og/capture-demographics.ts
 //
 // The image is shaped to OG's 1200x630 ratio and clipped to the choropleth
 // map (with its colour legend) so the social card reads as a Bulgaria-shaped

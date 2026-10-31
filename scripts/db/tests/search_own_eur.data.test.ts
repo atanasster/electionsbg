@@ -1,7 +1,7 @@
 // Tier 3 (Postgres-native) — `contractor_search.own_eur` / `primary_name`, the two columns
 // that let a search row tell its OWN money from its EIK's.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // WHY THE COLUMNS EXIST. `search_contractors()` takes the NAME from a per-(eik, name) row
 // and the MONEY from a per-EIK aggregate. So a buyer who files one company's name against

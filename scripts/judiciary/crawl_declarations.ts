@@ -31,7 +31,7 @@
 // the register is somebody else's server and this repo's whole relationship with it is that
 // it stays polite.
 //
-//   npx tsx scripts/judiciary/crawl_declarations.ts [--limit N] [--conc 4] [--probe]
+//   pnpm exec tsx scripts/judiciary/crawl_declarations.ts [--limit N] [--conc 4] [--probe]
 //                                                   [--backfill-money]
 //
 // `--probe` fetches a handful and reports, to gauge the block state before committing hours.

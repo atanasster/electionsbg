@@ -1,8 +1,8 @@
 // Crawl the АЗ news into a committed open-calls snapshot. See az_parse.ts for why only intakes
 // with a labelled END become rows.
 //
-//   npm run opencalls:az            # fetch + write data/opencalls/az.json
-//   npm run opencalls:az -- --dry   # fetch, report, write nothing
+//   pnpm run opencalls:az            # fetch + write data/opencalls/az.json
+//   pnpm run opencalls:az --dry   # fetch, report, write nothing
 //
 // One GET for the list, then one per news item (10 on the list page), serial, with a delay
 // and an identifying User-Agent.

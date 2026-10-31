@@ -9,8 +9,8 @@
 // canonicalJson (so we round the generated objects the same way before
 // comparing); by-id shards are full-precision compact maps compared directly.
 //
-//   npm run db:gen-lists            # verify only (default)
-//   npm run db:gen-lists -- --write # also write the files
+//   pnpm run db:gen-lists            # verify only (default)
+//   pnpm run db:gen-lists --write # also write the files
 //
 // See docs/plans/sql-migration-v1.md.
 

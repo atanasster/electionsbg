@@ -4,7 +4,7 @@
 // (the host pg client is older than the v16 server and would refuse); auth to
 // the proxy is file→file via PGPASSFILE (never a plaintext password).
 //
-//   npm run db:sync:cloud -- --yes
+//   pnpm run db:sync:cloud --yes
 //
 // DESTRUCTIVE on Cloud SQL: pg_restore --clean drops + recreates every object,
 // so the LOCAL db must be the source of truth first — including the unregenerable
@@ -78,7 +78,7 @@ const main = async (): Promise<void> => {
         "recreates every object). Ensure local is the source of truth — including",
         "the unregenerable КЗК tier-2 rows — then re-run:",
         "",
-        "  npm run db:sync:cloud -- --yes",
+        "  pnpm run db:sync:cloud --yes",
       ].join("\n"),
     );
     process.exit(1);
@@ -118,7 +118,7 @@ const main = async (): Promise<void> => {
         "(e.g. a generated-column table restored before its function — pg_dump's",
         "dependency sorter misses that edge), yet still exits 0. The target is now",
         "missing rows. Recover the affected tables with the targeted loaders, e.g.:",
-        "  npm run db:load:tr:pg:cloud        # tr_companies / tr_officers / tr_person_roles",
+        "  pnpm run db:load:tr:pg:cloud        # tr_companies / tr_officers / tr_person_roles",
         "then re-run this verify. Do NOT deploy against this target until it passes.",
       ].join("\n"),
     );

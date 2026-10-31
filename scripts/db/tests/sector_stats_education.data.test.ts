@@ -2,7 +2,7 @@
 // /sector/edu dashboard behind it. Audit 2026-08-18,
 // docs/plans/education-sector-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // A separate file from sector_stats.data.test.ts for the same reason the
 // environment one is: this sector's gates read a different set of sources (a
@@ -91,7 +91,7 @@ const MINISTRY_NODE = `data/budget/ministries/${EDU_BUDGET_NODE}.json`;
 
 const skipNode = exists(MINISTRY_NODE)
   ? false
-  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run pnpm run budget:ingest";
 reportSkip(import.meta.url, skipNode);
 /** The full corpus — the scope every € band below is measured on. */
 const ALL = "all";

@@ -1,7 +1,7 @@
 // Read-only check of the АОП portal CSV's EUR-tagged contracts against the ЦАИС ЕОП daily feed.
 //
-//   npx tsx scripts/procurement/verify_eur_currency_eop.ts            # summary + list file
-//   npx tsx scripts/procurement/verify_eur_currency_eop.ts --from 2020 --to 2025
+//   pnpm exec tsx scripts/procurement/verify_eur_currency_eop.ts            # summary + list file
+//   pnpm exec tsx scripts/procurement/verify_eur_currency_eop.ts --from 2020 --to 2025
 //
 // WHY: the deferred-followups entry „ЦАИС ЕОП pre-2026 EUR guard" records that most of the
 // 2020–2025 legacy-CSV contracts labelled `EUR` were entered in BGN, so dividing them by 1.95583

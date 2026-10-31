@@ -15,7 +15,7 @@
 //
 // Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -56,12 +56,12 @@ const reachable = async (): Promise<string | false> => {
       "SELECT count(*) n FROM official_roster WHERE tier = 'municipal'",
     );
     if (Number(c.n) === 0)
-      return "official_roster holds no municipal row — run npm run db:load:ngo-board-links";
+      return "official_roster holds no municipal row — run pnpm run db:load:ngo-board-links";
     return false;
   } catch (e) {
     const code = (e as { code?: string }).code;
     if (code === "42P01")
-      return "the official_roster table does not exist — run npm run db:load:ngo-board-links against this database";
+      return "the official_roster table does not exist — run pnpm run db:load:ngo-board-links against this database";
     if (code === "42501")
       return "no permission to read official_roster — check the role this DATABASE_URL connects as";
     // ⚠ CARRY THE CODE. 28P01 (auth) and 3D000 (no such database) are servers that answered.
@@ -92,12 +92,12 @@ const personRoleReachable = async (): Promise<string | false> => {
       "SELECT count(*) n FROM person_role WHERE source = 'official_muni'",
     );
     if (Number(c.n) === 0)
-      return "person_role holds no official_muni role — run npm run db:resolve:persons";
+      return "person_role holds no official_muni role — run pnpm run db:resolve:persons";
     return false;
   } catch (e) {
     const code = (e as { code?: string }).code;
     if (code === "42P01")
-      return "the person_role table does not exist — run npm run db:resolve:persons against this database";
+      return "the person_role table does not exist — run pnpm run db:resolve:persons against this database";
     if (code === "42501")
       return "no permission to read person_role — check the role this DATABASE_URL connects as";
     return `Postgres unreachable (${code ?? (e as Error).message})`;
@@ -215,7 +215,7 @@ test.skipIf(skipShards)(
       [],
       `${missingShard.length} município(s) have no roster shard, so /governance and the ` +
         "my-area tiles serve them no officials at all. Usually a registry name the " +
-        "obshtina join now refuses: `npx tsx scripts/officials/municipality_join.ts --dry-run`",
+        "obshtina join now refuses: `pnpm exec tsx scripts/officials/municipality_join.ts --dry-run`",
     );
   },
 );
@@ -373,7 +373,7 @@ test.skipIf(skipPerson || skipShards)(
         }). ` +
         "Two causes, and this gate cannot separate them: (a) the name→code join regressed, " +
         "or (b) the shards are correct and the database is stale. Run " +
-        "`npx vitest run scripts/officials/municipality_join.test.ts` — if it passes it is " +
+        "`pnpm exec vitest run scripts/officials/municipality_join.test.ts` — if it passes it is " +
         // ⚠ THE ORDER IS LOAD-BEARING AND THIS MESSAGE HAD IT INVERTED. `db:resolve:persons`
         // DELETEs and re-COPYs `person`, which NULLs `council_vote.person_id` table-wide, so
         // council must be re-attached AFTER the resolve — `refresh_coverage.test.ts`'s
@@ -382,7 +382,7 @@ test.skipIf(skipPerson || skipShards)(
         // the end of the chain: CLAUDE.md calls stopping there "the wrong instruction and it
         // is the one people are given".
         "(b), and the fix is a reload, in this order: db:load:ngo-board-links → " +
-        "db:resolve:persons → db:load:declarations:pg -- --resolve → db:load:council:pg " +
+        "db:resolve:persons → db:load:declarations:pg --resolve → db:load:council:pg " +
         "(see CLAUDE.md, 'A LOCAL db:resolve:persons is never one command')",
     );
 

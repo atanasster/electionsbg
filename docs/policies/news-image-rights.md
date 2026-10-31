@@ -65,7 +65,7 @@ never an inferred approval.
 
 ## Review queue
 
-Run `npm run news:image-rights-queue` to rebuild
+Run `pnpm run news:image-rights-queue` to rebuild
 `news/review/image_rights_queue.json`. The queue contains analyzed articles
 whose image is missing, whose rights have not been reviewed, or whose review
 ended as `unknown`. It deliberately excludes cleared and blocked decisions.

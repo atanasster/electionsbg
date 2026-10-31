@@ -1,6 +1,6 @@
 // Tier 1 watcher runner.
 //
-//   npm run watch        → diff fingerprints, write state, print report to
+//   pnpm run watch        → diff fingerprints, write state, print report to
 //                          stdout AND data-reports/<YYYY-MM-DD>.md.
 //
 // Designed to be invoked by a Claude Desktop local routine (one run per day).

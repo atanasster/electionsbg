@@ -3,7 +3,7 @@
 // GPU + a multi-GB model, so this is the only automated coverage of its
 // routing/narration plumbing — in particular that the conversation context is
 // assembled into the prompts and that a wrong-language gist is dropped from
-// narration. Run via npm run ai:test:all.
+// narration. Run via pnpm run ai:test:all.
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";

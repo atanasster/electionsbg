@@ -8,8 +8,8 @@
 // cents-rounded — the on-disk shards predate the canonicalJson *Eur rounding, so
 // --write uses rawJson to match), so the compare is exact on numbers.
 //
-//   npm run db:gen-shards            # verify only (default)
-//   npm run db:gen-shards -- --write # also write the shards (full precision)
+//   pnpm run db:gen-shards            # verify only (default)
+//   pnpm run db:gen-shards --write # also write the shards (full precision)
 //
 // See docs/plans/sql-migration-v1.md.
 

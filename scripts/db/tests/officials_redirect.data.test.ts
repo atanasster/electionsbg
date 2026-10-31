@@ -17,7 +17,7 @@
 //
 // Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -107,7 +107,7 @@ test.skipIf(skip)(
       `only ${rows.length} purely-retired slugs to sample — person_slug_retired should ` +
         `hold ~20.7k of them from the T1.0 backfill, so this means the backfill is ` +
         `missing, not that the corpus is small. Restore it with:\n` +
-        `  npm run person:slug-redirects -- raw_data/person/officials_reslug_2026_07_24.json`,
+        `  pnpm run person:slug-redirects raw_data/person/officials_reslug_2026_07_24.json`,
     );
     const dead = rows.filter((r) => !r.resolved);
     assert.deepEqual(

@@ -59,12 +59,12 @@ const STORE = path.resolve(
 );
 
 /** Walk every stored dossier instead of a sample. ~4 min and ~17.8 GB of streamed
- *  JSON, so it is opt-in: `EOP_COVERAGE_FULL=1 npx vitest run …`. */
+ *  JSON, so it is opt-in: `EOP_COVERAGE_FULL=1 pnpm exec vitest run …`. */
 const FULL = process.env.EOP_COVERAGE_FULL === "1";
 
 /** Dossiers sampled in the default mode. 2,000 costs ~12 s and yields ~8,800
  *  notices — a large enough sample for every assertion below, and small enough that
- *  the gate stays inside an ordinary `npm run test:unit`. A gate nobody can afford
+ *  the gate stays inside an ordinary `pnpm run test:unit`. A gate nobody can afford
  *  to run is the failure this file already had once. */
 const SAMPLE_ROWS = Number(process.env.EOP_COVERAGE_SAMPLE ?? 2000);
 
@@ -211,7 +211,7 @@ let skip: string | false = false;
 const rel = path.relative(process.cwd(), STORE);
 
 if (!fs.existsSync(STORE)) {
-  skip = `${rel} absent — run npx tsx scripts/procurement/ingest_eop_dossier.ts (rate-limited crawl, not a pipeline step)`;
+  skip = `${rel} absent — run pnpm exec tsx scripts/procurement/ingest_eop_dossier.ts (rate-limited crawl, not a pipeline step)`;
 } else if (!FULL && (!Number.isInteger(SAMPLE_ROWS) || SAMPLE_ROWS < 1)) {
   // Checked HERE rather than left to strideSample's throw, which the catch below
   // would report as "unreadable" and blame the store for an env-var typo.

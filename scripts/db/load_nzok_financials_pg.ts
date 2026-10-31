@@ -3,8 +3,8 @@
 // and a per-EIK quarterly series (revenue/expense/liabilities/overdue, staffing,
 // bed occupancy, cost efficiency) DB-side instead of shipping a 9.9MB static JSON.
 //
-//   npm run db:load:nzok-financials:pg          (needs `npm run db:pg:up` first)
-//   npm run db:load:nzok-financials:pg:cloud    (targets the Cloud SQL proxy :5434)
+//   pnpm run db:load:nzok-financials:pg          (needs `pnpm run db:pg:up` first)
+//   pnpm run db:load:nzok-financials:pg:cloud    (targets the Cloud SQL proxy :5434)
 //
 // Source = data/budget/nzok/hospital_financials.json, produced by
 // scripts/nzok/write_eeof.ts. `eik` is joined by a conservative fold-and-match
@@ -181,7 +181,7 @@ const main = async (): Promise<void> => {
     await applySchemas();
     console.warn(
       `[nzok-financials] no ${DATA_FILE} — schemas applied, load skipped ` +
-        "(regenerate with:  npm run data:nzok -- --eeof).",
+        "(regenerate with:  pnpm run data:nzok --eeof).",
     );
     await end();
     return;
@@ -221,7 +221,7 @@ const main = async (): Promise<void> => {
 
   if (!Array.isArray(j.quarters) || !Array.isArray(j.nzok))
     throw new Error(
-      `${DATA_FILE} is missing quarters[]/nzok[] — shape changed? Regenerate with \`npm run data:nzok -- --eeof\`.`,
+      `${DATA_FILE} is missing quarters[]/nzok[] — shape changed? Regenerate with \`pnpm run data:nzok --eeof\`.`,
     );
 
   // Financials rows, degenerate blocks skipped, junk filtered.

@@ -6,7 +6,7 @@
 // reasons, and a future change that collapsed "unmeasured" into "1 person" would keep both
 // suites green while turning missing evidence into a clean bill of health.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";

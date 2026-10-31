@@ -10,9 +10,9 @@
 //   * the loaded payment universe + the ЕЕОФ eik join (from Postgres) — nzok_hospital_*
 //
 // Needs the LOCAL Postgres (nzok_hospital_payments + nzok_hospital_financials must
-// be loaded) and the ЕЕОФ financials file (`npm run data:nzok -- --eeof`). Like
+// be loaded) and the ЕЕОФ financials file (`pnpm run data:nzok --eeof`). Like
 // the crosswalk it is near-static and opt-in:
-//   npm run data:nzok -- --ownership     (or folded into --crosswalk)
+//   pnpm run data:nzok --ownership     (or folded into --crosswalk)
 
 import fs from "node:fs";
 import path from "node:path";
@@ -32,7 +32,7 @@ const OUT_FILE = path.join(REPO, "data/budget/nzok/hospital_ownership.json");
 const main = async (): Promise<void> => {
   if (!fs.existsSync(FIN_FILE))
     throw new Error(
-      `${FIN_FILE} missing — regenerate the ЕЕОФ financials first:  npm run data:nzok -- --eeof`,
+      `${FIN_FILE} missing — regenerate the ЕЕОФ financials first:  pnpm run data:nzok --eeof`,
     );
   const financials = JSON.parse(fs.readFileSync(FIN_FILE, "utf8"));
   const index = buildEeofOwnershipIndex(financials);
@@ -68,7 +68,7 @@ const main = async (): Promise<void> => {
   );
   if (universe.rows.length === 0)
     throw new Error(
-      "nzok_hospital_payments is empty — load it first (npm run db:load:nzok-hospital:pg)",
+      "nzok_hospital_payments is empty — load it first (pnpm run db:load:nzok-hospital:pg)",
     );
 
   // Aggregate € per facility (summed across streams, latest period) for the audit

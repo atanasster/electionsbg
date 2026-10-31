@@ -1,11 +1,11 @@
 // Load data/procurement/aop_experts.json into `aop_expert` + `aop_expert_coverage`
 // (migration 174, plan P4).
 //
-//   npm run db:load:aop-experts:pg
-//   npm run db:load:aop-experts:pg:cloud
+//   pnpm run db:load:aop-experts:pg
+//   pnpm run db:load:aop-experts:pg:cloud
 //
 // The source is COMMITTED (88 rows), so this is pure-load: it works on a fresh
-// clone with no network, and `npm run aop:experts` is what re-crawls.
+// clone with no network, and `pnpm run aop:experts` is what re-crawls.
 //
 // ⚠️ The register is historical — see 174's header. This loader does not filter on
 // validity (that would empty the table) and does not compute „is current" itself:
@@ -57,7 +57,7 @@ const main = async (): Promise<void> => {
   if (!fs.existsSync(SRC)) {
     console.warn(
       `→ schema applied; no ${path.relative(process.cwd(), SRC)} — run ` +
-        `\`npm run aop:experts\` first.`,
+        `\`pnpm run aop:experts\` first.`,
     );
     await end();
     return;

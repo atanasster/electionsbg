@@ -4,8 +4,8 @@
 // client hook does (seed search → confidence → УНП lineage), but offline via
 // runDbTable + the pure projectFile.ts helpers. Regenerate whenever the curated
 // files change. CLI:
-//   npx tsx scripts/procurement/build_project_members.ts
-//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/procurement/build_project_members.ts   # cloud
+//   pnpm exec tsx scripts/procurement/build_project_members.ts
+//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/procurement/build_project_members.ts   # cloud
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

@@ -5,7 +5,7 @@
 // in ONE request (no pagination), so a headed-less Playwright run just:
 //   select year → Покажи → Actions → Download → CSV → capture the download.
 //
-//   npm run agri:seu            # fetch every SEU year → raw_data/agri/seu_<yr>.csv
+//   pnpm run agri:seu            # fetch every SEU year → raw_data/agri/seu_<yr>.csv
 //
 // The export is windows-1251 + semicolon-delimited; we decode to UTF-8 and cache.
 // Caveat vs egov: the register has NO EIK column ("Име или код на бенефициент"

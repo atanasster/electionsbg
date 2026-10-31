@@ -9,7 +9,7 @@
 //                         gotcha a naive payroll×% slider hides)
 //
 // Usage:
-//   npx tsx scripts/budget/__smoke_expenditure.ts
+//   pnpm exec tsx scripts/budget/__smoke_expenditure.ts
 
 import fs from "fs";
 import path from "path";

@@ -1,8 +1,8 @@
 /**
  * Captures the app's REAL screens as high-DPI plates for the explainer.
  *
- *   npm run dev                       # in one terminal
- *   npm run video:screens             # here (auto-detects the dev port)
+ *   pnpm run dev                       # in one terminal
+ *   pnpm run video:screens             # here (auto-detects the dev port)
  *
  * ── WHY A STILL PLATE AND NOT A SCREEN RECORDING ──────────────────────────────
  * The scene needs to pan and zoom across the UI. Re-rendering the page per frame

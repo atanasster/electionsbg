@@ -9,12 +9,12 @@ import { stripComments } from "@/../scripts/lib/strip_comments";
 
 // The engine's import isolation, enforced rather than asserted in a header comment.
 //
-// ⚠️ THREE CALLERS, THREE RESOLVERS, AND `npm run build` SEES NONE OF THIS. The browser has
+// ⚠️ THREE CALLERS, THREE RESOLVERS, AND `pnpm run build` SEES NONE OF THIS. The browser has
 // Vite and the `@/` alias; Node under `@napi-rs/canvas` renders the posters; Remotion's
 // `video/tsconfig.json` deliberately excludes the app's alias map and reaches the engine by
 // RELATIVE path. So the two halves of the rule fail differently:
 //
-//   · a `@/` import is caught by `npm run video:check` — a separate command from the build;
+//   · a `@/` import is caught by `pnpm run video:check` — a separate command from the build;
 //   · a bare `react` or `node:fs` import is caught by NOTHING. Both resolve under Vite AND
 //     under video/tsconfig.json, `tsc -b` passes, and the failure surfaces as a Remotion
 //     render bundling React twice, or a poster script dying at runtime where nobody watches.

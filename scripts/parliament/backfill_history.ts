@@ -4,7 +4,7 @@
 // run is to touch many files at once.
 //
 // Use:
-//   npx tsx scripts/parliament/backfill_history.ts --from 11100 --max 200
+//   pnpm exec tsx scripts/parliament/backfill_history.ts --from 11100 --max 200
 //
 // The walker stops after 30 consecutive ids with no roll-call CSV (procedural
 // sessions don't ship one; long runs of those usually mean we've walked past

@@ -19,7 +19,7 @@ import { connectionUrl } from "./pg";
  *
  * **Never throws.** Any failure — unreachable server, unapplied migration,
  * renamed column — is warned about and degrades to `[]`, so the caller omits its
- * page family rather than aborting `npm run build`.
+ * page family rather than aborting `pnpm run build`.
  *
  * @param family  URL family for the log line, e.g. `"/court/*"`.
  * @param sql     The query. No parameters: these enumerate whole families.

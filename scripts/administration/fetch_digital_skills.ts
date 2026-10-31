@@ -5,7 +5,7 @@
 // headline "at least basic digital skills" and dead last among young people
 // (16-24) — the story the /sector/administration page tells beside egov.
 //
-//   npx tsx scripts/administration/fetch_digital_skills.ts
+//   pnpm exec tsx scripts/administration/fetch_digital_skills.ts
 //
 // Written as a self-contained artifact (data/administration/digital_skills.json)
 // like egov.json, not folded into macro.json — the peer geos and the full-27

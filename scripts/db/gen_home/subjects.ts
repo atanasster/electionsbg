@@ -1,6 +1,6 @@
 // Phase 7's second question: can a home-feed event be attributed to a WATCHABLE SUBJECT?
 //
-//   npx tsx scripts/db/gen_home/subjects.ts
+//   pnpm exec tsx scripts/db/gen_home/subjects.ts
 //
 // §7.4 names six subject kinds — place, company, institution, product, programme, sector — and
 // defers the cursor schema until „the home feed event IDs survive a 30-day stability test". This

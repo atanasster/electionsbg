@@ -82,7 +82,7 @@ test("several missing inputs are all listed", () => {
 const KEY = {
   table: "declaration",
   column: "person_id",
-  fix: "db:load:declarations:pg -- --resolve (phase 2 links declarations to the person layer)",
+  fix: "db:load:declarations:pg --resolve (phase 2 links declarations to the person layer)",
 };
 
 test("a wholly-NULL join key fails the preflight, even when the table is full", () => {

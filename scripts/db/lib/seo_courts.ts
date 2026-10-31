@@ -8,7 +8,7 @@
 //
 // WHAT SHARING THE READER DOES AND DOES NOT BUY. One query in one place means
 // the two callers cannot drift in what they select or how they filter it. They
-// still RUN it independently, in separate processes at separate times (`npm run
+// still RUN it independently, in separate processes at separate times (`pnpm run
 // sitemap` vs the build), so a database that is up for one and down for the
 // other can still leave the sitemap naming pages the prerender never wrote. The
 // shared degrade-to-[] contract narrows that window — both callers fail the same

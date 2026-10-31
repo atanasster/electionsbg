@@ -17,7 +17,7 @@
 // amountEur), so if the two paths split by different counts, cross-source dedup stops
 // matching and the same contract survives from both feeds — double-counted.
 //
-//   npx vitest run scripts/procurement/normalize.test.ts
+//   pnpm exec vitest run scripts/procurement/normalize.test.ts
 
 import { describe, test, expect } from "vitest";
 import { normalizeBundle } from "./normalize";

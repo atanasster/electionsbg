@@ -70,7 +70,7 @@ test.skipIf(skip)("the corpus is present and not truncated", async () => {
             (SELECT count(*) FROM interreg_partners p WHERE ${BG}) bg`,
   ).catch(() => {
     throw new Error(
-      "interreg tables are absent — run `npm run db:load:interreg:pg`",
+      "interreg tables are absent — run `pnpm run db:load:interreg:pg`",
     );
   });
   assert.equal(Number(r.p), INTERREG_PROGRAMMES.length);

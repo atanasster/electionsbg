@@ -25,7 +25,7 @@ Ingests Bulgarian presidential-elections data (президент и вицеп�
 | Watcher reports `<slug>: newly listed` | ЦИК added an archive for a cycle already in the catalogue — usually a re-publish of an old one. Nothing to ingest unless a round line accompanies it. |
 | Watcher reports `<slug>: no longer listed by ЦИК` | ЦИК withdrew an archive. **Not a re-ingest** — `raw_data/` is committed, so our copy stands. Worth knowing before a link starts 404ing. |
 | User asks to refresh presidential results | Steps 2–6 with `--pvr all`. |
-| `data/2021_11_14_pvr/` missing on a fresh clone | `npm run data -- --pvr all` (offline — `raw_data/` is committed). |
+| `data/2021_11_14_pvr/` missing on a fresh clone | `pnpm run data --pvr all` (offline — `raw_data/` is committed). |
 
 ## Architecture (read once)
 
@@ -82,8 +82,8 @@ The watcher discovers the slug; the ingest needs the archive URLs, which only a 
 The catalogue `src/data/json/presidential_elections.json` is REGENERATED, never hand-edited — but it reads `raw_data/`, so it runs **after Step 2's download**, not here:
 
 ```bash
-npx tsx scripts/parsers_presidential/build_catalogue.ts            # report only — DIFFERS or OK
-npx tsx scripts/parsers_presidential/build_catalogue.ts --write    # rewrite it
+pnpm exec tsx scripts/parsers_presidential/build_catalogue.ts            # report only — DIFFERS or OK
+pnpm exec tsx scripts/parsers_presidential/build_catalogue.ts --write    # rewrite it
 ```
 
 ⚠ **WITHOUT `--write` IT IS A SILENT NO-OP AT EXIT 0.** The bare form prints „DIFFERS from the committed file" and returns success, so a run that looks clean has changed nothing.
@@ -91,7 +91,7 @@ npx tsx scripts/parsers_presidential/build_catalogue.ts --write    # rewrite it
 ### 2. Download
 
 ```bash
-npm run data -- --pvr-download <cycle>
+pnpm run data --pvr-download <cycle>
 ```
 
 Headed Playwright (Cloudflare). Idempotent and digest-checked: a re-download that would change committed bytes REFUSES unless `--pvr-allow-digest-change` is passed. All five historical cycles are committed, so this downloads nothing for them.
@@ -99,7 +99,7 @@ Headed Playwright (Cloudflare). Idempotent and digest-checked: a re-download tha
 ### 3. Ingest
 
 ```bash
-npm run data -- --pvr <cycle>     # or: --pvr all
+pnpm run data --pvr <cycle>     # or: --pvr all
 ```
 
 Pure and offline — reads `raw_data/`, writes `data/<cycle>_pvr/`. It stamps `state/ingest/update-presidential-elections.json` on success, which is what stops `process-watch-report` re-queueing this skill for ever.
@@ -109,20 +109,20 @@ Pure and offline — reads `raw_data/`, writes `data/<cycle>_pvr/`. It stamps `s
 ### 4. Rebuild the derived surfaces
 
 ```bash
-npm run data -- --pvr <cycle>          # (step 3 already did this)
-npm run elections:surfaces -- --write                   # the per-place surface artifacts
+pnpm run data --pvr <cycle>          # (step 3 already did this)
+pnpm run elections:surfaces --write                   # the per-place surface artifacts
 # The ticket→/person map, IF the person layer has moved since it was last minted.
 # ⚠ LOCAL POSTGRES ONLY — person slugs are per-database, and the script refuses anything else.
-PGPASSFILE=$PWD/.pgpass npx tsx scripts/parsers_presidential/build_ticket_persons.ts --write
-npm run sitemap                                        # the presidential sitemap shard
+PGPASSFILE=$PWD/.pgpass pnpm exec tsx scripts/parsers_presidential/build_ticket_persons.ts --write
+pnpm run sitemap                                        # the presidential sitemap shard
 ```
 
-⚠ **THE SITEMAP IS A COMMITTED ARTIFACT AND `npm run sitemap` PRUNES BEFORE IT WRITES.** Run it only on a machine that HAS the `data/*_pvr` trees; a corpus-less mint deletes `public/sitemap_presidential.xml`, drops it from the index, and exits 0. `scripts/sitemap/families.data.test.ts` carries the floor that catches it.
+⚠ **THE SITEMAP IS A COMMITTED ARTIFACT AND `pnpm run sitemap` PRUNES BEFORE IT WRITES.** Run it only on a machine that HAS the `data/*_pvr` trees; a corpus-less mint deletes `public/sitemap_presidential.xml`, drops it from the index, and exits 0. `scripts/sitemap/families.data.test.ts` carries the floor that catches it.
 
 ### 5. Verify
 
 ```bash
-npx vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/ \
+pnpm exec vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/ \
   scripts/llms/ scripts/prerender/ src/data/presidential/ src/data/elections/ \
   src/screens/presidential/ src/screens/elections/
 ```
@@ -136,7 +136,7 @@ npx vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/
 | The corpus section vanishes from `llms-full.txt` | The build ran without `data/*_pvr`. `REQUIRED_SECTIONS` refuses the write; restore the trees. |
 | „Откъде дойдоха гласовете на балотажа" is missing from a cycle page | Either the cycle was decided in round 1 (correct — there is no transfer to estimate) or `runoff_transfer.json` has not reached the bucket. It is written by the ingest, so a re-run of step 3 plus a bucket sync is the fix. |
 | The Sankey's node totals are below the published result (2011 especially) | Expected, and the size is the point. The matrix covers only DOMESTIC sections matched in both rounds; abroad is outside it (published by country, no roll for „не гласували"), and so are sections whose OBLAST placement was refused — 1,355 of them in 2011, all Sofia, 422,726 runoff votes. `coverage.abroadVotes` and `coverage.unplacedVotes` are the two figures that close the gap, and the tile prints both. A cycle whose `_unplaced` shard is empty (2001/2006/2016/2021) reconciles on abroad alone. |
-| „Кой раздели бюлетините си" is missing | Expected on 2001/2006/2011/2016 — none of them had a parliamentary election the same day, so there is no list to compare a ticket against. (2011 and 2016 shared their day with LOCAL elections; a mayoral or council ballot is not a party list and the comparison is deliberately not made.) On 2021 it means `split_ticket.json` has not reached the bucket: re-run step 3 and sync. ⚠ It ALSO stales when the PARLIAMENTARY sibling is re-parsed — `npm run data -- --date 2021_11_14` rewrites the НС section shards, and although that path now re-derives the file, a run that skipped it leaves the previous vintage at a 200. Re-run `npm run data -- --pvr 2021_11_14_pvr` after any parliamentary rebuild of a shared day. Also expected on the RUNOFF view: the comparison is against the ballot cast on round 1's day, so the section is shown only there. |
+| „Кой раздели бюлетините си" is missing | Expected on 2001/2006/2011/2016 — none of them had a parliamentary election the same day, so there is no list to compare a ticket against. (2011 and 2016 shared their day with LOCAL elections; a mayoral or council ballot is not a party list and the comparison is deliberately not made.) On 2021 it means `split_ticket.json` has not reached the bucket: re-run step 3 and sync. ⚠ It ALSO stales when the PARLIAMENTARY sibling is re-parsed — `pnpm run data --date 2021_11_14` rewrites the НС section shards, and although that path now re-derives the file, a run that skipped it leaves the previous vintage at a 200. Re-run `pnpm run data --pvr 2021_11_14_pvr` after any parliamentary rebuild of a shared day. Also expected on the RUNOFF view: the comparison is against the ballot cast on round 1's day, so the section is shown only there. |
 | The split-ticket „За листата" column is below the published national result | Expected, and the size is the point. The comparison covers only the sections present in BOTH protocols — 12,488 of 13,238 — and all 750 unmatched ones are MIR 32, abroad: the presidential tree keeps those in `abroad.json` rather than in `tur1/sections`, so they have no ticket row to compare against. ДПС reads 253,257 here against 341,000 nationally. `coverage.sectionsNsOnly` is the figure that closes the gap and the tile prints it. The FLOOR is unaffected — restricting a sum of non-negative per-section terms to a subset of disjoint sections yields a weaker bound, never an overstated one. |
 | `N abroad section(s) have no country` on stdout | Expected, and small. The abroad city table is DERIVED from the parliamentary corpora (2005→2026), so a station in a posting that closed before 2005 is not in it. Most are recovered from the section code's country-ordinal group (2001: 22 → 6, 2011: 11 → 1); what remains is a single-section country with no resolvable sibling, and it stays counted in `abroad.json`'s `""` bucket rather than guessed. ⚠ 2006 recovers NONE by design — all 144 of its abroad sections carry a constant `99`, so its one group spans 48 countries and the rule refuses it. |
 | The split-ticket table shows 14 pairs, not 23 | Correct, and the missing nine are named under it. They were nominated by инициативни комитети and have no list; both finalists are among them. Do NOT „fix" this by mapping Герджиков to ГЕРБ-СДС — the backing is a political fact the ballot does not record, and the whole point of the refusal is that this repo does not assert it. |
@@ -147,9 +147,9 @@ npx vitest run scripts/parsers_presidential/ scripts/elections/ scripts/sitemap/
 ### 6. Publish
 
 ```bash
-npm run bucket:sync:paths -- <cycle>          # e.g. 2026_10_25_pvr — the id ALREADY ends in _pvr
-npm run db:load:election-national:pg:cloud    # the national summary → migration 195's tables
-npm run build && npm run deploy               # prerendered pages + og cards + the sitemap
+pnpm run bucket:sync:paths <cycle>          # e.g. 2026_10_25_pvr — the id ALREADY ends in _pvr
+pnpm run db:load:election-national:pg:cloud    # the national summary → migration 195's tables
+pnpm run build && pnpm run deploy               # prerendered pages + og cards + the sitemap
 ```
 
 ⚠ **THE POSTGRES STEP IS NEW, AND THIS SECTION SAID THERE WAS NONE.** It read „NO POSTGRES — nothing in this family loads into a database" until 2026-09-10, which was true when it was written and stopped being true when migration 195 landed: `db:load:election-national:pg` reads `data/<cycle>/national_summary.json` for EVERY election folder, `_pvr` included, so a presidential ingest now moves a corpus that reaches production only through that command. Skip it and prod serves the previous vintage of the national results at a 200, with every row count reconciling — while local is correct.
@@ -161,7 +161,7 @@ npm run build && npm run deploy               # prerendered pages + og cards + t
 ### 7. Record the change
 
 ```bash
-npx tsx scripts/append-data-change.ts update-presidential-elections \
+pnpm exec tsx scripts/append-data-change.ts update-presidential-elections \
   --summary "Президентски избори <дата> — резултати по секции, области и общини" \
   --source "ЦИК"
 ```

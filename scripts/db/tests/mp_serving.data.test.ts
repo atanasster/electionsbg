@@ -28,7 +28,7 @@
 //
 // Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";

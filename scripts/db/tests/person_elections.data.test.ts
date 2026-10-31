@@ -3,9 +3,9 @@
 // matter which shards were loaded — most importantly that the namesake collision was SPLIT by
 // party, not conflated (the whole point of the migration).
 //
-//   npm run test:data
+//   pnpm run test:data
 //
-// Requires Postgres + a run of `npm run db:load:person-elections:pg`; auto-skips when
+// Requires Postgres + a run of `pnpm run db:load:person-elections:pg`; auto-skips when
 // Postgres is unreachable or person_election_stats is absent/empty (CI has no container).
 
 import { test, afterAll } from "vitest";

@@ -1,6 +1,6 @@
 // Build data/funds/clean_delivery.json from the two ИСУН clean-delivery exports.
 //
-//   npm run funds:clean-delivery
+//   pnpm run funds:clean-delivery
 //
 // The inputs are XLSX drops in data/_cache/isun_clean_delivery/ (gitignored).
 // They were operator-downloaded until 2026-09-02, because the F5 WAF in front of

@@ -1,6 +1,6 @@
 // Tier 3 (Postgres-native) — the fold function itself.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // `translit_bg_latin()` (000_search_fns.sql) is the ONE Cyrillic→Latin fold: it produces
 // the stored `*_fold` columns on eleven tables and folds the query on every search that

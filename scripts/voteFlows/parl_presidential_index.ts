@@ -28,7 +28,7 @@
 // ⚠ 2001 HAS NO „FROM" AT ALL — the June 2001 parliamentary election is not in the corpus — so
 // it produces nothing, and that is an absence rather than a refusal.
 //
-// Flag-gated operator step (not part of `--all`): `npm run data -- --presidential-flows`.
+// Flag-gated operator step (not part of `--all`): `pnpm run data --presidential-flows`.
 
 import fs from "fs";
 import path from "path";

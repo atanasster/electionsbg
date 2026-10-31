@@ -11,7 +11,7 @@
 // The sibling kzk_effective_suspension has kzk_suspension.data.test.ts for the
 // same reason; this is its twin.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

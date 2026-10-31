@@ -1,6 +1,6 @@
 // НЗОК health-pack ingest runner — refreshes the four committed data files under
 // data/budget/nzok/ that power the health sector pack on /awarder/121858220.
-// Run: `npm run data:nzok` (all) or with flags for a subset.
+// Run: `pnpm run data:nzok` (all) or with flags for a subset.
 //
 //   --budget    rewrite budget.json from the hard-keyed ЗБНЗОК law figures
 //   --hospitals fetch the latest monthly per-hospital БМП payments (joins the
@@ -30,7 +30,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Default set — pure nhif.bg fetches, run by `npm run data:nzok` (no flag) and
+// Default set — pure nhif.bg fetches, run by `pnpm run data:nzok` (no flag) and
 // the watcher. NONE need Postgres.
 const STEPS: { flag: string; scripts: string[]; label: string }[] = [
   { flag: "--budget", scripts: ["__write_budget.ts"], label: "budget law" },
@@ -153,7 +153,7 @@ for (const step of toRun) {
       script === "__write_budget.ts"
         ? path.resolve(__dirname, "../budget/nzok/__write_budget.ts")
         : path.resolve(__dirname, script);
-    const res = spawnSync("npx", ["tsx", scriptPath, ...passArgs], {
+    const res = spawnSync("pnpm", ["exec", "tsx", scriptPath, ...passArgs], {
       stdio: "inherit",
     });
     if (res.status !== 0) {

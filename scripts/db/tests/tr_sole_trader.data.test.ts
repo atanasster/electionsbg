@@ -18,7 +18,7 @@
 // must never read as one — the change is INERT until the corpus is re-derived, exactly like
 // the `table_num` / `value_basis` / `held_scope` backfills in 089.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -55,7 +55,7 @@ const skip = !haveDb
     ? "TR corpus not loaded (no ЕТ rows)"
     : traderRows === 0
       ? "corpus predates the PhysicalPersonTrader fix — re-derive with " +
-        "`npm run tr:daily-refresh` then `npm run db:load:tr:pg`, or this gate is vacuous"
+        "`pnpm run tr:daily-refresh` then `pnpm run db:load:tr:pg`, or this gate is vacuous"
       : false;
 reportSkip(import.meta.url, skip);
 

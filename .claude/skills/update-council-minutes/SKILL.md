@@ -18,9 +18,9 @@ There is **no central register**. Bulgaria's РМС 436/2017 only mandates the n
 
 | Trigger | Action |
 |---|---|
-| Daily watcher reports `Council resolutions: N município(s) changed` | Run incremental ingest for ALL wired munis (`npm run council:scrape -- --per-councillor`) |
+| Daily watcher reports `Council resolutions: N município(s) changed` | Run incremental ingest for ALL wired munis (`pnpm run council:scrape --per-councillor`) |
 | User asks to "refresh council resolutions" / "update council votes" | Same — incremental |
-| User asks for one município only ("refresh Стара Загора council") | `npm run council:scrape -- --only <code> --per-councillor` |
+| User asks for one município only ("refresh Стара Загора council") | `pnpm run council:scrape --only <code> --per-councillor` |
 | `data/council/index.json` shows empty `resolutionsByObshtina` (fresh clone) | Cold-start ingest — drop the per-município watermarks from `state/ingest/council_*.json` and run a `--since-year` of 2 years back |
 | Adding a new município to the fleet | See "Adding a parser" below — Phase 0 discovery + a per-município parser file + dispatcher entry |
 | `process-watch-report` invokes this skill | Reads watermarks from `state/ingest/council_<obshtina>.json`, runs incremental ingest, stamps marker |
@@ -37,8 +37,8 @@ There is **no central register**. Bulgaria's РМС 436/2017 only mandates the n
 If you suspect a município's website has migrated or a recipe has rotted:
 
 ```bash
-npm run council:discover            # probe all 17 wired recipes for liveness
-npm run council:discover -- --only SOF --verbose
+pnpm run council:discover            # probe all 17 wired recipes for liveness
+pnpm run council:discover --only SOF --verbose
 ```
 
 Reports HTTP status + content-type + byte count per município index URL + sample PDF. A recipe that fails here will silently produce zero records when scrape.ts runs — re-discover the URL, update `data/council/sources.json`, then re-scrape.
@@ -46,15 +46,15 @@ Reports HTTP status + content-type + byte count per município index URL + sampl
 ## Step 3 — Incremental scrape
 
 ```bash
-npm run council:scrape -- --per-councillor         # all wired munis, since last ingest
+pnpm run council:scrape --per-councillor         # all wired munis, since last ingest
                                                    # ⚠️ --per-councillor is NOT optional on the
                                                    # daily path — see "The named-vote freeze"
-npm run council:scrape                             # aggregate tallies only (debugging)
-npm run council:scrape -- --only VTR01             # one município
-npm run council:scrape -- --only VTR01 --since-year 2025 --max 5 --dry
-npm run council:scrape -- --only VTR01 --per-councillor   # Phase 2 join to roster
-npm run council:scrape -- --only SZR01 --ocr       # Phase 3 — enable Gemini OCR fallback
-npm run council:scrape -- --only VTR01 --dry       # parse, don't write index/shards
+pnpm run council:scrape                             # aggregate tallies only (debugging)
+pnpm run council:scrape --only VTR01             # one município
+pnpm run council:scrape --only VTR01 --since-year 2025 --max 5 --dry
+pnpm run council:scrape --only VTR01 --per-councillor   # Phase 2 join to roster
+pnpm run council:scrape --only SZR01 --ocr       # Phase 3 — enable Gemini OCR fallback
+pnpm run council:scrape --only VTR01 --dry       # parse, don't write index/shards
 ```
 
 ### What it does
@@ -137,7 +137,7 @@ writers held two definitions of it and the value alternated run to run
 (RSE01 published 507 against 426 shards on disk). If it ever disagrees with
 `find data/council/<CODE> -name '*.json' | wc -l` again, that is a defect —
 `scripts/council/lib/index_corpus.test.ts` gates it, and
-`npm run council:rebuild-shards` repairs it.
+`pnpm run council:rebuild-shards` repairs it.
 
 Spot-check: open the most recent resolution's `sourceUrl` in a browser and confirm the tally numbers match the document. Drift here usually means the source CMS changed the protocol format — fix the per-município parser, don't fix the regex globally.
 
@@ -147,8 +147,8 @@ The council corpus is PG-served (migration 160). `data/council/` is the ingest's
 output and the loader's input; nothing reads it from the bucket any more.
 
 ```bash
-npm run db:load:council:pg          # local
-npm run db:load:council:pg:cloud    # ⚠️ PROD — nothing runs this automatically
+pnpm run db:load:council:pg          # local
+pnpm run db:load:council:pg:cloud    # ⚠️ PROD — nothing runs this automatically
 ```
 
 **Order matters on the cloud side.** The loader must run AFTER
@@ -211,7 +211,7 @@ resolutions while its named-vote watermark stays put — by design, not as a
 defect. Move it with a deliberate periodic run:
 
 ```bash
-npm run council:scrape -- --only SOF --per-councillor --ocr
+pnpm run council:scrape --only SOF --per-councillor --ocr
 ```
 
 and then bump `SOF` in `NAMED_VOTE_WATERMARK`
@@ -223,7 +223,7 @@ will tell you to.
 For watcher / process-watch-report integration:
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-council-minutes --summary "<N> município(s), <M> protocols touched"
+pnpm exec tsx scripts/stamp-ingest.ts update-council-minutes --summary "<N> município(s), <M> protocols touched"
 ```
 
 (The scraper writes per-município watermarks at `state/ingest/council_<obshtina>.json` automatically; the parent `state/ingest/update-council-minutes.json` is what `process-watch-report` reads.)
@@ -231,10 +231,10 @@ npx tsx scripts/stamp-ingest.ts update-council-minutes --summary "<N> município
 ## Adding a new município parser
 
 1. **Phase 0 — discovery**: open the município's council site, identify the session/протокол index URL, the per-session URL pattern, and the format (pdf-text / docx / html / pdf-scan).
-2. Add a recipe block to `data/council/sources.json` under `munisByObshtina`. Run `npm run council:discover -- --only <code>` to confirm liveness.
+2. Add a recipe block to `data/council/sources.json` under `munisByObshtina`. Run `pnpm run council:discover --only <code>` to confirm liveness.
 3. Create `scripts/council/parsers/<code>.ts` — copy the closest existing parser (vtr.ts for full-protocol PDFs with per-councillor blocks, szr.ts for per-decision PDFs with aggregate-only tallies). Update the obshtina code, BASE URL, and per-município URL/regex constants.
 4. Register the parser in `scripts/council/scrape.ts` `DISPATCHERS`.
-5. Run `npm run council:scrape -- --only <code> --since-year <currentYear-1> --max 2 --dry` and verify the protocol/decision counts before writing real records.
+5. Run `pnpm run council:scrape --only <code> --since-year <currentYear-1> --max 2 --dry` and verify the protocol/decision counts before writing real records.
 
 The framework is parser-agnostic — `lib/tally.ts`, `lib/pdf_text.ts`, `lib/docx.ts`, `lib/index_writer.ts` are reused by every parser.
 
@@ -266,14 +266,14 @@ Total: 16 of 16 wired. Per-councillor coverage surfaces in the unified "Общи
 
 ### One-shot: repair the index + votes shards from the durable tree
 
-`npm run council:rebuild-shards` rebuilds every per-município votes shard from
+`pnpm run council:rebuild-shards` rebuilds every per-município votes shard from
 the durable per-resolution tree, resyncs `meta.resolutionCount` to it, and
 PRUNES index rows that have no durable shard. Run it after a
 `lib/index_writer.ts` shape change so the on-disk artefacts catch up without
 re-scraping, and after any purge of shards.
 
 ```bash
-npm run council:rebuild-shards
+pnpm run council:rebuild-shards
 ```
 
 ⚠️ **The prune is the half that used to be missing, and its absence is what
@@ -291,8 +291,8 @@ repair tool has dropped the rows the next scrape sees `pruned === 0` and never
 consults the ceiling. See `MergeOptions.allowPrune`.
 
 ```bash
-npm run council:rebuild-shards -- --allow-prune=RSE01,PVN01   # scoped
-npm run council:rebuild-shards -- --allow-shrink
+pnpm run council:rebuild-shards --allow-prune=RSE01,PVN01   # scoped
+pnpm run council:rebuild-shards --allow-shrink
 ```
 
 `--allow-prune` overrides the ceiling that refuses a drop which is both large
@@ -334,14 +334,14 @@ tree is where you think it is before overriding.
   safe and idempotent (each is derived from that município's own durable tree
   and merged additively) and a re-run completes the rest.
 - **`meta.resolutionCount` disagrees with the shard count**: run
-  `npm run council:rebuild-shards`. `index_corpus.test.ts` gates the invariant
+  `pnpm run council:rebuild-shards`. `index_corpus.test.ts` gates the invariant
   in both directions and names the offending ids.
 - **`refusing to shrink <code> votes shard`**: a run would have published fewer
   named-vote resolutions than are already on disk. That cannot happen through
   the additive merge, so it means something upstream changed shape. Investigate
   before overriding. Note `--allow-shrink` is parsed by `council:rebuild-shards`
   ONLY — `council:scrape` ignores it, so the override belongs on the repair
-  command (`npm run council:rebuild-shards -- --allow-shrink`), not on
+  command (`pnpm run council:rebuild-shards --allow-shrink`), not on
   the scrape that raised the error.
 - **`person attribution collapsed`**: `official_roster` is empty or partial.
   Re-run `db:load:ngo-board-links`, then this loader.

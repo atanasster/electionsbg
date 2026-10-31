@@ -16,7 +16,7 @@
 //
 // Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -252,7 +252,7 @@ test.skipIf(skip)("the redirect mapping is populated", async () => {
 //   * `official_exec` / `official_muni` — a re-slug. The human is still in the corpus under
 //     a new ref, so a redirect exists and is mandatory: rebuild the map with
 //     `migrate_slug_normalisation.ts --redirects <map>` and load it with
-//     `npm run person:slug-redirects -- <map>`.
+//     `pnpm run person:slug-redirects <map>`.
 //   * `magistrate` — a ROSTER TURNOVER, and that path cannot fix it. It is officials-only
 //     twice over: load_slug_redirects.ts rejects the keys outright (OFFICIALS_SLUG wants a
 //     6-HEX hash, and these carry resolve_persons.ts's base36 one — `albena-koleva-ugig7i`),
@@ -307,7 +307,7 @@ test.skipIf(skip)(
       Number(n.n) > 10000,
       `person_slug_retired holds only ${n.n} rows — the 2026-07-24 officials re-slug ` +
         `contributed 20,767, so the backfill has been lost. Restore it with:\n` +
-        `  npm run person:slug-redirects -- raw_data/person/officials_reslug_2026_07_24.json`,
+        `  pnpm run person:slug-redirects raw_data/person/officials_reslug_2026_07_24.json`,
     );
   },
 );

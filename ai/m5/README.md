@@ -10,7 +10,7 @@ Do this only if, after M0, BgGPT's tool selection still misroutes.
 ## 1. Generate the dataset
 
 ```bash
-npx tsx ai/m5/gen_dataset.ts
+pnpm exec tsx ai/m5/gen_dataset.ts
 # -> ai/m5/dataset/toolcalls.train.jsonl  (~870 examples)
 #    ai/m5/dataset/toolcalls.eval.jsonl   (~100 examples)
 ```

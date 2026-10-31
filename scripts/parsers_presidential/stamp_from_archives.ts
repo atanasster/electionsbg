@@ -7,7 +7,7 @@
 // no producer, which is the unverifiable-claim shape this repo treats as worse than no
 // claim. Anyone holding the same archives can re-run this and get the same file.
 //
-//   npx tsx scripts/parsers_presidential/stamp_from_archives.ts --dir <archives>
+//   pnpm exec tsx scripts/parsers_presidential/stamp_from_archives.ts --dir <archives>
 //
 // It matches an archive to a (cycle, archive-key) by CONTENT — the md5 declared in
 // `sources.ts` — never by filename, so a differently-named copy of the same bytes

@@ -11,7 +11,7 @@
  * Adding one is three edits and a measurement:
  *   1. add the name here;
  *   2. tag its routes with `withBundle("<name>", …)` in src/routes.tsx;
- *   3. `npx tsx scripts/i18n/split_bundles.ts --apply` to move the keys that
+ *   3. `pnpm exec tsx scripts/i18n/split_bundles.ts --apply` to move the keys that
  *      the reachability analysis proves are exclusive to those routes;
  *   4. re-ratchet the budgets in tests/perf.spec.ts to the new measurement.
  *

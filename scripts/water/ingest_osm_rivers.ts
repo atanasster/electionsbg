@@ -10,8 +10,8 @@
 // Only a curated allowlist of major rivers is fetched, so the payload stays tiny.
 //
 // Usage (network is only touched with --fetch; otherwise reads the cache):
-//   npx tsx scripts/water/ingest_osm_rivers.ts            # from cache
-//   npx tsx scripts/water/ingest_osm_rivers.ts --fetch    # re-pull OSM
+//   pnpm exec tsx scripts/water/ingest_osm_rivers.ts            # from cache
+//   pnpm exec tsx scripts/water/ingest_osm_rivers.ts --fetch    # re-pull OSM
 // ODbL: data © OpenStreetMap contributors.
 
 import fs from "fs";

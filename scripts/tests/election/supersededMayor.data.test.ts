@@ -15,7 +15,7 @@
 // no longer occurs passes forever while protecting nothing; this asserts the affected pages
 // still exist in the corpus, and names them.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import fs from "node:fs";
 import path from "node:path";

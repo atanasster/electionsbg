@@ -150,7 +150,7 @@ const run = FILES.length >= MIN_USABLE ? test : test.skip;
 if (FILES.length < MIN_USABLE)
   console.warn(
     `[nzok corpus] only ${FILES.length} cached reports (need ${MIN_USABLE}) — skipping. ` +
-      "Run `npm run db:load:nzok-hospital:pg` to populate raw_data/nzok/bmp.",
+      "Run `pnpm run db:load:nzok-hospital:pg` to populate raw_data/nzok/bmp.",
   );
 
 // Parsed once and shared: 176 spawns of pdftotext is the whole cost of this file.
@@ -163,7 +163,7 @@ const parsed = (): Parsed[] => (PARSED ??= parseAll());
  *  assertion that called `parsed()` — „no parsed facility name ends in a stray sign" — against
  *  the node project's 120 s per-TEST timeout. Measured 2026-09-07 on an idle machine: the file
  *  takes 72.7 s end to end, essentially all of it here. That is 47 s of headroom, and vitest
- *  runs ~16 workers over CPU-bound subprocesses, so a full `npm run test:unit` loses it: the
+ *  runs ~16 workers over CPU-bound subprocesses, so a full `pnpm run test:unit` loses it: the
  *  run that prompted this failed at exactly that assertion with „Test timed out in 120000ms".
  *
  *  Two things change. The cost lands in a hook, so a slow parse now reports itself as a slow

@@ -365,8 +365,8 @@ const main = async (args: {
     );
   console.log(
     `✓ done. Enrich + rebuild:\n` +
-      `    npx tsx scripts/procurement/eop_field_map.ts --apply\n` +
-      `    npx tsx scripts/procurement/rebuild_from_cache.ts`,
+      `    pnpm exec tsx scripts/procurement/eop_field_map.ts --apply\n` +
+      `    pnpm exec tsx scripts/procurement/rebuild_from_cache.ts`,
   );
 };
 

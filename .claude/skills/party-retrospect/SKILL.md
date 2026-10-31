@@ -58,7 +58,7 @@ For new generations, the user usually wants the parties at ≥4% (those that won
 For one party:
 
 ```bash
-npm run party:bundle -- --election 2024_10_27 --party 18 --out /tmp/party-18-bundle.json
+pnpm run party:bundle --election 2024_10_27 --party 18 --out /tmp/party-18-bundle.json
 ```
 
 The bundle (schemaVersion 2) includes:
@@ -209,8 +209,8 @@ For a new election with ~5-7 leading parties, this is ~5-7 hand-written analyses
 If the user _explicitly_ says "use Gemini" or "I don't want to write these manually" or there are 20+ parties to generate:
 
 ```bash
-npm run party:gen-retrospect -- --election 2024_10_27 --party 18
-npm run party:gen-retrospect -- --election 2024_10_27 --all-passed   # every party at ≥2%
+pnpm run party:gen-retrospect --election 2024_10_27 --party 18
+pnpm run party:gen-retrospect --election 2024_10_27 --all-passed   # every party at ≥2%
 ```
 
 Output quality is noticeably worse — Gemini tends to recite numbers without weaving narrative. Claude's hand-written version is preferred when the user cares about the analysis quality. The Gemini script reads the same bundle, so it benefits from the new fields, but currently the prompt template inside `generate_retrospect.ts` may not exploit the new sections — verify the prompt mentions the new blocks before relying on the fallback for risk-neighborhood / preferences narrative.
@@ -225,7 +225,7 @@ node -e "JSON.parse(require('fs').readFileSync('public/2024_10_27/parties/assess
 
 ### 5b. Browser check
 
-Use the preview server (`mcp__Claude_Preview__preview_*` tools or `npm run dev`):
+Use the preview server (`mcp__Claude_Preview__preview_*` tools or `pnpm run dev`):
 
 1. Navigate to `/party/{nickName}?elections=2024_10_27`.
 2. Confirm the **CAMPAIGN RETROSPECT** card now shows the markdown bodies (not the "not yet generated" placeholder).
@@ -251,7 +251,7 @@ The `public/{election}/parties/assessment/*.json` files should be committed — 
 
 ```bash
 # Bundle one party's data (inspect what the LLM sees)
-npm run party:bundle -- --election 2024_10_27 --party 18 --out /tmp/p18.json
+pnpm run party:bundle --election 2024_10_27 --party 18 --out /tmp/p18.json
 
 # Hand-write retrospect (preferred): read bundle, draft BG+EN markdown, Write JSON file
 # (no command — you do it via Read + Write tools)
@@ -260,8 +260,8 @@ npm run party:bundle -- --election 2024_10_27 --party 18 --out /tmp/p18.json
 node -e "console.log(new Date().toISOString())"
 
 # Gemini fallback (single party)
-npm run party:gen-retrospect -- --election 2024_10_27 --party 18
+pnpm run party:gen-retrospect --election 2024_10_27 --party 18
 
 # Gemini fallback (every party at ≥2%)
-npm run party:gen-retrospect -- --election 2024_10_27 --all-passed
+pnpm run party:gen-retrospect --election 2024_10_27 --all-passed
 ```

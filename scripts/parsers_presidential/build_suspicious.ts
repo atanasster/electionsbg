@@ -1,8 +1,8 @@
 // „Подозрителни населени места" for a presidential round — the three protocol flags the
 // parliamentary dashboard raises, computed over the presidential section shards.
 //
-//   npx tsx scripts/parsers_presidential/build_suspicious.ts <cycle> [--write]
-//   npx tsx scripts/parsers_presidential/build_suspicious.ts all --write
+//   pnpm exec tsx scripts/parsers_presidential/build_suspicious.ts <cycle> [--write]
+//   pnpm exec tsx scripts/parsers_presidential/build_suspicious.ts all --write
 //
 // ⚠ THE THRESHOLDS ARE THE PARLIAMENTARY ONES, IMPORTED. „Подозрително" must mean the same
 // thing on both dashboards, so `SUSPICIOUS_THRESHOLDS` is read from

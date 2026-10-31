@@ -3,7 +3,7 @@
 // per-SEAT `linkBasis` on the same page's „Управа на ЮЛНЦ" block, and by 120's
 // `tr_link_basis` on /persons.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // WHY THIS FILE EXISTS. Until tr-attribution-basis-v1, 120 classified each TR link and 082
 // did not, so the browser caveated a company list that the profile presented flat. The fix is

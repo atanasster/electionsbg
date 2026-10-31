@@ -69,7 +69,7 @@ const present = async (relname: string): Promise<boolean> =>
 const skip = !haveDb
   ? "Postgres unreachable"
   : !(await present("dual_corpus_rankings_cache"))
-    ? "dual_corpus_rankings_cache absent — run npm run db:load:pg"
+    ? "dual_corpus_rankings_cache absent — run pnpm run db:load:pg"
     : false;
 reportSkip(import.meta.url, skip);
 
@@ -137,7 +137,7 @@ test.skipIf(skip)(
     for (const rel of GUARDED) {
       assert.ok(
         await present(rel),
-        `${rel} is absent — run npm run db:load:pg / db:load:funds-fit:pg`,
+        `${rel} is absent — run pnpm run db:load:pg / db:load:funds-fit:pg`,
       );
       const rows = await dependentsOf(rel);
       assert.deepStrictEqual(
@@ -206,7 +206,7 @@ test.skipIf(skip)(
     // invisible, so silently passing there is how this regresses.
     assert.ok(
       await present("funds_hub_stats_cache"),
-      "funds_hub_stats_cache is absent — run npm run db:load:funds-fit:pg. This gate is " +
+      "funds_hub_stats_cache is absent — run pnpm run db:load:funds-fit:pg. This gate is " +
         "meaningless without the dependent that broke db:load:pg in the first place.",
     );
 

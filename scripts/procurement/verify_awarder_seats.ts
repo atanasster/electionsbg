@@ -10,8 +10,8 @@
 // Read-only: it issues one SELECT and writes nothing, so it is safe to run
 // against the serving database at any time, including mid-incident.
 //
-//   npm run proc:verify-seats          # local docker Postgres
-//   npm run proc:verify-seats:cloud    # Cloud SQL via the proxy on 5434
+//   pnpm run proc:verify-seats          # local docker Postgres
+//   pnpm run proc:verify-seats:cloud    # Cloud SQL via the proxy on 5434
 //
 // Exits 1 on drift so it can gate a publish path; 0 when the two agree.
 //
@@ -41,10 +41,10 @@ import {
  *  just found stale stays stale. */
 const loaderFor = (url: string): string =>
   isServingDatabase()
-    ? "npm run db:load:awarder-seats:pg:cloud"
+    ? "pnpm run db:load:awarder-seats:pg:cloud"
     : url === LOCAL_DATABASE_URL
-      ? "npm run db:load:awarder-seats:pg"
-      : `DATABASE_URL=${redactUrl(url)} npm run db:load:awarder-seats:pg`;
+      ? "pnpm run db:load:awarder-seats:pg"
+      : `DATABASE_URL=${redactUrl(url)} pnpm run db:load:awarder-seats:pg`;
 
 const main = async (): Promise<void> => {
   const map = loadMap();
@@ -107,7 +107,7 @@ const main = async (): Promise<void> => {
     `\non ${redactUrl(url)}` +
       (isServingDatabase() ? " (THE SERVING DATABASE)" : "") +
       `\nThe map has been rebuilt without publishing it, or vice versa. Rebuild:\n` +
-      `  npx tsx scripts/procurement/awarder_geo_map.ts && npx tsx scripts/procurement/rebuild_from_cache.ts\n` +
+      `  pnpm exec tsx scripts/procurement/awarder_geo_map.ts && pnpm exec tsx scripts/procurement/rebuild_from_cache.ts\n` +
       `then load into THIS database:\n  ${loaderFor(url)}`,
   );
   process.exitCode = 1;

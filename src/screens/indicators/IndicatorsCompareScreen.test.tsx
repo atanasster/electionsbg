@@ -16,7 +16,7 @@
 // localhost origin. Every payload fails CORS there, so the page never leaves
 // its placeholder state and the growth a gate would need to see cannot happen —
 // such a gate passes with the fix reverted. Re-run the real measurement with
-// `npm run perf:cls -- /indicators/compare`, which serves dist at the
+// `pnpm run perf:cls /indicators/compare`, which serves dist at the
 // electionsbg.com origin.
 
 import "@testing-library/jest-dom/vitest";

@@ -4,7 +4,7 @@
 // operations through Postgres: a REF-SPLIT that can veto the bad gold union, and a REF-MERGE
 // that joins only two selected same-fold people without absorbing a third namesake.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Needs Postgres (translit_bg_latin folding + the person_link_override table); auto-skips when
 // unreachable, like the other *.data.test.ts gates. Self-applies 081 so it works on any DB.
@@ -116,7 +116,7 @@ test.skipIf(skip)(
     const before = applyOverrides(misMerged, mentions, EMPTY_OVERRIDES);
     assert.equal(before.length, 1, "baseline should be one collapsed person");
 
-    // Operator action: insert a ref-level split (what `npm run person:override -- split --ref`
+    // Operator action: insert a ref-level split (what `pnpm run person:override split --ref`
     // writes), then load it back through the resolver's own SELECT + parser.
     await allRows(
       `INSERT INTO person_link_override (kind, ref_a, note, decided_by)

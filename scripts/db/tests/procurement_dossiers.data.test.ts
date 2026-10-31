@@ -5,7 +5,7 @@
 // the true-positives they kept, so a future change to the guard, the seed, or
 // the corpus can't silently re-introduce the leaks or over-trim.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Auto-skips when Postgres is unreachable or the contracts table is absent
 // (CI / fresh checkout), exactly like invariants_pg.data.test.ts.

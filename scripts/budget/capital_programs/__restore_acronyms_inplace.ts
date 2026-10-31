@@ -17,7 +17,7 @@
 // Manual backfill — NOT wired into any watcher. The parsers (kardzhali,
 // velingrad, sofia_2022) now call restoreAcronyms at ingest, and sofia.ts's
 // allowlist was extended, so future ingests stay clean.
-// Run: npx tsx scripts/budget/capital_programs/__restore_acronyms_inplace.ts
+// Run: pnpm exec tsx scripts/budget/capital_programs/__restore_acronyms_inplace.ts
 import { readFileSync, readdirSync, writeFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";

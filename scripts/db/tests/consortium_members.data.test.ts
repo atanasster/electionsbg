@@ -13,7 +13,7 @@
 // The last part is the one that matters most — keeping more members must not inflate
 // anything, because the value lives on the carrier regardless of member count.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store; auto-skips when Postgres is unreachable or the contracts
 // table is absent, exactly like invariants_pg.data.test.ts. It does NOT skip when the

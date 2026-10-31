@@ -9,7 +9,7 @@
 // each (~25 KB raw / ~10 KB gzipped). The detail hook loads the one prefix shard
 // and picks the key out of it, so a single small fetch resolves any contract.
 //
-//   npx tsx scripts/procurement/by_id_shards.ts
+//   pnpm exec tsx scripts/procurement/by_id_shards.ts
 //
 // Output (gitignored, ship via bucket:sync):
 //   contracts/by-id/shard/<3-hex-prefix>.json   { [key]: Contract }

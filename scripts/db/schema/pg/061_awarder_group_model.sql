@@ -13,7 +13,7 @@
 -- Sums are ROUNDed to whole € and sorts carry an eik/year tiebreak so the payload
 -- is byte-deterministic across runs (see reference_pg_payload_determinism).
 --
---   npx tsx scripts/db/apply_functions.ts 061_awarder_group_model.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 061_awarder_group_model.sql
 
 SET check_function_bodies = off;
 DROP FUNCTION IF EXISTS awarder_group_model(text[], text, text);

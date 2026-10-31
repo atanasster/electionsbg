@@ -10,7 +10,7 @@
  * (`public/fonts/`, produced by `scripts/fonts/fetch-fonts.mjs`); this mirrors
  * exactly those files so the two never drift.
  *
- *   npm run video:fonts
+ *   pnpm run video:fonts
  *
  * Re-run after `scripts/fonts/fetch-fonts.mjs`.
  */

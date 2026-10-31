@@ -26,7 +26,7 @@
 // — the same identity `scripts/procurement/cross_source.ts` reconciles on, and identity A is
 // kept as a separate BOUNDED test that reports rather than demands zero.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store; auto-skips when Postgres is unreachable or the contracts table is
 // absent, like invariants_pg.data.test.ts.
@@ -209,7 +209,7 @@ test.skipIf(skip)(
               `[${r.feeds}] ${r.rows} rows — contract ids: ${r.contract_ids}`,
           )
           .join("\n") +
-        `\n  Resolve with \`npm run proc:reconcile\` (dry run first). If the pass refuses them, ` +
+        `\n  Resolve with \`pnpm run proc:reconcile\` (dry run first). If the pass refuses them, ` +
         `it prints why — a genuinely unpairable group belongs in ACCEPTED_CONFLICTS with its ` +
         `reason, never deleted by hand.`,
     );

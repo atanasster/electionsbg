@@ -12,7 +12,7 @@
 //
 // When this fires (a new FTS year is published), download the new
 // `{YEAR}_FTS_dataset_en.xlsx` into raw_data/ngo_funding/fts/ and re-run
-// `npm run db:load:ngo-funding:pg` (DB-only — no JSON/shards).
+// `pnpm run db:load:ngo-funding:pg` (DB-only — no JSON/shards).
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";

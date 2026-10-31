@@ -21,7 +21,7 @@
 // headline stats + the as-of date, and prints the figures to paste into the article.
 //
 // Needs the local Postgres (contracts + nzok_hospital_payments loaded):
-//   npx tsx scripts/nzok/hospital_awarder_stats.ts
+//   pnpm exec tsx scripts/nzok/hospital_awarder_stats.ts
 
 import fs from "node:fs";
 import path from "node:path";

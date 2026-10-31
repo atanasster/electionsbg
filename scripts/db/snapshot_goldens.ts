@@ -4,7 +4,7 @@
 //
 // Re-run after an intentional, reviewed data change (e.g. the fortnightly
 // procurement ingest) to refresh the baseline:
-//   npm run db:goldens
+//   pnpm run db:goldens
 //
 // See docs/plans/sql-migration-v1.md (Phase 1).
 

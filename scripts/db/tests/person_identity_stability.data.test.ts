@@ -18,7 +18,7 @@
 // ceilings rather than equalities, because the corpus legitimately grows. What
 // they cannot tolerate is a step change.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -46,7 +46,7 @@ afterAll(async () => {
 
 const skipIdentity =
   !haveDb || !haveIdentity
-    ? "Postgres unreachable, or the person table is absent — run npm run db:resolve:persons"
+    ? "Postgres unreachable, or the person table is absent — run pnpm run db:resolve:persons"
     : false;
 reportSkip(import.meta.url, skipIdentity);
 

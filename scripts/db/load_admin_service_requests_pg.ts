@@ -2,8 +2,8 @@
 // data/administration/eforms_requests.json (scripts/administration/fetch_eforms.ts). Pure
 // load: no network, so it runs on a fresh clone.
 //
-//   npm run db:load:admin-service-requests:pg          # local
-//   npm run db:load:admin-service-requests:pg:cloud    # Cloud SQL proxy
+//   pnpm run db:load:admin-service-requests:pg          # local
+//   pnpm run db:load:admin-service-requests:pg:cloud    # Cloud SQL proxy
 //
 // The tables are small (~3k rows) and nothing serves them yet, so the reload is TRUNCATE + COPY
 // in one transaction, followed by the VACUUM every truncate-reload needs for its visibility map.

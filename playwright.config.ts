@@ -43,8 +43,8 @@ export default defineConfig({
   },
 
   webServer: {
-    // Requires a built dist/. Run `npm run build` before `npm test` (or use
-    // npm run test:build which chains them).
+    // Requires a built dist/. Run `pnpm run build` before `pnpm test` (or use
+    // pnpm run test:build which chains them).
     //
     // Scope to the `main` hosting target only. firebase.json also defines an
     // `ai` target (→ dist-ai, project electionsbg-ai), but that target isn't

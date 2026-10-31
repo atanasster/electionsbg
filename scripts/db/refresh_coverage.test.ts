@@ -51,7 +51,7 @@ const readEntrySource = (script: string): { entry: string; src: string } => {
   return { entry: entry!, src: readFileSync(path.join(ROOT, entry!), "utf8") };
 };
 
-// Tokenize the chain — extract exact `npm run <name>` script names rather than
+// Tokenize the chain — extract exact `pnpm run <name>` script names rather than
 // substring-matching. `includes()` passes today but is one loader name away
 // from a false positive (`db:load:agri:pg` inside `db:load:agri:pg-full`), and
 // a gate whose purpose is catching silent omissions must not have one.
@@ -59,12 +59,12 @@ const refreshChain = pkg.scripts["db:refresh"];
 // `?? ""` keeps the module importable if db:refresh is ever removed, so test 1
 // reports its intended diagnostic instead of a collection-time TypeError.
 const referenced = new Set(
-  [...(refreshChain ?? "").matchAll(/npm run ([a-z0-9:_-]+)/g)].map(
+  [...(refreshChain ?? "").matchAll(/pnpm run ([a-z0-9:_-]+)/g)].map(
     (m) => m[1],
   ),
 );
 
-test("db:refresh exists and still chains npm run steps", () => {
+test("db:refresh exists and still chains pnpm run steps", () => {
   assert.ok(refreshChain, "package.json has no db:refresh script");
   assert.ok(
     referenced.size >= 20,
@@ -513,7 +513,7 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
 test("db:refresh orders each loader after the step that rebuilds its input", () => {
   const steps = (refreshChain ?? "")
     .split("&&")
-    .map((s) => s.match(/npm run ([a-z0-9:_-]+)/)?.[1])
+    .map((s) => s.match(/pnpm run ([a-z0-9:_-]+)/)?.[1])
     .filter((s): s is string => Boolean(s));
   const at = (name: string) => steps.indexOf(name);
 

@@ -15,7 +15,7 @@
 // The failure is silent by construction: a rollup that is not matched is simply
 // never enumerated, so no count moves and no file errors. Hence this file.
 //
-//   npx vitest run scripts/db/lib/paths.test.ts
+//   pnpm exec vitest run scripts/db/lib/paths.test.ts
 
 import { describe, expect, it } from "vitest";
 import { existsSync, readdirSync } from "node:fs";

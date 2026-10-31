@@ -21,7 +21,7 @@
 // to a plain refresh on the one case CONCURRENTLY cannot serve: a view that has never been
 // populated (`WITH NO DATA`), i.e. the first run on any database.
 //
-// Run: `npm run db:load:funds-fit:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:funds-fit:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";

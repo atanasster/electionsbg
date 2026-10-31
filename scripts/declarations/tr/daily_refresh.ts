@@ -33,7 +33,7 @@
  * disjoint-halves explanation). A large historical gap is a one-time job for
  * backfill_gap.ts; this daily job only chases the moving frontier.
  *
- * Run:  npx tsx scripts/declarations/tr/daily_refresh.ts   (or `npm run tr:daily-refresh`)
+ * Run:  pnpm exec tsx scripts/declarations/tr/daily_refresh.ts   (or `pnpm run tr:daily-refresh`)
  */
 
 import fs from "fs";

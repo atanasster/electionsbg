@@ -48,7 +48,7 @@ export const rebuildRiskCacheSql = (): string =>
  *  a real rebuild) and the one in contracts_list_grant (REVOKE + rebuild). Run in parallel they
  *  take the same catalog rows in different orders, and Postgres resolves that as `40P01`
  *  deadlock, `XX000 tuple concurrently updated`, or — when the loser is the slow real rebuild —
- *  a 120 s test timeout. Measured across five full `npm run test:data` runs: 1, 0, 2, 1 and 3
+ *  a 120 s test timeout. Measured across five full `pnpm run test:data` runs: 1, 0, 2, 1 and 3
  *  failures, entirely from this one contention, while every affected file passed alone.
  *
  *  ⚠️ A RETRY IS NOT ENOUGH AND WAS TRIED FIRST. It only re-runs the loser, so under real

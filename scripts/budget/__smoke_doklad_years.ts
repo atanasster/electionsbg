@@ -8,7 +8,7 @@
 // year to `DOKLAD_FILE_IDS` to confirm the regex hits before the full ingest
 // runs.
 //
-// Run: npx tsx scripts/budget/__smoke_doklad_years.ts
+// Run: pnpm exec tsx scripts/budget/__smoke_doklad_years.ts
 
 import { parseDoklad, DOKLAD_FILE_IDS } from "./doklad";
 

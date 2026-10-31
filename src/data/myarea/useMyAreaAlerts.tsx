@@ -65,7 +65,7 @@ export type MyAreaAlertsFile = {
    *
    * ⚠️ IT IS DATA RATHER THAN A `console.warn` BECAUSE THE FAILURE IS A PRODUCTION ONE.
    * `build_alerts.ts` publishes to Postgres while `ALERT_KINDS` ships in the hosting bundle,
-   * so running the builder with a new kind before `npm run deploy` drops every row of that
+   * so running the builder with a new kind before `pnpm run deploy` drops every row of that
    * kind from a live feed — and for a município whose feed is entirely that kind, the tile's
    * own `events.length === 0` guard removes the whole tile, at a 200. A DEV-gated log is
    * silent in exactly the situation that matters. Empty on every healthy deploy.

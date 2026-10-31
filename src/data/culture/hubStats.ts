@@ -1,5 +1,5 @@
 // The /culture hub's headline figures, read from the committed blob that
-// `npm run db:gen-culture-hub-stats` derives from Postgres.
+// `pnpm run db:gen-culture-hub-stats` derives from Postgres.
 //
 // WHY A BLOB AND NOT LIVE CALLS: the hub is the sector's front page. Firing a
 // query per tile is the payload problem the hub pattern exists to solve, and the
@@ -81,7 +81,7 @@ export interface CultureHubStats {
      *
      *  ⚠️ OPTIONAL ON THE WIRE, and that is the accurate contract rather than
      *  defensive padding: this blob ships via `bucket:sync`, a DIFFERENT command
-     *  from `npm run deploy`, so a bundle can load against a blob minted before
+     *  from `pnpm run deploy`, so a bundle can load against a blob minted before
      *  the field existed. Absent means „not measured yet" — never zero, which
      *  would be the claim that the two arms are disjoint. A consumer must branch
      *  on it and say nothing about the relationship rather than guess one. */
@@ -120,7 +120,7 @@ export interface CultureHubStats {
    *  different table at a different grain, which is where the confusion came from.
    *
    *  Optional on the wire: this blob ships via `bucket:sync`, a different command
-   *  from `npm run deploy`, so a bundle can load against a blob minted before the
+   *  from `pnpm run deploy`, so a bundle can load against a blob minted before the
    *  field existed. Absent means „not measured", never zero. */
   budget?: {
     eur: number;

@@ -25,7 +25,7 @@
 // Correctness belongs to the data gates. A static gate pretending otherwise would be worse
 // than none.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import fs from "node:fs";
 import path from "node:path";

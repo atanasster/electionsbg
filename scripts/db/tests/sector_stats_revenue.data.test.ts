@@ -2,7 +2,7 @@
 // /sector/revenue dashboard (NapPack) behind it. Audit 2026-08-19,
 // docs/plans/revenue-sector-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Its own file, like the social / environment / regional nets, because what it
 // reads — an AGENCY budget file rather than a ministries node, a single-EIK
@@ -108,7 +108,7 @@ const reachable = async (): Promise<boolean> => {
 };
 
 // `test.skipIf(bool)`, never `test(name, { skip }, fn)` — Vitest's `skip` option
-// is typed `boolean`, so a `false | string` is a TS2769 and `npm run build` is
+// is typed `boolean`, so a `false | string` is a TS2769 and `pnpm run build` is
 // `tsc -b && vite build`. Vitest does not typecheck, so the file would run green
 // while the build is red. Every sibling here uses skipIf.
 const haveDb = await reachable();

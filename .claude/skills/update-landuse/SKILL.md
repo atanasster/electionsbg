@@ -45,9 +45,9 @@ If only an existing year was re-uploaded (correction), no source edit is needed 
 ## Step 2 — Fetch and parse
 
 ```bash
-npx tsx scripts/landuse/fetch.ts                   # every catalogued year
-npx tsx scripts/landuse/fetch.ts --year 2024       # just the newly added year
-npx tsx scripts/landuse/fetch.ts --refresh         # re-download cached PDFs
+pnpm exec tsx scripts/landuse/fetch.ts                   # every catalogued year
+pnpm exec tsx scripts/landuse/fetch.ts --year 2024       # just the newly added year
+pnpm exec tsx scripts/landuse/fetch.ts --refresh         # re-download cached PDFs
 ```
 
 Expected output on a normal incremental run:
@@ -88,7 +88,7 @@ Eyeball:
 ## Step 4 — Bucket sync + commit
 
 ```bash
-npm run bucket:sync
+pnpm run bucket:sync
 git add scripts/landuse/sources.ts data/landuse/index.json raw_data/landuse/LANDUSE_<year>_EN.pdf
 git commit -m "landuse: ingest <year> annex (<changed-count> oblasts updated)"
 ```
@@ -96,7 +96,7 @@ git commit -m "landuse: ingest <year> annex (<changed-count> oblasts updated)"
 Then stamp the ingest marker:
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-landuse --summary "ingested LANDUSE_<year> (28 oblasts, latest <year>)"
+pnpm exec tsx scripts/stamp-ingest.ts update-landuse --summary "ingested LANDUSE_<year> (28 oblasts, latest <year>)"
 ```
 
 ## What this skill does NOT do

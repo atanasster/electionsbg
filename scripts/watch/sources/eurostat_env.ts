@@ -2,7 +2,7 @@
 // (recycling rate of municipal waste) publication timestamp. Drives the
 // /sector/environment „Рециклиране спрямо целта на ЕС" tile.
 //
-// Downstream: run `npx tsx scripts/environment/fetch_waste.ts` to re-fetch the
+// Downstream: run `pnpm exec tsx scripts/environment/fetch_waste.ts` to re-fetch the
 // recycling-rate + waste-per-capita series (cei_wm011 + env_wasmun) into
 // data/environment/waste.json (a small committed file, no bucket sync in dev, no PG;
 // `bucket:sync data/environment/` for prod). Annual release, so `monthly` cadence is
@@ -48,7 +48,7 @@ export const eurostatEnv: WatchSource = {
     const prevU = (prev.meta?.updated as string | undefined) ?? "";
     const currU = (curr.meta?.updated as string | undefined) ?? "";
     if (prevU !== currU)
-      return `Eurostat ${DATASET} republished (was ${prevU || "—"}) — run \`npx tsx scripts/environment/fetch_waste.ts\` to refresh the /sector/environment recycling-vs-target tile`;
+      return `Eurostat ${DATASET} republished (was ${prevU || "—"}) — run \`pnpm exec tsx scripts/environment/fetch_waste.ts\` to refresh the /sector/environment recycling-vs-target tile`;
     return curr.detail;
   },
 };

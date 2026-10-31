@@ -4,7 +4,7 @@
 // on 2026-07-29). Splitting on a bare `;` would corrupt any function body, so
 // the dollar-quote cases below are the ones that actually matter.
 //
-//   npx vitest run scripts/db/lib/split_sql.test.ts
+//   pnpm exec vitest run scripts/db/lib/split_sql.test.ts
 
 import { test, describe } from "vitest";
 import assert from "node:assert/strict";

@@ -1,5 +1,5 @@
 // The /sector/transport hub's figures, read from the committed blob that
-// `npm run db:gen-transport-hub-stats` derives from Postgres
+// `pnpm run db:gen-transport-hub-stats` derives from Postgres
 // (docs/plans/transport-hub-v1.md T2).
 //
 // WHY A BLOB: the hub must not fetch the group model, the ministry's per-CPV

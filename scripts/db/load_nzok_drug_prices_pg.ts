@@ -5,8 +5,8 @@
 //   nzok_drug_pack_stats  — per (period, pack) median/p25/p75 dispersion band
 //   nzok_drug_overpay     — the latest-full-year per-facility overpay ranking
 //
-//   npm run db:load:nzok-drug-prices:pg          (needs `npm run db:pg:up` first)
-//   npm run db:load:nzok-drug-prices:pg:cloud    (targets the Cloud SQL proxy :5434)
+//   pnpm run db:load:nzok-drug-prices:pg          (needs `pnpm run db:pg:up` first)
+//   pnpm run db:load:nzok-drug-prices:pg:cloud    (targets the Cloud SQL proxy :5434)
 //
 // Source = data/budget/nzok/drug_unit_prices.json, produced by
 // scripts/nzok/write_drug_unit_prices.ts. The two load-bearing rules (pack
@@ -248,7 +248,7 @@ const main = async (): Promise<void> => {
     await applySchemas();
     console.warn(
       `[nzok-drug-prices] no ${JSON_FILE} — schemas applied, load skipped ` +
-        "(regenerate with:  npm run data:nzok -- --drug-prices).",
+        "(regenerate with:  pnpm run data:nzok --drug-prices).",
     );
     await end();
     return;

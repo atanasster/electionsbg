@@ -1,8 +1,8 @@
 // Cloud-model adapter + CLI for the EN/BG function-calling eval.
 //
-//   npx tsx ai/llm/fcEval.cloud.ts                          # gemini-3.1-flash-lite (console)
-//   npx tsx ai/llm/fcEval.cloud.ts google/gemma-4-31b-it:free
-//   FC_EVAL_DELAY_MS=4500 npx tsx ai/llm/fcEval.cloud.ts google/gemma-4-31b-it:free
+//   pnpm exec tsx ai/llm/fcEval.cloud.ts                          # gemini-3.1-flash-lite (console)
+//   pnpm exec tsx ai/llm/fcEval.cloud.ts google/gemma-4-31b-it:free
+//   FC_EVAL_DELAY_MS=4500 pnpm exec tsx ai/llm/fcEval.cloud.ts google/gemma-4-31b-it:free
 //
 // Operator-only adapter: uses OPENROUTER_API_KEY directly, never the public
 // Turnstile-protected proxy. Load a local env file explicitly when running the CLI.

@@ -4,8 +4,8 @@
 // net: when the manifest flags a category as changed, the relevant golden shows
 // exactly which fields moved.
 //
-// Gated on DB_VERIFY=1 (via `npm run db:verify`) so the fortnightly data update
-// doesn't fail the standing suite — refresh the baseline with `npm run db:goldens`.
+// Gated on DB_VERIFY=1 (via `pnpm run db:verify`) so the fortnightly data update
+// doesn't fail the standing suite — refresh the baseline with `pnpm run db:goldens`.
 //
 // See docs/plans/sql-migration-v1.md (Phase 1).
 
@@ -22,11 +22,11 @@ const haveGoldens = existsSync(GOLDEN_DIR);
 const haveData = existsSync(path.join(PROC_DIR, "index.json"));
 
 const skip = !verify
-  ? "set DB_VERIFY=1 (npm run db:verify) to run golden comparison"
+  ? "set DB_VERIFY=1 (pnpm run db:verify) to run golden comparison"
   : !haveData
     ? "no procurement data on disk"
     : !haveGoldens
-      ? "no golden fixtures — run npm run db:goldens"
+      ? "no golden fixtures — run pnpm run db:goldens"
       : false;
 reportSkip(import.meta.url, skip);
 
@@ -59,6 +59,6 @@ test.skipIf(skip)("live procurement files match golden fixtures", () => {
     differing.length,
     0,
     `golden fixture(s) differ from live: ${differing.join(", ")} — inspect the ` +
-      `diff, then refresh with npm run db:goldens if the change is intended`,
+      `diff, then refresh with pnpm run db:goldens if the change is intended`,
   );
 });

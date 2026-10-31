@@ -12,7 +12,7 @@
 // NOTE: reg.cpc.bg is geo-gated (403 from non-BG egress) — the watcher must run
 // from a Bulgarian connection, same as the CIK local-elections source. The
 // re-ingest itself is MANUAL (see the process-watch-report mapping): run
-// `npx tsx scripts/procurement/kzk_appeals.ts --year <YYYY> --apply` (a desktop
+// `pnpm exec tsx scripts/procurement/kzk_appeals.ts --year <YYYY> --apply` (a desktop
 // browser window pops up). Full-history backfill stays behind `--backfill`.
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";

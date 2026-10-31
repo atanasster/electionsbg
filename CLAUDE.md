@@ -11,24 +11,24 @@ The app is a JAMstack SPA: data is pre-processed offline into static JSON files 
 ## Commands
 
 ```bash
-npm run dev          # Start Vite dev server
-npm run build        # TypeScript check + production Vite build
-npm run lint         # ESLint (prettier runs as an eslint rule, not a separate step)
-npm run preview      # Preview the production build locally
+pnpm run dev          # Start Vite dev server
+pnpm run build        # TypeScript check + production Vite build
+pnpm run lint         # ESLint (prettier runs as an eslint rule, not a separate step)
+pnpm run preview      # Preview the production build locally
 
 # Tests
-npm run test:unit    # Vitest — unit + component tests (src/** jsdom, scripts/** node)
-npm test             # Playwright — E2E / SEO / perf / UI smoke (needs a built dist/)
-npm run test:coverage # Vitest v8 coverage report
+pnpm run test:unit    # Vitest — unit + component tests (src/** jsdom, scripts/** node)
+pnpm test            # Playwright — E2E / SEO / perf / UI smoke (needs a built dist/)
+pnpm run test:coverage # Vitest v8 coverage report
 
 # Data pipeline (offline processing)
-npm run data         # Process election data (tsx ./scripts/main.ts)
-npm run prod         # Full pipeline with --all --prod flags
-npm run sitemap      # Generate sitemap
+pnpm run data         # Process election data (tsx ./scripts/main.ts)
+pnpm run prod         # Full pipeline with --all --prod flags
+pnpm run sitemap      # Generate sitemap
 
 # Postgres (local Docker; db:refresh runs the whole load in order)
-npm run db:pg:up     # Start local Postgres (port 5433)
-npm run db:pg:bootstrap  # Create the app_readonly role (step 2 of db:refresh)
+pnpm run db:pg:up     # Start local Postgres (port 5433)
+pnpm run db:pg:bootstrap  # Create the app_readonly role (step 2 of db:refresh)
                      # LOCAL ONLY, and it refuses everything else: the serving
                      # database, any host:port that is not the docker-compose one
                      # (--yes-non-local to override), and a URL whose database name
@@ -51,7 +51,7 @@ npm run db:pg:bootstrap  # Create the app_readonly role (step 2 of db:refresh)
                      # measured, db:refresh died at db:load:pg applying 017.
                      # Invisible on any machine that ever ran the file by hand.
                      # bootstrap_roles.ts and grant_role_guard.test.ts pin this.
-npm run db:refresh   # Full reload: schema + every loader + resolve + generators
+pnpm run db:refresh   # Full reload: schema + every loader + resolve + generators
                      # + test:data
                      # "Every loader" is enforced: refresh_coverage.test.ts fails
                      # unless each local db:load:*/db:resolve:* script is in the
@@ -67,10 +67,10 @@ npm run db:refresh   # Full reload: schema + every loader + resolve + generators
                      # "The two committed artifacts db:refresh regenerates" below.
 
 # Deployment
-npm run deploy       # Deploy to Firebase (elections-bg project) — HOSTING ONLY
-npm run deploy:db    # Deploy the `db` Cloud Function (/api/db, the /officials 301,
+pnpm run deploy       # Deploy to Firebase (elections-bg project) — HOSTING ONLY
+pnpm run deploy:db    # Deploy the `db` Cloud Function (/api/db, the /officials 301,
                      # and the server-rendered /funds/contract + /company pages)
-npm run staging      # Deploy to Firebase staging (electionsbg-staging)
+pnpm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
 
 ### The serving instance — and why a Cloud SQL timing means nothing without its tier
@@ -189,7 +189,7 @@ option) and now reports `built in-place on cloud (ship retired — v2-f)`.
 unexpectedly`.** It died mid-run during this publish and took the chain with it (nothing was
 corrupted — the load had not committed). If a `:cloud` step dies with that message, check
 `nc -z 127.0.0.1 5434` before suspecting `temp_file_limit` or the database. Restart with
-`npm run db:proxy:cloud`.
+`pnpm run db:proxy:cloud`.
 
 **Every URL this repo emits is the NO-slash form.** Hosting runs `"trailingSlash": false`
 (`firebase.json`, hosting.main), so `dist/<path>/index.html` serves at `/<path>` and `/<path>/`
@@ -204,7 +204,7 @@ canonical on ~248k pages named a redirecting URL.
 `hreflang` redirects — the older test asserted only that the canonical _string_ was right, which is
 why this survived unnoticed.
 
-⚠️ **`npm run preview` INVERTS that rule, so never read a prerendered page through it.**
+⚠️ **`pnpm run preview` INVERTS that rule, so never read a prerendered page through it.**
 `vite preview` runs the SPA fallback, so the no-slash URL — the one production serves the
 file at — falls through to `dist/index.html`, i.e. the HOMEPAGE prerender with the
 homepage's `<title>`, canonical and `<h1>`; only `/<path>/` serves the real file. Measured
@@ -263,12 +263,12 @@ is a **tracked** symlink into committed data, while `public/procurement` and `pu
 are untracked local symlinks that exist on a developer's machine and nowhere else. Read a
 green data-backed browser test on a fresh clone with suspicion for that reason.
 
-**`npm run deploy` ships hosting only.** When a change spans hosting and the `db` function
+**`pnpm run deploy` ships hosting only.** When a change spans hosting and the `db` function
 — a new `/api/db` route, a new hosting rewrite pointing at it — deploy in this order:
 
-1. the Cloud SQL migration (`npm run db:*:cloud`),
-2. `npm run deploy:db`,
-3. `npm run deploy`.
+1. the Cloud SQL migration (`pnpm run db:*:cloud`),
+2. `pnpm run deploy:db`,
+3. `pnpm run deploy`.
 
 Hosting first means the rewrite is live against a function that cannot serve it yet.
 
@@ -366,9 +366,9 @@ purges the edge. So whichever of the first two comes first, warm instances repop
 CDN with stale HTML in between, and it stays pinned for `s-maxage`:
 
 ```bash
-npm run deploy                          # 1. hosting live with the new bundle
-npm run deploy:db                       # 2. fresh instances fetch the CURRENT shell
-SKIP_PREDEPLOY=1 npm run deploy         # 3. purge the edge entries step 2 could not
+pnpm run deploy                          # 1. hosting live with the new bundle
+pnpm run deploy:db                       # 2. fresh instances fetch the CURRENT shell
+SKIP_PREDEPLOY=1 pnpm run deploy         # 3. purge the edge entries step 2 could not
 ```
 
 Step 3 takes `SKIP_PREDEPLOY=1` deliberately: `dist/` is already the tree step 1 built and
@@ -400,14 +400,14 @@ The same migration-before-writer rule applies to the hand-run ingests that have 
 `033_procurement_risk_indexes.sql` must be applied to the target database first:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql
 ```
 
 The founding-date writer (`upsertFoundingDates`) preflights and throws with that command in
 the message if the columns are missing.
 
 **CR Deeds full-capture** supersedes the old
-`fetch_company_founded` crawl. The rate-limited crawl is an operator action — `npm run
+`fetch_company_founded` crawl. The rate-limited crawl is an operator action — `pnpm run
 tr:cr-deeds` (tiers 0/1/2a/2b/3; `--probe` first to gauge the block state); it writes the
 durable raw store `raw_data/tr/cr_deeds.sqlite` (gitignored, never uploaded). Two projections
 read that cache offline, no re-fetch:
@@ -415,7 +415,7 @@ read that cache offline, no re-fetch:
 - **owners** → `tr:daily-refresh` runs the persons projection automatically (inside
   `daily_refresh.ts`, additive into `company_persons`), then `db:load:cr-founding:pg` folds
   the founding dates into local `company_founded`. To publish owners + founding to prod, run
-  `npm run db:load:tr:pg:cloud` and `npm run db:load:company-founded:pg:cloud` (the latter
+  `pnpm run db:load:tr:pg:cloud` and `pnpm run db:load:company-founded:pg:cloud` (the latter
   ships local `company_founded` → Cloud SQL, 033 applied there first). Nothing on the cloud
   side is automatic.
 - **declared activity (НКИД→CPV mismatch)** → `db:load:cr-nkid:pg` (in `tr:daily-refresh`,
@@ -427,10 +427,10 @@ read that cache offline, no re-fetch:
   НКИД-2003 and КИД-2008 codes that reuse division numbers for different sectors, so a
   code-based parse fired ~20k flags, thousands false.
   Cloud publish, in order: apply `033`+`112` (company_nkid shell + nkidByEik payload + bit-12
-  mask + crosswalk shells) via `apply_functions.ts`; `npm run db:load:cr-nkid:pg:cloud`
+  mask + crosswalk shells) via `apply_functions.ts`; `pnpm run db:load:cr-nkid:pg:cloud`
   (fills company_nkid + crosswalk, refreshes `procurement_risk_indexes_cache`); then
   `SELECT rebuild_contract_risk_cache();` on Cloud SQL so bit 12 reaches the served masks;
-  then `npm run deploy:db` for the `/api/db/company` `nace_div` field (additive — the page
+  then `pnpm run deploy:db` for the `/api/db/company` `nace_div` field (additive — the page
   renders without it). Nothing on the cloud side is automatic. Skipping the rebuild leaves the
   contracts browser's risk column without the flag while local has it.
 
@@ -439,7 +439,7 @@ read that cache offline, no re-fetch:
 money that reaches the work". 53,854 declarations, 616 of them Да.
 
 ```bash
-npm run db:load:subcontractors:pg:cloud
+pnpm run db:load:subcontractors:pg:cloud
 ```
 
 **It is a PROJECTION over `tender_notice`, not an ingest**, so its staleness trigger is
@@ -468,7 +468,7 @@ Three things about it are easy to get backwards:
 217,525 Bulgarian notices, 99.8% carrying a buyer ЕИК that joins `contracts.awarder_eik`.
 
 ```bash
-npm run db:load:ted:pg:cloud
+pnpm run db:load:ted:pg:cloud
 ```
 
 ⚠️ **The early years are the API's INDEX RAMP, not a trend.** TED's v3 index returns 0
@@ -482,10 +482,10 @@ therefore takes an explicit date range and has no „all time" default.
 `db:load:clean-delivery:pg`) are the ИСУН „clean delivery" register — what the state
 publishes about EU-funded contracts that ended with no financial correction. Source is
 COMMITTED (`data/funds/clean_delivery.json`), so the loader is pure-load; rebuild it with
-`npm run funds:clean-delivery`.
+`pnpm run funds:clean-delivery`.
 
 ```bash
-npm run db:load:clean-delivery:pg:cloud
+pnpm run db:load:clean-delivery:pg:cloud
 ```
 
 ⚠️⚠️ **IT IS AN ACHIEVEMENT REGISTER, NOT THE COMPLEMENT OF „WAS CORRECTED", and
@@ -543,7 +543,7 @@ Four things about it are easy to get backwards:
   `/api/db/company` raising 42501 on that arm until `db:pg:bootstrap` runs and 175 is
   re-applied. Gate: `scripts/db/tests/isun_clean_delivery.data.test.ts`.
 
-**The input fetches itself since 2026-09-02** — `npm run funds:clean-delivery -- --fetch`.
+**The input fetches itself since 2026-09-02** — `pnpm run funds:clean-delivery --fetch`.
 It was operator-downloaded until then, and the reason that changed is worth knowing, because
 the same wall sits in front of the beneficiaries/projects exports (`isun_download.ts`) and
 the old note there said a fancier client does not help.
@@ -590,10 +590,10 @@ page still titles the old list „по чл. 232а, ал. 2", which is why the i
 string keeps that wording verbatim; a reader-facing sentence must not present it as current
 law. Its source is COMMITTED
 (`data/procurement/aop_experts.json`, 88 rows), so the loader is pure-load and a fresh clone
-builds the table with no network; `npm run aop:experts` re-crawls.
+builds the table with no network; `pnpm run aop:experts` re-crawls.
 
 ```bash
-npm run db:load:aop-experts:pg:cloud
+pnpm run db:load:aop-experts:pg:cloud
 ```
 
 ⚠️⚠️ **THE REGISTER IS HISTORICAL — this is the first thing to know about it and every
@@ -661,7 +661,7 @@ because a partial competence area is indistinguishable from a small one.
 
 `procurement_annexes` (migration 114, `db:load:annexes:pg`) is the same shape: it resolves
 against the `contracts` table and reads the raw ЦАИС ЕОП annex cache, so on the cloud side run
-`npm run db:load:annexes:pg:cloud` **after** the contracts corpus is loaded and whenever
+`pnpm run db:load:annexes:pg:cloud` **after** the contracts corpus is loaded and whenever
 `ingest_anexi` refreshes the cache — otherwise the per-annex breakdown (and the чл.116 ал.2
 vs ал.3 labeling on the contract page) goes stale on prod while local is current. `db:refresh`
 runs the local equivalent automatically (after `db:load:pg`); nothing runs it on the cloud side.
@@ -967,7 +967,7 @@ pages matter most — a chain has gone silent, so the daily load is being held b
 it merely to obtain a `CREATE TABLE` is not an option. Both appliers use `execEach` for the
 reason below; the seed is `NOT EXISTS`-guarded, so the second is a no-op on a warm database.
 
-**Publishing payloads to Cloud SQL is `npm run prices:payloads:cloud`**, and it needs no
+**Publishing payloads to Cloud SQL is `pnpm run prices:payloads:cloud`**, and it needs no
 ingest: it applies 048, seeds `price_last_seen` and rebuilds every blob from the corpus
 already there. Measured 2026-08-20 against a corpus at 2026-08-14 — the seed wrote
 **4,387,949 rows, exactly matching local**, which is the check worth repeating, since the
@@ -1019,7 +1019,7 @@ is not a `DbRequestError`. Ship the DDL FIRST, then the function:
 
 ```bash
 psql "$DATABASE_URL" -c "ALTER TABLE price_products ADD COLUMN IF NOT EXISTS title_fold text GENERATED ALWAYS AS (translit_bg_latin(title)) STORED;" -c "CREATE INDEX IF NOT EXISTS price_products_title_fold_trgm ON price_products USING gin (title_fold gin_trgm_ops);" -c "VACUUM (ANALYZE, PARALLEL 0) price_products;"
-npm run deploy:db
+pnpm run deploy:db
 ```
 
 ⚠️⚠️ **THE `VACUUM` IS THE STEP THAT LOOKS OPTIONAL AND IS NOT — `ANALYZE` ALONE IS THE
@@ -1045,7 +1045,7 @@ Four things about it are easy to get backwards:
   is exactly what this file's own header forbids: the ALTER's AccessExclusiveLock would be held
   until the last statement, and the last statements include the multi-million-row
   `price_last_seen` seed, on tables `/api/db/price-history` and `/api/db/price-product` read.
-  The two statements above are what `execEach` would run; `npm run prices:payloads:cloud` and
+  The two statements above are what `execEach` would run; `pnpm run prices:payloads:cloud` and
   the daily ingest also carry them, correctly, one statement at a time.
 - **The ALTER REWRITES the table** — every STORED generated column does — so it takes an
   AccessExclusiveLock for the duration. Measured locally at 124,120 rows: **~10 s including the
@@ -1110,7 +1110,7 @@ Three things about them differ from every `db:load:*` in the chain:
   it, and nothing did before 2026-08-04, so `procurement_hub_counts()` existed only on databases
   where it had been applied by hand. Its `GRANT` is role-guarded (117/130 shape) because
   `roles_readonly.sql` may not have run on the target — unguarded, it raises 42704 on a cold
-  bootstrap and rolls the whole file back, leaving no function at all. (`npm run db:pg:bootstrap`
+  bootstrap and rolls the whole file back, leaving no function at all. (`pnpm run db:pg:bootstrap`
   now runs that file automatically for the LOCAL docker Postgres, as step 2 of `db:refresh`; it
   refuses every other target, so on Cloud SQL it remains the one-time manual step it always was
   and the guard stays load-bearing there.)
@@ -1170,16 +1170,16 @@ given.** Stopping at the resolver leaves 43,168 council votes and 61,743 filings
 at a 200. The local repair chain is `db:refresh` steps 53–65; the necessary subset, in order:
 
 ```bash
-npm run db:load:declarations:pg -- --resolve   # refills declaration.person_id; rebuilds 090/096/097/159/169
-npm run db:load:company-politicians:pg         # re-keys company_politicians.person_id (see below)
-npm run db:load:person-elections:pg            # candidate_person + person_election_stats
-npm run db:load:official-candidate-links:pg
-npm run db:load:council:pg                     # re-attaches council_vote.person_id (90% floor)
-npm run db:load:persons-browse:pg
-npm run db:load:person-search:pg
-npm run db:load:graph:pg
-npm run db:load:agri-hub-stats:pg
-npm run db:load:tr-company-place:pg
+pnpm run db:load:declarations:pg --resolve   # refills declaration.person_id; rebuilds 090/096/097/159/169
+pnpm run db:load:company-politicians:pg         # re-keys company_politicians.person_id (see below)
+pnpm run db:load:person-elections:pg            # candidate_person + person_election_stats
+pnpm run db:load:official-candidate-links:pg
+pnpm run db:load:council:pg                     # re-attaches council_vote.person_id (90% floor)
+pnpm run db:load:persons-browse:pg
+pnpm run db:load:person-search:pg
+pnpm run db:load:graph:pg
+pnpm run db:load:agri-hub-stats:pg
+pnpm run db:load:tr-company-place:pg
 ```
 
 Steps 55–57 (`mp-roster`, `rollcall`, `rollcall-derived`) are deliberately NOT in that list —
@@ -1188,7 +1188,7 @@ none of them stores `person_id`, so a resolve does not invalidate them.
 Three things about this are easy to get backwards:
 
 - ⚠️ **`ORDER_PAIRS` STRUCTURALLY CANNOT express the declarations rule, so do not go looking
-  for the entry.** Its matcher is `steps.indexOf(name)` over `/npm run ([a-z0-9:_-]+)/`, and
+  for the entry.** Its matcher is `steps.indexOf(name)` over `/pnpm run ([a-z0-9:_-]+)/`, and
   BOTH declaration phases render as the same token `db:load:declarations:pg` — so `indexOf`
   always resolves to phase 1 at step 49. The existing pair therefore pins phase 1 BEFORE the
   resolver and there is no way to write "phase 2 after" without renaming a script. Phase 2 is
@@ -1211,8 +1211,8 @@ Deploying the person layer to **Cloud SQL** needs one extra command after
 `db:resolve:persons:cloud`:
 
 ```bash
-npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_24.json
-npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_29.json
+pnpm run person:slug-redirects:cloud raw_data/person/officials_reslug_2026_07_24.json
+pnpm run person:slug-redirects:cloud raw_data/person/officials_reslug_2026_07_29.json
 ```
 
 They load the officials re-slug maps into `person_slug_retired`, so the ~20.8k `/person` URLs
@@ -1255,8 +1255,8 @@ per-person shard JSON by declarations **phase 1** (the `mp` tier keys on `mpId` 
 cloud side a roster re-slug needs BOTH phases, phase 1 first:
 
 ```bash
-npm run db:load:declarations:pg:cloud            # phase 1 — rewrites subject_ref
-npm run db:load:declarations:pg:cloud -- --resolve
+pnpm run db:load:declarations:pg:cloud            # phase 1 — rewrites subject_ref
+pnpm run db:load:declarations:pg:cloud --resolve
 ```
 
 **Phase 1 must also precede `db:resolve:persons` for a second reason since 2026-08**: the
@@ -1266,7 +1266,7 @@ the officials slug — and phase 1 is what writes `subject_ref`. Run out of orde
 publish undated, and since the profile renders nothing without a basis the office periods
 just vanish with nothing failing. `refresh_coverage.test.ts`'s `ORDER_PAIRS` holds the local
 chain; on the cloud side the order is `db:load:declarations:pg:cloud` →
-`db:resolve:persons:cloud` → `db:load:declarations:pg:cloud -- --resolve`.
+`db:resolve:persons:cloud` → `db:load:declarations:pg:cloud --resolve`.
 
 ⚠️ **`db:load:declarations:pg` PHASE 1 USED TO DESTROY BOTH COLUMNS, and the documented
 cloud procedure ran it.** They are not in the shards — the shard writers never persisted
@@ -1298,8 +1298,8 @@ identical whichever database computes them; re-crawling spends five hours recomp
 we already hold. Ship them instead:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 089_declarations.sql
-npx tsx scripts/db/ship_filed_position.ts --to postgres://postgres@127.0.0.1:5434/electionsbg --apply
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 089_declarations.sql
+pnpm exec tsx scripts/db/ship_filed_position.ts --to postgres://postgres@127.0.0.1:5434/electionsbg --apply
 ```
 
 The shipper keys on **`source_url`**, not `declaration_id`: the id is a `bigserial` handed out
@@ -1341,7 +1341,7 @@ Four things about it are easy to get backwards:
   reading that as "not a holding" deletes every real estate from every published figure at
   once. STRICT would return NULL, which `WHERE is_declared_holding(…)` filters out, i.e.
   exactly that. **The whole change is therefore INERT until the corpus is stamped**, which
-  is the correct order: `npx tsx scripts/declarations/backfill_asset_table_num.ts --apply`,
+  is the correct order: `pnpm exec tsx scripts/declarations/backfill_asset_table_num.ts --apply`,
   then `db:load:declarations:pg` (phase 1 — `--resolve` alone does NOT rewrite asset rows),
   then the matview refresh. Applying 089/090 to Cloud SQL without shipping the re-parsed
   shards changes nothing there while local is correct, with every row count reconciling.
@@ -1471,17 +1471,17 @@ no SQL can backfill this, because whether a figure came from the declarant's cel
 only recoverable from the source XML.
 
 ```bash
-npx tsx scripts/declarations/backfill_asset_fx.ts --apply   # offline, reads raw_data/
-npm run db:load:declarations:pg                             # phase 1 — --resolve does NOT rewrite asset rows
-npx tsx scripts/declarations/rebuild_post.ts                # mp-assets/*, car-makes, rankings
+pnpm exec tsx scripts/declarations/backfill_asset_fx.ts --apply   # offline, reads raw_data/
+pnpm run db:load:declarations:pg                             # phase 1 — --resolve does NOT rewrite asset rows
+pnpm exec tsx scripts/declarations/rebuild_post.ts                # mp-assets/*, car-makes, rankings
 ```
 
 Cloud side, and nothing runs it automatically — `db:load:declarations:pg:cloud` (phase 1) then
-`-- --resolve`. Applying 089/090 to Cloud SQL **without shipping the re-parsed shards changes
+`--resolve`. Applying 089/090 to Cloud SQL **without shipping the re-parsed shards changes
 nothing there while local is correct**, with every row count reconciling.
 
 **The rate table is operator-run and moves once a year**, when a year closes:
-`npx tsx scripts/declarations/fetch_fx_rates.ts --apply`. It REFUSES when a settled historical
+`pnpm exec tsx scripts/declarations/fetch_fx_rates.ts --apply`. It REFUSES when a settled historical
 rate has moved (the ECB revises nothing, so that means the parse changed) and exempts only the
 still-open current year, whose entry is the last day quoted so far and legitimately moves until
 the year closes.
@@ -1532,9 +1532,9 @@ Five things about it are easy to get backwards:
   only in the source XML, so the whole change is INERT until the shards are stamped.
 
 ```bash
-npx tsx scripts/declarations/backfill_asset_held_abroad.ts --apply   # offline, reads raw_data/
-npm run db:load:declarations:pg                                     # phase 1
-npm run db:load:declarations:pg -- --resolve                        # phase 2 — refills person_id
+pnpm exec tsx scripts/declarations/backfill_asset_held_abroad.ts --apply   # offline, reads raw_data/
+pnpm run db:load:declarations:pg                                     # phase 1
+pnpm run db:load:declarations:pg --resolve                        # phase 2 — refills person_id
 ```
 
 Phase 2 is not optional even though nothing here reads `person_id`: phase 1 TRUNCATEs
@@ -1552,7 +1552,7 @@ insert a resolve, as the person chain does, and the degraded span is the whole s
 
 ⚠️⚠️ **THE OUTAGE WAS FINALLY POLLED ON 2026-09-04, AND IT DID NOT HAPPEN. Do not keep citing
 „~8 minutes of 500s" as a reason not to run this.** One probe every 30 s across a full
-`db:resolve:persons:cloud` → `db:load:declarations:pg:cloud -- --resolve` → 8-loader repair
+`db:resolve:persons:cloud` → `db:load:declarations:pg:cloud --resolve` → 8-loader repair
 chain (14:41:37→15:02:35Z, 20m58s end to end): **38 samples, every one HTTP 200, zero 500s.**
 Probed `/api/db/table` for `persons`, `officials_rankings`, `crypto_holdings` and
 `abroad_holdings` — i.e. three of the four surfaces named above plus one more.
@@ -1568,7 +1568,7 @@ than restoring the old number.
 rule.** Same box (`db-custom-2-13312`), the full 19-step cloud person chain (14:31→14:56Z,
 24m21s), probed every ~26 s on naiasno.bg (56 samples): `persons`, `officials_rankings`,
 `crypto_holdings` and `abroad_holdings` all answered **500 from 14:41:16 to ~14:46:30 (~5½
-min)** — inside `db:load:declarations:pg:cloud -- --resolve` (14:40:54→14:46:43), i.e. 090's
+min)** — inside `db:load:declarations:pg:cloud --resolve` (14:40:54→14:46:43), i.e. 090's
 CASCADE window; `officials_rankings` recovered ~30 s before the other three. A SECOND, shorter
 window: `persons` AND `/api/db/person-profile` answered **500 from 14:50:43 to ~14:52:00
 (~1 min)** during `db:load:persons-browse:pg:cloud` (120's DROP + CREATE) — the profile route
@@ -1579,9 +1579,9 @@ so they are identical whichever database computes them — the `ship_filed_posit
 argument — and `scripts/db/ship_held_abroad.ts` writes them into the rows already there:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 089_declarations.sql
-npx tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg          # dry run
-npx tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg --apply
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 089_declarations.sql
+pnpm exec tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg          # dry run
+pnpm exec tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg --apply
 ```
 
 Measured 2026-08-19: **76,953 rows in 31 s at 13:15 on a Wednesday**, RowExclusiveLock only,
@@ -1615,11 +1615,11 @@ declaration, both already in the committed shards. So the restamp reads only the
 mismatch class, and no operator should ever point a 5-hour crawl at it:
 
 ```bash
-npx tsx scripts/declarations/backfill_asset_is_spouse.ts --apply   # shards only, no network
-npm run db:load:declarations:pg                                    # phase 1
-npm run db:load:declarations:pg -- --resolve                       # phase 2 — refills person_id
-npx tsx scripts/declarations/rebuild_post.ts                       # car-makes.json + mp-cars.json carry isSpouse
-npm run db:load:mp-roster:pg                                       # mp-cars.json → mp_cars.is_spouse (104)
+pnpm exec tsx scripts/declarations/backfill_asset_is_spouse.ts --apply   # shards only, no network
+pnpm run db:load:declarations:pg                                    # phase 1
+pnpm run db:load:declarations:pg --resolve                       # phase 2 — refills person_id
+pnpm exec tsx scripts/declarations/rebuild_post.ts                       # car-makes.json + mp-cars.json carry isSpouse
+pnpm run db:load:mp-roster:pg                                       # mp-cars.json → mp_cars.is_spouse (104)
 ```
 
 ⚠️ **The last two look skippable and are not.** Neither load phase touches the COMMITTED
@@ -1709,7 +1709,7 @@ only 148 creates. Omit 148 and 120 raises 42P01 **after** the CASCADE has alread
 without it purely because the view is already there.
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg npx tsx scripts/db/apply_functions.ts \
+DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg pnpm exec tsx scripts/db/apply_functions.ts \
   089_declarations.sql 090_person_wealth.sql 093_declaration_events.sql 097_cohort_benchmark.sql \
   098_new_filings.sql 100_officials_rankings.sql 102_municipal_officials.sql 104_mp_roster.sql \
   105_mp_serving.sql 148_person_company_basis.sql 120_person_browse.sql 159_person_crypto.sql \
@@ -1718,7 +1718,7 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg npx tsx scripts/db/a
 
 Measured: 21.8 s local, **8m02s on Cloud SQL**, during which `/persons`, `/officials/assets`
 and `/declarations/crypto` answer **500** — DbDataTable resources have no `missingMigration`
-degrade. Off-peak only. Prefer `db:load:declarations:pg:cloud -- --resolve` (which applies the
+degrade. Off-peak only. Prefer `db:load:declarations:pg:cloud --resolve` (which applies the
 same files in its own order — **measured 4m52s on `db-custom-2-13312`, 2026-08-29**, i.e.
 about half the hand-run apply above) unless the CASCADE dependents have been resolved against the
 TARGET database, which is what makes the short command safe.
@@ -1755,12 +1755,12 @@ facet while every row count still reconciles. `--resolve` does print an
 stayed unresolved on Cloud SQL until phase 1 was re-run. Re-run
 `db:load:persons-browse:pg:cloud` afterwards, since `has_declaration` reads `person_id`.
 
-Likewise, after `db:load:declarations:pg:cloud -- --resolve` (which creates the municipal
+Likewise, after `db:load:declarations:pg:cloud --resolve` (which creates the municipal
 roster matview), run the candidateLink loader so the Cloud SQL municipal roster carries the
 party colours / councillor avatars the /governance + My-Area tiles render:
 
 ```bash
-npm run db:load:official-candidate-links:pg:cloud
+pnpm run db:load:official-candidate-links:pg:cloud
 ```
 
 It populates `official_candidate_link` and REFRESHes `municipal_officials_table`. `db:refresh`
@@ -1770,7 +1770,7 @@ Same shape, and it must run **BEFORE** `db:resolve:persons:cloud` rather than af
 judicial dimension (migration 116) is what gives every magistrate their court on `/person`.
 
 ```bash
-npm run db:load:judicial-bodies:pg:cloud
+pnpm run db:load:judicial-bodies:pg:cloud
 ```
 
 It rebuilds `judicial_body` + `judicial_body_alias` from `magistrate.court` ∪
@@ -1784,7 +1784,7 @@ court, green locally and blank on prod.
 trigger for the loader above**, and it is the newest member of this section:
 
 ```bash
-npm run db:load:magistrates:pg:cloud   # BEFORE db:load:judicial-bodies:pg:cloud → db:resolve:persons:cloud
+pnpm run db:load:magistrates:pg:cloud   # BEFORE db:load:judicial-bodies:pg:cloud → db:resolve:persons:cloud
 ```
 
 `magistrate_holdings.json` used to be a latest-year snapshot, so the ИВСС register's yearly
@@ -1808,7 +1808,7 @@ it alone to a warm database SUCCEEDS and then raises 42P01 on the first `/court`
 them together, 070 first:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts \
   070_magistrates.sql 116_judicial_body.sql
 ```
 
@@ -1859,12 +1859,12 @@ discriminating.
 not a `:cloud` command at all.** `/court/**` is prerendered — 279 static pages plus 279 EN
 mirrors, a `sitemap_judiciary.xml` shard and a table in `llms-full.txt` — and all four are
 enumerated by `scripts/db/lib/seo_courts.ts`, a build-time reader over `judicial_body`. That
-reader returns `[]` on any failure by design, so **the machine running `npm run build` needs
+reader returns `[]` on any failure by design, so **the machine running `pnpm run build` needs
 the dimension in its LOCAL Postgres**, not merely the deploy target:
 
 ```bash
-npm run db:load:judicial-bodies:pg        # local — before `npm run build`
-npm run db:load:judicial-bodies:pg:cloud  # the serving database, as above
+pnpm run db:load:judicial-bodies:pg        # local — before `pnpm run build`
+pnpm run db:load:judicial-bodies:pg:cloud  # the serving database, as above
 ```
 
 Building without it does not fail — it emits zero court pages, no `<loc>`s for them and a
@@ -1872,7 +1872,7 @@ corpus missing that section, all at exit 0, which is the good failure but an inv
 Two gates make it visible instead: `scripts/sitemap/families.data.test.ts` asserts every
 `/court` and `/pension-fund` `<loc>` has a `dist/<path>/index.html` (the sitemap is COMMITTED
 while `dist/` is not, so a sitemap minted with Postgres survives a build without it — but the
-gate only sees a `dist/` that exists, so run it AFTER `npm run build`), and `buildFull.ts`
+gate only sees a `dist/` that exists, so run it AFTER `pnpm run build`), and `buildFull.ts`
 refuses to rewrite `llms-full.txt` when the judiciary section would disappear from it. The
 `tests/seo.spec.ts` court samples skip rather than fail on a database-less checkout.
 
@@ -1904,7 +1904,7 @@ dimension (migration 117) is the code→name dictionary `082_person_api.sql` JOI
 for settlement names.
 
 ```bash
-npm run db:load:place-dim:pg:cloud
+pnpm run db:load:place-dim:pg:cloud
 ```
 
 It is built from `data/settlements.json` + `data/municipalities.json` (labels via
@@ -1920,7 +1920,7 @@ every `/procurement/settlement/:ekatte` page and My-Area procurement tile; migra
 `procurement_payloads` behind the six `/api/db/procurement-*` dashboard routes):
 
 ```bash
-npm run db:load:procurement-scopes:pg:cloud
+pnpm run db:load:procurement-scopes:pg:cloud
 ```
 
 It writes the window rows, applies 119 + 122 + 123 + 124 and REFRESHes all six matviews
@@ -1966,9 +1966,9 @@ and `tr_companies`, which four of its six aggregates read.
 those matviews are built FROM, and skipping them is invisible:
 
 ```bash
-npm run db:load:awarder-seats:pg:cloud   # WHICH buyers are seated in a settlement (119+123+124)
-npm run db:load:place-dim:pg:cloud       # the place hero 123 STORES in its payload (119+123)
-npm run db:load:tr:pg:cloud              # company_politicians / tr_companies (122+124)
+pnpm run db:load:awarder-seats:pg:cloud   # WHICH buyers are seated in a settlement (119+123+124)
+pnpm run db:load:place-dim:pg:cloud       # the place hero 123 STORES in its payload (119+123)
+pnpm run db:load:tr:pg:cloud              # company_politicians / tr_companies (122+124)
 ```
 
 All three now do it themselves, and each gets only the matviews its input can actually move.
@@ -2006,7 +2006,7 @@ Four things about this family are easy to get backwards:
   construction, so a TRUNCATE made every run REPLACE the corpus: loading 2024 swapped 2025
   out. The write is now `DELETE … WHERE EXTRACT(YEAR FROM period) = $1` + insert, and the
   writer emits a per-year `activities-<year>.json` (gitignored) beside the latest-year
-  `activities.json`. Backfill with `npx tsx scripts/db/load_nzok_activities_pg.ts --year 2024`.
+  `activities.json`. Backfill with `pnpm exec tsx scripts/db/load_nzok_activities_pg.ts --year 2024`.
 - **A backfill run must not touch the LATEST-year artifacts.** `activities_overview.json` is
   COMMITTED, and the writer used to rewrite it on every run — so building 2024 replaced the
   2025 overview with 2024 and would have shipped it, with nothing red. The writer now only
@@ -2018,10 +2018,12 @@ Four things about this family are easy to get backwards:
   and failed `recent_updates_plan.data.test.ts` at 308,980 rows scanned for a one-day
   window. Summary mode does not help — it stops the day being itemised, but the branch
   still scans.
-- **Backfilling on the CLOUD needs an env var, not a flag.** `db:load:nzok-activities:pg:cloud`
-  is a nested npm script and the inner `npm run` swallows `--year 2024` (argv arrives as
-  `["2024"]`), so the loader would silently reload the LATEST year instead. Use
-  `NZOK_ACTIVITY_YEAR=2024 npm run db:load:nzok-activities:pg:cloud`.
+- **Backfilling on the CLOUD: prefer the env var.** `db:load:nzok-activities:pg:cloud`
+  is a nested package script. Under npm the inner `npm run` swallowed `--year 2024` (argv
+  arrived as `["2024"]`), so the loader silently reloaded the LATEST year instead. pnpm
+  forwards `pnpm run db:load:nzok-activities:pg:cloud --year 2024` intact (never add a bare
+  `--`: pnpm passes it through to the script literally), but the env var works either way:
+  `NZOK_ACTIVITY_YEAR=2024 pnpm run db:load:nzok-activities:pg:cloud`.
 
 The panel must sum to the annual matrix EXACTLY, per year — they are the same rows either
 side of the fold, so drift means one aggregation lost or double-counted a period. The
@@ -2066,7 +2068,7 @@ Four things about it are easy to get backwards:
 
 `cpv_catalog` (migration 121) is the same shape but rides the TENDERS loader: `db:load:tenders:pg`
 applies it and calls `rebuild_cpv_catalog()` right after the corpus commits, so on the cloud side
-`npm run db:load:tenders:pg:cloud` keeps it in step with no extra command. The only ordering that
+`pnpm run db:load:tenders:pg:cloud` keeps it in step with no extra command. The only ordering that
 matters is the FIRST deploy — the loader must run **before** the `deploy:db` that ships the route
 reading it, because that route no longer degrades a missing table to an empty array (an empty CPV
 picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
@@ -2078,8 +2080,8 @@ casts loaded from `data/parliament/votes/sessions/*.json`, the same tree the der
 metrics read. In `db:refresh`; on the cloud side:
 
 ```bash
-npm run db:load:rollcall:pg:cloud            # facts
-npm run db:load:rollcall-derived:pg:cloud    # the four precomputes — ALWAYS after facts
+pnpm run db:load:rollcall:pg:cloud            # facts
+pnpm run db:load:rollcall-derived:pg:cloud    # the four precomputes — ALWAYS after facts
 ```
 
 Re-run it after **every** `update-rollcall` ingest that added a session; the skill's Step 5b
@@ -2211,7 +2213,7 @@ whole-bill adoption marker would live, and this corpus has none, so NULL means "
 derivable" rather than "not adopted". `bill_and_topics.data.test.ts` fails if either changes.
 
 **Adoption comes from parliament.bg instead, in its own columns (T4.7, 2026-10-21).**
-`npm run parliament:bills` crawls the bills API into the committed
+`pnpm run parliament:bills` crawls the bills API into the committed
 `data/parliament/bills/ns<N>.json` (a PG load source — excluded from bucket sync at all four
 sites); `db:load:rollcall:pg` reads it and fills `bill.adopted_on` / `dv_issue` / `dv_year` /
 `parliament_bill_ids` only where the stem equals one of the bill title's EXACT forms
@@ -2283,11 +2285,11 @@ applier** — the tenders loader below carries 147 but NOT 146 — so a database
 ran this loader has the search index and none of the corpus.
 
 Its input is `raw_data/procurement/eop_dossier.sqlite`, **gitignored**, written by
-`npx tsx scripts/procurement/ingest_eop_dossier.ts` — a rate-limited ~26 h crawl of a
+`pnpm exec tsx scripts/procurement/ingest_eop_dossier.ts` — a rate-limited ~26 h crawl of a
 shared public register, so it is an operator action rather than a pipeline step
 (`--probe` first to gauge the block state; `--to-year` for a stratified sample).
 `scripts/procurement/ingest_eop_spec_text.ts` is the tier-B pass over the same store:
-sign → fetch → extract text → **discard the bytes**. There is no `npm run` alias for
+sign → fetch → extract text → **discard the bytes**. There is no `pnpm run` alias for
 either, on purpose — neither belongs in a chain.
 
 `tender_search_text` (migration 147, applied by `db:load:tender-dossier:pg` **and** by
@@ -2298,7 +2300,7 @@ so before this a procurement for nine kinds of coffee was searchable only as
 „Доставка на хранителни продукти".
 
 ```bash
-npm run db:load:tender-dossier:pg:cloud
+pnpm run db:load:tender-dossier:pg:cloud
 ```
 
 **⚠️ The publish is SLICED, and the reason is a failure class no local run can
@@ -2376,7 +2378,7 @@ Two performance rules are load-bearing and both were measured, not reasoned:
 **Three routes read this family, and one of them has a cache rule that is easy to
 undo.** `/api/db/tender-dossier` (the per-procedure page), `/api/db/tender-document`
 (the signed-URL redirect) and `/api/db/tender-search-coverage` all ship with
-`npm run deploy:db`.
+`pnpm run deploy:db`.
 
 **A loader that applies 147 MUST reach the serving database BEFORE the `deploy:db` that
 ships these routes** — either `db:load:tenders:pg:cloud` or
@@ -2446,7 +2448,7 @@ of this — the same trap the `OFFSET 0` search fence was written for.
 crosswalk behind the `/sector/transport/bodies#map` facility map — the same 073/074 family as the water
 and МВР maps, in `db:refresh`, curated from `TRANSPORT_ENTITIES` with a Варна physical-facility
 override for the two maritime bodies. First cloud deploy needs
-`npm run db:load:transport-facility-map:pg:cloud` (after `db:load:awarder-seats:pg:cloud`)
+`pnpm run db:load:transport-facility-map:pg:cloud` (after `db:load:awarder-seats:pg:cloud`)
 **before** the `deploy:db` that ships the `/api/db/transport-facility-map` route — the route
 degrades a missing migration to an empty map, so ordering is cosmetic, not breaking. Re-run it
 whenever `TRANSPORT_ENTITIES` changes; `transport_facility_map.data.test.ts` fails on drift.
@@ -2458,11 +2460,11 @@ that.** 076 (the project map) gained a `scope` column, a consortium-member filte
 and two extra `awarder-group-top-contracts` fields. Ship in this order:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 076_transport_project_map.sql 132_transport_facility_map.sql
-npm run db:load:transport-project-map:pg:cloud && npm run db:load:transport-facility-map:pg:cloud
-npx tsx scripts/funds/install_query.ts --cloud && npm run deploy:db
-npm run bucket:sync:paths -- transport/derived/hub_stats.json procurement/derived/sector_stats.json transport/rail_subsidy.json transport/rail_ridership.json
-npm run deploy && npm run deploy:db && SKIP_PREDEPLOY=1 npm run deploy
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 076_transport_project_map.sql 132_transport_facility_map.sql
+pnpm run db:load:transport-project-map:pg:cloud && pnpm run db:load:transport-facility-map:pg:cloud
+pnpm exec tsx scripts/funds/install_query.ts --cloud && pnpm run deploy:db
+pnpm run bucket:sync:paths transport/derived/hub_stats.json procurement/derived/sector_stats.json transport/rail_subsidy.json transport/rail_ridership.json
+pnpm run deploy && pnpm run deploy:db && SKIP_PREDEPLOY=1 pnpm run deploy
 ```
 
 Every step degrades rather than breaks if skipped — the hub without its blob renders no KPI
@@ -2477,7 +2479,7 @@ offline through the shared `EkatteResolver` (99.6% of seated companies; an ambig
 stays unresolved rather than guessing a village). In `db:refresh`; on the cloud side:
 
 ```bash
-npm run db:load:tr-company-place:pg:cloud
+pnpm run db:load:tr-company-place:pg:cloud
 ```
 
 **Its two ranking columns are DENORMALIZED, which makes its re-run trigger wider than its
@@ -2514,7 +2516,7 @@ the tile's link to `/settlement/:id/companies` was hidden on 218 of 260 municipa
 with an empty page. `place_companies()` therefore returns BOTH counts and the tile reads
 `personLinkCount`.
 
-`company_browse_table` (migration 188, `db:load:declarations:pg -- --resolve`) is the general
+`company_browse_table` (migration 188, `db:load:declarations:pg --resolve`) is the general
 company registry browse behind `/companies` — one row per `tr_companies.uic`, the FULL Commerce
 Registry corpus (~1.02M rows), superseding `official_companies` (178, now a tombstone). The old
 page's whole population — "linked to a person in public life" — is one boolean column here
@@ -2533,10 +2535,10 @@ entity_class IN ('ngo_assoc','ngo_found','chitalishte')` — roughly 10% of the 
 call sites is redundant:**
 
 ```bash
-npm run db:load:declarations:pg:cloud -- --resolve   # the ONLY create path (person layer)
-npm run db:load:graph:pg:cloud                       # public_money_eur (127)
-npm run db:load:tr-company-place:pg:cloud            # settlement/obshtina/oblast (133)
-npm run db:load:pg:cloud                              # contractor_total_eur/contract_count (122)
+pnpm run db:load:declarations:pg:cloud --resolve   # the ONLY create path (person layer)
+pnpm run db:load:graph:pg:cloud                       # public_money_eur (127)
+pnpm run db:load:tr-company-place:pg:cloud            # settlement/obshtina/oblast (133)
+pnpm run db:load:pg:cloud                              # contractor_total_eur/contract_count (122)
 ```
 
 Two of its LEFT JOIN sources are read through plpgsql wrapper functions
@@ -2551,7 +2553,7 @@ that gate instead, the same shape 178 had: `load_declarations_pg.ts` applies 096
 few statements later on the same path, so the CASCADE and the rebuild always travel together.
 
 ⚠️ **First-bootstrap ordering is BACKWARDS, and `load_tr_company_place_pg.ts` self-heals it.**
-`db:refresh`'s chain runs `db:load:declarations:pg -- --resolve` — 188's only CREATE path —
+`db:refresh`'s chain runs `db:load:declarations:pg --resolve` — 188's only CREATE path —
 **before** `db:load:graph:pg` and `db:load:tr-company-place:pg`, the loaders that build two of
 its own dependencies. So on a genuinely fresh database the preflight there finds
 `company_public_money`/`tr_company_place` missing and skips (skip-and-warn, not abort — same
@@ -2601,7 +2603,7 @@ regardless), and the `official_companies` it DROPs has no reader anywhere — no
 identical; `person_role` at tr/ngo is 199,531 against 201,082, the known resolve-history drift).
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 188_company_browse.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 188_company_browse.sql
 ```
 
 ⚠️ **OFF-PEAK.** This is a `CREATE MATERIALIZED VIEW` over 1,022,592 `tr_companies` rows joined
@@ -2642,7 +2644,7 @@ resource with no `missingMigration` degrade — 500s throughout. That is the 122
 warm database converge:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 193_company_browse_sort_indexes.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 193_company_browse_sort_indexes.sql
 ```
 
 Cloud SQL needs it by hand and nothing runs it; the four `CREATE INDEX`es take a ShareLock, so
@@ -2666,7 +2668,7 @@ defect: `db:refresh` then fails at its final `test:data` step on any database no
 and no cloud path ships them at all. Ship a body change on its own with the usual hatch:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts \
   148_person_company_basis.sql 150_mp_tr_roles.sql 151_place_mp_companies.sql
 ```
 
@@ -2677,14 +2679,14 @@ fails the whole file with 42P01 — the 081→082 trap again.
 Cloud side, in order — nothing here is automatic:
 
 ```bash
-npm run db:resolve:persons:cloud            # applies 150
-npm run db:load:graph:pg:cloud              # company_public_money → money_eur, 151's sort key
-npm run db:load:tr-company-place:pg:cloud   # applies 133 + 151, fills person_link_n
-npm run deploy:db                           # the two routes
-npm run deploy                              # ⚠️ NOT optional — see below
+pnpm run db:resolve:persons:cloud            # applies 150
+pnpm run db:load:graph:pg:cloud              # company_public_money → money_eur, 151's sort key
+pnpm run db:load:tr-company-place:pg:cloud   # applies 133 + 151, fills person_link_n
+pnpm run deploy:db                           # the two routes
+pnpm run deploy                              # ⚠️ NOT optional — see below
 ```
 
-⚠️ **`npm run deploy` is the step that actually retires the shards, and leaving it out inverts
+⚠️ **`pnpm run deploy` is the step that actually retires the shards, and leaving it out inverts
 the point of the whole change.** The hooks were repointed in the bundle; until hosting ships
 that bundle, production keeps fetching the bucket copies and keeps publishing the 410
 attributions the person layer refuses. `deploy:db` alone changes nothing a reader sees.
@@ -2726,7 +2728,7 @@ its per-fiscal-year roll-up, the admin/programme reconciliation, personnel, COFO
 budget-document index.
 
 ```bash
-npm run db:load:budget:pg:cloud
+pnpm run db:load:budget:pg:cloud
 ```
 
 **It is a `REFRESH_EXCLUSIONS` member, and the axis is the INPUT, not the cost.** The admin and
@@ -2766,7 +2768,7 @@ My-Area alerts feed and the AI chat's `councilResolutions` tool. In `db:refresh`
 `db:load:official-candidate-links:pg`; on the cloud side:
 
 ```bash
-npm run db:load:council:pg:cloud
+pnpm run db:load:council:pg:cloud
 ```
 
 **Its input is the DURABLE per-resolution shard tree** (`data/council/<code>/<YYYY>/<id>.json`,
@@ -2806,7 +2808,7 @@ Five things about it are easy to get backwards:
   was wrong: this loader takes `resolution_count` from the tree (`rows.length`) and reads
   `index.json` only for `meta.name` / `meta.lastIngest`, and the whole `council/` tree is excluded
   from bucket sync. What DID read the bad number was the `update-council-minutes` verification
-  step and the ingest ledger. Repair with `npm run council:rebuild-shards` — which now prunes the
+  step and the ingest ledger. Repair with `pnpm run council:rebuild-shards` — which now prunes the
   ROWS as well as resyncing the count, the half whose absence made the 2026-08-22 purge look
   complete when it was not. `scripts/council/lib/index_corpus.test.ts` gates the invariant in both
   directions.
@@ -2824,7 +2826,7 @@ the three liability stocks Bulgarian public finance distinguishes and the site p
 collapsed into one. In `db:refresh` right after `db:load:place-dim:pg`; on the cloud side:
 
 ```bash
-npm run db:load:municipal-fiscal:pg:cloud
+pnpm run db:load:municipal-fiscal:pg:cloud
 ```
 
 **`db:load:place-dim:pg:cloud` is a hard PREREQUISITE, not merely a trigger.** Two of 149's
@@ -2856,7 +2858,7 @@ Five things about it are easy to get backwards:
   `municipalExpenseObligations` / `municipalArrears`, behind the `/indicators/fiscal`
   commitments tile — built by `scripts/macro/municipal_stocks.ts`. `fetch_eurostat.ts` is
   the durable writer (it pushes them onto `CURATED_INDICATORS`, so a macro refresh carries
-  them), and `npm run macro:municipal-stocks` folds them into an existing `macro.json` when
+  them), and `pnpm run macro:municipal-stocks` folds them into an existing `macro.json` when
   the corpus moved and nothing else did. A new quarter that reaches only the PG loader
   leaves `/indicators/fiscal` a quarter behind at a 200 — `macro.json` is bucket-served from
   the committed file, so nothing about the database refreshes it. Note the assembler's
@@ -2877,7 +2879,7 @@ Five things about it are easy to get backwards:
      `^budget/municipal_fiscal/.*` arm beside the `funds/` and `opencalls/` ones.
   2. `bucket:sync:paths -- budget` — `isExcluded` guards only the top-level ARGUMENT, so the
      scoped push walks into the subtree; that needs the `CHILD_EXCLUDES` twin.
-  3. `npm run budget:ingest -- --upload` — the `update-budget` step, which `gsutil cp -r`s
+  3. `pnpm run budget:ingest --upload` — the `update-budget` step, which `gsutil cp -r`s
      the whole tree. `gsutil cp` has no `-x`, so `uploadTextTree` now expands the top level
      itself and filters through the SAME `isExcluded`.
 
@@ -2917,7 +2919,7 @@ where Interreg lives because it runs on **Jems** and not on ИСУН. That is wh
 In `db:refresh`; on the cloud side:
 
 ```bash
-npm run db:load:interreg:pg:cloud
+pnpm run db:load:interreg:pg:cloud
 ```
 
 **Its re-run triggers are wider than its own source**, and two of the three are the
@@ -2925,7 +2927,7 @@ non-obvious ones. Place resolution happens IN THE LOADER (Tier L1 reads `awarder
 L2 reads `tr_company_place`), so 199 of the 1,469 placed rows depend on the _content_ of
 those two tables and not merely on their existence. Re-run it after:
 
-- a keep.eu re-import (`npm run funds:crawl-interreg -- --full` then `funds:ingest-interreg`);
+- a keep.eu re-import (`pnpm run funds:crawl-interreg --full` then `funds:ingest-interreg`);
 - **`db:load:awarder-seats:pg:cloud`** — 158 placements;
 - **`db:load:tr-company-place:pg:cloud`** — 41 placements.
 
@@ -2938,7 +2940,7 @@ came to exist: prod's `place_dim` had the right ROW COUNT (5,720, matching local
 wrong columns, so a count-based preflight passed it.
 
 ```bash
-npm run db:load:place-dim:pg:cloud   # BEFORE db:load:interreg:pg:cloud
+pnpm run db:load:place-dim:pg:cloud   # BEFORE db:load:interreg:pg:cloud
 ```
 
 Budget for it: the rows change, so its fingerprint check fires the refresh it guards and
@@ -2970,9 +2972,9 @@ broad-money basis — grew an Interreg arm, and the GRAPH loader is 127's only a
 refresher. So the cloud order is:
 
 ```bash
-npm run db:load:interreg:pg:cloud          # the corpus
-npm run db:load:graph:pg:cloud             # 127's 4th arm reads it; nothing else applies 127
-npm run db:load:tr-company-place:pg:cloud  # money_eur is denormalized from 127
+pnpm run db:load:interreg:pg:cloud          # the corpus
+pnpm run db:load:graph:pg:cloud             # 127's 4th arm reads it; nothing else applies 127
+pnpm run db:load:tr-company-place:pg:cloud  # money_eur is denormalized from 127
 ```
 
 Skipping the second leaves every Interreg euro out of `/connections`, out of the governance
@@ -2998,13 +3000,13 @@ a different thing from a Postgres function. `db:load:interreg:pg[:cloud]` applie
 corpus reload carries them; a function-body fix on its own does not wait for one:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts \
   138_interreg_serving.sql 139_funds_muni_combined.sql
 ```
 
 **`/funds/interreg/**`is a page URL served by the`db` function** (`functions/spa_page.js`),
 like `/funds/contract/**`and`/company/**` — so the same ordering rule applies and it is the
-one that breaks a working page: **`npm run deploy:db`BEFORE`npm run deploy`**. Hosting
+one that breaks a working page: **`pnpm run deploy:db`BEFORE`pnpm run deploy`**. Hosting
 first points all ~1,954 operation URLs at a function with no handler for them. They are not
 prerendered and carry no sitemap `<loc>`; without the function they serve the homepage's
 `<title>` and canonical, which is the duplicate-content shape this handler exists to end.
@@ -3036,7 +3038,7 @@ creation and 145 needs `canon_oblast` — which 143 defines, applied by that sam
 `function canon_oblast(text) does not exist` and rolls back a 57-step chain at step 10.
 
 ```bash
-npm run db:load:funds-fit:pg:cloud
+pnpm run db:load:funds-fit:pg:cloud
 ```
 
 **It is materialised because the live aggregate cannot be served.** Measured: 18,855 buffers
@@ -3069,7 +3071,7 @@ applies it, and it needed an applier: `db:refresh` ends with `test:data`, so an 
 a full reload fail at its final step. A body fix ships on its own with the usual escape hatch:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 144_funds_wire.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 144_funds_wire.sql
 ```
 
 **144 must DROP `funds_wire` before recreating it**, and the line is load-bearing: `checked_on` is
@@ -3113,7 +3115,7 @@ corpus (project count, grant quartiles, org-form mix, oblast breakdown) that ans
 `db:refresh` right after `db:load:funds:pg`; on the cloud side:
 
 ```bash
-npm run db:load:funds-fit:pg:cloud
+pnpm run db:load:funds-fit:pg:cloud
 ```
 
 **Its only staleness trigger is a funds reload** — `fund_projects` plus the procedure NAMES in
@@ -3152,10 +3154,10 @@ register behind the `/funds` band-1 tile and `/funds/calls` — what a reader ca
 `db:refresh` (after `db:load:funds:pg`); on the cloud side:
 
 ```bash
-npm run db:load:open-calls:pg:cloud
+pnpm run db:load:open-calls:pg:cloud
 ```
 
-Re-run after every `npm run opencalls:isun` / `opencalls:sp2023` crawl. Nothing runs it on the
+Re-run after every `pnpm run opencalls:isun` / `opencalls:sp2023` crawl. Nothing runs it on the
 cloud side, and the failure is the usual one: prod keeps the previous vintage at a 200.
 
 **Four things about this family invert the rules the rest of this file states, all for the same
@@ -3185,11 +3187,11 @@ through the function rather than with a second WHERE is what keeps the tile's he
 the rows beneath it on one predicate.
 
 **`/funds/calls` covers ИСУН + ДФЗ + АХУ + the dated АЗ intakes + PART of Interreg, and the page says so („част от").**
-АХУ (`npm run opencalls:ahu`) and АЗ (`npm run opencalls:az`) are documented in the
+АХУ (`pnpm run opencalls:ahu`) and АЗ (`pnpm run opencalls:az`) are documented in the
 `update-open-calls` skill; both keep EXACT rows only — an announcement with no labelled end is
 rejected, never filed as `indicative`, for the never-delete reason below.
 Interreg runs on Jems rather than ИСУН, so an Interreg call can never appear in `/Active` — a
-system boundary that falls on the border municipalities. `npm run opencalls:interreg`
+system boundary that falls on the border municipalities. `pnpm run opencalls:interreg`
 (`interreg_parse.ts`, one parser per programme SHAPE) lists all six Bulgarian cross-border
 programmes since 2026-10-21: Greece-Bulgaria (`gbg`), Black Sea Basin (`bsb`), the three МРРБ
 IPA programmes BG-RS / BG-MK / BG-TR (`mrrb` — home „Calls for proposals" dropdown → one
@@ -3268,7 +3270,7 @@ Two things about it are easy to get backwards:
 
 - **`enrichment='auto'` publishes no number.** It may write the verbatim eligibility text and the
   provenance blob; 142's `open_calls_money_needs_provenance` CHECK bars it from all four money
-  columns. Only `npm run opencalls:enrich-review -- --promote <key>`, one row at a time after a
+  columns. Only `pnpm run opencalls:enrich-review --promote <key>`, one row at a time after a
   human reads the quotes, promotes to `'reviewed'` and lets a figure into sorting, range filters
   and the tile's total. There is deliberately no `--promote-all`.
 - **The crawl must not own an enriched column.** `load_open_calls_pg.ts` splits its upsert into
@@ -3291,7 +3293,7 @@ are re-tabled in euro.
 Dry-run by default; `--apply` writes:
 
 ```bash
-npm run opencalls:sync-enrichment:cloud -- --apply
+pnpm run opencalls:sync-enrichment:cloud --apply
 ```
 
 It copies the overlay — `enrichment`, `enrichment_meta`, `beneficiaries_raw` and the four money
@@ -3336,7 +3338,7 @@ the НРД **contract body** (чл. 368/369/370, re-tabled by each amendment), p
 `scripts/nzok/write_pathway_tariffs.ts` into the gitignored `pathway_tariffs.json`. Publish:
 
 ```bash
-npm run db:load:nzok-tariffs:pg:cloud
+pnpm run db:load:nzok-tariffs:pg:cloud
 ```
 
 Re-run writer + loader when the `nzok_nrd_tariffs` watcher flags a new НРД/amendment PDF
@@ -3354,7 +3356,7 @@ but a guard fix must not wait for a tariff reload. Ship it with the usual hatch,
 `deploy:db` (the route) and `deploy` (the tile copy):
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 059_nzok_pathway_tariffs.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 059_nzok_pathway_tariffs.sql
 ```
 
 Two guards suppress the RATIO (never the whole payload) and name the reason, so a surface can
@@ -3383,8 +3385,8 @@ the fetch/load split: it reads only the **gitignored** `raw_data/agri/` cache (e
   publish a corpus missing a financial year. Publishing to prod:
 
 ```bash
-npm run db:load:agri:pg:cloud
-npm run db:load:agri-hub-stats:pg:cloud   # the /subsidies hub cache — see below
+pnpm run db:load:agri:pg:cloud
+pnpm run db:load:agri-hub-stats:pg:cloud   # the /subsidies hub cache — see below
 ```
 
 **`db:load:agri-hub-stats:pg` is a SECOND, much cheaper loader for the same corpus, and it
@@ -3418,7 +3420,7 @@ on a cold `db:refresh` both are created after step 14. Applying their DDL first 
 missing one skips the migration with a warning rather than aborting the load.
 
 Run the base loader after any `raw_data/agri/` refresh (a new egov financial year, or a fresh
-`npm run agri:seu` pull); the fetch+load path stays `npm run agri:ingest` (the update-agri
+`pnpm run agri:seu` pull); the fetch+load path stays `pnpm run agri:ingest` (the update-agri
 skill). Nothing on the cloud side is automatic. The subsidies table publishes via an UNLOGGED
 stage + one-transaction DELETE+INSERT (RowExclusiveLock only — readers stay on the MVCC
 snapshot, never blocked; <5%-shrink guard), `agri_payloads` via the shared stage merge — so the
@@ -3438,7 +3440,7 @@ the tier-2 half of the appeals pack, and the loader whose absence let that arm f
 weeks unnoticed. It has **no automatic cloud path**:
 
 ```bash
-npm run db:load:kzk-decisions:pg:cloud
+pnpm run db:load:kzk-decisions:pg:cloud
 ```
 
 Re-run it after every `scripts/procurement/kzk_decisions.ts --apply` crawl, and on a first
@@ -3455,12 +3457,12 @@ for a derived table and a data-loss bug on this one. Note the appeals arm is the
 shape: `kzk_appeals` has no loader at all, so publishing it means re-crawling against the
 cloud URL. `kzk_decisions.data.test.ts` fails on an empty table or a malformed act.
 
-Riding immediately behind it — **the rejoin** (`npm run kzk:rejoin -- --apply`), which applies
+Riding immediately behind it — **the rejoin** (`pnpm run kzk:rejoin --apply`), which applies
 migration 131 and folds `kzk_decisions` into `kzk_appeals.outcome`. Nothing else applies 131,
 so without this the cloud database has no `decision_act_no` column at all:
 
 ```bash
-npm run kzk:rejoin:cloud -- --apply
+pnpm run kzk:rejoin:cloud --apply
 ```
 
 Re-run it after **every** `db:load:kzk-decisions:pg[:cloud]` and after any change to
@@ -3495,8 +3497,8 @@ value is immovable — and there is no `db:load:kzk:pg:cloud` to carry a fix ove
 frozen until someone runs it there:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/procurement/kzk_unfreeze_suspension.ts --apply
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/procurement/kzk_unfreeze_suspension.ts --apply
 ```
 
 **Order matters and the script enforces it.** 042 must land FIRST: before it,
@@ -3535,7 +3537,7 @@ the ratchet would mask a later real regression.
 both effective-value functions, and `exec()` validates a `LANGUAGE sql` body at CREATE):
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql
 ```
 
 **Applied to Cloud SQL 2026-08-25** — 1.35 s, and the reader-visible window is real but
@@ -3568,7 +3570,7 @@ Four things are easy to get backwards:
   entry in that map, because every other outcome IS a register term. **Until hosting ships
   that bundle, prod renders the bare code** in both languages (the old `kzkOutcomeLabel`
   falls through to the raw term), including in the `/procurement/appeals` outcome facet,
-  whose options ARE the column's distinct values. Harmless and visible; `npm run deploy`
+  whose options ARE the column's distinct values. Harmless and visible; `pnpm run deploy`
   closes it.
 
 The gate is `scripts/db/tests/kzk_effective_outcome.data.test.ts` (6 tests) — the
@@ -3638,7 +3640,7 @@ them; the routes no longer read them.
 ~90-minute full contracts reload. Without this, prod keeps two orphan matviews for ever:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 025_procurement_overview.sql 031_procurement_rankings.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 025_procurement_overview.sql 031_procurement_rankings.sql
 ```
 
 Safe to run at any time and idempotent: both files `CREATE OR REPLACE` their function (they do
@@ -3668,11 +3670,11 @@ Last in the person chain, and the only loader with **two** independent triggers 
 persons browser matview (migration 120) behind `/persons`:
 
 ```bash
-npm run db:load:persons-browse:pg:cloud
+pnpm run db:load:persons-browse:pg:cloud
 ```
 
 It folds six upstream datasets, so it must run **after all of them**: `db:resolve:persons`,
-`db:load:declarations:pg:cloud -- --resolve` (net worth **and** `declaration.person_id`),
+`db:load:declarations:pg:cloud --resolve` (net worth **and** `declaration.person_id`),
 `db:load:official-candidate-links:pg:cloud`
 (the non-MP photos), `db:load:judicial-bodies:pg:cloud` + `db:load:place-dim:pg:cloud` (every
 place label and the magistrates' oblast), and the contracts corpus. Re-run it:
@@ -3693,7 +3695,7 @@ UNLIKE `contractor_search` (rebuilt inside `db:load:pg`) it is a **standalone** 
 running it on the cloud side, so run:
 
 ```bash
-npm run db:load:person-search:pg:cloud
+pnpm run db:load:person-search:pg:cloud
 ```
 
 after **each** of `db:load:persons-browse:pg:cloud` (its public arm), `db:load:tr:pg:cloud`, and any
@@ -3721,7 +3723,7 @@ so `load_declarations_pg.ts` applies it in phase 2 right after 120, and its `CRE
 populates it. On the cloud side it therefore rides:
 
 ```bash
-npm run db:load:declarations:pg:cloud -- --resolve
+pnpm run db:load:declarations:pg:cloud --resolve
 ```
 
 **First deploy is ORDERED, and getting it wrong is a 500 rather than a narrower answer.**
@@ -3759,7 +3761,7 @@ corpus answer to „how much of the money declared by officials is held abroad".
 has **no loader of its own**: it is the **SIXTH** victim of 090's `DROP MATERIALIZED VIEW
 person_wealth_year CASCADE`, so `load_declarations_pg.ts` applies it in phase 2 after 159, and
 its `CREATE … AS` populates it. Cloud side it therefore rides
-`npm run db:load:declarations:pg:cloud -- --resolve`.
+`pnpm run db:load:declarations:pg:cloud --resolve`.
 
 **First deploy is ORDERED, and getting it wrong is a 500 rather than a narrower answer** —
 the registry engine reads the base relation unconditionally, exactly as for `crypto_holdings`.
@@ -3796,7 +3798,7 @@ blob), so a `TRUNCATE`-and-rebuild would hold an AccessExclusiveLock for the who
 routes at the pool's `lock_timeout` (`person_reload_locks.data.test.ts` is the gate). Run:
 
 ```bash
-npm run db:load:graph:pg:cloud
+pnpm run db:load:graph:pg:cloud
 ```
 
 **AFTER `db:load:persons-browse:pg:cloud`** (it reads `person_browse_table` facets for the person
@@ -3876,7 +3878,7 @@ Last of all, and the only step here whose output is a COMMITTED FILE rather than
 the `/person` prerender + sitemap manifest (`data/person/prerender_slugs.json`):
 
 ```bash
-npm run person:slugs:cloud
+pnpm run person:slugs:cloud
 ```
 
 It must run **after** `db:resolve:persons:cloud`, after `db:load:declarations:pg:cloud --
@@ -3976,7 +3978,7 @@ was being used as a reason not to run the chain:
 | step | 2026-08-29 |
 | --- | --- |
 | `db:resolve:persons:cloud` | **7m 35s** (was 1733 s / 28.9 min on `db-g1-small`) |
-| `db:load:declarations:pg:cloud -- --resolve` | 4m 52s |
+| `db:load:declarations:pg:cloud --resolve` | 4m 52s |
 | `db:load:person-search:pg:cloud` | 1m 23s |
 | `db:load:person-elections:pg:cloud` | 1m 18s |
 | `db:load:persons-browse:pg:cloud` | 56s |
@@ -4009,7 +4011,7 @@ so the two databases disagreed on content too. Whether that was purely temporal 
 committed manifest predated the cloud catch-up) is not established.
 
 `emit_prerender_slugs.ts` now REFUSES to write when connected to the local docker Postgres
-(`npm run person:slugs -- --local` overrides), so `db:refresh`'s `person:slugs` step and the
+(`pnpm run person:slugs --local` overrides), so `db:refresh`'s `person:slugs` step and the
 `person_prerender_set.data.test.ts` determinism gate — both of which used to mint the file
 from the stale side — warn and skip instead. Nothing else regenerates it: this command is
 the only way the manifest moves.
@@ -4100,16 +4102,16 @@ does NOT need the loader, since `ADD COLUMN … text` with no default is catalog
 PG11+:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 003_tr_search.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 003_tr_search.sql
 ```
 
 Then the corpus, which is what actually makes either field appear — the change is INERT
 until the state is re-derived, the same shape as 089's backfills:
 
 ```bash
-npm run tr:daily-refresh      # replay → state.sqlite (+ the CR projection)
-npm run db:load:tr:pg         # local
-npm run db:load:tr:pg:cloud   # the serving database — nothing runs this automatically
+pnpm run tr:daily-refresh      # replay → state.sqlite (+ the CR projection)
+pnpm run db:load:tr:pg         # local
+pnpm run db:load:tr:pg:cloud   # the serving database — nothing runs this automatically
 ```
 
 The gates are `scripts/db/tests/tr_sole_trader.data.test.ts` (which SKIPS with a distinct
@@ -4155,13 +4157,13 @@ fixtures.
 nobody; `tr_company_place` is written by a different loader. Local:
 
 ```bash
-npm run tr:daily-refresh          # replay → state.sqlite → the CR projection fills the gaps
-npm run db:load:tr:pg
-npm run db:load:tr-company-place:pg   # ⚠️ the step that turns a seat into a place
+pnpm run tr:daily-refresh          # replay → state.sqlite → the CR projection fills the gaps
+pnpm run db:load:tr:pg
+pnpm run db:load:tr-company-place:pg   # ⚠️ the step that turns a seat into a place
 ```
 
 Cloud, and nothing runs it automatically — the documented pair, in this order:
-`npm run db:load:tr:pg:cloud` (497–742 s on `db-custom-2-13312`; 280 s on N-2) then `npm run db:load:tr-company-place:pg:cloud` (28–72 s over 50 runs on `db-custom-2-13312`; 27 s on N-2).
+`pnpm run db:load:tr:pg:cloud` (497–742 s on `db-custom-2-13312`; 280 s on N-2) then `pnpm run db:load:tr-company-place:pg:cloud` (28–72 s over 50 runs on `db-custom-2-13312`; 27 s on N-2).
 Skipping the second is the usual silent shape: prod's seats are current and its placements
 are a vintage behind, at a 200.
 
@@ -4173,7 +4175,7 @@ that at all.
 
 ⚠️⚠️ **`reconstructState` WIPES THE CR PROJECTION, AND THE TELL IS THAT `tr_companies` DOES
 NOT MOVE.** It rewrites `state.sqlite` from the daily-filings replay and nothing else, so a
-bare reconstruct — rather than the full `npm run tr:daily-refresh` — drops every projected
+bare reconstruct — rather than the full `pnpm run tr:daily-refresh` — drops every projected
 row and never restores it. `project_cr_deeds.ts`'s header states the rule ("must re-run
 after each reconstruct, before `db:load:tr:pg`"); what it does not give you is how to
 RECOGNISE the state afterwards, which is the expensive half.
@@ -4197,7 +4199,7 @@ placeholder count going to 0 and `tr_company_place` falling back to ~328k are th
 not three. Re-running the reconstruct reproduces the feed-only figure exactly, which is how
 you confirm the feed half was never at fault before spending time in the parser.
 
-The repair is `npm run tr:daily-refresh` (reconstruct → projection → the four PG loads), then
+The repair is `pnpm run tr:daily-refresh` (reconstruct → projection → the four PG loads), then
 `db:resolve:persons` **and its nine-step repair chain** — the person layer does not come back
 on its own. Do not go looking for a code defect first: the parser and projection carry 61
 unit tests and a green run here proves nothing about whether the projection was APPLIED.
@@ -4241,7 +4243,7 @@ Five things about it are easy to get backwards:
   standalone function fix must name them together:
 
   ```bash
-  DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+  DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts \
     003_tr_search.sql 008_connections.sql 022_company_officers.sql \
     148_person_company_basis.sql 150_mp_tr_roles.sql 192_person_bridge.sql
   ```
@@ -4286,7 +4288,7 @@ Five things about it are easy to get backwards:
   `company_politicians.relations` (Tier 6). `pep_connected` now READS `company_politicians`
   instead of feeding it, and that table's `relations` are derived in SQL from the person layer
   — so no committed artifact renders `share_percent` any more. ⚠️ A twin change is still **INERT**
-  until the corpus is rebuilt — `npm run tr:daily-refresh` then `db:load:tr:pg` — and the
+  until the corpus is rebuilt — `pnpm run tr:daily-refresh` then `db:load:tr:pg` — and the
   gate SKIPS with a distinct reason until then, which must never read as "the twins agree".
   Note `project_cr_deeds.ts` is a SECOND writer into the same table and runs AFTER
   `sqlite_writer`, so it re-derives over the merged row set; without that the stored value
@@ -4309,12 +4311,12 @@ Five things about it are easy to get backwards:
   their correct 100%. BOTH implementations exclude it; excluding on one side only makes
   them disagree about who the owners are, which is worse than the defect it fixes.
 
-**Cloud side.** `npm run db:load:tr:pg:cloud` applies 003 → 008 → 022 in order and
+**Cloud side.** `pnpm run db:load:tr:pg:cloud` applies 003 → 008 → 022 in order and
 refreshes the matview — but **NOT 150**, so it must be followed by either
-`npm run db:resolve:persons:cloud` (a multi-hour rebuild) or the `apply_functions.ts`
-command above, which is the cheap path. Then `npm run deploy:db` (the
+`pnpm run db:resolve:persons:cloud` (a multi-hour rebuild) or the `apply_functions.ts`
+command above, which is the cheap path. Then `pnpm run deploy:db` (the
 `share_eur` column on the `company_person_roles` registry resource in `db_table.js`) and
-`npm run deploy` (`formatOwnerShare`, which renders one decimal and must never re-acquire
+`pnpm run deploy` (`formatOwnerShare`, which renders one decimal and must never re-acquire
 the client-side `sole_owner → 100%` fallback the server now refuses).
 
 **The gate is `scripts/db/tests/tr_owner_share.data.test.ts`** (22 tests), plus 23 unit
@@ -4335,7 +4337,7 @@ multi-hour rebuild — far too heavy for a one-function fix, and it re-resolves 
 identity layer as a side effect. Ship a function-body change on its own:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 084_person_connections.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 084_person_connections.sql
 ```
 
 Safe at any time and idempotent — every one of these files is `CREATE OR REPLACE`. **A
@@ -4412,7 +4414,7 @@ both invoke — which would drop `person_browse_table` on Cloud SQL with nothing
 recreate it, serving `/persons` empty until someone happened to run
 `db:load:persons-browse:pg:cloud`. (Checked 2026-08-10: prod holds all three, populated, and
 their OIDs sit above the last TR load's, so nothing is currently orphaned there.) The same
-CASCADE also ran on every local `npm run tr:daily-refresh`.
+CASCADE also ran on every local `pnpm run tr:daily-refresh`.
 
 The fix is the one 077 took, adapted: **003 no longer DROPs anything.** `load_tr_pg.ts`
 replaces the four tables' CONTENTS instead (`replaceTable` — TRUNCATE inside the COPY's own
@@ -4458,7 +4460,7 @@ LAST step.** `test:data` — which includes `pg_roundtrip.data.test.ts`, whose r
 compares Postgres against the shards and would have failed on exactly this drift — sits at the
 end of a 57-link `&&` chain whose fifth link was the one aborting. An early loader failure
 therefore leaves the whole suite unrun, so the corpus that a loader failed to update is never
-checked. When a loader aborts, run `npm run test:data` before assuming only that loader's
+checked. When a loader aborts, run `pnpm run test:data` before assuming only that loader's
 table is affected.
 
 **`asset_share_multiplier()` (090) is another, and it is the one whose absence is
@@ -4508,19 +4510,19 @@ returned 0 rows from `person_search` while „Jelyazkov" returned 2. The `/api/d
 routes compose it with `translit_bg_latin()` on the QUERY side only; nothing stores its output.
 
 Never hand-edit `141_shlyo_query_fold.sql`. It is emitted from `src/lib/shlyoRules.ts` — the
-same table the browser's client-side filter uses — by `npm run gen:shlyo-sql`, and
+same table the browser's client-side filter uses — by `pnpm run gen:shlyo-sql`, and
 `gen_sql/shlyo_query_fold.test.ts` fails when the two drift. That is the whole point: a rule
 copied by hand into SQL means the browser finds „6umen" and the server does not, with both
 looking like they work.
 
 `db:load:person-search:pg` applies it, so `db:refresh` and
-`npm run db:load:person-search:pg:cloud` carry it. But that loader is only the cheapest applier
+`pnpm run db:load:person-search:pg:cloud` carry it. But that loader is only the cheapest applier
 in the chain, **not the only interested party** — `procurement-search` rides the same fold and
 reads none of `person_search`'s tables, so a database where that loader has never run raises
 42883 on it. Ship a rule change on its own with the usual escape hatch:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
 ```
 
 `person_person_bridge` (migration 192) is the SECOND-DEGREE half of the person page's
@@ -4530,14 +4532,14 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/a
 body is validated at CREATE. A body fix ships on its own with:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts \
   003_tr_search.sql 008_connections.sql 192_person_bridge.sql
 ```
 
 Three things about it are easy to get backwards:
 
 - **`db:load:tr:pg` is a `REFRESH_EXCLUSIONS` member, so `db:refresh` never applies 192.** On a
-  machine with a loaded TR corpus, `npm run test:data` therefore FAILS until someone runs the
+  machine with a loaded TR corpus, `pnpm run test:data` therefore FAILS until someone runs the
   TR loader (497–742 s on today's box) or the command above. The gate names the fix in its message, so it is
   survivable — but it is a red test on a fresh checkout rather than a skip, which is the one
   thing that distinguishes it from every other entry in this section.
@@ -4562,9 +4564,9 @@ because ЦАИС writes „Раздел І:" with it). Applied to LOCAL Postgres
 Both halves go together, in one window, per database:
 
 ```bash
-DATABASE_URL=… npx tsx scripts/db/apply_functions.ts 000_search_fns.sql 176_translit_homoglyph_refold.sql
+DATABASE_URL=… pnpm exec tsx scripts/db/apply_functions.ts 000_search_fns.sql 176_translit_homoglyph_refold.sql
 psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tr_person_roles, tr_officers, tr_companies, contracts, tenders, contractor_search, awarder_search, person_search;"
-DATABASE_URL=… npx tsx scripts/db/load_tender_dossier_pg.ts --refold
+DATABASE_URL=… pnpm exec tsx scripts/db/load_tender_dossier_pg.ts --refold
 ```
 
 Splitting them is a REGRESSION, not merely a delay: every consumer folds the QUERY with the
@@ -4582,7 +4584,7 @@ the molecule-page widening below.
 
 ```bash
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-  npx tsx scripts/db/apply_functions.ts 007_query_builders.sql 081_person_identity.sql \
+  pnpm exec tsx scripts/db/apply_functions.ts 007_query_builders.sql 081_person_identity.sql \
   066_nzok_drug_quarterly.sql 054_nzok_risk.sql
 ```
 
@@ -4625,7 +4627,7 @@ This is the counter-example to the rule above — it looks function-only and is 
 time, so applying 082 to a database without the column fails the whole file with `42703`:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/db/apply_functions.ts \
   081_person_identity.sql 082_person_api.sql
 ```
 
@@ -4736,7 +4738,7 @@ dead tuples exactly as a stage merge does, and the same two thresholds miss them
 24,791 pages**, with `/companies`' `contractor_total_eur` sort at `OFFSET 20000` reading
 **644,916 buffers** against the ~20,000 the 193 indexes exist to give — a gate
 (`company_browse.data.test.ts`) failing for a reason no row count could show. Four loaders
-refresh that matview (`db:load:declarations:pg -- --resolve`, `db:load:pg`,
+refresh that matview (`db:load:declarations:pg --resolve`, `db:load:pg`,
 `db:load:graph:pg`, `db:load:tr-company-place:pg`) and all four now vacuum it.
 
 ⚠️ **The vacuum must be GUARDED on the refresh's return value.** `refreshMatviewConcurrently`
@@ -4827,7 +4829,7 @@ to 67145792 bytes`. **Since 2026-08-25 `docker-compose.yml` sets `shm_size: 1gb`
 
   ⚠ **The 64 MB default is a REPO-WIDE trap, not a vacuum one, and raising it is what actually
   fixed the recurring symptom.** Postgres puts every parallel query's DSM segment in `/dev/shm`
-  too, and `npm run test:data` runs ~16 concurrent vitest workers over corpora in the hundreds of
+  too, and `pnpm run test:data` runs ~16 concurrent vitest workers over corpora in the hundreds of
   thousands of rows. Measured 2026-08-25 on the full suite: two tests in
   `official_companies.data.test.ts` failed with `could not resize shared memory segment … to
 8388608 bytes: No space left on device`, and **both passed when the file was re-run alone** —
@@ -4846,7 +4848,7 @@ to 67145792 bytes`. **Since 2026-08-25 `docker-compose.yml` sets `shm_size: 1gb`
 
 ## Testing
 
-Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).
+Two layers: **Vitest** for unit + component tests (`pnpm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`pnpm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`pnpm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).
 
 **Two of those Vitest files are static-analysis gates over the SOURCES rather than
 tests of a module, and both exist because the failure they catch is invisible in
@@ -4861,7 +4863,7 @@ a ~10-minute `vite build` that reports only that a number moved.
   downloads. The byte budget in `tests/perf.spec.ts` caught the 587 B that pushed it
   over; it could not say which edge did it. The forbidden set is DERIVED from the
   registries' own closure, so a new pack is covered the day it is added.
-- **`scripts/i18n/key_usage.test.ts`** + `npm run i18n:prune` — fails when the
+- **`scripts/i18n/key_usage.test.ts`** + `pnpm run i18n:prune` — fails when the
   corpora accumulate keys no call site can ask for. A key counts as reachable if it
   appears as a literal, matches a built template (`` `pp_reg_seat_${seat}` ``),
   matches a family prefix, or is a plural of a used base — and the scan covers
@@ -4999,7 +5001,7 @@ export const useResourceData = () => {
 
 - `scripts/main.ts` — CLI entry point (cmd-ts)
 - `scripts/parsers/` — Parse raw CSV/ZIP election data
-- `scripts/parsers_local/` — Parse local-elections data (mi2023, mi2019, chmi partials). HTML-only ingest from `results.cik.bg/mi{YYYY}/tur1/rezultati/{oikCode}.html` via headed Playwright (CF Turnstile bypass — see `cik_fetch.ts`). One município bundle per shard under `data/<cycle>/municipalities/<obshtinaCode>.json` + national rollups in `index.json` + officials-vs-CIK reconciliation in `officials_diff.json` + per-município sidecars `officials_diff/<obshtinaCode>.json`. Aggregated cross-cycle chmi history at `data/local_chmi_history.json`. CLI: `npm run data -- --local-ingest <slug>` (where slug is `mi2023`, `mi2019`, or `chmi2024-2026/<YYYY-MM-DD>_chastichen` / `_nov`); `--local --local-date <folder>` re-parses already-downloaded raw data.
+- `scripts/parsers_local/` — Parse local-elections data (mi2023, mi2019, chmi partials). HTML-only ingest from `results.cik.bg/mi{YYYY}/tur1/rezultati/{oikCode}.html` via headed Playwright (CF Turnstile bypass — see `cik_fetch.ts`). One município bundle per shard under `data/<cycle>/municipalities/<obshtinaCode>.json` + national rollups in `index.json` + officials-vs-CIK reconciliation in `officials_diff.json` + per-município sidecars `officials_diff/<obshtinaCode>.json`. Aggregated cross-cycle chmi history at `data/local_chmi_history.json`. CLI: `pnpm run data --local-ingest <slug>` (where slug is `mi2023`, `mi2019`, or `chmi2024-2026/<YYYY-MM-DD>_chastichen` / `_nov`); `--local --local-date <folder>` re-parses already-downloaded raw data.
 - `scripts/reports/` — Generate analytical reports (turnout, concentration, top gainers/losers, invalid ballots, recount metrics, machine flash memory)
 - `scripts/stats/` — Aggregate statistics
 - `scripts/search/` — Full-text search index generation

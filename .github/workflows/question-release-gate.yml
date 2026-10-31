@@ -30,22 +30,24 @@ jobs:
       REQUIRE_QUESTION_DB: "1"
     steps:
       - uses: actions/checkout@v6
+      # Reads the pnpm version from package.json's packageManager field.
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - name: Hermetic catalog and coverage decisions
-        run: npx vitest run scripts/ai/question_release_gate.test.ts scripts/ai/editorial_dispositions.test.ts scripts/ai/step7_dispositions.test.ts scripts/ai/step8_dispositions.test.ts scripts/ai/step9_dispositions.test.ts ai/app/starters.test.ts ai/app/questionAdapter.test.ts src/lib/questions/catalog.test.ts src/lib/questions/selector/model.test.ts src/lib/questions/selector/QuestionSelector.test.tsx src/lib/questions/sql/catalog.test.ts src/lib/questions/sql/render.test.ts src/lib/questions/sql/url.test.ts
+        run: pnpm exec vitest run scripts/ai/question_release_gate.test.ts scripts/ai/editorial_dispositions.test.ts scripts/ai/step7_dispositions.test.ts scripts/ai/step8_dispositions.test.ts scripts/ai/step9_dispositions.test.ts ai/app/starters.test.ts ai/app/questionAdapter.test.ts src/lib/questions/catalog.test.ts src/lib/questions/selector/model.test.ts src/lib/questions/selector/QuestionSelector.test.tsx src/lib/questions/sql/catalog.test.ts src/lib/questions/sql/render.test.ts src/lib/questions/sql/url.test.ts
       - name: Typecheck both applications
-        run: npx tsc --noEmit && npm run typecheck:ai
+        run: pnpm exec tsc --noEmit && pnpm run typecheck:ai
       - name: Build both applications
-        run: npm run build && npm run build:ai
+        run: pnpm run build && pnpm run build:ai
         env:
           VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com
       - name: Bootstrap app_readonly role
-        run: npm run db:pg:bootstrap -- --yes-non-local
+        run: pnpm run db:pg:bootstrap --yes-non-local
       - name: Load seeded national election serving data
-        run: npm run db:load:election-national:pg
+        run: pnpm run db:load:election-national:pg
       - name: Required DB parity evidence
-        run: npx vitest run scripts/db/tests/election_national_results.data.test.ts scripts/db/tests/question_release_required.data.test.ts
+        run: pnpm exec vitest run scripts/db/tests/election_national_results.data.test.ts scripts/db/tests/question_release_required.data.test.ts

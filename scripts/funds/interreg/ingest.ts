@@ -1,8 +1,8 @@
 // Turn the gitignored keep.eu crawl cache into the committed Interreg corpus.
 //
-//   npm run funds:ingest-interreg               # write data/funds/interreg/
-//   npm run funds:ingest-interreg -- --dry-run  # report only, write nothing
-//   npm run funds:ingest-interreg -- --programme INTERREG-ROBG-1420
+//   pnpm run funds:ingest-interreg               # write data/funds/interreg/
+//   pnpm run funds:ingest-interreg --dry-run  # report only, write nothing
+//   pnpm run funds:ingest-interreg --programme INTERREG-ROBG-1420
 //
 // Tier T1 of docs/plans/interreg-funds-ingest-v1.md §8. Reads
 // `raw_data/interreg/keep/` (gitignored, filled by `funds:crawl-interreg`) and
@@ -264,12 +264,12 @@ export const assertCacheComplete = (
     throw new Error(
       "interreg: the detail cache is populated but the index manifest is missing — " +
         "the corpus would be silently truncated. Run " +
-        "`npm run funds:crawl-interreg -- --full`; nothing was written.",
+        "`pnpm run funds:crawl-interreg --full`; nothing was written.",
     );
   if (!manifest.complete)
     throw new Error(
       "interreg: the index manifest is marked incomplete (an interrupted walk, or " +
-        "pages that never recovered). Re-run `npm run funds:crawl-interreg -- --full` " +
+        "pages that never recovered). Re-run `pnpm run funds:crawl-interreg --full` " +
         "before ingesting; nothing was written.",
     );
   const got = new Set(r.operations.map((o) => o.keepId));
@@ -280,7 +280,7 @@ export const assertCacheComplete = (
     throw new Error(
       `interreg: ${lost.length} of ${manifest.rows.length} manifest rows did not parse — ` +
         `the cache is damaged or incomplete. Re-fetch with ` +
-        `\`npm run funds:crawl-interreg -- --details-only\`; nothing was written.\n` +
+        `\`pnpm run funds:crawl-interreg --details-only\`; nothing was written.\n` +
         `  ids: ${lost.slice(0, 20).join(", ")}` +
         (lost.length > 20 ? ` … +${lost.length - 20} more` : ""),
     );
@@ -325,7 +325,7 @@ export const assertFloors = (r: IngestResult): void => {
   if (r.operations.length < MIN_OPERATIONS)
     throw new Error(
       `interreg: ${r.operations.length} operations is below the floor ${MIN_OPERATIONS} — ` +
-        `the crawl cache looks partial. Run \`npm run funds:crawl-interreg -- --full\` ` +
+        `the crawl cache looks partial. Run \`pnpm run funds:crawl-interreg --full\` ` +
         `and re-ingest; nothing was written.`,
     );
   if (r.index.bgPartnerCount < MIN_BG_PARTNERS)
@@ -383,7 +383,7 @@ export const main = (argv: string[] = process.argv.slice(2)): void => {
 
   if (!cachedKeepIds().length)
     throw new Error(
-      "interreg: the keep.eu cache is empty. Run `npm run funds:crawl-interreg` first.",
+      "interreg: the keep.eu cache is empty. Run `pnpm run funds:crawl-interreg` first.",
     );
 
   const result = buildCorpus({

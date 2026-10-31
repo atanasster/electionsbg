@@ -7,7 +7,7 @@
 // derived from current state/ingest/ markers.
 //
 // Usage:
-//   npx tsx scripts/seed-data-changes.ts
+//   pnpm exec tsx scripts/seed-data-changes.ts
 
 import fs from "fs";
 import path from "path";

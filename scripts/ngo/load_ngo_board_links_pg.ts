@@ -16,7 +16,7 @@
 //     (data/parliament/index.json); names are matched against NGO board officers
 //     the same way the official/magistrate legs are.
 //
-//   npm run db:load:ngo-board-links   (needs local Postgres up + TR loaded)
+//   pnpm run db:load:ngo-board-links   (needs local Postgres up + TR loaded)
 //
 // See docs/plans/ngo-risk-signals-v1.md (Phase 2 / A2).
 

@@ -28,12 +28,12 @@
 //     "latest effective" but is fragile — prefer --annex.
 //
 // USAGE — value-carrying flags (--page/--annex/--nrd-year) require DIRECT
-// invocation; the `npm run data:nzok --` wrapper only forwards the valueless
+// invocation; the `pnpm run data:nzok` wrapper only forwards the valueless
 // passthrough flags (--dump/--from-dump/--bgn) and rejects unknown flags:
 //   tsx scripts/nzok/write_pathway_tariffs.ts --annex "https://www.nhif.bg/upload/28002/….pdf" --dump --nrd-year 2025 --bgn
 //   tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025 --bgn
 //   tsx scripts/nzok/write_pathway_tariffs.ts --page https://www.nhif.bg/bg/nrd/2023-2025/medical --dump --nrd-year 2025 --bgn
-//   npm run data:nzok -- --pathway-tariffs --from-dump   # wrapper OK (no value flags)
+//   pnpm run data:nzok --pathway-tariffs --from-dump   # wrapper OK (no value flags)
 //
 // Requires the `pdftotext` binary (poppler-utils) for the PDFs.
 

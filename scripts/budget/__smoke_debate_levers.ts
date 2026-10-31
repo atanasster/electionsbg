@@ -4,7 +4,7 @@
 // conventions before future edits.
 //
 // Usage:
-//   npx tsx scripts/budget/__smoke_debate_levers.ts
+//   pnpm exec tsx scripts/budget/__smoke_debate_levers.ts
 
 import {
   MATERNITY_Y2_MONTHS,

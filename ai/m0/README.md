@@ -120,12 +120,12 @@ at your HF-hosted compiled wasm), and set its `sizeNote` to the real download si
 (`~1.6 GB` / `~2.7 GB`). Then:
 
 ```bash
-npm run build:ai
-npm run dev:ai        # pick "BgGPT 2.6B (Gemma 2)" or "BgGPT 4B (Gemma 3)"
+pnpm run build:ai
+pnpm run dev:ai        # pick "BgGPT 2.6B (Gemma 2)" or "BgGPT 4B (Gemma 3)"
 ```
 
 Smoke test (WebGPU browser): ask "Колко гласа взе ДПС на последните избори?" —
-BgGPT should route to `partyResult`. Then deploy: `npm run deploy:ai`.
+BgGPT should route to `partyResult`. Then deploy: `pnpm run deploy:ai`.
 
 > EuroLLM-1.7B was evaluated and **removed** (2026-06-06): every EuroLLM ONNX
 > export is ~1.7–1.9 GB, which OOMs ORT-Web's wasm heap (`std::bad_alloc`), and the

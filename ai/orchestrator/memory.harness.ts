@@ -1,5 +1,5 @@
 // Correctness harness for the conversation-memory layer (no model needed).
-// Run: npx tsx ai/orchestrator/memory.harness.ts
+// Run: pnpm exec tsx ai/orchestrator/memory.harness.ts
 //
 // Covers the grounding-sensitive bits: gist distillation, exchange pairing,
 // the sliding window + token-budget eviction, the bounded/de-duped older

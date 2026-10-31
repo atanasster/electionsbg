@@ -15,7 +15,7 @@
 //   curl -sk "https://kultura.sofia.bg/inc/service/service-download-file.php$link" -o raw_data/culture/sofia_spk_2026.pdf
 //
 // The источник page (with the ТУК link) is kultura.sofia.bg/currentNews-127-content.html.
-// Re-run:  npx tsx scripts/culture/sofia_program.ts
+// Re-run:  pnpm exec tsx scripts/culture/sofia_program.ts
 
 import fs from "fs";
 import path from "path";

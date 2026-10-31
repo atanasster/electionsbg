@@ -15,7 +15,7 @@
 // year to year; every field is best-effort and null when a year's wording
 // doesn't match, so a tile renders only the years that actually parsed.
 //
-//   npx tsx scripts/administration/parse_service_quality.ts
+//   pnpm exec tsx scripts/administration/parse_service_quality.ts
 
 import fs from "fs";
 import path from "path";

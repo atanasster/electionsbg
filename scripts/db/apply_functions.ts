@@ -4,9 +4,9 @@
 // CREATE OR REPLACE FUNCTION changes that don't need a full db:load / destructive
 // db:sync:cloud — idempotent, touches only the named objects.
 //
-//   npx tsx scripts/db/apply_functions.ts 011_company_api.sql 023_awarder_api.sql
+//   pnpm exec tsx scripts/db/apply_functions.ts 011_company_api.sql 023_awarder_api.sql
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-//     npx tsx scripts/db/apply_functions.ts 011_company_api.sql 023_awarder_api.sql
+//     pnpm exec tsx scripts/db/apply_functions.ts 011_company_api.sql 023_awarder_api.sql
 //
 // ═══════════════════════════════════════════════════════════════════════════════════════
 // THE COLLATERAL-DROP GUARD, and why this file needs one.

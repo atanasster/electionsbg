@@ -17,7 +17,7 @@
 // a per-row (lot-level) estimate. Rows already covered by AMOUNT_OVERRIDES are
 // reported as "known" so a re-run is a clean diff.
 //
-//   npx tsx scripts/procurement/detect_amount_anomalies.ts
+//   pnpm exec tsx scripts/procurement/detect_amount_anomalies.ts
 //
 // No network, no writes.
 

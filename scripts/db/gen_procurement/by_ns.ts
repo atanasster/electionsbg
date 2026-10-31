@@ -8,8 +8,8 @@
 // We run it into a temp dir (passing the real input paths so its outDir-relative
 // reads still resolve) and diff every file against data/procurement/by_ns/.
 //
-//   npm run db:gen-byns            # verify only (default; builds to a temp dir)
-//   npm run db:gen-byns -- --write # write to data/procurement/by_ns
+//   pnpm run db:gen-byns            # verify only (default; builds to a temp dir)
+//   pnpm run db:gen-byns --write # write to data/procurement/by_ns
 //
 // See docs/plans/sql-migration-v1.md.
 

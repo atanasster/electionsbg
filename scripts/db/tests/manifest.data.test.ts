@@ -3,8 +3,8 @@
 // baseline (data/db/procurement.manifest.json). Any byte-level drift in any
 // category fails here, naming the category.
 //
-// Gated on DB_VERIFY=1 (via `npm run db:verify`) so the fortnightly data update
-// doesn't fail the standing suite — refresh the baseline with `npm run db:manifest`.
+// Gated on DB_VERIFY=1 (via `pnpm run db:verify`) so the fortnightly data update
+// doesn't fail the standing suite — refresh the baseline with `pnpm run db:manifest`.
 //
 // See docs/plans/sql-migration-v1.md (Phase 1).
 
@@ -21,11 +21,11 @@ const haveData = existsSync(path.join(PROC_DIR, "index.json"));
 const haveBaseline = existsSync(MANIFEST_FILE);
 
 const skip = !verify
-  ? "set DB_VERIFY=1 (npm run db:verify) to run manifest comparison"
+  ? "set DB_VERIFY=1 (pnpm run db:verify) to run manifest comparison"
   : !haveData
     ? "no procurement data on disk"
     : !haveBaseline
-      ? "no committed manifest — run npm run db:manifest"
+      ? "no committed manifest — run pnpm run db:manifest"
       : false;
 reportSkip(import.meta.url, skip);
 
@@ -59,6 +59,6 @@ test.skipIf(skip)("live corpus matches the committed manifest", () => {
   assert.equal(
     changed.length,
     0,
-    `category drift: ${changed.join("; ")} — if intended, refresh with npm run db:manifest`,
+    `category drift: ${changed.join("; ")} — if intended, refresh with pnpm run db:manifest`,
   );
 });

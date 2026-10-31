@@ -14,7 +14,7 @@
 //
 // Auto-skips when Postgres is down or the dimension is absent.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -36,7 +36,7 @@ afterAll(async () => {
 });
 
 const skipBodies = !bodies
-  ? "Postgres unreachable, or judicial_body is empty — run npm run db:load:judicial-bodies:pg"
+  ? "Postgres unreachable, or judicial_body is empty — run pnpm run db:load:judicial-bodies:pg"
   : false;
 reportSkip(import.meta.url, skipBodies);
 
@@ -95,7 +95,7 @@ test.skipIf(skipBodies)(
     // not run — the same distinction judicial_body_detail() carries.
     assert.ok(
       rows.every((r) => r.sourcesBuilt),
-      "the workload bridge is not loaded here — run `npm run db:load:judicial-bodies:pg`",
+      "the workload bridge is not loaded here — run `pnpm run db:load:judicial-bodies:pg`",
     );
     const withLoad = rows.filter((r) => r.year != null);
     assert.ok(

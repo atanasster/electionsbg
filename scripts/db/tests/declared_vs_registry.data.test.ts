@@ -1,5 +1,5 @@
 // The declared-stakes vs Commerce Registry cross-check (person-enrichment-v1, final step).
-// Report: `npm run person:declared-vs-registry`.
+// Report: `pnpm run person:declared-vs-registry`.
 //
 // WHAT THESE PIN. The report names people whose own declaration omits a company the registry
 // places on them — an accusation-shaped output, so what matters is not that it FINDS things
@@ -17,7 +17,7 @@
 // TOP-LEVEL and feeds test.skipIf (docs/testing-standards.md) — an early `return` inside a
 // body scores as a PASS and would report this gate green while asserting nothing.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

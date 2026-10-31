@@ -27,7 +27,7 @@ const applied = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : !applied
-    ? "156 not applied here — run npm run db:load:budget-hub:pg"
+    ? "156 not applied here — run pnpm run db:load:budget-hub:pg"
     : false;
 reportSkip(import.meta.url, skip);
 

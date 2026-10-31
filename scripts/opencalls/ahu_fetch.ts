@@ -1,8 +1,8 @@
 // Crawl the АХУ news page into a committed open-calls snapshot. See ahu_parse.ts for what
 // counts as a call and how its deadline is read.
 //
-//   npm run opencalls:ahu            # fetch + write data/opencalls/ahu.json
-//   npm run opencalls:ahu -- --dry   # fetch, report, write nothing
+//   pnpm run opencalls:ahu            # fetch + write data/opencalls/ahu.json
+//   pnpm run opencalls:ahu --dry   # fetch, report, write nothing
 //
 // One GET, with an identifying User-Agent: the news page carries ~125 items, every call
 // among them, so there is no per-call fetch.

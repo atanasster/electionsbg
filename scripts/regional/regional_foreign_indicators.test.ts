@@ -9,7 +9,7 @@
 // indicators /governance/region/:oblast renders were simply gone until the two
 // mergers were re-run.
 //
-//   npx vitest run scripts/regional/regional_foreign_indicators.test.ts
+//   pnpm exec vitest run scripts/regional/regional_foreign_indicators.test.ts
 
 import { describe, it, expect } from "vitest";
 import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
@@ -356,7 +356,7 @@ describe("carryReport — what the operator is told", () => {
 describe("the entry-point guard", () => {
   // Load-bearing for this whole file. Without it, importing fetch_eurostat
   // fires five live Eurostat requests and rewrites data/regional.json — the
-  // artifact the describe block above reads — during `npm run test:unit`. The
+  // artifact the describe block above reads — during `pnpm run test:unit`. The
   // `node` Vitest project has no setupFiles and a real global fetch, so
   // nothing else would turn that into a failure.
   //

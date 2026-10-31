@@ -8,7 +8,7 @@
 // with nothing tying them together, and deleting `placeLabelEn` from the `SearchContext` map
 // left English readers with Bulgarian place names and every gate green.
 //
-//   npx vitest run src/data/search/personOffice.test.ts
+//   pnpm exec vitest run src/data/search/personOffice.test.ts
 
 import { describe, it, expect } from "vitest";
 import {

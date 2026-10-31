@@ -1,7 +1,7 @@
 -- GENERATED FILE — DO NOT EDIT.
 -- Source: src/lib/cultureMatch.ts
 -- Generator: scripts/db/gen_sql/culture_match.ts
--- Regenerate: npm run gen:culture-sql   ·   Verify: npm run gen:culture-sql -- --check
+-- Regenerate: pnpm run gen:culture-sql   ·   Verify: pnpm run gen:culture-sql --check
 --
 -- One of THREE files behind the /culture/funds source pages, split by corpus so
 -- that each is applied by the loader that owns its table, in the same run that

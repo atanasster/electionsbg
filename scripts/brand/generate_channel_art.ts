@@ -11,7 +11,7 @@
  * add noise behind a wordmark.
  *
  * Run:
- *   npm run brand:channels
+ *   pnpm run brand:channels
  *
  * Output: brand/channels/*.png + index.json
  *

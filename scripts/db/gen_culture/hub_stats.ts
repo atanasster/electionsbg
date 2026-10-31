@@ -9,7 +9,7 @@
 // indistinguishably to a reader. `culture_hub_figures.data.test.ts` currently
 // holds the literals honest; this replaces them at the source.
 //
-//   npm run db:gen-culture-hub-stats
+//   pnpm run db:gen-culture-hub-stats
 //
 // ═══════════════════════════════════════════════════════════════════════════════
 // ⚠️ ITS SLOT IN `db:refresh` IS AFTER `db:load:interreg:pg` — the LAST loader in
@@ -128,7 +128,7 @@ const main = async () => {
       `missing relation(s): ${missing
         .map((m) => `${m} (${INPUTS[m]})`)
         .join(", ")}`,
-      `Run the loader(s) named in brackets, or the whole chain: npm run db:refresh`,
+      `Run the loader(s) named in brackets, or the whole chain: pnpm run db:refresh`,
     );
     await end();
     process.exit(0);
@@ -137,7 +137,7 @@ const main = async () => {
     warnSkip(
       "culture hub_stats",
       "contracts is empty (db:load:pg)",
-      "Load the procurement corpus first: npm run db:load:pg",
+      "Load the procurement corpus first: pnpm run db:load:pg",
     );
     await end();
     process.exit(0);

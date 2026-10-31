@@ -55,14 +55,14 @@ The watcher only tracks PM10 — all ИАОС pollutants publish on the same cad
 ## Step 1 — Build
 
 ```bash
-npx tsx scripts/air/build_index.ts          # uses cached CSVs when present
+pnpm exec tsx scripts/air/build_index.ts          # uses cached CSVs when present
 ```
 
 Force a fresh fetch (skip the disk cache):
 
 ```bash
 rm -rf raw_data/air/iaos
-npx tsx scripts/air/build_index.ts
+pnpm exec tsx scripts/air/build_index.ts
 ```
 
 Expected output:
@@ -103,14 +103,14 @@ If the município-mapped count drops sharply, ИАОС likely renamed a station 
 ```bash
 git add data/air/index.json raw_data/air/iaos/
 git commit -m "air: refresh ИАОС stations through <snapshotAsOf>"
-npm run bucket:sync:dry
-npm run bucket:sync
+pnpm run bucket:sync:dry
+pnpm run bucket:sync
 ```
 
 ## Step 4 — Stamp success
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-air-quality \
+pnpm exec tsx scripts/stamp-ingest.ts update-air-quality \
   --summary "37 município stations + 14 background, asOf <snapshotAsOf>"
 ```
 
@@ -118,7 +118,7 @@ Append to the public data-changes log only when readings actually changed:
 
 ```bash
 if [ -n "$(git diff --stat data/air/)" ]; then
-  npx tsx scripts/append-data-change.ts update-air-quality \
+  pnpm exec tsx scripts/append-data-change.ts update-air-quality \
     --summary "37 município stations + 14 background, asOf <snapshotAsOf>" \
     --source "ИАОС air quality (data.egov.bg)"
 fi

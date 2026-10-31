@@ -6,7 +6,7 @@
 // SearchContext.tsx uses. Locks the typo / cross-script / same-name behaviour so
 // a future threshold tweak can't silently regress it.
 //
-// Run: npm run search:test   (npx tsx scripts/search/search.harness.ts)
+// Run: pnpm run search:test   (pnpm exec tsx scripts/search/search.harness.ts)
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";

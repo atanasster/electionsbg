@@ -13,7 +13,7 @@
 // way. The split is right on tree-shaking and clarity grounds; it is not a gate fix.
 // `usePersonProfile.ts` re-exports it, so every existing consumer is untouched.
 //
-//   npm run test:unit -- src/screens/person/sharedNameIdentity.test.ts
+//   pnpm run test:unit src/screens/person/sharedNameIdentity.test.ts
 
 /** Does the registry itself say several people share this person's name?
  *

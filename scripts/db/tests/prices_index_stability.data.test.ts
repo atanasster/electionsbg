@@ -10,7 +10,7 @@
 //
 // It gates `price_payloads`, i.e. what readers actually get, not a rebuild in
 // memory. A stale table therefore fails here, which is the intended signal:
-// build_index.ts changes reach readers only when `npm run prices:payloads` is
+// build_index.ts changes reach readers only when `pnpm run prices:payloads` is
 // re-run against the target database.
 //
 // Requires DB_VERIFY=1 and a loaded local Postgres.
@@ -155,7 +155,7 @@ test.skipIf(!RUN)(
     assert.ok(
       series.every((p) => typeof p.n === "number"),
       "index points carry no `n` — price_payloads predates the chain-matched " +
-        "basis. Re-run `npm run prices:payloads`.",
+        "basis. Re-run `pnpm run prices:payloads`.",
     );
     const fabricated = series.filter((p) => p.n === 0);
     assert.equal(
@@ -184,7 +184,7 @@ test.skipIf(!RUN)(
     assert.ok(
       places.some((p) => typeof p.indexN === "number"),
       "ranking places carry no `indexN` — price_payloads predates the " +
-        "chain-matched basis. Re-run `npm run prices:payloads`.",
+        "chain-matched basis. Re-run `pnpm run prices:payloads`.",
     );
     // The matched basis is far narrower than the pooled one it replaced and
     // varies enormously by place: some settlements rest on ONE chain over FOUR
@@ -247,7 +247,7 @@ test.skipIf(!RUN)(
     assert.ok(
       typeof c.chainsComplete === "boolean" && "headlineDate" in c,
       "coverage block predates the completeness fields — re-run " +
-        "`npm run prices:payloads`.",
+        "`pnpm run prices:payloads`.",
     );
 
     // The payload's own latest day, not max(price_chain_days): a payload built
@@ -265,7 +265,7 @@ test.skipIf(!RUN)(
       c.chains,
       upTo.at(-1)!.chains,
       "coverage.chains disagrees with price_chain_days for the same day — " +
-        "re-run `npm run prices:payloads`.",
+        "re-run `pnpm run prices:payloads`.",
     );
 
     // Re-derive the rule from the corpus and compare, so a change to the
@@ -330,7 +330,7 @@ test.skipIf(!RUN)(
     assert.ok(
       c.headlineDate,
       "coverage.headlineDate is absent — price_payloads predates the " +
-        "publish-side gate. Re-run `npm run prices:payloads`.",
+        "publish-side gate. Re-run `pnpm run prices:payloads`.",
     );
 
     const series = idx.national.index;
@@ -352,7 +352,7 @@ test.skipIf(!RUN)(
     assert.ok(
       typeof point!.n === "number",
       "the headline point carries no `n` — price_payloads predates the " +
-        "chain-matched basis. Re-run `npm run prices:payloads`.",
+        "chain-matched basis. Re-run `pnpm run prices:payloads`.",
     );
     assert.ok(
       point!.n! > 0,
@@ -404,7 +404,7 @@ test.skipIf(!RUN)(
       `hub-stats says ${hub.basketChangePct}% while the index yields ` +
         `${expected}% — the /consumption tile and the /prices hero would show ` +
         `different numbers for the same measure. Re-run ` +
-        "`npm run prices:payloads`, or the headline rule has been forked again.",
+        "`pnpm run prices:payloads`, or the headline rule has been forked again.",
     );
   },
 );

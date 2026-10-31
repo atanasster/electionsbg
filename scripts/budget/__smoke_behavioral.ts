@@ -5,7 +5,7 @@
 // Monte-Carlo determinism before future edits.
 //
 // Usage:
-//   npx tsx scripts/budget/__smoke_behavioral.ts
+//   pnpm exec tsx scripts/budget/__smoke_behavioral.ts
 
 import fs from "fs";
 import path from "path";

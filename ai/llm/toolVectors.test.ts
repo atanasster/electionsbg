@@ -7,7 +7,7 @@
 // `interregOverview` among the missing, so this is a recurring omission rather than a one-off.
 //
 // `ai/m0/finetune_functiongemma.md` states the obligation ("Retrain when the registry changes"),
-// but a doc is not a gate. Regenerate with `npx tsx ai/llm/buildToolVectors.ts` and commit.
+// but a doc is not a gate. Regenerate with `pnpm exec tsx ai/llm/buildToolVectors.ts` and commit.
 
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
@@ -32,7 +32,7 @@ describe("tool_vectors.json covers the registry", () => {
     const orphan = [...have].filter((n) => !want.has(n));
     expect(
       missing,
-      `${missing.length} tool(s) have no vector and can never be retrieved — run: npx tsx ai/llm/buildToolVectors.ts`,
+      `${missing.length} tool(s) have no vector and can never be retrieved — run: pnpm exec tsx ai/llm/buildToolVectors.ts`,
     ).toEqual([]);
     expect(
       orphan,
@@ -61,7 +61,7 @@ describe("tool_vectors.json covers the registry", () => {
       .digest("hex");
     expect(
       vectors.inputsHash,
-      "tool semantics changed — run: npx tsx ai/llm/buildToolVectors.ts",
+      "tool semantics changed — run: pnpm exec tsx ai/llm/buildToolVectors.ts",
     ).toBe(current);
   });
 });

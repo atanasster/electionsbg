@@ -1,10 +1,10 @@
 // Does the COMMITTED /procurement hub blob still match the corpus it was generated from?
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // WHY THIS EXISTS. `data/procurement/derived/hub_stats.json` is committed, bucket-synced and
 // downloaded by every visitor to /procurement — but its figures are derived from Postgres by
-// `npm run db:gen-hub-stats`. Nothing regenerated it when an incremental ingest moved one of
+// `pnpm run db:gen-hub-stats`. Nothing regenerated it when an incremental ingest moved one of
 // its inputs, so it went stale in the repo while serving 200s. Measured 2026-08-27, before
 // this gate existed: `appeals` was 7,998 against a live 8,007 (a КЗК ingest on 08-24), and
 // `connected` was short across 15 scopes (a `db:load:tr:pg` that rebuilt company_politicians).
@@ -100,8 +100,8 @@ const preflight = async (): Promise<string | false> => {
     return (
       `relation(s) absent: ${missing.join(", ")} — ` +
       (missing.every((m) => m === "company_politicians" || m === "tr_companies")
-        ? "run `npm run db:load:tr:pg` (the TR ingest, the one dependency db:refresh excludes)"
-        : "run `npm run db:refresh`, whose loaders fill these")
+        ? "run `pnpm run db:load:tr:pg` (the TR ingest, the one dependency db:refresh excludes)"
+        : "run `pnpm run db:refresh`, whose loaders fill these")
     );
   const [c] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM contracts LIMIT 1",
@@ -129,7 +129,7 @@ const readBlob = (): Record<string, HubStat> =>
 
 /** The one remedy sentence, so every failure below names it identically. */
 const FIX =
-  "The blob is COMMITTED and bucket-synced, so the repair is `npm run db:gen-hub-stats` " +
+  "The blob is COMMITTED and bucket-synced, so the repair is `pnpm run db:gen-hub-stats` " +
   "followed by a commit — NOT a loader run. Check nothing is writing to Postgres first: a " +
   "blob generated mid-chain is stale on arrival.";
 

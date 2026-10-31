@@ -49,7 +49,7 @@ const applied = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : !applied
-    ? "155 not applied here — run npm run db:load:budget-muni:pg"
+    ? "155 not applied here — run pnpm run db:load:budget-muni:pg"
     : false;
 reportSkip(import.meta.url, skip);
 
@@ -248,7 +248,7 @@ test.skipIf(stateSkip)(
     // Migration 157's entire footprint joins `contracts` on this column, and the
     // column is NOT derived in Postgres: `load_budget_pg.ts` copies it from the
     // committed `data/budget/derived/ministry_procurement.json`, which
-    // `crossReferenceProcurement` writes offline during `npm run budget:ingest`
+    // `crossReferenceProcurement` writes offline during `pnpm run budget:ingest`
     // by NAME-MATCHING each unit against the awarders index.
     //
     // So a procurement ingest that adds, renames or re-EIKs an awarder moves the
@@ -279,7 +279,7 @@ test.skipIf(stateSkip)(
     assert.deepEqual(
       drift,
       [],
-      `EIK drift — re-run \`npm run budget:ingest\` then \`db:load:budget:pg\`:\n${drift.join("\n")}`,
+      `EIK drift — re-run \`pnpm run budget:ingest\` then \`db:load:budget:pg\`:\n${drift.join("\n")}`,
     );
 
     // Not vacuous: the artifact really does carry the EIKs, and they really are

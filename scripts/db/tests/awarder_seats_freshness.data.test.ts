@@ -37,7 +37,7 @@ import {
 // LOCAL, always. `scripts/db/lib/pg.ts` documents the recurring hazard of a
 // Cloud SQL proxy target left in the shell, and graph.data.test.ts has already
 // produced one false "prod is broken" reading from exactly that. The cloud side
-// is checked deliberately, by `npm run proc:verify-seats:cloud`, never here — a
+// is checked deliberately, by `pnpm run proc:verify-seats:cloud`, never here — a
 // test that connects to prod would skip whenever the proxy is down, which is
 // most of the time and always in CI, so it would be vacuous precisely when
 // relied upon while LOOKING like production coverage.
@@ -79,7 +79,7 @@ describe("the committed override map is readable and non-trivial", () => {
     expect(
       Object.keys(loadMap()).length,
       `${MAP_FILE} holds at most ${CHECKED_FLOOR} entries — the gate below ` +
-        `would pass vacuously. Re-run: npx tsx scripts/procurement/awarder_geo_map.ts`,
+        `would pass vacuously. Re-run: pnpm exec tsx scripts/procurement/awarder_geo_map.ts`,
     ).toBeGreaterThan(CHECKED_FLOOR);
   });
 });
@@ -94,10 +94,10 @@ describe.skipIf(skipDb)(
       expect(drift.checked).toBeGreaterThan(CHECKED_FLOOR);
       const fix =
         "\nThe map has been rebuilt without publishing it, or vice versa. Re-run BOTH:\n" +
-        "  npx tsx scripts/procurement/awarder_geo_map.ts && npx tsx scripts/procurement/rebuild_from_cache.ts\n" +
-        "  npm run db:load:awarder-seats:pg\n" +
-        "and for production: npm run db:load:awarder-seats:pg:cloud\n" +
-        "(`npm run proc:verify-seats:cloud` checks prod without reloading it.)";
+        "  pnpm exec tsx scripts/procurement/awarder_geo_map.ts && pnpm exec tsx scripts/procurement/rebuild_from_cache.ts\n" +
+        "  pnpm run db:load:awarder-seats:pg\n" +
+        "and for production: pnpm run db:load:awarder-seats:pg:cloud\n" +
+        "(`pnpm run proc:verify-seats:cloud` checks prod without reloading it.)";
 
       expect(
         drift.missing,

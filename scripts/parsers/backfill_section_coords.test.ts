@@ -12,7 +12,7 @@
 // preserveSectionCoords carries the previous run's coordinates onto the freshly
 // parsed array before any writer touches disk. No DB, no network.
 //
-//   npm run test:unit -- scripts/parsers/backfill_section_coords
+//   pnpm run test:unit scripts/parsers/backfill_section_coords
 
 import { test, afterEach } from "vitest";
 import assert from "node:assert/strict";

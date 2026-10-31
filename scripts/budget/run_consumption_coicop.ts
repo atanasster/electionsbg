@@ -20,7 +20,7 @@
 // unit-resolved household total.
 //
 // Usage:
-//   npx tsx scripts/budget/run_consumption_coicop.ts
+//   pnpm exec tsx scripts/budget/run_consumption_coicop.ts
 
 import fs from "fs";
 import path from "path";

@@ -17,7 +17,7 @@
 //
 // Auto-skips when Postgres is down or the payments corpus is empty.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

@@ -15,7 +15,7 @@
 // deliberately no SQL twin to drift from it" until 2026-08-25. The /culture/funds
 // source pages page through the name- and theme-matched rows at request time, and
 // a Cloud Function route cannot import TypeScript, so the predicates below are
-// rendered into three serving migrations by `npm run gen:culture-sql`
+// rendered into three serving migrations by `pnpm run gen:culture-sql`
 // (`scripts/db/gen_sql/culture_match.ts` → pg/189, 190, 191). GENERATED, never
 // hand-written: a hand-copied SQL form is the „computed in two places" case whose
 // failure nobody can see, and `gen_sql/culture_match.test.ts` fails the moment the

@@ -7,8 +7,8 @@
 // the iteration order (hence last-write-wins names + per-currency float
 // summation) is identical. This proves the SQL store can drive the derived layer.
 //
-//   npm run db:gen-rollups          # verify only (default)
-//   npm run db:gen-rollups -- --write   # also write the files
+//   pnpm run db:gen-rollups          # verify only (default)
+//   pnpm run db:gen-rollups --write   # also write the files
 //
 // See docs/plans/sql-migration-v1.md.
 

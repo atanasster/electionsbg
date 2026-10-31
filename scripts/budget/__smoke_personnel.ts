@@ -2,12 +2,12 @@
 // DV + audit fetches the full ingest does — uses only the cached execution-
 // report bytes in raw_data/budget/. Run:
 //
-//   npx tsx scripts/budget/__smoke_personnel.ts
+//   pnpm exec tsx scripts/budget/__smoke_personnel.ts
 //
 // Validates wiring in isolation from upstream rate limits.
 //
 // Convention: scripts prefixed with `__` are dev-only validators. They are
-// intentionally not invoked from `npm run budget:ingest` or any production
+// intentionally not invoked from `pnpm run budget:ingest` or any production
 // path; they exist to give a fast (~5 s) feedback loop on the personnel
 // pillar specifically, while the full ingest needs network access to
 // data.egov.bg + dv.parliament.bg + every ministry site.

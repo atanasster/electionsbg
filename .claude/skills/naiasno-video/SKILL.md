@@ -29,16 +29,16 @@ companion posts; the rebranding is complete. Keep external source URLs unchanged
 The `video/` Remotion project exists and T1 renders end to end (phase 1, 2026-08-08).
 
 ```bash
-npm run video:voice  -- <spec>     # per-scene TTS into video/public/voiceover/
-npm run video:vtt    -- <spec>     # .vtt sidecar + transcript
-npm run video:render -- <id> brand/videos/<slug>/yt.mp4
-npm run video:check                # typecheck video/ (NOT covered by `npm run build`)
-npm run video:studio               # Remotion Studio, for retiming by hand
-npm run video:fonts                # re-mirror Inter after scripts/fonts/fetch-fonts.mjs
-npm run video:screens              # capture real app pages (needs `npm run dev`)
-npm run video:data-inflation       # rebuild a spec's data layer + assert its claims
-npm run video:data-risk            # ditto, for the election-risk explainer
-npm run video:gate1  -- <spec>     # ⛔ GATE 1 — print the script + check what is checkable
+pnpm run video:voice  -- <spec>     # per-scene TTS into video/public/voiceover/
+pnpm run video:vtt    -- <spec>     # .vtt sidecar + transcript
+pnpm run video:render <id> brand/videos/<slug>/yt.mp4
+pnpm run video:check                # typecheck video/ (NOT covered by `pnpm run build`)
+pnpm run video:studio               # Remotion Studio, for retiming by hand
+pnpm run video:fonts                # re-mirror Inter after scripts/fonts/fetch-fonts.mjs
+pnpm run video:screens              # capture real app pages (needs `pnpm run dev`)
+pnpm run video:data-inflation       # rebuild a spec's data layer + assert its claims
+pnpm run video:data-risk            # ditto, for the election-risk explainer
+pnpm run video:gate1  -- <spec>     # ⛔ GATE 1 — print the script + check what is checkable
 ```
 
 A new video means a new spec in `video/src/specs/`, registered in
@@ -361,7 +361,7 @@ silently.
 ## Step 4 — ⛔ GATE 1: the operator reads the script
 
 ```bash
-npm run video:gate1 -- <spec>
+pnpm run video:gate1 <spec>
 ```
 
 `scripts/video/gate1.ts` prints every scene as `onScreen` · numeric tokens ·

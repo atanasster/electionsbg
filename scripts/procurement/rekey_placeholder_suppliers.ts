@@ -1,7 +1,7 @@
 // One-off: re-key the contract rows whose supplier id is FILLER.
 //
-//   npx tsx scripts/procurement/rekey_placeholder_suppliers.ts            # dry run
-//   npx tsx scripts/procurement/rekey_placeholder_suppliers.ts --apply    # write
+//   pnpm exec tsx scripts/procurement/rekey_placeholder_suppliers.ts            # dry run
+//   pnpm exec tsx scripts/procurement/rekey_placeholder_suppliers.ts --apply    # write
 //
 // WHY A ONE-OFF AND NOT A RE-INGEST. The parser fix (eik.ts `isPlaceholderId` +
 // supplier_identity.ts's `placeholder` branch) only affects rows as they are
@@ -218,7 +218,7 @@ const main = command({
 //
 // ⚠ An unanchored substring match on argv[1] does NOT do this. The first attempt
 // used /rekey_placeholder_suppliers/, which matches its own `.test.ts` path, so
-// `npx tsx …test.ts` still ran the whole scan; it only looked fixed because vitest
+// `pnpm exec tsx …test.ts` still ran the whole scan; it only looked fixed because vitest
 // puts its own binary in argv[1]. This is the repo idiom (33+ call sites).
 const invokedDirectly =
   !!process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;

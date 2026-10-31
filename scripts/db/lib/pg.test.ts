@@ -1,8 +1,8 @@
 // Unit + Tier-3 coverage for `vacuumAfterReload` and the threshold it shares with the
 // `reload_visibility_map` gate.
 //
-//   npm run test:unit          (the pure predicate cases — no database)
-//   npm run test:data          (the read-back cases — auto-skip without Postgres)
+//   pnpm run test:unit          (the pure predicate cases — no database)
+//   pnpm run test:data          (the read-back cases — auto-skip without Postgres)
 //
 // WHY THIS FILE EXISTS: the gate over in tests/ asserts nine tables and passes on a
 // healthy database, which proves nothing about whether the check CAN fail. If a refactor

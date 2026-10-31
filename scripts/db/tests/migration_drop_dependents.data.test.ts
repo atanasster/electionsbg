@@ -132,7 +132,7 @@ const SANCTIONED: Record<string, { dependents: string[]; why: string }> = {
       "Two further limits keep it small. 115's DROP is wrapped in an existence check on the " +
       "legacy person_role.place column, so it is one-time per database and a no-op on every " +
       "migrated one; and the follow-up that repairs it is the one 115's own RAISE NOTICE " +
-      "names (`db:load:declarations:pg -- --resolve`), which both db:refresh and the cloud " +
+      "names (`db:load:declarations:pg --resolve`), which both db:refresh and the cloud " +
       "person sequence already run AFTER db:resolve:persons. The view is therefore in " +
       "exactly the position the matview was already in, with the same remedy and no new one.",
   },
@@ -237,7 +237,7 @@ const boundedDdlTx = async <T>(fn: (c: PoolClient) => Promise<T>): Promise<T> =>
       // EXCLUSIVE on 33 tables in one transaction, while sibling files read those tables in
       // theirs, is a textbook deadlock cycle — and Postgres resolves it by killing one side
       // BEFORE the lock_timeout can fire, so the friendly message below was unreachable in
-      // exactly the case it was written for. Observed: a full `npm run test:data` failed
+      // exactly the case it was written for. Observed: a full `pnpm run test:data` failed
       // here with a bare "deadlock detected" and no hint, while the file passed alone.
       const code = (e as { code?: string })?.code;
       if (code === "55P03" || code === "40P01")
@@ -246,7 +246,7 @@ const boundedDdlTx = async <T>(fn: (c: PoolClient) => Promise<T>): Promise<T> =>
             `${code === "40P01" ? "deadlocked against a concurrent reader" : `gave up after ${DDL_LOCK_TIMEOUT}`} ` +
             `rather than head-of-line blocking every other reader. ` +
             `This is the known "test:data flaky under load" shape and does NOT mean 003 has ` +
-            `regressed: re-run this file alone (npx vitest run ` +
+            `regressed: re-run this file alone (pnpm exec vitest run ` +
             `scripts/db/tests/migration_drop_dependents.data.test.ts) against an idle ` +
             `database before believing it. Original: ${(e as Error)?.message ?? String(e)}`,
         );
@@ -326,7 +326,7 @@ test.skipIf(skip)(
     for (const v of VICTIMS)
       assert.ok(
         await exists(v),
-        `${v} is absent. If this is a fresh database, build it (npm run db:refresh). If it ` +
+        `${v} is absent. If this is a fresh database, build it (pnpm run db:refresh). If it ` +
           `is not, a db:load:tr:pg has already eaten it — recovery order is in ` +
           `docs/plans/tr-loader-cascade-v1.md.`,
       );
@@ -439,7 +439,7 @@ test("no migration drops a column with CASCADE", () => {
       "\n\nDrop the CASCADE and let Postgres refuse, then re-point the dependent " +
       "views first. For the generated culture views that means editing " +
       "scripts/db/gen_sql/culture_match.ts's column lists and re-running " +
-      "npm run gen:culture-sql.",
+      "pnpm run gen:culture-sql.",
   );
 });
 

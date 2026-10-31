@@ -1,7 +1,7 @@
 // TypeSafe (Jev) adapter + CLI for the tool-routing eval.
 //
-//   TYPESAFE_API_KEY=... npx tsx ai/llm/fcEval.jev.ts            # full registry
-//   TYPESAFE_API_KEY=... npx tsx ai/llm/fcEval.jev.ts --k=5      # retrieved candidate set
+//   TYPESAFE_API_KEY=... pnpm exec tsx ai/llm/fcEval.jev.ts            # full registry
+//   TYPESAFE_API_KEY=... pnpm exec tsx ai/llm/fcEval.jev.ts --k=5      # retrieved candidate set
 //
 // WHY THIS FILE IS NOT ANOTHER `CompleteFn` ADAPTER (unlike fcEval.cloud.ts):
 // Jev has no free-text "complete a chat turn" step. It answers one or more

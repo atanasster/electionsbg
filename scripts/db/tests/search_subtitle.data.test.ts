@@ -1,7 +1,7 @@
 // Tier 3 (Postgres-native) — the subtitle that tells a search row whose ЕИК it is, run
 // over the REAL corpus through the REAL builders.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // WHAT IT GUARDS, PRECISELY. `entitySubtitle` decides, per row, whether to print
 // „<eik> · в договорите: <name>". This gate covers ONE class of failure — the PROVENANCE
@@ -67,7 +67,7 @@ const rows = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : rows.contractor_search.length === 0 && rows.awarder_search.length === 0
-    ? "contractor_search/awarder_search.primary_name is entirely NULL — this corpus predates the column; run npm run db:load:pg"
+    ? "contractor_search/awarder_search.primary_name is entirely NULL — this corpus predates the column; run pnpm run db:load:pg"
     : false;
 reportSkip(import.meta.url, skip);
 

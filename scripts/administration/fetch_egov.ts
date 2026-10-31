@@ -8,7 +8,7 @@
 // artifact (data/administration/egov.json) rather than folded into macro.json —
 // the peer geos don't belong in the BG-only macro series.
 //
-//   npx tsx scripts/administration/fetch_egov.ts
+//   pnpm exec tsx scripts/administration/fetch_egov.ts
 //
 // Refresh cadence is annual (Eurostat publishes this once a year, usually late
 // autumn). A future watcher on the dataset can flip it.

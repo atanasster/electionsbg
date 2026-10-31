@@ -3,7 +3,7 @@
 // and tour_occ_ninraw (nights by country of origin → source markets). Kept
 // separate from eurostat.ts so a tourism release is named on its own; tourism
 // occupancy data publishes ~monthly. Regenerate the served blob with
-// `npm run data:tourism` (scripts/tourism/fetch_eurostat_tourism.ts).
+// `pnpm run data:tourism` (scripts/tourism/fetch_eurostat_tourism.ts).
 
 import type { WatchSource, Fingerprint } from "../types";
 import { fetchJson } from "../fingerprint";

@@ -4,8 +4,8 @@
 // all carry the corrected keys. No network calls — works purely from
 // data/procurement/ on disk (data.egov.bg is host-IP-blocked).
 //
-//   npx tsx scripts/procurement/dedup_contract_keys.ts            # fix + rebuild
-//   npx tsx scripts/procurement/dedup_contract_keys.ts --dry-run  # report only
+//   pnpm exec tsx scripts/procurement/dedup_contract_keys.ts            # fix + rebuild
+//   pnpm exec tsx scripts/procurement/dedup_contract_keys.ts --dry-run  # report only
 //
 // Background: the contract `key` is the SPA's row identity (/contract/:key) and
 // every per-entity contracts list keys its React rows on it. The legacy-CSV key
@@ -415,7 +415,7 @@ const main = async (): Promise<void> => {
       `€${(idx.totals.totalEur / 1e9).toFixed(3)}bn. Re-key rebuild complete.`,
   );
   console.log(
-    "  next: bucket-sync data/procurement/ to GCS (npm run bucket:sync:all or the procurement upload path).",
+    "  next: bucket-sync data/procurement/ to GCS (pnpm run bucket:sync:all or the procurement upload path).",
   );
 };
 

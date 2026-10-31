@@ -2,8 +2,8 @@
 // pack can serve the multi-quarter drug TREND DB-side (national curve + top-molecule
 // series + a searchable per-INN drill-down).
 //
-//   npm run db:load:nzok-drug-quarterly:pg          (needs `npm run db:pg:up`)
-//   npm run db:load:nzok-drug-quarterly:pg:cloud     (Cloud SQL proxy :5434)
+//   pnpm run db:load:nzok-drug-quarterly:pg          (needs `pnpm run db:pg:up`)
+//   pnpm run db:load:nzok-drug-quarterly:pg:cloud     (Cloud SQL proxy :5434)
 //
 // Source = data/budget/nzok/drug_quarterly.json (scripts/nzok/write_drug_quarterly.ts).
 // Wires into recent_updates via recordIngestBatch, per [[pg-changelog-required]].
@@ -33,7 +33,7 @@ const COLS = ["inn", "atc", "quarter", "eur"] as const;
 const main = async (): Promise<void> => {
   if (!existsSync(DATA_FILE))
     throw new Error(
-      `${DATA_FILE} missing — regenerate with: npx tsx scripts/nzok/write_drug_quarterly.ts`,
+      `${DATA_FILE} missing — regenerate with: pnpm exec tsx scripts/nzok/write_drug_quarterly.ts`,
     );
   const j = JSON.parse(readFileSync(DATA_FILE, "utf8"));
   if (!Array.isArray(j.rows) || j.rows.length === 0)

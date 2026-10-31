@@ -8,7 +8,7 @@
 // an independent source: the Q4 arrears sum, which must equal the year-end
 // „местно правителство" arm of data/_cache/arrears.json.
 //
-//   npx tsx scripts/budget/municipal_fiscal/__smoke_parse.ts
+//   pnpm exec tsx scripts/budget/municipal_fiscal/__smoke_parse.ts
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";

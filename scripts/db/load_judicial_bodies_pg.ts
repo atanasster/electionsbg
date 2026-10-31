@@ -10,7 +10,7 @@
 // ORDER. Must run AFTER db:load:magistrates:pg and db:load:court-load:pg, and BEFORE
 // db:resolve:persons, which reads judicial_body_alias to give every magistrate role its
 // typed place. db:refresh sequences it; the cloud side needs
-// `npm run db:load:judicial-bodies:pg:cloud` run by hand, like every other loader.
+// `pnpm run db:load:judicial-bodies:pg:cloud` run by hand, like every other loader.
 //
 // NEVER GUESSES. A string the parser cannot classify is REPORTED and left without a
 // body. A wrong court on a named magistrate's public profile is a misstatement about a
@@ -21,7 +21,7 @@
 // Every correction is printed below alongside the name it produced, because a correction
 // the operator cannot see is indistinguishable from a guess.
 //
-// Run: `npm run db:load:judicial-bodies:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:judicial-bodies:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";

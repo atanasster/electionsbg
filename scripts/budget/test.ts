@@ -3,10 +3,10 @@
 // pass/fail summary; exits non-zero if any test fails (so it can gate CI /
 // pre-commit). Each child test throws on the first broken invariant.
 //
-//   npm run budget:test
+//   pnpm run budget:test
 //
 // Scope = the simulator's MATH and its chat mirror. The AI layer's own broader
-// suite (routing, narration) stays in `npm run ai:test` + `npm run ai:harness`,
+// suite (routing, narration) stays in `pnpm run ai:test` + `pnpm run ai:harness`,
 // which the chat-parity smoke here (__test_ai_parity) backstops for the engine.
 
 import { execSync } from "child_process";
@@ -92,7 +92,7 @@ console.log(`Budget simulator regression suite — ${TESTS.length} test files\n`
 
 for (const { file, what } of TESTS) {
   try {
-    const out = execSync(`npx tsx scripts/budget/${file}`, {
+    const out = execSync(`pnpm exec tsx scripts/budget/${file}`, {
       cwd: PROJECT_ROOT,
       encoding: "utf-8",
       stdio: ["ignore", "pipe", "pipe"],

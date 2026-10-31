@@ -1,10 +1,10 @@
 // CLI entry for the KZP "Колко струва" price ingest. Postgres is the only store:
 // there is no data/prices/*.json serving tree any more.
 //
-//   npm run prices                       daily: fetch new days, load, rebuild
-//   npm run prices -- --no-build         load only, skip catalog/payloads
-//   npm run prices -- --build-only       rebuild catalog + payloads from Postgres
-//   npm run prices -- --backfill --from 2026-01-02 --to 2026-07-09
+//   pnpm run prices                       daily: fetch new days, load, rebuild
+//   pnpm run prices --no-build         load only, skip catalog/payloads
+//   pnpm run prices --build-only       rebuild catalog + payloads from Postgres
+//   pnpm run prices --backfill --from 2026-01-02 --to 2026-07-09
 //                                        one-off historical replay, OLDEST FIRST
 //
 // Backfill is a flag-gated operator step, never in the watcher/CI. raw_data/prices
@@ -167,7 +167,7 @@ const main = async (): Promise<void> => {
   // the ingest reports its own change here, based on what it actually loaded,
   // and process-watch-report skips the generic append for update-prices.
   // dedupeKey is the LAST LOADED DAY, not the wall clock: this same code runs
-  // twice per publish cycle (`npm run prices`, then `prices:ingest:cloud` =
+  // twice per publish cycle (`pnpm run prices`, then `prices:ingest:cloud` =
   // the same script against Cloud SQL), and the pair straddles UTC midnight
   // often enough to have published one refresh as two days of activity three
   // times — 2026-07-28, 2026-08-28 and 2026-08-31. Keying on the data day

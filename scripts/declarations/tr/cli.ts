@@ -1,5 +1,5 @@
 /**
- * Thin CLI for the TR Phase 3 + 4 pipelines. Run with `npx tsx`.
+ * Thin CLI for the TR Phase 3 + 4 pipelines. Run with `pnpm exec tsx`.
  *
  *   --bulk          Stream the full ~540 MB dataset zip to raw_data/tr/.
  *                   Resume support via HTTP Range. Primary path for the
@@ -23,7 +23,7 @@
  *
  * The fetchers + reconstruct are kept out of `scripts/main.ts` because the
  * bulk download takes minutes and reconstruction takes much longer — running
- * them inline would make `npm run prod` painful.
+ * them inline would make `pnpm run prod` painful.
  */
 
 import path from "path";

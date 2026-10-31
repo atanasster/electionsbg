@@ -1,7 +1,7 @@
 // Apply migration 156, load the EU peer bands, and refresh the hub stat cache.
 //
-//   npm run db:load:budget-hub:pg
-//   npm run db:load:budget-hub:pg:cloud
+//   pnpm run db:load:budget-hub:pg
+//   pnpm run db:load:budget-hub:pg:cloud
 //
 // Plan: docs/plans/budget-hub-v1.md T4.
 //

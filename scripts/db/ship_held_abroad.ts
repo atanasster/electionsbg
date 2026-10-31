@@ -2,9 +2,9 @@
  * Ship the held-place columns of `declaration_asset` from one database to another —
  * `held_scope`, `held_country`, `held_raw_in_country`, `held_raw_abroad`.
  *
- *   npx tsx scripts/db/ship_held_abroad.ts                      # dry run, local -> cloud
- *   npx tsx scripts/db/ship_held_abroad.ts --apply
- *   npx tsx scripts/db/ship_held_abroad.ts --from <url> --to <url> --apply
+ *   pnpm exec tsx scripts/db/ship_held_abroad.ts                      # dry run, local -> cloud
+ *   pnpm exec tsx scripts/db/ship_held_abroad.ts --apply
+ *   pnpm exec tsx scripts/db/ship_held_abroad.ts --from <url> --to <url> --apply
  *
  * ── WHY SHIP RATHER THAN RELOAD ─────────────────────────────────────────────────────────
  *
@@ -80,8 +80,8 @@ const main = async (): Promise<void> => {
     // aims this at the database it reads from. Name the fix rather than reporting a no-op.
     throw new Error(
       `--from and --to are the same database (${redactUrl(fromUrl)}) — nothing to ship.\n` +
-        `  Point --to at the target, e.g. the Cloud SQL proxy from \`npm run db:proxy:cloud\`:\n` +
-        `    npx tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg`,
+        `  Point --to at the target, e.g. the Cloud SQL proxy from \`pnpm run db:proxy:cloud\`:\n` +
+        `    pnpm exec tsx scripts/db/ship_held_abroad.ts --to postgres://postgres@127.0.0.1:5434/electionsbg`,
     );
 
   console.log(`from: ${redactUrl(fromUrl)}`);
@@ -100,7 +100,7 @@ const main = async (): Promise<void> => {
     if (cols.rowCount !== SHIP_COLS.length)
       throw new Error(
         `target is missing declaration_asset.held_* — apply 089 first:\n` +
-          `  DATABASE_URL=${redactUrl(toUrl)} npx tsx scripts/db/apply_functions.ts 089_declarations.sql`,
+          `  DATABASE_URL=${redactUrl(toUrl)} pnpm exec tsx scripts/db/apply_functions.ts 089_declarations.sql`,
       );
 
     // Only the rows that carry a place. held_scope is non-null for exactly tables 5 and 8, so

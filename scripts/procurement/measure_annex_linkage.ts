@@ -5,15 +5,15 @@
 // EITHER contract source, with THE SAME resolver both consumers act on (lib/annexResolve.ts)
 // rather than a re-implementation.
 //
-//   npx tsx scripts/procurement/measure_annex_linkage.ts                  # both sources + divergence
-//   npx tsx scripts/procurement/measure_annex_linkage.ts --source=pg      # what load_annexes_pg sees
-//   npx tsx scripts/procurement/measure_annex_linkage.ts --source=shards  # what anexi_current_value sees
-//   npx tsx scripts/procurement/measure_annex_linkage.ts --json           # machine-readable
-//   npx tsx scripts/procurement/measure_annex_linkage.ts --read-only      # accepted no-op alias
+//   pnpm exec tsx scripts/procurement/measure_annex_linkage.ts                  # both sources + divergence
+//   pnpm exec tsx scripts/procurement/measure_annex_linkage.ts --source=pg      # what load_annexes_pg sees
+//   pnpm exec tsx scripts/procurement/measure_annex_linkage.ts --source=shards  # what anexi_current_value sees
+//   pnpm exec tsx scripts/procurement/measure_annex_linkage.ts --json           # machine-readable
+//   pnpm exec tsx scripts/procurement/measure_annex_linkage.ts --read-only      # accepted no-op alias
 //
 // Against Cloud SQL (production), via the proxy — still read-only:
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-//     npx tsx scripts/procurement/measure_annex_linkage.ts --source=pg
+//     pnpm exec tsx scripts/procurement/measure_annex_linkage.ts --source=pg
 //
 // ── IT DRIVES FROM THE ANNEX SIDE, WHICH NEITHER CONSUMER DOES ───────────────────────────────
 //

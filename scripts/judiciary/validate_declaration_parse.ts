@@ -17,7 +17,7 @@
 // It fetches from the ИВСС register (plain HTTP, bare IP — see sources.ts) and writes
 // nothing to the corpus. Sample is deterministic for a given seed so a re-run is comparable.
 //
-//   npx tsx scripts/judiciary/validate_declaration_parse.ts [--n 60] [--seed 7] [--dir DIR]
+//   pnpm exec tsx scripts/judiciary/validate_declaration_parse.ts [--n 60] [--seed 7] [--dir DIR]
 //
 // `--dir` reads already-downloaded PDFs instead of fetching, for iterating offline.
 

@@ -114,7 +114,7 @@ export const convertPresentationToPdf = (
     fs.copyFileSync(pdf, outPdf);
   });
 
-//   npm run polls:ppt-pdf -- <input.ppt|.pptx> <output.pdf>
+//   pnpm run polls:ppt-pdf <input.ppt|.pptx> <output.pdf>
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const [input, output] = process.argv.slice(2);
   if (!input || !output || !PRESENTATION_RE.test(input)) {

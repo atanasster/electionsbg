@@ -1,4 +1,4 @@
-// `npm run data -- --pvr <cycle>` — read a presidential cycle and write its tree.
+// `pnpm run data --pvr <cycle>` — read a presidential cycle and write its tree.
 //
 // Pure and offline: every input is committed — `raw_data/<cycle>/ТУР1|ТУР2`,
 // `data/settlements.json`, `data/presidential/abroad_cities.json` and

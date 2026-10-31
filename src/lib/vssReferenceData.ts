@@ -37,7 +37,7 @@
 //    the shape a hand-edit breaks. Pure TS, so it still guards on a fresh clone
 //    and on a database-less CI leg, where the sweep above is skipping.
 //
-// So: `npm run test:data` for completeness, `npm run test:unit` for shape. The
+// So: `pnpm run test:data` for completeness, `pnpm run test:unit` for shape. The
 // plan doc's (§2) manual query is no longer the only thing standing between this
 // map and the next new court.
 //

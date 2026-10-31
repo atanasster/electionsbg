@@ -13,7 +13,7 @@
 // and the page still renders — which is why the predicate is asserted here
 // rather than trusted.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -52,7 +52,7 @@ const loaded = haveDb
 const stateSkip =
   skip ||
   (!applied
-    ? "153's T9.8 columns are not applied here — run npm run db:load:budget:pg"
+    ? "153's T9.8 columns are not applied here — run pnpm run db:load:budget:pg"
     : !loaded
       ? "budget_personnel is empty — db:load:budget:pg is in REFRESH_EXCLUSIONS"
       : false);

@@ -10,7 +10,7 @@
 //
 // Failing means one of three things, in descending likelihood:
 //   1. a key was added before its call site — wire it, or drop it until then;
-//   2. a key is genuinely dead — `npx tsx scripts/i18n/prune_translations.ts`;
+//   2. a key is genuinely dead — `pnpm exec tsx scripts/i18n/prune_translations.ts`;
 //   3. the call site builds the key in a shape analyzeKeyUsage cannot see, in
 //      which case fix the ANALYSIS (see KEY_TEMPLATES) rather than adding an
 //      allowlist here. There is deliberately no allowlist: every "unreachable

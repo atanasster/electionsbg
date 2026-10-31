@@ -1,5 +1,5 @@
 // "Виж в сайта" deep-link harness for siteLinks().
-// Run: npx tsx ai/render/links.harness.ts   (part of `npm run ai:test:all`)
+// Run: pnpm exec tsx ai/render/links.harness.ts   (part of `pnpm run ai:test:all`)
 //
 // siteLinks() is a pure function: Envelope -> the real electionsbg.com pages
 // that back the answer. The end-to-end golden coverage (real prompt -> real

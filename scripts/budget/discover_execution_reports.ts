@@ -12,9 +12,9 @@
 // EXECUTION_REPORTS.
 //
 // Usage:
-//   npx tsx scripts/budget/discover_execution_reports.ts              # headed, all targets
-//   npx tsx scripts/budget/discover_execution_reports.ts --ministry mon    # headed, single
-//   npx tsx scripts/budget/discover_execution_reports.ts --headless        # batch sweep
+//   pnpm exec tsx scripts/budget/discover_execution_reports.ts              # headed, all targets
+//   pnpm exec tsx scripts/budget/discover_execution_reports.ts --ministry mon    # headed, single
+//   pnpm exec tsx scripts/budget/discover_execution_reports.ts --headless        # batch sweep
 //
 // Headed mode pauses after each ministry so the operator can inspect the
 // browser. Headless mode writes data-reports/budget-discovery-<DATE>.md

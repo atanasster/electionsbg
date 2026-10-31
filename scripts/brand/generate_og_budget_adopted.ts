@@ -18,7 +18,7 @@
  *   muted  #9aa7bd  — dark --muted-foreground
  *
  * Regenerate with:
- *   npx tsx scripts/brand/generate_og_budget_adopted.ts
+ *   pnpm exec tsx scripts/brand/generate_og_budget_adopted.ts
  *
  * Output: public/og/budget-2026-adopted.png (1200x630)
  * Referenced by the `2026-07-25-budget-2026-adopted` entry in

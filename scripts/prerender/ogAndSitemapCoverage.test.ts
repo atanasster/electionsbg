@@ -13,7 +13,7 @@
 //   • Six more (/governance/sectors — a hub — /demographics/*,
 //     /parliament/similarity, /parliament/correlation, /votes/between) were in
 //     neither list and had no <loc> at all.
-//   • Three had both entries and no <loc>, because `npm run sitemap` is manual
+//   • Three had both entries and no <loc>, because `pnpm run sitemap` is manual
 //     and its output is committed.
 //
 // None of it failed anything. tests/seo.spec.ts asserts og:image
@@ -402,7 +402,7 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     // that would let a stale artifact vouch for a declaration somebody deleted,
     // and it makes the gate untestable — removing `children` from the `reports`
     // entry would leave 41 pages passing on the strength of `<loc>`s that the
-    // next `npm run sitemap` would drop.
+    // next `pnpm run sitemap` would drop.
     if (!bgSet.has(p) && DYNAMIC_STATIC_PAGES[p] === undefined)
       gaps.push("no BG <loc> (not in routeDefs(), no dynamic producer)");
     // ⚠️ NO `DYNAMIC_STATIC_PAGES` EXEMPTION HERE, unlike the two clauses above.
@@ -906,7 +906,7 @@ describe("every captured card is referenced by a page", () => {
 // ---------------------------------------------------------------------------
 
 describe("every prerendered page is in the committed sitemap", () => {
-  // Read the ARTIFACT, not a fresh enumeration: `npm run sitemap` is manual and
+  // Read the ARTIFACT, not a fresh enumeration: `pnpm run sitemap` is manual and
   // its output is committed, so "both route_defs entries are present" is not the
   // same claim as "the page has a <loc>". Three /budget pages were in that gap.
 
@@ -922,7 +922,7 @@ describe("every prerendered page is in the committed sitemap", () => {
       .map((r) => r.path);
     expect(
       missing,
-      `prerendered with no sitemap <loc>. If both route_defs entries are already there, run \`npm run sitemap\` and commit public/sitemap*.xml:\n${missing.join("\n")}`,
+      `prerendered with no sitemap <loc>. If both route_defs entries are already there, run \`pnpm run sitemap\` and commit public/sitemap*.xml:\n${missing.join("\n")}`,
     ).toEqual([]);
   });
 
@@ -1361,7 +1361,7 @@ describe("a hub's og capture anchors on its head", () => {
      *  default: a card is presumed stale until a human has looked.
      *
      *  ⚠️ VERIFY BY RE-SHOOTING, never by reading the diff. The check that earns an entry
-     *  here is `npx tsx scripts/og/capture-screens.ts <slug>` producing a byte-identical
+     *  here is `pnpm exec tsx scripts/og/capture-screens.ts <slug>` producing a byte-identical
      *  file (compare md5). „This looks like it only changes hrefs" is how a rendering change
      *  gets waved through. */
     const NON_RENDERING_SOURCE: Record<
@@ -1533,7 +1533,7 @@ describe("a hub's og capture anchors on its head", () => {
     expect(
       stale,
       `these cards predate the page they show — re-shoot with ` +
-        `\`npx tsx scripts/og/capture-screens.ts ${stale
+        `\`pnpm exec tsx scripts/og/capture-screens.ts ${stale
           .map((l) => l.split(":")[0])
           .join(
             " ",
@@ -1923,7 +1923,7 @@ describe("a hub's og capture anchors on its head", () => {
     expect(
       moved,
       `these cards show figures the committed payload has since moved — re-shoot with ` +
-        `\`npx tsx scripts/og/capture-screens.ts ${moved
+        `\`pnpm exec tsx scripts/og/capture-screens.ts ${moved
           .map((l) => l.split(":")[0])
           .join(
             " ",

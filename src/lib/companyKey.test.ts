@@ -12,7 +12,7 @@
 // the one that carries the „Обединение — участници" member block. See
 // companyKey.ts's header for the branch condition and the measurement.
 //
-//   npx vitest run src/lib/companyKey.test.ts
+//   pnpm exec vitest run src/lib/companyKey.test.ts
 
 import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync, statSync } from "node:fs";

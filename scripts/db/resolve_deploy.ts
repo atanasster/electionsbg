@@ -5,8 +5,8 @@
 // resolver into something the process-watch-report operator (or an agent following the
 // skill) can RUN, rather than reading a hand-maintained Step-8 table by eye.
 //
-//   npm run deploy:resolve -- contracts tenders
-//   npm run deploy:resolve -- tr_companies
+//   pnpm run deploy:resolve contracts tenders
+//   pnpm run deploy:resolve tr_companies
 //
 // SCOPE. This is the NON-invasive half of v2-e: it computes and prints the commands.
 // It does NOT run them and does NOT touch the loaders — the per-loader double-refresh
@@ -34,17 +34,17 @@ export const cloudScripts = (): Set<string> => {
 };
 
 export interface DeployCommands {
-  /** ordered `npm run <loader>:cloud` lines — the actual publish */
+  /** ordered `pnpm run <loader>:cloud` lines — the actual publish */
   commands: string[];
   /** advisories: committed artifacts to regenerate+sync, manual loads owed, cycles */
   notes: string[];
 }
 
 /** Loaders whose `:cloud` wrapper is a no-op or an error WITHOUT a flag, so a bare
- *  `npm run <loader>:cloud` would silently publish nothing. Bake the flag in. */
+ *  `pnpm run <loader>:cloud` would silently publish nothing. Bake the flag in. */
 const REQUIRED_FLAGS: Record<string, string> = {
-  "kzk:rejoin": "-- --apply", // dry-run (silent no-op) without it
-  "db:load:funds:pg": "-- --full", // exits 1 without a scope flag; --full = re-ingest
+  "kzk:rejoin": "--apply", // dry-run (silent no-op) without it
+  "db:load:funds:pg": "--full", // exits 1 without a scope flag; --full = re-ingest
 };
 
 /** Loaders that need a documented FOLLOW-UP beyond the single emitted command. */
@@ -54,7 +54,7 @@ const FOLLOWUP_NOTES: Record<string, string> = {
     "(only payloads changed) — see update-funds",
   "db:load:declarations:pg":
     "declarations is two-phase — follow with " +
-    "`npm run db:load:declarations:pg:cloud -- --resolve`",
+    "`pnpm run db:load:declarations:pg:cloud --resolve`",
 };
 
 /** Parse the changed-table names out of argv (dropping any -flags). */
@@ -77,7 +77,7 @@ export const deployCommands = (
   for (const loader of plan.loaders) {
     if (scripts.has(`${loader}:cloud`)) {
       const flag = REQUIRED_FLAGS[loader];
-      commands.push(`npm run ${loader}:cloud${flag ? ` ${flag}` : ""}`);
+      commands.push(`pnpm run ${loader}:cloud${flag ? ` ${flag}` : ""}`);
       if (FOLLOWUP_NOTES[loader])
         notes.push(`# ${loader}: ${FOLLOWUP_NOTES[loader]}`);
     } else {
@@ -111,8 +111,8 @@ const main = (): void => {
   const changed = parseChanged(process.argv.slice(2));
   if (changed.length === 0) {
     console.error(
-      "usage: npm run deploy:resolve -- <changed-table> [<changed-table> …]\n" +
-        "  e.g. npm run deploy:resolve -- contracts tenders",
+      "usage: pnpm run deploy:resolve <changed-table> [<changed-table> …]\n" +
+        "  e.g. pnpm run deploy:resolve contracts tenders",
     );
     process.exit(1);
   }

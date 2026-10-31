@@ -1,6 +1,6 @@
 ---
 name: update-financing
-description: Refresh the Сметна палата party-financing data — re-scrape the bulnao.government.bg/bg/kontrol-partii/ section for the list of available years (data/financing/index.json), crawl the gfopp.bulnao.government.bg register for the per-party annual-report filing-status catalogue (data/financing/reports.json — filed on time / late / non-compliant / not filed), and scrape the ЕРИК register (erik.bulnao.government.bg) for a given election's campaign financing — donors, candidate donations and post-election financial reports — via `npm run data -- --erik --financing`. Use when the daily watch report flags "Сметна палата party financing" or "erik_campaign_financing" as changed, when the user asks to refresh party or campaign financing data, to ingest a new election's campaign financing, or to investigate which year of annual reports was added/removed.
+description: Refresh the Сметна палата party-financing data — re-scrape the bulnao.government.bg/bg/kontrol-partii/ section for the list of available years (data/financing/index.json), crawl the gfopp.bulnao.government.bg register for the per-party annual-report filing-status catalogue (data/financing/reports.json — filed on time / late / non-compliant / not filed), and scrape the ЕРИК register (erik.bulnao.government.bg) for a given election's campaign financing — donors, candidate donations and post-election financial reports — via `pnpm run data --erik --financing`. Use when the daily watch report flags "Сметна палата party financing" or "erik_campaign_financing" as changed, when the user asks to refresh party or campaign financing data, to ingest a new election's campaign financing, or to investigate which year of annual reports was added/removed.
 allowed-tools:
   - Read
   - Bash
@@ -26,12 +26,12 @@ Tier-2 ingest for Сметна палата (Court of Audit) party-financing dis
 | Fresh clone (no `data/financing/index.json`) | Cold-start `scrape_index.ts` to populate the catalog |
 | Watcher flags `Сметна палата annual-report index` (a new year appeared — typically spring, after the 31 March deadline) | Run `scrape_index.ts`, then `scrape_reports.ts` to pull the new year's filings |
 | Fresh clone (no `data/financing/reports.json`) | Run `scrape_index.ts` first, then `scrape_reports.ts` |
-| Watcher flags `erik_campaign_financing` (new donors/filings for the current election) | Run `npm run data -- --erik --financing` (see "ЕРИК campaign-finance ingest") |
+| Watcher flags `erik_campaign_financing` (new donors/filings for the current election) | Run `pnpm run data --erik --financing` (see "ЕРИК campaign-finance ingest") |
 
 ## Step 1 — Scrape
 
 ```bash
-npx tsx scripts/financing/scrape_index.ts
+pnpm exec tsx scripts/financing/scrape_index.ts
 ```
 
 Expected output:
@@ -57,7 +57,7 @@ If a new year appeared (typical in spring once that fiscal year's reports are fi
 ## Step 3 — Upload
 
 ```bash
-npx tsx scripts/financing/scrape_index.ts --upload
+pnpm exec tsx scripts/financing/scrape_index.ts --upload
 ```
 
 Pushes `data/financing/index.json` to `gs://data-electionsbg-com/financing/index.json` with `Cache-Control: no-cache` (the file is small and mutable).
@@ -75,8 +75,8 @@ A second, heavier scraper crawls the gfopp WebForms register for the
 per-party filing-status catalogue.
 
 ```bash
-npx tsx scripts/financing/scrape_reports.ts            # ingest
-npx tsx scripts/financing/scrape_reports.ts --upload   # ingest + GCS push
+pnpm exec tsx scripts/financing/scrape_reports.ts            # ingest
+pnpm exec tsx scripts/financing/scrape_reports.ts --upload   # ingest + GCS push
 ```
 
 It reads the year list from `data/financing/index.json` (run `scrape_index.ts`
@@ -123,12 +123,12 @@ the existing parser (`--financing`) consumes it unchanged.
 
 ```bash
 # Scrape the LATEST election (ERIK_ELECTIONS[0]) + re-parse into data/<election>/
-npm run data -- --erik --financing
+pnpm run data --erik --financing
 
 # A specific past election
-npm run data -- --erik --financing -e 2024_10_27
+pnpm run data --erik --financing -e 2024_10_27
 # or directly:
-npx tsx scripts/smetna_palata/scrape_erik.ts 2026_04_19
+pnpm exec tsx scripts/smetna_palata/scrape_erik.ts 2026_04_19
 ```
 
 What it does:
@@ -222,14 +222,14 @@ Always shows `found 0 year(s)` until the scraper is extended. Don't treat this a
 
 ```bash
 # Daily refresh after watcher flags a change
-npx tsx scripts/financing/scrape_index.ts
+pnpm exec tsx scripts/financing/scrape_index.ts
 
 # Refresh + upload to bucket
-npx tsx scripts/financing/scrape_index.ts --upload
+pnpm exec tsx scripts/financing/scrape_index.ts --upload
 
 # Refresh the per-party filing-status catalogue (run scrape_index.ts first)
-npx tsx scripts/financing/scrape_reports.ts
-npx tsx scripts/financing/scrape_reports.ts --upload
+pnpm exec tsx scripts/financing/scrape_reports.ts
+pnpm exec tsx scripts/financing/scrape_reports.ts --upload
 
 # Inspect what changed
 git diff data/financing/

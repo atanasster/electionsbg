@@ -51,7 +51,7 @@ Download the EN publications from NSI's Census 2021 portal at <https://census202
 ## Step 2 — Build
 
 ```bash
-npx tsx scripts/census/build_census.ts
+pnpm exec tsx scripts/census/build_census.ts
 ```
 
 Expected output:
@@ -93,7 +93,7 @@ Eyeball:
 `scripts/parties/build_demographics.ts` reads `data/census_2021.json` to compute the per-party vote↔demographics Pearson correlations (the `/demographics` scatter, the party-dashboard fingerprint tile, and the home cleavages tile) across all 265 municipalities. It is the only downstream artifact whose content depends on the census. If the census **content** changed — an NSI correction, a new dimension, the 2031 census — regenerate it:
 
 ```bash
-npx tsx scripts/parties/build_demographics.ts
+pnpm exec tsx scripts/parties/build_demographics.ts
 ```
 
 This rewrites `data/<election>/parties/demographics/*.json`, `data/<election>/dashboard/demographic_cleavages.json` and `data/<election>/dashboard/demographic_scatter.json` for every election.
@@ -103,8 +103,8 @@ Skip this on a pure no-op rebuild (fresh clone where `git diff data/census_2021.
 ## Step 5 — Upload to bucket
 
 ```bash
-npm run bucket:sync:dry   # preview
-npm run bucket:sync       # rsync data/ to gs://data-electionsbg-com/
+pnpm run bucket:sync:dry   # preview
+pnpm run bucket:sync       # rsync data/ to gs://data-electionsbg-com/
 ```
 
 This pushes the changed census JSON (and any other changed `data/` files) to the bucket the SPA fetches from.

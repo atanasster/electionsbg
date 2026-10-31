@@ -19,7 +19,7 @@ const [{ n } = { n: "0" }] = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : n === "0"
-    ? "tender_subcontracting is empty — run npm run db:load:subcontractors:pg"
+    ? "tender_subcontracting is empty — run pnpm run db:load:subcontractors:pg"
     : false;
 reportSkip(import.meta.url, skip);
 

@@ -1,7 +1,7 @@
 // Record a reviewed exclusion on a captured publication so the durable queue can finish.
 //
-//   npm run polls:exclude -- --agency AR --pub 912 --race presidential --reason "Round-two exit poll"
-//   npm run polls:exclude -- --from-reconciliation     # migrate state/polls/historical-reconciliation.json
+//   pnpm run polls:exclude --agency AR --pub 912 --race presidential --reason "Round-two exit poll"
+//   pnpm run polls:exclude --from-reconciliation     # migrate state/polls/historical-reconciliation.json
 //
 // An exclusion binds to the publication's CURRENT source hash and one race. A
 // changed source reopens review; excluding one race leaves the other's work pending.
@@ -100,7 +100,7 @@ export const main = (argv: string[], root: string): void => {
   const reason = flag("reason");
   if (!agency || !pub || !race || !RACES.includes(race) || !reason?.trim()) {
     console.error(
-      "usage: polls:exclude -- --agency <ID> --pub <pubId> --race parliamentary|presidential --reason <text>",
+      "usage: polls:exclude --agency <ID> --pub <pubId> --race parliamentary|presidential --reason <text>",
     );
     process.exitCode = 1;
     return;

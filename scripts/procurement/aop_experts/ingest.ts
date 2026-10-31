@@ -2,7 +2,7 @@
 //
 // 77 GETs, no session, no auth. The whole register is 88 people, so the output is
 // committed rather than gitignored: the loader is then pure-load and a fresh clone
-// can build the table with no network. `npm run aop:experts` re-crawls.
+// can build the table with no network. `pnpm run aop:experts` re-crawls.
 //
 // ⚠️ THE REGISTER IS CLOSED IN PRACTICE (see sources.ts). Nothing here filters on
 // validity — a historical register is the product, and dropping expired rows would

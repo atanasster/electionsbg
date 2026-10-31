@@ -51,7 +51,7 @@ export const loadMap = (): Record<string, GeoEntry> => {
   if (!j.awarders || typeof j.awarders !== "object")
     throw new Error(
       `${MAP_FILE} has no \`awarders\` block — the artifact's shape changed, or ` +
-        `the file is truncated. Re-run: npx tsx scripts/procurement/awarder_geo_map.ts`,
+        `the file is truncated. Re-run: pnpm exec tsx scripts/procurement/awarder_geo_map.ts`,
     );
   return j.awarders;
 };
@@ -70,13 +70,13 @@ export const vacuityReason = (
   if (mapEntries <= CHECKED_FLOOR)
     return (
       `${MAP_FILE} holds ${mapEntries} entries, at or below the ${CHECKED_FLOOR} ` +
-      `floor — too few to conclude anything. Re-run: npx tsx scripts/procurement/awarder_geo_map.ts`
+      `floor — too few to conclude anything. Re-run: pnpm exec tsx scripts/procurement/awarder_geo_map.ts`
     );
   if (drift.checked <= CHECKED_FLOOR)
     return (
       `only ${drift.checked} of ${mapEntries} map entries carry an ekatte and ` +
       `could be compared — the artifact is malformed rather than unpublished. ` +
-      `Re-run: npx tsx scripts/procurement/awarder_geo_map.ts`
+      `Re-run: pnpm exec tsx scripts/procurement/awarder_geo_map.ts`
     );
   return null;
 };

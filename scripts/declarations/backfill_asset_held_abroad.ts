@@ -22,11 +22,11 @@
  *
  * Manual by design, per the repo's convention for one-off backfills.
  *
- *   npx tsx scripts/declarations/backfill_asset_held_abroad.ts           # dry run
- *   npx tsx scripts/declarations/backfill_asset_held_abroad.ts --apply
+ *   pnpm exec tsx scripts/declarations/backfill_asset_held_abroad.ts           # dry run
+ *   pnpm exec tsx scripts/declarations/backfill_asset_held_abroad.ts --apply
  *
  * Then, in this order — `--resolve` alone does NOT rewrite asset rows:
- *   npm run db:load:declarations:pg
+ *   pnpm run db:load:declarations:pg
  */
 
 import fs from "fs";

@@ -53,7 +53,7 @@ data/<cycle>/
   _unmatched_coalitions.json            ← operator-review queue
 ```
 
-`region/<oblast>.json` + `regions_summary.json` + `national_leaders.json` + `index_trends.json` are all produced by `scripts/parsers_local/build_region_json.ts` (`buildRegionRollups`), an additive bundle-only pass folded into the tail of `parseLocalElection` (and `resolveCanonicalsForCycle`). They regenerate automatically on every `--local-ingest` / `--local` / `--resolve-local-canonicals` run for regular `_mi` cycles, so no extra step is needed — chmi partials skip them (single-município, no region dimension). To rebuild only the rollups without re-fetching CIK HTML: `npm run data -- --local-rollups [--local-date <cycle>]`.
+`region/<oblast>.json` + `regions_summary.json` + `national_leaders.json` + `index_trends.json` are all produced by `scripts/parsers_local/build_region_json.ts` (`buildRegionRollups`), an additive bundle-only pass folded into the tail of `parseLocalElection` (and `resolveCanonicalsForCycle`). They regenerate automatically on every `--local-ingest` / `--local` / `--resolve-local-canonicals` run for regular `_mi` cycles, so no extra step is needed — chmi partials skip them (single-município, no region dimension). To rebuild only the rollups without re-fetching CIK HTML: `pnpm run data --local-rollups [--local-date <cycle>]`.
 
 Cross-cycle chmi history (`data/local_chmi_history.json`) is built by `scripts/parsers_local/build_chmi_history.ts` (`buildChmiHistory`) at the tail of `parseLocalElection` and `resolveCanonicalsForCycle`. The same builder additionally writes per-município shards to `data/chmi_history/<obshtinaCode>.json` (rewritten from scratch each run) so the município page + settlement dashboard fetch their own ≤ 1 KB file instead of pulling the 61 KB global. The global file is kept for the national `/local/chmi` feed which needs every event.
 
@@ -67,7 +67,7 @@ The fingerprint source `cik_results` in `scripts/watch/sources/cik_results.ts` t
 The parser cross-references canonical parties to credit local coalitions back to their primary national party. If `data/canonical_parties.json` is missing or stale:
 
 ```bash
-npm run data -- --summary
+pnpm run data --summary
 ```
 
 This regenerates the canonical parties index (~5s).
@@ -79,7 +79,7 @@ Read `state/watch/cik_results.json` to identify which cycles changed. The descri
 For each changed cycle slug, run:
 
 ```bash
-npm run data -- --local-ingest <cycleSlug>
+pnpm run data --local-ingest <cycleSlug>
 ```
 
 `--local-ingest` is the **HTML-only** path: it discovers the OIK catalogue from the cycle's dropdowns, mirrors the per-município pages, and parses. It does NOT download the section CSV bundle (that's `--local-csv`, see below).
@@ -88,11 +88,11 @@ Examples:
 
 ```bash
 # A regular cycle was re-uploaded (HTML re-parse):
-npm run data -- --local-ingest mi2023
+pnpm run data --local-ingest mi2023
 
 # A new partial-elections date appeared (either kind works the same):
-npm run data -- --local-ingest "chmi2024-2026/2026-03-22_chastichen"
-npm run data -- --local-ingest "chmi2024-2026/2025-10-12_nov"
+pnpm run data --local-ingest "chmi2024-2026/2026-03-22_chastichen"
+pnpm run data --local-ingest "chmi2024-2026/2025-10-12_nov"
 ```
 
 Expected output:
@@ -114,7 +114,7 @@ The HTML mirror is sequential with a 250ms delay between requests — full mi202
 **By-election turnout is backfilled automatically for EVERY race** at the tail of every current-style `chmi*` `--local-ingest`. The rezultati summary carries vote tallies only (zeroed `protocol`), but ЦИК serves the "Числови данни от протокол" as clean HTML at `<cycle>/tur{1,2}/protokoli/<el>/<oik>/<aggId>.html`; `ingestByElectionTurnout` fetches the aggregate page for every race and writes the exact registered/voted totals: **район/община mayor → `bundle.protocol`** (+ a per-section mayor-map shard `data/<cycle>/sections/<code>.json`), **kmetstvo (village) mayor → the matching `bundle.kmetstva[]` entry**. So the dashboard's `ВОТ ЗА КМЕТ → активност` and the `/local/chmi` feed show the official number for all races (e.g. район Средец 2026-06-14 → 13.1%, kmetstvo Бата → 54.7%) instead of the estimate they fall back to when absent. It is **round-aware** — each race is fetched for the round that elected its winner, so re-running after the **2026-06-21 runoff** backfills tur2 turnout (a not-yet-published round 404s and is skipped, picked up next run). It runs after `ingestCycles` re-parses (which re-zeroes the protocol), so turnout survives re-ingest, and rebuilds `local_chmi_history.json`. To re-run standalone without re-mirroring HTML:
 
 ```bash
-npm run data -- --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
+pnpm run data --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
 ```
 
 This is exact and deterministic — no OCR (the числови-данни HTML is the source; the scanned PDFs at `pdf/<el>/<oik>/<id>.pdf` are only a fallback). Pops a browser window (CF-clearing Playwright session). Data lands under `data/<cycle>/municipalities/` (gitignored) → `bucket:sync` for prod.
@@ -124,7 +124,7 @@ This is exact and deterministic — no OCR (the числови-данни HTML i
 For **regular cycles only** (2015/2019/2023), `--local-csv <slug>` additionally downloads the section bundle and re-parses, layering per-station data on top of the HTML bundles:
 
 ```bash
-npm run data -- --local-csv mi2023   # or minr2015 / mi2019
+pnpm run data --local-csv mi2023   # or minr2015 / mi2019
 ```
 
 This fixes the council vote share for cycles whose HTML summary omits it (2015), fills real `protocol` turnout, and writes the two-tier section data — `data/<cycle>/sections/<obshtina>.json` (light index: the map + top-sections + `LocalSectionsTile` table) + `data/<cycle>/sections/<obshtina>/<sectionCode>.json` (per-station full breakdown for the detail page). Follow with `--local-coords` (Step 5.5) to stamp GPS/address. Per-cycle bundle URLs + the cp866 extractor live in `download_csv_bundle.ts` / `extract_bundle.ts`. chmi partials are HTML-only — they have no section bundle, so `--local-csv` does not apply to them.
@@ -169,7 +169,7 @@ said `"vmro"`, and 424 councillor/mayor rows carried it.
 Re-run the parser only (skip the download/extract steps):
 
 ```bash
-npm run data -- --local --local-date <YYYY_MM_DD_mi-or-chmi>
+pnpm run data --local --local-date <YYYY_MM_DD_mi-or-chmi>
 ```
 
 …until `_unmatched_coalitions.json` is empty or only contains genuinely-local entities you accept bucketing as `independent`.
@@ -196,7 +196,7 @@ For mi2023 expect roughly:
 - Top council vote share dominated by ГЕРБ, БСП, ДПС
 - Mayors-won dominated by ГЕРБ + independents (Blagoevgrad's Илко Стоянов won as an independent)
 
-Visual check: `npm run dev` → visit `/settlement/BLG03` → the new "Местни избори · 29.10.2023" tile should show Илко Стоянов Стоянов as elected mayor with R2 result.
+Visual check: `pnpm run dev` → visit `/settlement/BLG03` → the new "Местни избори · 29.10.2023" tile should show Илко Стоянов Стоянов as elected mayor with R2 result.
 
 ## Step 5 — Post-ingest decorators
 
@@ -207,14 +207,14 @@ are idempotent — re-running them when nothing has changed is a no-op.
 
 ```bash
 # Refresh kметство → EKATTE lookup the My-Area village-mayor tile reads.
-npx tsx scripts/parsers_local/backfill_kmetstvo_ekatte.ts
+pnpm exec tsx scripts/parsers_local/backfill_kmetstvo_ekatte.ts
 
 # Stamp mpId on every mayor / councillor / kmetstvo / район candidate whose
 # normalised name matches an MP in data/parliament/index.json. Drives the
 # parliament.bg photo reuse in `MpAvatar`. Re-run automatically whenever
 # either local-election bundles OR parliament index changes — see
 # parliament-scrape SKILL.md for the inverse trigger.
-npx tsx scripts/parsers_local/decorate_local_mp_links.ts
+pnpm exec tsx scripts/parsers_local/decorate_local_mp_links.ts
 ```
 
 The decorator's summary line reports `N/M candidate rows stamped (X%)`
@@ -228,8 +228,8 @@ dashboards link mayors/councillors/village mayors to their unified profile, then
 `bucket:sync` to publish (the bundles + trends are gitignored → bucket-only):
 
 ```bash
-npm run data:local-person-refresh   # decorate personSlug + rebuild rollups/place-trends/chmi
-npm run bucket:sync                  # publish the regenerated data/ trees
+pnpm run data:local-person-refresh   # decorate personSlug + rebuild rollups/place-trends/chmi
+pnpm run bucket:sync                  # publish the regenerated data/ trees
 ```
 
 This reads `person_role (source='local')` from Postgres, so it must run AFTER
@@ -244,7 +244,7 @@ The local section shards carry no GPS of their own — stamp coordinates +
 building address onto the section index from the parliamentary section archive:
 
 ```bash
-npm run data -- --local-coords
+pnpm run data --local-coords
 ```
 
 Idempotent; walks every cycle. The join is settlement-name-gated (local and
@@ -265,7 +265,7 @@ cycle (the município dashboard's **Risk votes / Problem votes by party** tile
 reads it; self-hides for municípios with no flagged neighborhood):
 
 ```bash
-npm run data -- --local-problem-sections
+pnpm run data --local-problem-sections
 ```
 
 **Run this AFTER `--local-coords`** — most neighborhoods key on EKATTE + the
@@ -296,7 +296,7 @@ last 2 digits), Пловдив/Варна (`<muni>-<code>`). E.g. Максуда
 `ingestCycles` writes `state/ingest/cik_local.json` automatically on success. If you ran the parser-only path (`--local --local-date …` rather than `--local-ingest …`), you can stamp manually:
 
 ```bash
-npx tsx scripts/stamp-ingest.ts cik_local --summary "manual parse of <cycle>"
+pnpm exec tsx scripts/stamp-ingest.ts cik_local --summary "manual parse of <cycle>"
 ```
 
 ## Adding a new regular cycle
@@ -320,15 +320,15 @@ When CIK publishes mi2027 (~Oct 2027):
    };
    ```
 3. Add a single-entry catalogue update to `src/data/json/local_elections.json`.
-4. Ingest: `npm run data -- --local-ingest mi2027`.
+4. Ingest: `pnpm run data --local-ingest mi2027`.
 
 ## Historical cycles (mi2015 / mipvr2011)
 
 The 2015 (`minr2015`) and 2011 (`mipvr2011`) archives are usable via the same CLI:
 
 ```bash
-npm run data -- --local-ingest minr2015
-npm run data -- --local-ingest mipvr2011
+pnpm run data --local-ingest minr2015
+pnpm run data --local-ingest mipvr2011
 ```
 
 They are **not watched** — the fingerprint source intentionally only tracks `mi2019` / `mi2023` / chmi umbrellas because the older archives are frozen, and adding them to `REGULAR_BUNDLE_URL` in `scripts/watch/sources/cik_results.ts` would just add HEAD requests for files that never change. Re-run the backfill manually if `data/2015_10_25_mi/` or `data/2011_10_23_mi/` is missing on a clone. Both **2015** (`--local-csv minr2015`) and **2011** (`--local-csv mipvr2011`) have section CSVs that backfill council vote share + turnout + per-station data. 2011's bundle (`el2011_t1.zip`) is a separate schema (CP1251 content, `общински съветници` folder, `coalitions` file, pair-encoded votes, no admin/serials columns) read by `augment_sections_2011.ts`, which the orchestrator falls back to automatically. NB: 2011's HTML council table was incomplete (omitted also-ran parties), so the CSV raises its council total from ~2.73 M to the complete ~3.27 M.
@@ -356,7 +356,7 @@ OIK-município page. They are ingested by a dedicated path
 `--local-ingest` routes to automatically for those umbrella slugs:
 
 ```bash
-npm run data -- --local-ingest "chmi2016-2018/2018-10-14_chastichen"
+pnpm run data --local-ingest "chmi2016-2018/2018-10-14_chastichen"
 ```
 
 It enumerates the numbered pages, parses each kmetstvo / obshtina / район mayor
@@ -384,7 +384,7 @@ When the chmi rolls into a new 4-year window (e.g. `chmi2027-2030`):
 
 ## Failure modes
 
-- **`csv.zip empty`** — CIK returned a zero-byte body. Usually a CF challenge gone wrong; retry once. If persistent, check the cookie is being captured (run with `DEBUG=cik:* npm run data -- --local-ingest mi2023`).
+- **`csv.zip empty`** — CIK returned a zero-byte body. Usually a CF challenge gone wrong; retry once. If persistent, check the cookie is being captured (run with `DEBUG=cik:* pnpm run data --local-ingest mi2023`).
 - **`discovered 0 OIK codes from sections.txt`** — extraction layout unexpected. CIK occasionally changes the inner directory naming (`ТУР1` vs `Тур1`); inspect `raw_data/<cycle>/` after the run and adjust `discoverOikCodes` if needed.
 - **HTML scraper warnings** (`X OIK(s) missing tur1 HTML page`) — sometimes CIK delays publishing a problematic município's page for days while the OIK resolves a recount. Re-run later.
 - **Many unmatched coalition fragments** — usually means `canonical_parties.json` is stale. Re-run Step 1.

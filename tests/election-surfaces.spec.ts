@@ -27,7 +27,7 @@
 // the table, and the level it undercounted is the one whose mislabelling the source calls "the
 // one thing the level split exists to prevent" (a turnout МИР 32's protocol cannot support).
 //
-//   npm run build && npx playwright test --project=surfaces
+//   pnpm run build && pnpm exec playwright test --project=surfaces
 
 import { test, expect, type Page } from "./edgeTest";
 import { DIASPORA_REGION } from "../src/data/diaspora/diasporaFaq";

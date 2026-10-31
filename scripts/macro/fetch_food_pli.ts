@@ -15,7 +15,7 @@
 //               the page can show price CONVERGENCE toward the EU average over time.
 //
 // Targeted: reads the existing macro_peers.json, sets .pricePli, writes back —
-// does NOT re-run the whole peer fetch. Run: `npx tsx scripts/macro/fetch_food_pli.ts`.
+// does NOT re-run the whole peer fetch. Run: `pnpm exec tsx scripts/macro/fetch_food_pli.ts`.
 
 import fs from "node:fs";
 import path from "node:path";

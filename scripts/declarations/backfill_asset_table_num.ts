@@ -24,8 +24,8 @@
  *
  * Manual by design, per the repo's convention for one-off backfills.
  *
- *   npx tsx scripts/declarations/backfill_asset_table_num.ts           # dry run
- *   npx tsx scripts/declarations/backfill_asset_table_num.ts --apply
+ *   pnpm exec tsx scripts/declarations/backfill_asset_table_num.ts           # dry run
+ *   pnpm exec tsx scripts/declarations/backfill_asset_table_num.ts --apply
  */
 
 import fs from "fs";

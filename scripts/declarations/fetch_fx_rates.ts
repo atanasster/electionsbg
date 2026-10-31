@@ -31,8 +31,8 @@
 //
 // Operator-run, not in any chain: it moves once a year, when a year closes.
 //
-//   npx tsx scripts/declarations/fetch_fx_rates.ts           # dry run, prints the diff
-//   npx tsx scripts/declarations/fetch_fx_rates.ts --apply
+//   pnpm exec tsx scripts/declarations/fetch_fx_rates.ts           # dry run, prints the diff
+//   pnpm exec tsx scripts/declarations/fetch_fx_rates.ts --apply
 
 import fs from "fs";
 import path from "path";

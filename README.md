@@ -108,11 +108,14 @@ that do not belong in this introductory README.
 
 ## Local development
 
-Install dependencies and start Vite:
+The root uses pnpm (the exact version is pinned in `package.json`'s
+`packageManager` field; `corepack enable` provides it). `functions/`,
+`news-functions/` and `news/` are deployed separately and keep their own npm
+lockfiles. Install dependencies and start Vite:
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 The development server mounts local `data/` files at the same paths used by the
@@ -122,16 +125,16 @@ and some derived inputs are intentionally gitignored.
 To rebuild the static data pipeline:
 
 ```bash
-npm run data     # election/data pipeline with explicit flags as needed
-npm run prod     # full static pipeline: --all --prod
+pnpm run data     # election/data pipeline with explicit flags as needed
+pnpm run prod     # full static pipeline: --all --prod
 ```
 
 Database-backed pages need the local PostgreSQL instance. The full refresh is
 large and skips with a warning where an optional gitignored input is absent:
 
 ```bash
-npm run db:pg:up
-npm run db:refresh
+pnpm run db:pg:up
+pnpm run db:refresh
 ```
 
 ### Environment files
@@ -152,18 +155,18 @@ are authoritative for those prerequisites.
 ## Common commands
 
 ```bash
-npm run dev             # Vite development server
-npm run build           # typecheck, production build, prerender, SEO artifacts
-npm run lint            # ESLint; Prettier is enforced through ESLint
-npm run format          # ESLint autofix
-npm run test:unit       # Vitest unit and component tests
-npm run functions:test  # Node tests for the Firebase functions package
-npm run test:data       # PostgreSQL data-integrity gates; skip when PG is absent
-npm run test:build      # build, then Playwright browser/SEO/performance tests
-npm run sitemap         # regenerate sitemap files
-npm run watch           # check registered upstream sources for changes
-npm run db:pg:up        # start local PostgreSQL on port 5433
-npm run db:refresh      # rebuild the local database in dependency order
+pnpm run dev             # Vite development server
+pnpm run build           # typecheck, production build, prerender, SEO artifacts
+pnpm run lint            # ESLint; Prettier is enforced through ESLint
+pnpm run format          # ESLint autofix
+pnpm run test:unit       # Vitest unit and component tests
+pnpm run functions:test  # Node tests for the Firebase functions package
+pnpm run test:data       # PostgreSQL data-integrity gates; skip when PG is absent
+pnpm run test:build      # build, then Playwright browser/SEO/performance tests
+pnpm run sitemap         # regenerate sitemap files
+pnpm run watch           # check registered upstream sources for changes
+pnpm run db:pg:up        # start local PostgreSQL on port 5433
+pnpm run db:refresh      # rebuild the local database in dependency order
 ```
 
 CI runs lint, unit tests, Function tests, a production build, and Playwright.
@@ -172,7 +175,7 @@ CI runs lint, unit tests, Function tests, a production build, and Playwright.
 
 The refresh system has two parts:
 
-- `npm run watch` fingerprints registered upstreams at their configured
+- `pnpm run watch` fingerprints registered upstreams at their configured
   cadence and writes state under `state/watch/` plus a human-readable report
   under `data-reports/`.
 - The `process-watch-report` skill compares watcher state with
@@ -200,18 +203,18 @@ retains the terms of its original publisher.
 The main commands target separate layers:
 
 ```bash
-npm run deploy           # Firebase Hosting only
-npm run deploy:db        # Firebase `db` Function only
-npm run staging          # staging Hosting target
-npm run bucket:sync:dry  # preview the selected static-data upload
-npm run bucket:sync      # publish the selected static-data trees to GCS
+pnpm run deploy           # Firebase Hosting only
+pnpm run deploy:db        # Firebase `db` Function only
+pnpm run staging          # staging Hosting target
+pnpm run bucket:sync:dry  # preview the selected static-data upload
+pnpm run bucket:sync      # publish the selected static-data trees to GCS
 ```
 
 PostgreSQL migrations and cloud loaders are separate again. Deployment order is
 significant for routes that span Cloud SQL, Functions, and Hosting, and some
 function-served pages require an additional Hosting cache purge after a bundle
 change. Follow the relevant deployment section in [CLAUDE.md](CLAUDE.md); do not
-infer that `npm run deploy` publishes the API or database.
+infer that `pnpm run deploy` publishes the API or database.
 
 ## License
 

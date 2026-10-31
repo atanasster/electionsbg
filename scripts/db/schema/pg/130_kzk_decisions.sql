@@ -34,7 +34,7 @@
 -- table and the `kind` column keeps them apart where it matters.
 --
 -- ⚠️ Populated by scripts/db/load_kzk_decisions_pg.ts
--- (`npm run db:load:kzk-decisions:pg` / `:cloud`) from the JSON corpus, and by
+-- (`pnpm run db:load:kzk-decisions:pg` / `:cloud`) from the JSON corpus, and by
 -- scripts/procurement/kzk_decisions.ts --apply on a live crawl. There is no
 -- automatic cloud path: `db:refresh` runs the local equivalent, the cloud side
 -- needs the `:cloud` command by hand.

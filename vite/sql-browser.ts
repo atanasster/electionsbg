@@ -183,7 +183,7 @@ const jsonReplacer = (_k: string, v: unknown): unknown =>
 
 const withHint = (msg: string): string =>
   /ECONNREFUSED|reachable|connect/i.test(msg)
-    ? `${msg} — is Postgres up? run \`npm run db:pg:up\` + \`db:load:pg\` + \`db:load:tr:pg\`.`
+    ? `${msg} — is Postgres up? run \`pnpm run db:pg:up\` + \`db:load:pg\` + \`db:load:tr:pg\`.`
     : msg;
 
 export const sqlBrowser = (): Plugin => ({

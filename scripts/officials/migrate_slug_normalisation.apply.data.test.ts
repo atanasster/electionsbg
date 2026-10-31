@@ -105,8 +105,13 @@ describe.skipIf(!present)(
         : 0;
 
       execFileSync(
-        "npx",
-        ["tsx", "scripts/officials/migrate_slug_normalisation.ts", "--apply"],
+        "pnpm",
+        [
+          "exec",
+          "tsx",
+          "scripts/officials/migrate_slug_normalisation.ts",
+          "--apply",
+        ],
         { cwd: ROOT, env: { ...process.env, OFFICIALS_MIGRATE_DIR: dst } },
       );
 
@@ -210,8 +215,8 @@ describe.skipIf(!present)(
 
     it("is idempotent — a second run moves nothing", () => {
       const out = execFileSync(
-        "npx",
-        ["tsx", "scripts/officials/migrate_slug_normalisation.ts"],
+        "pnpm",
+        ["exec", "tsx", "scripts/officials/migrate_slug_normalisation.ts"],
         {
           cwd: ROOT,
           env: { ...process.env, OFFICIALS_MIGRATE_DIR: dst },

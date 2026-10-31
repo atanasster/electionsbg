@@ -315,7 +315,7 @@ describe("CultureFundsScreen — the EIK↔name overlap claim", () => {
 
   it("renders without the overlap clause when the served blob predates the field", () => {
     // Not hypothetical: the blob ships via `bucket:sync`, a different command
-    // from `npm run deploy`, so a bundle can load against a blob minted before
+    // from `pnpm run deploy`, so a bundle can load against a blob minted before
     // the field existed. It must not throw — there is no error boundary in
     // `src/`, so an uncaught render throw unmounts the React root and blanks the
     // whole SPA rather than one card.

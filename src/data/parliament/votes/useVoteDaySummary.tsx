@@ -8,7 +8,7 @@
 // The fallback arm was kept for two contingencies and both have passed: a first cloud deploy
 // before db:load:rollcall:pg (vote_item has been loaded on prod since) and a checkout with no
 // database. The second is real but narrow — /votes is one of many pages that need Postgres
-// locally, so `npm run db:pg:up` is the answer rather than an 8 MB artifact kept alive to
+// locally, so `pnpm run db:pg:up` is the answer rather than an 8 MB artifact kept alive to
 // avoid it.
 //
 // ⚠️ THE FILE IS NOT RETIRED, only these two readers. ai/tools/parliament.ts still fetches

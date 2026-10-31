@@ -15,7 +15,7 @@
 // Counts are 2026-07 snapshots; assertions are invariants/ceilings so ±drift does not fail.
 // Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -68,7 +68,7 @@ test.skipIf(skip)("person_search exists and is populated", () => {
     dbState,
     "ok",
     dbState === "missing"
-      ? "person_search missing — run npm run db:load:person-search:pg (after db:load:persons-browse:pg)"
+      ? "person_search missing — run pnpm run db:load:person-search:pg (after db:load:persons-browse:pg)"
       : "person_search exists but is empty",
   );
 });
@@ -221,7 +221,7 @@ test("126 ships the rank index and the loader is wired into db:refresh", () => {
   const pkg = readFileSync(path.join(ROOT, "package.json"), "utf8");
   assert.match(
     pkg,
-    /db:load:persons-browse:pg && npm run db:load:person-search:pg/,
+    /db:load:persons-browse:pg && pnpm run db:load:person-search:pg/,
     "db:refresh must run db:load:person-search:pg right after persons-browse (its P arm reads person_browse_table)",
   );
 });
@@ -341,7 +341,7 @@ const explainPlan = async (
   // ⚠️ MATCH THE TWO COUNTERS INDEPENDENTLY. `show_buffer_usage` prints each only when it
   // is non-zero, so a node whose reads all missed the cache prints `shared read=6936` with
   // no `hit=` at all — and a pattern requiring `hit=` scores that as 0 and passes any
-  // ceiling. That is exactly the first `npm run test:data` after `docker compose up`, and
+  // ceiling. That is exactly the first `pnpm run test:data` after `docker compose up`, and
   // it is the worst case that disarms.
   const buffers = Math.max(
     0,

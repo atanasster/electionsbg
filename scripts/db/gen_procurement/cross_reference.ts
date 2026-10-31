@@ -15,8 +15,8 @@
 // Postgres, and the whole point of the move is that it is now ALWAYS reachable when the rest
 // of this generator is: it reads its contractor rollups from the same database.
 //
-//   npm run db:gen-xref            # verify only (default)
-//   npm run db:gen-xref -- --write # also write mp_connected / pep_connected (+ shards)
+//   pnpm run db:gen-xref            # verify only (default)
+//   pnpm run db:gen-xref --write # also write mp_connected / pep_connected (+ shards)
 //
 // See docs/plans/sql-migration-v1.md.
 

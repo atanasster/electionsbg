@@ -1,6 +1,6 @@
 // Capture the FROZEN disambiguation fixture for the Jev regression suite.
 //
-//   npx tsx ai/llm/jevRegression.capture.ts [persons] [companies]
+//   pnpm exec tsx ai/llm/jevRegression.capture.ts [persons] [companies]
 //
 // Hits the LIVE production fuzzy-search routes, records what they actually
 // return for a deterministically misspelled real name, and freezes the result

@@ -149,8 +149,8 @@ MLC_ID = "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC"
 ### Then enable it (back in this repo)
 On the **BgGPT 2.6B** entry in `ai/llm/models.ts`: set `ready: true`, uncomment its
 pre-filled `appConfig` (`atanasster/...` weights + the prebuilt Gemma-2 wasm pinned
-to web-llm 0.2.84), set `sizeNote` to `~1.6 GB`. Then `npm run build:ai &&
-npm run deploy:ai`. Smoke test (WebGPU browser): "Колко гласа взе ДПС на последните
+to web-llm 0.2.84), set `sizeNote` to `~1.6 GB`. Then `pnpm run build:ai &&
+pnpm run deploy:ai`. Smoke test (WebGPU browser): "Колко гласа взе ДПС на последните
 избори?" → should route to `partyResult`.
 
 ## Part B — BgGPT 4B (Gemma 3) — DEPRIORITIZED

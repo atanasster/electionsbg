@@ -1,6 +1,6 @@
 /**
  * Unit tests for resolveOffice(). Run with:
- *   npx tsx --test scripts/declarations/parse_registered_office.test.ts
+ *   pnpm exec tsx --test scripts/declarations/parse_registered_office.test.ts
  *
  * Runs under Vitest (see docs/testing-standards.md). Loads the
  * real data/settlements.json + data/postcode_ekatte.json so the matcher is

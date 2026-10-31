@@ -25,9 +25,9 @@
 // УНП. They stay null: neither tenders.tender_id (0 of 7,403) nor notice_id
 // (13.6%) identifies them, and a wrong lineage is worse than none.
 //
-//   npx tsx scripts/procurement/backfill_unp.ts             # dry run (coverage)
-//   npx tsx scripts/procurement/backfill_unp.ts --apply     # structural routes
-//   npx tsx scripts/procurement/backfill_unp.ts --content --apply  # + content-join
+//   pnpm exec tsx scripts/procurement/backfill_unp.ts             # dry run (coverage)
+//   pnpm exec tsx scripts/procurement/backfill_unp.ts --apply     # structural routes
+//   pnpm exec tsx scripts/procurement/backfill_unp.ts --content --apply  # + content-join
 //
 // `--content` adds a fuzzy (buyer, value≈, year) tender content-join for the
 // eop-`T…` rows that no structural route can resolve (their `T…` id maps to no

@@ -349,7 +349,7 @@ export const rebuildDerived = async (args: {
   // the automatic pick would put a lead on the page that the editor who wrote the entry has
   // no way to tell was not theirs. But thrown from inside the per-NS loop it lands AFTER
   // hub_stats.json is rewritten and BEFORE the --upload branch, so one stale entry leaves the
-  // daily `npm run watch` ingest half-done and every artifact unuploaded — the bucket serving
+  // daily `pnpm run watch` ingest half-done and every artifact unuploaded — the bucket serving
   // last week's numbers, reached by a crash instead of by the omission upload_coverage.test
   // was written to prevent. And the trigger is ordinary: a re-vote collapsing during a
   // routine re-ingest invalidates a lead nobody touched.

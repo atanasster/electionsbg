@@ -5,7 +5,7 @@
 // database, so it runs in the ordinary unit suite and guards the list from the
 // moment it ships rather than from the moment Postgres is up.
 //
-//   npx vitest run src/lib/tourismReferenceData.test.ts
+//   pnpm exec vitest run src/lib/tourismReferenceData.test.ts
 //
 // The last test is the one with reach beyond this sector. There is no shared
 // ownership registry behind the four *_STATE_BODY_CONTRACTORS lists — 20 entries

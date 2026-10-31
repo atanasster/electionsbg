@@ -5,7 +5,7 @@
 // holdout tables so a future strongFold tweak can't silently regress the match rate
 // or, worse, start attaching a WRONG EIK. No database needed.
 //
-//   npx tsx --test scripts/db/lib/nzok_activity_eik.test.ts
+//   pnpm exec tsx --test scripts/db/lib/nzok_activity_eik.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

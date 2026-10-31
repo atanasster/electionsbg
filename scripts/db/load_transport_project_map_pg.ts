@@ -21,7 +21,7 @@
 // blocking every map request. Readers keep the previous vintage until the merge
 // COMMIT, then the table is vacuumed so its visibility map survives the rewrite.
 //
-// Run: `npm run db:load:transport-project-map:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:transport-project-map:pg` (local) / `:cloud` (Cloud SQL proxy).
 // Depends only on the loaded contracts table.
 
 import { readFileSync } from "node:fs";

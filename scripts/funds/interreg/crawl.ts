@@ -1,9 +1,9 @@
 // The keep.eu crawl driver: walk the index, then fill the raw detail cache.
 //
-//   npm run funds:crawl-interreg                    # incremental
-//   npm run funds:crawl-interreg -- --full          # re-fetch every detail
-//   npm run funds:crawl-interreg -- --max-pages 200 --index-only
-//   npm run funds:crawl-interreg -- --coverage-only # keep.eu's own per-programme counts only
+//   pnpm run funds:crawl-interreg                    # incremental
+//   pnpm run funds:crawl-interreg --full          # re-fetch every detail
+//   pnpm run funds:crawl-interreg --max-pages 200 --index-only
+//   pnpm run funds:crawl-interreg --coverage-only # keep.eu's own per-programme counts only
 //
 // Writes only to the gitignored raw cache (raw_data/interreg/) — never to
 // data/. parse.ts and ingest.ts (T1) turn this cache into the committed corpus,

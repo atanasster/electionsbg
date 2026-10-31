@@ -4,7 +4,7 @@
 // (sector / procedure / value / EU) + sorted + paginated client-side. Built
 // from the EOP-enriched shards — run eop_field_map.ts first.
 //
-//   npx tsx scripts/procurement/contract_index.ts
+//   pnpm exec tsx scripts/procurement/contract_index.ts
 //
 // Output (gitignored, ship via bucket:sync):
 //   derived/contract_index/<year>.json   { awarders, contractors, rows }

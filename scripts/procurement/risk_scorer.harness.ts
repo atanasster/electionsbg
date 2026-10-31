@@ -8,7 +8,7 @@
 //   directAward     = procedureBucket()==='direct' OR an explicit no-notice
 //                     rationale — NOT публично състезание (which is competitive).
 //
-// Pure logic, no DB. Run: npx tsx scripts/procurement/risk_scorer.harness.ts
+// Pure logic, no DB. Run: pnpm exec tsx scripts/procurement/risk_scorer.harness.ts
 import {
   computeProcurementRisk,
   type RiskScoreArgs,

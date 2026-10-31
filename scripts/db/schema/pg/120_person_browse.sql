@@ -2,7 +2,7 @@
 --
 -- Backs the `persons` db_table.js REGISTRY resource. Plan: docs/plans/persons-browser-v1.md.
 -- Applied + REFRESHed by scripts/db/load_persons_browse_pg.ts
--- (`npm run db:load:persons-browse:pg`).
+-- (`pnpm run db:load:persons-browse:pg`).
 --
 -- ---------------------------------------------------------------------------
 -- ONE ROW PER PERSON. NOT ONE ROW PER ROLE. This is the single most likely

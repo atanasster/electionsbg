@@ -34,14 +34,14 @@ The iisda registry is dormant between election cycles; routine fingerprint flips
 ## Step 1 — Scrape
 
 ```bash
-npx tsx scripts/officials/municipal_contacts/scrape_iisda.ts          # uses cached HTML when present
+pnpm exec tsx scripts/officials/municipal_contacts/scrape_iisda.ts          # uses cached HTML when present
 ```
 
 Force a full re-fetch (after a regular-local cycle):
 
 ```bash
 rm -rf raw_data/officials/iisda_mayors
-npx tsx scripts/officials/municipal_contacts/scrape_iisda.ts          # ~2 min cold
+pnpm exec tsx scripts/officials/municipal_contacts/scrape_iisda.ts          # ~2 min cold
 ```
 
 Expected output on a routine run:
@@ -86,14 +86,14 @@ If the unmatched-mayors line shows > 5, the name → obshtina-code join broke. L
 ```bash
 git add data/officials/municipal_contacts/index.json
 git commit -m "officials: refresh municipal mayor contacts from iisda"
-npm run bucket:sync:dry
-npm run bucket:sync
+pnpm run bucket:sync:dry
+pnpm run bucket:sync
 ```
 
 ## Step 4 — Stamp success
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-municipal-contacts \
+pnpm exec tsx scripts/stamp-ingest.ts update-municipal-contacts \
   --summary "260/260 mayors matched · 0 unmatched · ~600 deputy-mayor emails"
 ```
 
@@ -101,7 +101,7 @@ Only stamp on the public data-changes log when emails actually changed:
 
 ```bash
 if [ -n "$(git diff --stat data/officials/municipal_contacts/)" ]; then
-  npx tsx scripts/append-data-change.ts update-municipal-contacts \
+  pnpm exec tsx scripts/append-data-change.ts update-municipal-contacts \
     --summary "260/260 mayors matched · 0 unmatched · ~600 deputy-mayor emails" \
     --source "iisda.government.bg — Кметове на общини"
 fi

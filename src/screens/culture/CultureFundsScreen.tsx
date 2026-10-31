@@ -201,8 +201,8 @@ export const CultureFundsScreen: FC = () => {
       {!isLoading && !s && (
         <div className="mt-4 rounded-xl border bg-card p-6 text-center text-sm text-muted-foreground">
           {bg
-            ? "Обобщените числа не са налични на този сървър — стартирай npm run db:gen-culture-hub-stats."
-            : "The summary figures are not available on this server — run npm run db:gen-culture-hub-stats."}
+            ? "Обобщените числа не са налични на този сървър — стартирай pnpm run db:gen-culture-hub-stats."
+            : "The summary figures are not available on this server — run pnpm run db:gen-culture-hub-stats."}
         </div>
       )}
 

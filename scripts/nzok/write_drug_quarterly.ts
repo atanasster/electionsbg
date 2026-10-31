@@ -13,8 +13,8 @@
 // Emits flat rows for the PG loader (load_nzok_drug_quarterly_pg.ts):
 //   data/budget/nzok/drug_quarterly.json { quarters[], rows:[{inn,atc,quarter,eur}] }
 //
-// Usage:  npx tsx scripts/nzok/write_drug_quarterly.ts            # 2021→ newest
-//         npx tsx scripts/nzok/write_drug_quarterly.ts --from 2023
+// Usage:  pnpm exec tsx scripts/nzok/write_drug_quarterly.ts            # 2021→ newest
+//         pnpm exec tsx scripts/nzok/write_drug_quarterly.ts --from 2023
 
 import fs from "fs";
 import path from "path";

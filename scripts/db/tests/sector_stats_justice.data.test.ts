@@ -1,7 +1,7 @@
 // Regression net for the JUSTICE sector — the /governance/sectors „Съдебна власт"
 // tile and the /judiciary dashboard behind it. Audit 2026-08-19.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // A separate file per sector, following the security / environment / regional
 // precedent.

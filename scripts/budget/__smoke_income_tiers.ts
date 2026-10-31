@@ -10,7 +10,7 @@
 // / dividend blend). So we gate on RENORMALIZED BODY SHARES + the TAIL
 // ORDERING only — never bin 1, bins 2–3 individually, or raw counts.
 //
-// Usage: npx tsx scripts/budget/__smoke_income_tiers.ts
+// Usage: pnpm exec tsx scripts/budget/__smoke_income_tiers.ts
 
 import fs from "fs";
 import path from "path";

@@ -1,5 +1,5 @@
 // Lot-aggregation invariants for the tender normalizer (buildTenders).
-// Run: npx tsx scripts/procurement/tenders.harness.ts
+// Run: pnpm exec tsx scripts/procurement/tenders.harness.ts
 //
 // These lock the rules that keep the QUARANTINE honest — the headline a
 // procedure shows must be a single consistent forecast, never a double count:

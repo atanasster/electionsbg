@@ -65,7 +65,7 @@ describe("measure.ts CLI", () => {
     env: Record<string, string> = {},
   ): { status: number; out: string } => {
     try {
-      const out = execFileSync("npx", ["tsx", FILE, ...args], {
+      const out = execFileSync("pnpm", ["exec", "tsx", FILE, ...args], {
         cwd: ROOT,
         encoding: "utf8",
         stdio: ["ignore", "pipe", "pipe"],

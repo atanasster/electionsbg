@@ -143,7 +143,7 @@ only what is in the input; respond with [no content] if unintelligible."
 
 ## Reading a run — what UNVERIFIED means
 
-`npm run council:scrape` gives every município a terminal status and exits
+`pnpm run council:scrape` gives every município a terminal status and exits
 non-zero if any is NOT REACHED. The one that needs interpreting is
 **UNVERIFIED**: reached, zero protocols touched, and at least one lookup
 failed. It is neither merged nor stamped, because "0 new protocols" would

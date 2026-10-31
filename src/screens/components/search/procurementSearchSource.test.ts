@@ -5,7 +5,7 @@
 // been billed for. These pin the normalization of the other four, the two synthetic-key
 // guards, and the per-query metadata a synchronous `seeAll` has to read.
 //
-//   npm run test:unit -- src/screens/components/search/procurementSearchSource.test.ts
+//   pnpm run test:unit src/screens/components/search/procurementSearchSource.test.ts
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { readFileSync, readdirSync, statSync } from "node:fs";

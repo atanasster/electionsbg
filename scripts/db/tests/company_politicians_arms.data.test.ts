@@ -16,7 +16,7 @@
 // ordinary "inert until the corpus is rebuilt" state this repo documents everywhere — but it
 // does mean a green run here is NOT evidence that the served table is re-based.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

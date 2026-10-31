@@ -5,7 +5,7 @@
 // down to 1 hands a public figure their namesake's companies. Everything here is about
 // refusing rather than guessing.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { describe, it, expect } from "vitest";
 import { parseTsv } from "./load_tr_name_fold_people_pg";

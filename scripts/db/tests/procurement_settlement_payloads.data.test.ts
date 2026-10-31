@@ -14,7 +14,7 @@
 // Auto-skips when Postgres is down or the matview has not been built, like the other
 // *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -73,7 +73,7 @@ test.skipIf(skip)(
       r.expected,
       `procurement_settlement_payloads holds ${r.rows} rows for ${r.expected} ` +
         "(scope × settlement) pairs — a scope or a settlement gained rows without a " +
-        "refresh. Run `npm run db:load:procurement-scopes:pg`. A partial matview does " +
+        "refresh. Run `pnpm run db:load:procurement-scopes:pg`. A partial matview does " +
         "not fail the route, it silently serves the LIVE function for whatever is " +
         "missing, which is the 10 s timeout this table was created to end",
     );
@@ -131,7 +131,7 @@ test.skipIf(skip)(
       "the busiest settlements are missing precomputed rows. The route degrades to " +
         "procurement_settlement_detail() for these, which is the ~10 s aggregate that " +
         "exceeds the /api/db statement_timeout and returns 500 — the exact failure 123 " +
-        "exists to end. Run `npm run db:load:procurement-scopes:pg`",
+        "exists to end. Run `pnpm run db:load:procurement-scopes:pg`",
     );
 
     // The join above is inner on `contracts`, so a corpus that has not loaded, an
@@ -221,7 +221,7 @@ test.skipIf(skip)(
       rows.filter((r) => r.stale).map((r) => `${r.scope_key}/${r.ekatte}`),
       [],
       "stored payloads disagree with a live procurement_settlement_detail() call — the " +
-        "matview is STALE. Run `npm run db:load:procurement-scopes:pg`. Nothing on the " +
+        "matview is STALE. Run `pnpm run db:load:procurement-scopes:pg`. Nothing on the " +
         "serving side can see this: the route returns the stored row with a 200",
     );
   },
@@ -303,8 +303,8 @@ test.skipIf(skip)(
       [],
       "settlements whose place_dim row is fully populated have BLANK hero fields in the " +
         "stored payload — the matview was refreshed while place_dim was empty or " +
-        "mid-reload. Run `npm run db:load:place-dim:pg` (it refreshes this matview when " +
-        "the dimension actually changes), or `npm run db:load:procurement-scopes:pg`",
+        "mid-reload. Run `pnpm run db:load:place-dim:pg` (it refreshes this matview when " +
+        "the dimension actually changes), or `pnpm run db:load:procurement-scopes:pg`",
     );
   },
 );
@@ -321,7 +321,7 @@ test.skipIf(skip)(
     assert.deepEqual(
       rows.filter((r) => r.populated !== true),
       [],
-      "scoped precomputes missing or unpopulated — run `npm run db:load:procurement-scopes:pg`",
+      "scoped precomputes missing or unpopulated — run `pnpm run db:load:procurement-scopes:pg`",
     );
   },
 );

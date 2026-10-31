@@ -565,7 +565,7 @@ const app = command({
     await parseElections({ date, all, stringify, publicFolder });
     // ⚠ THE SPLIT-TICKET FILE READS **BOTH** CORPORA, so the PARLIAMENTARY side moving stales it
     // too — and only the `--pvr` arm above rebuilt it, which this path never reaches. Without
-    // this, `npm run data -- --date 2021_11_14` rewrites the НС section shards and leaves
+    // this, `pnpm run data --date 2021_11_14` rewrites the НС section shards and leaves
     // `data/2021_11_14_pvr/split_ticket.json` on the previous vintage, at a 200, with every row
     // count reconciling. Cheap: it re-derives only for a presidential cycle whose same-day
     // sibling is the tree just rebuilt, which today is one cycle and usually none.
@@ -580,7 +580,7 @@ const app = command({
       }
     }
     // Runs unconditionally. It used to be gated on `coords || all`, which meant
-    // a plain `npm run data -- --date <older election>` rebuilt the section
+    // a plain `pnpm run data --date <older election>` rebuilt the section
     // files from a GPS-less source and then skipped the pass that puts the
     // coordinates back — silently, because /data/2*/* is gitignored. Six
     // elections (2021_07_11 … 2024_10_27) were zeroed that way on 2026-07-18
@@ -622,7 +622,7 @@ const app = command({
     if (parties) {
       runPartyStats(stringify);
     }
-    // `--all` (npm run prod) regenerates reports too: they are derived
+    // `--all` (pnpm run prod) regenerates reports too: they are derived
     // from the freshly-parsed election data, so the full pipeline must
     // not leave them stale (risk score, clusters, benford, summaries, …).
     if (reports || all) {

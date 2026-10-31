@@ -20,7 +20,7 @@
 // to neither a seat centroid nor a capital is stored with NULL lng/lat and omitted
 // from the map by mvr_directorate_map().
 //
-// Run: `npm run db:load:mvr-directorate-map:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:mvr-directorate-map:pg` (local) / `:cloud` (Cloud SQL proxy).
 // Must run AFTER db:load:awarder-seats:pg (it reads awarder_seats).
 
 import { readFileSync } from "node:fs";

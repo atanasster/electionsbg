@@ -22,7 +22,7 @@
 // is TOP-LEVEL and feeds test.skipIf (docs/testing-standards.md), because an early `return`
 // inside a body would score as a PASS and report the gate green while asserting nothing.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -36,7 +36,7 @@ const reachable = async (): Promise<string | false> => {
     );
     return Number(c.n) > 0
       ? false
-      : "no person_role row carries a place_code — run npm run db:resolve:persons";
+      : "no person_role row carries a place_code — run pnpm run db:resolve:persons";
   } catch {
     return "Postgres unreachable";
   }

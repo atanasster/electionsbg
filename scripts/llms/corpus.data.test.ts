@@ -14,7 +14,7 @@
 // buildFull.ts is a top-level-await script with side effects, so it cannot be
 // imported — these read the artifact, which is what actually ships.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -193,7 +193,7 @@ test.skipIf(skipDb)(
     if (!courts.length) {
       reportSkip(
         import.meta.url,
-        "the judicial dimension is not loaded — run npm run db:load:judicial-bodies:pg",
+        "the judicial dimension is not loaded — run pnpm run db:load:judicial-bodies:pg",
       );
       return t.skip();
     }
@@ -217,7 +217,7 @@ test("a build without Postgres refuses to rewrite the corpus shorter", () => {
   // degrade to [] rather than throwing, so without this a Docker-less machine
   // publishes a corpus missing every judicial body, with a green exit.
   const before = CORPORA.map((f) => read(f));
-  execFileSync("npx", ["tsx", "scripts/llms/buildFull.ts"], {
+  execFileSync("pnpm", ["exec", "tsx", "scripts/llms/buildFull.ts"], {
     cwd: PROJECT_ROOT,
     // Port 1 is reserved and never listening — the same "no database" shape as
     // Docker being down.

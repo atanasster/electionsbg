@@ -46,9 +46,9 @@ To add a year: append a `YEARS` entry in `scripts/budget/noi/__write_fund_plan.t
 keyed from чл. 1–8, then:
 
 ```bash
-npx tsx scripts/budget/noi/__write_fund_plan.ts
-npx tsx scripts/budget/noi/__smoke_fund_plan.ts
-npm run bucket:sync:paths -- budget
+pnpm exec tsx scripts/budget/noi/__write_fund_plan.ts
+pnpm exec tsx scripts/budget/noi/__smoke_fund_plan.ts
+pnpm run bucket:sync:paths budget
 ```
 
 **The sync is not optional** — `data/budget` is bucket-served in production via
@@ -145,7 +145,7 @@ degrades to null offline. Then `git add data/budget/noi/pensions.json` and
 ## Pensioners by ТП → pensioners_by_tp.json (the 28-ТП map input)
 
 ```bash
-npm run noi:pensioners-by-tp
+pnpm run noi:pensioners-by-tp
 ```
 
 data.egov.bg dataset 10480 („Брой на пенсионерите по териториални поделения на НОИ
@@ -190,7 +190,7 @@ reads as GROWTH against the neighbouring quarter. The runbook's own sanity line 
 `{latestPeriod, periods[]}`). An old bundle against the new JSON iterates `data.funds` on
 `undefined` and, since there is no ErrorBoundary in `src/`, blanks the whole of `/pensions`. The
 reverse order degrades cleanly — a new bundle against the old JSON just self-suppresses the tile.
-So `npm run deploy` BEFORE `bucket:sync`, not after.
+So `pnpm run deploy` BEFORE `bucket:sync`, not after.
 
 **Joining a fund across quarters** — use `pillar` + `companyEn`, never `fundName`. The register
 writes the fund name in the archive's own language (`UPF "DOVERIE"` vs `УПФ "ДОВЕРИЕ"`), so

@@ -6,7 +6,7 @@
 // evict an EOP row when its authoritative OCDS twin finally lands. Both MUST use
 // the identical key set or a twin survives in one direction and double-counts.
 //
-//   npx vitest run scripts/procurement/content_key.test.ts
+//   pnpm exec vitest run scripts/procurement/content_key.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

@@ -21,7 +21,7 @@ const [{ n } = { n: "0" }] = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : n === "0"
-    ? "aop_expert is empty — run npm run db:load:aop-experts:pg"
+    ? "aop_expert is empty — run pnpm run db:load:aop-experts:pg"
     : null;
 const d = skip ? describe.skip : describe;
 reportSkip(import.meta.url, skip);

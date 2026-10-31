@@ -26,9 +26,9 @@
 // zero contain `/en/`. The submitted cost of the family this decision is about is 12,721.
 //
 // The dist half auto-skips on a checkout that has not built — dist/ is not committed, so a
-// gate failing on its absence would fail on every clone. Run it AFTER `npm run build`:
+// gate failing on its absence would fail on every clone. Run it AFTER `pnpm run build`:
 //
-//   npm run build && npx vitest run scripts/sitemap/sectionIndexing.data.test.ts
+//   pnpm run build && pnpm exec vitest run scripts/sitemap/sectionIndexing.data.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";
@@ -52,7 +52,7 @@ const SITEMAP = path.join(PROJECT_ROOT, "public/sitemap_sections.xml");
 const DIST_SECTION = path.join(PROJECT_ROOT, "dist/section");
 
 const haveDist = fs.existsSync(DIST_SECTION);
-const skipDist = haveDist ? "" : "no dist/section — run `npm run build` first";
+const skipDist = haveDist ? "" : "no dist/section — run `pnpm run build` first";
 reportSkip(import.meta.url, skipDist);
 
 const locsOf = (xml: string): string[] =>

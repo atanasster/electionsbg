@@ -6,7 +6,7 @@ import type { RiskCanvasState } from "../lib/riskCanvasState";
  *
  * Subject: the composite «Индекс на изборния риск» on `/risk-analysis` for the
  * 19 April 2026 parliamentary election. Every figure comes from
- * `video/src/generated/risk.json`, built by `npm run video:data-risk`, which
+ * `video/src/generated/risk.json`, built by `pnpm run video:data-risk`, which
  * calls the SAME `computeRiskComposite` the page hero and the AI `riskIndex`
  * tool call and ASSERTS each claim — see `scripts/video/build_risk.ts`.
  *

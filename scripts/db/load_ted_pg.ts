@@ -1,8 +1,8 @@
 // Load data/procurement/ted.json into `ted_notice` + `ted_coverage`
 // (migration 172, plan P10).
 //
-//   npm run db:load:ted:pg
-//   npm run db:load:ted:pg:cloud
+//   pnpm run db:load:ted:pg
+//   pnpm run db:load:ted:pg:cloud
 //
 // Pure-load: reads the committed artifact, never the network. The crawl half is
 // `scripts/procurement/ted/ingest.ts`, an operator action.
@@ -28,7 +28,7 @@ const main = async (): Promise<void> => {
     // the schema exists and the tables are empty until an operator crawls.
     console.warn(
       `⚠ ${path.relative(process.cwd(), SRC)} is absent — schema applied, no ` +
-        `rows loaded. It is gitignored; run \`npm run ted:ingest -- --apply\` ` +
+        `rows loaded. It is gitignored; run \`pnpm run ted:ingest --apply\` ` +
         `(open EU API, ~15 min). This is the expected state on a fresh clone.`,
     );
     return;

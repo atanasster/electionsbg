@@ -7,7 +7,7 @@
 //   - the broad facet was shown where a specific office existed;
 //   - a single mutable `altQuery` slot answered one query with another's needle.
 //
-//   npm run test:unit -- src/screens/components/search/personSearchSource.test.ts
+//   pnpm run test:unit src/screens/components/search/personSearchSource.test.ts
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {

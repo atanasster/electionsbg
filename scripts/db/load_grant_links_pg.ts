@@ -1,8 +1,8 @@
 // Build grant_contract_link (migration 166) — the money spine: an EU grant to the
 // procurement it paid for.
 //
-//   npm run db:load:grant-links:pg          (local)
-//   npm run db:load:grant-links:pg:cloud    (Cloud SQL proxy)
+//   pnpm run db:load:grant-links:pg          (local)
+//   pnpm run db:load:grant-links:pg:cloud    (Cloud SQL proxy)
 //
 // PURE DERIVATION, no external input: the ПИИ code is already written into
 // `tenders.subject` and `contracts.title`, and `fund_projects.contract_number`

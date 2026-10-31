@@ -37,7 +37,7 @@
 //     rewriting a file that is already live on Cloud SQL buys no extra guarantee
 //     over failing the build on divergence.
 //   - The generated artifacts that are wholly ours — the handbook and
-//     public/risk-flags.json — will be emitted by `npm run gen:risk`. That
+//     public/risk-flags.json — will be emitted by `pnpm run gen:risk`. That
 //     generator does not exist yet; it is T2 of the plan, and nothing in this
 //     file depends on it.
 

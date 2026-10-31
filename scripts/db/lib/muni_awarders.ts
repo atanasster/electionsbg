@@ -81,7 +81,7 @@ export const readMunicipalAwardersByEkatte = async (): Promise<
     }
     throw new Error(
       `[alerts] municipal awarders: Postgres unavailable — refusing to rewrite every ` +
-        `alerts file without procurement data. Run \`npm run db:pg:up\` (and ` +
+        `alerts file without procurement data. Run \`pnpm run db:pg:up\` (and ` +
         `db:load:awarder-seats:pg), or set ALERTS_ALLOW_EMPTY=1 to accept empty alerts. ` +
         `Cause: ${(err as Error)?.message ?? String(err)}`,
     );

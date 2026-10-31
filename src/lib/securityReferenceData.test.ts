@@ -3,7 +3,7 @@
 // 2026-08-19 audit found two omissions in the curated list that a test of its own
 // stated bar would have surfaced.
 //
-//   npx vitest run src/lib/securityReferenceData.test.ts
+//   pnpm exec vitest run src/lib/securityReferenceData.test.ts
 
 import { describe, it, expect } from "vitest";
 import {

@@ -58,7 +58,7 @@ test.skipIf(skipDay)(
     if (rows.length === 0) {
       reportSkip(
         import.meta.url,
-        `vote_item has no row for ${DAY} — run npm run db:load:rollcall:pg`,
+        `vote_item has no row for ${DAY} — run pnpm run db:load:rollcall:pg`,
       );
       return t.skip();
     }
@@ -112,7 +112,7 @@ test.skipIf(skipDay)(
     if (!ids.length) {
       reportSkip(
         import.meta.url,
-        `vote_item has no row for that ${DAY} item — run npm run db:load:rollcall:pg`,
+        `vote_item has no row for that ${DAY} item — run pnpm run db:load:rollcall:pg`,
       );
       return t.skip();
     }

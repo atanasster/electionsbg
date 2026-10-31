@@ -109,7 +109,7 @@
 -- and which a LANGUAGE sql body is validated against at CREATE time), so db:load:tr:pg[:cloud]
 -- carries it. A body fix ships on its own with:
 --
---   npx tsx scripts/db/apply_functions.ts 003_tr_search.sql 008_connections.sql 192_person_bridge.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 003_tr_search.sql 008_connections.sql 192_person_bridge.sql
 --
 -- It is a separate file from 008 deliberately: 008 DROPs and recreates officer_name_counts, so
 -- folding this in would make every body change to it rebuild that matview.

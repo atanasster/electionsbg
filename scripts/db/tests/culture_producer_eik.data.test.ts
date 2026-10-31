@@ -12,7 +12,7 @@
 // Auto-skips when Postgres is down or `tr_companies` is empty — like the other
 // *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { afterAll, expect, test } from "vitest";
 import { allRows, dbReachable, end } from "../lib/pg";
@@ -37,7 +37,7 @@ const companies = haveDb
 const skipReady = !haveDb
   ? "Postgres unreachable"
   : companies === 0
-    ? "no culture producer companies resolved — run npm run db:load:tr:pg"
+    ? "no culture producer companies resolved — run pnpm run db:load:tr:pg"
     : false;
 reportSkip(import.meta.url, skipReady);
 

@@ -22,7 +22,7 @@
 // The grade is a function of the FIRED COUNT alone, so the transition matrix can be derived
 // without rebuilding a 409,644-row cache: flip bits 1 and 2 per contract and re-letter.
 //
-//   npx tsx scripts/procurement/measure_company_politicians_rebase.ts
+//   pnpm exec tsx scripts/procurement/measure_company_politicians_rebase.ts
 //
 // Writes nothing. Run it against whichever database you intend to re-base.
 

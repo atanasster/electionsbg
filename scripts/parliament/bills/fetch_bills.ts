@@ -1,8 +1,8 @@
 // Crawl the CURRENT assembly's bills from parliament.bg (see bills.ts for why only the current
 // one) into a raw cache and a committed per-assembly file.
 //
-//   npx tsx scripts/parliament/bills/fetch_bills.ts          # list + every detail
-//   npx tsx scripts/parliament/bills/fetch_bills.ts --dry    # report, write nothing
+//   pnpm exec tsx scripts/parliament/bills/fetch_bills.ts          # list + every detail
+//   pnpm exec tsx scripts/parliament/bills/fetch_bills.ts --dry    # report, write nothing
 //
 // Raw responses: raw_data/parliament/bills/<id>.json (gitignored). A PROMULGATED bill's cached
 // detail is reused — a ДВ issue does not change — and every other bill is re-fetched, since

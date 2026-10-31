@@ -7,7 +7,7 @@
 // programme breakdown.
 //
 // Folded into funds:ingest-projects. Standalone via:
-//   npx tsx scripts/funds/themes.ts
+//   pnpm exec tsx scripts/funds/themes.ts
 
 import fs from "fs";
 import path from "path";

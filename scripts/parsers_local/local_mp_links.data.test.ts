@@ -102,7 +102,7 @@ describe("local-election MP links", () => {
       expect(stamped).toBeGreaterThan(0);
       expect(
         bad.slice(0, 20),
-        `${bad.length} wrong MP link(s) — re-run npx tsx scripts/parsers_local/decorate_local_mp_links.ts`,
+        `${bad.length} wrong MP link(s) — re-run pnpm exec tsx scripts/parsers_local/decorate_local_mp_links.ts`,
       ).toEqual([]);
     },
   );

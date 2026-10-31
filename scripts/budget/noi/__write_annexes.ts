@@ -1,7 +1,7 @@
 // Generator: write data/budget/noi/mod_schedule.json + tzpb_rates.json — the
 // per-industry statutory tables from the ЗБДОО annexes.
 //
-//   npx tsx scripts/budget/noi/__write_annexes.ts [--refresh]
+//   pnpm exec tsx scripts/budget/noi/__write_annexes.ts [--refresh]
 //
 // Unlike the other budget artifacts under noi/, these are PARSED, not
 // hand-keyed: the annexes are ~1,500 cells a year, which is well past what a

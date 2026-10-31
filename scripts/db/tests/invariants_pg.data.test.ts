@@ -6,9 +6,9 @@
 // globally unique, the EUR peg holds on convertible rows, and zero synthetic
 // "-x" legacy-twin survivors coexist with a real twin.
 //
-//   npm run test:data   (or DB_VERIFY=1 npm run db:verify)
+//   pnpm run test:data   (or DB_VERIFY=1 pnpm run db:verify)
 //
-// Requires the Postgres store (`npm run db:pg:up` + `db:load:pg`); auto-skips when
+// Requires the Postgres store (`pnpm run db:pg:up` + `db:load:pg`); auto-skips when
 // Postgres is unreachable or the contracts table is absent — so CI (no container,
 // no corpus) skips it, exactly like search.data.test.ts / pg_roundtrip.
 //

@@ -18,7 +18,7 @@
 // "Гара Яна", etc.) don't tie to a município — those go into a
 // `backgroundStations` list rather than the per-município map.
 //
-// Run: `npx tsx scripts/air/build_index.ts`
+// Run: `pnpm exec tsx scripts/air/build_index.ts`
 // Writes: data/air/index.json
 
 import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass

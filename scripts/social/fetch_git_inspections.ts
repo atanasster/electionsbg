@@ -4,8 +4,8 @@
 // Like the АСП benefits, the figures live in narrative prose, so this VERIFIES a
 // curated data/social/git_inspections.json against the latest report rather than
 // blindly parsing multi-year prose. Run:
-//   npx tsx scripts/social/fetch_git_inspections.ts            (verify latest)
-//   npx tsx scripts/social/fetch_git_inspections.ts --year 2025
+//   pnpm exec tsx scripts/social/fetch_git_inspections.ts            (verify latest)
+//   pnpm exec tsx scripts/social/fetch_git_inspections.ts --year 2025
 
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";

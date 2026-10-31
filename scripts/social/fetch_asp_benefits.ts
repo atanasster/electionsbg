@@ -8,8 +8,8 @@
 // it downloads the latest report, `pdftotext -layout`s it, extracts the key anchored
 // figures, and VALIDATES them against the curated data/social/benefits.json (the
 // committed, source-verified baseline) — flagging drift for a human to update. Run:
-//   npx tsx scripts/social/fetch_asp_benefits.ts            (verify latest)
-//   npx tsx scripts/social/fetch_asp_benefits.ts --year 2025
+//   pnpm exec tsx scripts/social/fetch_asp_benefits.ts            (verify latest)
+//   pnpm exec tsx scripts/social/fetch_asp_benefits.ts --year 2025
 //
 // This mirrors the repo's other curated-national-data flows (defense mega-programs):
 // low-volume, high-stakes numbers are human-verified against the source, not blindly

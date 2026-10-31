@@ -15,7 +15,7 @@
 // Auto-skips when Postgres is down, like every other .data.test.ts. The pure-parser half of
 // this file's contract lives in ../bootstrap_roles.test.ts, which runs without a database.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

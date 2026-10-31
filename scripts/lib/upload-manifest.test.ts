@@ -37,7 +37,7 @@ const manifest = (over: Partial<UploadManifest> = {}): UploadManifest => ({
   createdAt: "2026-08-29T08:00:00.000Z",
   skills: ["update-procurement"],
   paths: ["myarea"],
-  cloudCommands: ["npm run db:load:pg:cloud"],
+  cloudCommands: ["pnpm run db:load:pg:cloud"],
   ...over,
 });
 
@@ -50,13 +50,13 @@ describe("mergeManifest", () => {
       session: "S2",
       skills: ["update-funds"],
       paths: ["funds", "data_map.json"],
-      cloudCommands: ["npm run db:load:funds:pg:cloud -- --full"],
+      cloudCommands: ["pnpm run db:load:funds:pg:cloud --full"],
     });
     expect(merged.skills).toEqual(["update-procurement", "update-funds"]);
     expect(merged.paths).toEqual(["myarea", "funds", "data_map.json"]);
     expect(merged.cloudCommands).toEqual([
-      "npm run db:load:pg:cloud",
-      "npm run db:load:funds:pg:cloud -- --full",
+      "pnpm run db:load:pg:cloud",
+      "pnpm run db:load:funds:pg:cloud --full",
     ]);
   });
 

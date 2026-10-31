@@ -2,7 +2,7 @@
 //
 // WHY THIS WRAPPER EXISTS: the comparison itself lives in
 // scripts/procurement/risk_parity.harness.ts, but for most of its life nothing
-// ran it. Its only callers were `npm run risk:parity` and the tail of
+// ran it. Its only callers were `pnpm run risk:parity` and the tail of
 // `ai:test:all` — both hand-run — and CI (.github/workflows/test.yml) never
 // invoked either. That is how it came to spend months printing "skipped" against
 // a fully loaded 407,693-row corpus while a real availability bug sat in 033's
@@ -10,12 +10,12 @@
 // here, which `db:refresh` runs at the end of every local reload.
 //
 // 2k rows keeps this inside the suite's per-test budget while still touching all
-// 12 checks; the full-corpus sweep stays `npm run risk:parity`.
+// 12 checks; the full-corpus sweep stays `pnpm run risk:parity`.
 //
 // Auto-skips when Postgres is down or the cache is empty — like the other
 // *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

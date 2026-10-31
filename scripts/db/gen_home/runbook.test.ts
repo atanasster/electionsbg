@@ -54,18 +54,18 @@ describe("the home generators are operationally reachable", () => {
     // PROCEDURE above for the state this shipped in.
     for (const [name] of HOME_GENERATORS)
       expect(
-        PROCEDURE.includes(`npm run ${name}`),
+        PROCEDURE.includes(`pnpm run ${name}`),
         `${name} is not in process-watch-report's ## Procedure — an orchestrator following the ` +
           `numbered steps never runs it`,
       ).toBe(true);
   });
 
   it("home:publish is exactly the sync AND the gzip", () => {
-    // ⚠️ THE WHOLE STRING, not a substring. `"npm run bucket:gz:dry".includes("bucket:gz")` is
+    // ⚠️ THE WHOLE STRING, not a substring. `"pnpm run bucket:gz:dry".includes("bucket:gz")` is
     // true, so the substring form passed a `home:publish` whose second half published nothing
     // and printed a plan — on the gate that exists to guarantee the gzip happens.
     expect(pkg.scripts["home:publish"]).toBe(
-      "npm run bucket:sync:paths -- home && npm run bucket:gz",
+      "pnpm run bucket:sync:paths home && pnpm run bucket:gz",
     );
   });
 
@@ -92,7 +92,7 @@ describe("the home generators are operationally reachable", () => {
   it("the runbook runs the health check, which is a different question from db:check-generated", () => {
     // That one compares local bytes against the bucket — it answers „was it published", never
     // „is it current". A generator that never ran leaves disk and bucket both stale and equal.
-    expect(runbook).toContain("npm run home:health");
+    expect(runbook).toContain("pnpm run home:health");
     expect(pkg.scripts["home:health"]).toBeTruthy();
   });
 
@@ -114,7 +114,7 @@ describe("the home generators are operationally reachable", () => {
       "the home post-step is not where the gate expects it",
     ).toBeGreaterThan(200);
     const at = (cmd: string) => {
-      const i = step.indexOf(`npm run ${cmd}`);
+      const i = step.indexOf(`pnpm run ${cmd}`);
       expect(i, `${cmd} is missing from post-step 7b`).toBeGreaterThan(-1);
       return i;
     };

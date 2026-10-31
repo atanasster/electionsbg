@@ -1,8 +1,8 @@
 // Re-derive kzk_appeals' tier-2 outcomes from the stored kzk_decisions corpus.
 //
-//   npm run kzk:rejoin -- --dry-run   (report, write nothing — read-only)
-//   npm run kzk:rejoin -- --apply     (upsert PG + write back the JSON)
-//   npm run kzk:rejoin:cloud -- --apply
+//   pnpm run kzk:rejoin --dry-run   (report, write nothing — read-only)
+//   pnpm run kzk:rejoin --apply     (upsert PG + write back the JSON)
+//   pnpm run kzk:rejoin:cloud --apply
 //
 // OFFLINE. No browser, no network, no BG egress — it reads the corpus already in
 // Postgres (loaded by db:load:kzk-decisions:pg) and the appeals already in
@@ -22,7 +22,7 @@
 // — or, worse, silently writes to Cloud SQL:
 //
 //   DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \
-//     npm run kzk:rejoin -- --apply
+//     pnpm run kzk:rejoin --apply
 //
 // PROVENANCE DECIDES WHAT MAY BE OVERWRITTEN (migration 131, rule in
 // kzk_provenance.ts). Rows whose `decision_act_no` is set were derived here and
@@ -121,7 +121,7 @@ const main = async (apply: boolean): Promise<void> => {
   );
   if (decisions.length === 0) {
     throw new Error(
-      "kzk_decisions is empty — run `npm run db:load:kzk-decisions:pg` first. " +
+      "kzk_decisions is empty — run `pnpm run db:load:kzk-decisions:pg` first. " +
         "Rejoining against no corpus would report every outcome as unmatched.",
     );
   }
@@ -323,7 +323,7 @@ const main = async (apply: boolean): Promise<void> => {
 /**
  * Mirror the fresh outcomes back into data/procurement/kzk_appeals.json.
  *
- * `npm run kzk:summary` reads that file, so skipping this would make the next
+ * `pnpm run kzk:summary` reads that file, so skipping this would make the next
  * summary rebuild publish the OLD totals — the committed artifact disagreeing
  * with the database it describes.
  *
@@ -338,7 +338,7 @@ const writeBackJson = async (): Promise<void> => {
   if (!fs.existsSync(APPEALS_FILE)) {
     console.warn(
       `  ⚠ ${path.relative(ROOT, APPEALS_FILE)} absent — skipping JSON write-back. ` +
-        "`npm run kzk:summary` will not see the new outcomes.",
+        "`pnpm run kzk:summary` will not see the new outcomes.",
     );
     return;
   }

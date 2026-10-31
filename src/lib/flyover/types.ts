@@ -8,8 +8,8 @@
 //   · Remotion (`video/`), whose `video/tsconfig.json` deliberately excludes the app's alias
 //     map, so it reaches the engine by RELATIVE path.
 //
-// One `@/` import therefore breaks `npm run video:check` and the render, and nothing in
-// `npm run build` sees it (plan §14).
+// One `@/` import therefore breaks `pnpm run video:check` and the render, and nothing in
+// `pnpm run build` sees it (plan §14).
 //
 // ⚠️ AND THE WORLD TYPES HERE ARE THE ARTIFACT'S SHAPE, DECLARED SEPARATELY ON PURPOSE.
 // `scripts/db/gen_home/flyover.ts` imports `node:fs`, so the engine cannot import its types

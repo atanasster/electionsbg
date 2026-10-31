@@ -1,7 +1,7 @@
 // Gate for person_person_bridge (192) — the SECOND-DEGREE half of the person page's
 // „Проверка на връзка": the people who bridge two names that share no company.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // WHAT THIS EXISTS TO CATCH. A second-degree connection is an inference, so every defect
 // class here publishes a claim about two NAMED individuals that nobody made:

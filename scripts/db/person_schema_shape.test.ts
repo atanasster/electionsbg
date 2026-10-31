@@ -6,7 +6,7 @@
 // job is to stop a pattern reappearing must not be able to skip. Neither assertion needs a
 // database — they read the files.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";

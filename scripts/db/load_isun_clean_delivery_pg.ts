@@ -1,10 +1,10 @@
 // Load data/funds/clean_delivery.json into the 175 tables.
 //
-//   npm run db:load:clean-delivery:pg
-//   npm run db:load:clean-delivery:pg:cloud
+//   pnpm run db:load:clean-delivery:pg
+//   pnpm run db:load:clean-delivery:pg:cloud
 //
 // Pure-load: the source JSON is committed, so this works on a fresh clone with no
-// network. `npm run funds:clean-delivery` rebuilds it from the operator-downloaded
+// network. `pnpm run funds:clean-delivery` rebuilds it from the operator-downloaded
 // XLSX drops in data/_cache/isun_clean_delivery/ (gitignored — the F5 WAF in front
 // of 2020.eufunds.bg refuses automated exports intermittently).
 //
@@ -53,7 +53,7 @@ const main = async (): Promise<void> => {
   if (!fs.existsSync(SRC)) {
     console.warn(
       `→ schema applied; no ${path.relative(process.cwd(), SRC)} — run ` +
-        `\`npm run funds:clean-delivery\` first.`,
+        `\`pnpm run funds:clean-delivery\` first.`,
     );
     await end();
     return;

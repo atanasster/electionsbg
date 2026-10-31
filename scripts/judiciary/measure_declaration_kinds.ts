@@ -29,8 +29,8 @@
 // grain the question is asked at: „does THIS person have a snapshot", not „what share of
 // filings are snapshots".
 //
-//   npx tsx scripts/judiciary/measure_declaration_kinds.ts [--magistrates 40] [--seed 7]
-//   npx tsx scripts/judiciary/measure_declaration_kinds.ts --all        # the operator run
+//   pnpm exec tsx scripts/judiciary/measure_declaration_kinds.ts [--magistrates 40] [--seed 7]
+//   pnpm exec tsx scripts/judiciary/measure_declaration_kinds.ts --all        # the operator run
 
 import fs from "fs";
 import path from "path";

@@ -3,7 +3,7 @@
 // honestly end-to-end — a real row with the CR source + a RECORDED http_status
 // (never the poisoning NULL), idempotent on re-fold, dropping non-company EIKs.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Auto-skips when Postgres is unreachable or company_founded lacks the migration-033
 // provenance columns — exactly like the other *.data.test.ts gates, so CI skips it.

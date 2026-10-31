@@ -7,7 +7,7 @@
  * declarations/*.json` files pick up newly-supported fields without
  * re-fetching from register.cacbg.bg.
  *
- *   npx tsx scripts/declarations/rebuild_assets_from_cache.ts
+ *   pnpm exec tsx scripts/declarations/rebuild_assets_from_cache.ts
  */
 
 import fs from "fs";

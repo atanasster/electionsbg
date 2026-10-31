@@ -95,7 +95,7 @@ export type SurfaceLevelPolicy = {
 };
 
 /** Re-measured 2026-09-03 against `data/2026_04_19` (parliamentary) and `data/2023_10_29_mi`
- *  (local), by `npm run elections:budget`. The plan's own table was measured 2026-09-01 and
+ *  (local), by `pnpm run elections:budget`. The plan's own table was measured 2026-09-01 and
  *  every row it predicted held; the numbers below are the current ones.
  *
  *  ⚠ `local/region` was the plan's one open row ("measure in Phase 1"). Measured: 12.5 KB mean
@@ -106,7 +106,7 @@ export const SURFACE_POLICY: Record<
   ElectionKind,
   Record<ElectionPlaceLevel, SurfaceLevelPolicy>
 > = {
-  // ⚠ MEASURED BEFORE DECLARED (plan T5), by `npm run elections:budget` over all FIVE
+  // ⚠ MEASURED BEFORE DECLARED (plan T5), by `pnpm run elections:budget` over all FIVE
   // committed cycles — not the latest, because they differ by an order of magnitude in
   // section count and by era in shape, so a row measured on one says nothing about the
   // others. 2021 is the worst case at every level, which is what a growing electorate and a

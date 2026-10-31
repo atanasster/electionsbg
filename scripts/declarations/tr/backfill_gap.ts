@@ -15,8 +15,8 @@
  * into the watcher) chases the moving frontier, while this fills an arbitrary
  * historical range on demand. NOT wired into the watcher; resume is implicit
  * (skip-if-exists). Run:
- *   npx tsx scripts/declarations/tr/backfill_gap.ts            # default gap
- *   npx tsx scripts/declarations/tr/backfill_gap.ts --from 2023-04-19 --to 2026-04-14
+ *   pnpm exec tsx scripts/declarations/tr/backfill_gap.ts            # default gap
+ *   pnpm exec tsx scripts/declarations/tr/backfill_gap.ts --from 2023-04-19 --to 2026-04-14
  */
 
 import fs from "fs";

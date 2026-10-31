@@ -3,8 +3,8 @@
 // application records with the funding decision, so we can compute the SUCCESS
 // RATE (applied vs funded) per discipline, the differentiator no BG site shows.
 //
-//   npx tsx scripts/culture/ncf_grants.ts            # cache-first
-//   npx tsx scripts/culture/ncf_grants.ts --force    # re-download
+//   pnpm exec tsx scripts/culture/ncf_grants.ts            # cache-first
+//   pnpm exec tsx scripts/culture/ncf_grants.ts --force    # re-download
 //
 // The class PDFs are Google-Sheets exports with a real text layer (no OCR).
 // Requires `pdftotext` (poppler) on PATH. Results URLs are not enumerable from a

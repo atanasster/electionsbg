@@ -1,28 +1,28 @@
 // Operator writer for person_link_override — the audited, data-not-code way to fix an
 // identity mis-merge in the person resolver (scripts/person/resolve_persons.ts + overrides.ts,
-// plan §3 tier 4). The row is applied on the NEXT `npm run db:resolve:persons`.
+// plan §3 tier 4). The row is applied on the NEXT `pnpm run db:resolve:persons`.
 //
 // Four operations (see overrides.ts for the semantics):
 //
 //   # isolate one wrongly-merged candidacy (ref-level split — vetoes even a gold union):
-//   npm run person:override -- split --ref 2024_06_09:c-26-monika-georgieva-vasileva \
+//   pnpm run person:override split --ref 2024_06_09:c-26-monika-georgieva-vasileva \
 //     --note "different Monika than mp-XXXX" --by atanasster
 //
 //   # union one person the resolver scattered across two blocks (marriage rename):
-//   npm run person:override -- merge --name-a "Галя Стоянова Желязкова" \
+//   pnpm run person:override merge --name-a "Галя Стоянова Желязкова" \
 //     --name-b "Галя Стоянова Василева" --note "same person, renamed" --by atanasster
 //
 //   # union two exact source mentions while leaving same-name people alone:
-//   npm run person:override -- merge --ref 2021_11_14:c-24-velislava-ivanova-petrova \
+//   pnpm run person:override merge --ref 2021_11_14:c-24-velislava-ivanova-petrova \
 //     --ref-b 2022_10_02:c-9-velislava-ivanova-petrova --note "same person" --by atanasster
 //
 //   # forbid two different folds from auto-merging (fold-level split):
-//   npm run person:override -- split --name-a "Иван Петров Иванов" --name-b "..." --by ...
+//   pnpm run person:override split --name-a "Иван Петров Иванов" --name-b "..." --by ...
 //
 // Names are folded to the ONE normalizer (translit_bg_latin) before insert, so the operator
 // passes the human-readable Cyrillic name and never the fold. `--fold-a`/`--fold-b` bypass the
 // folding when the operator already has a fold in hand. After inserting, RE-RUN the resolver:
-//   npm run db:resolve:persons && npm run db:load:person-elections:pg
+//   pnpm run db:resolve:persons && pnpm run db:load:person-elections:pg
 // (person_election_stats keys on the integer person_id the resolve regenerates.)
 
 import fs from "node:fs";
@@ -43,10 +43,10 @@ const arg = (flag: string): string | undefined => {
 const usage = (): void => {
   console.error(
     `usage:
-  npm run person:override -- split --ref <election:slug | mp:id> [--ref-b <ref>] [--note ..] [--by ..]
-  npm run person:override -- merge --ref <ref-a> --ref-b <ref-b> --note <why> [--by ..]
-  npm run person:override -- merge --name-a "<Cyrillic name>" --name-b "<Cyrillic name>" [--note ..] [--by ..]
-  npm run person:override -- split --name-a "<name>" --name-b "<name>" [--note ..] [--by ..]
+  pnpm run person:override split --ref <election:slug | mp:id> [--ref-b <ref>] [--note ..] [--by ..]
+  pnpm run person:override merge --ref <ref-a> --ref-b <ref-b> --note <why> [--by ..]
+  pnpm run person:override merge --name-a "<Cyrillic name>" --name-b "<Cyrillic name>" [--note ..] [--by ..]
+  pnpm run person:override split --name-a "<name>" --name-b "<name>" [--note ..] [--by ..]
   (--fold-a/--fold-b substitute a pre-folded value for --name-a/--name-b)`,
   );
 };
@@ -128,7 +128,7 @@ async function main(): Promise<void> {
     : `${kind} ${fold_a} <-> ${fold_b}`;
   console.log(`inserted override #${row.override_id}: ${target} (by ${by})`);
   console.log(
-    "Re-run `npm run db:resolve:persons && npm run db:load:person-elections:pg` to apply.",
+    "Re-run `pnpm run db:resolve:persons && pnpm run db:load:person-elections:pg` to apply.",
   );
   await end();
 }

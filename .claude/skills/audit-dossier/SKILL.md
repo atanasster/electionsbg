@@ -184,18 +184,18 @@ The УНП / EIK identifiers are stable; use them as the anchors.
 
 ## Phase 5 — Apply, regenerate, verify
 
-- Rebuild the serving artifacts: `npx tsx scripts/procurement/build_project_members.ts`
+- Rebuild the serving artifacts: `pnpm exec tsx scripts/procurement/build_project_members.ts`
   (Хемус/Русе totals print — confirm they moved the expected way and that every
   DROPPED contract is a verified false positive: diff old vs new `members.json`).
-- Run the gates: `npx tsc --noEmit`, `npm run lint`, the touched vitest suites,
-  and `npx vitest run scripts/db/tests/procurement_dossiers.data.test.ts`.
+- Run the gates: `pnpm exec tsc --noEmit`, `pnpm run lint`, the touched vitest suites,
+  and `pnpm exec vitest run scripts/db/tests/procurement_dossiers.data.test.ts`.
 - Live-check: `/procurement/project/<slug>` on the dev server — totals, count,
   €/km, contractors + their risk pills.
 - The changed `data/procurement/projects/*.json` are **bucket-served, not
   Firebase-hosted**: deploy with
-  `npm run bucket:sync:paths -- procurement/projects/<slug>.json procurement/projects/index.json procurement/projects/members.json procurement/projects/summaries.json`
+  `pnpm run bucket:sync:paths procurement/projects/<slug>.json procurement/projects/index.json procurement/projects/members.json procurement/projects/summaries.json`
   (individual `gsutil cp -Z` — avoids the macOS `gsutil -m` hang). Code changes
-  need the frontend deploy (`npm run deploy`, hosting-only) and, if the engine
+  need the frontend deploy (`pnpm run deploy`, hosting-only) and, if the engine
   changed, the functions deploy (`firebase deploy --only functions`).
 
 ## Decision: auto-fix vs confirm

@@ -2,8 +2,8 @@
 //
 // Run it when a parliamentary cycle lands or a party colour changes:
 //
-//     npx tsx scripts/parsers_presidential/build_party_colors.ts          # report only
-//     npx tsx scripts/parsers_presidential/build_party_colors.ts --write  # rewrite it
+//     pnpm exec tsx scripts/parsers_presidential/build_party_colors.ts          # report only
+//     pnpm exec tsx scripts/parsers_presidential/build_party_colors.ts --write  # rewrite it
 //
 // ⚠⚠ WHY THIS EXISTS AT ALL: `data/<cycle>/cik_parties.json` IS GITIGNORED. The
 // gitignore rule for the per-election data trees covers it — 0 files tracked against 13 on disk — so a fresh clone or

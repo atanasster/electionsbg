@@ -7,7 +7,7 @@
  * Use after editing any of those builders (e.g. to re-shape the rankings
  * file) so we don't have to re-fetch every cacbg declaration.
  *
- *   npx tsx scripts/declarations/rebuild_post.ts
+ *   pnpm exec tsx scripts/declarations/rebuild_post.ts
  */
 
 import path from "path";

@@ -141,7 +141,7 @@
 --
 -- Applied, never loaded (CLAUDE.md, "SQL functions and indexes"). No table, no loader, nothing
 -- to go stale: every input is read live.
---   npx tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 158_company_political_links.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 158_company_political_links.sql
 --
 -- ⚠️ 148 IS A HARD PREREQUISITE and must come first in that command. The body SELECTs
 -- `person_company_bridge_a` and `tr_name_fold_people`, and a LANGUAGE sql body is validated at

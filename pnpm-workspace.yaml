@@ -1,0 +1,26 @@
+# pnpm settings for the ROOT app only (pnpm 11+ reads them from here, not package.json).
+# functions/, news-functions/ and news/ are separately deployed and stay on npm with their
+# own package-lock.json — they are deliberately NOT workspace packages.
+
+# A flat, npm-shaped node_modules (still hard-linked from the shared store), so the
+# undeclared imports the scripts rely on keep resolving.
+nodeLinker: hoisted
+
+# Carried over from package.json's npm `overrides` (security pins + the vendored kdtree-ts
+# that pdf2array would otherwise fetch from GitHub).
+overrides:
+  tar: ^7.5.13
+  kdtree-ts: file:vendor/kdtree-ts-1.0.0.tgz
+  adm-zip: ^0.6.0
+
+# Dependency install scripts are denied unless listed here.
+allowBuilds:
+  # native binaries the scripts load (transformers' node runtime, pdfjs' canvas)
+  onnxruntime-node: true
+  canvas: true
+  # binary self-checks; harmless, kept for parity with the npm install
+  esbuild: true
+  "@swc/core": true
+  # banner / version notices only
+  core-js: false
+  protobufjs: false

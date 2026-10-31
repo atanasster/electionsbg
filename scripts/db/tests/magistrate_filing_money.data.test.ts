@@ -16,7 +16,7 @@
 // is the operator crawl's `--backfill-money` pass, absent on most machines. „Not parsed yet"
 // must never read as „the rule holds".
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

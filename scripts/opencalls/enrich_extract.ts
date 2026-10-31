@@ -1,7 +1,7 @@
 // Stage 7, step 1–2 — prepare one procedure for extraction, and validate what comes back.
 //
-//   npm run opencalls:enrich -- --list                 what still needs enrichment
-//   npm run opencalls:enrich -- --key isun:<guid>      fetch the doc, write the worksheet
+//   pnpm run opencalls:enrich --list                 what still needs enrichment
+//   pnpm run opencalls:enrich --key isun:<guid>      fetch the doc, write the worksheet
 //
 // ═══════════════════════════════════════════════════════════════════════════════════════════
 // THE MODEL IS THE AGENT RUNNING THE SKILL, NOT AN API CALL FROM THIS SCRIPT. That is the whole
@@ -131,7 +131,7 @@ const main = async (): Promise<void> => {
     // Silently listing instead would look like the key was not in the queue — the one message
     // that sends someone hunting through the database rather than at their own command line.
     console.error(
-      "--key needs a source_key (see: npm run opencalls:enrich -- --list)",
+      "--key needs a source_key (see: pnpm run opencalls:enrich --list)",
     );
     process.exitCode = 1;
     return;
@@ -153,7 +153,7 @@ const main = async (): Promise<void> => {
     if (rows.length)
       console.log(
         `\nPreference order: ${DOC_PREFERENCE.join(" › ")}\n` +
-          `Next: npm run opencalls:enrich -- --key ${rows[0].source_key}`,
+          `Next: pnpm run opencalls:enrich --key ${rows[0].source_key}`,
       );
     return;
   }

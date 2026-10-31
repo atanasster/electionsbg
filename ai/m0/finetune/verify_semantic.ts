@@ -3,7 +3,7 @@
 // residual through the real code path (should reproduce the ~87%@8 measured via
 // the standalone /tmp harness) + spot-check the cases lexical missed 100%.
 //
-//   npx tsx ai/m0/finetune/verify_semantic.ts
+//   pnpm exec tsx ai/m0/finetune/verify_semantic.ts
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";

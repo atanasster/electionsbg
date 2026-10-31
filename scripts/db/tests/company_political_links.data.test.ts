@@ -2,7 +2,7 @@
 // parliament/company-connections/{eik}.json shard family that the AI chat's
 // `companyConnections` tool read.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // The claim this file gates is NOT "the function returns rows". It is:
 //

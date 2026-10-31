@@ -9,7 +9,7 @@
  *
  * Refuses `||` and `;`: both change the abort semantics run_chain reproduces,
  * so splitting on them would run a chain that behaves differently from the one
- * `npm run` would have run. Refusing is the only safe answer — a chain runner
+ * `pnpm run` would have run. Refusing is the only safe answer — a chain runner
  * that silently changes semantics is worse than no chain runner.
  */
 export const splitChain = (script: string): string[] => {
@@ -49,10 +49,10 @@ export const splitChain = (script: string): string[] => {
 };
 
 /**
- * `npm run db:load:pg -- --full` → `db:load:pg -- --full`; anything else
+ * `pnpm run db:load:pg --full` → `db:load:pg --full`; anything else
  * verbatim. The ARGS stay in the name on purpose: `db:refresh` runs
  * `person:slug-redirects` twice with different files, and folding those onto
  * one name would average two different steps together.
  */
 export const stepName = (link: string): string =>
-  link.replace(/^npm run /, "").trim();
+  link.replace(/^pnpm run /, "").trim();

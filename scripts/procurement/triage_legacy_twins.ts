@@ -6,7 +6,7 @@
 // "triage only — do not write a rule until the distant-document-id majority is understood".
 // This is that understanding, re-derivable in one command rather than asserted in prose.
 //
-//   npx tsx scripts/procurement/triage_legacy_twins.ts
+//   pnpm exec tsx scripts/procurement/triage_legacy_twins.ts
 //
 // ── WHAT IT ANSWERS ─────────────────────────────────────────────────────────────────────────
 //

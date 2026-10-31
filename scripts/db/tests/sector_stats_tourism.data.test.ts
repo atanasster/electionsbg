@@ -2,7 +2,7 @@
 // /sector/tourism (МТ) dashboard behind it. Audit 2026-08-20,
 // docs/plans/tourism-sector-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // A separate file per sector, following the environment / regional / security
 // precedent. The network-free invariants live in src/lib/tourismReferenceData.test.ts

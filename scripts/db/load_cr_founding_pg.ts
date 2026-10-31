@@ -7,8 +7,8 @@
 // db:load:company-founded:pg:cloud then ships local → Cloud SQL. Nothing to fetch —
 // the rate-limited step already happened (fetch_cr_deeds.ts).
 //
-//   npm run db:load:cr-founding:pg          # local upsert from the CR store
-//   (then) npm run db:load:company-founded:pg:cloud   # ship local → Cloud SQL
+//   pnpm run db:load:cr-founding:pg          # local upsert from the CR store
+//   (then) pnpm run db:load:company-founded:pg:cloud   # ship local → Cloud SQL
 //
 // ⚠️ Needs migration 033's http_status/attempts on the target (upsertFoundingDates
 // preflights and throws with the apply command otherwise). No-op when no crawl has

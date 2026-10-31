@@ -26,15 +26,16 @@
 // merge/split, and a ref-level split that ISOLATES one mention — the only key specific enough
 // to undo a wrong Tier-0 gold union (a candidacy matchMp()'d onto the wrong same-name MP).
 //
-//   npx tsx scripts/person/resolve_persons.ts
-//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/person/resolve_persons.ts
+//   pnpm exec tsx scripts/person/resolve_persons.ts
+//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm exec tsx scripts/person/resolve_persons.ts
 //
 // A successful run stamps state/ingest/update-persons.json and appends a
 // data-changes row. `--no-stamp` suppresses both — the cloud publish passes it,
-// and a scratch run should too. Via npm it needs the `--` separator:
+// and a scratch run should too. The package script forwards it as-is (pnpm
+// passes a bare `--` through literally, so do not add one):
 //
-//   npx tsx scripts/person/resolve_persons.ts --no-stamp
-//   npm run db:resolve:persons -- --no-stamp
+//   pnpm exec tsx scripts/person/resolve_persons.ts --no-stamp
+//   pnpm run db:resolve:persons --no-stamp
 
 import fs, { globSync } from "node:fs";
 import path from "node:path";
@@ -2039,7 +2040,7 @@ async function main(): Promise<void> {
             ", ",
           )}). If an officials re-slug caused this, rebuild the map with ` +
         `migrate_slug_normalisation.ts --redirects and load it with ` +
-        `\`npm run person:slug-redirects -- <map.json>\` BEFORE /person is prerendered.`,
+        `\`pnpm run person:slug-redirects <map.json>\` BEFORE /person is prerendered.`,
     );
   }
 
@@ -2225,7 +2226,7 @@ async function main(): Promise<void> {
       `tr_name_fold_people is empty or absent. Bridge B requires positive evidence that a ` +
         `name belongs to ONE registry person, so with this table unloaded it mints nothing ` +
         `and every public figure's company list goes empty. Run ` +
-        `\`npm run db:load:tr-name-fold-people:pg\` (or the :cloud twin) first — the input is ` +
+        `\`pnpm run db:load:tr-name-fold-people:pg\` (or the :cloud twin) first — the input is ` +
         `the committed data/person/tr_name_fold_people.tsv.`,
     );
   // Print what the guard WITHHOLDS, not just what it holds. Both refusals are invisible

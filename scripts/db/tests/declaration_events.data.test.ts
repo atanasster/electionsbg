@@ -5,7 +5,7 @@
 //
 // Auto-skips when Postgres is down or the events are not loaded.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

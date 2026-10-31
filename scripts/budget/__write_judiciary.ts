@@ -26,7 +26,7 @@
 // 2026 is a draft with no cached law — omitted rather than guessed.
 //
 // Run after a budget-law refresh (the budget_law watcher → update-budget):
-//   npx tsx scripts/budget/__write_judiciary.ts
+//   pnpm exec tsx scripts/budget/__write_judiciary.ts
 
 import fs from "fs";
 import zlib from "zlib";

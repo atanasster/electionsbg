@@ -21,7 +21,7 @@ export const readContractsFromPg = async (): Promise<Contract[]> => {
     await end().catch(() => {});
     throw new Error(
       `Cannot read contracts from Postgres (${(e as Error).message}). ` +
-        "Run `npm run db:pg:up` then `npm run db:load:pg`.",
+        "Run `pnpm run db:pg:up` then `pnpm run db:load:pg`.",
     );
   }
   await end();

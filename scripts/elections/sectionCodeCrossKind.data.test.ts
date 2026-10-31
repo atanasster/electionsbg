@@ -27,7 +27,7 @@
 // Skips (never silently passes) when a cycle tree is absent — a fresh clone has no `data/<cycle>`,
 // and "no codes to compare" must not read as "the numbering does not carry over".
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import fs from "node:fs";
 import path from "node:path";

@@ -1,6 +1,6 @@
 // Phase 7's gating measurement: do home-feed event IDs survive 30 days of real corpus movement?
 //
-//   npx tsx scripts/db/gen_home/id_stability.ts [--days 30] [--json]
+//   pnpm exec tsx scripts/db/gen_home/id_stability.ts [--days 30] [--json]
 //
 // ⚠️ THIS IS THE THING THAT DECIDES WHETHER WATCHLISTS ARE BUILDABLE, and it is not a style
 // question. A watch cursor is `{ subjectKey, lastSeenEventId }` — so an id is a PROMISE that

@@ -64,7 +64,7 @@ describe("home price events — the artifact", () => {
   it("exists, declares its version, and stays small", () => {
     expect(
       present,
-      `${ARTIFACT} is committed — run npm run db:gen-home-price-events`,
+      `${ARTIFACT} is committed — run pnpm run db:gen-home-price-events`,
     ).toBe(true);
     expect(src.schemaVersion).toBe(1);
     // Measurements, not a corpus. Anything approaching the feed's own 64 KiB ceiling would

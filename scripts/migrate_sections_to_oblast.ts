@@ -4,7 +4,7 @@
 //
 // Run once per local checkout to avoid re-executing the full data pipeline.
 // The pipeline (scripts/parsers/split_sections.ts) emits the bundled layout
-// directly, so future `npm run prod` runs don't need this script.
+// directly, so future `pnpm run prod` runs don't need this script.
 
 import fs from "fs";
 import path from "path";

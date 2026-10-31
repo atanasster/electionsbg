@@ -13,7 +13,7 @@
 //
 // Output: a small STATIC data/social/poverty_impact.json (like data/cofog.json /
 // road_safety.json — a reference series, no PG round-trip; plan §11). Run:
-//   npx tsx scripts/social/fetch_poverty_impact.ts
+//   pnpm exec tsx scripts/social/fetch_poverty_impact.ts
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";

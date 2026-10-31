@@ -28,8 +28,8 @@
 // that are still empty, so a re-run just fills newly-filed years (FY2023/FY2024
 // keep landing as hospitals file late) cheaply. Pass --refresh to re-read all.
 //
-//   npm run data:nzok -- --revenue            (all private hospitals, incremental)
-//   npm run data:nzok -- --revenue --limit 5  (smoke test: 5 highest-НЗОК)
+//   pnpm run data:nzok --revenue            (all private hospitals, incremental)
+//   pnpm run data:nzok --revenue --limit 5  (smoke test: 5 highest-НЗОК)
 //
 // Needs .env.local GEMINI_API_KEY + the local Postgres (for the sanity gate).
 

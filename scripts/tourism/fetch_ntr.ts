@@ -1,9 +1,9 @@
 // Fetch the НТР accommodation register (see ntr.ts) — no browser, no postback: Domino's REST
 // Data Service, 100 rows a page.
 //
-//   npm run tourism:ntr            # fetch → raw cache + committed summary
-//   npm run tourism:ntr -- --dry   # fetch, report, write nothing
-//   npm run tourism:ntr -- --from-cache  # re-summarise the last crawl, no network
+//   pnpm run tourism:ntr            # fetch → raw cache + committed summary
+//   pnpm run tourism:ntr --dry   # fetch, report, write nothing
+//   pnpm run tourism:ntr --from-cache  # re-summarise the last crawl, no network
 //
 // Writes:
 //   raw_data/tourism/ntr/mn_valid.json   every object (gitignored, ~14 MB)

@@ -14,7 +14,7 @@
  *   mint   #7ae2c0  — dark --primary (used as the "gains" green)
  *
  * Regenerate with:
- *   npx tsx scripts/brand/generate_og_simulator.ts
+ *   pnpm exec tsx scripts/brand/generate_og_simulator.ts
  *
  * Output: public/og/budget-simulator.png (1200x630)
  * Referenced by the `budget/simulator` entry in scripts/prerender/routes.ts.

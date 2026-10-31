@@ -213,7 +213,7 @@ describe("CultureHubScreen", () => {
 
   it("renders NO aside when the blob predates the rail", async () => {
     // `topBuyers` is optional on the wire — the blob ships via bucket:sync, a different
-    // command from `npm run deploy`. An empty rail under „Най-големи възложители" would
+    // command from `pnpm run deploy`. An empty rail under „Най-големи възложители" would
     // read as „this sector has none".
     mountWith(BARE_STATS);
     await screen.findByText(/do NOT sum/);

@@ -10,7 +10,7 @@
 // declaration table has not been migrated yet — exactly like the other
 // *.data.test.ts gates, so CI (no container) skips it.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

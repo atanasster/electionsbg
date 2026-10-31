@@ -16,11 +16,11 @@ of someone else's document — say so in the PR and name its licence. It belongs
 
 ## Before you open a PR
 
-- **SPA changes**: `npm run lint && npm run build`, then `npm test` (Playwright). Lint is part
+- **SPA changes**: `pnpm run lint && pnpm run build`, then `pnpm test` (Playwright). Lint is part
   of `predeploy`, so a lint failure blocks deploys.
-- **Data-pipeline changes**: run `npm run prod` locally and diff the resulting JSON against
+- **Data-pipeline changes**: run `pnpm run prod` locally and diff the resulting JSON against
   `git`. The roll-call ingest has a canary regression fixture at
-  `tests/fixtures/parliament/votes/canary.json` — `npm run rollcall:scrape` validates against it
+  `tests/fixtures/parliament/votes/canary.json` — `pnpm run rollcall:scrape` validates against it
   and fails loud if the parser drifts.
 - **New upstream sources**: add a module under `scripts/watch/sources/` following the existing
   pattern, then a sibling `/update-<source>` skill under `.claude/skills/` for the ingest. See

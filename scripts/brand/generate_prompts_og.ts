@@ -1,7 +1,7 @@
 /**
  * OG image (1200×630) for the /chat/prompts directory page (naiasno.bg/chat/prompts).
  *
- *   npx tsx scripts/brand/generate_prompts_og.ts
+ *   pnpm exec tsx scripts/brand/generate_prompts_og.ts
  *
  * Number-led, on-brand (navy + coral, the site theme): the live starter prompt
  * count as the hero, with a per-category breakdown panel so it reads as an

@@ -5,7 +5,7 @@
 // violates key uniqueness, the EUR peg, the twin dedup, or the headline
 // reconciliation, these fail immediately.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Auto-skips when no procurement data is on disk (e.g. a fresh CI checkout that
 // hasn't restored the corpus). See docs/plans/sql-migration-v1.md (Phase 1).

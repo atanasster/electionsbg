@@ -1,7 +1,7 @@
 // Load the state-budget corpus into Postgres (migrations 152 + 153).
 //
-//   npm run db:load:budget:pg
-//   npm run db:load:budget:pg:cloud
+//   pnpm run db:load:budget:pg
+//   pnpm run db:load:budget:pg:cloud
 //
 // Plan: docs/plans/budget-hub-v1.md T1.
 //
@@ -119,7 +119,7 @@ const readRequired = <T>(rel: string): T => {
   if (parsed === null) {
     throw new Error(
       `${rel} is missing. It is a COMMITTED file, so this is not the fresh-clone ` +
-        "case — run `npm run data -- --all` or restore it.",
+        "case — run `pnpm run data --all` or restore it.",
     );
   }
   return parsed;
@@ -463,7 +463,7 @@ const loadAdmin = (
     throw new Error(
       `${UNCOMMITTED_INPUTS[0]}/ exists but holds no year directories. That is a broken ` +
         "tree, not the fresh-clone case — loading on would empty the admin and programme " +
-        "grain. Run `npm run data -- --all` to regenerate it.",
+        "grain. Run `pnpm run data --all` to regenerate it.",
     );
   }
 
@@ -472,7 +472,7 @@ const loadAdmin = (
   // whole procurement footprint joins `contracts` on that column — so this
   // committed artifact is a load-bearing INPUT even though T7 retired it as a
   // browser fetch. It is written offline by `crossReferenceProcurement` during
-  // `npm run budget:ingest`, which NAME-MATCHES each budget unit against the
+  // `pnpm run budget:ingest`, which NAME-MATCHES each budget unit against the
   // awarders index. Postgres COULD express that match — `contracts.awarder_name`
   // is populated on 409,200 rows — but nothing does, so the artifact is the only
   // producer. A procurement ingest that moves the awarder set therefore stales
@@ -573,7 +573,7 @@ const loadAdmin = (
  *
  * ⚠️ NEITHER EXISTING GUARD SEES THIS. `crossReferenceProcurement`'s own input,
  * `data/procurement/awarders/`, is GITIGNORED — 0 tracked against 4,415 files on
- * a machine that has run the pipeline — so on a fresh clone `npm run
+ * a machine that has run the pipeline — so on a fresh clone `pnpm run
  * budget:ingest` finds no awarders, matches nothing and writes `entries: []`
  * unguarded. The next load then stamps NULL over all 46 EIKs and migration 157
  * rebuilds to ZERO rows, while `merge()`'s shrink floor and `mergeFromStage`'s
@@ -601,7 +601,7 @@ const assertProcurementArtifactUsable = async (): Promise<void> => {
     `ministry_procurement.json matched no spending unit, but ${had} already ` +
       "carry an EIK. Loading it would blank the procurement cross-link " +
       "(migration 157) with every row count reconciling. That is what " +
-      "`npm run budget:ingest` writes when data/procurement/awarders/ is " +
+      "`pnpm run budget:ingest` writes when data/procurement/awarders/ is " +
       "absent — it is gitignored, so a fresh clone has none. Restore the " +
       "awarders index and re-run the ingest, or `git checkout` the artifact.",
   );
@@ -839,7 +839,7 @@ export const loadBudgetPg = async (): Promise<{
     console.warn(
       `[budget] ${UNCOMMITTED_INPUTS[0]}/ absent — the admin and programme grain ` +
         "is GITIGNORED (bucket-shipped only), so this machine has none. The tables " +
-        "are left as they are rather than emptied. Run `npm run data -- --all` to " +
+        "are left as they are rather than emptied. Run `pnpm run data --all` to " +
         "regenerate the shards.",
     );
   }

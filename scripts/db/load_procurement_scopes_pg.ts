@@ -11,7 +11,7 @@
 // or the calendar year turns over (a new `y:` window). Cheap and idempotent — a few dozen
 // rows — so db:refresh just runs it every time.
 //
-// Run: `npm run db:load:procurement-scopes:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:procurement-scopes:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";

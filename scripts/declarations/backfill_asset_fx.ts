@@ -31,8 +31,8 @@
  *
  * Manual by design, per the repo's convention for one-off backfills.
  *
- *   npx tsx scripts/declarations/backfill_asset_fx.ts           # dry run
- *   npx tsx scripts/declarations/backfill_asset_fx.ts --apply
+ *   pnpm exec tsx scripts/declarations/backfill_asset_fx.ts           # dry run
+ *   pnpm exec tsx scripts/declarations/backfill_asset_fx.ts --apply
  */
 
 import fs from "fs";

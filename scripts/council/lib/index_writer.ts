@@ -273,7 +273,7 @@ const readVotesShard = async (
     throw new Error(
       `[council] ${p} exists but does not parse (${String(err)}). ` +
         `Refusing to rebuild it from the index window — run ` +
-        `\`npm run council:rebuild-shards\` to restore it from the durable tree.`,
+        `\`pnpm run council:rebuild-shards\` to restore it from the durable tree.`,
     );
   }
 };
@@ -379,7 +379,7 @@ const writeVotesShard = async (
       `[council] refusing to shrink ${obshtinaCode} votes shard: ` +
         `${before} → ${kept} named-vote resolutions ` +
         `(>${VOTES_SHRINK_TOLERANCE * 100}% drop). ` +
-        `Pass --allow-shrink (npm run council:rebuild-shards) or allowShrink to override.`,
+        `Pass --allow-shrink (pnpm run council:rebuild-shards) or allowShrink to override.`,
     );
   }
 

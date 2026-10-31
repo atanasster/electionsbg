@@ -26,7 +26,7 @@
 // mostly reflect entering or leaving the corps, NOT misconduct, and are
 // deliberately not surfaced as a compliance score.
 //
-// Run: npx tsx scripts/judiciary/__write_declarations.ts
+// Run: pnpm exec tsx scripts/judiciary/__write_declarations.ts
 
 import fs from "fs";
 import path from "path";

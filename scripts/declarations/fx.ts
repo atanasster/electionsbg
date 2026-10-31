@@ -82,7 +82,7 @@ export const fxTable = (): FxTable => {
   const abs = path.join(REPO, FX_TABLE_PATH);
   if (!fs.existsSync(abs)) {
     throw new Error(
-      `${FX_TABLE_PATH} is missing — run \`npx tsx scripts/declarations/fetch_fx_rates.ts --apply\`. Parsing without it would silently drop every foreign-currency asset row, which is the defect this table exists to fix.`,
+      `${FX_TABLE_PATH} is missing — run \`pnpm exec tsx scripts/declarations/fetch_fx_rates.ts --apply\`. Parsing without it would silently drop every foreign-currency asset row, which is the defect this table exists to fix.`,
     );
   }
   cached = JSON.parse(fs.readFileSync(abs, "utf8")) as FxTable;

@@ -1,7 +1,7 @@
 // Sweep the Jev routing confidence gate between 0.50 and 0.70.
 //
-//   TYPESAFE_API_KEY=… npx tsx ai/llm/jevGateSweep.ts           # ask + simulate
-//   npx tsx ai/llm/jevGateSweep.ts --resimulate                  # no API calls
+//   TYPESAFE_API_KEY=… pnpm exec tsx ai/llm/jevGateSweep.ts           # ask + simulate
+//   pnpm exec tsx ai/llm/jevGateSweep.ts --resimulate                  # no API calls
 //
 // Writes ai/evals-internal/jev_gate_sweep.json — internal, not published: it is
 // measured on the bank the rules were built from (ai/evals-internal/README.md).

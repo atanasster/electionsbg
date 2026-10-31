@@ -510,7 +510,7 @@ const cmd = command({
       // in the very state the call above exists to prevent. Name the recovery.
       console.error(
         "⚠ shards were rewritten but NOT re-decorated — every candidateLink is currently " +
-          "missing. Re-run `npx tsx scripts/officials/decorate_candidate_links.ts` once the " +
+          "missing. Re-run `pnpm exec tsx scripts/officials/decorate_candidate_links.ts` once the " +
           "cause below is fixed.",
       );
       throw err;

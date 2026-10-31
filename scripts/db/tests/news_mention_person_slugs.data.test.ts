@@ -12,7 +12,7 @@
 // Skips with a distinct reason when the tree is absent (it is gitignored and
 // written only by `news/scripts/build_mention_index.py`) or Postgres is down.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

@@ -6,9 +6,9 @@
 // Fingerprint = sha256 over the sorted set of `EIK|status` rows (not the raw
 // HTML, which carries volatile formatting/whitespace). A flip means an operator
 // was added, terminated, or re-licensed — re-run the ingest
-// (`npm run customs:excise-register`), which rewrites both
+// (`pnpm run customs:excise-register`), which rewrites both
 // data/customs/excise_register.json and the geolocated
-// data/customs/excise_warehouses.json; then `npm run db:load:excise-warehouses:pg`
+// data/customs/excise_warehouses.json; then `pnpm run db:load:excise-warehouses:pg`
 // reloads the warehouse count-map table (schema 072). See the
 // process-watch-report mapping for the prod (bucket:sync + :cloud reload) steps.
 
@@ -97,6 +97,6 @@ export const customsExciseRegister: WatchSource = {
     if (dActive) parts.push(`${dActive > 0 ? "+" : ""}${dActive} active`);
     if (dTotal) parts.push(`${dTotal > 0 ? "+" : ""}${dTotal} total`);
     const delta = parts.length ? ` (${parts.join(", ")})` : "";
-    return `Register changed${delta} — run \`npm run customs:excise-register\`.`;
+    return `Register changed${delta} — run \`pnpm run customs:excise-register\`.`;
   },
 };

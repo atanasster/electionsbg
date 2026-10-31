@@ -19,13 +19,13 @@
 // CLOUD STALENESS: it is a derived search index (like contractor_search) so it carries no
 // recent_updates/changelog entry — BUT unlike contractor_search (rebuilt inside db:load:pg), this
 // is a STANDALONE loader with nothing running it on Cloud SQL. So on the cloud side, run
-// `npm run db:load:person-search:pg:cloud` after EACH of: db:load:persons-browse:pg:cloud,
+// `pnpm run db:load:person-search:pg:cloud` after EACH of: db:load:persons-browse:pg:cloud,
 // db:load:tr:pg:cloud, and any contracts/agri/funds reload — else prod search serves the previous
 // vintage (the route degrades a MISSING table to empty, but a STALE table still 200s silently).
 // Also documented in CLAUDE.md next to the other person-layer "nothing runs it on the cloud side"
 // loaders.
 //
-// Run: `npm run db:load:person-search:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:person-search:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -46,7 +46,7 @@ const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/126_person_search.sql");
 // search_contract_titles / search_tender_subjects / search_fund_projects — none of them
 // person_search. So on a database where this loader has never run, that route raises 42883.
 // The standalone fix is the usual one for a function:
-//   npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
+//   pnpm exec tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
 // GENERATED from src/lib/shlyoRules.ts; never hand-edit the .sql.
 const SHLYO_FN = path.join(
   ROOT,

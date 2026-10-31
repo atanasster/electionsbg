@@ -168,7 +168,7 @@ describe("the band", () => {
 
   it("WITHHOLDS the optional cells rather than publishing a zero", () => {
     // `budget` and `films` are optional on the wire: the blob ships via bucket:sync, a
-    // different command from `npm run deploy`, so a bundle can load against one minted
+    // different command from `pnpm run deploy`, so a bundle can load against one minted
     // before those fields existed. Absent means „not measured" — a zero would be the claim
     // that МК spends nothing and НФЦ funded no films.
     const bare = { ...STATS };
@@ -289,7 +289,7 @@ describe("the evidence rail", () => {
 
   it("REFUSES when the rows are absent rather than rendering an empty rail", () => {
     // `topBuyers` is optional on the wire — the blob ships via bucket:sync, a different
-    // command from `npm run deploy` — so a bundle can load against a blob predating it. An
+    // command from `pnpm run deploy` — so a bundle can load against a blob predating it. An
     // empty rail under „Най-големи възложители" reads as „this sector has none".
     const bare = { ...STATS };
     delete bare.topBuyers;

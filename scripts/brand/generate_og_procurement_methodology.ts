@@ -1,7 +1,7 @@
 /**
  * OG image (1200×630) for /procurement/methodology.
  *
- *   npx tsx scripts/brand/generate_og_procurement_methodology.ts
+ *   pnpm exec tsx scripts/brand/generate_og_procurement_methodology.ts
  *
  * The share card for a SPECIFICATION, so it leads with the thing that makes the
  * page unusual rather than with a scary number: the flags are published, with

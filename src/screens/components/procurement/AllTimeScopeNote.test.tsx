@@ -5,7 +5,7 @@
 // „this company has no contracts", or a count from one basis printed beside a sum from
 // another.
 //
-//   npx vitest run src/screens/components/procurement/AllTimeScopeNote.test.tsx
+//   pnpm exec vitest run src/screens/components/procurement/AllTimeScopeNote.test.tsx
 
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

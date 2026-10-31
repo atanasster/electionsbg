@@ -100,7 +100,7 @@ describe("every :cloud loader is reachable from a skill", () => {
     // the cloud side ONLY while its local counterpart is silently owed. That is not
     // hypothetical: db:load:magistrate-filing-assets:pg is a REFRESH_EXCLUSIONS member
     // REPAIRING what db:load:magistrates:pg (which IS in db:refresh) truncates — so every
-    // local `npm run db:refresh` blanked the magistrate property count, and this suite was
+    // local `pnpm run db:refresh` blanked the magistrate property count, and this suite was
     // green throughout.
     //
     // Scoped to loaders db:refresh does NOT run: if the chain runs the local half, a skill

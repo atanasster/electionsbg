@@ -84,14 +84,14 @@ export const linkProducerEiks = async (
     const why =
       (e as Error).message || (e as Error).name || "unknown connection error";
     throw new TrCorpusUnavailable(
-      `tr_companies is unreadable (${why}) — is local Postgres up at ${new URL(LOCAL_DATABASE_URL).host}? \`npm run db:pg:up\``,
+      `tr_companies is unreadable (${why}) — is local Postgres up at ${new URL(LOCAL_DATABASE_URL).host}? \`pnpm run db:pg:up\``,
     );
   }
   if (companies < MIN_TR_COMPANIES)
     throw new TrCorpusUnavailable(
       `tr_companies holds ${companies} row(s) — that is not the Commerce Registry ` +
         `(expected > ${MIN_TR_COMPANIES}). Refusing to clear ${producers.length} existing link(s). ` +
-        "Load it first (`npm run db:refresh`).",
+        "Load it first (`pnpm run db:refresh`).",
     );
 
   const cores = [...new Set(producers.map((p) => coreName(p.producer)))].filter(

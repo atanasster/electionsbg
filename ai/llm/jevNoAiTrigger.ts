@@ -3,7 +3,7 @@
 // likely wrong. Before building it: does any cheap, offline trigger actually
 // find the questions the rules get wrong?
 //
-//   npx tsx ai/llm/jevNoAiTrigger.ts
+//   pnpm exec tsx ai/llm/jevNoAiTrigger.ts
 //
 // No API calls. Reads the robustness questions (data/ai/evals/jev_robustness.json)
 // and the stage-3 outcome already recorded for each one

@@ -13,7 +13,7 @@
 // prior-attainment baseline for value-added — folded in from
 // scripts/schools/fetch_nvo.ts). Geocodes come from settlement centroids.
 //
-// Run: `npx tsx scripts/schools/build_index.ts` (after fetch_nvo.ts for НВО).
+// Run: `pnpm exec tsx scripts/schools/build_index.ts` (after fetch_nvo.ts for НВО).
 
 import fs from "node:fs";
 import path from "node:path";

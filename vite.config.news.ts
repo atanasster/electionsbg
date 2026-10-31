@@ -122,7 +122,7 @@ const copyNewsData = (): Plugin => ({
     handler() {
       if (!fs.existsSync(DATA_DIR)) {
         throw new Error(
-          `${DATA_DIR} does not exist — run \`npm run news:data\` (or build:news) before building`,
+          `${DATA_DIR} does not exist — run \`pnpm run news:data\` (or build:news) before building`,
         );
       }
       const dest = path.resolve(__dirname, "dist-news", "news-data");

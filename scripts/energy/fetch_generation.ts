@@ -4,7 +4,7 @@
  * on. Writes the compact data/energy/generation.json the /sector/energy physics
  * tiles read. One CSV download (global long-format ~49MB), filtered to Bulgaria.
  *
- *   npx tsx scripts/energy/fetch_generation.ts
+ *   pnpm exec tsx scripts/energy/fetch_generation.ts
  *
  * Source: https://ember-energy.org/data/  (yearly_full_release_long_format.csv)
  * Attribution required on the tile: "Ember — Yearly Electricity Data (CC BY 4.0)".

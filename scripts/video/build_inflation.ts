@@ -3,7 +3,7 @@
  * claims, with assertions — so a data refresh that moves the story fails the
  * BUILD rather than silently changing what the narration asserts.
  *
- *   npm run video:data-inflation
+ *   pnpm run video:data-inflation
  *
  * Source: `data/macro_peers.json` → `indicators.inflation`, Eurostat
  * `prc_hicp_minr` (annual rate, quarterly cadence), 86 quarters 2005-Q1..2026-Q2.

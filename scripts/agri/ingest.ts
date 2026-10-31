@@ -5,7 +5,7 @@ import { installFundingQuery } from "../db/lib/installFundingQuery";
 // source.ts), normalised + EUR-converted here, and written directly to the PG
 // tables the app serves from.
 //
-//   npm run agri:ingest            (needs `npm run db:pg:up` first)
+//   pnpm run agri:ingest            (needs `pnpm run db:pg:up` first)
 //
 // Targets (schema/pg/046_agri_subsidies.sql):
 //   • agri_subsidies — per (year × beneficiary × scheme) detail row (the browse +
@@ -182,16 +182,16 @@ const waitForPg = async (): Promise<void> => {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
-  throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
+  throw new Error("Postgres not reachable — run `pnpm run db:pg:up`.");
 };
 
 /**
  * The whole agri build: parse (egov cache + СЕУ CSVs) → stage → publish.
- * `offline: true` is the pure-load path (`npm run db:load:agri:pg`): every
+ * `offline: true` is the pure-load path (`pnpm run db:load:agri:pg`): every
  * source must already be in raw_data/agri/, and a PARTIAL cache throws — a
  * missing egov year or СЕУ CSV silently dropping FY rows is exactly the
  * shrunken-corpus failure the guards below exist for. `offline: false` is the
- * fetch+load path (`npm run agri:ingest`, the update-agri skill).
+ * fetch+load path (`pnpm run agri:ingest`, the update-agri skill).
  */
 export const runAgriIngest = async ({
   offline = false,
@@ -206,7 +206,7 @@ export const runAgriIngest = async ({
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
   );
 
-  // 190 is GENERATED (npm run gen:culture-sql) — the culture_agri_chitalishta
+  // 190 is GENERATED (pnpm run gen:culture-sql) — the culture_agri_chitalishta
   // serving view behind /culture/funds/dfz. Applied HERE, immediately after 046,
   // because this is the only path in the repo that creates `agri_subsidies`: a
   // view's query resolves at CREATE time, so the file has to be applied by the
@@ -494,7 +494,7 @@ export const runAgriIngest = async ({
 
     // ── СЕУ current-window years (FY2024/2025) ──────────────────────────────────
     // The egov portal stops at FY2023; the latest 1–2 financial years come from
-    // the СЕУ register (scripts/agri/seu_fetch.ts, cached by `npm run agri:seu`),
+    // the СЕУ register (scripts/agri/seu_fetch.ts, cached by `pnpm run agri:seu`),
     // which has NO EIK column — recover it by exact name-match against the egov
     // entities loaded above. Recurring big recipients relink to their EIK (and so
     // to /company, procurement, EU funds); genuinely new entrants stay name-only,
@@ -511,9 +511,11 @@ export const runAgriIngest = async ({
         // beats silently publishing a corpus without FY2024/2025 (T2.1).
         if (offline)
           throw new Error(
-            `SEU FY${year}: no cached CSV in raw_data/agri/ — run \`npm run agri:seu\``,
+            `SEU FY${year}: no cached CSV in raw_data/agri/ — run \`pnpm run agri:seu\``,
           );
-        console.warn(`SEU FY${year}: no cached CSV — run \`npm run agri:seu\``);
+        console.warn(
+          `SEU FY${year}: no cached CSV — run \`pnpm run agri:seu\``,
+        );
         continue;
       }
       let matched = 0;
@@ -913,7 +915,7 @@ export const runAgriIngest = async ({
     // (db:load:pg) — so it goes stale on THEIR reloads too, silently, at a 200.
     // And db:refresh runs this loader at step 14 against a person layer that is
     // rebuilt at step 45, so a full refresh always builds the political arm one
-    // vintage behind; a second `npm run db:load:agri:pg` after the person chain
+    // vintage behind; a second `pnpm run db:load:agri:pg` after the person chain
     // closes that cycle in one pass. See 162's header.
     // Guarded on existence for the same reason the apply above is: on a database
     // where 162 was skipped this relation does not exist, and an unguarded REFRESH

@@ -30,7 +30,7 @@
 // orphans. The guard in the handler fails loud instead.
 //
 // Manual by design, like every one-off backfill here — it is not wired into
-// `npm run data`. Dry by default:
+// `pnpm run data`. Dry by default:
 //   tsx scripts/officials/remerge_collision_slugs.ts            # report only
 //   tsx scripts/officials/remerge_collision_slugs.ts --apply    # move them
 //

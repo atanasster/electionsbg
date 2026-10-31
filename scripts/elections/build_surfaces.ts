@@ -16,10 +16,10 @@
 // rebuild is byte-identical (§9) and the gate on that is not vacuous.
 //
 // Usage:
-//   npm run elections:surfaces                          # every covered cycle, dry run
-//   npm run elections:surfaces -- --write               # write the artifacts
-//   npm run elections:surfaces -- --write --sections    # …and the embedded local sections
-//   npm run elections:surfaces -- --cycle 2026_04_19    # one cycle
+//   pnpm run elections:surfaces                          # every covered cycle, dry run
+//   pnpm run elections:surfaces --write               # write the artifacts
+//   pnpm run elections:surfaces --write --sections    # …and the embedded local sections
+//   pnpm run elections:surfaces --cycle 2026_04_19    # one cycle
 
 import fs from "node:fs";
 import path from "node:path";

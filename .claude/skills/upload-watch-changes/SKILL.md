@@ -31,7 +31,7 @@ sync, a `:cloud` loader nobody ran, prod serving the previous vintage at a **200
 count reconciling. If the manifest looks wrong, fix it in the manifest and say so; do not quietly
 substitute your own list.
 
-**No manifest is a valid answer.** `npx tsx scripts/upload_manifest.ts show` printing "No pending
+**No manifest is a valid answer.** `pnpm exec tsx scripts/upload_manifest.ts show` printing "No pending
 upload" means everything ingested has already been published. Say that and stop — do not go
 looking for something to sync.
 
@@ -54,14 +54,14 @@ nothing to fix.
 # ⚠️ A shell variable does NOT survive between tool calls: `S=$(…)` set in one call is
 # EMPTY in the next, and `--session ""` files rows under a blank session that no rollup
 # can group. `$S` below is shorthand for "the literal id this printed".
-npm run -s perf:step -- session
+pnpm run -s perf:step -- session
 
 # every command goes through this
-npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
-  --step "bucket:sync:paths myarea" --phase publish -- npm run bucket:sync:paths -- myarea
+pnpm run -s perf:step -- run --run upload-watch-changes --session "$S" \
+  --step "bucket:sync:paths myarea" --phase publish -- pnpm run bucket:sync:paths myarea
 
 # read it back
-npm run -s perf:report -- --run upload-watch-changes --last 5
+pnpm run -s perf:report --run upload-watch-changes --last 5
 ```
 
 Four rules, all of them ways the trace goes quietly WRONG rather than absent:
@@ -87,8 +87,8 @@ Four rules, all of them ways the trace goes quietly WRONG rather than absent:
 ### Step 0 — read the manifest, and confirm before touching production
 
 ```bash
-npm run -s perf:step -- session      # mint once; PASTE the printed id into every later command
-npx tsx scripts/upload_manifest.ts show
+pnpm run -s perf:step -- session      # mint once; PASTE the printed id into every later command
+pnpm exec tsx scripts/upload_manifest.ts show
 git log --oneline -1
 ```
 
@@ -119,14 +119,14 @@ Three things to check before proceeding, each of which turns into a wasted or da
 - **Is the Cloud SQL proxy up?** Only when `cloudCommands` is non-empty:
   `nc -z 127.0.0.1 5434 && echo proxy-up`. It is a real and recurring failure mode — a dead proxy
   surfaces mid-load as `Connection terminated unexpectedly`, which reads like a database problem.
-  Start it with `npm run db:proxy:cloud`; `.pgpass` in the repo root holds the credentials.
+  Start it with `pnpm run db:proxy:cloud`; `.pgpass` in the repo root holds the credentials.
 
 ### Step 1 — bucket: dry run first, then push, one timed step per subtree
 
 ```bash
-npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
+pnpm run -s perf:step -- run --run upload-watch-changes --session "$S" \
   --step "bucket:sync:paths:dry" --phase verify \
-  -- npm run bucket:sync:paths:dry -- myarea budget data_map.json data-changes.json
+  -- pnpm run bucket:sync:paths:dry myarea budget data_map.json data-changes.json
 ```
 
 **Read the dry run before pushing.** It lists what would be copied; a count wildly larger than the
@@ -137,8 +137,8 @@ Then push **one subtree per timed step**, so the trace attributes the time:
 ```bash
 S=20260829T051233Z-a1b2        # ← the id step 0 printed, pasted literally
 for p in myarea budget data_map.json data-changes.json; do
-  npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
-    --step "bucket:sync:paths $p" --phase publish -- npm run bucket:sync:paths -- "$p"
+  pnpm run -s perf:step -- run --run upload-watch-changes --session "$S" \
+    --step "bucket:sync:paths $p" --phase publish -- pnpm run bucket:sync:paths "$p"
 done
 ```
 
@@ -147,12 +147,12 @@ survive into the next tool call, which is why it is re-pasted rather than carrie
 
 What matters about the sync, all of it load-bearing:
 
-- **Prefer the scoped sync — always.** The whole-tree `npm run bucket:sync` must enumerate BOTH
+- **Prefer the scoped sync — always.** The whole-tree `pnpm run bucket:sync` must enumerate BOTH
   full listings before diffing (~1.03M local files, ~761k bucket objects) and its `-x` exclusions
   filter only AFTER enumeration, so the PG-served `procurement/`, `funds/` and `prices/` are
   walked anyway. That fixed overhead is **~30 min regardless of churn**; scoped to a typical day's
   subtrees it is ~1 min (measured 2026-07-10). Same flags, same result. Reach for the whole tree
-  only after a run that rewrote unknown parts of it (e.g. `npm run prod`) — and record it as its
+  only after a run that rewrote unknown parts of it (e.g. `pnpm run prod`) — and record it as its
   own step, because it will dominate the trace.
 - **Never sync `prices`.** Since migration 048 the price layer is Postgres-only: every dashboard
   payload lives in `price_payloads`, served by `/api/db/price-payload`. The two files still under
@@ -166,8 +166,8 @@ What matters about the sync, all of it load-bearing:
   "Would remove" lines before executing:
 
   ```bash
-  npm run bucket:sync:paths:dry -- --delete <subtree>
-  npm run bucket:sync:paths     -- --delete <subtree>
+  pnpm run bucket:sync:paths:dry --delete <subtree>
+  pnpm run bucket:sync:paths     --delete <subtree>
   ```
 
   Never pass `--delete` for a subtree this ingest did not fully regenerate, and never wire `-d`
@@ -179,8 +179,8 @@ What matters about the sync, all of it load-bearing:
 ### Step 2 — Cloud SQL: in manifest order, one timed step each
 
 ```bash
-npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
-  --step "db:load:pg:cloud" --phase publish -- npm run db:load:pg:cloud
+pnpm run -s perf:step -- run --run upload-watch-changes --session "$S" \
+  --step "db:load:pg:cloud" --phase publish -- pnpm run db:load:pg:cloud
 ```
 
 ⚠️⚠️ **RUN THEM IN THE ORDER THE MANIFEST LISTS, AND STOP ON THE FIRST FAILURE.** The order is
@@ -198,7 +198,7 @@ Four things to expect:
   let it finish. The accumulated per-loader medians are what a later optimisation pass reads.
 - ⚠️ **`Connection terminated unexpectedly` is the PROXY, not the database.** Check
   `nc -z 127.0.0.1 5434` before suspecting `temp_file_limit` or corruption. Nothing is corrupted
-  when it dies mid-load — the load had not committed. Restart with `npm run db:proxy:cloud` and
+  when it dies mid-load — the load had not committed. Restart with `pnpm run db:proxy:cloud` and
   re-run that loader; they are idempotent.
 - ⚠️ **Some loaders block readers while they run.** A plain `REFRESH MATERIALIZED VIEW` takes an
   AccessExclusiveLock, and a TR publish TRUNCATEs. Off-peak is better; if the operator asked for
@@ -210,10 +210,10 @@ Four things to expect:
 ### Step 3 — verify the publish actually landed
 
 ```bash
-npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
-  --step "db:check-generated" --phase verify --ok-exit 1 -- npm run db:check-generated
-npm run -s perf:step -- run --run upload-watch-changes --session "$S" \
-  --step "db:check-cloud" --phase verify --ok-exit 1 -- npm run db:check-cloud
+pnpm run -s perf:step -- run --run upload-watch-changes --session "$S" \
+  --step "db:check-generated" --phase verify --ok-exit 1 -- pnpm run db:check-generated
+pnpm run -s perf:step -- run --run upload-watch-changes --session "$S" \
+  --step "db:check-cloud" --phase verify --ok-exit 1 -- pnpm run db:check-cloud
 ```
 
 `--ok-exit 1` because both exit 1 when they FIND something — that is the finding, not a crash, and
@@ -223,7 +223,7 @@ recording it as a trace failure every run would make the failure count meaningle
 adds the generated blobs its own commit touched, but a blob another process committed mid-session
 (the concurrent auto-committer) is in no manifest. So: confirm with the md5 check below that the
 object really differs (it reports a false `STALE` right after a sync), then run the exact
-`npm run bucket:sync:paths -- …` line it printed and re-run the check. Only the committed copy is
+`pnpm run bucket:sync:paths …` line it printed and re-run the check. Only the committed copy is
 ever pushed — if `git status` shows the artifact modified-but-uncommitted, it belongs to an
 in-flight run: leave it and say so.
 
@@ -258,8 +258,8 @@ Only after every step in the manifest has succeeded (or the operator has explici
 partial publish):
 
 ```bash
-npx tsx scripts/upload_manifest.ts done --session "$S"
-npm run -s perf:report -- --run upload-watch-changes --last 3
+pnpm exec tsx scripts/upload_manifest.ts done --session "$S"
+pnpm run -s perf:report --run upload-watch-changes --last 3
 ```
 
 `done` ARCHIVES rather than deletes: the manifest is appended to `state/upload/history.jsonl` with
@@ -341,7 +341,7 @@ Rules for it, each pinning a way a publish gets over-reported:
 
 - **Does not ingest.** It publishes what `/process-watch-report` already produced and committed.
   If the manifest is empty there is nothing to do — running an ingest is that skill's job.
-- **Does not deploy the app.** `npm run deploy` (Firebase hosting) and `npm run deploy:db` (the
+- **Does not deploy the app.** `pnpm run deploy` (Firebase hosting) and `pnpm run deploy:db` (the
   `db` Cloud Function) ship CODE. A pure-data publish needs neither. When a route or bundle change
   is also pending, say so and stop — the hosting/function deploy ORDER matters (CLAUDE.md's
   three-step purge) and is not something to fold into a data sync.

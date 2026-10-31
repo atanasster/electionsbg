@@ -18,9 +18,9 @@
 // (2021-12-31), so we fall back to a (buyer, supplier) pair index and pick the
 // EOP row whose date is nearest the contract's publication date.
 //
-//   npx tsx scripts/procurement/eop_field_map.ts            # dry run (coverage report)
-//   npx tsx scripts/procurement/eop_field_map.ts --apply    # write fields onto shards
-//   npx tsx scripts/procurement/rebuild_from_cache.ts        # rebuild rollups/derived/index
+//   pnpm exec tsx scripts/procurement/eop_field_map.ts            # dry run (coverage report)
+//   pnpm exec tsx scripts/procurement/eop_field_map.ts --apply    # write fields onto shards
+//   pnpm exec tsx scripts/procurement/rebuild_from_cache.ts        # rebuild rollups/derived/index
 //
 // Re-runnable: idempotent (fills only missing cpv/procedure; always (re)sets the
 // EU flag from the matched row). No network — reads raw_data/procurement/eop/.
@@ -389,7 +389,7 @@ const main = (apply: boolean): void => {
   }
   console.log(`→ wrote ${filesChanged} shard(s)`);
   console.log(
-    "✓ done. Now rebuild: npx tsx scripts/procurement/rebuild_from_cache.ts",
+    "✓ done. Now rebuild: pnpm exec tsx scripts/procurement/rebuild_from_cache.ts",
   );
 };
 

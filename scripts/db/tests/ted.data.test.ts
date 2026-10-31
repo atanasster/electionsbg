@@ -19,7 +19,7 @@ const [{ n } = { n: "0" }] = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : n === "0"
-    ? "ted_notice is empty — run npm run db:load:ted:pg"
+    ? "ted_notice is empty — run pnpm run db:load:ted:pg"
     : false;
 reportSkip(import.meta.url, skip);
 

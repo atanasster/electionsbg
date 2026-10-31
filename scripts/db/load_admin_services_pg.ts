@@ -5,7 +5,7 @@
 // never writes JSON back. Served by the DbDataTable engine as resource
 // `admin_services`.
 //
-// Run: `npm run db:load:admin-services:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:admin-services:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";

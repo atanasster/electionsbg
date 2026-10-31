@@ -1,7 +1,7 @@
 // ONE-OFF: release kzk_appeals.suspension so the live status fallback works again.
 //
-//   npx tsx scripts/procurement/kzk_unfreeze_suspension.ts           (report only)
-//   npx tsx scripts/procurement/kzk_unfreeze_suspension.ts --apply   (write)
+//   pnpm exec tsx scripts/procurement/kzk_unfreeze_suspension.ts           (report only)
+//   pnpm exec tsx scripts/procurement/kzk_unfreeze_suspension.ts --apply   (write)
 //
 // THE BUG. 042 serves the effective suspended state through
 // `kzk_effective_suspension(suspension, status)` = `COALESCE(suspension, status
@@ -79,7 +79,7 @@ const main = async (): Promise<void> => {
       "kzk_effective_suspension() is missing — this database's 042 predates the " +
         "shared expression, so kzk_appeals_list still selects the RAW suspension " +
         "column and releasing it would blank /procurement/appeals. Apply it first:\n" +
-        "  npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql",
+        "  pnpm exec tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql",
     );
   }
 

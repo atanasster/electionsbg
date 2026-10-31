@@ -49,7 +49,7 @@ describe("189_culture_match.sql", () => {
       const p = outPath(name);
       expect(
         existsSync(p),
-        `${name} is missing — run npm run gen:culture-sql`,
+        `${name} is missing — run pnpm run gen:culture-sql`,
       ).toBe(true);
       expect(readFileSync(p, "utf8"), `${name} is stale`).toBe(sql);
     }
@@ -119,7 +119,7 @@ describe("189_culture_match.sql", () => {
     for (const [name, sql] of Object.entries(buildSql())) {
       expect(sql, name).toMatch(/GENERATED FILE — DO NOT EDIT/);
       expect(sql, name).toContain("src/lib/cultureMatch.ts");
-      expect(sql, name).toContain("npm run gen:culture-sql");
+      expect(sql, name).toContain("pnpm run gen:culture-sql");
       expect(sql, name).toMatch(/-- Applier: |Applier: /);
     }
     expect(buildSql()[FILES.isun]).toContain("src/lib/kulturaReferenceData.ts");

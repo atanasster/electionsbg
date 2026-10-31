@@ -4,7 +4,7 @@
 // contracts corpus — double-counted on 2026-10-17 with every row count reconciling, because a
 // key change is invisible to every check keyed on the key.
 //
-// It fails until `npm run proc:dedup-pre-cid -- --apply` + the reload chain has run, and again
+// It fails until `pnpm run proc:dedup-pre-cid --apply` + the reload chain has run, and again
 // the day an ingest re-introduces the class. Rules 1–2 of the module only (no fresh parse — the
 // raw dumps are gitignored): safe for a GATE, which deletes nothing.
 
@@ -49,7 +49,7 @@ test.skipIf(skip)(
       n,
       0,
       `${n} contract-number-less legacy twin(s), €${Math.round(eur)} double-counted — run ` +
-        `\`npm run proc:dedup-pre-cid\` (dry run, then --apply), then the reload chain. First: ` +
+        `\`pnpm run proc:dedup-pre-cid\` (dry run, then --apply), then the reload chain. First: ` +
         rows.map((r) => `${r.key} ${r.release_id}`).join(", "),
     );
   },

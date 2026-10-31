@@ -6,7 +6,7 @@
 // and the anomaly was silently invisible. The copy is gone (both import this
 // function); this test pins the contract so it can't regress the same way.
 //
-//   npx tsx --test scripts/procurement/normalize_eop.test.ts
+//   pnpm exec tsx --test scripts/procurement/normalize_eop.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

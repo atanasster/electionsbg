@@ -6,7 +6,7 @@
 // Use after the euro migration (src/lib/currency.ts) so the existing corpus
 // gets `amountEur` / `totalEur` / `totalOther` without a full re-ingest.
 //
-//   npx tsx scripts/procurement/rebuild_from_cache.ts
+//   pnpm exec tsx scripts/procurement/rebuild_from_cache.ts
 
 import fs from "fs";
 import path from "path";

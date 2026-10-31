@@ -37,7 +37,7 @@
 // ASSERTION, not a skip (the kzk_decisions.data.test.ts convention) — an empty
 // linkage corpus is this gate's greenest and most useless state.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -146,7 +146,7 @@ test.skipIf(skip)(
     );
     assert.ok(
       t.present,
-      "procurement_annexes is ABSENT — run `npm run db:load:annexes:pg` " +
+      "procurement_annexes is ABSENT — run `pnpm run db:load:annexes:pg` " +
         "(applies migration 114; needs the raw_data/procurement/anexi cache).",
     );
     const [cov] = await allRows<{ n: string }>(
@@ -156,7 +156,7 @@ test.skipIf(skip)(
     assert.ok(
       Number(cov.n) > 0,
       "procurement_annexes has no contract_no-matched rows — the general " +
-        "invariant below is vacuously green. Run `npm run db:load:annexes:pg` " +
+        "invariant below is vacuously green. Run `pnpm run db:load:annexes:pg` " +
         "(needs the raw_data/procurement/anexi cache).",
     );
   },
@@ -197,7 +197,7 @@ test.skipIf(skip)(
         `labelling on /contract/:key with nothing failing.\n` +
         `  CAUSE: a pass removed contract rows and \`db:load:annexes:pg\` was not re-run. It ` +
         `re-resolves against the reloaded corpus and is the only thing that does.\n` +
-        `  FIX: \`npm run db:load:annexes:pg\` here, and \`npm run db:load:annexes:pg:cloud\` on ` +
+        `  FIX: \`pnpm run db:load:annexes:pg\` here, and \`pnpm run db:load:annexes:pg:cloud\` on ` +
         `prod — the cloud side has no automatic path.\n` +
         orphans
           .slice(0, 8)
@@ -602,7 +602,7 @@ test.skipIf(skip)(
     assert.ok(
       total >= MIN_FLIPPED,
       `only ${total} contracts carry a fold flip (expected ≥ ${MIN_FLIPPED}) — this arm is ` +
-        `vacuous, not green. Run \`npm run db:load:pg\` then \`npm run db:load:annexes:pg\`.`,
+        `vacuous, not green. Run \`pnpm run db:load:pg\` then \`pnpm run db:load:annexes:pg\`.`,
     );
     const bad = rows.filter(
       (r) =>
@@ -623,7 +623,7 @@ test.skipIf(skip)(
         `\nA failing 'carrier' class means load_annexes_pg.ts has stopped passing the per-row ` +
         `basis or the member set (docs/plans/annex-linkage-consortium-basis-v1.md); a failing ` +
         `'(plain)' class usually means procurement_annexes is simply stale — re-run ` +
-        `\`npm run db:load:annexes:pg\`.`,
+        `\`pnpm run db:load:annexes:pg\`.`,
     );
   },
 );

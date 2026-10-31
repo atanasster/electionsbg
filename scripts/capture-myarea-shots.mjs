@@ -5,7 +5,7 @@
 // the other article og images.
 //
 // Usage:
-//   npm run dev           # in one terminal
+//   pnpm run dev           # in one terminal
 //   node scripts/capture-myarea-shots.mjs
 
 import { chromium } from "playwright";

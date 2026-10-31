@@ -4,7 +4,7 @@
 // Everything else in this family is tested on the builder side (seo_courts
 // degrades to [], kfnFunds handles the edge cases the real 31 funds do not
 // exhibit, court_prerender checks the emitted prose). Nothing reads the XML, and
-// the XML is the half that outlives a bad run: `npm run sitemap` is a MANUAL
+// the XML is the half that outlives a bad run: `pnpm run sitemap` is a MANUAL
 // command whose output is committed, while `dist/court/**` is written by
 // postbuild on whatever machine builds. So the dangerous state — a sitemap
 // minted with Postgres, then a build without it — is not covered by the shared
@@ -13,7 +13,7 @@
 // The dist half auto-skips when there is no dist/ (a checkout that has not
 // built); the reader half auto-skips when Postgres is down.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -91,7 +91,7 @@ const asFilePath = (loc: string): string => {
 
 const skipDb = !haveDb ? "Postgres unreachable" : false;
 const skipDist = !haveDist
-  ? "dist/ absent — run npm run build first; this gate compares the sitemap against built pages"
+  ? "dist/ absent — run pnpm run build first; this gate compares the sitemap against built pages"
   : false;
 reportSkip(import.meta.url, skipDb);
 reportSkip(import.meta.url, skipDist);
@@ -172,7 +172,7 @@ test("the sitemap names every gated family in both languages", () => {
   assert.ok(
     inFamily("/procurement/settlement/").length >= 700,
     `only ${inFamily("/procurement/settlement/").length} /procurement/settlement <loc>s ` +
-      "— Postgres was likely down or partial when `npm run sitemap` last ran",
+      "— Postgres was likely down or partial when `pnpm run sitemap` last ran",
   );
 
   // Same shape, file-enumerated rather than PG: index.ts silently `return`s when
@@ -184,7 +184,7 @@ test("the sitemap names every gated family in both languages", () => {
       "likely missing or unparseable when the sitemap was minted",
   );
   // ⚠ THE SAME SHAPE ON A CORPUS THAT IS LOCAL-ONLY. `/data/2*/*` is gitignored, so
-  // `data/*_pvr` exists on a developer machine and nowhere else — and `npm run sitemap`
+  // `data/*_pvr` exists on a developer machine and nowhere else — and `pnpm run sitemap`
   // PRUNES every `sitemap_*.xml` before writing, so a mint on a machine without the trees
   // DELETES the presidential shard, drops it from the index and exits 0. That loss is
   // indistinguishable in review from a legitimate change, which is what this floor is for.
@@ -237,7 +237,7 @@ test("the sitemap names every gated family in both languages", () => {
 // ⚠️ IT GUARDS THE MINT -> COMMIT WINDOW, NOT CI, and that is the honest scope rather than
 // a shortcoming: in CI the working tree IS HEAD, so every family compares 0% and the
 // clause is vacuous there. The loss it exists for originates on the machine that runs
-// `npm run sitemap` against a down or half-migrated database, and that is exactly where
+// `pnpm run sitemap` against a down or half-migrated database, and that is exactly where
 // the working tree and HEAD differ. A shallow clone still carries HEAD's full tree, so
 // `git show` works; a git failure skips rather than passes, because "no baseline" must
 // never read as "no regression".
@@ -279,7 +279,7 @@ test("no degrade-to-empty family shrank sharply against the committed copy", () 
     assert.ok(
       now >= before * 0.98,
       `${family} <loc>s fell ${before} -> ${now} (>2%) — the enumerator likely ` +
-        "degraded to [] when `npm run sitemap` ran; re-mint with Postgres up",
+        "degraded to [] when `pnpm run sitemap` ran; re-mint with Postgres up",
     );
   }
 });
@@ -293,7 +293,7 @@ test("no degrade-to-empty family shrank sharply against the committed copy", () 
 // defect the dist clauses below exist for. They could not see it: they only run when
 // dist/ exists, so on a machine that has not built, that whole class is invisible.
 //
-// `npm run sitemap` is MANUAL and its output is COMMITTED, so nothing couples the two.
+// `pnpm run sitemap` is MANUAL and its output is COMMITTED, so nothing couples the two.
 // This is the coupling: the artifact may not be older than its own inputs.
 test("the sitemap is not committed behind its enumeration sources", () => {
   const at = (rel: string): number => {
@@ -319,7 +319,7 @@ test("the sitemap is not committed behind its enumeration sources", () => {
   }
   // The manifests the enumerators read. Both are COMMITTED files re-minted on their own
   // cadence — `person:slugs` from the serving database, product_slugs.json from the
-  // prices ingest — and neither mint runs `npm run sitemap`.
+  // prices ingest — and neither mint runs `pnpm run sitemap`.
   const SOURCES = [
     "data/person/prerender_slugs.json",
     "data/prices/product_slugs.json",
@@ -339,13 +339,13 @@ test("the sitemap is not committed behind its enumeration sources", () => {
     stale,
     [],
     `these moved after the sitemap was last minted, so the committed artifact may name ` +
-      `pages that no longer prerender — run \`npm run sitemap\` and commit: ${stale.join(", ")}`,
+      `pages that no longer prerender — run \`pnpm run sitemap\` and commit: ${stale.join(", ")}`,
   );
 });
 
 // /votes/<date>/<slug> and the two seeded /parliament hub destinations join this gate for
 // the reason it exists. Both families are minted by readers that run in a DIFFERENT process
-// from the build (`npm run sitemap` vs postbuild), and the pair route in particular carries
+// from the build (`pnpm run sitemap` vs postbuild), and the pair route in particular carries
 // Cyrillic — which is exactly where a <loc> and a dist filename drift apart. The first
 // draft of that route stored an already-percent-encoded path, so `encodeUrlPath` encoded it
 // a second time and the canonical named `%25D0%259F…` while the sitemap named the
@@ -368,7 +368,7 @@ for (const family of [
   //     no `staticPage` entry (/budget/law, /execution, /functional, /personnel,
   //     /investments, /social-funds and the three /municipal*). The committed XML
   //     predated those route_defs lines, so nothing was serving a soft-404 yet; the
-  //     next `npm run sitemap` would have published 18 <loc>s pointing at the SPA
+  //     next `pnpm run sitemap` would have published 18 <loc>s pointing at the SPA
   //     shell — the homepage's title and canonical — at a 200.
   //   * LIVE — the committed sitemap named
   //     /budget/ministry/…-blago-ustroystvoto, a slug minted before a soft hyphen in
@@ -398,7 +398,7 @@ test.skipIf(skipDb)(
     if (!expected.length) {
       reportSkip(
         import.meta.url,
-        "the judicial dimension is not loaded — run npm run db:load:judicial-bodies:pg",
+        "the judicial dimension is not loaded — run pnpm run db:load:judicial-bodies:pg",
       );
       return t.skip();
     }
@@ -408,7 +408,7 @@ test.skipIf(skipDb)(
     assert.deepEqual(
       [...actual].sort(),
       [...expected].sort(),
-      "the sitemap and the reader disagree — re-run `npm run sitemap`",
+      "the sitemap and the reader disagree — re-run `pnpm run sitemap`",
     );
   },
 );

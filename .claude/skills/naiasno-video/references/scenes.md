@@ -218,7 +218,7 @@ The same rule governs any staggered set: bars appearing, rows filling, dots land
 
 ## ⭐ Capture vs canvas — the rule
 
-Both are built (`ScreenPlate` + `npm run video:screens`, and the drawn canvas).
+Both are built (`ScreenPlate` + `pnpm run video:screens`, and the drawn canvas).
 Decided by building the same subject twice, 2026-08-08:
 
 | | **Drawn canvas** | **Captured screen** |

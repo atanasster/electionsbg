@@ -53,12 +53,12 @@ describe.each(CYCLES)("%s council votes by oblast", (cycle) => {
     : { regions: [] as SummaryRow[] };
 
   // ⚠ SELF-ARMING, AND THE SKIP NAMES ITS OWN REASON. „the rollups predate the field" and „the
-  // rollups are wrong" must never be the same green — the fix is `npm run data -- --local-rollups`.
+  // rollups are wrong" must never be the same green — the fix is `pnpm run data --local-rollups`.
   const built = summary.regions.length > 0 && !!summary.regions[0].councilVotes;
   if (!have || !built) {
     reportSkip(
       import.meta.url,
-      `${cycle}: ${have ? "regions_summary.json carries no councilVotes yet — run `npm run data -- --local-rollups`" : "data/<cycle> is absent (gitignored)"}`,
+      `${cycle}: ${have ? "regions_summary.json carries no councilVotes yet — run `pnpm run data --local-rollups`" : "data/<cycle> is absent (gitignored)"}`,
     );
     it.skip("skipped", () => {});
     return;
@@ -160,7 +160,7 @@ describe("votes and seats are different answers", () => {
   if (!built) {
     reportSkip(
       import.meta.url,
-      "no cycle carries councilVotes yet — run `npm run data -- --local-rollups`",
+      "no cycle carries councilVotes yet — run `pnpm run data --local-rollups`",
     );
     it.skip("skipped", () => {});
     return;

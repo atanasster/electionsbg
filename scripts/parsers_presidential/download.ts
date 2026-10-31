@@ -4,7 +4,7 @@
 // ⚠ A FLAG-GATED OPERATOR STEP, NEVER PART OF THE WATCHER FLOW. It drives a HEADED
 // Playwright window (the only thing that clears the per-resource Cloudflare challenge
 // on results.cik.bg), downloads up to 130 MB, and rewrites a committed tree. Same
-// convention as `--local-csv`: `npm run data -- --pvr-download <cycle>`.
+// convention as `--local-csv`: `pnpm run data --pvr-download <cycle>`.
 //
 // ⚠ IDEMPOTENT BY DEFAULT, AND THAT IS THE IMPORTANT PART. All five historical cycles
 // are already committed, so the ordinary outcome of running this is that every round
@@ -12,8 +12,8 @@
 // same code path, exercised now against trees whose correct content is known, rather
 // than written for the first time on election night.
 //
-//   npm run data -- --pvr-download 2021_11_14_pvr          # skips; re-stamps
-//   npm run data -- --pvr-download pvr2026 --pvr-force     # re-fetch anyway
+//   pnpm run data --pvr-download 2021_11_14_pvr          # skips; re-stamps
+//   pnpm run data --pvr-download pvr2026 --pvr-force     # re-fetch anyway
 //
 // Plan: docs/plans/presidential-elections-v1.md T1.2, T1.4.
 

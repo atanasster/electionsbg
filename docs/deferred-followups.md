@@ -14,7 +14,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 `index-B9gWD1hk.js` on `/`, `/person`, `/company`). Still open:
 
 - Firebase: clear the domain-level redirect on `ai.electionsbg.com` (see the AI app entry).
-- `npm run db:load:municipal-fiscal:pg:cloud` — optional; no verdict differs.
+- `pnpm run db:load:municipal-fiscal:pg:cloud` — optional; no verdict differs.
 - The cloud person chain ran 2026-10-21 (19 steps, 24 min): prod now equals local on persons,
   `/persons`, search and attribution; TR roles within 3, graph edges within 2. It cost two
   measured 500 windows (~5½ min + ~1 min) — recorded in CLAUDE.md beside the 2026-09-04 poll.
@@ -40,7 +40,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   stays gated out of `person_connections` and `graph_edges`. (Verified 2026-10-21 against
   `raw_data/tr/daily/`; an earlier version of this entry said „zero `<Erase>` tags, no dates".)
 - **CR Deeds full crawl & investigative signals**: Run the resumable ~56k-EIK CR Deeds crawl
-  (`npm run declarations:cr-deeds:fetch && npm run declarations:cr-deeds:parse && npm run declarations:cr-deeds:project && npm run db:load:cr-founding:pg`)
+  (`pnpm run declarations:cr-deeds:fetch && pnpm run declarations:cr-deeds:parse && pnpm run declarations:cr-deeds:project && pnpm run db:load:cr-founding:pg`)
   and ship `db:load:cr-founding:pg:cloud` + `db:load:procurement-risk:pg:cloud` so `youngWinner`
   activates in production. Follow-up signals over the parsed CR Deeds store: ownership block +
   share-transfer timeline on `/company/:eik`, multi-hop corporate ownership chain
@@ -101,7 +101,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   CPV-8/CPV-4/division basis. Consider per-metric cohort widening when a fine cohort falls below
   the minimum sample instead of weakening the shared minimum itself.
 - **ЦАИС ЕОП EUR guard & `T`-id canonicalization**: the verifier now exists —
-  `npx tsx scripts/procurement/verify_eur_currency_eop.ts` (read-only; writes the gitignored
+  `pnpm exec tsx scripts/procurement/verify_eur_currency_eop.ts` (read-only; writes the gitignored
   `raw_data/procurement/eur_currency_check.json`). Measured 2026-10-21 over 2020–2025, it does NOT
   reproduce the earlier „365 EUR-tagged, ~322 entered in BGN" note. The legacy АОП CSV's currency
   column tags 90 rows EUR (2020–2023; none in the 2024/2025 RL dumps); `parseLegacyCsv` keeps 57 of
@@ -170,7 +170,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   all six Interreg programmes incl. RO-BG (`interregviarobg.eu`) and BG-RS/MK/TR (`ipa-bg*.mrrb.bg`)
   (`opencalls:interreg`), and АЗ dated intakes (`opencalls:az`, exact rows only) load into the
   LOCAL `open_calls`. Still open:
-  - Cloud SQL has none of it: `npm run db:load:open-calls:pg:cloud`. Checked before publishing:
+  - Cloud SQL has none of it: `pnpm run db:load:open-calls:pg:cloud`. Checked before publishing:
     all 5 Interreg keys prod holds today are in the new snapshot, field-for-field identical, so
     the load adds 31 rows and orphans none.
   - Ensure `DELETE FROM open_calls WHERE source = 'interreg' AND closes_at IS NULL;` has been
@@ -187,7 +187,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   - Greece–Bulgaria 2021–2027: all 21 projects and 85 partnerships are present, but 0% carry a
     partner budget or postcode. The coverage notes are now derived from keep.eu's own counts
     (T2.2; all 22 re-checked against keep.eu live on 2026-10-21) — but Cloud SQL still serves the
-    old hand-typed notes („38%", URBACT „1%") until `npm run db:load:interreg:pg:cloud`.
+    old hand-typed notes („38%", URBACT „1%") until `pnpm run db:load:interreg:pg:cloud`.
   - URBACT IV: 95.8% partner budgets, 0% postcodes.
   - ESPON 2030: keep.eu holds 0 of 110 projects.
 - **ИСУН 2020 per-project executors**: Full crawl of `2020.eufunds.bg` detail pages is shelved —
@@ -259,15 +259,15 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   awarders (currently sell-side contractors only).
 - **Administration**: e-service request volumes are INGESTED (2026-10-21) — МЕУ's еФорми
   dataset (data.egov.bg 20218) → committed `data/administration/eforms_requests.json`
-  (`npm run admin:eforms`) → `admin_service_requests` + `admin_service_requests_month`
+  (`pnpm run admin:eforms`) → `admin_service_requests` + `admin_service_requests_month`
   (migration 201, `db:load:admin-service-requests:pg`, in `db:refresh`). 23 months 2024-02…2026-07,
   173,509 requests, 407 services (295 join the ИИСДА catalogue). Still open:
   - **No surface reads it yet.** A `/sector/administration` tile must say „заявени през
     еФорми" (requests, one system only) and name the missing months — the publisher skipped
     2025-01…04, 2025-07…08 and 2026-02, and nothing after 2026-07 had appeared by 2026-10-21.
   - **No watcher.** The dataset's monthly resources land on the 1st; a `scripts/watch/sources/`
-    entry on the dataset's `updated_at` would flag `npm run admin:eforms`.
-  - **Cloud SQL never received it**: `npm run db:load:admin-service-requests:pg:cloud`.
+    entry on the dataset's `updated_at` would flag `pnpm run admin:eforms`.
+  - **Cloud SQL never received it**: `pnpm run db:load:admin-service-requests:pg:cloud`.
   - `analytics.egov.bg` (public Matomo, ~20 egov sites, anonymous JSON/CSV API) holds page
     VISITS, not transactions — optional, and only ever labelled as visits. No
     client-satisfaction dataset has been found.
@@ -296,7 +296,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
     public source: `opendata.his.bg` only publishes the pharmacy, drugstore and outpatient-facility
     registers. Revisit only via a ЗДОИ request to МЗ / НЗИС.
 - **Social & Pensions (МТСП / НОИ)**:
-  - НОИ 28-ТП territorial map. The INPUT is ingested (2026-10-21): `npm run noi:pensioners-by-tp`
+  - НОИ 28-ТП territorial map. The INPUT is ingested (2026-10-21): `pnpm run noi:pensioners-by-tp`
     → `data/budget/noi/pensioners_by_tp.json` (data.egov.bg 10480; 2010–2025; 28 ТП on the
     canonical oblast buckets, София-град `SOFIA_CITY` and София-област `SFO` apart, ТП 29
     „Международни спогодби/договори" kept unplaced; every year sums exactly to „Общо"). Still
@@ -314,7 +314,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   pharmacies) because `contracts.cpv_code` is 99.66% NULL in the АОП portal CSV. ⚠️ No such
   probe exists in the repo (no script, no `nap_issuers` relation; checked 2026-10-21) — this is
   the rule for one if it is built, not a description of code that ships.
-- **Tourism**: the НТР accommodation register is FETCHED (2026-10-21) — `npm run tourism:ntr`
+- **Tourism**: the НТР accommodation register is FETCHED (2026-10-21) — `pnpm run tourism:ntr`
   (`scripts/tourism/fetch_ntr.ts`). No cookie jar or postback turned out to be needed: the XPages
   page's table reads Domino's REST Data Service
   (`/CategoryzationAll.nsf/api/data/collections/name/vRegistarMNValid1?ps=100&page=N`, JSON,
@@ -445,13 +445,13 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   - **24.10.2026, results-day readiness (operator, no code):** plain `curl` gets 403 on
     results.cik.bg and cik.bg, so prove the Cloudflare-warming path against a KNOWN-GOOD cycle
     the day before, where failure cannot be confused with „not published yet":
-    `npm run data -- --pvr-download 2021_11_14_pvr --pvr-force` (headed Playwright, ~165 MB).
+    `pnpm run data --pvr-download 2021_11_14_pvr --pvr-force` (headed Playwright, ~165 MB).
     `sources.ts` pins each archive's md5 and the downloader refuses a mismatch before
     extracting, so exit 0 with „2 archive(s) fetched" is the pass. Expect `SOURCE.json` to show
     as modified (a forced fetch rewrites its `fetchedAt`) and restore it with
     `git checkout -- raw_data/2021_11_14_pvr/SOURCE.json` before the auto-committer picks it up;
     any change under `ТУР1/` or `ТУР2/` is the real alarm. 2021 rehearses only the `click`
-    strategy — also run `npm run data -- --pvr-download 2016_11_06_pvr --pvr-force` (the
+    strategy — also run `pnpm run data --pvr-download 2016_11_06_pvr --pvr-force` (the
     `goto` path, same checks) unless the 2026 entry is known to be `click`.
   - When 2026 round 1 (`2026_10_25_pvr`) drops, re-verify `runoffFlow` ridge-regularised OLS fit on
     live 2026 round-1 → round-2 pairs and calibrate `presidential_2026` risk-index weights once
@@ -497,14 +497,14 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 - **Parliamentary votes & bills**:
   - Decide whether to prerender a scored subset of `/votes/:date/:slug` item pages (top engaged
     URL family in the parliament module, currently SPA-only).
-  - Bills from parliament.bg: the CURRENT assembly is crawled (`npm run parliament:bills`, T4.7,
+  - Bills from parliament.bg: the CURRENT assembly is crawled (`pnpm run parliament:bills`, T4.7,
     2026-10-21) and its ДВ adoptions fill `bill.adopted_on` / `dv_issue` for 38 of the 52nd's 52
     stems. Still open: (a) the 44th–51st — `fn-bills` 500s on any assembly filter, so those need
     `GET /api/v1/bill/{id}` id enumeration; (b) a surface for the adoption; (c) the 14 stems with no
     corroborated match stay unmatched by design — typos, rewordings, or an adoption day with no
     vote in the corpus; (d) `final_item` stays NULL — the
     source dates an adoption, it does not identify the adopting vote;
-    (e) `npm run db:load:rollcall:pg:cloud` has not carried it to prod yet.
+    (e) `pnpm run db:load:rollcall:pg:cloud` has not carried it to prod yet.
 
 ## Governance, Places & Council
 
@@ -568,7 +568,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
     in production once human-adjudicated calibration gates pass.
   - Flip `NEWS_PUBLISH_PERSON_RAIL`, `NEWS_PUBLISH_PERSON_PAGES`, `NEWS_PUBLISH_PERSON_GRID`, and
     `NEWS_PUBLISH_MAIN_SITE_MEDIA_TONE` on once the human adjudication queues (`Самоличност`,
-    `Фамилии`, `Нови лица`, `Оценки` in `npm run news:review`) clear `person_accuracy_gate.py`.
+    `Фамилии`, `Нови лица`, `Оценки` in `pnpm run news:review`) clear `person_accuracy_gate.py`.
 - **Realtime worker & scheduler (Phases 5–6)**: Wire fast-path overlay invocation into
   `run_hourly.sh` / LaunchAgent scheduler, run a 72h unattended local soak test, and decide between
   local Mac mini vs a ~€6–9/mo EU VPS (Hetzner CX23 €5.49 / CAX11 €5.99 excl. VAT and IPv4 after
@@ -619,7 +619,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 - **Bundle & i18n splits**:
   - `governments.json` is in `bucket:gz`'s `GLOBAL_FILES` since 2026-10-21; the bucket copy is
     still the uncompressed 2026-05-11 upload (content identical), so the remaining step is
-    `npm run bucket:gz`.
+    `pnpm run bucket:gz`.
   - Next candidate locale bundles to split out of `src/i18n.ts` when entry JS byte budgets tighten:
     `funds`, `procurement`, `person`, `indicators`, `local`.
 - **Data Hub (`/data`) granularity**:
@@ -630,7 +630,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
     `ds:environment`, and `ds:landuse`.
 - **Testing & GDPR**:
   - Optional `scripts/db/tests/skip_budget.test.ts` meta-test asserting a ceiling on skipped gates
-    during `npm run test:data`.
+    during `pnpm run test:data`.
   - External GDPR counsel review of `/privacy` "People in our data" Art. 14 / journalistic
     exemption wording (`src/screens/privacy/privacyContent.ts`).
 - **Site hygiene follow-ups**:

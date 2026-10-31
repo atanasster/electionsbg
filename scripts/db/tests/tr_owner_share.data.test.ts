@@ -2,7 +2,7 @@
 // person owns, and the four surfaces that serve it: company_officers() + person_roles()
 // (008), the company_person_roles matview (022) and mp_tr_roles() (150).
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // WHAT THIS EXISTS TO CATCH — TWO compounding defects, and the gate must fail on either
 // one alone:
@@ -810,7 +810,7 @@ test.skipIf(skip)(
         reportSkip(
           import.meta.url,
           `stored share_percent predates owner_share.ts (${stale.n} rows publish a percentage the current rule refuses, inside companies the view still publishes for) — ` +
-            "rebuild with npm run tr:daily-refresh then db:load:tr:pg. NOT evidence the twins agree.",
+            "rebuild with pnpm run tr:daily-refresh then db:load:tr:pg. NOT evidence the twins agree.",
         );
         ctx.skip();
       }

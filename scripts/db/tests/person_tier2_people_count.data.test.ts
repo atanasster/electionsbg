@@ -29,7 +29,7 @@
 //     („Башлиева-Панова" / „Башлиева- Панова"). Those fold together but are `ambiguous`,
 //     and every Tier-2 arm refuses an ambiguous name by design.
 //
-//   npm run test:data
+//   pnpm run test:data
 import { describe, it, expect, afterAll } from "vitest";
 import { allRows, end } from "../lib/pg";
 import { PERSON_GUID_SQL_PATTERN } from "../../officials/slug_identity";
@@ -234,7 +234,7 @@ describe("Tier 2b — MPs whose declarations sit on a separate person row", () =
       ).toBeGreaterThan(1500);
       expect(
         Number(r.decls),
-        "no resolved declarations — run db:load:declarations:pg -- --resolve",
+        "no resolved declarations — run db:load:declarations:pg --resolve",
       ).toBeGreaterThan(40_000);
     },
     120_000,

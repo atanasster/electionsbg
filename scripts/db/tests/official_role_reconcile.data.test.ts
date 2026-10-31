@@ -16,7 +16,7 @@
 // unloaded, or the corpus carrying no `filed_position` — because those three need three
 // different remedies. The probe is tri-state rather than boolean; see the ⚠ on `reachable()`.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -65,7 +65,7 @@ const reachable = async (): Promise<string | false> => {
         WHERE tier = 'muni' AND subject_ref IS NOT NULL`,
     );
     if (Number(c.n) === 0)
-      return "no muni declaration carries a subject_ref — run npm run db:load:declarations:pg";
+      return "no muni declaration carries a subject_ref — run pnpm run db:load:declarations:pg";
     if (Number(c.filed) === 0)
       return "declaration.filed_position is empty — it comes from a crawl or scripts/db/ship_filed_position.ts, never from db:refresh";
     return false;
@@ -109,7 +109,7 @@ test.skipIf(skip)(
       `${pending} municipal official(s) have a published role that disagrees with their own ` +
         "filed position. Either the ingest stopped applying scripts/officials/role_reconcile.ts, " +
         "or the rule changed since the corpus was stamped. Re-derive with " +
-        "`npx tsx scripts/officials/restamp_roles.ts --apply`, then re-emit the shards and " +
+        "`pnpm exec tsx scripts/officials/restamp_roles.ts --apply`, then re-emit the shards and " +
         "reload — the command list is in that file's header.",
     );
   },

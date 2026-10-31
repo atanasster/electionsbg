@@ -1,7 +1,7 @@
 // readSeoCourts() is the single source the /court prerender AND the /court
 // sitemap enumerator read. The whole degrade-gracefully design rests on it
 // RETURNING [] rather than throwing when Postgres cannot answer: a throw in the
-// prerender aborts `npm run build` on any machine without Docker, and — worse —
+// prerender aborts `pnpm run build` on any machine without Docker, and — worse —
 // a throw in only ONE of the two callers would let the sitemap emit <loc>s for
 // pages the prerender never wrote.
 //

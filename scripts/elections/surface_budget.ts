@@ -12,8 +12,8 @@
 // both are reported, and `surface_budget.test.ts` gates on the max.
 //
 // Usage:
-//   npm run elections:budget                    # every cycle the policy covers
-//   npm run elections:budget -- --json          # machine-readable, for the gate
+//   pnpm run elections:budget                    # every cycle the policy covers
+//   pnpm run elections:budget --json          # machine-readable, for the gate
 //
 // Reads only; writes nothing.
 
@@ -226,7 +226,7 @@ export const renderTable = (rows: LevelMeasurement[]): string => {
   const body = rows.map((r) => {
     // ⚠ THE RENDERER AND THE GATE MUST APPLY THE SAME RULE. They did not: the gate exempted
     // `embedded` while this printed "⚠ OVER — flip to artifact" for it on every run, so
-    // `npm run elections:budget` permanently instructed the operator to reverse a decision the
+    // `pnpm run elections:budget` permanently instructed the operator to reverse a decision the
     // test suite was defending. A tool that contradicts its own gate teaches people to ignore it.
     const verdict =
       r.policy.source === "artifact"

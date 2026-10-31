@@ -1,7 +1,7 @@
 // Load data/procurement/cprs.json into `cprs_licence` (migration 170).
 //
-//   npm run db:load:cprs:pg
-//   npm run db:load:cprs:pg:cloud
+//   pnpm run db:load:cprs:pg
+//   pnpm run db:load:cprs:pg:cloud
 //
 // Pure-load: reads the committed artifact, never the network. The crawl half is
 // `scripts/procurement/cprs/ingest.ts`, an operator action.
@@ -44,7 +44,7 @@ const main = async (): Promise<void> => {
   if (!fs.existsSync(SRC)) {
     console.warn(
       `⚠ ${path.relative(process.cwd(), SRC)} is absent — schema applied, no rows ` +
-        `loaded. Run \`npx tsx scripts/procurement/cprs/ingest.ts --apply\` first.`,
+        `loaded. Run \`pnpm exec tsx scripts/procurement/cprs/ingest.ts --apply\` first.`,
     );
     return;
   }

@@ -3,7 +3,7 @@
 // company/officer search functions (BG/EN, partial, fuzzy, any-order), and the
 // last-ingestion delta invariant.
 //
-// Requires the Postgres store (`npm run db:pg:up` + `db:load:pg` + `db:load:tr:pg`);
+// Requires the Postgres store (`pnpm run db:pg:up` + `db:load:pg` + `db:load:tr:pg`);
 // auto-skips when Postgres is unreachable or the tables/functions are absent —
 // so CI (no container, no corpus) skips it, exactly like the SQLite tests.
 //
@@ -26,14 +26,14 @@ const probe = async (): Promise<string | false> => {
   try {
     await allRows("SELECT 1");
   } catch {
-    return "no Postgres — run npm run db:pg:up";
+    return "no Postgres — run pnpm run db:pg:up";
   }
   const fn = await scalar<string | null>(
     "SELECT to_regprocedure('search_companies(text,int)')::text",
   );
-  if (!fn) return "search functions absent — run npm run db:load:tr:pg";
+  if (!fn) return "search functions absent — run pnpm run db:load:tr:pg";
   const n = Number(await scalar<string>("SELECT count(*) FROM tr_companies"));
-  if (!n) return "tr_companies empty — run npm run db:load:tr:pg";
+  if (!n) return "tr_companies empty — run pnpm run db:load:tr:pg";
   return false;
 };
 

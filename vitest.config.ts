@@ -2,8 +2,8 @@ import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-// Vitest owns the unit + component layer (`npm run test:unit`). Playwright keeps
-// the end-to-end / SEO / perf smoke layer (`npm test`); the two do not overlap.
+// Vitest owns the unit + component layer (`pnpm run test:unit`). Playwright keeps
+// the end-to-end / SEO / perf smoke layer (`pnpm test`); the two do not overlap.
 //
 // This config is deliberately standalone rather than merging the whole
 // vite.config.ts. We want the two things the app config provides that tests
@@ -48,7 +48,7 @@ export default defineConfig({
           environment: "node",
           // Covers scripts/** and the shared libs under scripts/**/lib. The
           // *.data.test.ts integration gates live here too; they auto-skip when
-          // Postgres is unreachable, so a plain `npm run test:unit` stays green
+          // Postgres is unreachable, so a plain `pnpm run test:unit` stays green
           // without a database (see docs/testing-standards.md). When Postgres
           // IS up they run for real and pull large tables, so this project gets
           // a generous timeout (node:test, the previous runner, had none).
@@ -64,7 +64,7 @@ export default defineConfig({
           // test passing by never running. Only its pure logic is tested; the
           // compositions are verified by rendering and reading frames.
           // news/scripts/** is the news-intake pipeline. Its Python halves
-          // have their own suites (run by `npm run news:test`); the ONE
+          // have their own suites (run by `pnpm run news:test`); the ONE
           // JavaScript half is harvest_browser.mjs, the headless browser
           // tier. Its test file matched no include pattern at all — neither
           // the directory nor the .mjs extension — so it was exactly the

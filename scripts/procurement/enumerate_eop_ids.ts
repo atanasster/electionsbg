@@ -219,7 +219,7 @@ const main = async (args: {
       if (days.length)
         console.log(
           `\n  Missing procedures span ${days.length} publication day(s): ${days[0]} … ${days[days.length - 1]}\n` +
-            `  Fix:  npx tsx scripts/procurement/ingest_tenders.ts --backfill ` +
+            `  Fix:  pnpm exec tsx scripts/procurement/ingest_tenders.ts --backfill ` +
             `--from ${days[0]} --to ${days[days.length - 1]} --apply\n` +
             `  (the day-coverage guard will refuse the rebuild if the cache is still holed)`,
         );

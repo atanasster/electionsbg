@@ -6,7 +6,7 @@
 //
 // Auto-skips when Postgres is down or unresolved — like the other *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import fs from "node:fs";
 import path from "node:path";
@@ -135,13 +135,13 @@ test.skipIf(skip || !isServingDatabase())(
     assert.equal(
       manifest.length,
       live.length,
-      `manifest has ${manifest.length} slugs, live floor has ${live.length} — re-run npm run person:slugs:cloud`,
+      `manifest has ${manifest.length} slugs, live floor has ${live.length} — re-run pnpm run person:slugs:cloud`,
     );
     const mismatches = live.filter((r) => byslug.get(r.slug) !== r.indexable);
     assert.equal(
       mismatches.length,
       0,
-      `${mismatches.length} slug(s) disagree with the live floor — re-run npm run person:slugs:cloud`,
+      `${mismatches.length} slug(s) disagree with the live floor — re-run pnpm run person:slugs:cloud`,
     );
   },
 );

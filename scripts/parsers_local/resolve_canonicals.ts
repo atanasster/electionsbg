@@ -336,7 +336,7 @@ const loadCanonicalParties = (
   const file = path.join(publicFolder, "canonical_parties.json");
   if (!fs.existsSync(file)) {
     console.warn(
-      `[resolve_canonicals] canonical_parties.json not found — run \`npm run data -- --summary\` first.`,
+      `[resolve_canonicals] canonical_parties.json not found — run \`pnpm run data --summary\` first.`,
     );
     return undefined;
   }
@@ -384,10 +384,10 @@ export const resolveCanonicalsForAllLocalCycles = (opts: {
   // this fast, idempotent pass slow and non-obvious. After changing a canonical
   // id, run them too:
   //
-  //   npm run data -- --local-flows
-  //   npm run data -- --prevote-flows
-  //   npm run data -- --local-place-trends
-  //   npm run data -- --local-problem-sections
+  //   pnpm run data --local-flows
+  //   pnpm run data --prevote-flows
+  //   pnpm run data --local-place-trends
+  //   pnpm run data --local-problem-sections
   //
   // `served_canonical_ids.test.ts` fails if any of them is left stale.
   console.log(

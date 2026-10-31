@@ -23,14 +23,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      # Reads the pnpm version from package.json's packageManager field.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: npm
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       # Cache the Playwright browser binary so we don't re-download Chromium
       # (~150 MB) on every run. Key on the resolved @playwright/test version
@@ -44,11 +48,11 @@ jobs:
 
       - name: Install Playwright Chromium
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Install Playwright system deps (cache hit path)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+        run: pnpm exec playwright install-deps chromium
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools@15.18.0
@@ -62,23 +66,23 @@ jobs:
         # them against the Python. (`news/scripts/gen_bucket_ts.test.mjs` runs
         # the same check inside test:ci, but degrades to a warning when no
         # interpreter is on PATH; this step is the hard one.)
-        run: npm run gen:bucket-ts:check
+        run: pnpm run gen:bucket-ts:check
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       # CI keeps the hermetic unit/component layer only. The *.data.test.ts
       # suites are integration gates for local data refreshes and are omitted
       # here so they do not consume the account's Actions-minute allowance.
       - name: Unit tests
-        run: npm run test:ci
+        run: pnpm run test:ci
 
       # The `functions/` package keeps its own node:test gate (it is CommonJS and
       # excluded from the root vitest projects), so `test:unit` does not cover it.
       # Without this step the route table, the registry engine and the /officials
       # redirect parser are tested only on a developer's machine.
       - name: Cloud Function tests
-        run: npm run functions:test
+        run: pnpm run functions:test
 
       # The public evaluator has an isolated Node package plus a real
       # Hosting -> Function -> Firestore boundary gate. The latter uses a
@@ -88,7 +92,7 @@ jobs:
         run: npm --prefix news-functions ci
 
       - name: News evaluation Function tests
-        run: npm run news:evals:test
+        run: pnpm run news:evals:test
 
       # The webServer config in playwright.config.ts boots `firebase
       # emulators:start --only hosting`, which serves dist/. So the dist
@@ -109,7 +113,7 @@ jobs:
       # The origin must also be in `scripts/bucket_cors.json` (127.0.0.1:5002 is the
       # Playwright baseURL) or the browser blocks it and the symptom is identical.
       - name: Build
-        run: npm run build
+        run: pnpm run build
         env:
           VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com
 
@@ -118,7 +122,7 @@ jobs:
       # Cloudflare. EDGE_CI_TOKEN is the CI-only token in EDGE_SHARED_SECRET;
       # tests/edgeTest.ts attaches it to emulator-origin function requests only.
       - name: Run Playwright tests
-        run: npm test
+        run: pnpm test
         env:
           CI: "true"
           EDGE_CI_TOKEN: ${{ secrets.EDGE_CI_TOKEN }}

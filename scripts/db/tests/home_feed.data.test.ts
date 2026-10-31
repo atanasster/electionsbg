@@ -49,7 +49,7 @@ describe("home feed — schema and budget", () => {
   it("exists, declares its version, and fits its ceiling", () => {
     expect(
       present,
-      `${ARTIFACT} is committed — run npm run db:gen-home-feed`,
+      `${ARTIFACT} is committed — run pnpm run db:gen-home-feed`,
     ).toBe(true);
     expect(feed.schemaVersion).toBe(1);
     expect(statSync(ARTIFACT).size).toBeLessThan(SIZE_CEILING);

@@ -13,13 +13,13 @@
 // was measured instead of the real one, and an inferred headline overstated the problem by 3×.
 // A committed harness importing the real helpers cannot drift from what the pass does.
 //
-//   npx tsx scripts/procurement/measure_cross_source.ts                 # shards (what the pass sees)
-//   npx tsx scripts/procurement/measure_cross_source.ts --source=pg     # the loaded database
-//   npx tsx scripts/procurement/measure_cross_source.ts --json          # machine-readable
+//   pnpm exec tsx scripts/procurement/measure_cross_source.ts                 # shards (what the pass sees)
+//   pnpm exec tsx scripts/procurement/measure_cross_source.ts --source=pg     # the loaded database
+//   pnpm exec tsx scripts/procurement/measure_cross_source.ts --json          # machine-readable
 //
 // Against Cloud SQL (production), via the proxy — still read-only:
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-//     npx tsx scripts/procurement/measure_cross_source.ts --source=pg
+//     pnpm exec tsx scripts/procurement/measure_cross_source.ts --source=pg
 //
 // ── THE TWO SOURCES DO NOT REPORT THE SAME €, AND BOTH ARE RIGHT ────────────────────────────
 //
@@ -655,7 +655,7 @@ const main = async (): Promise<void> => {
       `  ${orphans} procurement_annexes row(s) across ${orphanKeys.size} contract key(s) ` +
         `reference a row this eviction set removes.` +
         (orphans
-          ? `\n  → run \`npm run db:load:annexes:pg\` after the reload; it re-resolves against contracts.`
+          ? `\n  → run \`pnpm run db:load:annexes:pg\` after the reload; it re-resolves against contracts.`
           : ""),
     );
     out.annexOrphans = orphans;

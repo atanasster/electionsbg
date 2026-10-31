@@ -47,7 +47,7 @@
 // up with 20,767 redirects missing and the only signal was a test failing at the very end
 // of the pipeline. Deploys need it too — see the checklist in the plan.
 //
-//   npm run person:slug-redirects -- raw_data/person/officials_reslug_2026_07_24.json
+//   pnpm run person:slug-redirects raw_data/person/officials_reslug_2026_07_24.json
 //
 // To rebuild the map itself (an operator step, after a future officials re-slug):
 //

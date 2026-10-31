@@ -18,7 +18,7 @@
 // returns `undefined` for non-listed municípios, which makes the tile
 // auto-hide everywhere except the 27 oblast capitals.
 //
-// Run: `npx tsx scripts/transparency/build_lisi.ts`
+// Run: `pnpm exec tsx scripts/transparency/build_lisi.ts`
 
 import fs from "node:fs";
 import path from "node:path";

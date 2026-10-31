@@ -15,7 +15,7 @@
 // no PDF scraping needed for it. The merits OUTCOME (уважена/отхвърлена,
 // спиране granted) lives in the Решения/Определения registers and is a tier-2
 // backfill — NOT done here. That arm is scripts/procurement/kzk_decisions.ts
-// (`npm run kzk:decisions`), a separate headed crawl; this crawler writes NULL
+// (`pnpm run kzk:decisions`), a separate headed crawl; this crawler writes NULL
 // for outcome/suspension and its COALESCE upserts can never fill them, which is
 // why an apply here reports the tier-2 watermark and warns when it falls behind.
 //
@@ -749,7 +749,7 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
 
     // Write the PG-resolved enrichment (buyer_eik, match, outcome, decision_date,
     // suspension) BACK into the ingest JSON so it is self-describing — otherwise
-    // `npm run kzk:summary` (which reads this JSON) would silently zero the
+    // `pnpm run kzk:summary` (which reads this JSON) would silently zero the
     // resolved/outcome totals on a machine whose local JSON was never enriched.
     // This is the write-back mergeWrite's field-merge relies on; PG is the source.
     try {
@@ -844,9 +844,9 @@ const reportTierTwoDrift = async (): Promise<void> => {
         `\n⚠ THE MERITS ARM IS ${days} DAYS BEHIND THE INTAKE ARM.\n` +
           "  This crawl CANNOT fix that — its upserts are COALESCE(existing, EXCLUDED)\n" +
           "  on `outcome`, so it never writes one. Run the decisions arm:\n" +
-          "      npm run kzk:decisions -- --year <YYYY> --apply\n" +
-          "      npm run db:load:kzk-decisions:pg\n" +
-          "      npm run kzk:rejoin -- --apply\n" +
+          "      pnpm run kzk:decisions --year <YYYY> --apply\n" +
+          "      pnpm run db:load:kzk-decisions:pg\n" +
+          "      pnpm run kzk:rejoin --apply\n" +
           "  Stale outcomes are not cosmetic: upheld_ocids feeds the contract\n" +
           "  Corruption Risk Index, so recently-appealed procedures grade CLEANER\n" +
           "  than they are.",

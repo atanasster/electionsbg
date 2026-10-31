@@ -4,7 +4,7 @@
 // small aggregate (counts + top-20 lists, a few KB) so the browser AI assistant
 // — which reads static JSON, not /api/db — can answer NGO overview questions.
 //
-//   npm run ngo:ai-summary   (needs the local Postgres up + loaded)
+//   pnpm run ngo:ai-summary   (needs the local Postgres up + loaded)
 //
 // See docs/plans/ngo-final-implementation-plan.md.
 

@@ -64,7 +64,7 @@
 // `scalar()` call is the whole derivation. The figures were taken on a full `db:refresh`
 // corpus and re-taken through the Cloud SQL proxy the same day.
 //
-//   npx vitest run scripts/db/tests/person_identity_duplicates.data.test.ts
+//   pnpm exec vitest run scripts/db/tests/person_identity_duplicates.data.test.ts
 
 import { readFileSync } from "node:fs";
 import { test, afterAll } from "vitest";
@@ -77,7 +77,7 @@ import { stripComments } from "../../lib/strip_comments";
 // 2026-09-02, on every figure here — but that is a point-in-time fact about two corpora, not
 // a property, and the two databases drift by design (CLAUDE.md's person-chain section
 // measures ~1% of tr/ngo roles apart). The pin is here so that a
-// `DATABASE_URL=…:5434 npx vitest` run cannot report LOCAL numbers under a cloud URL, which
+// `DATABASE_URL=…:5434 pnpm exec vitest` run cannot report LOCAL numbers under a cloud URL, which
 // is the trap graph.data.test.ts documents. To measure cloud, query it directly.
 pinLocalDatabase();
 
@@ -278,7 +278,7 @@ const skip =
     : dbState === "no-server"
       ? "Postgres unreachable"
       : dbState === "missing" || dbState === "empty"
-        ? "person layer not resolved — run npm run db:resolve:persons"
+        ? "person layer not resolved — run pnpm run db:resolve:persons"
         : false; // a broken install FAILS below rather than skipping
 reportSkip(import.meta.url, skip);
 
@@ -398,7 +398,7 @@ test.skipIf(skip)(
       // hand-typed part of a value the API requires to be derived. The reason names the arm.
       reportSkip(
         import.meta.url,
-        "person_search not built — run npm run db:load:person-search:pg",
+        "person_search not built — run pnpm run db:load:person-search:pg",
       );
       return;
     }
@@ -491,7 +491,7 @@ test.skipIf(skip)(
       reportSkip(
         import.meta.url,
         "person_browse_table / person_election_stats not built — run " +
-          "npm run db:load:declarations:pg -- --resolve && npm run db:load:person-elections:pg",
+          "pnpm run db:load:declarations:pg --resolve && pnpm run db:load:person-elections:pg",
       );
       return;
     }

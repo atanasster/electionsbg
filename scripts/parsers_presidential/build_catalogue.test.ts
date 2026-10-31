@@ -34,7 +34,7 @@ describe("presidential catalogue", () => {
     expect(
       fs.readFileSync(CATALOGUE_PATH, "utf8"),
       "src/data/json/presidential_elections.json is stale — regenerate it with " +
-        "`npx tsx scripts/parsers_presidential/build_catalogue.ts --write`",
+        "`pnpm exec tsx scripts/parsers_presidential/build_catalogue.ts --write`",
     ).toBe(built);
   });
 

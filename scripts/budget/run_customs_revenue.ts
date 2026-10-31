@@ -6,9 +6,9 @@
 // shape and source proves out across multiple years.
 //
 // Usage:
-//   npx tsx scripts/budget/run_customs_revenue.ts             # all known years
-//   npx tsx scripts/budget/run_customs_revenue.ts --year 2025 # single year
-//   npx tsx scripts/budget/run_customs_revenue.ts --refresh   # bypass cache
+//   pnpm exec tsx scripts/budget/run_customs_revenue.ts             # all known years
+//   pnpm exec tsx scripts/budget/run_customs_revenue.ts --year 2025 # single year
+//   pnpm exec tsx scripts/budget/run_customs_revenue.ts --refresh   # bypass cache
 
 import fs from "fs";
 import path from "path";

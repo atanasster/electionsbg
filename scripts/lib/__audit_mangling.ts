@@ -10,7 +10,7 @@
 // pure casing diff, not a re-ingested data change) AND the fixed output
 // differs from what is on disk now.
 //
-// Run: npx tsx scripts/lib/__audit_mangling.ts
+// Run: pnpm exec tsx scripts/lib/__audit_mangling.ts
 import { execSync } from "node:child_process";
 import {
   normaliseOrgName,

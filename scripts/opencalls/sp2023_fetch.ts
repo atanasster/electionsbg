@@ -1,7 +1,7 @@
 // Download the ДФЗ / Стратегически план indicative intake schedule and write its snapshot.
 //
-//   npm run opencalls:sp2023            # fetch + write data/opencalls/sp2023.json
-//   npm run opencalls:sp2023 -- --dry   # fetch, report, write nothing
+//   pnpm run opencalls:sp2023            # fetch + write data/opencalls/sp2023.json
+//   pnpm run opencalls:sp2023 --dry   # fetch, report, write nothing
 //
 // THE URL IS NEVER HARDCODED. The file is „Актуализиран_ИГГ_2026.xlsx": the name carries a year
 // AND the word „updated", so it changes at least annually and again whenever the schedule is

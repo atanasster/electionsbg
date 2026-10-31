@@ -18,7 +18,7 @@ This covers the 2014-2020 cohesion operational programmes, the 2021-2027 period,
 
 | Trigger | Action |
 |---|---|
-| Daily watcher reports `ИСУН EU funds (beneficiaries)` changed | Full re-ingest (`npm run funds:ingest`) |
+| Daily watcher reports `ИСУН EU funds (beneficiaries)` changed | Full re-ingest (`pnpm run funds:ingest`) |
 | User asks to "refresh EU funds" / "update еврофондове" / "refresh ИСУН" | Same — full re-ingest |
 | `data/funds/` empty (fresh clone) | Same — the ingest is a full rebuild every run |
 | The gated MP↔company link set moved — `/update-persons` re-resolved, or `/update-connections` refreshed the declarations it folds in | Re-run — the ingest re-joins the MP cross-reference automatically |
@@ -28,7 +28,7 @@ This covers the 2014-2020 cohesion operational programmes, the 2021-2027 period,
 ## Step 1 — Ingest
 
 ```bash
-npm run funds:ingest
+pnpm run funds:ingest
 ```
 
 This downloads the full XLSX export — fresh every run — from
@@ -91,8 +91,8 @@ figure and will be smaller at today's totals; read it as the ratio, not as a flo
 Flags:
 
 ```bash
-npm run funds:ingest -- --dry-run         # parse + validate, no writes
-npm run funds:ingest -- --file PATH.xlsx  # ingest a manually-downloaded export
+pnpm run funds:ingest --dry-run         # parse + validate, no writes
+pnpm run funds:ingest --file PATH.xlsx  # ingest a manually-downloaded export
 ```
 
 `--file` ingests a local XLSX instead of fetching — use it when the operator
@@ -128,7 +128,7 @@ together only when something is wrong.
 ## Step 3 — Contract-level ingest (Проекти)
 
 ```bash
-npm run funds:ingest-projects
+pnpm run funds:ingest-projects
 ```
 
 This pulls the sibling **Проекти** export from `https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel` (one row per signed contract, ~80k rows, ~10 MB XLSX). Unlike the beneficiary rollup it carries a **per-contract implementation location** (`Местонахождение`) which is resolved against `data/settlements.json` + `data/municipalities.json` into:
@@ -153,7 +153,7 @@ Flags mirror Step 1 — `--dry-run`, `--file PATH`.
 ## Step 3b — My-Area projects map (geo pins)
 
 ```bash
-npx tsx scripts/funds/build_geo_pins.ts
+pnpm exec tsx scripts/funds/build_geo_pins.ts
 ```
 
 Distils each município's heavy `by-muni/{обshtina}.json` corpus into a slim `by-muni-geo/{обshtina}.json` — the **top-200 contracts by money**, geocoded and non-geocoded together. Each contract that resolves to a `location.ekatte` carries `lat`/`lon` (joined against `data/settlements.json`); the rest carry none. Per-file schema: `sourceContractCount` (município total — the honest headline count), `geocodedCount` (how many resolved to a location), and `contracts[]` (the capped list).
@@ -187,19 +187,19 @@ change" therefore means "none of the 11 moved", not "nothing moved".
 # 1. Crawl — RATE-LIMITED AND OPERATOR-RUN. One index page first, to gauge the
 #    block state cheaply; there is no --probe flag, and unknown flags are
 #    SILENTLY IGNORED, so a mistyped one runs the full default crawl.
-npm run funds:crawl-interreg -- --index-only --max-pages 1
-npm run funds:crawl-interreg            # incremental: stop at a known keep.eu id
-npm run funds:crawl-interreg -- --full  # ~2 h at 8-way; needed for RE-IMPORTS
-npm run funds:crawl-interreg -- --coverage-only  # keep.eu's own per-programme counts only
+pnpm run funds:crawl-interreg --index-only --max-pages 1
+pnpm run funds:crawl-interreg            # incremental: stop at a known keep.eu id
+pnpm run funds:crawl-interreg --full  # ~2 h at 8-way; needed for RE-IMPORTS
+pnpm run funds:crawl-interreg --coverage-only  # keep.eu's own per-programme counts only
                                         # (22 small GETs) — refreshes the „N of M in keep.eu"
                                         # coverage notes without a crawl; then ingest + load
 
 # 2. Ingest the raw cache into the committed corpus (no network, no Postgres)
-npm run funds:ingest-interreg -- --dry-run
-npm run funds:ingest-interreg
+pnpm run funds:ingest-interreg --dry-run
+pnpm run funds:ingest-interreg
 
 # 3. Load
-npm run db:load:interreg:pg
+pnpm run db:load:interreg:pg
 ```
 
 **`--full` is not optional after a re-import.** keep.eu's index is
@@ -217,9 +217,9 @@ row-count parity guard passes.
 ### Publishing to prod, in this order
 
 ```bash
-npm run db:load:interreg:pg:cloud          # the corpus
-npm run db:load:graph:pg:cloud             # company_public_money's 4th arm reads it
-npm run db:load:tr-company-place:pg:cloud  # its money_eur is denormalized from that
+pnpm run db:load:interreg:pg:cloud          # the corpus
+pnpm run db:load:graph:pg:cloud             # company_public_money's 4th arm reads it
+pnpm run db:load:tr-company-place:pg:cloud  # its money_eur is denormalized from that
 ```
 
 The last two are the non-obvious half. `company_public_money` (127) gained an
@@ -262,26 +262,26 @@ git add data/funds/
 git commit -m "funds: refresh ИСУН EU-funds beneficiaries + projects"
 
 # 2) Reload LOCAL Postgres from the fresh shards
-npm run db:load:funds:pg          # fund_beneficiaries + fund_projects + fund_payloads
-npm run db:load:funds-fit:pg      # 143+144+145 — keep local in step with prod, or
+pnpm run db:load:funds:pg          # fund_beneficiaries + fund_projects + fund_payloads
+pnpm run db:load:funds-fit:pg      # 143+144+145 — keep local in step with prod, or
                                   # funds_fit.data.test.ts fails with "the rollup and
                                   # the corpus disagree", which reads as a derivation bug
-npm run db:gen-roads-hub-stats    # the /sector/roads EU-funds tile reads fund_projects
+pnpm run db:gen-roads-hub-stats    # the /sector/roads EU-funds tile reads fund_projects
                                   # (АПИ is an ИСУН beneficiary) — commit
                                   # data/roads/derived/hub_stats.json and
                                   # bucket:sync:paths -- roads/derived/hub_stats.json
-npm run db:gen-water-hub-stats    # the /water EU-funds KPI reads fund_beneficiaries —
+pnpm run db:gen-water-hub-stats    # the /water EU-funds KPI reads fund_beneficiaries —
                                   # commit data/water/derived/hub_stats.json and
                                   # bucket:sync:paths -- water/derived/hub_stats.json
-npm run db:gen-transport-hub-stats # the /sector/transport EU-funds figures read
+pnpm run db:gen-transport-hub-stats # the /sector/transport EU-funds figures read
                                   # fund_projects on the GRANT basis (transport-hub-v1 D6) —
                                   # commit data/transport/derived/hub_stats.json and
                                   # bucket:sync:paths -- transport/derived/hub_stats.json
 
 # 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
-npm run db:load:funds:pg:cloud -- --full   # the flag is REQUIRED — see the scope note
-npm run db:load:funds-fit:pg:cloud         # sole applier of 143 + 144 + 145 — see below
-npm run db:load:grant-links:pg:cloud       # the grant→procurement spine — see below
+pnpm run db:load:funds:pg:cloud --full   # the flag is REQUIRED — see the scope note
+pnpm run db:load:funds-fit:pg:cloud         # sole applier of 143 + 144 + 145 — see below
+pnpm run db:load:grant-links:pg:cloud       # the grant→procurement spine — see below
 ```
 
 > ⚠️ **`db:load:grant-links:pg:cloud` is a THIRD publish step, and its dependency on
@@ -316,7 +316,7 @@ npm run db:load:grant-links:pg:cloud       # the grant→procurement spine — s
 > Getting it backwards is not symmetric: `--payloads-only` after a re-ingest
 > publishes the new page payloads over an unchanged beneficiary table, which
 > reconciles perfectly while under-reporting the money. `db:load:funds:pg:cloud` is
-> one of the 7 scripts that forward argv, so `-- --full` does reach the loader.
+> one of the 7 scripts that forward argv, so `--full` does reach the loader.
 > (Measured 2026-08-21: the flagless form halted a deploy chain at this step.)
 
 > ⚠️ **`db:load:funds-fit:pg:cloud` is not optional.** It is the ONLY applier of
@@ -339,13 +339,13 @@ npm run db:load:grant-links:pg:cloud       # the grant→procurement spine — s
 > + per-programme summaries, geo pins) is loaded verbatim into the
 > `fund_payloads(kind, key)` table; per-beneficiary rollups → `fund_beneficiaries`,
 > per-contract detail → `fund_projects`. So the prod-deploy path for funds is
-> **`db:load:funds:pg:cloud -- --full`** (scope flag required — see above), NOT
+> **`db:load:funds:pg:cloud --full`** (scope flag required — see above), NOT
 > `bucket:sync`. The small curated globals
 > (`index.json`, `derived/political_links.json`, `derived/integrity.json`,
 > `rrf_context.json`, `themes.json`, …) stay **committed** because the deploy
 > build (prerender + sitemap) reads them from the git tree — they are load
 > sources, not bucket-served. Verify parity after any loader/serving change:
-> `npx tsx scripts/db/gen_funds/parity.ts --full` (asserts PG payloads ==
+> `pnpm exec tsx scripts/db/gen_funds/parity.ts --full` (asserts PG payloads ==
 > on-disk JSON). **Cloud SQL is production — never auto-run
 > `db:load:funds:pg:cloud` unprompted; emit it for the operator.**
 
@@ -402,7 +402,7 @@ The build runs as part of `funds:ingest` (Step 1 — no separate command). For
 dev iteration on just this step, run it standalone:
 
 ```bash
-npx tsx scripts/funds/political_links.ts
+pnpm exec tsx scripts/funds/political_links.ts
 ```
 
 No new external fetch — purely a join over already-ingested data. Re-run after
@@ -449,7 +449,7 @@ logged hint. A link set that **exists and yields no MP rows** is a broken load a
 **Ordering dependency.** The link set is derived in Postgres, so it is `/update-persons` —
 not a file from `/update-connections` — that makes a declaration or registry change visible
 here. `/update-connections` refreshes the declarations and the TR snapshot; `db:resolve:persons`
-plus `db:load:declarations:pg -- --resolve` fold them into `person_role` /
+plus `db:load:declarations:pg --resolve` fold them into `person_role` /
 `declaration_stake_company`; only then does this join see them. The watcher source list
 already places `cacbg_declarations` and `egov_commerce` before `isun_eu_funds`, so the natural
 source-order traversal keeps the chain in that order.
@@ -518,19 +518,19 @@ Surfaces that are **intentionally non-fatal**:
 
 ```bash
 # Daily ingest after the watcher flags the source
-npm run funds:ingest
+pnpm run funds:ingest
 
 # Ingest + commit + publish to Postgres (funds is Cloud SQL-served, not GCS)
-npm run funds:ingest
+pnpm run funds:ingest
 git add data/funds/
 git commit -m "funds: refresh ИСУН EU-funds beneficiaries"
-npm run db:load:funds:pg          # local PG
-npm run db:load:funds-fit:pg      # local — 143+144+145
-npm run db:load:funds:pg:cloud -- --full   # prod Cloud SQL (operator runs this).
+pnpm run db:load:funds:pg          # local PG
+pnpm run db:load:funds-fit:pg      # local — 143+144+145
+pnpm run db:load:funds:pg:cloud --full   # prod Cloud SQL (operator runs this).
                                            # --full after an ИСУН re-ingest; --payloads-only
                                            # when only payloads moved; it REFUSES with neither.
-npm run db:load:funds-fit:pg:cloud
+pnpm run db:load:funds-fit:pg:cloud
 
 # Dry run (parse + validate, no writes)
-npm run funds:ingest -- --dry-run
+pnpm run funds:ingest --dry-run
 ```

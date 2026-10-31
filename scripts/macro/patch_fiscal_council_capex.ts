@@ -1,7 +1,7 @@
 // Fold the two Фискален съвет capex-execution series into an existing
 // `data/macro.json` without the full network refresh `fetch_eurostat.ts` does.
 //
-//   npm run macro:fiscal-council-capex
+//   pnpm run macro:fiscal-council-capex
 //
 // Not the durable writer — `fetch_eurostat.ts` pushes the same entries, so a
 // macro refresh carries them. Like `patch_municipal_stocks.ts` this appends and

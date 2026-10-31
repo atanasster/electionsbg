@@ -3,7 +3,7 @@
 // dir, no app dependency) can measure small in-browser embedding-model recall
 // without importing the app. Pairs with measure_recall_small.mjs.
 //
-//   npx tsx ai/m0/finetune/_export_for_embed.ts   # → ai/m0/finetune/recall_export.json
+//   pnpm exec tsx ai/m0/finetune/_export_for_embed.ts   # → ai/m0/finetune/recall_export.json
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";

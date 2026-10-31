@@ -109,7 +109,7 @@ export function verifyManifest(
 ): ReleaseManifest {
   const manifestPath = path.join(root, MANIFEST_NAME);
   if (!fs.existsSync(manifestPath))
-    throw new Error("release manifest missing; run npm run news:release:gate");
+    throw new Error("release manifest missing; run pnpm run news:release:gate");
   const manifest = JSON.parse(
     fs.readFileSync(manifestPath, "utf8"),
   ) as ReleaseManifest;

@@ -2,7 +2,7 @@
 // timeseries Ecology_9.8): the national series behind the /water services
 // figures — population under воден режим, connected to public water supply,
 // connected to wastewater treatment. data/water/water_stats.json is built from it
-// by `npm run water:stats -- --refresh`.
+// by `pnpm run water:stats --refresh`.
 //
 // Until 2026-10-12 nothing watched this file, so a new НСИ year could only reach
 // the site by someone remembering to look (docs/plans/water-hub-v1.md G5).
@@ -67,9 +67,9 @@ export const nsiWaterStats: WatchSource = {
     const was = prev?.meta?.latestYear as number | undefined;
     const now = curr.meta?.latestYear as number | undefined;
     if (was && now && was !== now)
-      return `new year published: ${now} (was ${was}) — run npm run water:stats -- --refresh`;
+      return `new year published: ${now} (was ${was}) — run pnpm run water:stats --refresh`;
     if (prev)
-      return `${curr.detail} — values revised; run npm run water:stats -- --refresh`;
+      return `${curr.detail} — values revised; run pnpm run water:stats --refresh`;
     return curr.detail;
   },
 };

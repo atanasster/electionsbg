@@ -32,7 +32,7 @@ import {
 
 const withHint = (msg: string): string =>
   /ECONNREFUSED|reachable|connect/i.test(msg)
-    ? `${msg} — is Postgres up? run \`npm run db:pg:up\` + \`db:load:pg\` + \`db:load:tr:pg\`.`
+    ? `${msg} — is Postgres up? run \`pnpm run db:pg:up\` + \`db:load:pg\` + \`db:load:tr:pg\`.`
     : msg;
 
 /** `redirect` is the 302 arm — a route may hand back a Location instead of a body

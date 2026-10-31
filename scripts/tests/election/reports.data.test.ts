@@ -7,7 +7,7 @@
 // fails only on a genuinely broken report generator. Auto-skips when the corpus
 // isn't present.
 //
-//   npm run test:unit -- scripts/tests/election/reports
+//   pnpm run test:unit scripts/tests/election/reports
 
 import { describe, test, expect } from "vitest";
 import fs from "node:fs";

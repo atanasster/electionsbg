@@ -52,7 +52,7 @@
 // Streaming: PDFs are fetched to memory, parsed, and discarded (the corpus is ~4 GB);
 // only the small extracted holdings are cached in raw_data/judiciary/holdings_cache.json
 // so a re-run does not re-fetch. EIK resolution runs once at the end against the TR
-// SQLite. Run: npx tsx scripts/judiciary/__write_magistrate_holdings.ts [--limit N]
+// SQLite. Run: pnpm exec tsx scripts/judiciary/__write_magistrate_holdings.ts [--limit N]
 
 import fs from "fs";
 import path from "path";

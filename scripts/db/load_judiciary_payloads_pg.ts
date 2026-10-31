@@ -11,7 +11,7 @@
 // count, and — like fund_payloads (043) — the payload table is the serving copy,
 // not a freshness source. The register's own changelog is unaffected.
 //
-// Run: `npm run db:load:judiciary-payloads:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:judiciary-payloads:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";

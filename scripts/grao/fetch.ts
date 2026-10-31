@@ -19,7 +19,7 @@
  * with far more permanent than current registrations are the "phantom
  * resident" settlements.
  *
- * Usage: npx tsx scripts/grao/fetch.ts [--force]
+ * Usage: pnpm exec tsx scripts/grao/fetch.ts [--force]
  */
 
 import fs from "fs";

@@ -24,7 +24,7 @@ const [{ n } = { n: "0" }] = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : n === "0"
-    ? "admin_service_requests is empty — run npm run db:load:admin-service-requests:pg"
+    ? "admin_service_requests is empty — run pnpm run db:load:admin-service-requests:pg"
     : null;
 const d = skip ? describe.skip : describe;
 reportSkip(import.meta.url, skip);

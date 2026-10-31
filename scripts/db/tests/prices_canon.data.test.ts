@@ -1,12 +1,12 @@
 // Unit + property tests for canonicalize(). Pure — no database.
 //
 // Lives in scripts/db/tests/ because that is the ONLY directory globbed by
-// `npm run test:data` and `npm run db:verify` (package.json), so this is the
+// `pnpm run test:data` and `pnpm run db:verify` (package.json), so this is the
 // copy that runs as db:refresh's final gate.
 //
 // ⚠️ It is NOT the only place canonicalize() is tested, and a test outside this
 // directory is not dead. vitest.config.ts's `node` project globs scripts/**, so
-// scripts/prices/lib/canon.test.ts executes under `npm run test:unit` — which
+// scripts/prices/lib/canon.test.ts executes under `pnpm run test:unit` — which
 // is what CI runs — but NOT under test:data / db:verify. The two files are a
 // deliberate split by GATE, not an accident:
 //

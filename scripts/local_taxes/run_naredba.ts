@@ -3,9 +3,9 @@
 // per-município ingest watermarks under state/ingest/local_taxes_<code>.json.
 //
 // Usage:
-//   npx tsx scripts/local_taxes/run_naredba.ts                    # all wired
-//   npx tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01        # subset
-//   npx tsx scripts/local_taxes/run_naredba.ts --force SOF00      # bypass cache
+//   pnpm exec tsx scripts/local_taxes/run_naredba.ts                    # all wired
+//   pnpm exec tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01        # subset
+//   pnpm exec tsx scripts/local_taxes/run_naredba.ts --force SOF00      # bypass cache
 //
 // The Tier A build (build_index.ts) preserves any `naredba` blocks this
 // dispatcher writes, so the two paths can run in either order safely.

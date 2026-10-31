@@ -7,7 +7,7 @@
 // flip, an un-surfaced lever) fails here. It locks the "every simulator lever is
 // surfaced in chat" guarantee.
 //
-// Usage: npx tsx scripts/budget/__test_ai_parity.ts   (or: npm run budget:test)
+// Usage: pnpm exec tsx scripts/budget/__test_ai_parity.ts   (or: pnpm run budget:test)
 
 import fs from "fs";
 import path from "path";

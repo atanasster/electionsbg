@@ -18,11 +18,11 @@
 // stay outside the settlement map until they procure again.
 //
 // Usage:
-//   npx tsx scripts/procurement/enrich_awarders_geo.ts
+//   pnpm exec tsx scripts/procurement/enrich_awarders_geo.ts
 //
 // The by-settlement views read the resolved seats from Postgres
 // (procurement_by_settlement, 030 → the per-scope precomputes in 119), so after this runs
-// refresh them with `npm run db:load:procurement-scopes:pg`.
+// refresh them with `pnpm run db:load:procurement-scopes:pg`.
 
 import fs from "fs";
 import zlib from "zlib";

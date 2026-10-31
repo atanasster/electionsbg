@@ -5,7 +5,7 @@
 // it does not — a Sent=False row fetches a complete 33KB declaration — so the column is
 // stored uninterpreted and these tests pin that it stays that way.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

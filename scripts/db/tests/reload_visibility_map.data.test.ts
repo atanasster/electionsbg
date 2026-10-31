@@ -1,7 +1,7 @@
 // Tier 3 (Postgres-native) — the visibility map every single-transaction
 // TRUNCATE+reload silently discards.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // A loader that rebuilds a table with `TRUNCATE` + `INSERT`/`COPY` inside ONE
 // transaction leaves `relallvisible = 0` PERMANENTLY, not transiently: TRUNCATE
@@ -101,7 +101,7 @@ const RELOADED: ReadonlyArray<{
   {
     table: "company_browse_table",
     loader:
-      "npm run db:load:declarations:pg -- --resolve (also db:load:pg, db:load:graph:pg, " +
+      "pnpm run db:load:declarations:pg --resolve (also db:load:pg, db:load:graph:pg, " +
       "db:load:tr-company-place:pg — all four refresh it)",
   },
   // The НЗОК hospital-payment corpus and its coverage twin — both TRUNCATE +
@@ -112,11 +112,11 @@ const RELOADED: ReadonlyArray<{
   // autovacuum that happened to land, with `last_vacuum` null.
   {
     table: "nzok_hospital_payments",
-    loader: "npm run db:load:nzok-hospital:pg",
+    loader: "pnpm run db:load:nzok-hospital:pg",
   },
   {
     table: "nzok_payment_coverage",
-    loader: "npm run db:load:nzok-hospital:pg",
+    loader: "pnpm run db:load:nzok-hospital:pg",
   },
   // ⚠️ THE SCAN BELOW CANNOT SEE THESE TWO. Their vacuum lives in
   // `scripts/prices/load_day.ts`, and neither LOADER_FILES (a glob over
@@ -130,15 +130,15 @@ const RELOADED: ReadonlyArray<{
   // `price_last_seen` (048) is rewritten for every observed row every day, and
   // its one-off seed inserts ~4.4M rows in a single statement — measured
   // straight after that seed: 0 of 8,829 pages all-visible.
-  { table: "price_last_seen", loader: "npm run prices" },
-  { table: "price_current", loader: "npm run prices" },
+  { table: "price_last_seen", loader: "pnpm run prices" },
+  { table: "price_current", loader: "pnpm run prices" },
   // `price_products` is UPDATEd row-for-row by rebuild_catalog every day (chain_count and
   // current_min_eur are zeroed and re-set), so it accumulates a full generation of dead tuples
   // daily — and 048's `title_fold` (a STORED generated column) REWROTE the heap the first time
   // it was applied, leaving relallvisible 0 of 4,352 pages on both databases. That is the one
   // index-only scan on this table that matters: price_products_browse is what makes the
   // /consumption/products arrival 27 buffers instead of 19,261.
-  { table: "price_products", loader: "npm run prices" },
+  { table: "price_products", loader: "pnpm run prices" },
   {
     table: "declaration_employer_link",
     loader: "db:load:employer-links:pg",

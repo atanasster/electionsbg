@@ -12,8 +12,8 @@
 //                      BGN raise vs МФ's own ~€128M estimate
 //
 // Usage:
-//   npx tsx scripts/budget/run_policy_baseline.ts   # refresh inputs first
-//   npx tsx scripts/budget/__smoke_earnings.ts
+//   pnpm exec tsx scripts/budget/run_policy_baseline.ts   # refresh inputs first
+//   pnpm exec tsx scripts/budget/__smoke_earnings.ts
 
 import fs from "fs";
 import path from "path";

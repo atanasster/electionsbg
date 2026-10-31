@@ -8,7 +8,7 @@
 // HAND-KEYED reference data (mirrors scripts/budget/nzok/__write_budget.ts): each
 // figure is an approximate ANNUAL amount with its source. Amounts already in EUR
 // (BGN sources converted at 1 EUR = 1.95583 лв). Re-run to update:
-//   npx tsx scripts/culture/write_funding_streams.ts
+//   pnpm exec tsx scripts/culture/write_funding_streams.ts
 
 import fs from "fs";
 import path from "path";

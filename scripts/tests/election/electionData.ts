@@ -2,7 +2,7 @@
 // suites (shards.data.test.ts, reports.data.test.ts).
 //
 // The generated parliamentary election corpus lives under `<repo>/data/YYYY_MM_DD/`
-// (gitignored; rebuilt from raw_data by `npm run data`, shipped via GCS). These
+// (gitignored; rebuilt from raw_data by `pnpm run data`, shipped via GCS). These
 // tests are DATA-VERSION-INDEPENDENT: every expectation is computed FROM the data
 // on disk (rollup reconciliation, arithmetic identities, structural shape), so
 // they stay valid across every re-ingest and act as a standing net that fails the
@@ -10,7 +10,7 @@
 //
 // Like the other *.data.test.ts gates they AUTO-SKIP when no election data is on
 // disk (a fresh CI checkout that hasn't restored the corpus), so a plain
-// `npm run test:unit` stays green without the built data tree.
+// `pnpm run test:unit` stays green without the built data tree.
 
 import fs from "node:fs";
 import path from "node:path";

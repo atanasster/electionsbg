@@ -1,5 +1,5 @@
 // The /sector/roads hub's figures, read from the committed blob that
-// `npm run db:gen-roads-hub-stats` derives from Postgres.
+// `pnpm run db:gen-roads-hub-stats` derives from Postgres.
 //
 // WHY A BLOB: the hub must not download the ~3k-row contract corpus and run the
 // roads engine to draw four numbers (dashboard-hub skill §1). The generator runs

@@ -1,8 +1,8 @@
 // Run the Jev (TypeSafe) regression suite and write its artifact.
 //
-//   TYPESAFE_API_KEY=… npx tsx ai/llm/jevRegression.run.ts            # both suites
-//   TYPESAFE_API_KEY=… npx tsx ai/llm/jevRegression.run.ts --args     # closed-vocab only
-//   TYPESAFE_API_KEY=… npx tsx ai/llm/jevRegression.run.ts --disambig # fixture only
+//   TYPESAFE_API_KEY=… pnpm exec tsx ai/llm/jevRegression.run.ts            # both suites
+//   TYPESAFE_API_KEY=… pnpm exec tsx ai/llm/jevRegression.run.ts --args     # closed-vocab only
+//   TYPESAFE_API_KEY=… pnpm exec tsx ai/llm/jevRegression.run.ts --disambig # fixture only
 //
 // Writes data/ai/evals/jev_regression.json and EXITS NON-ZERO when a headline
 // metric falls below its floor — that is what makes this a regression suite
@@ -143,7 +143,7 @@ const runDisambig = async (
   const fixture = loadDisambigFixture();
   if (!fixture) {
     console.error(
-      "no disambiguation fixture — run `npx tsx ai/llm/jevRegression.capture.ts` first (skipping suite)",
+      "no disambiguation fixture — run `pnpm exec tsx ai/llm/jevRegression.capture.ts` first (skipping suite)",
     );
     return [];
   }

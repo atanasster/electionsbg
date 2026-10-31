@@ -41,10 +41,10 @@
 // `sources` and `run` are separate blocks on purpose: they disagree exactly when
 // a tier is down, and that disagreement is the signal.
 //
-// Run: `npx tsx scripts/procurement/awarder_geo_map.ts`  (then rebuild rollups)
-//   … -- --allow-shrink   write even though the merged map is materially
+// Run: `pnpm exec tsx scripts/procurement/awarder_geo_map.ts`  (then rebuild rollups)
+//   … --allow-shrink   write even though the merged map is materially
 //                         smaller than the committed one (see SHRINK_TOLERANCE)
-//   … -- --dry-run        report the merge, write nothing
+//   … --dry-run        report the merge, write nothing
 
 import fs from "fs";
 import path from "path";
@@ -858,7 +858,7 @@ const main = async (): Promise<void> => {
     `✓ wrote ${OUT_FILE} — ${finalCount} entr${finalCount === 1 ? "y" : "ies"}` +
       (priorCount ? ` (was ${priorCount})` : ""),
   );
-  console.log(`→ now rebuild: npm run procurement:ingest (applies overrides)`);
+  console.log(`→ now rebuild: pnpm run procurement:ingest (applies overrides)`);
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href)

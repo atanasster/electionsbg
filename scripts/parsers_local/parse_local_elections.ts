@@ -252,7 +252,7 @@ const loadCanonicalParties = (
   const file = path.join(publicFolder, "canonical_parties.json");
   if (!fs.existsSync(file)) {
     console.warn(
-      `[parsers_local] canonical_parties.json not found — coalition resolution will mark all coalitions as unmatched. Run \`npm run data -- --summary\` first.`,
+      `[parsers_local] canonical_parties.json not found — coalition resolution will mark all coalitions as unmatched. Run \`pnpm run data --summary\` first.`,
     );
     return undefined;
   }

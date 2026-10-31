@@ -5,7 +5,7 @@
 // scenario, so each article references its own-language image set.
 //
 // Usage:
-//   npm run dev                                   # in one terminal (or set BASE)
+//   pnpm run dev                                   # in one terminal (or set BASE)
 //   node scripts/capture-simulator-shots.mjs       # BASE defaults to :5173
 
 import { chromium } from "playwright";

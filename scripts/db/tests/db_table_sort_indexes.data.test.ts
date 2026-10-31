@@ -79,7 +79,7 @@
 // map behind it, and `reload_visibility_map.data.test.ts` documents why a bare ANALYZE is
 // the disguise rather than half the fix.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -669,7 +669,7 @@ test.skipIf(skip)(
     assert.ok(
       !fullSort(before),
       "contractor_rankings already full-sorts — apply 122 " +
-        "(npm run db:load:procurement-scopes:pg) before reading this as a mutation-check problem",
+        "(pnpm run db:load:procurement-scopes:pg) before reading this as a mutation-check problem",
     );
     await withTx(async (c) => {
       await c.query("DROP INDEX idx_contractor_rank_total");

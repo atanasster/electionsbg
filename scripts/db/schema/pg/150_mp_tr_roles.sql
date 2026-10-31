@@ -37,7 +37,7 @@
 -- CREATE time — so applying 150 to a database without 148 fails the WHOLE file with 42P01, the
 -- same trap 148's own header carries about 082/120 and CLAUDE.md documents for 070→116 and
 -- 081→082. Ship a body change with both, 148 first:
---   npx tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 150_mp_tr_roles.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 150_mp_tr_roles.sql
 --
 -- ═══════════════════════════════════════════════════════════════════════════════════════
 -- WHAT CHANGES FOR A READER, STATED PLAINLY.

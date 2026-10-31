@@ -1039,35 +1039,35 @@ const BUDGET_PAGES: Array<{
 const REQUIRED_SECTIONS: Array<{ heading: string; fix: string }> = [
   {
     heading: "## " + COPY.bg.judiciaryHeading,
-    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+    fix: "start the local Postgres (`pnpm run db:pg:up`) and re-run `pnpm run llms`",
   },
   {
     heading: "## " + COPY.en.judiciaryHeading,
-    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+    fix: "start the local Postgres (`pnpm run db:pg:up`) and re-run `pnpm run llms`",
   },
   {
     heading: "## " + COPY.bg.councilHeading,
-    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+    fix: "start the local Postgres (`pnpm run db:pg:up`) and re-run `pnpm run llms`",
   },
   {
     heading: "## " + COPY.en.councilHeading,
-    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+    fix: "start the local Postgres (`pnpm run db:pg:up`) and re-run `pnpm run llms`",
   },
   {
     heading: "## " + COPY.bg.presidentialHeading,
-    fix: "restore the data/*_pvr trees (gitignored — `npm run data -- --pvr all`) and re-run `npm run llms`",
+    fix: "restore the data/*_pvr trees (gitignored — `pnpm run data --pvr all`) and re-run `pnpm run llms`",
   },
   {
     heading: "## " + COPY.en.presidentialHeading,
-    fix: "restore the data/*_pvr trees (gitignored — `npm run data -- --pvr all`) and re-run `npm run llms`",
+    fix: "restore the data/*_pvr trees (gitignored — `pnpm run data --pvr all`) and re-run `pnpm run llms`",
   },
   {
     heading: "## " + COPY.bg.pensionsHeading,
-    fix: "restore data/budget/kfn/funds.json and re-run `npm run llms`",
+    fix: "restore data/budget/kfn/funds.json and re-run `pnpm run llms`",
   },
   {
     heading: "## " + COPY.en.pensionsHeading,
-    fix: "restore data/budget/kfn/funds.json and re-run `npm run llms`",
+    fix: "restore data/budget/kfn/funds.json and re-run `pnpm run llms`",
   },
 ];
 

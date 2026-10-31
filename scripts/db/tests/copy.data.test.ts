@@ -1,6 +1,6 @@
 // Round-trip proof for copyRows(): every column type the loaders use, plus the
 // text-format metacharacters that a naive encoder corrupts. Runs under
-// `npm run test:data` alongside the other data invariants.
+// `pnpm run test:data` alongside the other data invariants.
 //
 // The interesting cases are the ones that corrupt silently rather than throw:
 //   · "\\N"        — a literal backslash-N must NOT read back as NULL
@@ -18,7 +18,7 @@ import { allRows, end, withClient } from "../lib/pg";
 import { copyRows } from "../lib/copy";
 import { reportSkip } from "../../lib/report_skip";
 
-// Needs a live Postgres (`npm run db:pg:up`); auto-skips when it is unreachable,
+// Needs a live Postgres (`pnpm run db:pg:up`); auto-skips when it is unreachable,
 // exactly like the other *.data.test.ts files. Only temp tables are touched, so
 // no loaded corpus is required — just a reachable server.
 const reachable = async (): Promise<boolean> => {

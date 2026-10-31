@@ -10,8 +10,8 @@
 // edges, the way the second screenshot in the design brief frames it.
 //
 // Run with the dev server up:
-//   npm run dev    # in another shell
-//   npx tsx scripts/og/screenshot_data_map.ts
+//   pnpm run dev    # in another shell
+//   pnpm exec tsx scripts/og/screenshot_data_map.ts
 //
 // Output: public/og/data-map.png
 

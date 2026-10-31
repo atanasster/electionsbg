@@ -1,6 +1,6 @@
 // Gzip-upload the hot, large JSON files to the data bucket with
 // `Content-Encoding: gzip` so GCS serves them compressed (decompressive
-// transcoding). Run: `npm run bucket:gz` (or `npm run bucket:gz:dry`).
+// transcoding). Run: `pnpm run bucket:gz` (or `pnpm run bucket:gz:dry`).
 //
 // WHY: the bucket (storage.googleapis.com/data-electionsbg-com) stores objects
 // UNCOMPRESSED. `bucket:sync`'s `gsutil rsync -j json` flag is *transport*
@@ -21,11 +21,11 @@
 // gzips 402.9 MB across 765 files locally and UPLOADS 22.7 MB of that. The upload is the
 // cheap half; the local pass and the rsync churn below are not. "~tens of MB" described
 // only the upload and was read as the whole cost, so both are stated now. (Both figures
-// grow as sittings land — re-read them from `npm run bucket:gz:dry`, don't trust this line.)
+// grow as sittings land — re-read them from `pnpm run bucket:gz:dry`, don't trust this line.)
 //
 // CAVEAT (ordering): `bucket:sync` (rsync) re-uploads these files UNCOMPRESSED
 // because the gzipped object differs from the local file, so it would clobber
-// the gzip. RUN THIS AFTER `bucket:sync` (use `npm run bucket:sync:all`).
+// the gzip. RUN THIS AFTER `bucket:sync` (use `pnpm run bucket:sync:all`).
 
 import { spawn } from "node:child_process";
 import { gzipSync } from "node:zlib";

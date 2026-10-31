@@ -1,6 +1,6 @@
 // Tier 3 (Postgres-native) — the /subsidies hub's stat cache (migration 162).
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Plan: docs/plans/subsidies-hub-v1.md §5 and §10. The dashboard-hub skill's §0 is
 // the whole reason this file is long: on a hub, the defect that survives review is

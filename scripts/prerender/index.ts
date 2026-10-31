@@ -111,7 +111,7 @@ const reportOgFallbacks = (routes: PrerenderRoute[]) => {
       `    Expected on a checkout without data/<election>/: the rendered ` +
       `og/region, og/party, og/local and og/cabinet families are built from it ` +
       `and it is gitignored. On a DEPLOY build a card is genuinely missing — ` +
-      `re-run \`npm run og\`.\n${worst}`,
+      `re-run \`pnpm run og\`.\n${worst}`,
   );
 };
 

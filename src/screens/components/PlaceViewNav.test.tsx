@@ -13,7 +13,7 @@
 // a fact a reader could check. `scripts/elections/sectionCodeCrossKind.data.test.ts` holds the
 // measurement; this file holds the rendering.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";

@@ -6,7 +6,7 @@
 // Σ byYear still equalled its own total. So this gate compares against the
 // DATABASE, not against the file itself.
 //
-// When it trips after an ordinary ingest, re-run `npm run db:gen-water-flood` —
+// When it trips after an ordinary ingest, re-run `pnpm run db:gen-water-flood` —
 // do not widen the band. Auto-skips only when Postgres is down.
 
 import { test, afterAll } from "vitest";
@@ -42,7 +42,7 @@ const TOLERANCE = 0.02;
 const near = (actual: number, stored: number, what: string) =>
   assert.ok(
     Math.abs(actual - stored) <= Math.max(1, Math.abs(stored) * TOLERANCE),
-    `${what}: database ${actual} vs file ${stored} — re-run npm run db:gen-water-flood`,
+    `${what}: database ${actual} vs file ${stored} — re-run pnpm run db:gen-water-flood`,
   );
 
 // How far the file may trail the newest contract in the corpus. The generator
@@ -124,7 +124,7 @@ test.skipIf(skip)(
     const f = file();
     assert.ok(
       f.corpusThrough,
-      "no corpusThrough — the file predates the 2026-10-12 generator; re-run npm run db:gen-water-flood",
+      "no corpusThrough — the file predates the 2026-10-12 generator; re-run pnpm run db:gen-water-flood",
     );
     const [row] = await allRows<{ max: string }>(
       `SELECT max(date) AS max FROM contracts WHERE tag = 'contract' AND date ~ '^[12][0-9]{3}-'`,
@@ -134,7 +134,7 @@ test.skipIf(skip)(
       86_400_000;
     assert.ok(
       lagDays <= MAX_LAG_DAYS,
-      `the file is ${lagDays} days behind the corpus (${f.corpusThrough} vs ${row.max}) — re-run npm run db:gen-water-flood`,
+      `the file is ${lagDays} days behind the corpus (${f.corpusThrough} vs ${row.max}) — re-run pnpm run db:gen-water-flood`,
     );
   },
 );

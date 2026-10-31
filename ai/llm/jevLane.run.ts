@@ -1,7 +1,7 @@
 // Run the JEV lane over the shared 841-case bank (internal record, not published).
 //
-//   TYPESAFE_API_KEY=… npx tsx ai/llm/jevLane.run.ts [caseLimit]
-//   TYPESAFE_API_KEY=… npx tsx ai/llm/jevLane.run.ts --retry-degraded
+//   TYPESAFE_API_KEY=… pnpm exec tsx ai/llm/jevLane.run.ts [caseLimit]
+//   TYPESAFE_API_KEY=… pnpm exec tsx ai/llm/jevLane.run.ts --retry-degraded
 //
 // Writes ai/evals-internal/jev_lane.json — internal, not published: the bank is
 // mostly the examples the rules were built from (ai/evals-internal/README.md).

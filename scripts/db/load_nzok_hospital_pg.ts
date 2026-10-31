@@ -2,8 +2,8 @@
 // pack's payments tile and the /company/:eik reimbursement tile are DB-served
 // (multi-period, per-entity queries) instead of reading a single static snapshot.
 //
-//   npm run db:load:nzok-hospital:pg          (needs `npm run db:pg:up` first)
-//   npm run db:load:nzok-hospital:pg:cloud    (targets the Cloud SQL proxy :5434)
+//   pnpm run db:load:nzok-hospital:pg          (needs `pnpm run db:pg:up` first)
+//   pnpm run db:load:nzok-hospital:pg:cloud    (targets the Cloud SQL proxy :5434)
 //
 // Source = the monthly БМП PDFs on nhif.bg, parsed with the shared
 // reconciliation-asserted parser; eik is joined from the Рег.№→EIK crosswalk
@@ -878,7 +878,7 @@ const main = async (): Promise<void> => {
         `new). Wrote data/data-changes.json:\n    ${summary}\n` +
         `    COMMIT it and include it in the bucket sync, or the corrected figures ` +
         `publish while the note explaining them does not:\n` +
-        `      npm run bucket:sync:paths -- budget data-changes.json`,
+        `      pnpm run bucket:sync:paths budget data-changes.json`,
     );
   } else if (delta.addedRows || delta.removedRows)
     console.log(
@@ -924,7 +924,7 @@ const main = async (): Promise<void> => {
         (same
           ? " — unchanged from baseline."
           : ` — BASELINE IS ${BASELINE.months}/${BASELINE.blocks}/${BASELINE.ordinals}; ` +
-            `a rise means the documents changed shape. Run \`npm run test:unit -- scripts/nzok\`.`),
+            `a rise means the documents changed shape. Run \`pnpm run test:unit scripts/nzok\`.`),
     );
     if (unrec.length)
       console.log(

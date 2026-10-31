@@ -2,7 +2,7 @@
 // deaths) publication timestamp. Drives the /sector/security "Пътна безопасност"
 // outcome tile (the spend-vs-outcome pairing with МВР vehicle procurement).
 //
-// Downstream: run `npx tsx scripts/security/fetch_road_safety.ts` to re-fetch the
+// Downstream: run `pnpm exec tsx scripts/security/fetch_road_safety.ts` to re-fetch the
 // national road-death series into data/security/road_safety.json (a small committed
 // file, no bucket sync). Annual release, so `monthly` cadence is plenty.
 
@@ -45,7 +45,7 @@ export const eurostatRoadSafety: WatchSource = {
     const prevU = (prev.meta?.updated as string | undefined) ?? "";
     const currU = (curr.meta?.updated as string | undefined) ?? "";
     if (prevU !== currU)
-      return `Eurostat ${DATASET} republished (was ${prevU || "—"}) — run \`npx tsx scripts/security/fetch_road_safety.ts\` to refresh the /sector/security road-safety tile`;
+      return `Eurostat ${DATASET} republished (was ${prevU || "—"}) — run \`pnpm exec tsx scripts/security/fetch_road_safety.ts\` to refresh the /sector/security road-safety tile`;
     return curr.detail;
   },
 };

@@ -35,7 +35,7 @@ Tier B fills in the resident-side taxes ИПИ doesn't cover — most importantl
 ## Step A1 — refresh ИПИ tier (5 CSVs, all 265 общини)
 
 ```bash
-npx tsx scripts/local_taxes/build_index.ts
+pnpm exec tsx scripts/local_taxes/build_index.ts
 ```
 
 Expected output:
@@ -63,13 +63,13 @@ If `unmatched > 0` appears in the output, the script will print the unique munic
 
 ```bash
 # All wired munícipios (default)
-npx tsx scripts/local_taxes/run_naredba.ts
+pnpm exec tsx scripts/local_taxes/run_naredba.ts
 
 # Subset — pass obshtina codes either comma-separated or as individual args
-npx tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01
+pnpm exec tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01
 
 # Bypass the raw_data/local_taxes/naredba/ cache (re-fetch upstream PDF)
-npx tsx scripts/local_taxes/run_naredba.ts --force SOF00
+pnpm exec tsx scripts/local_taxes/run_naredba.ts --force SOF00
 ```
 
 The watcher's describe-line names exactly which munícipios' source URLs flipped (`N naredba(s) re-uploaded: SOF00, PDV01`) — run the dispatcher with that subset.
@@ -110,7 +110,7 @@ jq '.scoresByObshtina.SOF00.ipi' data/local_taxes/index.json
 git add scripts/local_taxes/ data/local_taxes/ scripts/watch/sources/{ipi_local_taxes.ts,index.ts}
 git commit -m "local-taxes: refresh ИПИ tier (5 indicators · 265 municípios · latest YYYY)"
 
-npx tsx scripts/stamp-ingest.ts update-local-taxes \
+pnpm exec tsx scripts/stamp-ingest.ts update-local-taxes \
   --summary "ИПИ tier: 265/265 municípios · 5 indicators · latest YYYY · avg Y.YY%"
 ```
 
@@ -118,7 +118,7 @@ Append to the public data-changes log only when on-disk data actually moved:
 
 ```bash
 if [ -n "$(git diff --stat data/local_taxes/)" ]; then
-  npx tsx scripts/append-data-change.ts update-local-taxes \
+  pnpm exec tsx scripts/append-data-change.ts update-local-taxes \
     --summary "ИПИ tier: 265/265 municípios · 5 indicators · latest YYYY" \
     --source "ИПИ — Местни данъци (265 общини)"
 fi

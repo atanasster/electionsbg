@@ -3,7 +3,7 @@
 // /budget dashboard tiles.
 //
 // Usage:
-//   npm run dev           # in one terminal
+//   pnpm run dev           # in one terminal
 //   node scripts/capture-budget-shots.mjs
 
 import { chromium } from "playwright";

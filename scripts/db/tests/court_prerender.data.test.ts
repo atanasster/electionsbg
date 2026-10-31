@@ -12,7 +12,7 @@
 //
 // Auto-skips when Postgres is down or the dimension is absent.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -57,7 +57,7 @@ const surfaces = (r: (typeof routes)[number]): string[] => [
 ];
 
 const skipBodies = !bodies
-  ? "Postgres unreachable, or judicial_body is empty — run npm run db:load:judicial-bodies:pg"
+  ? "Postgres unreachable, or judicial_body is empty — run pnpm run db:load:judicial-bodies:pg"
   : false;
 reportSkip(import.meta.url, skipBodies);
 

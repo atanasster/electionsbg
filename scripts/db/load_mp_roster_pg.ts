@@ -17,7 +17,7 @@
 // carries no wealth figures until person_role is filled, and the resolve rebuilds it on
 // the way out. Running it after is the normal db:refresh order.
 //
-// Run: `npm run db:load:mp-roster:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:mp-roster:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
@@ -116,7 +116,7 @@ const run = async (): Promise<void> => {
   if (!wealth?.ok) {
     throw new Error(
       "mp_roster: 105_mp_serving.sql needs person_wealth_year (090). " +
-        "Run `npm run db:load:declarations:pg -- --resolve` first.",
+        "Run `pnpm run db:load:declarations:pg --resolve` first.",
     );
   }
 

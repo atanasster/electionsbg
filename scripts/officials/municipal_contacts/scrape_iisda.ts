@@ -9,7 +9,7 @@
 // person-block on the page (mayor + Заместници section) — each carries
 // a role label, full name, and `mailto:` email.
 //
-// Run: `npx tsx scripts/officials/municipal_contacts/scrape_iisda.ts`
+// Run: `pnpm exec tsx scripts/officials/municipal_contacts/scrape_iisda.ts`
 // Writes: data/officials/municipal_contacts/index.json
 //
 // Polite scrape: serial requests with a 200 ms delay between them

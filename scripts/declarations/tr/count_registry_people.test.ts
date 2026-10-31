@@ -3,7 +3,7 @@
 // the `Indent` element is a hash+salt of the person's EGN, the repo treats it exactly as the
 // EGN, and a script that reads it must be provably incapable of writing it down.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { describe, it, expect } from "vitest";
 import fs from "node:fs";

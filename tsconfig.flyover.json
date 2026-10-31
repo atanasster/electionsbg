@@ -2,7 +2,7 @@
   // The flyover engine, typechecked under the STRICTEST of its three callers.
   //
   // ⚠️ `video/tsconfig.json` sets `noUncheckedIndexedAccess` and the app's does not, so the
-  // engine can compile perfectly under `npm run build` and fail `npm run video:check` — which
+  // engine can compile perfectly under `pnpm run build` and fail `pnpm run video:check` — which
   // is a separate command, run at a different time, by a different person, in the step that
   // adds the video. That is a whole tier later than the step that writes the code. This
   // project pins the engine to the stricter setting NOW, inside `tsc -b`, so the failure

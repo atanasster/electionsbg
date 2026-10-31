@@ -1,5 +1,5 @@
 // The /culture hub's figures come from a COMMITTED artifact —
-// data/culture/derived/hub_stats.json, written by `npm run db:gen-culture-hub-stats`
+// data/culture/derived/hub_stats.json, written by `pnpm run db:gen-culture-hub-stats`
 // from Postgres — so the way they go wrong is the way every committed-derived
 // artifact goes wrong: the corpus reloads underneath the file and the page keeps
 // serving the previous vintage at a 200, with nothing red anywhere.
@@ -61,13 +61,13 @@ const near = (actual: number, stored: number, what: string) => {
   assert.ok(
     stored > 0,
     `${what}: the committed blob stores ${stored} — a zero is a claim, and the ` +
-      `generator refuses to write one. Re-run npm run db:gen-culture-hub-stats.`,
+      `generator refuses to write one. Re-run pnpm run db:gen-culture-hub-stats.`,
   );
   assert.ok(
     Math.abs(actual - stored) / actual <= TOLERANCE,
     `${what}: Postgres says ${actual.toLocaleString()}, the committed blob says ` +
       `${stored.toLocaleString()} (±${TOLERANCE * 100}%). The corpus moved under ` +
-      `the artifact — re-run npm run db:gen-culture-hub-stats and commit it.`,
+      `the artifact — re-run pnpm run db:gen-culture-hub-stats and commit it.`,
   );
 };
 
@@ -172,12 +172,12 @@ test.skipIf(skip)(
       assert.ok(
         live !== undefined,
         `the blob stores ${stored} contracts at grade ${g}, and the corpus now ` +
-          `has none — re-run npm run db:gen-culture-hub-stats`,
+          `has none — re-run pnpm run db:gen-culture-hub-stats`,
       );
       assert.ok(
         stored !== undefined,
         `the corpus has ${live} contracts at grade ${g} and the blob stores ` +
-          `none — re-run npm run db:gen-culture-hub-stats`,
+          `none — re-run pnpm run db:gen-culture-hub-stats`,
       );
       near(live as number, stored as number, `grade ${g}`);
     }
@@ -290,7 +290,7 @@ test.skipIf(skip)(
     if (!b) {
       reportSkip(
         import.meta.url,
-        "the blob predates the budget cell — re-run npm run db:gen-culture-hub-stats",
+        "the blob predates the budget cell — re-run pnpm run db:gen-culture-hub-stats",
       );
       return;
     }
@@ -360,7 +360,7 @@ test.skipIf(skip)("the film totals match the source the PRERENDER uses", () => {
   if (!f) {
     reportSkip(
       import.meta.url,
-      "the blob predates the films cell — re-run npm run db:gen-culture-hub-stats",
+      "the blob predates the films cell — re-run pnpm run db:gen-culture-hub-stats",
     );
     return;
   }
@@ -403,7 +403,7 @@ test.skipIf(skip)("the four band streams are genuinely incommensurable", () => {
     // reads green having asserted nothing must say why.
     reportSkip(
       import.meta.url,
-      "the blob predates the budget/films cells — re-run npm run db:gen-culture-hub-stats",
+      "the blob predates the budget/films cells — re-run pnpm run db:gen-culture-hub-stats",
     );
     return;
   }
@@ -429,7 +429,7 @@ test.skipIf(skip)(
     if (rows === undefined) {
       reportSkip(
         import.meta.url,
-        "the blob predates the topBuyers rail — re-run npm run db:gen-culture-hub-stats",
+        "the blob predates the topBuyers rail — re-run pnpm run db:gen-culture-hub-stats",
       );
       return;
     }

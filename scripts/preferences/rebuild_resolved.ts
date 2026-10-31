@@ -12,7 +12,7 @@ import { isParliamentaryFolder } from "scripts/lib/electionFolders";
 // Why this exists: those shards precompute the CIK-candidate → parliament-MP
 // match, so they depend on `data/parliament/index.json`. The full preferences
 // pipeline (which writes them inline) only runs on a manual
-// `npm run data -- --candidates`, but the parliament index is refreshed
+// `pnpm run data --candidates`, but the parliament index is refreshed
 // independently by the `parliament-scrape` skill. This script is the cheap,
 // network-free re-match step that skill runs afterwards (the parliamentary
 // analogue of `decorate_local_mp_links.ts`) so candidate pages don't show a
@@ -23,8 +23,8 @@ import { isParliamentaryFolder } from "scripts/lib/electionFolders";
 // cheap and the diff stays minimal. ~1 s per election.
 //
 // Usage:
-//   npx tsx scripts/preferences/rebuild_resolved.ts            # all elections
-//   npx tsx scripts/preferences/rebuild_resolved.ts 2021_11_14 # one election
+//   pnpm exec tsx scripts/preferences/rebuild_resolved.ts            # all elections
+//   pnpm exec tsx scripts/preferences/rebuild_resolved.ts 2021_11_14 # one election
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

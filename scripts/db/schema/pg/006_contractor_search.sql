@@ -54,7 +54,7 @@ ALTER TABLE contractor_search ADD COLUMN IF NOT EXISTS primary_name text;
 -- 2026-09-02: schema 1.6 s, fill 7.6 s (an AccessExclusiveLock on the two search tables for
 -- that window, so the dropdown blocks), vacuum 1.9 s, 45,834 + 10,552 rows, 0 NULLs.
 --
--- WHAT FILLS THEM: `npm run db:load:pg` (and its `:cloud` twin) — the ONLY writer. Applying
+-- WHAT FILLS THEM: `pnpm run db:load:pg` (and its `:cloud` twin) — the ONLY writer. Applying
 -- this migration alone creates the columns EMPTY, which is the state NULL is for. There is
 -- no backfill and none is possible from SQL alone at a useful cost, since the values are a
 -- per-(eik, name) partition of the corpus that the loader already computes in one pass.

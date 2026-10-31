@@ -1,4 +1,4 @@
-// `npm run polls:restamp` — decision 11 (docs/plans/polls-agency-watchers-v1.md).
+// `pnpm run polls:restamp` — decision 11 (docs/plans/polls-agency-watchers-v1.md).
 // When a parliamentary vote becomes `scheduled`, this stamps every
 // null-dated poll whose fieldwork end falls after the previous held
 // election and before the new one — "every poll between two elections
@@ -6,8 +6,8 @@
 // 2017-2019 ML waves carry `2021-04-04`) — then ALWAYS runs
 // `polls:analyze`, so nobody has to remember that step by hand.
 //
-//   npm run polls:restamp -- --race parliamentary --to 2027-03-14
-//   npm run polls:restamp -- --race presidential --cycle 2026_10_25_pvr
+//   pnpm run polls:restamp --race parliamentary --to 2027-03-14
+//   pnpm run polls:restamp --race presidential --cycle 2026_10_25_pvr
 //
 // Presidential restamping requires a matching intended election year and
 // fieldwork before the recorded final round. Historical unknowns remain unset.
@@ -96,12 +96,12 @@ type RunAnalyze = (race?: "presidential") => boolean;
 const defaultRunAnalyze = (race?: "presidential"): boolean => {
   const scriptPath = path.join(REPO_ROOT, "scripts/polls/analyze_accuracy.ts");
   const args = race ? ["tsx", scriptPath, "--race", race] : ["tsx", scriptPath];
-  const res = spawnSync("npx", args, {
+  const res = spawnSync("pnpm", ["exec", ...args], {
     stdio: "inherit",
     cwd: REPO_ROOT,
   });
   // `res.status` is null both when the child ran and exited non-zero AND
-  // when it could never be spawned at all (e.g. `npx` missing from PATH)
+  // when it could never be spawned at all (e.g. `pnpm` missing from PATH)
   // — the second case has no "see its output above" to point at, since
   // `stdio: "inherit"` never had a child to inherit from.
   if (res.error) {
@@ -244,7 +244,7 @@ export const main = (argv: string[]): void => {
   const opts = parseArgv(argv);
   if (!opts.race) {
     console.error(
-      "usage: polls:restamp -- --race <parliamentary|presidential> --to <iso> | --cycle <cycle-id>",
+      "usage: polls:restamp --race <parliamentary|presidential> --to <iso> | --cycle <cycle-id>",
     );
     process.exitCode = 1;
     return;
@@ -252,7 +252,7 @@ export const main = (argv: string[]): void => {
   if (opts.race === "presidential") {
     if (!opts.cycle) {
       console.error(
-        "usage: polls:restamp -- --race presidential --cycle <cycle-id>",
+        "usage: polls:restamp --race presidential --cycle <cycle-id>",
       );
       process.exitCode = 1;
       return;
@@ -268,7 +268,7 @@ export const main = (argv: string[]): void => {
     return;
   }
   if (!opts.to) {
-    console.error("usage: polls:restamp -- --race parliamentary --to <iso>");
+    console.error("usage: polls:restamp --race parliamentary --to <iso>");
     process.exitCode = 1;
     return;
   }

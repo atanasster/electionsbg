@@ -7,7 +7,7 @@
 // term would read 0), and none carrying the previous term's person rows while the new
 // lookup is in flight.
 //
-//   npx vitest run src/layout/search/SearchContext.test.tsx
+//   pnpm exec vitest run src/layout/search/SearchContext.test.tsx
 
 import { act, render } from "@testing-library/react";
 import { useContext, useEffect } from "react";

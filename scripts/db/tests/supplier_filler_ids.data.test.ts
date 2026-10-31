@@ -1,6 +1,6 @@
 // The corpus stays free of FILLER supplier ids.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // WHY A DATA TEST AND NOT JUST THE UNIT ONES. `isPlaceholderId` is covered by
 // hand-written inputs in scripts/procurement/supplier_identity.test.ts, which

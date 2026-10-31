@@ -1,7 +1,7 @@
 // Regression net for the AUDITED government-sector hub tiles
 // (data/procurement/derived/sector_stats.json) + their EIK-set copies.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Auto-skips when Postgres is unreachable or the contracts table is absent
 // (CI / fresh checkout), exactly like procurement_dossiers.data.test.ts. The
@@ -1335,7 +1335,7 @@ describe("water sector (procurement / ВиК)", () => {
         w.value,
         await sectorSum(WATER_SECTOR_EIKS),
         "headline ≠ Σ contracts over WATER_SECTOR_EIKS — regenerate " +
-          "sector_stats.json (npm run db:gen-sector-stats) or reconcile the EIK-set",
+          "sector_stats.json (pnpm run db:gen-sector-stats) or reconcile the EIK-set",
       );
     },
   );
@@ -1553,7 +1553,7 @@ describe("transport sector (procurement / МТС)", () => {
         t.value,
         await sectorSum(TRANSPORT_SECTOR_EIKS),
         "headline ≠ Σ contracts over TRANSPORT_SECTOR_EIKS — regenerate " +
-          "sector_stats.json (npm run db:gen-sector-stats) or reconcile the EIK-set",
+          "sector_stats.json (pnpm run db:gen-sector-stats) or reconcile the EIK-set",
       );
     },
   );
@@ -1821,7 +1821,7 @@ describe("energy sector (procurement / БЕХ)", () => {
         e.value,
         await sectorSum(ENERGY_SECTOR_EIKS),
         "headline ≠ Σ contracts over ENERGY_SECTOR_EIKS — regenerate " +
-          "sector_stats.json (npm run db:gen-sector-stats) or reconcile the EIK-set",
+          "sector_stats.json (pnpm run db:gen-sector-stats) or reconcile the EIK-set",
       );
     },
   );
@@ -2314,7 +2314,7 @@ describe("defense sector (budget / МО)", () => {
         bad,
         [],
         "a defense scope disagrees with the МО budget node — regenerate " +
-          "sector_stats.json (npm run db:gen-sector-stats)",
+          "sector_stats.json (pnpm run db:gen-sector-stats)",
       );
     },
   );

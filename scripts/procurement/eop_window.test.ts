@@ -3,7 +3,7 @@
 // buyer's recent contract stays missing), and its wider window must clear the
 // backfill guard without --backfill. The plain gap-fill keeps the tight window.
 //
-//   npx vitest run scripts/procurement/eop_window.test.ts
+//   pnpm exec vitest run scripts/procurement/eop_window.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

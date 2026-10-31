@@ -98,7 +98,7 @@ from here (full cells in `colab.md`):
 4. **Enable** in `ai/llm/models.ts`: on the BgGPT-2.6B entry set `ready:true`,
    uncomment the (already pre-filled) `appConfig` (weights = your HF repo,
    `model_lib` = the pinned prebuilt Gemma-2 wasm), set `sizeNote` to `~1.6 GB`.
-   Then `npm run build:ai && npm run deploy:ai`. Smoke test in a WebGPU browser:
+   Then `pnpm run build:ai && pnpm run deploy:ai`. Smoke test in a WebGPU browser:
    "Колко гласа взе ДПС на последните избори?" → should route to `partyResult`.
 
 License/hosting: BgGPT is **`gemma`** license — re-hosting a quantized derivative

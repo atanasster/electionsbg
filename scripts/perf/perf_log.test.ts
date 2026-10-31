@@ -204,40 +204,40 @@ describe("formatDuration", () => {
 describe("splitChain", () => {
   it("refuses a top-level || or ; rather than reinterpreting the chain", () => {
     // Splitting these would run a chain with DIFFERENT abort semantics from the
-    // one `npm run` would have run — a silently wrong pipeline, not a slow one.
-    expect(() => splitChain("npm run a || npm run b")).toThrow(/refusing/);
-    expect(() => splitChain("npm run a ; npm run b")).toThrow(/refusing/);
+    // one `pnpm run` would have run — a silently wrong pipeline, not a slow one.
+    expect(() => splitChain("pnpm run a || pnpm run b")).toThrow(/refusing/);
+    expect(() => splitChain("pnpm run a ; pnpm run b")).toThrow(/refusing/);
   });
 
   it("splits a package.json chain on top-level && only", () => {
-    expect(splitChain("npm run a && npm run b -- --full && npm run c")).toEqual(
-      ["npm run a", "npm run b -- --full", "npm run c"],
+    expect(splitChain("pnpm run a && pnpm run b --full && pnpm run c")).toEqual(
+      ["pnpm run a", "pnpm run b --full", "pnpm run c"],
     );
   });
 
   it("does not split on a && inside quotes", () => {
     // gsutil's -x regexes and psql -c bodies carry shell metacharacters; a
     // naive split would cut one in half and run two broken commands.
-    expect(splitChain(`psql -c "a && b" && npm run x`)).toEqual([
+    expect(splitChain(`psql -c "a && b" && pnpm run x`)).toEqual([
       `psql -c "a && b"`,
-      "npm run x",
+      "pnpm run x",
     ]);
   });
 
   it("keeps env prefixes and redirections with their link", () => {
-    expect(splitChain("DATABASE_URL=x npm run y && npm run z")).toEqual([
-      "DATABASE_URL=x npm run y",
-      "npm run z",
+    expect(splitChain("DATABASE_URL=x pnpm run y && pnpm run z")).toEqual([
+      "DATABASE_URL=x pnpm run y",
+      "pnpm run z",
     ]);
   });
 });
 
 describe("stepName", () => {
-  it("strips the npm run prefix but keeps the args that make a link distinct", () => {
+  it("strips the pnpm run prefix but keeps the args that make a link distinct", () => {
     // db:refresh runs person:slug-redirects twice with different files; folding
     // them onto one name would average two different steps together.
-    expect(stepName("npm run person:slug-redirects -- raw_data/a.json")).toBe(
-      "person:slug-redirects -- raw_data/a.json",
+    expect(stepName("pnpm run person:slug-redirects raw_data/a.json")).toBe(
+      "person:slug-redirects raw_data/a.json",
     );
     expect(stepName("DATABASE_URL=x tsx foo.ts")).toBe(
       "DATABASE_URL=x tsx foo.ts",

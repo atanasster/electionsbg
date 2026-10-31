@@ -81,7 +81,7 @@ export const procurementScopeWindows: WatchSource = {
     if (!prev) return `${curr.detail} (baseline)`;
     return (
       `${curr.detail} — a new year or election window appeared; run ` +
-      `\`npm run db:load:procurement-scopes:pg:cloud\` (46 s local, minutes on cloud) ` +
+      `\`pnpm run db:load:procurement-scopes:pg:cloud\` (46 s local, minutes on cloud) ` +
       `so /procurement/by-settlement, /procurement/contractors and the six dashboard ` +
       `routes serve the new scope instead of an empty page`
     );

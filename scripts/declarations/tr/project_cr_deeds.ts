@@ -391,7 +391,7 @@ export const upsertFoundingDates = async (
   if (col?.n === "0")
     throw new Error(
       "company_founded is missing http_status/attempts — apply 033 first:\n" +
-        "  npx tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql",
+        "  pnpm exec tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql",
     );
 
   const rows = eligibleFounding(founding);

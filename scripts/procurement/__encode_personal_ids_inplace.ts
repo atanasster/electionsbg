@@ -36,9 +36,9 @@
 // needing the corpus rebuilt from raw. A final sweep greps the whole data/procurement
 // tree and exits non-zero if any ЕГН survives anywhere.
 //
-//   npx tsx scripts/procurement/__encode_personal_ids_inplace.ts [--dry-run]
-//   npx tsx scripts/procurement/rebuild_from_cache.ts
-//   npm run db:load:pg && npm run db:load:graph:pg
+//   pnpm exec tsx scripts/procurement/__encode_personal_ids_inplace.ts [--dry-run]
+//   pnpm exec tsx scripts/procurement/rebuild_from_cache.ts
+//   pnpm run db:load:pg && pnpm run db:load:graph:pg
 
 import fs from "fs";
 import path from "path";
@@ -337,8 +337,8 @@ console.log(
           .join("\n")
       : "✓ final sweep: no ЕГН anywhere under data/procurement",
     "",
-    "Next: npx tsx scripts/procurement/rebuild_from_cache.ts",
-    "      npm run db:load:pg && npm run db:load:graph:pg",
+    "Next: pnpm exec tsx scripts/procurement/rebuild_from_cache.ts",
+    "      pnpm run db:load:pg && pnpm run db:load:graph:pg",
   ].join("\n"),
 );
 

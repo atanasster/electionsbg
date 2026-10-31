@@ -58,7 +58,7 @@ SET check_function_bodies = off;
 -- RETURN TYPE, the one edit `CREATE OR REPLACE FUNCTION` refuses — do it as an
 -- explicit one-time step, never by restoring the DROPs here:
 --   DROP MATERIALIZED VIEW dual_corpus_rankings_cache;   -- then apply this file,
---   -- then `npm run db:load:pg` (or `REFRESH MATERIALIZED VIEW`) to repopulate.
+--   -- then `pnpm run db:load:pg` (or `REFRESH MATERIALIZED VIEW`) to repopulate.
 -- That is safe to do by hand because of the second half of the fix: the tail of this
 -- file exposes `dual_corpus_company_count()`, and callers read the cache THROUGH it
 -- rather than directly, so no stored query pins the matview. `db:refresh`'s

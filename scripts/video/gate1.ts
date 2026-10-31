@@ -2,7 +2,7 @@
  * Gate 1 — the cheap gate. Prints the script for a human to read and mechanically
  * checks the half that CAN be checked, before a single second of audio is bought.
  *
- *   npm run video:gate1 -- e2
+ *   pnpm run video:gate1 e2
  *
  * ── WHAT IS ASSERTED AND WHAT IS NOT ──────────────────────────────────────────
  * Asserted:
@@ -69,7 +69,7 @@ const main = () => {
   const spec = key ? SPECS[key] : undefined;
   if (!spec) {
     console.error(
-      `Usage: npm run video:gate1 -- <${Object.keys(SPECS).join("|")}>`,
+      `Usage: pnpm run video:gate1 <${Object.keys(SPECS).join("|")}>`,
     );
     process.exit(1);
   }

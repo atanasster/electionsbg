@@ -7,11 +7,11 @@
 // land here when their per-município parser ships.
 //
 // Usage:
-//   npx tsx scripts/council/scrape.ts                           # all wired munis, since last ingest
-//   npx tsx scripts/council/scrape.ts --only VTR01              # one município
-//   npx tsx scripts/council/scrape.ts --only VTR01 --since-year 2025 --max 3
-//   npx tsx scripts/council/scrape.ts --only VTR01 --dry        # parse, don't write index/shards
-//   npx tsx scripts/council/scrape.ts --budget-min 5            # tighter per-município wall clock
+//   pnpm exec tsx scripts/council/scrape.ts                           # all wired munis, since last ingest
+//   pnpm exec tsx scripts/council/scrape.ts --only VTR01              # one município
+//   pnpm exec tsx scripts/council/scrape.ts --only VTR01 --since-year 2025 --max 3
+//   pnpm exec tsx scripts/council/scrape.ts --only VTR01 --dry        # parse, don't write index/shards
+//   pnpm exec tsx scripts/council/scrape.ts --budget-min 5            # tighter per-município wall clock
 //
 // State watermark: state/ingest/council_<obshtina>.json carries
 // `lastSuccessfulIngest` (set via scripts/stamp-ingest.ts), the `sinceDate`

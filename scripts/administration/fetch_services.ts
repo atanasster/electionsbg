@@ -13,7 +13,7 @@
 // central tier, a service CATEGORY for the municipal tier — so per-tier TOTALS
 // are the uniform metric; the flat service list is the catalogue).
 //
-//   npx tsx scripts/administration/fetch_services.ts
+//   pnpm exec tsx scripts/administration/fetch_services.ts
 //
 // Writes two artifacts:
 //   data/administration/services_overview.json  — totals by tier (the tile)

@@ -1,7 +1,7 @@
 // Presidential tickets → `/person/<slug>`, resolved once and committed.
 //
-//   npx tsx scripts/parsers_presidential/build_ticket_persons.ts          # report only
-//   npx tsx scripts/parsers_presidential/build_ticket_persons.ts --write  # rewrite the map
+//   pnpm exec tsx scripts/parsers_presidential/build_ticket_persons.ts          # report only
+//   pnpm exec tsx scripts/parsers_presidential/build_ticket_persons.ts --write  # rewrite the map
 //
 // ⚠⚠ A NAME IS NOT AN IDENTITY, AND THIS FILE'S JOB IS MOSTLY REFUSING. Linking „Румен
 // Георгиев Радев" on a result page to a `/person` profile is a claim about a named individual;
@@ -23,7 +23,7 @@
 // degrades to a redirect rather than a 404. Re-run it after `db:resolve:persons`.
 //
 // ⚠ IT SHIPS IN THE BUNDLE, NOT THE BUCKET. `src/data/presidential/ticketPersons.ts` IMPORTS
-// it, so it reaches a reader through `npm run deploy` and NOT through `bucket:sync` — unlike
+// it, so it reaches a reader through `pnpm run deploy` and NOT through `bucket:sync` — unlike
 // every other file under `data/`. A re-run therefore needs a build and a hosting deploy to be
 // visible; syncing the bucket does nothing for it.
 

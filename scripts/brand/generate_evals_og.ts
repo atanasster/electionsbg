@@ -1,7 +1,7 @@
 /**
  * OG image (1200×630) for the chat evals page (naiasno.bg/chat/evals).
  *
- *   npx tsx scripts/brand/generate_evals_og.ts
+ *   pnpm exec tsx scripts/brand/generate_evals_og.ts
  *
  * Number-led, on-brand (navy + coral). Writes public/og/chat-evals.png, which
  * ships through the static-asset copy; the postbuild image pass

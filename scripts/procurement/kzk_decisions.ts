@@ -1,10 +1,10 @@
 // Crawl the КЗК decisions register (Решения/Определения) — the tier-2 source for
 // kzk_appeals.outcome / decision_date / suspension.
 //
-//   npm run kzk:decisions -- --probe
-//   npm run kzk:decisions -- --year 2026 --apply
-//   npm run kzk:decisions -- --year 2026 --dry-run
-//   npm run kzk:decisions -- --backfill --apply     (one-off, heavy)
+//   pnpm run kzk:decisions --probe
+//   pnpm run kzk:decisions --year 2026 --apply
+//   pnpm run kzk:decisions --year 2026 --dry-run
+//   pnpm run kzk:decisions --backfill --apply     (one-off, heavy)
 //
 // Writing requires --apply. With neither flag the run parses and reports, exactly
 // like --dry-run. No database is touched at any point — see the scope note at the
@@ -678,8 +678,8 @@ const main = async (opts: {
     // exists because this arm once went five weeks stale unnoticed.
     result(
       "\nNext — publish and fold into kzk_appeals.outcome (the crawl alone changes nothing served):\n" +
-        "  npm run db:load:kzk-decisions:pg   # or :pg:cloud for prod\n" +
-        "  npm run kzk:rejoin -- --apply      # or kzk:rejoin:cloud -- --apply",
+        "  pnpm run db:load:kzk-decisions:pg   # or :pg:cloud for prod\n" +
+        "  pnpm run kzk:rejoin --apply      # or kzk:rejoin:cloud --apply",
     );
   } finally {
     await browser.close().catch(() => undefined);

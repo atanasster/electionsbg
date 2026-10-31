@@ -8,7 +8,7 @@
 // only runs where those files are present; in a clean checkout it skips with a
 // notice rather than failing.
 //
-// Usage: npx tsx scripts/macro/__smoke_arrears.ts
+// Usage: pnpm exec tsx scripts/macro/__smoke_arrears.ts
 
 import { buildArrears } from "./fetch_arrears";
 

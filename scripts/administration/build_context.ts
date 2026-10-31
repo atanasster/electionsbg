@@ -9,7 +9,7 @@
 //                    EU peer-comparison bars + BG rank band
 // Result (data/administration/context.json) is ~6 KB — a >50× first-load cut.
 //
-//   npx tsx scripts/administration/build_context.ts
+//   pnpm exec tsx scripts/administration/build_context.ts
 
 import fs from "fs";
 import path from "path";

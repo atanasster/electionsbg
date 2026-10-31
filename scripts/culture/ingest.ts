@@ -5,8 +5,8 @@
 // so a refresh can never leave overview.json without the EIKs (and degrades to
 // carrying the previous ones forward when Postgres is down).
 //
-//   npx tsx scripts/culture/ingest.ts            # cache-first
-//   npx tsx scripts/culture/ingest.ts --force    # re-download every year
+//   pnpm exec tsx scripts/culture/ingest.ts            # cache-first
+//   pnpm exec tsx scripts/culture/ingest.ts --force    # re-download every year
 //
 // Two source-format families (plan §5):
 //  - 2022–2025: [Вид · Наименование · Рег.№ · Продуцент · Субсидия лв · Бюджет лв
@@ -287,7 +287,7 @@ const attachProducerEiks = async (
         `\n    carried ${carried}/${prev.size} eik(s) forward from the previous overview.json` +
         (lost > 0 ? ` — ${lost} LOST to producer-name churn` : "") +
         ` (${overview.topProducers.length} top producers).` +
-        `\n    Re-run \`npx tsx scripts/culture/enrich_producers.ts\` once Postgres is up.\n`,
+        `\n    Re-run \`pnpm exec tsx scripts/culture/enrich_producers.ts\` once Postgres is up.\n`,
     );
   } finally {
     await endPool();

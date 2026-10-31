@@ -1,9 +1,9 @@
 // Crawl the Interreg programme sites into a committed snapshot.
 //
-//   npm run opencalls:interreg            # crawl + write data/opencalls/interreg.json
-//   npm run opencalls:interreg -- --dry   # crawl, report, write nothing
-//   … -- --allow-shrink    override the per-source shrink guard (a legitimate contraction)
-//   … -- --allow-partial   write even though a programme that had rows returned none
+//   pnpm run opencalls:interreg            # crawl + write data/opencalls/interreg.json
+//   pnpm run opencalls:interreg --dry   # crawl, report, write nothing
+//   … --allow-shrink    override the per-source shrink guard (a legitimate contraction)
+//   … --allow-partial   write even though a programme that had rows returned none
 //
 // ── WHAT THIS ARM IS WORTH TODAY, MEASURED 2026-08-09 ───────────────────────────────────────
 // Nine calls across the two readable programmes, and NONE of them open: Greece-Bulgaria's most

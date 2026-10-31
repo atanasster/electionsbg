@@ -1,6 +1,6 @@
 // The /sector/transport hub's figures come from a COMMITTED artifact —
 // data/transport/derived/hub_stats.json, written by
-// `npm run db:gen-transport-hub-stats` — so they fail the way every
+// `pnpm run db:gen-transport-hub-stats` — so they fail the way every
 // committed-derived artifact fails: the corpus reloads underneath the file and the
 // hub keeps stating the old number at a 200.
 //
@@ -71,7 +71,7 @@ const TOLERANCE = 0.02;
 const near = (actual: number, stored: number, what: string) =>
   assert.ok(
     Math.abs(actual - stored) <= Math.max(1, Math.abs(stored) * TOLERANCE),
-    `${what}: database ${actual} vs blob ${stored} — re-run npm run db:gen-transport-hub-stats`,
+    `${what}: database ${actual} vs blob ${stored} — re-run pnpm run db:gen-transport-hub-stats`,
   );
 
 const BYTE_BUDGET = 5_120;

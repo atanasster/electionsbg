@@ -3,8 +3,8 @@
 // ingest still writes (the PG load source). Run this BEFORE retiring the GCS
 // serving of any funds shard, and after any loader / serving-fn change.
 //
-//   npx tsx scripts/db/gen_funds/parity.ts            # sampled (fast, default)
-//   npx tsx scripts/db/gen_funds/parity.ts --full     # every shard on disk
+//   pnpm exec tsx scripts/db/gen_funds/parity.ts            # sampled (fast, default)
+//   pnpm exec tsx scripts/db/gen_funds/parity.ts --full     # every shard on disk
 //
 // Two payload shapes are checked:
 //   • fund_payloads blobs (stored verbatim) — must equal their source file

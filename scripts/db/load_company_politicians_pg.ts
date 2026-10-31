@@ -4,11 +4,11 @@
 // reassigns. Its only builder used to be db:load:tr:pg, which reads the gitignored TR
 // SQLite and is a REFRESH_EXCLUSIONS member, so a resolve in db:refresh (or the cloud person
 // chain) left the table naming the wrong humans until the next TR load. This runs the same
-// rebuild from Postgres alone; run it after `db:load:declarations:pg -- --resolve` (it reads
+// rebuild from Postgres alone; run it after `db:load:declarations:pg --resolve` (it reads
 // declaration_stake_company) and before persons-browse / graph.
 //
-//   npm run db:load:company-politicians:pg         # local
-//   npm run db:load:company-politicians:pg:cloud   # Cloud SQL
+//   pnpm run db:load:company-politicians:pg         # local
+//   pnpm run db:load:company-politicians:pg:cloud   # Cloud SQL
 
 import { pathToFileURL } from "node:url";
 import { allRows, end } from "./lib/pg";

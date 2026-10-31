@@ -3,12 +3,12 @@
 // staticPage(.ogImage) in scripts/prerender/routes.ts (SECTOR_PAGES).
 //
 // Run with the dev server up (needs the /api/db endpoints for the KPI + charts):
-//   npm run dev    # in another shell
-//   npx tsx scripts/og/screenshot_sectors.ts
+//   pnpm run dev    # in another shell
+//   pnpm exec tsx scripts/og/screenshot_sectors.ts
 //
 // Capture only some sectors (comma-separated ids) — so adding one sector doesn't
 // re-shoot (and risk regressing) every other sector's card:
-//   npx tsx scripts/og/screenshot_sectors.ts regional
+//   pnpm exec tsx scripts/og/screenshot_sectors.ts regional
 // Point at a non-default dev port with OG_BASE_URL=http://localhost:5174.
 //
 // Output: public/og/sector-<id>.png (1200×630 CSS px @2x → 2400×1260 PNG).

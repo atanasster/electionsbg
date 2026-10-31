@@ -10,8 +10,8 @@
 // run_policy_baseline.ts (≤12% min-max spread) and eyeballed here.
 //
 // Usage:
-//   npx tsx scripts/budget/run_policy_baseline.ts   # refresh inputs first
-//   npx tsx scripts/budget/__smoke_vat_model.ts
+//   pnpm exec tsx scripts/budget/run_policy_baseline.ts   # refresh inputs first
+//   pnpm exec tsx scripts/budget/__smoke_vat_model.ts
 
 import fs from "fs";
 import path from "path";

@@ -17,7 +17,7 @@
  * Memory: state is held in-memory during the whole replay. Each company holds
  * a Map of person records (active + erased). For the full ~1.5 M-company
  * Bulgarian commerce registry, expect ~1–2 GB peak — bump `--max-old-space`
- * (the CLI does this automatically when invoked via `npm run tr:reconstruct`).
+ * (the CLI does this automatically when invoked via `pnpm run tr:reconstruct`).
  */
 
 import fs from "fs";
@@ -137,7 +137,7 @@ const resolveSource = async (rawFolder: string): Promise<Source> => {
 
   if (parts.length === 0) {
     throw new Error(
-      `[tr/reconstruct] no source found. Run \`npx tsx scripts/declarations/tr/cli.ts --bulk\` ` +
+      `[tr/reconstruct] no source found. Run \`pnpm exec tsx scripts/declarations/tr/cli.ts --bulk\` ` +
         `(preferred) or \`--incremental\` to populate ${rawFolder}/tr/.`,
     );
   }

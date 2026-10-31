@@ -14,7 +14,7 @@
 // flags flip at 2016, so a surface branching on one and then the other is branching on one
 // era boundary twice.
 //
-// It is DERIVED — `npx tsx scripts/parsers_presidential/build_catalogue.ts --write` reads
+// It is DERIVED — `pnpm exec tsx scripts/parsers_presidential/build_catalogue.ts --write` reads
 // the committed raw corpus and rewrites it, and `build_catalogue.test.ts` fails when the
 // two disagree. Do not hand-edit.
 //

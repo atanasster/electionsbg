@@ -47,7 +47,7 @@ const wire = async (days = 30): Promise<Wire> =>
  *
  * REPEATABLE READ rather than the default: under READ COMMITTED each statement takes a fresh
  * snapshot, so anything another connection commits between the two reads lands in the delta and is
- * reported as a defect in this file. `npm run test:data` runs ~118 gate files against one database
+ * reported as a defect in this file. `pnpm run test:data` runs ~118 gate files against one database
  * in parallel, so that is a live hazard rather than a theoretical one. The sandbox's OWN writes
  * stay visible either way — the snapshot only freezes everybody else.
  */

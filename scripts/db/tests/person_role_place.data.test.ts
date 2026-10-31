@@ -20,7 +20,7 @@
 // PASS, so CI (which runs without a container) would report this whole gate green while
 // asserting nothing — the exact silent-staleness failure this file exists to catch.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

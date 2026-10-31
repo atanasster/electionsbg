@@ -15,7 +15,7 @@
 // (procurement's exceptions in package.json bucket:sync), unlike the rest of the
 // PG-served procurement tree.
 //
-//   npm run db:gen-hub-stats
+//   pnpm run db:gen-hub-stats
 //
 // ⚠️ IN `db:refresh`, immediately after db:load:ngo-funding:pg — which is the
 // EARLIEST safe slot, not an arbitrary one. Five of the nine fields below come
@@ -147,8 +147,8 @@ const main = async (): Promise<void> => {
         relGaps.every(
           (r) => r === "company_politicians" || r === "tr_companies",
         )
-        ? "Run `npm run db:load:tr:pg` (the TR ingest — the one dependency db:refresh excludes)."
-        : "Run `npm run db:refresh` — its loaders fill these.",
+        ? "Run `pnpm run db:load:tr:pg` (the TR ingest — the one dependency db:refresh excludes)."
+        : "Run `pnpm run db:refresh` — its loaders fill these.",
     );
     await end();
     return;
@@ -162,7 +162,7 @@ const main = async (): Promise<void> => {
     warnSkip(
       "hub_stats",
       "the contracts table is empty",
-      "Run the procurement ingest, then `npm run db:load:pg`.",
+      "Run the procurement ingest, then `pnpm run db:load:pg`.",
     );
     await end();
     return;

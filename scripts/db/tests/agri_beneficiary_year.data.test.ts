@@ -1,7 +1,7 @@
 // Tier 3 (Postgres-native) — the scoped beneficiary rollup behind the ranked
 // /subsidies/recipients page (migration 046, `agri_beneficiary_year`).
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // These gates exist because the alternative designs are one word away and each
 // fails silently:

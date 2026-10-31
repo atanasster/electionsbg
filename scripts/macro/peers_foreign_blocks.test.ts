@@ -8,7 +8,7 @@
 // but only after the artifact is committed, and it cannot tell "never fetched"
 // from "fetched then clobbered". This holds the invariant itself.
 //
-//   npx vitest run scripts/macro/peers_foreign_blocks.test.ts
+//   pnpm exec vitest run scripts/macro/peers_foreign_blocks.test.ts
 
 import { describe, it, expect } from "vitest";
 import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";

@@ -1,7 +1,7 @@
 // Bulgaria's 31 МИР polygons, projected ONCE at generation time into the flyover's planar
 // frame — `docs/plans/home-flyover-v1.md` §0.1 and §6.1.
 //
-//   npx tsx scripts/geo/project_regions.ts [--tolerance 1.9] [--out data/home/_geo.json]
+//   pnpm exec tsx scripts/geo/project_regions.ts [--tolerance 1.9] [--out data/home/_geo.json]
 //
 // ⚠️ THE POINT OF PROJECTING OFFLINE IS THAT THE CLIENT NEVER IMPORTS `d3-geo`. `/` is the
 // site's entry page and is budgeted in REQUESTS and BYTES (two GCS requests at first paint,
@@ -548,7 +548,7 @@ const run = (): void => {
 };
 
 // An exact match, not a substring: `…includes("geo/project_regions")` is also true of this
-// module's own test file, so `npx tsx scripts/geo/project_regions.test.ts` would run the
+// module's own test file, so `pnpm exec tsx scripts/geo/project_regions.test.ts` would run the
 // generator as a side effect.
 if (
   process.argv[1] &&

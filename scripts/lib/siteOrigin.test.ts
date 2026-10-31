@@ -16,7 +16,7 @@ import { assertCommitted } from "./assert_committed";
  *   - the two GCS CORS configs are JSON handed to `gsutil`
  *
  * So they keep their own copies, and this file fails when any of them disagrees.
- * Flip `SITE_ORIGIN`, run `npx vitest run scripts/lib/siteOrigin.test.ts`, and it
+ * Flip `SITE_ORIGIN`, run `pnpm exec vitest run scripts/lib/siteOrigin.test.ts`, and it
  * names every file still carrying the old origin. Without it the migration is a
  * memory exercise across four file formats.
  *
@@ -136,7 +136,7 @@ describe("copies that cannot import the constant", () => {
   it("the GCS CORS config allows the site origin", () => {
     // Miss this and the new domain serves a perfectly indexed blank page.
     //
-    // `scripts/bucket_cors.json` is the ONE config, applied by `npm run
+    // `scripts/bucket_cors.json` is the ONE config, applied by `pnpm run
     // bucket:cors`. A second copy, `gcs-cors.json`, existed until 2026-08-14
     // with no applier and a stale origin list missing both AI origins — so
     // anyone who reached for it (the README pointed at it) would have removed

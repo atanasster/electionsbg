@@ -12,10 +12,10 @@
 --
 -- After this file: re-run the person graph so person/person_alias/person_role rebuild on the
 -- new folds and the dropped spaced-variant TR links attach —
---   npm run db:resolve:persons
---   npm run db:load:declarations:pg -- --resolve
---   npm run db:load:person-elections:pg
---   npm run person:slugs
+--   pnpm run db:resolve:persons
+--   pnpm run db:load:declarations:pg --resolve
+--   pnpm run db:load:person-elections:pg
+--   pnpm run person:slugs
 -- (person/person_alias fold columns are recomputed by that rebuild's INSERTs, so they are
 -- intentionally NOT rewritten here.)
 

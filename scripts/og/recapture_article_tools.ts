@@ -1,8 +1,8 @@
 // One-off: re-capture the two stale procurement-article tool screenshots
 //   - 01-risk-index.png  (example contract page, risk-index meter + chips)
 //   - 06-flags.png       (red-flag feed — redesigned with summary tiles + oblast heatmap)
-// Run with the dev server up on :5173 (npm run dev), then:
-//   npx tsx scripts/og/recapture_article_tools.ts
+// Run with the dev server up on :5173 (pnpm run dev), then:
+//   pnpm exec tsx scripts/og/recapture_article_tools.ts
 // Output overwrites public/articles/images/procurement-tools/{01,06}*.png.
 
 import path from "path";

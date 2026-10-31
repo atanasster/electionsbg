@@ -18,8 +18,8 @@ The municipal tier (mayors, deputy-mayors, municipal-council chairs, councillors
 
 | Trigger | Action |
 |---|---|
-| Daily watcher reports `Сметна палата declarations — executive (officials): N declarations in scope` changed | Re-run the executive ingest for the current year (`npx tsx scripts/officials/index.ts`) |
-| Daily watcher reports `Сметна палата declarations — municipal (mayors & councillors): N declarations in scope` changed | Re-run the municipal ingest (`npx tsx scripts/officials/municipal.ts`) |
+| Daily watcher reports `Сметна палата declarations — executive (officials): N declarations in scope` changed | Re-run the executive ingest for the current year (`pnpm exec tsx scripts/officials/index.ts`) |
+| Daily watcher reports `Сметна палата declarations — municipal (mayors & councillors): N declarations in scope` changed | Re-run the municipal ingest (`pnpm exec tsx scripts/officials/municipal.ts`) |
 | User asks to "refresh officials" / "update cabinet declarations" | Run the executive ingest; run the municipal ingest too if the municipal watcher also flipped |
 | `data/officials/assets-rankings.json` missing (fresh clone) | Cold-start executive ingest |
 | `data/officials/municipal/index.json` missing (fresh clone) | Cold-start municipal ingest (Step 1b — ~30–50 min) |
@@ -29,7 +29,7 @@ The municipal tier (mayors, deputy-mayors, municipal-council chairs, councillors
 ## Step 1 — Ingest
 
 ```bash
-npx tsx scripts/officials/index.ts
+pnpm exec tsx scripts/officials/index.ts
 ```
 
 Default year is 2025. The script:
@@ -72,8 +72,8 @@ Cold start takes ~90 seconds (network-bound on per-declaration fetches — 150 m
 ## Coverage check — did the ingest take everything the register lists?
 
 ```bash
-npx tsx scripts/declarations/coverage.ts            # every folder on file
-npx tsx scripts/declarations/coverage.ts --year 2025
+pnpm exec tsx scripts/declarations/coverage.ts            # every folder on file
+pnpm exec tsx scripts/declarations/coverage.ts --year 2025
 ```
 
 Prints listed-vs-held per tier per register folder. Run it after any ingest
@@ -98,7 +98,7 @@ parser or filter bug until proven otherwise.
 ## Step 1b — Municipal tier
 
 ```bash
-npx tsx scripts/officials/municipal.ts
+pnpm exec tsx scripts/officials/municipal.ts
 ```
 
 Separate ingest for the local-government tier. The script:
@@ -125,13 +125,13 @@ Cold start takes ~30–50 minutes (~6,500 per-declaration fetches at a 150 ms po
 If the run aborts with `N roster entries did not map to an obshtina — add aliases in scripts/officials/_aliases.json`, the registry has introduced a new entity name (or renamed an existing one). Dry-run the resolver to enumerate the unmatched strings without re-scraping:
 
 ```bash
-npx tsx scripts/officials/municipality_join.ts --dry-run
+pnpm exec tsx scripts/officials/municipality_join.ts --dry-run
 ```
 
 Add aliases to `scripts/officials/_aliases.json` (key = verbatim registry name, value = obshtina code from `data/municipalities.json`, or the synthetic `SFO_CITY` for Sofia city-wide). After fixing aliases you can re-emit shards in seconds without re-scraping the whole register:
 
 ```bash
-npx tsx scripts/officials/build_municipal_shards.ts
+pnpm exec tsx scripts/officials/build_municipal_shards.ts
 ```
 
 ## Step 1c — The officials↔company set (NOT built here any more)
@@ -140,31 +140,31 @@ npx tsx scripts/officials/build_municipal_shards.ts
 
 The officials↔company set is now **`company_politicians` at `kind='official'`**, built by `db:load:tr:pg` from the gated person layer — `person_role` at source tr/ngo through Bridge A/B, unioned with 096's confirmed declared stakes, and **REFUSED** on a `tr_name_fold_people` fold (148) the Commerce Registry says belongs to more than one human (an unmeasured fold is refused too). A shared name is refused rather than scored, so there is no per-row `confidence` grade left to filter on; what still keeps a Горна Малина councillor off Софарма Трейдинг's billions is the refusal, not a tier.
 
-⚠️ **An officials refresh alone therefore does not move that set — it needs the person layer first.** The order is Step 1d's `db:resolve:persons`, then `npm run db:load:tr:pg`. Both downstream consumers — `pep_connected` (`/update-procurement`) and the funds political-economy join (`/update-funds`) — read the table, so running either before `db:load:tr:pg` republishes the previous vintage at exit 0.
+⚠️ **An officials refresh alone therefore does not move that set — it needs the person layer first.** The order is Step 1d's `db:resolve:persons`, then `pnpm run db:load:tr:pg`. Both downstream consumers — `pep_connected` (`/update-procurement`) and the funds political-economy join (`/update-funds`) — read the table, so running either before `db:load:tr:pg` republishes the previous vintage at exit 0.
 
 (The old `run-officials-connections-only.ts` officials↔MP JSON bridge is **retired** — connections-engine-v1 §P4.3. `/connections` and the `/person` "Свързани лица" tile now read the live Postgres graph engine, which folds officials from the person layer, not this static bridge.)
 
-> **After a significant officials refresh, re-derive the live connections graph.** The refreshed roster reaches the graph through the person layer, not through any file this step writes. Once the officials roster is re-resolved (`db:resolve:persons` / its cloud chain), run `npm run db:load:graph:pg` (local) / `db:load:graph:pg:cloud` (prod) so the `/connections` graph + the `/person` tile pick up the new officials edges — the `update-persons` cloud chain already sequences this. There is no offline connections rebuild anymore.
+> **After a significant officials refresh, re-derive the live connections graph.** The refreshed roster reaches the graph through the person layer, not through any file this step writes. Once the officials roster is re-resolved (`db:resolve:persons` / its cloud chain), run `pnpm run db:load:graph:pg` (local) / `db:load:graph:pg:cloud` (prod) so the `/connections` graph + the `/person` tile pick up the new officials edges — the `update-persons` cloud chain already sequences this. There is no offline connections rebuild anymore.
 
 ## Step 1d — Reload Postgres, IN THIS ORDER
 
 The officials ingest writes `data/officials/index.json`, but the person resolver does **not** read that file — it reads the `official_roster` Postgres table, and the only thing that loads `official_roster` is `db:load:ngo-board-links`. So a refresh that adds officials and skips this step leaves the resolver unable to place any of them: their declarations load with `person_id` NULL, contribute to nobody's wealth series, and the `declarations_load` data tests fail on the resolution rate. Adding ~1,900 filings this way left 518 declarations unresolved (98.9% vs the 99.9% floor) until `official_roster` was reloaded — then 47,982 of 47,983 resolved.
 
 ```bash
-npm run db:load:ngo-board-links       # official_roster ← data/officials/{,municipal/}index.json
-npm run db:load:declarations:pg       # filings, person_id LEFT NULL
-npm run db:resolve:persons            # person / person_role from official_roster
-npm run db:load:declarations:pg -- --resolve   # fill person_id, REFRESH person_wealth_year
-npm run db:load:employer-links:pg             # declared employer → procurement buyer (165+168)
-                                              # publish: npm run db:load:employer-links:pg:cloud
-npm run db:load:person-elections:pg   # candidate_person — person_ids were just reassigned
-npm run db:load:tr:pg                 # company_politicians — see the ⚠️ below
+pnpm run db:load:ngo-board-links       # official_roster ← data/officials/{,municipal/}index.json
+pnpm run db:load:declarations:pg       # filings, person_id LEFT NULL
+pnpm run db:resolve:persons            # person / person_role from official_roster
+pnpm run db:load:declarations:pg --resolve   # fill person_id, REFRESH person_wealth_year
+pnpm run db:load:employer-links:pg             # declared employer → procurement buyer (165+168)
+                                              # publish: pnpm run db:load:employer-links:pg:cloud
+pnpm run db:load:person-elections:pg   # candidate_person — person_ids were just reassigned
+pnpm run db:load:tr:pg                 # company_politicians — see the ⚠️ below
 ```
 
 `db:load:person-elections:pg` is not optional after a re-resolve: `db:resolve:persons` mints
 new `person_id`s, so `candidate_person` goes stale and its data test fails.
 
-⚠️ **`db:load:tr:pg` IS THE ONE `npm run db:refresh` CANNOT STAND IN FOR.** The rest of this
+⚠️ **`db:load:tr:pg` IS THE ONE `pnpm run db:refresh` CANNOT STAND IN FOR.** The rest of this
 block is the same tail `db:refresh` runs, so reaching for that when in doubt is fine — but
 `db:load:tr:pg` is a `REFRESH_EXCLUSIONS` member (its input is the gitignored
 `raw_data/tr/state.sqlite`), so the chain skips it by design. It is what rebuilds
@@ -173,9 +173,9 @@ block is the same tail `db:refresh` runs, so reaching for that when in doubt is 
 — read that table. Skipping it republishes the previous vintage at exit 0, which is the failure
 Step 1c warns about; naming it in Step 1c and omitting it here is how an operator working
 top-to-bottom walks into it anyway. It needs the TR store on disk: run
-`npm run tr:daily-refresh` first if the clone has never had one.
+`pnpm run tr:daily-refresh` first if the clone has never had one.
 
-**The prerender slug manifest is NOT regenerated by anything above, and `npm run person:slugs`
+**The prerender slug manifest is NOT regenerated by anything above, and `pnpm run person:slugs`
 will not do it.** `data/person/prerender_slugs.json` feeds the production prerender + sitemap,
 so it is minted only from the database that SERVES production; run against local Postgres the
 emitter warns and refuses to write (see "WHICH DATABASE MAY WRITE THIS FILE" in
@@ -183,7 +183,7 @@ emitter warns and refuses to write (see "WHICH DATABASE MAY WRITE THIS FILE" in
 slugs, hence the manifest — so once the same reload has been applied to Cloud SQL, mint it:
 
 ```bash
-npm run person:slugs:cloud
+pnpm run person:slugs:cloud
 ```
 
 Until that runs, the manifest keeps its previous vintage. Nothing goes red — the two
@@ -248,7 +248,7 @@ Scan for mistyped declared values (officials + MPs + municipal, one shared
 report):
 
 ```bash
-npx tsx scripts/declarations/check_suspicious_values.ts
+pnpm exec tsx scripts/declarations/check_suspicious_values.ts
 ```
 
 A new `FLAG` line for an executive official means a likely separator typo is
@@ -281,7 +281,7 @@ gsutil -m -h "Cache-Control:no-cache, max-age=0" rsync -r -J \
 Or use the project-wide rsync:
 
 ```bash
-npm run bucket:sync
+pnpm run bucket:sync
 ```
 
 ## Step 4 — Commit
@@ -296,16 +296,16 @@ git commit -m "officials: refresh declarations for FY <year>"
 ```bash
 # Pin a single year. Omitted, both ingests resolve the newest year the
 # register root advertises — no constant to bump when a new cycle publishes.
-npx tsx scripts/officials/index.ts --year 2024
+pnpm exec tsx scripts/officials/index.ts --year 2024
 
 # Cap declarations processed (debug)
-npx tsx scripts/officials/index.ts --limit 30
+pnpm exec tsx scripts/officials/index.ts --limit 30
 
 # Substring filter on declarant name (debug — match a single person)
-npx tsx scripts/officials/index.ts --name "Желязков"
+pnpm exec tsx scripts/officials/index.ts --name "Желязков"
 
 # Parse-only, no writes
-npx tsx scripts/officials/index.ts --dry-run
+pnpm exec tsx scripts/officials/index.ts --dry-run
 ```
 
 `scripts/officials/municipal.ts` (Step 1b) accepts the identical `--year` / `--limit` / `--name` / `--dry-run` flags.
@@ -315,8 +315,8 @@ npx tsx scripts/officials/index.ts --dry-run
 The upstream registry publishes year-keyed directories back to 2015 — `2015`–`2020`, `2022`–`2025`; there is **no plain `2021`** folder (that cycle ships split as `2021_nc` / `2021_nonc` and is not ingested). To add an earlier year:
 
 ```bash
-npx tsx scripts/officials/index.ts --year 2024
-npx tsx scripts/officials/index.ts --year 2023
+pnpm exec tsx scripts/officials/index.ts --year 2024
+pnpm exec tsx scripts/officials/index.ts --year 2023
 # etc.
 ```
 
@@ -340,7 +340,7 @@ Two years carry upstream rot — `list.xml` lists declarations whose XML 404s:
 | 2018 | 54 / 382 (14.1%) | genuinely gone upstream (absent under the `2018`, `2018y` and `2018f1` folders alike) — needs `--max-missing 0.2` to load |
 
 ```bash
-npx tsx scripts/officials/index.ts --year 2018 --max-missing 0.2
+pnpm exec tsx scripts/officials/index.ts --year 2018 --max-missing 0.2
 ```
 
 ## Data-integrity contract

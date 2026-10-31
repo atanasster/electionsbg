@@ -16,7 +16,7 @@
  * MUST run after scripts/regional/fetch_eurostat.ts — it merges into the
  * regional.json that fetcher writes. The `update-regional` skill runs both.
  *
- * Usage: npx tsx scripts/regional/fetch_az_oblast.ts
+ * Usage: pnpm exec tsx scripts/regional/fetch_az_oblast.ts
  */
 
 import fs from "fs";

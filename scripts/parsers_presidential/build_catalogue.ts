@@ -1,7 +1,7 @@
 // Derive `src/data/json/presidential_elections.json` from the committed raw corpus.
 //
-//     npx tsx scripts/parsers_presidential/build_catalogue.ts          # report only
-//     npx tsx scripts/parsers_presidential/build_catalogue.ts --write  # rewrite it
+//     pnpm exec tsx scripts/parsers_presidential/build_catalogue.ts          # report only
+//     pnpm exec tsx scripts/parsers_presidential/build_catalogue.ts --write  # rewrite it
 //
 // ⚠ THE CATALOGUE IS NAVIGATION AND SHIPS IN THE ENTRY BUNDLE, so everything a selector
 // row or a route guard needs is here and nothing else is. `src/data/presidentialCatalogue.ts`

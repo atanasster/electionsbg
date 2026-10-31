@@ -19,7 +19,7 @@
 // of GDP in any sane reading) instead of trusting the unit label.
 //
 // Usage:
-//   npx tsx scripts/budget/run_policy_baseline.ts
+//   pnpm exec tsx scripts/budget/run_policy_baseline.ts
 
 import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";

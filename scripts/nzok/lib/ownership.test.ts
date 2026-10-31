@@ -3,7 +3,7 @@
 // a WRONG label is worse than none (the module's stated design principle). Pure +
 // injectable, so the whole ladder is exercised against a synthetic ЕЕОФ index.
 //
-// Run: npm run test:nzok
+// Run: pnpm run test:nzok
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

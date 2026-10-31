@@ -73,7 +73,7 @@ Critical naming conventions:
 ## Step 3 — Build, verify, commit
 
 ```bash
-npx tsx scripts/transparency/build_lisi.ts
+pnpm exec tsx scripts/transparency/build_lisi.ts
 ```
 
 Expected output:
@@ -108,7 +108,7 @@ git commit -m "transparency: ship LISI <year> (national avg <value>)"
 ## Step 4 — Stamp success
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-transparency-lisi \
+pnpm exec tsx scripts/stamp-ingest.ts update-transparency-lisi \
   --summary "LISI <year> shipped · 27/27 mapped · national avg <value>"
 ```
 
@@ -116,7 +116,7 @@ Append to the public data-changes log only when the year actually changed:
 
 ```bash
 if [ -n "$(git diff --stat data/municipal_transparency/)" ]; then
-  npx tsx scripts/append-data-change.ts update-transparency-lisi \
+  pnpm exec tsx scripts/append-data-change.ts update-transparency-lisi \
     --summary "LISI <year> shipped · 27/27 mapped · national avg <value>" \
     --source "Прозрачност без граници — LISI"
 fi

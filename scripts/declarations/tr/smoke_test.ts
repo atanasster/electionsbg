@@ -1,7 +1,7 @@
 /**
  * Smoke test for the TR parser + state replay + dataset-index parser. Run:
  *
- *   npx tsx scripts/declarations/tr/smoke_test.ts
+ *   pnpm exec tsx scripts/declarations/tr/smoke_test.ts
  *
  * Fixtures:
  *   __fixtures__/2026-04-29.json    — 13 representative deeds extracted from a
@@ -275,7 +275,7 @@ const main = async (): Promise<void> => {
   } else {
     console.log(
       `\n[skip] Phase 4 reconstruction — no daily files at ${dailyFolder}. ` +
-        `Run \`npx tsx scripts/declarations/tr/cli.ts --bulk\` to enable this section.`,
+        `Run \`pnpm exec tsx scripts/declarations/tr/cli.ts --bulk\` to enable this section.`,
     );
   }
 

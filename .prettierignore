@@ -8,7 +8,7 @@ dist-ssr
 # Raw election data (large CSV/HTML/JSON dumps)
 raw_data
 
-# Generated election data — regenerate with `npm run prod`
+# Generated election data — regenerate with `pnpm run prod`
 public/2*/
 public/sections/
 public/settlements/

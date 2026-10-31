@@ -6,7 +6,7 @@
 // baseline path table for eyeballing.
 //
 // Usage:
-//   npx tsx scripts/budget/__smoke_fiscal_projection.ts
+//   pnpm exec tsx scripts/budget/__smoke_fiscal_projection.ts
 
 import {
   NOMINAL_GDP_2026_EUR,

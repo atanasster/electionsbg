@@ -1,9 +1,9 @@
 import { installProcurementQuery } from "./lib/installProcurementQuery";
 // Load the КЗК decisions corpus into `kzk_decisions` (migration 130).
 //
-//   npm run db:load:kzk-decisions:pg                    (needs `npm run db:pg:up`)
-//   npm run db:load:kzk-decisions:pg:cloud              (against the Cloud SQL proxy)
-//   npm run db:load:kzk-decisions:pg -- --allow-shrink  (see the shrink guard below)
+//   pnpm run db:load:kzk-decisions:pg                    (needs `pnpm run db:pg:up`)
+//   pnpm run db:load:kzk-decisions:pg:cloud              (against the Cloud SQL proxy)
+//   pnpm run db:load:kzk-decisions:pg --allow-shrink  (see the shrink guard below)
 //
 // Reads data/procurement/kzk_decisions.json and ships it. Both migrations it needs
 // (005 for the changelog tables, 130 for the corpus) are applied by this loader,
@@ -122,7 +122,7 @@ const main = async (): Promise<void> => {
     // it should fail there rather than here, where it would block `db:refresh`.
     console.log(
       `  No ${path.relative(ROOT, SOURCE_FILE)} — nothing to load.\n` +
-        "  Build it with `npx tsx scripts/procurement/kzk_decisions.ts --year <YYYY> --apply`\n" +
+        "  Build it with `pnpm exec tsx scripts/procurement/kzk_decisions.ts --year <YYYY> --apply`\n" +
         "  (T4 — needs a headed browser + Bulgarian egress).",
     );
     await end();
@@ -236,13 +236,13 @@ const main = async (): Promise<void> => {
   console.log(
     `✓ kzk_decisions: ${clean.length} acts, newest ${newest}.\n` +
       "  Fold any newly-loaded decisions into kzk_appeals.outcome with\n" +
-      "  `npx tsx scripts/procurement/kzk_rejoin.ts --apply` (T2).\n" +
+      "  `pnpm exec tsx scripts/procurement/kzk_rejoin.ts --apply` (T2).\n" +
       "\n" +
       "  ⚠ THIS CORPUS IS NOT YET REPRODUCIBLE. Until a full\n" +
       "    `kzk_decisions.ts --backfill --dry-run` is proven to re-derive it, this\n" +
       "    table plus data/procurement/kzk_decisions.json are the ONLY copies, and\n" +
       "    the JSON is gitignored. Take a restore point now:\n" +
-      "        npm run db:dump\n" +
+      "        pnpm run db:dump\n" +
       "    'Never regress the 2,098' is a rule, not a recovery plan.",
   );
   await end();

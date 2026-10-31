@@ -6,7 +6,7 @@
 // id below is a REAL token taken from raw_data/procurement/eop/*.json.gz or from the
 // live `contracts` table, so this file doubles as the evidence for the plan's numbers.
 //
-//   npx vitest run scripts/procurement/supplier_identity.test.ts
+//   pnpm exec vitest run scripts/procurement/supplier_identity.test.ts
 
 import { describe, test, expect } from "vitest";
 import {

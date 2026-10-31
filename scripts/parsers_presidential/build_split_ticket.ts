@@ -1,8 +1,8 @@
 // Split-ticket voting — the ПВР ticket against the НС list of the SAME nominator, in the same
 // section, on the same day.
 //
-//   npx tsx scripts/parsers_presidential/build_split_ticket.ts <cycle> [--write]
-//   npx tsx scripts/parsers_presidential/build_split_ticket.ts all --write
+//   pnpm exec tsx scripts/parsers_presidential/build_split_ticket.ts <cycle> [--write]
+//   pnpm exec tsx scripts/parsers_presidential/build_split_ticket.ts all --write
 //
 // ⚠⚠ THE HEADLINE NUMBER IS A FLOOR, AND THAT IS WHAT MAKES IT SAYABLE. „N% of a party's list
 // voters did not vote for its ticket" — the phrasing this analysis is usually asked for — is an

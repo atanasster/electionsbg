@@ -1,7 +1,7 @@
 // Load data/budget/municipal_fiscal/*.json into `municipal_fiscal` (149).
 //
-//   npm run db:load:municipal-fiscal:pg
-//   npm run db:load:municipal-fiscal:pg:cloud
+//   pnpm run db:load:municipal-fiscal:pg
+//   pnpm run db:load:municipal-fiscal:pg:cloud
 //
 // Pure LOAD: the input is the COMMITTED per-quarter JSON, so this works on a
 // fresh clone with no workbook drops and no network. The fetch half is

@@ -626,12 +626,12 @@ blob fetched from GCS. So the reload path above does NOT cover it: there is no
 `:cloud` loader to name, because production reads a bucket object, not Cloud SQL.
 
 The registry is `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`. Adding a
-sector means the artifact must be **regenerated** (`npm run db:gen-sector-stats`,
+sector means the artifact must be **regenerated** (`pnpm run db:gen-sector-stats`,
 or a full `db:refresh`) **and published**:
 
 ```bash
-npm run bucket:sync:paths -- procurement/derived/sector_stats.json
-npm run db:check-generated     # byte-compares all six against the live bucket
+pnpm run bucket:sync:paths procurement/derived/sector_stats.json
+pnpm run db:check-generated     # byte-compares all six against the live bucket
 ```
 
 ⚠️ **THE PUBLISH TRIGGER IS NOT THE OWNING SKILL'S TRIGGER, and that is what makes
@@ -672,7 +672,7 @@ Three rules for a NEW generated artifact:
    artifact would have to be added to it in **both** `bucket_sync_paths.ts` and the
    `-x` regex in `package.json`, which are kept in lockstep by hand.
 3. **Do not restate the publish path in an `update-*` skill.** That is where this
-   knowledge lived when it failed. A full `npm run bucket:sync` would also have
+   knowledge lived when it failed. A full `pnpm run bucket:sync` would also have
    caught all of them (neither `culture/` nor `governance/` nor `parliament/votes/derived/` is excluded from it) — but
    nobody runs the ~30-minute full-tree sync day to day, and the scoped
    `bucket:sync:paths` argument list is assembled per skill. That assembly is the
@@ -731,7 +731,7 @@ correct corpus and a page anyone can find, and each fails quietly.
 - **Every sector page needs a sitemap entry** (`scripts/sitemap/route_defs.ts`),
   in BOTH languages, and every `<loc>` needs a real `dist/<path>/index.html`
   behind it. `scripts/sitemap/families.data.test.ts` is the gate, and it only
-  sees a `dist/` that exists — run it AFTER `npm run build`, not before.
+  sees a `dist/` that exists — run it AFTER `pnpm run build`, not before.
 - **A per-record sub-family is a DECISION, not an oversight.** 944 film records
   of one card each are the thin-content shape: no `<loc>` and no prerender is the
   right call, the same one `/council/resolution/**` made. But that call is only
@@ -778,7 +778,7 @@ first two are in the diff; the third is in a file nobody re-reads.
   source corpora, never by reading back the stored verdict (§8, and the fourth
   unfailable shape below).
 - Every committed artifact the sector's figures come from is **on the bucket and
-  byte-identical to local** — `npm run db:check-generated`. „Regenerated and
+  byte-identical to local** — `pnpm run db:check-generated`. „Regenerated and
   committed" is not „published"; `culture/derived/hub_stats.json` was both and
   served 404 for two days (§11).
 - **Then break each gate's clauses and watch them fire.** Two gates in this run
@@ -853,7 +853,7 @@ Run against an existing sector surface, in order:
 11. **Publish path** (§11) — the half a `:cloud` loader does NOT cover. Is every
     committed artifact this sector's figures come from registered in
     `REFRESH_GENERATORS` with a `bucketPath`, and does the bucket currently serve
-    the same bytes? Run `npm run db:check-generated`. Do this even when the sector
+    the same bytes? Run `pnpm run db:check-generated`. Do this even when the sector
     has no artifact of its own: adding a sector moves
     `procurement/derived/sector_stats.json`, which is one.
 12. **Source shape** (§16) — is any figure derived by INVERTING a register that

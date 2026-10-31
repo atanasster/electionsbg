@@ -42,7 +42,7 @@
 -- misreports nearly half of it; that is the same absence-vs-no-data
 -- distinction `has_named_votes` exists for.
 --
--- Applied by scripts/db/load_council_pg.ts (npm run db:load:council:pg), which
+-- Applied by scripts/db/load_council_pg.ts (pnpm run db:load:council:pg), which
 -- must run AFTER db:resolve:persons (the person_id bridge), after
 -- db:load:place-dim:pg (ekatte) and after db:load:official-candidate-links:pg
 -- (the party label). Plan: docs/plans/council-hub-v1.md §4.

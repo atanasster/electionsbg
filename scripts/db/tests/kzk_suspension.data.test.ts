@@ -20,7 +20,7 @@
 //
 // Hence: assert through the REAL serving objects, never a re-implementation.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -136,7 +136,7 @@ test.skipIf(skip)(
       r.raw_status,
       `${r.shared} appeals serve as suspended but ${r.raw_status} carry a 'спрян' ` +
         "status — the fallback is not tracking the intake. Run " +
-        "`npx tsx scripts/procurement/kzk_unfreeze_suspension.ts --apply`.",
+        "`pnpm exec tsx scripts/procurement/kzk_unfreeze_suspension.ts --apply`.",
     );
   },
 );

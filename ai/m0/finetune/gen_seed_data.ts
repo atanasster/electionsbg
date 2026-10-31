@@ -7,7 +7,7 @@
 //   • add hard negatives (the eval's confused pairs) + irrelevance → "no_tool"
 //   • fill `arguments` and validate every call against runTool (drop throwers)
 //
-//   npx tsx ai/m0/finetune/gen_seed_data.ts            # → ai/m0/finetune/seed_data.jsonl
+//   pnpm exec tsx ai/m0/finetune/gen_seed_data.ts            # → ai/m0/finetune/seed_data.jsonl
 //
 // NOTE: name-only targets here (registry examples carry no annotated args, same
 // limitation the eval flagged). Args are added in expansion.

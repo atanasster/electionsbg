@@ -117,7 +117,7 @@ empty). So this refusal should be rare — but it is what a fresh clone hits bef
 backfill has run, and the refusal names the exact command per person:
 
 ```bash
-npx tsx scripts/declarations/backfill_filed_position.ts --slug <slug> --apply
+pnpm exec tsx scripts/declarations/backfill_filed_position.ts --slug <slug> --apply
 ```
 
 ### What the copy must say on a role-matched card
@@ -290,5 +290,5 @@ compared on money. On top of `naiasno-post`'s rules:
 - `src/lib/propertyKind.test.ts` — the property fold, including the head-
   noun rule and the ancillary-space carve-out.
 
-Both run under `npm run test:data` / `npm run test:unit` and skip when Postgres
+Both run under `pnpm run test:data` / `pnpm run test:unit` and skip when Postgres
 is down.

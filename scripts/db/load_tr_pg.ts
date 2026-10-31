@@ -3,7 +3,7 @@
 // translit_bg_latin (a generated column), and builds GIN trigram indexes after
 // the bulk load. Officers are deduped to one row per (uic, name).
 //
-//   npm run db:load:tr:pg        (needs `npm run db:pg:up` first)
+//   pnpm run db:load:tr:pg        (needs `pnpm run db:pg:up` first)
 //
 // See docs/plans/postgres-migration-v1.md (Feature 1).
 
@@ -295,7 +295,7 @@ const waitForPg = async (): Promise<void> => {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
-  throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
+  throw new Error("Postgres not reachable — run `pnpm run db:pg:up`.");
 };
 
 // Streamed COPY … FROM STDIN. Was a batched multi-row INSERT (chunked to stay
@@ -483,8 +483,8 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
     );
     if (dep.missing) {
       throw new Error(
-        `company_politicians mp arm: missing ${dep.missing} — run npm run db:resolve:persons ` +
-          `(and db:load:declarations:pg -- --resolve) before this loader.`,
+        `company_politicians mp arm: missing ${dep.missing} — run pnpm run db:resolve:persons ` +
+          `(and db:load:declarations:pg --resolve) before this loader.`,
       );
     }
     if (Number(dep.mps) === 0) {

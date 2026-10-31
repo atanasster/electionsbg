@@ -1,6 +1,6 @@
 // Build the published RETRIEVER-recall comparison: data/ai/evals/retriever_recall.json
 //
-//   npx tsx ai/llm/retrieverEval.artifact.ts
+//   pnpm exec tsx ai/llm/retrieverEval.artifact.ts
 //
 // The constrained in-browser router routes the small model among the top-k tools
 // a RETRIEVER hands it; if the right tool isn't in that top-k, no model can
@@ -17,7 +17,7 @@
 // point-in-time measurements (2026-06-17), not re-run live — same pattern as the
 // FunctionGemma capture rows in fcEval.artifact.ts.
 //
-// Output → data/ai/evals/ which `npm run bucket:sync` ships to the GCS data bucket;
+// Output → data/ai/evals/ which `pnpm run bucket:sync` ships to the GCS data bucket;
 // the /evals page fetches it via fetchData("/ai/evals/retriever_recall.json").
 
 import { mkdirSync, writeFileSync } from "node:fs";

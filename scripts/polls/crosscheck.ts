@@ -1,13 +1,13 @@
 /**
- * `npm run polls:crosscheck` — §6.5, decision 1 of
+ * `pnpm run polls:crosscheck` — §6.5, decision 1 of
  * docs/plans/polls-agency-watchers-v1.md. Wikipedia stopped being an
  * ingest input the day the agency-site pipeline (`polls:fetch` →
  * `polls:extract` → `polls:accept`) landed; this is what Wikipedia is
  * still FOR — a report, never a write, comparing the corpus against BG
  * Wikipedia's own polling table.
  *
- *   npm run polls:crosscheck
- *   npm run polls:crosscheck -- --cycle https://bg.wikipedia.org/wiki/...
+ *   pnpm run polls:crosscheck
+ *   pnpm run polls:crosscheck --cycle https://bg.wikipedia.org/wiki/...
  *
  * Presidential crosscheck (`--race presidential`) is NOT supported here
  * yet — Tier 4 has not shipped that family's schema (no

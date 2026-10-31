@@ -50,7 +50,7 @@
 //
 // Runs AFTER db:resolve:persons (needs the resolved person + person_role), the declarations
 // load (the floor consults `declaration`) AND the officials_rankings_table refresh (the
-// `prerender` set reads it) — on the SERVING database: `npm run person:slugs:cloud`, after
+// `prerender` set reads it) — on the SERVING database: `pnpm run person:slugs:cloud`, after
 // the cloud twins of those three. db:refresh still calls the local `person:slugs`, which
 // now warns and skips rather than writing (see "WHICH DATABASE MAY WRITE THIS FILE" below).
 
@@ -467,8 +467,8 @@ export const emitPersonSlugs = async (opts?: {
       `[person-slugs] connected to the LOCAL Postgres — refusing to overwrite ` +
         `${path.relative(ROOT, OUT)}, which the production prerender + sitemap read. ` +
         `Mint it from the serving database instead:\n` +
-        `  npm run person:slugs:cloud\n` +
-        `(override with \`npm run person:slugs -- --local\` if you really want the local view)`,
+        `  pnpm run person:slugs:cloud\n` +
+        `(override with \`pnpm run person:slugs --local\` if you really want the local view)`,
     );
     return;
   }

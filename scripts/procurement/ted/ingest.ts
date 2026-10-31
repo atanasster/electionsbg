@@ -1,8 +1,8 @@
 // TED ingest (plan P10) — crawl Bulgarian notices from the open v3 API into
 // data/procurement/ted.json.
 //
-//   npx tsx scripts/procurement/ted/ingest.ts --probe   # one year, no write
-//   npx tsx scripts/procurement/ted/ingest.ts --apply   # 2015→now
+//   pnpm exec tsx scripts/procurement/ted/ingest.ts --probe   # one year, no write
+//   pnpm exec tsx scripts/procurement/ted/ingest.ts --apply   # 2015→now
 //
 // Resumable per YEAR: a year already present in the on-disk artifact is skipped
 // unless --refresh. TED is immutable for closed years, so re-crawling them is

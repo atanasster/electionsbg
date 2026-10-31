@@ -11,8 +11,8 @@
 // what makes running this a decision rather than a chore.
 //
 // Usage:
-//   npx tsx scripts/i18n/prune_translations.ts            # report
-//   npx tsx scripts/i18n/prune_translations.ts --apply
+//   pnpm exec tsx scripts/i18n/prune_translations.ts            # report
+//   pnpm exec tsx scripts/i18n/prune_translations.ts --apply
 import fs from "node:fs";
 import { pathToFileURL } from "node:url";
 import { analyzeKeyUsage, loadCorpus, CORPUS_PATHS } from "./key_usage";

@@ -15,7 +15,7 @@
 // predates the `kind` column is NOT a skip — it is a hard failure, because on
 // such a database this gate would measure a corpus the writer never uses.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -73,7 +73,7 @@ reportSkip(import.meta.url, skip);
 
 // Hoisted: the same to_regclass round trip ran once per kzk_decisions-shaped test.
 // As a skipIf it also promotes "130 was never applied here" from a silent green
-// `return` to a visible skip, so `npm run test:data` separates a gate that held
+// `return` to a visible skip, so `pnpm run test:data` separates a gate that held
 // the line from one that never looked.
 const hasDecisions =
   haveDb &&
@@ -159,7 +159,7 @@ const loadMatchRun = async (): Promise<MatchRun> => {
   assert.ok(
     hasKind,
     "kzk_decisions.kind is MISSING — this database predates the определения " +
-      "arm. Run `npm run db:load:kzk-decisions:pg`, which re-applies 130. " +
+      "arm. Run `pnpm run db:load:kzk-decisions:pg`, which re-applies 130. " +
       "Without the column these gates would measure 4,779 rows against a writer " +
       "that sees 4,502.",
   );
@@ -198,7 +198,7 @@ test.skipIf(skip)("the provenance column exists", async () => {
   assert.equal(
     rows.length,
     1,
-    "kzk_appeals.decision_act_no is MISSING — run `npm run kzk:rejoin -- --apply`, " +
+    "kzk_appeals.decision_act_no is MISSING — run `pnpm run kzk:rejoin --apply`, " +
       "which applies 131_kzk_appeal_provenance.sql. Without it every writer must " +
       "fall back to fill-only COALESCE, which freezes any wrong outcome for ever.",
   );
@@ -299,7 +299,7 @@ test.skipIf(skipDecisions)(
       // the three mutation checks below, so nothing at all was verified.
       console.warn(
         "GATE D DISARMED: kzk_decisions is EMPTY on this database — run " +
-          "`npm run db:load:kzk-decisions:pg`. Nothing was checked.",
+          "`pnpm run db:load:kzk-decisions:pg`. Nothing was checked.",
       );
       return;
     }
@@ -317,7 +317,7 @@ test.skipIf(skipDecisions)(
     assert.ok(
       Number(k.n) > 0,
       "no определения in the corpus — the merits filter is untested here. " +
-        "Re-run `npm run db:load:kzk-decisions:pg`; a corpus with no определения " +
+        "Re-run `pnpm run db:load:kzk-decisions:pg`; a corpus with no определения " +
         "means the crawler's register enumeration (ot=6) or kindFromHeader() has " +
         "regressed.",
     );
@@ -330,7 +330,7 @@ test.skipIf(skipDecisions)(
     assert.ok(
       merits.length > 0,
       `all ${decisions.length} stored decisions are определения — that is a corpus ` +
-        "problem, not a matcher one. Re-run `npm run db:load:kzk-decisions:pg` " +
+        "problem, not a matcher one. Re-run `pnpm run db:load:kzk-decisions:pg` " +
         "(решения is ot=2). kzk_rejoin.ts refuses the same state.",
     );
 
@@ -357,7 +357,7 @@ test.skipIf(skipDecisions)(
       "the ratchet carries no `reached` bar, so Gate D has nothing to assert. " +
         "This checkout predates the 2026-08-25 swap, or the mint never ran. Fix:\n" +
         "  DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' \\\n" +
-        "    npm run kzk:rejoin -- --apply\n" +
+        "    pnpm run kzk:rejoin --apply\n" +
         "then commit data/procurement/derived/kzk_baselines.json. It MUST be minted " +
         "from LOCAL Postgres — kzk:rejoin:cloud deliberately refuses, because a bar " +
         "local cannot reach turns every local run red with no available fix. Reading " +
@@ -383,7 +383,7 @@ test.skipIf(skipDecisions)(
         "  4. a corpus CORRECTION — a re-spelled party, or legacy acts newly " +
         "labelled определения.\n" +
         "Only 3 and 4 are legitimate; verify, then re-mint with " +
-        "`npm run kzk:rejoin -- --apply` against LOCAL Postgres. Do not lower the " +
+        "`pnpm run kzk:rejoin --apply` against LOCAL Postgres. Do not lower the " +
         "ratchet by hand.\n" +
         `  matched, for context: ${report.matches.length} against the last ` +
         `observed ${baselines.matched} — this is NOT a bar and a fall in it ` +
@@ -436,7 +436,7 @@ test.skipIf(skipDecisions)(
       // kzk_decisions.
       console.warn(
         "GATE E DISARMED: no machine-derived outcomes on this database — " +
-          "run `npm run kzk:rejoin -- --apply`. Nothing was checked.",
+          "run `pnpm run kzk:rejoin --apply`. Nothing was checked.",
       );
       return;
     }

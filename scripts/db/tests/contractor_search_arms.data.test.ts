@@ -34,7 +34,7 @@
 // contractor. So each test establishes findability first, from the corpus rather than from
 // a hardcoded value that a reload would turn back into a hardcoded lie.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -78,7 +78,7 @@ else
     if (!(await hasServedSlice()))
       skip =
         "contractor_rank has no scope_key='all' / division='ALL' rows — " +
-        "run npm run db:load:procurement-scopes:pg";
+        "run pnpm run db:load:procurement-scopes:pg";
   } catch (e) {
     skip = `contractor_rank is unreadable (${(e as Error).message}) — apply migration 122`;
   }
@@ -220,7 +220,7 @@ test.skipIf(skip)(
     assert.ok(
       r.fn,
       "shlyo_query_fold(text) is missing — apply it, do not reload:\n" +
-        "  npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql",
+        "  pnpm exec tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql",
     );
   },
 );

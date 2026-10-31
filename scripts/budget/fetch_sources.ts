@@ -395,7 +395,7 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   // that ministry, so the rest of the pipeline still completes.
   //
   // To activate any of these: uncomment the entry, manually download the
-  // file, save it at the cache path above, then `npm run budget:ingest`.
+  // file, save it at the cache path above, then `pnpm run budget:ingest`.
   // ──────────────────────────────────────────────────────────────────────
   // МФ FY2023 — cached via Wayback Machine (the live site is Cloudflare-
   // challenged). The MoF report is bordered-table PDF; the headcount parser
@@ -541,7 +541,7 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   //
   // For sites that JS-render their budget section (МОН, МРРБ, МК, МЕ, МС,
   // МВнР, МТС — curl returns the page shell only), use the Playwright
-  // discovery tool: `npx tsx scripts/budget/discover_execution_reports.ts
+  // discovery tool: `pnpm exec tsx scripts/budget/discover_execution_reports.ts
   // --headless` runs a sweep across all 7 and writes
   // `data-reports/budget-discovery-<DATE>.md` with scored PDF/DOCX/XLSX
   // candidates. Headed mode (`--ministry <key>`) opens chromium for

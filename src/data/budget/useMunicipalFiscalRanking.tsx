@@ -68,7 +68,7 @@ export interface MunicipalFiscalRankingRow {
    *  A serving database on the previous 149 returns rows without it, so the
    *  field is `undefined` and the map's collection layer paints all 265
    *  municipalities the no-data colour — which reads as a data gap rather than
-   *  as an unapplied migration. `npm run db:load:municipal-fiscal:pg:cloud`
+   *  as an unapplied migration. `pnpm run db:load:municipal-fiscal:pg:cloud`
    *  (or `apply_functions.ts 149_municipal_fiscal.sql`) is what fixes it. */
   collection_avg_pct: number | null;
   /** Fields withheld for this row, by name. A figure absent from the row and

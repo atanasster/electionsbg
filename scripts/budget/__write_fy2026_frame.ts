@@ -1,7 +1,7 @@
 // Generator: write data/budget/derived/fy2026_frame.json — the mixed-provenance
 // FY2026 fiscal frame (plan T8).
 //
-//   npx tsx scripts/budget/__write_fy2026_frame.ts
+//   pnpm exec tsx scripts/budget/__write_fy2026_frame.ts
 //
 // Re-run whenever a new КФП month lands: the annualisation band narrows
 // monotonically through the year, and in December the estimate stops being an

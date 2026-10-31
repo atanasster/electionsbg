@@ -7,12 +7,12 @@
 // pg_restore --clean — so in practice nobody did, production served a ~10-entry
 // stub, and the newFirmWinner risk flag was dormant for every user.
 //
-//   npm run db:load:company-founded:pg          # local (no-op sanity check)
-//   npm run db:load:company-founded:pg:cloud    # ship local → Cloud SQL
+//   pnpm run db:load:company-founded:pg          # local (no-op sanity check)
+//   pnpm run db:load:company-founded:pg:cloud    # ship local → Cloud SQL
 //
 // ⚠️ Apply 033 to the target first — the table carries http_status/attempts:
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-//     npx tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql
+//     pnpm exec tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql
 //
 // After shipping, the served payload must be rebuilt or the new dates are in
 // the table but not in `foundedByEik`; this refreshes it for you.

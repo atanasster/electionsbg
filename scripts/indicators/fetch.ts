@@ -12,10 +12,10 @@
  *      src/data/indicators/useIndicators.tsx.
  *
  * Usage:
- *   npx tsx scripts/indicators/fetch.ts                # all sources
- *   npx tsx scripts/indicators/fetch.ts --force        # re-download XLSX
- *   npx tsx scripts/indicators/fetch.ts --max-years 3  # quick smoke test
- *   npx tsx scripts/indicators/fetch.ts --source az_unemployment
+ *   pnpm exec tsx scripts/indicators/fetch.ts                # all sources
+ *   pnpm exec tsx scripts/indicators/fetch.ts --force        # re-download XLSX
+ *   pnpm exec tsx scripts/indicators/fetch.ts --max-years 3  # quick smoke test
+ *   pnpm exec tsx scripts/indicators/fetch.ts --source az_unemployment
  */
 
 import fs from "fs";

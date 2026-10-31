@@ -33,8 +33,8 @@ The ГРАО file is plain text, **Windows-1251** encoded, pipe-delimited, organ
 ## Step 1 — Fetch
 
 ```bash
-npx tsx scripts/grao/fetch.ts          # uses the cached raw file if present
-npx tsx scripts/grao/fetch.ts --force  # re-download the raw .txt
+pnpm exec tsx scripts/grao/fetch.ts          # uses the cached raw file if present
+pnpm exec tsx scripts/grao/fetch.ts --force  # re-download the raw .txt
 ```
 
 The script resolves the most recent `t41nm` file from the ГРАО index, downloads it to `raw_data/grao/`, decodes Windows-1251, parses the per-municipality blocks, joins settlement names → EKATTE, and writes the full bundle `data/grao_population.json` plus one ~1 KB slice per municipality under `data/grao/<obshtina>.json` (what the settlement pages actually fetch).
@@ -70,8 +70,8 @@ Eyeball:
 ## Step 3 — Upload to bucket
 
 ```bash
-npm run bucket:sync:dry   # preview
-npm run bucket:sync       # rsync data/ to gs://data-electionsbg-com/
+pnpm run bucket:sync:dry   # preview
+pnpm run bucket:sync       # rsync data/ to gs://data-electionsbg-com/
 ```
 
 ## Step 4 — Commit

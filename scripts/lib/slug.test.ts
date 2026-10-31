@@ -3,7 +3,7 @@
 // Data-pipeline code is mostly pure transforms (parse, normalize, derive an id).
 // Test them the same way as frontend utils — input -> output, no I/O — but they
 // run in the `node` Vitest project (no jsdom). Co-located *.test.ts, run with
-// `npm run test:unit` (or the whole scripts subtree via a namespaced runner).
+// `pnpm run test:unit` (or the whole scripts subtree via a namespaced runner).
 import { describe, expect, it } from "vitest";
 import { slugify } from "./slug";
 

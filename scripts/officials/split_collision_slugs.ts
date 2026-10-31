@@ -33,7 +33,7 @@
 // people by accident — the failure mode that put 67 bad entries in the
 // collisions table.
 //
-// Manual by design, like every one-off repair here — not wired into `npm run
+// Manual by design, like every one-off repair here — not wired into `pnpm run
 // data`. Dry by default:
 //   tsx scripts/officials/split_collision_slugs.ts            # report only
 //   tsx scripts/officials/split_collision_slugs.ts --apply    # move them
@@ -316,9 +316,9 @@ const cmd = command({
       [
         "",
         "  Postgres and the person layer still carry the merged profile. Re-run, in order:",
-        "    npm run db:load:declarations:pg -- --resolve",
-        "    npm run db:resolve:persons",
-        "    npm run db:load:persons-browse:pg",
+        "    pnpm run db:load:declarations:pg --resolve",
+        "    pnpm run db:resolve:persons",
+        "    pnpm run db:load:persons-browse:pg",
         "  and the :cloud equivalents to publish.",
       ].join("\n"),
     );

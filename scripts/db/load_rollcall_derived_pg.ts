@@ -1,7 +1,7 @@
 // Apply 135_rollcall_derived.sql + 181_party_cohesion_summary.sql and refresh the six
 // roll-call precomputes.
 //
-// Run: `npm run db:load:rollcall-derived:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:rollcall-derived:pg` (local) / `:cloud` (Cloud SQL proxy).
 // Must run AFTER db:load:rollcall:pg — it reads vote_item and vote_cast.
 //
 // This is a DERIVED serving layer, like person_search / contractor_search, so it takes no

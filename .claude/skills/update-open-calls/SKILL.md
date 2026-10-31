@@ -18,12 +18,12 @@ Crawls two registers of things you can still apply to, and publishes them:
   2023-2027, into `data/opencalls/sp2023.json`.
 
 - **Interreg** — all 6 Bulgarian cross-border programmes since 2026-10-21, into
-  `data/opencalls/interreg.json` (`npm run opencalls:interreg`; see „What this skill does NOT do").
+  `data/opencalls/interreg.json` (`pnpm run opencalls:interreg`; see „What this skill does NOT do").
 - **АХУ** (Агенция за хората с увреждания) — its grant competitions (НПЗХУ, rehabilitation,
   accessible environment, self-employment, чл. 49, protected-employment centres), into
-  `data/opencalls/ahu.json` (`npm run opencalls:ahu`, Step 2b).
+  `data/opencalls/ahu.json` (`pnpm run opencalls:ahu`, Step 2b).
 - **АЗ** (Агенция по заетостта) — intake windows announced in its news („Старт на кариерата",
-  „Заетост без бариери" …), into `data/opencalls/az.json` (`npm run opencalls:az`, Step 2c).
+  „Заетост без бариери" …), into `data/opencalls/az.json` (`pnpm run opencalls:az`, Step 2c).
   EXACT ROWS ONLY — most АЗ intakes are open-ended and are rejected, see Step 2c.
 
 All five then load into `open_calls` (migration 142) and surface on the `/funds` band-1 tile,
@@ -60,13 +60,13 @@ the Cloud SQL password. Against local PG that fails with `28P01`. Any shell that
 `:cloud` command this session is poisoned, so pass the local URL inline when in doubt:
 
 ```bash
-DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' npm run db:load:open-calls:pg
+DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' pnpm run db:load:open-calls:pg
 ```
 
 ## Step 1 — Crawl ИСУН
 
 ```bash
-npm run opencalls:isun
+pnpm run opencalls:isun
 ```
 
 Serial, ≥1.1 s between requests, identifying User-Agent, ~57 requests for a full run
@@ -89,7 +89,7 @@ no-op run produces a no-op diff.
 ## Step 2 — Refresh the ДФЗ indicative schedule
 
 ```bash
-npm run opencalls:sp2023
+pnpm run opencalls:sp2023
 ```
 
 One page fetch plus one XLSX. The year comes from the **filename**, never the URL — the host
@@ -105,7 +105,7 @@ no reason to re-download it on an ИСУН change.
 ## Step 2b — Refresh the АХУ competitions
 
 ```bash
-npm run opencalls:ahu
+pnpm run opencalls:ahu
 ```
 
 One page fetch: the agency's NEWS page (`/portal/page/6`), where each competition is an
@@ -118,7 +118,7 @@ which is expected, not a failure. No money is read; the ceilings are prose.
 ## Step 2c — Refresh the АЗ intake windows
 
 ```bash
-npm run opencalls:az
+pnpm run opencalls:az
 ```
 
 Eleven page fetches (the news list plus the ten newest items, 1.2 s apart). АЗ has no calls
@@ -138,7 +138,7 @@ Statistics items („… безработни започнаха работа") 
 ## Step 3 — Load locally
 
 ```bash
-DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' npm run db:load:open-calls:pg
+DATABASE_URL='postgres://postgres:postgres@localhost:5433/electionsbg' pnpm run db:load:open-calls:pg
 ```
 
 It applies `005_ingest_tracking.sql` + `142_open_calls.sql` itself, so it works on a cold
@@ -152,7 +152,7 @@ trusted at all.
 Check what it did:
 
 ```bash
-npx vitest run scripts/db/tests/open_calls.data.test.ts
+pnpm exec vitest run scripts/db/tests/open_calls.data.test.ts
 ```
 
 ## Step 4 — Publish to Cloud SQL (MANDATORY)
@@ -163,7 +163,7 @@ keeps serving the previous vintage at a 200, and every row count reconciles. Thi
 this dataset rots.
 
 ```bash
-npm run db:load:open-calls:pg:cloud
+pnpm run db:load:open-calls:pg:cloud
 ```
 
 Requires the Cloud SQL proxy on 5434. The loader applies 142 there too, including its
@@ -212,7 +212,7 @@ per its own rules. The two changelogs are separate — see `reference_two_change
   without human sign-off.
 - **It does not touch the awarded corpus.** `update-funds` does that. If the watch report
   flagged `isun_eu_funds` or `isun_eu_funds_projects`, you want that skill, not this one.
-- **Interreg comes from a THIRD crawl**: `npm run opencalls:interreg`, covering all six
+- **Interreg comes from a THIRD crawl**: `pnpm run opencalls:interreg`, covering all six
   Bulgarian cross-border programmes since 2026-10-21 (the 2026-08-09 note that BG-RS / BG-MK /
   BG-TR were unreachable and RO-BG had no index was measured against the 2014–2020 hosts — see
   CLAUDE.md). Run it alongside the two above; it writes `data/opencalls/interreg.json` and loads

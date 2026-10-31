@@ -2,9 +2,9 @@
 // data/administration/eforms_requests.json — the input of db:load:admin-service-requests:pg.
 // See eforms.ts for what the numbers are and are not.
 //
-//   npx tsx scripts/administration/fetch_eforms.ts                  # fetch + write
-//   npx tsx scripts/administration/fetch_eforms.ts --dry            # fetch, report, write nothing
-//   npx tsx scripts/administration/fetch_eforms.ts --allow-shrink   # a month really was withdrawn
+//   pnpm exec tsx scripts/administration/fetch_eforms.ts                  # fetch + write
+//   pnpm exec tsx scripts/administration/fetch_eforms.ts --dry            # fetch, report, write nothing
+//   pnpm exec tsx scripts/administration/fetch_eforms.ts --allow-shrink   # a month really was withdrawn
 //
 // One listDatasets call plus one getResourceTable per month (~23), serial.
 

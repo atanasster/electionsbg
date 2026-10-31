@@ -58,7 +58,7 @@
 -- index. On every database that already has `company_browse_table`, run:
 --
 --   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
---     npx tsx scripts/db/apply_functions.ts 193_company_browse_sort_indexes.sql
+--     pnpm exec tsx scripts/db/apply_functions.ts 193_company_browse_sort_indexes.sql
 --
 -- Safe to run at any time and idempotent. It takes a SHARE lock on the matview, so /companies
 -- reads through it — but SHARE conflicts with the AccessExclusive a plain REFRESH takes, and

@@ -12,7 +12,7 @@ import tseslint from "typescript-eslint";
 const D3_UMBRELLA_BAN = {
   name: "d3",
   message:
-    "Import the specific d3-* module (d3-geo, d3-ease, d3-sankey). The meta package re-exports every d3-*, which collapses the vendor-geo / vendor-charts chunk boundary and re-attaches all of recharts to every map route. It is also not installed, so this would only ever appear alongside an `npm i d3`.",
+    "Import the specific d3-* module (d3-geo, d3-ease, d3-sankey). The meta package re-exports every d3-*, which collapses the vendor-geo / vendor-charts chunk boundary and re-attaches all of recharts to every map route. It is also not installed, so this would only ever appear alongside a `pnpm add d3`.",
 };
 const D3_UMBRELLA_BAN_PATTERN = {
   group: ["d3", "d3/*"],

@@ -26,7 +26,7 @@
 -- … text` with no default is catalog-only in PG11+ and near-instant:
 --
 --   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
---     npx tsx scripts/db/apply_functions.ts 003_tr_search.sql
+--     pnpm exec tsx scripts/db/apply_functions.ts 003_tr_search.sql
 --
 -- ═══════════════════════════════════════════════════════════════════════════
 -- THIS FILE MUST NEVER DROP ITS TABLES. Read this before adding a column.

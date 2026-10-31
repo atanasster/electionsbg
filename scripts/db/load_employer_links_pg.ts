@@ -1,8 +1,8 @@
 // Build declaration_employer_link (migration 165) — the bridge from a declarant's
 // own stated employer to a procurement BUYER.
 //
-//   npm run db:load:employer-links:pg          (local)
-//   npm run db:load:employer-links:pg:cloud    (Cloud SQL proxy)
+//   pnpm run db:load:employer-links:pg          (local)
+//   pnpm run db:load:employer-links:pg:cloud    (Cloud SQL proxy)
 //
 // PURE DERIVATION, no external input: it reads `declaration.filed_institution`
 // and `contracts.awarder_name` and writes the fold that joins them. So it needs

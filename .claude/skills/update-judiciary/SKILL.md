@@ -31,7 +31,7 @@ Two independent artifacts, two independent triggers.
 ## Step 1 — Caseload ingest
 
 ```bash
-npx tsx scripts/judiciary/__write_caseload.ts
+pnpm exec tsx scripts/judiciary/__write_caseload.ts
 ```
 
 Fetches any missing `raw_data/judiciary/tables-<year>-<urlhash>.pdf` (gitignored,
@@ -51,7 +51,7 @@ by x-gap), the same technique as the investment-annex parser.
 ## Step 1b — Per-court load ingest (the map)
 
 ```bash
-npx tsx scripts/judiciary/__write_court_load.ts
+pnpm exec tsx scripts/judiciary/__write_court_load.ts
 ```
 
 Parses **Приложение № 2 „Таблица за натовареността на магистратите"** (the per-court
@@ -89,7 +89,7 @@ agree with Приложение № 1; and the ВСС's published 2021 headline 
 ## Step 3 — Stamp, commit, sync
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-judiciary --summary "caseload <first>-<last>"
+pnpm exec tsx scripts/stamp-ingest.ts update-judiciary --summary "caseload <first>-<last>"
 ```
 
 Commit `data/judiciary/caseload.json` **and `data/judiciary/court_load.json`** (+
@@ -99,7 +99,7 @@ in prod, so `bucket:sync data/judiciary/`.
 ## Declarations ingest
 
 ```bash
-npx tsx scripts/judiciary/__write_declarations.ts
+pnpm exec tsx scripts/judiciary/__write_declarations.ts
 ```
 
 Crawls the register (9 years × 29 first-letter pages = 261 HTML pages, ~2 min at
@@ -113,8 +113,8 @@ input for the magistrate-holdings ingest below.
 (`judiciary_payloads`, migration 109), NOT the bucket — the file is excluded from
 `bucket:sync`. So reload PG after writing it, or the live register stays stale:
 ```bash
-npm run db:load:judiciary-payloads:pg          # local: judiciary_payloads blob
-npm run db:load:judiciary-payloads:pg:cloud     # prod Cloud SQL (proxy on :5434 + PGPASSFILE=$PWD/.pgpass)
+pnpm run db:load:judiciary-payloads:pg          # local: judiciary_payloads blob
+pnpm run db:load:judiciary-payloads:pg:cloud     # prod Cloud SQL (proxy on :5434 + PGPASSFILE=$PWD/.pgpass)
 ```
 The JSON stays on disk as the loader source (the `judiciary_payloads` parity gate reads
 it). `bucket:sync data/judiciary/` still ships the bucket-served siblings
@@ -123,7 +123,7 @@ it). `bucket:sync data/judiciary/` still ships the bucket-served siblings
 ## Magistrate declared-companies ingest (the connections slice)
 
 ```bash
-npx tsx scripts/judiciary/__write_magistrate_holdings.ts
+pnpm exec tsx scripts/judiciary/__write_magistrate_holdings.ts
 ```
 
 Reads `declarations_index.json`, fetches each latest-year annual declaration PDF from
@@ -172,10 +172,10 @@ are all derived server-side from the `magistrate` table (schema 069/070). So aft
 generating the JSON:
 
 ```bash
-npm run db:load:court-load:pg
-npm run db:load:magistrates:pg
-npm run db:load:magistrate-filing-assets:pg   # REPAIRS what the line above wipes — see below
-npm run db:load:judicial-bodies:pg            # MUST follow court-load AND magistrates
+pnpm run db:load:court-load:pg
+pnpm run db:load:magistrates:pg
+pnpm run db:load:magistrate-filing-assets:pg   # REPAIRS what the line above wipes — see below
+pnpm run db:load:judicial-bodies:pg            # MUST follow court-load AND magistrates
 ```
 
 ⚠️ **All four are now wired into `db:refresh`, and the asymmetry this paragraph used to
@@ -201,13 +201,13 @@ human and is invisible to `cloud_loader_coverage.test.ts`, which is how
 here. (The other two were already named in `update-persons`.)
 
 ```bash
-npm run db:load:court-load:pg:cloud
-npm run db:load:magistrates:pg:cloud
-npm run db:load:magistrate-filing-assets:pg:cloud   # MUST follow magistrates — see below
-npm run db:load:judicial-bodies:pg:cloud   # MUST follow court-load AND magistrates
+pnpm run db:load:court-load:pg:cloud
+pnpm run db:load:magistrates:pg:cloud
+pnpm run db:load:magistrate-filing-assets:pg:cloud   # MUST follow magistrates — see below
+pnpm run db:load:judicial-bodies:pg:cloud   # MUST follow court-load AND magistrates
 # Verify the alias table landed BEFORE resolving — afterwards it is too late to tell:
 #   select count(*) from judicial_body_alias;   -- must be non-zero (~530)
-npm run db:resolve:persons:cloud
+pnpm run db:resolve:persons:cloud
 ```
 
 ⚠️ **`db:load:magistrate-filing-assets:pg[:cloud]` is a REPAIR, not an optional extra, and
@@ -228,8 +228,8 @@ falling back to the heuristic one, deliberately: the heuristic invents property 
 magistrates who declared none. So every `ivss_declarations` flip that runs the magistrates
 loader takes the count off every card site-wide until this repair runs. On the CLOUD side
 that is still every time, because nothing sequences the repair there. Locally a full
-`npm run db:refresh` now heals itself — the repair is chain step 28, pinned by ORDER_PAIRS
-(see the local block above) — but a hand-run `npm run db:load:magistrates:pg` on its own
+`pnpm run db:refresh` now heals itself — the repair is chain step 28, pinned by ORDER_PAIRS
+(see the local block above) — but a hand-run `pnpm run db:load:magistrates:pg` on its own
 still leaves the count blank until you run the repair after it.
 
 `magistrate_filing_asset` itself has no foreign key and survives the CASCADE, which is why
@@ -256,7 +256,7 @@ read them until a rule says which register wins when one person has both an ИВ
 КПКОНПИ / Сметна палата filing for a year. Do not add the GRANT as a "fix" — it IS that
 decision; `magistrate_filing_money.data.test.ts` fails on it. A cache crawled before the
 money reader existed carries no `money` on its records; fill it with
-`npx tsx scripts/judiciary/crawl_declarations.ts --backfill-money` (current-form filings
+`pnpm exec tsx scripts/judiciary/crawl_declarations.ts --backfill-money` (current-form filings
 only, ~19.8k, ~80 min at the default politeness), then re-run this loader. The loader's
 `money tables (storage only): N filing(s) parsed` line says how far that has got.
 

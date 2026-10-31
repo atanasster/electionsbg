@@ -20,7 +20,7 @@
 // every environment that has no corpus at all) lives in
 // scripts/officials/slug_identity.test.ts.
 //
-//   npm run test:data
+//   pnpm run test:data
 import { describe, it, expect, afterAll } from "vitest";
 import { allRows, end } from "../lib/pg";
 import {

@@ -1,7 +1,7 @@
 // Gates for the bill dimension (136) and the two routes that retire topic_index.json
 // (docs/plans/parliament-hub-v1.md §7, phases P4 and P5). Auto-skips when Postgres is down.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // The two that carry the most weight are cross-implementation gates rather than bounds:
 // `bill` must hold exactly the set the /parliament tile counts, and the SQL outcome
@@ -55,11 +55,11 @@ const skipSessions = !existsSync(SESSIONS)
 reportSkip(import.meta.url, skipDb);
 reportSkip(import.meta.url, skipSessions);
 // No parliament.bg crawl on this clone (data/parliament/bills/ is written by
-// `npm run parliament:bills`): the shift check has nothing to discriminate — a distinct skip,
+// `pnpm run parliament:bills`): the shift check has nothing to discriminate — a distinct skip,
 // never a silent pass.
 const noBillCrawl =
   readPromulgatedBills().length === 0
-    ? "no parliament.bg bill crawl on disk — run npm run parliament:bills"
+    ? "no parliament.bg bill crawl on disk — run pnpm run parliament:bills"
     : false;
 reportSkip(import.meta.url, noBillCrawl);
 
@@ -74,7 +74,7 @@ test.skipIf(skipDb || skipSessions)(
       "SELECT ns, count(*)::text AS n FROM bill GROUP BY ns ORDER BY ns",
     );
     if (rows.length === 0) {
-      assert.fail("bill is empty — run npm run db:load:rollcall:pg");
+      assert.fail("bill is empty — run pnpm run db:load:rollcall:pg");
     }
     // Recomputed from the session files by the SAME function the hub tile calls, so this is a
     // cross-implementation check and not a restatement of the loader. A `bill` table holding
@@ -191,7 +191,7 @@ test.skipIf(skipDb || skipSessions)(
     );
     assert.ok(
       stored.size > 0,
-      "bill is empty — run npm run db:load:rollcall:pg",
+      "bill is empty — run pnpm run db:load:rollcall:pg",
     );
     const corpus = readSessions();
     const rebuilt = buildRollcall(corpus, stored);

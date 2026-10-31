@@ -5,10 +5,10 @@
  * provider, writes the clips, and builds a BLIND compare page so the voice is
  * chosen by ear rather than by price list.
  *
- *   npm run video:bakeoff -- --list            # what bg-BG voices each provider has
- *   npm run video:bakeoff -- --dry-run         # passage + plan + cost, no API calls
- *   npm run video:bakeoff                      # synthesize everything available
- *   npm run video:bakeoff -- --providers=google --voices=6
+ *   pnpm run video:bakeoff --list            # what bg-BG voices each provider has
+ *   pnpm run video:bakeoff --dry-run         # passage + plan + cost, no API calls
+ *   pnpm run video:bakeoff                      # synthesize everything available
+ *   pnpm run video:bakeoff --providers=google --voices=6
  *
  * Narrowing a SECOND pass once a first round has shortlisted a timbre:
  *
@@ -104,7 +104,7 @@ type Provider = {
  * `.env.local` holds GEMINI_API_KEY (see CLAUDE.md) but nothing in a plain `tsx`
  * run populates process.env from it — without this the script reports "no
  * providers configured" on a machine that is, in fact, configured. Real env vars
- * win, so `GEMINI_API_KEY=… npm run video:bakeoff` still overrides the file.
+ * win, so `GEMINI_API_KEY=… pnpm run video:bakeoff` still overrides the file.
  */
 const loadEnvLocal = () => {
   const f = resolve(".env.local");

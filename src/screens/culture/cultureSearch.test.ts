@@ -10,7 +10,7 @@
 //   3. a flat `limit: 5` over `[...awarders, ...contracts]` meant four matching buyers left
 //      room for exactly one contract, under a label promising both.
 //
-//   npx vitest run src/screens/culture/cultureSearch.test.ts
+//   pnpm exec vitest run src/screens/culture/cultureSearch.test.ts
 
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { cultureRosterIndex, cultureSearchSources } from "./cultureSearch";

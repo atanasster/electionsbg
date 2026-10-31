@@ -1,6 +1,6 @@
 // Scoped bucket sync — rsync only the named subtrees of `data/` instead of the
-// whole tree. Run: `npm run bucket:sync:paths -- prices myarea budget`
-//                  `npm run bucket:sync:paths -- --dry-run prices`
+// whole tree. Run: `pnpm run bucket:sync:paths prices myarea budget`
+//                  `pnpm run bucket:sync:paths --dry-run prices`
 //
 // WHY: `bucket:sync` (plain `gsutil rsync -r data gs://…`) must build BOTH full
 // listings before it diffs anything — 1,033,739 local files and ~761k bucket
@@ -25,7 +25,7 @@
 // REFUSE them outright rather than silently upload — a scoped sync that quietly
 // pushed the procurement tree would re-publish a PG-served corpus to GCS.
 //
-// ORDERING: same as bucket:sync — run `npm run bucket:gz` afterwards if you
+// ORDERING: same as bucket:sync — run `pnpm run bucket:gz` afterwards if you
 // touched one of the hot files it compresses (it re-uploads them gzipped, and
 // rsync would otherwise clobber that). See scripts/bucket_gzip.ts.
 //

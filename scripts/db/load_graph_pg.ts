@@ -20,7 +20,7 @@
 // is the gate. So: build into UNLOGGED stage twins nothing reads, then upsert + delete-absent under
 // RowExclusiveLock only — readers keep serving the previous vintage until the merge commits.
 //
-// CLOUD STALENESS: nothing runs this on Cloud SQL. Run `npm run db:load:graph:pg:cloud` after EACH of:
+// CLOUD STALENESS: nothing runs this on Cloud SQL. Run `pnpm run db:load:graph:pg:cloud` after EACH of:
 // db:resolve:persons:cloud, db:load:persons-browse:pg:cloud, db:load:person-elections:pg:cloud (the
 // party/party_color source, person_election_stats), db:load:tr:pg:cloud, and any contracts/agri/funds
 // reload (127's money basis) — else /connections + person_connections() serve the previous vintage.
@@ -34,7 +34,7 @@
 // no standalone data/data-changes.json entry: the /data/updates feed is stamped per-skill by the
 // process-watch-report orchestrator, and the source skills that trigger this reload already stamp it.
 //
-// Run: `npm run db:load:graph:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:graph:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";

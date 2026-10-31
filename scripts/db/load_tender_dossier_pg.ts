@@ -16,8 +16,8 @@
 // evict the other 131,516. It therefore merges ONLY the УНП set the store actually
 // covers (see `scopedMerge`), leaving everything else untouched.
 //
-//   npm run db:load:tender-dossier:pg
-//   npm run db:load:tender-dossier:pg:cloud
+//   pnpm run db:load:tender-dossier:pg
+//   pnpm run db:load:tender-dossier:pg:cloud
 
 import fs from "node:fs";
 import path from "node:path";

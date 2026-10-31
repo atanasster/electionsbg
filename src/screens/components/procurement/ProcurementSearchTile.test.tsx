@@ -11,7 +11,7 @@
 //   4. a 500 says the search is unavailable rather than „Няма резултати" — an outage is a
 //      claim about us, an empty result is a claim about the data.
 //
-//   npx vitest run src/screens/components/procurement/ProcurementSearchTile.test.tsx
+//   pnpm exec vitest run src/screens/components/procurement/ProcurementSearchTile.test.tsx
 
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

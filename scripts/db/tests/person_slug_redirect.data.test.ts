@@ -16,7 +16,7 @@
 // Both cases below are built INSIDE a rolled-back transaction, because neither can be
 // produced from the committed rows on any one database.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -189,7 +189,7 @@ test.skipIf(skip)(
     // `zz-collapse-a`: a deliberately dangling target, which 103 (chain-following,
     // is_public_figure) and the inline query (082's servability) are SUPPOSED to disagree
     // about. That is the fixture doing its job, not a corpus defect — measured 2026-08-11,
-    // and it is why this file passes when run alone and fails inside `npm run test:data`.
+    // and it is why this file passes when run alone and fails inside `pnpm run test:data`.
     //
     // Scoped to the fixture namespace rather than fixed by serialising the two files: the
     // assertion is about the agreement of the two implementations over the REAL retired

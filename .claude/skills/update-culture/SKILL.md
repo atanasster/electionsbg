@@ -62,19 +62,19 @@ does not. Read-only public pages.
 ## Run
 
 ```bash
-npx tsx scripts/culture/ingest.ts          # НФЦ films → films.json + overview.json (start local Postgres FIRST: npm run db:pg:up)
-npx tsx scripts/culture/ingest.ts --force  # re-download every year's .xls
-npx tsx scripts/culture/ncf_grants.ts      # НФК grant results → grants.json (needs pdftotext)
-npx tsx scripts/culture/build_oblast.ts    # state institutes by oblast (needs Postgres)
-npx tsx scripts/culture/write_commissions.ts # НФЦ artistic-commission compositions → commissions.json
-npx tsx scripts/culture/sofia_program.ts   # Sofia Програма „Култура" + читалища → municipal.json (needs pdftotext)
+pnpm exec tsx scripts/culture/ingest.ts          # НФЦ films → films.json + overview.json (start local Postgres FIRST: pnpm run db:pg:up)
+pnpm exec tsx scripts/culture/ingest.ts --force  # re-download every year's .xls
+pnpm exec tsx scripts/culture/ncf_grants.ts      # НФК grant results → grants.json (needs pdftotext)
+pnpm exec tsx scripts/culture/build_oblast.ts    # state institutes by oblast (needs Postgres)
+pnpm exec tsx scripts/culture/write_commissions.ts # НФЦ artistic-commission compositions → commissions.json
+pnpm exec tsx scripts/culture/sofia_program.ts   # Sofia Програма „Култура" + читалища → municipal.json (needs pdftotext)
 
-npm run culture:dki                        # МК ДКИ register → dki_register.json (DRY RUN; needs Postgres)
-npm run culture:dki -- --apply             # …and write it
-npm run culture:dki -- --apply --offline   # re-parse the cached HTML, no fetch
-npx vitest run scripts/culture/dki/        # the parser + reconciliation gates — ALWAYS after --apply
+pnpm run culture:dki                        # МК ДКИ register → dki_register.json (DRY RUN; needs Postgres)
+pnpm run culture:dki --apply             # …and write it
+pnpm run culture:dki --apply --offline   # re-parse the cached HTML, no fetch
+pnpm exec vitest run scripts/culture/dki/        # the parser + reconciliation gates — ALWAYS after --apply
 
-npx tsx scripts/culture/enrich_producers.ts # REPAIR ONLY — re-link top producers → EIK (needs Postgres)
+pnpm exec tsx scripts/culture/enrich_producers.ts # REPAIR ONLY — re-link top producers → EIK (needs Postgres)
 ```
 
 **The producer→EIK links are part of the ingest, not a step you can forget.** The НФЦ
@@ -89,7 +89,7 @@ producer link went dead with nothing failing.
 That linking needs **local Postgres** (`tr_companies`), so bring it up before the ingest:
 
 ```bash
-npm run db:pg:up
+pnpm run db:pg:up
 ```
 
 Without it the ingest still succeeds (the parse is Postgres-free) but prints a loud
@@ -134,7 +134,7 @@ refuses to write a partial artifact on failure.
    ```
 3. Commit `data/culture/*.json`, then publish:
    ```bash
-   npm run bucket:sync:paths -- culture
+   pnpm run bucket:sync:paths culture
    ```
    (`cp -Z` — GCS serves identity; avoid `gsutil -m` on macOS. The older form of
    this line read `bucket:sync data/culture/`, which is not a command: `bucket:sync`
@@ -151,12 +151,12 @@ refuses to write a partial artifact on failure.
    generator in the chain, never uploaded — and `/culture` served its tiles without
    numbers at a 200, because the hook degrades a 404 to „no figure" on purpose.
    The orchestrator now checks all six such artifacts unconditionally
-   (`npm run db:check-generated`, process-watch-report step 8); the sync above
+   (`pnpm run db:check-generated`, process-watch-report step 8); the sync above
    still covers it whenever this skill runs, which is a second chance, not the
    mechanism.
 4. Stamp the ingest state:
    ```bash
-   npx tsx scripts/stamp-ingest.ts update-culture --summary "НФЦ film register: <N> films, €<X>M, <P> producers, <first>–<last>"
+   pnpm exec tsx scripts/stamp-ingest.ts update-culture --summary "НФЦ film register: <N> films, €<X>M, <P> producers, <first>–<last>"
    ```
 
 ## Notes

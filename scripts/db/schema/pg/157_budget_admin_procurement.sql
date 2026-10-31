@@ -45,7 +45,7 @@
 -- COMMITTED artifact `data/budget/derived/ministry_procurement.json` — 46 of the
 -- 54 admin nodes carry one — which is itself written offline by
 -- `crossReferenceProcurement` (scripts/budget/cross_reference.ts) during
--- `npm run budget:ingest`, by NAME-MATCHING each budget unit against the
+-- `pnpm run budget:ingest`, by NAME-MATCHING each budget unit against the
 -- procurement awarders index.
 --
 -- So the artifact T7 retired as a browser FETCH is still load-bearing as an
@@ -68,7 +68,7 @@
 --       → this table attributes contracts to the wrong unit, or omits them,
 --         with every row count reconciling.
 --
--- Re-run `npm run budget:ingest` after a procurement ingest that moves the
+-- Re-run `pnpm run budget:ingest` after a procurement ingest that moves the
 -- awarder set, then `db:load:budget:pg`.
 --
 -- ⚠️ THE INGEST NEEDS `data/procurement/awarders/`, WHICH IS GITIGNORED — 0
@@ -236,6 +236,6 @@ BEGIN
     GRANT SELECT ON budget_admin_procurement TO app_readonly;
     GRANT EXECUTE ON FUNCTION rebuild_budget_admin_procurement() TO app_readonly;
   ELSE
-    RAISE WARNING 'app_readonly is absent — budget_admin_procurement has no ACL. Run npm run db:pg:bootstrap (local) or roles_readonly.sql (cloud).';
+    RAISE WARNING 'app_readonly is absent — budget_admin_procurement has no ACL. Run pnpm run db:pg:bootstrap (local) or roles_readonly.sql (cloud).';
   END IF;
 END $$;

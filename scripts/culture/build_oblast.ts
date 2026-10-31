@@ -3,7 +3,7 @@
 // have no EIK — see plan §6), the institutes ARE awarders with EIKs, so their
 // oblast comes reliably from awarder_seats and their procurement from contracts.
 //
-//   npx tsx scripts/culture/build_oblast.ts
+//   pnpm exec tsx scripts/culture/build_oblast.ts
 //
 // Needs Postgres (awarder_seats + contracts_list).
 //

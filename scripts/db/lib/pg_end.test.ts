@@ -6,7 +6,7 @@
 // exercise, and anything that ran after it would silently re-open one. A separate file has a
 // separate module instance, so both calls here are genuinely against an unopened pool.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { describe, test, expect } from "vitest";
 import { end } from "./pg";

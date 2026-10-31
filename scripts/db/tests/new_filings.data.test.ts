@@ -5,7 +5,7 @@
 // was filed. Expectations are computed independently from ingest_first_seen + declaration,
 // not by re-running the serving function's own predicates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

@@ -14,7 +14,7 @@
 // Auto-skips when Postgres is down or the НЗОК corpus is absent — like the other
 // *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -42,16 +42,16 @@ afterAll(async () => {
 });
 
 const skipBodies = !bodiesLoaded
-  ? "Postgres unreachable, or judicial_body is empty — run npm run db:load:judicial-bodies:pg"
+  ? "Postgres unreachable, or judicial_body is empty — run pnpm run db:load:judicial-bodies:pg"
   : false;
 const skipAgri = !agriLoaded
-  ? "Postgres unreachable, or agri_subsidies is empty — run npm run db:load:agri:pg"
+  ? "Postgres unreachable, or agri_subsidies is empty — run pnpm run db:load:agri:pg"
   : false;
 const skipDrugs = !drugsLoaded
-  ? "Postgres unreachable, or nzok_drug_quarterly is empty — run npm run db:load:nzok-drug-quarterly:pg"
+  ? "Postgres unreachable, or nzok_drug_quarterly is empty — run pnpm run db:load:nzok-drug-quarterly:pg"
   : false;
 const skipActivities = !activitiesLoaded
-  ? "Postgres unreachable, or nzok_activities is empty — run npm run db:load:nzok-activities:pg"
+  ? "Postgres unreachable, or nzok_activities is empty — run pnpm run db:load:nzok-activities:pg"
   : false;
 reportSkip(import.meta.url, skipBodies);
 reportSkip(import.meta.url, skipAgri);

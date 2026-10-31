@@ -5,7 +5,7 @@
 // threshold logic silently rots when a new quarter's data shifts the drop count,
 // so lock the contract here — no database needed.
 //
-//   npx tsx --test scripts/db/lib/nzok_fold.test.ts
+//   pnpm exec tsx --test scripts/db/lib/nzok_fold.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

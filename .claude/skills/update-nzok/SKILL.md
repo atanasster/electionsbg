@@ -18,13 +18,13 @@ Refreshes `data/budget/nzok/` — the data behind the **health sector pack** on 
 
 | Trigger | Action |
 |---|---|
-| Watcher flags `nzok_hospital_bmp` changed (new monthly hospital-payments PDF) | `npm run data:nzok -- --hospitals` |
-| Watcher flags `nzok_drug_quarterly` changed (new quarter / annual drug XLS) | `npm run data:nzok -- --drugs` |
-| Watcher flags `nzok_execution_b1` changed (new monthly B1 execution XLS) | `npm run data:nzok -- --execution` |
-| Two or three flagged together | `npm run data:nzok` (runs all steps) |
-| User asks "refresh НЗОК / health-fund data" | `npm run data:nzok` |
-| User asks to refresh private-hospital revenue / ГФО / "публични срещу частни болници"; **or periodically** to fill new ГФО filings (annual, Sept season) | `npm run data:nzok -- --revenue` (opt-in, **heavy Gemini OCR**; needs `GEMINI_API_KEY` + local PG; resumable — only fills empty cells) |
-| Fresh clone, `data/budget/nzok/*.json` missing | `npm run data:nzok` |
+| Watcher flags `nzok_hospital_bmp` changed (new monthly hospital-payments PDF) | `pnpm run data:nzok --hospitals` |
+| Watcher flags `nzok_drug_quarterly` changed (new quarter / annual drug XLS) | `pnpm run data:nzok --drugs` |
+| Watcher flags `nzok_execution_b1` changed (new monthly B1 execution XLS) | `pnpm run data:nzok --execution` |
+| Two or three flagged together | `pnpm run data:nzok` (runs all steps) |
+| User asks "refresh НЗОК / health-fund data" | `pnpm run data:nzok` |
+| User asks to refresh private-hospital revenue / ГФО / "публични срещу частни болници"; **or periodically** to fill new ГФО filings (annual, Sept season) | `pnpm run data:nzok --revenue` (opt-in, **heavy Gemini OCR**; needs `GEMINI_API_KEY` + local PG; resumable — only fills empty cells) |
+| Fresh clone, `data/budget/nzok/*.json` missing | `pnpm run data:nzok` |
 
 The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual ЗБНЗОК — it has no watcher source of its own. Re-run it in **two** cases:
 
@@ -34,13 +34,13 @@ The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual З�
 **Key every line from its чл. 1 ал. 2 CODE, not its label,** and set `expectedResidualK` when the law states the residual's components separately. The generator's overshoot throw only catches *over*-keying; an under-keyed table reconciles perfectly and silently inflates the reserve bar. Both 2026 transcription errors (a dropped 1.1.3.6, and `hospital` taken from sub-line 1.1.3.7.1 instead of the parent 1.1.3.7) were invisible to Σ-equals-total and are caught only by that residual assertion. Verify with:
 
 ```bash
-npx tsx scripts/budget/nzok/__smoke_budget.ts
+pnpm exec tsx scripts/budget/nzok/__smoke_budget.ts
 ```
 
 **`data/budget` is bucket-served in production** (`useBudget` fetches through `dataUrl()`), so committing `budget.json` is not enough — the corrected number reaches the live site only after a sync. Include `data-changes.json`: it is bucket-served from the data root, so `-- budget` alone publishes the corrected figure while leaving the changelog entry that explains it invisible.
 
 ```bash
-npm run bucket:sync:paths -- budget data-changes.json
+pnpm run bucket:sync:paths budget data-changes.json
 ```
 
 **Derived analytics need no separate trigger.** The drug-savings leaderboard (060), the report-card + decile-fan and reporting-coverage fns (056/058) and the pathway tree (059's serving fn over the activities corpus) are read-only functions over the drug-prices / ЕЕОФ / activities corpora, applied by those same three loaders — so they refresh automatically whenever `nzok_drug_unit_prices`, `mh_eeof_quarterly` or `nzok_activities` flips and its loader re-runs. The only genuinely new source is the **pathway tariffs** (opt-in, BG egress — see the dedicated section below).
@@ -49,28 +49,28 @@ npm run bucket:sync:paths -- budget data-changes.json
 
 1. Run the ingest for the flagged subset (or all):
    ```bash
-   npm run data:nzok -- --hospitals --drugs --execution
+   pnpm run data:nzok --hospitals --drugs --execution
    ```
    Each generator fetches from nhif.bg, parses (reconciliation-asserted for hospital payments), and rewrites the matching `data/budget/nzok/*.json`. Note: `--execution` also writes `execution_history.json` (every B1 month on the page, for the plan-vs-actual pace chart), and `--drugs` also computes the full-year-vs-full-year `growth` block (fastest-rising / falling / newly-reimbursed molecules from the two latest annual files) inside `drug_reimbursement.json`.
 2. **Reload the hospital-payments Postgres table** — the pack's hospital tile and the `/company/:eik` reimbursement tile are DB-served from `nzok_hospital_payments`, NOT the static JSON, so on a new monthly БМП file this is what actually updates the live tiles:
    ```bash
-   npm run db:load:nzok-hospital:pg          # local — verify row/month counts
-   npm run db:load:nzok-hospital:pg:cloud    # Cloud SQL via the proxy on :5434
-   npm run db:dump:cloud                     # refresh the GCS snapshot
+   pnpm run db:load:nzok-hospital:pg          # local — verify row/month counts
+   pnpm run db:load:nzok-hospital:pg:cloud    # Cloud SQL via the proxy on :5434
+   pnpm run db:dump:cloud                     # refresh the GCS snapshot
    ```
    The loader is idempotent (TRUNCATE+reload in one txn, changelog-deduped) and applies **both** migration 045 (the table) and 047 (the `nzok_hospital_payments_trends` / `nzok_hospital_momentum_by_eik` functions that serve the momentum tile + the `/company/:eik` spend-growth percentile), so the trend endpoints refresh with the table. Skip when only `--execution` changed (that stays static-JSON-served). ⚠️ `--drugs` is
 NOT static any more — the per-INN quarterly series is served from Postgres, so it needs
 its own load and publish:
 
 ```bash
-npm run db:load:nzok-drug-quarterly:pg
-npm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
+pnpm run db:load:nzok-drug-quarterly:pg
+pnpm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
 ```
 
    Then rebuild the **hospital map geo crosswalk** (`nzok_hospital_geo`, migration 075) that the health-pack marker map at the top of `/awarder/121858220` is drawn from. It re-resolves one HQ point per hospital EIK from `awarder_seats` + `data/settlements.json`, so a new monthly БМП file (new/renamed facilities) means new points:
    ```bash
-   npm run db:load:nzok-hospital-map:pg        # local — verify geolocated count
-   npm run db:load:nzok-hospital-map:pg:cloud  # Cloud SQL via the proxy on :5434
+   pnpm run db:load:nzok-hospital-map:pg        # local — verify geolocated count
+   pnpm run db:load:nzok-hospital-map:pg:cloud  # Cloud SQL via the proxy on :5434
    ```
    Must run **after** `db:load:nzok-hospital:pg` (it reads `nzok_hospital_payments`) and after `db:load:awarder-seats:pg` (the geo bridge). The metric fold (`nzok_hospital_map()`) is live over the payments / drug-overpay / activities tables, so the crosswalk only needs a re-run when the facility universe or its seats change — not when a metric moves.
    **If the loader reports RESTATED rows it has already written `data-changes.json` — commit and sync it.** This is the one thing `recordIngestBatch` cannot do: it keys on `(reg_no, period)`, so a TRUNCATE+reload of months already in `ingest_first_seen` itemises **nothing** — the rows are not new — and `/data/updates` shows silence while published per-hospital euros change. The loader diffs the previous vintage inside its own transaction and, when anything moved, appends the entry itself (`dedupeSameDay`, so a re-run replaces rather than duplicates).
@@ -81,7 +81,7 @@ npm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
 
    ```bash
    git add data/data-changes.json          # commit it with the rest of step 4
-   npm run bucket:sync:paths -- budget data-changes.json
+   pnpm run bucket:sync:paths budget data-changes.json
    ```
 
    ⚠️ The FIRST load after the parser-hardening work will report a large restatement — the Tier 1 corrections were measured at ~€1.67M across 11 months, including a sign flip on ДКЦ Св. София ЕООД that published a clawback as income for six months, plus ~33 rows whose month figure becomes 0 ("unknown") instead of a fabricated fragment. Expect a large `added` count too: the 24 months the old asserts withheld now load. That is the correction landing, not a defect. (The loader counts ROWS, not months.)
@@ -90,14 +90,14 @@ npm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
 
    Legacy note: this step used to say "reconcile the printed facility count + national total against the file's own Общо РЗОК grand total". That whole-file check is now the BACKSTOP rather than the check — each РЗОК block is reconciled against its own printed subtotal, and the facility count is reported rather than asserted. Nothing is left for you to reconcile by eye; the loader either accepts a month or names the block that failed.
 4. Commit the changed `data/budget/nzok/*.json` — **and `data/data-changes.json` if the loader wrote a restatement entry** (+ `data/db/procurement.lock.json` if you pushed).
-5. **`bucket:sync data/budget/nzok/`** — the budget/drug/execution JSONs are served from the GCS bucket; without the sync those tiles aren't live. If step 4 committed `data/data-changes.json`, sync it too (`npm run bucket:sync:paths -- budget data-changes.json`) — it is bucket-served from the data root, so the corrected figures otherwise publish while the note explaining them does not.
+5. **`bucket:sync data/budget/nzok/`** — the budget/drug/execution JSONs are served from the GCS bucket; without the sync those tiles aren't live. If step 4 committed `data/data-changes.json`, sync it too (`pnpm run bucket:sync:paths budget data-changes.json`) — it is bucket-served from the data root, so the corrected figures otherwise publish while the note explaining them does not.
 6. Stamp `state/ingest/update-nzok.json` with `lastSuccessfulIngest` (current UTC ISO) + a one-line `summary` so `process-watch-report` won't re-trigger.
 
 ## Notes
 
 - **xlsx**: the bundled build has file access disabled — the generators read via `xlsx.read(fs.readFileSync(path), { type: "buffer", codepage: 1251 })`.
 - Raw downloads cache under `raw_data/nzok/` (gitignored) — safe to delete.
-- The ИАМН рег.№→EIK crosswalk is **built** (opt-in via `npm run data:nzok -- --crosswalk`, needs local PG; 265/381 facilities matched = 93% of YTD €). It is near-static — re-run + re-audit (0 false positives is the bar) only when extending `MANUAL_OVERRIDES` in `scripts/nzok/write_hospital_eik.ts`. See `scripts/nzok/README.md`.
+- The ИАМН рег.№→EIK crosswalk is **built** (opt-in via `pnpm run data:nzok --crosswalk`, needs local PG; 265/381 facilities matched = 93% of YTD €). It is near-static — re-run + re-audit (0 false positives is the bar) only when extending `MANUAL_OVERRIDES` in `scripts/nzok/write_hospital_eik.ts`. See `scripts/nzok/README.md`.
 
 
 ## Payment streams (migration 050)
@@ -126,14 +126,14 @@ facility count.** A misparse once shipped inside the 0.5% reconciliation toleran
 
 ## New datasets
 
-### Per-hospital drug unit prices — `npm run data:nzok -- --drug-prices`
+### Per-hospital drug unit prices — `pnpm run data:nzok --drug-prices`
 Source: `nhif.bg/bg/nzok/medicine/5` → `Справка 5_ПЛС2_MM.YYYY.xls` (monthly).
 Carries `Опаковки`, `Брой в опаковка`, `Реимбурсна сума` and the `МКБ` code, so a
 unit price is derivable — the annual "Брутни разходи по INN" file has no quantity
 column, which is why this was long recorded as blocked.
 
 Writes `data/budget/nzok/drug_unit_prices.json` (gitignored, regenerable), then
-`npm run db:load:nzok-drug-prices:pg` loads migrations
+`pnpm run db:load:nzok-drug-prices:pg` loads migrations
 052, 054, 060 **and** 065 — the loader applies all four schema files, so the serving
 functions behind the `/molecule/:inn` + pack pages (`nzok_drug_molecule_detail`,
 `nzok_drug_pack_detail`), the risk aggregates, and the **drug-savings leaderboard**
@@ -143,7 +143,7 @@ if every hospital paid the peer median" tile) reach the DB with the corpus.
 **Publish — nothing does this automatically:**
 
 ```bash
-npm run db:load:nzok-drug-prices:pg:cloud
+pnpm run db:load:nzok-drug-prices:pg:cloud
 ```
 
 (or a surgical `apply_functions.ts 052_nzok_drug_unit_prices.sql 054_nzok_risk.sql
@@ -158,14 +158,14 @@ spans five packs whose per-unit medians run €17–€66. A **5-pack volume flo
 applies. Dispersion is not wrongdoing — volume, delivery period and contract terms
 all move a unit price. The defensible claim is *persistent* dispersion.
 
-### Quarterly hospital financials (ЕЕОФ) — `npm run data:nzok -- --eeof`
+### Quarterly hospital financials (ЕЕОФ) — `pnpm run data:nzok --eeof`
 Source: МЗ, "Финансови показатели на лечебни заведения за болнична помощ", one
 XLSX per quarter under Наредба № 5 от 2019, **2019-Q2 →** (26 quarters).
 Revenue, expense, total and overdue liabilities, beds, occupancy, length of stay,
 cost per patient. Money columns are published in **хил. лева**.
 
 Writes `data/budget/nzok/hospital_financials.json` (gitignored, regenerable), then
-`npm run db:load:nzok-financials:pg` loads migrations 051, **056 and 058** — the
+`pnpm run db:load:nzok-financials:pg` loads migrations 051, **056 and 058** — the
 loader applies all three, so the **report-card + decile-fan** distribution fns
 (`nzok_financials_measures_by_eik` / `nzok_financials_measure_fan`, migration 056 —
 each ratio measure vs the national median + the OpenPrescribing decile fan) and the
@@ -185,7 +185,7 @@ below) would rank specialties, not stewardship.
 **Publish — nothing does this automatically:**
 
 ```bash
-npm run db:load:nzok-financials:pg:cloud
+pnpm run db:load:nzok-financials:pg:cloud
 ```
 
 This loader is the sole applier of 051, 056 and 058, so skipping it leaves the
@@ -197,7 +197,7 @@ artefact collapses hospital identity to bare oblast labels in those quarters, so
 their rows can neither be keyed nor matched to an EIK. They are listed on every
 load. The remaining 43 blocks (3,635 rows) load cleanly.
 
-### Clinical-activity corpus — `npm run data:nzok -- --activities`
+### Clinical-activity corpus — `pnpm run data:nzok --activities`
 Source: НЗОК, "Брой отчетени дейности по КП/АПр/КПр и брой ЗОЛ по код на лечебно
 заведение и код на диагноза", 12 monthly XLSX per year at
 `nhif.bg/bg/hospitalcare-report/activities/{year}`. ~104k rows/month at the
@@ -216,7 +216,7 @@ from the code's first letter (P→КП, A→АПр, K→КПр). Cases are volum
 НРД pathway-price join that turns them into spend is the separate `--pathway-tariffs`
 ingest (migration 059, below).
 
-### Procedure code→name nomenclature — `npm run data:nzok -- --procedure-names`
+### Procedure code→name nomenclature — `pnpm run data:nzok --procedure-names`
 The activity feed's codes (P###/A##/K##) are unreadable on their own, so
 `write_procedure_names.ts` builds `data/budget/nzok/procedures.json`
 (`{ code: bgName }`) from НЗОК's НРД **Приложение 17** (клинични пътеки) + **18**
@@ -230,8 +230,8 @@ couldn't be checked from the dev box (see the script header). The committed
 `procedures.json` is the full generated nomenclature (~427 names); the writer
 replaces it wholesale on each run.
 
-`npm run db:load:nzok-activities:pg` (publish with
-`npm run db:load:nzok-activities:pg:cloud`) loads migrations 053
+`pnpm run db:load:nzok-activities:pg` (publish with
+`pnpm run db:load:nzok-activities:pg:cloud`) loads migrations 053
 **and 059's serving functions** — the `nzok_activities` table +
 `nzok_activity_monthly` trend, and the jsonb fns: `nzok_activities_overview()`
 (national top procedures + trend + the cases-per-bed outlier), `nzok_activities_by_eik()`
@@ -242,7 +242,7 @@ replaces it wholesale on each run.
 populated). The loader attaches EIK and bed counts by a strong name fold against the
 payments + ЕЕОФ crosswalks (private hospitals included via payments); unmatched → NULL.
 
-### Clinical-pathway tariffs — `npm run data:nzok -- --pathway-tariffs` (INGESTED 2026-08-04)
+### Clinical-pathway tariffs — `pnpm run data:nzok --pathway-tariffs` (INGESTED 2026-08-04)
 The price factor that turns the volume-only activity corpus into a **spend** reading
 and unlocks the **case-mix expected-vs-actual** signal (the STAR-PU / MSPB idea:
 Σ list-tariff × cases vs actual БМП paid). **Source = the НРД CONTRACT BODY, not an
@@ -259,8 +259,8 @@ The parser sections the contract text at the чл. 368/369/370 markers; iterate 
 # only forwards --dump/--from-dump/--bgn and rejects unknown flags:
 tsx scripts/nzok/write_pathway_tariffs.ts --annex "<contract-or-amendment-pdf-url>" --dump --nrd-year 2025 --bgn
 tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025 --bgn   # iterate the parser
-npm run db:load:nzok-tariffs:pg          # applies migration 059, loads tariffs
-npm run db:load:nzok-tariffs:pg:cloud    # publish — nothing does this automatically
+pnpm run db:load:nzok-tariffs:pg          # applies migration 059, loads tariffs
+pnpm run db:load:nzok-tariffs:pg:cloud    # publish — nothing does this automatically
 ```
 
 Writes `data/budget/nzok/pathway_tariffs.json` (`{ code: priceEur }`, gitignored).
@@ -279,7 +279,7 @@ signpost, not a verdict — day-case pathways, referral concentration and bed
 accounting all move the ratio legitimately. It only covers facilities with an
 ЕЕОФ bed count (~82); the national volume + case-mix layers cover all ~463.
 
-### Private-hospital ГФО revenue + public/private band — `npm run data:nzok -- --revenue` (opt-in, heavy OCR)
+### Private-hospital ГФО revenue + public/private band — `pnpm run data:nzok --revenue` (opt-in, heavy OCR)
 
 Public/state hospitals report quarterly to МЗ (ЕЕОФ → `hospital_financials.json`);
 private hospitals do **not**, but as commercial companies they file an annual ГФО

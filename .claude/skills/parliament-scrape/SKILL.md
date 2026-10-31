@@ -18,10 +18,10 @@ The scraper at `scripts/parliament/scrape_mps.ts` has four operational modes. Pi
 
 | Intent | Command | Time | Network calls |
 |---|---|---|---|
-| **First-time scrape** (e.g. after fresh clone, no `index.json`) | `npx tsx scripts/parliament/scrape_mps.ts --all` | ~10 min | ~5200 |
-| **New parliament was seated** (e.g. 52nd NS sworn in after April 2026 election) | `npx tsx scripts/parliament/scrape_mps.ts --all --refresh-current` | ~2 min | ~240 + new IDs |
-| **Just want current 240 MPs as a per-election bundle** | `npx tsx scripts/parliament/scrape_mps.ts --profiles --photos` | ~3 min | ~240 + 240 photos |
-| **Re-emit `index.json` after adding an emitted FIELD** (no new data — the profiles are already on disk) | `npx tsx scripts/parliament/scrape_mps.ts --reindex` | ~2 s | **none** |
+| **First-time scrape** (e.g. after fresh clone, no `index.json`) | `pnpm exec tsx scripts/parliament/scrape_mps.ts --all` | ~10 min | ~5200 |
+| **New parliament was seated** (e.g. 52nd NS sworn in after April 2026 election) | `pnpm exec tsx scripts/parliament/scrape_mps.ts --all --refresh-current` | ~2 min | ~240 + new IDs |
+| **Just want current 240 MPs as a per-election bundle** | `pnpm exec tsx scripts/parliament/scrape_mps.ts --profiles --photos` | ~3 min | ~240 + 240 photos |
+| **Re-emit `index.json` after adding an emitted FIELD** (no new data — the profiles are already on disk) | `pnpm exec tsx scripts/parliament/scrape_mps.ts --reindex` | ~2 s | **none** |
 
 `--reindex` needs an existing `index.json` and is exclusive with `--all`. It rebuilds every
 entry from the cached `profiles/{id}.json`, then rewrites `by-id/` and `avatars.json` in the
@@ -46,11 +46,11 @@ which reaches 105's per-NS fan-out and `mpSeats.ts`'s seat gate.
 **Outputs** under `public/parliament/`:
 - `index.json` (~930 KB) — flat lookup table: every MP's `id`, `normalizedName`, `photoUrl`, `currentRegion`, `seatedRegion`, `currentPartyGroup`, `nsFolders[]`, `isCurrent`. Loaded once by the frontend.
   - `currentRegion` is the МИР from the **current-NS roster**, so it is `null` for every MP who no longer sits (240 of 2,122). `seatedRegion` is the МИР off the MP's **own profile record**, which parliament.bg carries for all of them (2,122/2,122) — that is the one `db:resolve:persons` reads for `person_role.place_code`. parliament.bg holds only ONE value per person, so for a multi-term MP it is a badge, not a per-parliament history; the per-cycle record lives in `person_election_stats`.
-- `avatars.json` (~37 KB) — slim id→{photo, party-group} projection of `index.json`, auto-regenerated at the end of the `--all` run by `scripts/parliament/build_avatars.ts`. Lets `<MpAvatar>` draw a face + party ring without pulling the full ~930 KB index on connection-only pages (`/company`, `/awarder`, `/officials`). Read by `src/data/parliament/useMpAvatars.tsx`. Regenerate standalone with `npx tsx scripts/parliament/build_avatars.ts`.
+- `avatars.json` (~37 KB) — slim id→{photo, party-group} projection of `index.json`, auto-regenerated at the end of the `--all` run by `scripts/parliament/build_avatars.ts`. Lets `<MpAvatar>` draw a face + party ring without pulling the full ~930 KB index on connection-only pages (`/company`, `/awarder`, `/officials`). Read by `src/data/parliament/useMpAvatars.tsx`. Regenerate standalone with `pnpm exec tsx scripts/parliament/build_avatars.ts`.
 - `profiles/{id}.json` × ~4000 (~5 MB total raw, ~1 MB gzipped) — trimmed bio per MP, lazily fetched on candidate pages.
-- `by-id/{id}.json` × ~2100 (~0.4 KB each) — one `index.json` roster entry per MP, auto-written at the end of every run by `scripts/parliament/lib/writeMpById.ts`. Lets the candidate page resolve one MP by id (`src/data/parliament/useMpEntry.tsx`) without pulling the full ~930 KB index — the procurement→MP deep-link for a former / off-ballot MP loads this shard instead of the roster. Backfill standalone from an existing index with `npx tsx scripts/parliament/build_mp_by_id.ts`. The frontend falls back to the full roster if a shard 404s.
+- `by-id/{id}.json` × ~2100 (~0.4 KB each) — one `index.json` roster entry per MP, auto-written at the end of every run by `scripts/parliament/lib/writeMpById.ts`. Lets the candidate page resolve one MP by id (`src/data/parliament/useMpEntry.tsx`) without pulling the full ~930 KB index — the procurement→MP deep-link for a former / off-ballot MP loads this shard instead of the roster. Backfill standalone from an existing index with `pnpm exec tsx scripts/parliament/build_mp_by_id.ts`. The frontend falls back to the full roster if a shard 404s.
 
-**Both outputs are committed to git** so new contributors can skip the scrape. They are NOT under `/public/2*/` (that path is gitignored), so they survive `npm run prod`.
+**Both outputs are committed to git** so new contributors can skip the scrape. They are NOT under `/public/2*/` (that path is gitignored), so they survive `pnpm run prod`.
 
 ## Step-by-step: handling a new parliament being seated
 
@@ -66,7 +66,7 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
 
 2. **Run the incremental update**:
    ```bash
-   npx tsx scripts/parliament/scrape_mps.ts --all --refresh-current
+   pnpm exec tsx scripts/parliament/scrape_mps.ts --all --refresh-current
    ```
    This re-fetches the 240 sitting MPs (their `oldnsList` grows when their previous NS becomes "past"), pulls any new IDs assigned by parliament.bg, and rebuilds the deduped index.
 
@@ -86,7 +86,7 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
    `photoUrl` just appeared in the index also show their portrait on the
    local-election mayor / council rows they ran on):
    ```bash
-   npx tsx scripts/parsers_local/decorate_local_mp_links.ts
+   pnpm exec tsx scripts/parsers_local/decorate_local_mp_links.ts
    ```
    This walks every `data/<cycle>/municipalities/<obshtinaCode>.json`
    shard for all 9 local-election cycles, re-matching candidate names
@@ -102,14 +102,14 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
    / `isCurrent` come from the parliament index — so a roster refresh leaves
    those shards stale until they are re-matched:
    ```bash
-   npx tsx scripts/preferences/rebuild_resolved.ts
+   pnpm exec tsx scripts/preferences/rebuild_resolved.ts
    ```
    Walks every parliamentary election's `data/<election>/candidates/`,
    re-matches against the refreshed index, and rewrites only the shards that
    actually changed (`resolved.json` + `by-slug/*.json`). ~15 s, network-free,
    idempotent — same skip rule as step 5. These shards are gitignored
    (`/data/2*/*`) and served from GCS, so **ship them with `bucket:sync`, not a
-   commit**. (The full preferences pipeline, `npm run data -- --candidates`,
+   commit**. (The full preferences pipeline, `pnpm run data --candidates`,
    regenerates them inline; this step is the cheap re-match for when only the
    parliament index moved.)
 
@@ -121,9 +121,9 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
    from `bucket:sync`. So a scrape reaches prod ONLY after the loader runs;
    regenerating the JSON alone changes nothing on the live site:
    ```bash
-   npm run db:load:mp-roster:pg          # local: mp_profile + mp_profile_detail + mp_roster_meta;
+   pnpm run db:load:mp-roster:pg          # local: mp_profile + mp_profile_detail + mp_roster_meta;
                                          # also rebuilds the 105 mp_assets_rankings / mp_cars matviews
-   npm run db:load:mp-roster:pg:cloud    # prod Cloud SQL (needs the proxy on :5434 + PGPASSFILE=$PWD/.pgpass)
+   pnpm run db:load:mp-roster:pg:cloud    # prod Cloud SQL (needs the proxy on :5434 + PGPASSFILE=$PWD/.pgpass)
    ```
    The JSON stays on disk as the loader SOURCE (the `mp_serving` / `mp_roster` /
    `mp_profile_detail` parity gates read it); it is never served from the bucket

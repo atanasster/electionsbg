@@ -1,6 +1,6 @@
 // Pre-generate the /sector/roads hub's figures as one small committed JSON.
 //
-//   npm run db:gen-roads-hub-stats
+//   pnpm run db:gen-roads-hub-stats
 //
 // The roads pages compute everything client-side from the АПИ contract rows via
 // buildRoadsModel. The hub must not: it would download ~3k rows and the 30 KB
@@ -74,7 +74,7 @@ const main = async () => {
       `missing relation(s): ${missing
         .map((m) => `${m} (${INPUTS[m]})`)
         .join(", ")}`,
-      "Run the loader(s) named in brackets, or the whole chain: npm run db:refresh",
+      "Run the loader(s) named in brackets, or the whole chain: pnpm run db:refresh",
     );
     await end();
     process.exit(0);
@@ -83,7 +83,7 @@ const main = async () => {
     warnSkip(
       "roads hub_stats",
       "contracts is empty (db:load:pg)",
-      "Load the procurement corpus first: npm run db:load:pg",
+      "Load the procurement corpus first: pnpm run db:load:pg",
     );
     await end();
     process.exit(0);

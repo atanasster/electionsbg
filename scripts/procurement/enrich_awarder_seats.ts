@@ -21,12 +21,12 @@
 // `seat` actually changes.
 //
 // Usage:
-//   npx tsx scripts/procurement/enrich_awarder_seats.ts        # write
-//   npx tsx scripts/procurement/enrich_awarder_seats.ts --dry  # report only
+//   pnpm exec tsx scripts/procurement/enrich_awarder_seats.ts        # write
+//   pnpm exec tsx scripts/procurement/enrich_awarder_seats.ts --dry  # report only
 //
 // NB (offline): reads only on-disk data/ — no network. After it runs, the new
 // `seat` fields live in gitignored awarder shards; sync them to the data bucket
-// (npm run bucket:sync / :all) before they appear on prod.
+// (pnpm run bucket:sync / :all) before they appear on prod.
 
 import fs from "fs";
 import path from "path";

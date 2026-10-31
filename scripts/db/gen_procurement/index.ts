@@ -8,8 +8,8 @@
 // pure re-derivations of the (SQL-reproducible) derived files, so verifying them
 // here doubles as a determinism + non-staleness check.
 //
-//   npm run db:gen-index            # verify only (default)
-//   npm run db:gen-index -- --write # also write index.json + the risk feeds
+//   pnpm run db:gen-index            # verify only (default)
+//   pnpm run db:gen-index --write # also write index.json + the risk feeds
 //
 // See docs/plans/sql-migration-v1.md.
 

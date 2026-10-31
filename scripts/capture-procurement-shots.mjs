@@ -5,7 +5,7 @@
 // Doubles as a UI smoke test: a missing heading logs a skip.
 //
 // Usage:
-//   npm run dev                              # in one terminal (port 5173)
+//   pnpm run dev                              # in one terminal (port 5173)
 //   node scripts/capture-procurement-shots.mjs
 //   BASE=http://localhost:57243 node scripts/capture-procurement-shots.mjs
 

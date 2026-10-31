@@ -1,8 +1,8 @@
 // Generates pg/189_culture_match_isun.sql, pg/190_culture_match_agri.sql and
 // pg/191_culture_match_interreg.sql from src/lib/cultureMatch.ts.
 //
-//   npm run gen:culture-sql            # rewrite the migrations
-//   npm run gen:culture-sql -- --check # exit 1 if any is stale
+//   pnpm run gen:culture-sql            # rewrite the migrations
+//   pnpm run gen:culture-sql --check # exit 1 if any is stale
 //
 // WHY GENERATE THEM. `cultureMatch.ts` is the ONE definition of "does this
 // free-text name belong to culture", and it is TypeScript. The /culture/funds
@@ -193,7 +193,7 @@ const banner = (source: string, applier: string, body: string): string =>
   `-- GENERATED FILE — DO NOT EDIT.
 -- Source: ${source}
 -- Generator: scripts/db/gen_sql/culture_match.ts
--- Regenerate: npm run gen:culture-sql   ·   Verify: npm run gen:culture-sql -- --check
+-- Regenerate: pnpm run gen:culture-sql   ·   Verify: pnpm run gen:culture-sql --check
 --
 -- One of THREE files behind the /culture/funds source pages, split by corpus so
 -- that each is applied by the loader that owns its table, in the same run that
@@ -339,7 +339,7 @@ const run = (): void => {
     console.error(
       `culture_match: ${stale.join(", ")} STALE — the rules in ` +
         `src/lib/cultureMatch.ts or the register in ` +
-        `src/lib/kulturaReferenceData.ts have moved.\nRun: npm run gen:culture-sql`,
+        `src/lib/kulturaReferenceData.ts have moved.\nRun: pnpm run gen:culture-sql`,
     );
     process.exit(1);
   }

@@ -209,7 +209,7 @@ test.skipIf(!RUN)(
     assert.deepEqual(
       stale.slice(0, 10),
       [],
-      `payloads stale — price_grid_days is at ${latest}; run \`npm run prices\``,
+      `payloads stale — price_grid_days is at ${latest}; run \`pnpm run prices\``,
     );
   },
 );
@@ -275,7 +275,7 @@ test.skipIf(!RUN)(
     const [r] = await allRows<{
       payload: { deals: { discPct: number; slug: string }[] };
     }>("SELECT payload FROM price_payloads WHERE kind = 'deals'");
-    assert.ok(r, "no national deals payload — run `npm run prices` first");
+    assert.ok(r, "no national deals payload — run `pnpm run prices` first");
     assert.ok(r.payload.deals.length > 0, "deals board is empty — vacuous");
     assert.ok(r.payload.deals.length <= 48, "deals board over cap");
     assertDealOrder("deals", r.payload.deals);

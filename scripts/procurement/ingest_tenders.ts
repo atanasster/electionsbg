@@ -629,7 +629,7 @@ const main = async (args: {
       const worst = gaps.reduce((a, b) => (b.days > a.days ? b : a));
       throw new Error(
         `refusing to rebuild from a holed cache — the corpus would silently under-publish.\n` +
-          `  Fix:  npx tsx scripts/procurement/ingest_tenders.ts --backfill --from ${worst.from} --to ${worst.to} --apply\n` +
+          `  Fix:  pnpm exec tsx scripts/procurement/ingest_tenders.ts --backfill --from ${worst.from} --to ${worst.to} --apply\n` +
           `  Or:   re-run this command with --heal-gaps (fetches every missing ЦАИС day first)\n` +
           `  Or:   --allow-gaps to publish anyway (only when the gap is known-unpublishable).`,
       );

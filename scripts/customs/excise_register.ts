@@ -15,7 +15,7 @@
 //     geolocated to its settlement centroid, for the /customs/warehouses count map
 //     (loaded into Postgres `excise_warehouses`, schema 072).
 // Served at /customs/… via the vite data middleware; prod via the GCS bucket.
-// Run: `npm run customs:excise-register`.
+// Run: `pnpm run customs:excise-register`.
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";

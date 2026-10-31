@@ -2,8 +2,8 @@
 # cloud Postgres (Cloud SQL / Neon). Pinned to 16, host port 5433 to avoid
 # clashing with a brew postgresql@14 on 5432.
 #
-#   npm run db:pg:up     # start (detached)
-#   npm run db:pg:down   # stop (keeps the volume)
+#   pnpm run db:pg:up     # start (detached)
+#   pnpm run db:pg:down   # stop (keeps the volume)
 #
 # Connection: postgres://postgres:postgres@localhost:5433/electionsbg
 # Override with DATABASE_URL. See docs/plans/postgres-migration-v1.md.
@@ -17,7 +17,7 @@ services:
     command: postgres -c shared_preload_libraries=pg_stat_statements
     # Docker's default /dev/shm is 64 MB, and Postgres puts every parallel
     # query's and parallel vacuum's dynamic-shared-memory segment there. That is
-    # far too small for this repo's workload: `npm run test:data` runs ~16
+    # far too small for this repo's workload: `pnpm run test:data` runs ~16
     # concurrent vitest workers against corpora in the hundreds of thousands of
     # rows, so the planner goes parallel on many of them at once and they
     # exhaust it between them. Measured 2026-08-25 on the full suite — 2 tests

@@ -23,8 +23,8 @@
 // RUN FROM A BG EGRESS — nhif.bg is Cloudflare/IP-gated (403 elsewhere). Needs the
 // `pdftotext` binary (poppler-utils).
 //
-//   npm run data:nzok -- --procedure-names
-//   npm run data:nzok -- --procedure-names --dump   # also save raw text for debugging
+//   pnpm run data:nzok --procedure-names
+//   pnpm run data:nzok --procedure-names --dump   # also save raw text for debugging
 //   tsx scripts/nzok/write_procedure_names.ts --page https://nhif.bg/bg/nrd/2025/medical
 
 import fs from "fs";

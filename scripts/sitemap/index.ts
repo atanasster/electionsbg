@@ -803,7 +803,7 @@ const enumerateVotes = (rootUrl: string) => {
     // The scored item pages, enumerated through the SAME reader buildVotesRoutes uses.
     // A <loc> with no dist/<path>/index.html behind it is the defect
     // families.data.test.ts exists to catch, and the two callers run in separate
-    // processes at separate times (`npm run sitemap` vs the build) — sharing the reader
+    // processes at separate times (`pnpm run sitemap` vs the build) — sharing the reader
     // is what keeps them from disagreeing about which items qualify.
     for (const fact of readSessionFacts(projectPath, s.date)?.top ?? []) {
       pushUrl(`${rootUrl}/votes/${s.date}/${encodeURI(fact.slug)}`, s.date);

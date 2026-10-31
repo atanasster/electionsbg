@@ -2,7 +2,7 @@
 // /sector/social dashboard behind it. Audit 2026-08-15,
 // docs/plans/social-sector-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Its own file, like the environment and regional nets, because the sources it
 // reads (a ministry budget node, an eight-EIK group, a beneficiary rollup) are not
@@ -77,7 +77,7 @@ const reachable = async (): Promise<boolean> => {
 };
 
 // `test.skipIf(bool)`, never `test(name, { skip }, fn)` — Vitest's `skip` option is
-// typed `boolean`, so passing `false | string` is 6 TS2769s and `npm run build` is
+// typed `boolean`, so passing `false | string` is 6 TS2769s and `pnpm run build` is
 // `tsc -b && vite build`. Vitest does not typecheck, so the file runs green while
 // the build is red. Every one of the 106 sibling files here uses skipIf.
 const haveDb = await reachable();
@@ -115,7 +115,7 @@ const NODE = `data/budget/ministries/${SOCIAL_BUDGET_NODE}.json`;
 
 const skipNode = exists(NODE)
   ? false
-  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run npm run budget:ingest";
+  : "the ПРБ budget node is absent — data/budget/ministries/ is gitignored (bucket-shipped only); run pnpm run budget:ingest";
 reportSkip(import.meta.url, skipNode);
 const budgetYears = (): BudgetYear[] =>
   readJson<{ years: BudgetYear[] }>(NODE).years.filter(

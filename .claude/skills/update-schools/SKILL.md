@@ -29,11 +29,11 @@ Rebuilds the education data layer. Four artifacts, one dependency chain:
 
 ```bash
 # 1. Fetch НВО (prior attainment). --force re-downloads even valid caches.
-npx tsx scripts/schools/fetch_nvo.ts
+pnpm exec tsx scripts/schools/fetch_nvo.ts
 
 # 2. Rebuild the schools index (ДЗИ + counts + geocodes + НВО).
 #    Reads raw_data/indicators/mon/*.csv (ДЗИ) + raw_data/indicators/mon_nvo/*.csv.
-npx tsx scripts/schools/build_index.ts
+pnpm exec tsx scripts/schools/build_index.ts
 
 # 2b. Resolve school → ЕИК. Primary source: the МОН institution-register
 #     crosswalk (data/procurement/derived/mon_ri_eik_crosswalk.json) joined on
@@ -42,13 +42,13 @@ npx tsx scripts/schools/build_index.ts
 #     [[reference_mon_ri_register]]); if the crosswalk is absent it falls back to
 #     name-matching the procurement awarder corpus (needs local PG). Run AFTER
 #     build_index (it edits the index in place).
-npx tsx scripts/schools/match_eik.ts
+pnpm exec tsx scripts/schools/match_eik.ts
 
 # 3. Socioeconomic context index (deterministic; only re-run when census changes).
-npx tsx scripts/education/gen_school_context.ts
+pnpm exec tsx scripts/education/gen_school_context.ts
 
 # 4. Textbook-publisher concentration (re-run when the procurement corpus changes).
-npx tsx scripts/education/gen_textbook_market.ts
+pnpm exec tsx scripts/education/gen_textbook_market.ts
 
 # 5. Load the schools serving layer into LOCAL Postgres (schools/school_scores/
 #    school_context + three precomputed school_payloads kinds: 'directory' — the
@@ -59,7 +59,7 @@ npx tsx scripts/education/gen_textbook_market.ts
 #    the same reason. The SES + value-added regressions are computed HERE
 #    now — keep scripts/db/load_schools_pg.ts behaviourally identical to
 #    src/data/schools/useSchoolDirectory (same thresholds/banding).
-npm run db:load:schools:pg
+pnpm run db:load:schools:pg
 ```
 
 Sanity-check the build log: `build_index.ts` prints `НВО: 8 years, matched to
@@ -76,7 +76,7 @@ instead of a file (the `/resource/download` outage — retry later).
 ## After a successful run
 
 ```bash
-npx tsx scripts/stamp-ingest.ts update-schools --summary "matura through <year> + НВО + context + textbooks"
+pnpm exec tsx scripts/stamp-ingest.ts update-schools --summary "matura through <year> + НВО + context + textbooks"
 git add data/schools/index.json data/education/*.json state/ingest/update-schools.json
 ```
 
@@ -93,7 +93,7 @@ Emit these in the Next-steps output (do NOT auto-run them; Cloud SQL is prod):
 > `schools[].series` point (the cohort bars and the sub-10 hollow dots on
 > /school/:id — without them both switch off), and the `risk` blob. The
 > reconciliation and coverage of all three are asserted by
-> `scripts/db/tests/schools_pg.data.test.ts` (`npm run test:data`).
+> `scripts/db/tests/schools_pg.data.test.ts` (`pnpm run test:data`).
 
 ```bash
 # Cloud SQL (proxy on :5434) — publishes the schools tables + the 'directory',
@@ -102,7 +102,7 @@ Emit these in the Next-steps output (do NOT auto-run them; Cloud SQL is prod):
 # (education-payload?kind=risk returns null) and the /governance/region/:oblast
 # education section serves the previous matura vintage — or self-hides before
 # the first load. Nothing goes red either way.
-npm run db:load:schools:pg:cloud
+pnpm run db:load:schools:pg:cloud
 # functions redeploy only if the /api/db route set changed (education-payload):
 #   firebase deploy --only functions:db -P default
 ```
@@ -110,7 +110,7 @@ npm run db:load:schools:pg:cloud
 The tiny My-Area schools tile still reads `data/schools/index.json` (GCS-served),
 so `bucket:sync` of `data/schools/` + `data/education/` is still needed for that
 + the OG cards; the heavy /education view is PG. Re-capture OG cards if tiles
-changed materially: `npx tsx scripts/og/capture-screens.ts awarder/mon education`.
+changed materially: `pnpm exec tsx scripts/og/capture-screens.ts awarder/mon education`.
 
 ## Notes
 
@@ -121,5 +121,5 @@ changed materially: `npx tsx scripts/og/capture-screens.ts awarder/mon education
   is no separate `--backfill` needed. The ДЗИ raw cache lives under
   `raw_data/indicators/mon/` and is refreshed by `update-indicators`.
 - **OG cards:** if the tiles changed materially, re-capture the social cards with
-  `npx tsx scripts/og/capture-screens.ts awarder/mon education` (needs the dev
+  `pnpm exec tsx scripts/og/capture-screens.ts awarder/mon education` (needs the dev
   server + `/api/db` up).

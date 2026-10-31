@@ -3,7 +3,7 @@
 // session, then extract it (CP866-aware) under raw_data/<folder>/ТУР1/ so the
 // orchestrator's CSV-augment path can read it.
 //
-// This is a flag-gated operator step (`npm run data -- --local-csv <slug>`),
+// This is a flag-gated operator step (`pnpm run data --local-csv <slug>`),
 // NOT part of the automatic watcher flow — the bundles are large and the
 // download pops a desktop browser window (per the project's "one-off backfills
 // stay manual / behind flags" convention).

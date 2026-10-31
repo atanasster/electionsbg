@@ -25,7 +25,7 @@
 // into both `writeMonthShards` paths, but that only stops the class RECURRING: `ingest.ts` emits no
 // `aop-legacy-` rows and no shard holds both feeds (0 of 188, measured 2026-08-05), and
 // `ingest_legacy.ts` skips already-ingested years. Clearing the backlog is a deliberate act —
-// `npm run proc:dedup-stale-keys -- --apply`. A gate demanding zero before that would ship red and
+// `pnpm run proc:dedup-stale-keys --apply`. A gate demanding zero before that would ship red and
 // be ignored, which is worse than no gate.
 //
 // So BOTH allowlists are asserted EXHAUSTIVE **and** MINIMAL, the same contract
@@ -45,7 +45,7 @@
 // asserting it here closes both cases in one call: it fails on an empty legacy corpus and on one
 // whose keys no longer reproduce. Keep it even after the allowlists empty — especially then.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store; auto-skips when Postgres is unreachable or the contracts table is
 // absent, like invariants_pg.data.test.ts.
@@ -242,8 +242,8 @@ test.skipIf(skip)(
               `${p.evicted.contractId ?? "-"} €${(p.evicted.amountEur ?? 0).toFixed(2)}`,
           )
           .join("\n") +
-        `\n  Inspect with \`npm run proc:dedup-stale-keys\` (dry run), then the same command ` +
-        `with \`-- --apply\`.\n  Do NOT add these to KNOWN_STALE — that list is the pre-existing ` +
+        `\n  Inspect with \`pnpm run proc:dedup-stale-keys\` (dry run), then the same command ` +
+        `with \`--apply\`.\n  Do NOT add these to KNOWN_STALE — that list is the pre-existing ` +
         `backlog, not a suppression.\n  See docs/plans/procurement-same-feed-dedup-v1.md §3.2.`,
     );
   },
@@ -272,7 +272,7 @@ test.skipIf(skip)(
       gone,
       [],
       `KNOWN_STALE lists ${gone.length} orphan(s) absent from THIS database: ${gone.join(", ")}.\n` +
-        `  If the backlog has been cleared (\`npm run proc:dedup-stale-keys -- --apply\`, or an ` +
+        `  If the backlog has been cleared (\`pnpm run proc:dedup-stale-keys --apply\`, or an ` +
         `\`ingest_legacy\` re-parse) and the corpus reloaded — good, that is the intended end ` +
         `state: delete those entries, in this commit.\n` +
         `  If this database simply predates them, load the current corpus; do not edit the list.`,

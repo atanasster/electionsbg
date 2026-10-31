@@ -8,7 +8,7 @@
 // (unit RT, freq A). If a future edit changes one and not the other, the page
 // shows two authoritative-looking numbers for one indicator and nothing fails.
 //
-//   npx vitest run scripts/macro/peers_annual.test.ts
+//   pnpm exec vitest run scripts/macro/peers_annual.test.ts
 
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";

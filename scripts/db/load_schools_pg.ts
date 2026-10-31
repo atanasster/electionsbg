@@ -13,7 +13,7 @@
 // port below MUST stay behaviourally identical to src/data/schools/useSchoolDirectory
 // (same thresholds, same banding) — this is now the single source of the verdicts.
 //
-// Run: `npm run db:load:schools:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:schools:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";

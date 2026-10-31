@@ -16,7 +16,7 @@
 //      query (measured 124 ms → 384 ms when it did, for zero extra rows).
 //   4. The REINDEX obligation that expression index carries is written down.
 //
-//   npx vitest run scripts/db/tests/fund_search_fold.data.test.ts
+//   pnpm exec vitest run scripts/db/tests/fund_search_fold.data.test.ts
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -61,8 +61,8 @@ const skip =
     : dbState === "no-server"
       ? "Postgres unreachable"
       : dbState === "missing"
-        ? "086 not applied — run npm run db:load:funds-fit:pg (or apply_functions.ts 086)"
-        : "fund_projects empty — run npm run db:load:funds:pg";
+        ? "086 not applied — run pnpm run db:load:funds-fit:pg (or apply_functions.ts 086)"
+        : "fund_projects empty — run pnpm run db:load:funds:pg";
 reportSkip(import.meta.url, skip);
 
 afterAll(async () => {

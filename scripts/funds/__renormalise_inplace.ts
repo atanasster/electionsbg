@@ -11,9 +11,9 @@
 //   data/budget/                 ministry unit names (with -то article stripped)
 //
 // Run with:
-//   npx tsx scripts/funds/__renormalise_inplace.ts
-//   npx tsx scripts/funds/__renormalise_inplace.ts --root data/procurement
-//   npx tsx scripts/funds/__renormalise_inplace.ts --all
+//   pnpm exec tsx scripts/funds/__renormalise_inplace.ts
+//   pnpm exec tsx scripts/funds/__renormalise_inplace.ts --root data/procurement
+//   pnpm exec tsx scripts/funds/__renormalise_inplace.ts --all
 
 import fs from "fs";
 import path from "path";

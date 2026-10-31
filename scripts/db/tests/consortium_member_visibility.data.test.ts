@@ -20,7 +20,7 @@
 // Auto-skips when Postgres is down or the corpus holds no consortium members — like the other
 // *.data.test.ts gates.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -183,7 +183,7 @@ test.skipIf(skip)("a member-only company is served, not NULLed", async () => {
     r?.is_null,
     false,
     `company_procurement('${MEMBER_ONLY_EIK}') returned NULL — the member-only guard is not ` +
-      `applied to this database. Run: npx tsx scripts/db/apply_functions.ts ` +
+      `applied to this database. Run: pnpm exec tsx scripts/db/apply_functions.ts ` +
       `011_company_api.sql 024_person_api.sql`,
   );
   assert.ok(

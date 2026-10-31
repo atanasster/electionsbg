@@ -17,7 +17,7 @@
 // (scripts/ngo/load_ngo_funding_pg.ts, via data/ngo/abf_aliases.json); here we just
 // capture faithfully.
 //
-//   npm run ngo:abf-fetch
+//   pnpm run ngo:abf-fetch
 //
 // See docs/plans/ngo-risk-signals-v1.md (Phase 3 / ABF).
 

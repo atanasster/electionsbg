@@ -1,7 +1,7 @@
 // Compare a NEW eval run against the PUBLISHED baseline, on the case ids both runs
 // share. No API calls.
 //
-//   npx tsx ai/llm/evalCompare.ts data/ai/evals/current_narrowed.json
+//   pnpm exec tsx ai/llm/evalCompare.ts data/ai/evals/current_narrowed.json
 //
 // WHY THE INTERSECTION: the registry grew between the two runs (the baseline has 471
 // cases, a current run has 474), so comparing the two corpora whole would mix a

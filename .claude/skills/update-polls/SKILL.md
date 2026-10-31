@@ -104,8 +104,8 @@ A reviewed exclusion must reach the LEDGER, or the backlog reports the item as
 pending for ever and re-running extraction cannot finish it:
 
 ```bash
-npm run polls:exclude -- --agency AR --pub 912 --race presidential --reason "Round-two exit poll"
-npm run polls:exclude -- --from-reconciliation   # after editing historical-reconciliation.json
+pnpm run polls:exclude --agency AR --pub 912 --race presidential --reason "Round-two exit poll"
+pnpm run polls:exclude --from-reconciliation   # after editing historical-reconciliation.json
 node --import tsx scripts/polls/backlog.ts > state/polls/backlog.json
 ```
 
@@ -129,8 +129,8 @@ records a completed ingestion run, not merely a successful watch.
 ## Step 1 — Fetch, extract, review, accept
 
 ```bash
-npm run polls:fetch                    # every pending item across all 7 fetchable agencies
-npm run polls:extract                  # text/OCR + agency extraction + evidence gate
+pnpm run polls:fetch                    # every pending item across all 7 fetchable agencies
+pnpm run polls:extract                  # text/OCR + agency extraction + evidence gate
 ```
 
 `polls:fetch` downloads the page HTML, every PDF attachment, and (for
@@ -167,7 +167,7 @@ No API key — the reading is done by
 subagents in this session, on the operator's subscription.
 
 ```bash
-npm run polls:review -- --prepare      # JSON list: pollId, captureDir, captureSha256, readingPath
+pnpm run polls:review --prepare      # JSON list: pollId, captureDir, captureSha256, readingPath
 ```
 
 For EVERY task listed, launch one `general-purpose` subagent (in parallel, one
@@ -182,7 +182,7 @@ of the poll — independence is the whole guarantee. Do not write or edit a
 reading yourself. When all subagents have finished:
 
 ```bash
-npm run polls:review                   # compare; accept every agreeing draft
+pnpm run polls:review                   # compare; accept every agreeing draft
 ```
 
 - `ACCEPTED` — promoted with `locked.review = { kind: "ai_agreement", … }`,
@@ -234,12 +234,12 @@ extractor didn't.
 Then, for each source-reviewed draft:
 
 ```bash
-npm run polls:accept -- <pollId>
-npm run polls:accept -- <pollId> --genre forecast              # override the extractor's genre call
-npm run polls:accept -- <pollId> --election 2026-04-19          # assign a supported parliamentary election date
-npm run polls:accept -- <pollId> --locked-by agency_pdf         # override the default agency_website tier
-npm run polls:accept -- <pollId> --replace                      # preserve a full prior snapshot
-npm run polls:accept -- <pollId> --cycle 2021_11_14_pvr          # presidential, when supported
+pnpm run polls:accept <pollId>
+pnpm run polls:accept <pollId> --genre forecast              # override the extractor's genre call
+pnpm run polls:accept <pollId> --election 2026-04-19          # assign a supported parliamentary election date
+pnpm run polls:accept <pollId> --locked-by agency_pdf         # override the default agency_website tier
+pnpm run polls:accept <pollId> --replace                      # preserve a full prior snapshot
+pnpm run polls:accept <pollId> --cycle 2021_11_14_pvr          # presidential, when supported
 ```
 
 Acceptance validates runtime values, dates, percentages, unique answers,
@@ -258,7 +258,7 @@ is removed from the inbox.
 ## Step 1.5 — Restamp (only when a vote becomes scheduled)
 
 ```bash
-npm run polls:restamp -- --race parliamentary --to <iso>
+pnpm run polls:restamp --race parliamentary --to <iso>
 ```
 
 Stamps every still-null-dated parliamentary poll whose fieldwork falls
@@ -271,10 +271,10 @@ announced (or an estimated date moves).
 ### Presidential assignment, identities and recomputation
 
 ```bash
-npm run polls:restamp -- --race presidential --cycle <YYYY_MM_DD_pvr>
-npm run polls:presidential:rekey -- --cycle <YYYY_MM_DD_pvr>
-npm run polls:analyze -- --race presidential
-npm run polls:presidential:coverage
+pnpm run polls:restamp --race presidential --cycle <YYYY_MM_DD_pvr>
+pnpm run polls:presidential:rekey --cycle <YYYY_MM_DD_pvr>
+pnpm run polls:analyze --race presidential
+pnpm run polls:presidential:coverage
 ```
 
 Restamping only assigns null-cycle surveys inside that cycle's fieldwork
@@ -305,7 +305,7 @@ is a `consent.google.com`-walled redirect token that cannot be fetched
 server-side.
 
 1. Resolve the real article URL on the outlet by hand (WebFetch or a browser).
-2. Capture the resolved source with polls:fetch -- --agency <ID> --url <URL>.
+2. Capture the resolved source with polls:fetch --agency <ID> --url <URL>.
    Run polls:extract for a built agency (TR, AR, GM, ML, SH, MY or GIB).
    Press-only agencies still need a source-reviewed draft written from their
    captured evidence; do not invent an extractor result or accept a news
@@ -319,7 +319,7 @@ server-side.
 ## Step 3 — Cross-check (report only)
 
 ```bash
-npm run polls:crosscheck
+pnpm run polls:crosscheck
 ```
 
 Reads the current BG Wikipedia parliamentary polling page and diffs it
@@ -453,16 +453,16 @@ Calls the Anthropic API directly (needs `ANTHROPIC_API_KEY` in `.env.local`)
 rather than writing the file through this session:
 
 ```bash
-npm run polls:gen-analysis                        # all elections (~12 calls, ~2 min)
-npm run polls:gen-analysis -- --only YYYY-MM-DD    # one election (1 call)
+pnpm run polls:gen-analysis                        # all elections (~12 calls, ~2 min)
+pnpm run polls:gen-analysis --only YYYY-MM-DD    # one election (1 call)
 ```
 
 ## Step 5 — Recompute accuracy, stamp, publish
 
 ```bash
-npm run polls:analyze
-npm run polls:analyze -- --race presidential
-npm run polls:presidential:coverage
+pnpm run polls:analyze
+pnpm run polls:analyze --race presidential
+pnpm run polls:presidential:coverage
 ```
 
 (Restamp already ran this in Step 1.5 if that step applied — running it
@@ -472,9 +472,9 @@ Then:
 
 ```bash
 node -e "JSON.parse(require('fs').readFileSync('data/polls/analysis.json'))" && echo "analysis.json valid"
-npx tsx scripts/stamp-ingest.ts update-polls --summary "<BG one-liner — race · agency · what happened>"
+pnpm exec tsx scripts/stamp-ingest.ts update-polls --summary "<BG one-liner — race · agency · what happened>"
 if [ -n "$(git diff --stat data/polls/)" ]; then
-  npx tsx scripts/append-data-change.ts update-polls \
+  pnpm exec tsx scripts/append-data-change.ts update-polls \
     --summary "<same one-line recap>" \
     --source "<agency name(s)>"
 fi
@@ -530,17 +530,17 @@ do.
 ## Quick command reference
 
 ```bash
-npm run polls:fetch                                       # Step 1 (capture pending publications)
-npm run polls:extract                                     # Step 1 (text/OCR + extractor + evidence gate)
-npm run polls:review -- --prepare                          # Step 1a (tasks for reader subagents)
-npm run polls:review                                       # Step 1a (auto-accept on agreement)
+pnpm run polls:fetch                                       # Step 1 (capture pending publications)
+pnpm run polls:extract                                     # Step 1 (text/OCR + extractor + evidence gate)
+pnpm run polls:review --prepare                          # Step 1a (tasks for reader subagents)
+pnpm run polls:review                                       # Step 1a (auto-accept on agreement)
 #    review data/polls/_inbox/*.json by hand               # Step 1
-npm run polls:accept -- <pollId>                           # Step 1 (promote a reviewed draft)
-npm run polls:restamp -- --race parliamentary --to <iso>   # Step 1.5 (only when a vote is scheduled)
-npm run polls:crosscheck                                   # Step 3 (Wikipedia diff, report only)
+pnpm run polls:accept <pollId>                           # Step 1 (promote a reviewed draft)
+pnpm run polls:restamp --race parliamentary --to <iso>   # Step 1.5 (only when a vote is scheduled)
+pnpm run polls:crosscheck                                   # Step 3 (Wikipedia diff, report only)
 #    write data/polls/analysis.json by hand                # Step 4 (only for a new election)
-npm run polls:analyze                                      # parliamentary accuracy
-npm run polls:analyze -- --race presidential                # question/round comparisons
-npm run polls:presidential:coverage                         # dated public coverage
-npx tsx scripts/stamp-ingest.ts update-polls --summary "…" # Step 5
+pnpm run polls:analyze                                      # parliamentary accuracy
+pnpm run polls:analyze --race presidential                # question/round comparisons
+pnpm run polls:presidential:coverage                         # dated public coverage
+pnpm exec tsx scripts/stamp-ingest.ts update-polls --summary "…" # Step 5
 ```

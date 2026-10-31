@@ -11,8 +11,8 @@
 // Read-only. No writes. Never surfaces medium rows on a routable page (that would
 // defeat the defamation guard); the review stays a build-time / editor step.
 //
-//   npm run ngo:review-board-links            # top 40 by public money
-//   npm run ngo:review-board-links -- --limit 100 --kind mp
+//   pnpm run ngo:review-board-links            # top 40 by public money
+//   pnpm run ngo:review-board-links --limit 100 --kind mp
 
 import { allRows, end } from "../db/lib/pg";
 
@@ -78,7 +78,7 @@ const main = async (): Promise<void> => {
   console.log(
     "Verify each against the NGO's actual board before promoting. Paste confirmed\n" +
       'entries into data/ngo/board_link_overrides.json → "promote", then re-run\n' +
-      "npm run db:load:ngo-board-links.",
+      "pnpm run db:load:ngo-board-links.",
   );
 };
 

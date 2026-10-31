@@ -14,8 +14,8 @@
 // fetched; their spend stays in the dashboard's tiles.
 //
 // Usage (network is only touched with --fetch; otherwise reads the cache):
-//   npm run proc:osm-roads                 # from cache
-//   npm run proc:osm-roads -- --fetch      # re-pull OSM
+//   pnpm run proc:osm-roads                 # from cache
+//   pnpm run proc:osm-roads --fetch      # re-pull OSM
 // ODbL: data © OpenStreetMap contributors.
 
 import fs from "fs";

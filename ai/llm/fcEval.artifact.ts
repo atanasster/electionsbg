@@ -1,6 +1,6 @@
 // Build the published eval artifact: data/ai/evals/fc_eval.json
 //
-//   npx tsx ai/llm/fcEval.artifact.ts
+//   pnpm exec tsx ai/llm/fcEval.artifact.ts
 //
 // The suite is DERIVED FROM THE REAL REGISTRY (fcEval.registry.ts): every tool,
 // with its bilingual example as the paired EN/BG case. The goal is to verify
@@ -10,7 +10,7 @@
 // capture). Cloud models are measured live (cheap, reproducible); rate-limited /
 // unavailable models are recorded with a status + reason.
 //
-// Output → data/ai/evals/ which `npm run bucket:sync` ships to the GCS data
+// Output → data/ai/evals/ which `pnpm run bucket:sync` ships to the GCS data
 // bucket; the /evals page fetches it via fetchData("/ai/evals/fc_eval.json").
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";

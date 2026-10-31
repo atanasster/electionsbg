@@ -1,5 +1,5 @@
 // Correctness harness for the M3 tool-selection plumbing (no model needed).
-// Run: npx tsx ai/orchestrator/toolSchema.harness.ts
+// Run: pnpm exec tsx ai/orchestrator/toolSchema.harness.ts
 
 import { TOOLS } from "../tools/registry";
 import { parseToolCall, toolSelectionSchema } from "./toolSchema";

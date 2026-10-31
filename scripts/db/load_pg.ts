@@ -4,7 +4,7 @@ import { installProcurementQuery } from "./lib/installProcurementQuery";
 // are identical to the SQLite loader's; the generators (source-agnostic) then
 // read from PG instead of node:sqlite. Full rebuild from the month shards.
 //
-//   npm run db:load:pg          (needs `npm run db:pg:up` first)
+//   pnpm run db:load:pg          (needs `pnpm run db:pg:up` first)
 //
 // See docs/plans/postgres-migration-v1.md.
 
@@ -206,7 +206,7 @@ const waitForPg = async (): Promise<void> => {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
-  throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
+  throw new Error("Postgres not reachable — run `pnpm run db:pg:up`.");
 };
 
 export const loadPg = async (): Promise<{

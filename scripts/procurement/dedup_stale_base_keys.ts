@@ -2,8 +2,8 @@
 // the operator at the standard rebuild. No network calls — works purely from data/procurement/ on
 // disk.
 //
-//   npm run proc:dedup-stale-keys              # dry run (default)
-//   npm run proc:dedup-stale-keys -- --apply   # write onto the shards
+//   pnpm run proc:dedup-stale-keys              # dry run (default)
+//   pnpm run proc:dedup-stale-keys --apply   # write onto the shards
 //
 // There is deliberately NO `proc:dedup-stale-keys:apply` twin, unlike `proc:reconcile:apply`. That
 // asymmetry is the point: `proc:reconcile:apply` is in `db:refresh` because it is idempotent and
@@ -117,7 +117,7 @@ const retireSkillBlock = (): boolean => {
 };
 
 const FOLLOW_UPS = [
-  "npm run db:load:annexes:pg (+ :cloud) — mandatory; evicted rows orphan their annexes and only this loader re-resolves them",
+  "pnpm run db:load:annexes:pg (+ :cloud) — mandatory; evicted rows orphan their annexes and only this loader re-resolves them",
   "delete KNOWN_STALE from scripts/db/tests/stale_base_keys.data.test.ts",
 ];
 
@@ -125,7 +125,8 @@ const FOLLOW_UPS = [
 // annex_fold_identity.data.test.ts fails on any orphaned annex, and stale_base_keys.data.test.ts
 // fails while KNOWN_STALE names rows the corpus no longer has. Neither fires until `db:load:pg`
 // has reloaded the corpus — they read Postgres, and this pass writes shards.
-const GATES = "npm run test:data (after db:load:pg) fails if either is skipped";
+const GATES =
+  "pnpm run test:data (after db:load:pg) fails if either is skipped";
 
 const retire = (evicted: number, eur: number): void => {
   // The marker lands FIRST. Retirement is otherwise a one-way door: the clean-corpus path returns
@@ -188,7 +189,7 @@ const reportAnnexImpact = async (evictedKeys: string[]): Promise<void> => {
     console.log(
       `\nannex impact — ${n} procurement_annexes row(s) reference an evicted key.` +
         (n
-          ? `\n  → run \`npm run db:load:annexes:pg\` after the reload; it re-resolves against contracts.`
+          ? `\n  → run \`pnpm run db:load:annexes:pg\` after the reload; it re-resolves against contracts.`
           : ""),
     );
   } catch {
@@ -423,7 +424,7 @@ const main = async (): Promise<void> => {
   }
   console.log(`applied — wrote ${written} shard(s); backup at ${BACKUP_DIR}`);
   console.log(
-    "Next: npm run proc:rebuild-derived && npm run db:load:pg && npm run db:load:annexes:pg",
+    "Next: pnpm run proc:rebuild-derived && pnpm run db:load:pg && pnpm run db:load:annexes:pg",
   );
   // Only after the write LANDED. Retiring on a run that verified but failed to write would remove
   // the instruction while leaving the backlog in place — the one ordering that must not invert.

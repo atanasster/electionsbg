@@ -1,7 +1,7 @@
 # vendor/
 
 Locally vendored, prebuilt dependency tarballs consumed via `overrides` in the
-root `package.json`.
+root `pnpm-workspace.yaml` (the root installs with pnpm).
 
 ## kdtree-ts-1.0.0.tgz
 
@@ -23,8 +23,9 @@ the prebuilt files as-is and never recompiles them against a newer
 `@types/node`.
 
 Consumed via `overrides.kdtree-ts` → `file:vendor/kdtree-ts-1.0.0.tgz` in the
-root `package.json`.
+root `pnpm-workspace.yaml` (it lived in `package.json`'s npm `overrides` until
+the root moved to pnpm; the history above is from the npm era).
 
 To refresh: repack from an upstream checkout, delete the `scripts.postinstall`
-entry and `devDependencies` from its `package.json`, `npm pack` into this
-folder, then `npm install` to update the lockfile integrity.
+entry and `devDependencies` from its `package.json`, `pnpm pack` into this
+folder, then `pnpm install` to update the lockfile integrity.

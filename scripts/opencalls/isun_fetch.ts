@@ -1,7 +1,7 @@
 // Crawl ИСУН 2020's procedure register into a committed snapshot.
 //
-//   npm run opencalls:isun            # crawl + write data/opencalls/isun.json
-//   npm run opencalls:isun -- --dry   # crawl, report, write nothing
+//   pnpm run opencalls:isun            # crawl + write data/opencalls/isun.json
+//   pnpm run opencalls:isun --dry   # crawl, report, write nothing
 //
 // TWO TIERS, TWO KINDS. /Active is what a reader can apply to (kind='call'); /PublicDiscussion
 // is draft guidance out for public comment (kind='consultation'), which we publish in its own

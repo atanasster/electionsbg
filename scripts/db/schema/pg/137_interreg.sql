@@ -44,7 +44,7 @@
 --     the plan rejects in §4, amplified across two tables. The loader must
 --     refuse a scoped build outright.
 --
--- Nothing on the cloud side is automatic: `npm run db:load:interreg:pg:cloud`
+-- Nothing on the cloud side is automatic: `pnpm run db:load:interreg:pg:cloud`
 -- is a hand-run command. See CLAUDE.md.
 --
 -- SELECT is granted explicitly at the foot of this file, guarded on the role

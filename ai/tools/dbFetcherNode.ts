@@ -30,7 +30,7 @@ import type { DbRows } from "../../functions/db_table";
 // This node fetcher exists ONLY for the AI harnesses, which verify tool numbers
 // against the local docker Postgres. Pin the local URL so a cloud DATABASE_URL
 // left in the shell (password-less → .pgpass cloud password) can't fail auth
-// against local PG and break `npm run ai:test` in the deploy predeploy hook.
+// against local PG and break `pnpm run ai:test` in the deploy predeploy hook.
 // Runs at import time, before any getPool() call (getPool is lazy).
 pinLocalDatabase();
 

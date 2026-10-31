@@ -18,7 +18,7 @@
 // (docs/testing-standards.md): an early `return` inside each body would score as a PASS, so
 // CI (which runs without a container) would report this gate green while asserting nothing.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -41,7 +41,7 @@ const reachable = async (): Promise<string | false> => {
     );
     return Number(c.n) > 0
       ? false
-      : "place_dim is empty — run npm run db:load:place-dim:pg";
+      : "place_dim is empty — run pnpm run db:load:place-dim:pg";
   } catch {
     return "Postgres unreachable";
   }

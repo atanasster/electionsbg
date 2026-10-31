@@ -18,7 +18,7 @@
 //
 // So: one enumerator, the directory set `key_usage.ts` already argued for, and no
 // new dependency (`fast-glob` is not in this repo's package.json — it resolves
-// only by npm hoisting it out of tailwind, so a tailwind bump can break a gate
+// only by the hoisted node_modules lifting it out of tailwind, so a tailwind bump can break a gate
 // that imports it).
 //
 // ⚠️ PATHS COME BACK POSIX-SEPARATED on every platform, because callers compare

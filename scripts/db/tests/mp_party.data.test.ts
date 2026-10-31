@@ -10,7 +10,7 @@
 //
 // Auto-skips when Postgres is down or the roll-call corpus is absent.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -89,15 +89,15 @@ const BENIGN_NAME_VARIANTS = new Set([
 
 const skipBrowse =
   !haveDb || !(await tableExists("person_browse_table"))
-    ? "Postgres unreachable, or person_browse_table is absent — run npm run db:load:persons-browse:pg"
+    ? "Postgres unreachable, or person_browse_table is absent — run pnpm run db:load:persons-browse:pg"
     : false;
 const skipRoles =
   !haveDb || !haveRoles
-    ? "Postgres unreachable, or person_role is absent — run npm run db:resolve:persons"
+    ? "Postgres unreachable, or person_role is absent — run pnpm run db:resolve:persons"
     : false;
 const skipSeats =
   !haveDb || !haveRoles || !haveSeats
-    ? "Postgres unreachable, or person_role / mp_seat is absent — run npm run db:resolve:persons and npm run db:load:rollcall:pg"
+    ? "Postgres unreachable, or person_role / mp_seat is absent — run pnpm run db:resolve:persons and pnpm run db:load:rollcall:pg"
     : false;
 reportSkip(import.meta.url, skipBrowse);
 reportSkip(import.meta.url, skipRoles);

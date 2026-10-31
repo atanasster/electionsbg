@@ -19,7 +19,7 @@
 // what would be impossible. These assertions are therefore about the ADDRESS match holding.
 //
 // ⚠ IT SKIPS ON A FRESH CLONE. `data/*_mi/problem_sections.json` is produced by
-// `npm run data -- --local-problem-sections`; a checkout that has never run it has nothing to
+// `pnpm run data --local-problem-sections`; a checkout that has never run it has nothing to
 // assert against, which must not read as „the corpus is fine".
 
 import { describe, expect, it } from "vitest";

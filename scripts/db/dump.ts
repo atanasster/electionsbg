@@ -3,10 +3,10 @@
 // clone / CI / a second machine can `db:restore` instead of re-running the full
 // ingest.
 //
-//   npm run db:dump               → pg_dump + gsutil cp to gs://…/db + lockfile
-//   npm run db:dump -- --dry-run  → pg_dump + hash + lockfile (snapshot=null),
+//   pnpm run db:dump               → pg_dump + gsutil cp to gs://…/db + lockfile
+//   pnpm run db:dump --dry-run  → pg_dump + hash + lockfile (snapshot=null),
 //                                       print the gsutil commands; no upload
-//   npm run db:dump -- --local <dir> → transport to a local dir (round-trip test)
+//   pnpm run db:dump --local <dir> → transport to a local dir (round-trip test)
 //
 // This reads OUT of whatever DATABASE_URL points at and writes to GCS. It is NOT a
 // publish step: `db:dump:cloud` dumps Cloud SQL *outward* and creates nothing

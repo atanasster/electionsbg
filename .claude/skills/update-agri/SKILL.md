@@ -21,22 +21,22 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
 
 | Trigger | Action |
 |---|---|
-| Watcher flags `dfz_subsidies` (egov published / re-uploaded a year) | `npm run agri:seu && npm run agri:ingest`, then publish BOTH loaders (Step 3) |
+| Watcher flags `dfz_subsidies` (egov published / re-uploaded a year) | `pnpm run agri:seu && pnpm run agri:ingest`, then publish BOTH loaders (Step 3) |
 | User asks "refresh farm subsidies" / "pull the latest ДФЗ year" | same |
-| Fresh clone, `agri_subsidies` table empty | `npm run db:pg:up` first, then the same |
+| Fresh clone, `agri_subsidies` table empty | `pnpm run db:pg:up` first, then the same |
 | Monthly freshness pass for the rolling СЕУ years (no watcher fires — see note) | same |
 
 ## Procedure
 
 1. **Fetch the СЕУ rolling years** (headless Playwright, ~1 min/year). The СЕУ window updates continuously, so always re-pull:
    ```bash
-   npm run agri:seu       # → raw_data/agri/seu_2024.csv, seu_2025.csv
+   pnpm run agri:seu       # → raw_data/agri/seu_2024.csv, seu_2025.csv
    ```
    (If Playwright can't reach the register — network / a register redesign — the ingest still runs on whatever СЕУ CSVs are cached, plus the full egov backbone.)
-2. **Ingest → Postgres** (needs `npm run db:pg:up`):
+2. **Ingest → Postgres** (needs `pnpm run db:pg:up`):
    ```bash
-   npm run agri:ingest
-   npm run db:load:agri-hub-stats:pg
+   pnpm run agri:ingest
+   pnpm run db:load:agri-hub-stats:pg
    ```
 
    The second is not optional locally either. `agri:ingest` refreshes migration 162
@@ -44,14 +44,14 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
    sole applier. Leaving it out means local is NOT source of truth for those two
    tables — which matters directly at Step 3, where `db:sync:cloud` is offered as an
    alternative that requires exactly that.
-   Reads the egov org-56 CSVs (cached, else re-fetched from the API) + the СЕУ CSVs, normalises + converts BGN→EUR, name-matches СЕУ→egov for EIK, and publishes `agri_subsidies` via an UNLOGGED stage twin + one-transaction DELETE+INSERT (RowExclusiveLock only, readers never blocked; a <5%-shrink guard refuses a half-parsed source — NOT a rename swap: two matviews depend on the table's OID) and `agri_payloads` via the shared stage merge. It applies migration `046_agri_subsidies.sql` idempotently. Prints per-year row counts + `€` totals + the СЕУ EIK-match rate. The pure-LOAD half is `npm run db:load:agri:pg` — cache-only, throws on a partial cache, part of `db:refresh`.
+   Reads the egov org-56 CSVs (cached, else re-fetched from the API) + the СЕУ CSVs, normalises + converts BGN→EUR, name-matches СЕУ→egov for EIK, and publishes `agri_subsidies` via an UNLOGGED stage twin + one-transaction DELETE+INSERT (RowExclusiveLock only, readers never blocked; a <5%-shrink guard refuses a half-parsed source — NOT a rename swap: two matviews depend on the table's OID) and `agri_payloads` via the shared stage merge. It applies migration `046_agri_subsidies.sql` idempotently. Prints per-year row counts + `€` totals + the СЕУ EIK-match rate. The pure-LOAD half is `pnpm run db:load:agri:pg` — cache-only, throws on a partial cache, part of `db:refresh`.
 3. **Publish to Cloud SQL** so the live tiles update (the pack is DB-served, so this — not a bucket sync — is what ships it).
 
    Publishing is the cloud LOAD wrapper (it reads the local raw_data/agri/ cache and writes over the proxy — no re-fetch; `db:dump:cloud` does NOT publish, it snapshots cloud outward to GCS):
 
    ```bash
-   npm run db:load:agri:pg:cloud
-   npm run db:load:agri-hub-stats:pg:cloud
+   pnpm run db:load:agri:pg:cloud
+   pnpm run db:load:agri-hub-stats:pg:cloud
    ```
 
    ⚠️ **The second command is not a refinement of the first — it publishes a different
@@ -69,9 +69,9 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
 
    Needs the Cloud SQL proxy on `127.0.0.1:5434` with the `.pgpass` line present — the password-less URL is correct here, and must never leak into a later *local* command (it would fail `28P01`; `unset DATABASE_URL` after).
 
-   The FIRST of those re-uploads ~2M rows over the proxy, so it is the slow one; the hub-stats loader is small by comparison (its local run is ~6 s against the full ingest's ~5m44s — both LOCAL figures, and Cloud SQL is slower, since it REFRESHes three matviews and vacuums over the proxy — that gap was measured on the old db-g1-small, and prod has changed tier twice since — `db-perf-optimized-N-2` from 2026-08-20, `db-custom-2-13312` from 2026-08-27 (see CLAUDE.md „The serving instance") — so re-measure rather than assume the old ratio). For a whole-DB reconcile when several PG-backed skills ran, `npm run db:sync:cloud -- --yes` (pg_dump local → pg_restore cloud) is faster, but destructive (`--clean`) and requires local to be source of truth — including the unregenerable КЗК tier-2 outcome rows.
+   The FIRST of those re-uploads ~2M rows over the proxy, so it is the slow one; the hub-stats loader is small by comparison (its local run is ~6 s against the full ingest's ~5m44s — both LOCAL figures, and Cloud SQL is slower, since it REFRESHes three matviews and vacuums over the proxy — that gap was measured on the old db-g1-small, and prod has changed tier twice since — `db-perf-optimized-N-2` from 2026-08-20, `db-custom-2-13312` from 2026-08-27 (see CLAUDE.md „The serving instance") — so re-measure rather than assume the old ratio). For a whole-DB reconcile when several PG-backed skills ran, `pnpm run db:sync:cloud --yes` (pg_dump local → pg_restore cloud) is faster, but destructive (`--clean`) and requires local to be source of truth — including the unregenerable КЗК tier-2 outcome rows.
 
-   Optionally follow with `npm run db:dump:cloud` to refresh the GCS restore point. Only redeploy functions (`firebase deploy --only functions:db`) if the serving migration/route changed — `046` + the `agri-payload` route already shipped once.
+   Optionally follow with `pnpm run db:dump:cloud` to refresh the GCS restore point. Only redeploy functions (`firebase deploy --only functions:db`) if the serving migration/route changed — `046` + the `agri-payload` route already shipped once.
 4. **Sanity-check** the console: FY2023 ≈ €1.14bn; FY2024/2025 ≈ €1.6bn each; all-years ≈ €11bn; СЕУ match rate ~25% of groups (the recurring entities). A big drop in a year's total or match rate means a source/parse regression.
 5. **Stamp** `state/ingest/update-agri.json` with `lastSuccessfulIngest` (current UTC ISO) + a one-line `summary`, so `process-watch-report` won't re-trigger.
 
@@ -81,4 +81,4 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
 - **СЕУ freshness isn't daily-watched.** The `dfz_subsidies` watcher only fingerprints the egov org-56 datasets (cheap plain-HTTP). The СЕУ register updates continuously as payments are made, but fingerprinting it needs a full Playwright download — too heavy for the daily watcher. So the rolling years refresh whenever this skill runs; schedule a monthly `update-agri` if the current-year figures need to stay live between egov publications.
 - **Playwright:** `scripts/agri/seu_fetch.ts` uses the repo's bundled `playwright` (headless Chromium). The СЕУ export is decoded with `TextDecoder("windows-1251")`; fields split on the `";"` boundary (intervention names contain bare `;`).
 - **Raw caches** live under `raw_data/agri/` (gitignored) — safe to delete; they re-download on the next run.
-- **No JSON, no bucket:** unlike funds/nzok, this pack serves entirely from Postgres, so there is nothing to `bucket:sync`. The deploy is `npm run db:load:agri:pg:cloud` **+ `npm run db:load:agri-hub-stats:pg:cloud`** (Step 3), *not* `db:dump:cloud` — that command only snapshots cloud outward to GCS. КЗК (`kzk_appeals`) is now the one PG-backed dataset with no `db:load:*:cloud` wrapper — its intake is a crawl, so publishing it means re-crawling against the cloud URL.
+- **No JSON, no bucket:** unlike funds/nzok, this pack serves entirely from Postgres, so there is nothing to `bucket:sync`. The deploy is `pnpm run db:load:agri:pg:cloud` **+ `pnpm run db:load:agri-hub-stats:pg:cloud`** (Step 3), *not* `db:dump:cloud` — that command only snapshots cloud outward to GCS. КЗК (`kzk_appeals`) is now the one PG-backed dataset with no `db:load:*:cloud` wrapper — its intake is a crawl, so publishing it means re-crawling against the cloud URL.

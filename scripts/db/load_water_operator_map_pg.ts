@@ -16,7 +16,7 @@
 // and omitted from the map by water_operator_map(). Sofia (ekatte 68134) is pinned
 // here — it has no settlements.json row — exactly as scripts/judiciary/__write_court_load.ts.
 //
-// Run: `npm run db:load:water-operator-map:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:water-operator-map:pg` (local) / `:cloud` (Cloud SQL proxy).
 // Must run AFTER db:load:awarder-seats:pg (it reads awarder_seats).
 
 import { readFileSync } from "node:fs";

@@ -25,8 +25,8 @@
 //
 // NOTE: reg.cpc.bg is geo-gated (403 from non-BG egress) — this watcher must run
 // from a Bulgarian connection, same as the intake source and the CIK one. The
-// re-ingest is `npm run kzk:decisions -- --year <YYYY> --apply`, followed by
-// `db:load:kzk-decisions:pg` and `kzk:rejoin -- --apply` (the crawl alone changes
+// re-ingest is `pnpm run kzk:decisions --year <YYYY> --apply`, followed by
+// `db:load:kzk-decisions:pg` and `kzk:rejoin --apply` (the crawl alone changes
 // nothing served).
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";

@@ -4,8 +4,8 @@
 // the de-duplicated corpus. No network calls — works purely from
 // data/procurement/ on disk (data.egov.bg is host-IP-blocked).
 //
-//   npx tsx scripts/procurement/dedup_legacy_twins.ts            # clean + rebuild
-//   npx tsx scripts/procurement/dedup_legacy_twins.ts --dry-run  # report only
+//   pnpm exec tsx scripts/procurement/dedup_legacy_twins.ts            # clean + rebuild
+//   pnpm exec tsx scripts/procurement/dedup_legacy_twins.ts --dry-run  # report only
 //
 // Background: an earlier legacy-CSV ingest (with a less complete column map)
 // emitted blank-document-id rows that got the `…-x` ocid fallback. A later
@@ -383,7 +383,7 @@ const main = async (): Promise<void> => {
       `€${(idx.totals.totalEur / 1e9).toFixed(3)}bn. Procurement rebuild complete.`,
   );
   console.log(
-    "  next: bucket-sync data/procurement/ to GCS (npm run bucket:sync:all or the procurement upload path).",
+    "  next: bucket-sync data/procurement/ to GCS (pnpm run bucket:sync:all or the procurement upload path).",
   );
 };
 

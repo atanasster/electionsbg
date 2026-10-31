@@ -3,8 +3,8 @@
 // Run it when a new parliamentary cycle lands, which is the only thing that can widen
 // the table:
 //
-//     npx tsx scripts/parsers_presidential/build_abroad_cities.ts          # report only
-//     npx tsx scripts/parsers_presidential/build_abroad_cities.ts --write  # rewrite it
+//     pnpm exec tsx scripts/parsers_presidential/build_abroad_cities.ts          # report only
+//     pnpm exec tsx scripts/parsers_presidential/build_abroad_cities.ts --write  # rewrite it
 //
 // ⚠ REPORT-ONLY BY DEFAULT. The output is committed and read by the aggregator, so a
 // rebuild that silently narrowed it would move real polling stations to „country

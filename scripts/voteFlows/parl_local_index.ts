@@ -16,7 +16,7 @@
 // too few sections for stable inference — same product decision as the
 // council-to-council local flow).
 //
-// Flag-gated operator step (not part of `--all`): `npm run data -- --prevote-flows`.
+// Flag-gated operator step (not part of `--all`): `pnpm run data --prevote-flows`.
 
 import fs from "fs";
 import path from "path";

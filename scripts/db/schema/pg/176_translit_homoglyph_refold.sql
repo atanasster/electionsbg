@@ -23,17 +23,17 @@
 --
 -- After this file, the LOADER-WRITTEN fold needs its own pass — `tender_search_text.fold`
 -- is not a generated column, so no UPDATE here touches it:
---   npx tsx scripts/db/load_tender_dossier_pg.ts --refold           (--dry-run to report)
+--   pnpm exec tsx scripts/db/load_tender_dossier_pg.ts --refold           (--dry-run to report)
 -- That mode reads only rows already in Postgres, so it works on a machine with no
 -- `raw_data/procurement/eop_dossier.sqlite`, which is where the repair is most needed. It
 -- slices its transactions like the loader proper and re-running it is the repair for an
 -- interrupted run. Measured here: 50,256 stale → 0 of 50,283 rows in 20 min.
 --
 -- And, as in 099, the person layer rebuilds its own folds through the resolver:
---   npm run db:resolve:persons
---   npm run db:load:declarations:pg -- --resolve
---   npm run db:load:person-elections:pg
---   npm run person:slugs
+--   pnpm run db:resolve:persons
+--   pnpm run db:load:declarations:pg --resolve
+--   pnpm run db:load:person-elections:pg
+--   pnpm run person:slugs
 
 -- Fail fast if 000's homoglyph mapping is not in place — otherwise this rewrites ~4M rows
 -- to the same stale value for nothing, and reports success. Both arms are checked because

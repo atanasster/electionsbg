@@ -6,7 +6,7 @@
 // future full regenerations.
 //
 // Usage:
-//   npx tsx scripts/budget/run_income_tiers.ts
+//   pnpm exec tsx scripts/budget/run_income_tiers.ts
 
 import fs from "fs";
 import path from "path";

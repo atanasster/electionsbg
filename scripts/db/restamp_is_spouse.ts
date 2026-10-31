@@ -1,9 +1,9 @@
 /**
  * Re-derive `declaration_asset.is_spouse` in place on a target database.
  *
- *   npx tsx scripts/db/restamp_is_spouse.ts                          # dry run against DATABASE_URL
- *   npx tsx scripts/db/restamp_is_spouse.ts --apply
- *   npx tsx scripts/db/restamp_is_spouse.ts --to <url> --apply
+ *   pnpm exec tsx scripts/db/restamp_is_spouse.ts                          # dry run against DATABASE_URL
+ *   pnpm exec tsx scripts/db/restamp_is_spouse.ts --apply
+ *   pnpm exec tsx scripts/db/restamp_is_spouse.ts --to <url> --apply
  *
  * ── WHY RECOMPUTE RATHER THAN SHIP OR RELOAD ────────────────────────────────────────────
  *

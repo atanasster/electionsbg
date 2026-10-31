@@ -13,7 +13,7 @@
 //
 // To refresh: download the newest appointment order from the nfc.bg „Заповеди"
 // page, read it (pdftotext -layout), and update the mandate + members below.
-//   npx tsx scripts/culture/write_commissions.ts
+//   pnpm exec tsx scripts/culture/write_commissions.ts
 
 import fs from "fs";
 import path from "path";

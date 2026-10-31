@@ -1,6 +1,6 @@
 // CLI wrapper around ./candidate_links.ts.
 //
-//   npx tsx scripts/officials/decorate_candidate_links.ts [--dry-run]
+//   pnpm exec tsx scripts/officials/decorate_candidate_links.ts [--dry-run]
 //
 // The work itself lives in ./candidate_links.ts so scripts/officials/municipal.ts
 // can chain it in-process without this `run(...)` firing on import.

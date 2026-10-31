@@ -2,10 +2,10 @@
 // transported) publication timestamp. Drives the /sector/transport/money rail subsidy-
 // dependency tile: rail ridership is the denominator of "state subsidy per passenger".
 //
-// Downstream: run `npx tsx scripts/transport/fetch_rail_ridership.ts` to re-fetch the
+// Downstream: run `pnpm exec tsx scripts/transport/fetch_rail_ridership.ts` to re-fetch the
 // national rail passengers + passenger-km series into data/transport/rail_ridership.json
 // (a small committed file, no PG — but bucket-served via dataUrl, so publish it with
-// `npm run bucket:sync:paths -- transport/rail_ridership.json`). Annual release, so `monthly` cadence
+// `pnpm run bucket:sync:paths transport/rail_ridership.json`). Annual release, so `monthly` cadence
 // is plenty. (The subsidy half of that tile rides the `budget_law` watcher → run
 // scripts/transport/parse_rail_subsidy.ts; the COFOG GF04.5 EU-peer tile rides the
 // existing `eurostat` gov_10a_exp watcher via scripts/macro/fetch_cofog.ts.)
@@ -49,7 +49,7 @@ export const eurostatRail: WatchSource = {
     const prevU = (prev.meta?.updated as string | undefined) ?? "";
     const currU = (curr.meta?.updated as string | undefined) ?? "";
     if (prevU !== currU)
-      return `Eurostat ${DATASET} republished (was ${prevU || "—"}) — run \`npx tsx scripts/transport/fetch_rail_ridership.ts\` to refresh the /sector/transport/money rail subsidy-per-passenger tile, then \`npm run bucket:sync:paths -- transport/rail_ridership.json\``;
+      return `Eurostat ${DATASET} republished (was ${prevU || "—"}) — run \`pnpm exec tsx scripts/transport/fetch_rail_ridership.ts\` to refresh the /sector/transport/money rail subsidy-per-passenger tile, then \`pnpm run bucket:sync:paths transport/rail_ridership.json\``;
     return curr.detail;
   },
 };

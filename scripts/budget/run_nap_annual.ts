@@ -4,9 +4,9 @@
 //   data/budget/revenue_breakdown/pit/<year>.json
 //
 // Usage:
-//   npx tsx scripts/budget/run_nap_annual.ts             # all known years
-//   npx tsx scripts/budget/run_nap_annual.ts --year 2024 # single year
-//   npx tsx scripts/budget/run_nap_annual.ts --refresh   # bypass cache
+//   pnpm exec tsx scripts/budget/run_nap_annual.ts             # all known years
+//   pnpm exec tsx scripts/budget/run_nap_annual.ts --year 2024 # single year
+//   pnpm exec tsx scripts/budget/run_nap_annual.ts --refresh   # bypass cache
 
 import fs from "fs";
 import path from "path";

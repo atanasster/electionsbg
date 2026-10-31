@@ -1,7 +1,7 @@
 // The data bucket, in ONE place.
 //
 // ⚠️ IT WAS RESTATED FOUR TIMES AND THE FIFTH COPY WAS WRONG. `gen_home/health.ts` wrote
-// `electionsbg-data`, which is not a bucket that exists, so `home:health -- --public` reported
+// `electionsbg-data`, which is not a bucket that exists, so `home:health --public` reported
 // both home artifacts unpublished on every run no matter what was on the bucket — and its
 // `drifted` branch, the one state that check was added for, sat unreachable behind the `!r.ok`
 // guard. A smoke test could not catch it either: the home objects were not published yet, so

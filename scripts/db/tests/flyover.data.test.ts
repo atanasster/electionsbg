@@ -18,7 +18,7 @@
 //
 // Auto-skips when Postgres is down or the contracts corpus is empty.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -188,7 +188,7 @@ test.skipIf(skip)(
     assert.equal(
       fs.readFileSync(FILE, "utf8"),
       JSON.stringify(a) + "\n",
-      "the committed artifact is not what this corpus builds — run npm run db:gen-home-flyover",
+      "the committed artifact is not what this corpus builds — run pnpm run db:gen-home-flyover",
     );
   },
 );

@@ -8,7 +8,7 @@
 //
 // Auto-skips when Postgres is down / the dimension has never been loaded — like the other
 // *.data.test.ts gates. Needs place_dim (117) + the extended functions applied + the
-// contracts corpus (for awarder_seats). Run: npm run test:data
+// contracts corpus (for awarder_seats). Run: pnpm run test:data
 //
 // PARITY. The procurement page resolves oblast via place_dim.oblast_code (the STATISTICAL
 // fold), the parliamentary PlaceHeader via regions.json keyed on the settlement's raw

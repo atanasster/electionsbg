@@ -14,7 +14,7 @@
 // 2014/24/ЕС). Opt-in (needs the local Postgres for the tender counts), so it
 // rides the --revenue step. Run after write_hospital_revenue.ts.
 //
-//   npm run data:nzok -- --revenue
+//   pnpm run data:nzok --revenue
 
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";

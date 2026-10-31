@@ -1,9 +1,9 @@
 // Prints the /budget hub's figure ledger — every number a hub tile may show,
 // with its denominator and the answers that were also true.
 //
-//   npx tsx scripts/budget/__measure_hub.ts            # the default fiscal year
-//   npx tsx scripts/budget/__measure_hub.ts 2024       # one year
-//   npx tsx scripts/budget/__measure_hub.ts --all      # every year the corpus covers
+//   pnpm exec tsx scripts/budget/__measure_hub.ts            # the default fiscal year
+//   pnpm exec tsx scripts/budget/__measure_hub.ts 2024       # one year
+//   pnpm exec tsx scripts/budget/__measure_hub.ts --all      # every year the corpus covers
 //
 // The derivation lives in hub_ledger.ts so `budget_hub_stats.data.test.ts` can
 // import it; this file is only the human view. Plan: docs/plans/budget-hub-v1.md T0.2.
@@ -52,7 +52,7 @@ const main = (): void => {
   const corpus = loadBudgetCorpus();
   if (!corpus.index) {
     console.error(
-      "data/budget/index.json is missing — run `npm run data -- --all` first.",
+      "data/budget/index.json is missing — run `pnpm run data --all` first.",
     );
     process.exitCode = 1;
     return;
@@ -71,7 +71,7 @@ const main = (): void => {
     // asked — and `0` and `banana` would both get there through `Number(x) ||`.
     console.error(
       `Unrecognised argument "${args[0]}".\n` +
-        "  usage: npx tsx scripts/budget/__measure_hub.ts [<4-digit year> | --all]",
+        "  usage: pnpm exec tsx scripts/budget/__measure_hub.ts [<4-digit year> | --all]",
     );
     process.exitCode = 1;
     return;

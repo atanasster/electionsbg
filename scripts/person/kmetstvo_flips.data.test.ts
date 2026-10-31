@@ -9,7 +9,7 @@
 // Auto-skips when Postgres is down or the person layer is unloaded, like the other *.data.test.ts
 // gates. See docs/plans/village-mayor-attribution-v1.md §T1.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

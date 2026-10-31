@@ -36,7 +36,7 @@
 // must never read as "no false claims", and neither must "the server is down". The two tests
 // have SEPARATE gates: they read different tables, written by different loaders.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -88,7 +88,7 @@ const reachable = async (): Promise<string | false> => {
          FROM declaration WHERE tier = 'muni'`,
     );
     if (Number(c.n) === 0)
-      return "no muni declarations loaded — run npm run db:load:declarations:pg";
+      return "no muni declarations loaded — run pnpm run db:load:declarations:pg";
     if (Number(c.inst) === 0)
       return "declaration.institution is empty for every muni filing — the município scoping this gate depends on cannot run";
     return false;
@@ -118,7 +118,7 @@ const reachable = async (): Promise<string | false> => {
 const skip =
   (await reachable()) ||
   (cycles.length === 0
-    ? "no data/<cycle>/officials_diff sidecars on disk (gitignored; run npm run data -- --resolve-local-canonicals)"
+    ? "no data/<cycle>/officials_diff sidecars on disk (gitignored; run pnpm run data --resolve-local-canonicals)"
     : false);
 reportSkip(import.meta.url, skip);
 
@@ -150,12 +150,12 @@ const rosterReachable = async (): Promise<string | false> => {
       "SELECT count(*) n FROM official_roster WHERE role = 'mayor' AND sitting",
     );
     if (Number(c.n) === 0)
-      return "official_roster holds no sitting mayor — run npm run db:load:ngo-board-links";
+      return "official_roster holds no sitting mayor — run pnpm run db:load:ngo-board-links";
     return false;
   } catch (e) {
     const code = (e as { code?: string }).code;
     if (code === "42P01")
-      return "the official_roster table does not exist — run npm run db:load:ngo-board-links against this database";
+      return "the official_roster table does not exist — run pnpm run db:load:ngo-board-links against this database";
     if (code === "42501")
       return "no permission to read official_roster — check the role this DATABASE_URL connects as";
     return `Postgres unreachable (${code ?? (e as Error).message})`;

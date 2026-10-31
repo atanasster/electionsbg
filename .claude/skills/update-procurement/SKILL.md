@@ -16,10 +16,10 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 
 | Trigger | Action |
 |---|---|
-| Daily watcher reports `data.egov.bg АОП: N new fortnight bundle(s) on top` | Incremental ingest (`npm run procurement:ingest`) |
-| Daily watcher reports `data.egov.bg АОП: N new annual contracts dataset(s)` | Legacy discovery (`npm run procurement:ingest-legacy -- --discover`) — picks up a newly-published year; see "Pre-OCDS backfill" |
-| Daily watcher reports `АОП debarred-suppliers register: N entries` changed | Re-scrape the debarred list (`npx tsx scripts/procurement/debarred.ts`) — see Step 5 below |
-| Daily watcher reports `ЦПРС — регистър на строителя (register.ksb.bg)` changed (`cprs_register`) | Re-crawl the builder register (`npm run cprs:ingest -- --apply --refresh` — **with `--refresh`**, or the cached crawl is re-parsed) — see Step 5b below |
+| Daily watcher reports `data.egov.bg АОП: N new fortnight bundle(s) on top` | Incremental ingest (`pnpm run procurement:ingest`) |
+| Daily watcher reports `data.egov.bg АОП: N new annual contracts dataset(s)` | Legacy discovery (`pnpm run procurement:ingest-legacy --discover`) — picks up a newly-published year; see "Pre-OCDS backfill" |
+| Daily watcher reports `АОП debarred-suppliers register: N entries` changed | Re-scrape the debarred list (`pnpm exec tsx scripts/procurement/debarred.ts`) — see Step 5 below |
+| Daily watcher reports `ЦПРС — регистър на строителя (register.ksb.bg)` changed (`cprs_register`) | Re-crawl the builder register (`pnpm run cprs:ingest --apply --refresh` — **with `--refresh`**, or the cached crawl is re-parsed) — see Step 5b below |
 | Daily watcher reports `ЦАИС ЕОП open data: N new publication day(s)` | Incremental EOP gap-fill (Step 1b) **and** tender-stage ingest (Step 1f) — both read the same storage.eop.bg buckets |
 | User asks to "refresh procurement" / "ingest new contracts" | Same — incremental |
 | `data/procurement/` empty (fresh clone) | Cold-start ingest of every visible bundle (~24 fortnights ≈ 1 year) |
@@ -29,8 +29,8 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 ## Step 1 — Incremental ingest
 
 ```bash
-npm run procurement:ingest-legacy -- --discover   # new annual-CSV years (a no-op unless АОП posts a year we've never ingested)
-npm run procurement:ingest                        # new OCDS daily resources + rebuild rollups
+pnpm run procurement:ingest-legacy --discover   # new annual-CSV years (a no-op unless АОП posts a year we've never ingested)
+pnpm run procurement:ingest                        # new OCDS daily resources + rebuild rollups
 ```
 
 Run both, discovery first. `procurement:ingest` walks EVERY page of the АОП org's dataset listing on data.egov.bg, reads every resource of every OCDS dataset (walking each dataset's `?rpage=N` resource pager), downloads any resource not yet stamped `ingestedAt` in `data/procurement/bundles.json`, normalizes its OCDS releases into `Contract` rows, and writes/merges month-shards. Then rebuilds per-EIK rollups under `contractors/` and `awarders/`.
@@ -43,7 +43,7 @@ Run both, discovery first. `procurement:ingest` walks EVERY page of the АОП o
 - **Weekend days often emit 0 rows** (1–2 non-contract releases). They are stamped like any other; that is correct.
 - **The watcher (`egov_procurement`) fingerprints the newest OCDS dataset's newest resource as well as the page-1 UUID set**, because a monthly dataset gaining a day does not move the UUID set.
 
-`procurement:ingest-legacy -- --discover` exists because the OCDS ingester only consumes fortnight bundles — a newly-published *annual* CSV (e.g. when АОП posts the 2024 contracts dump) is skipped as "non-OCDS" and would otherwise sit uningested. Discovery walks the same listing, finds any `Договори и изменения на договори - YYYY` dataset whose year isn't in `LEGACY_DATASETS`, confirms its resource is a real `contracts*.csv` (not the out-of-scope `excl*` / `annexes*` dumps), and ingests it. On a normal day it finds nothing and exits in seconds; the `procurement:ingest` that follows rebuilds rollups + cross-reference over whatever it added.
+`procurement:ingest-legacy --discover` exists because the OCDS ingester only consumes fortnight bundles — a newly-published *annual* CSV (e.g. when АОП posts the 2024 contracts dump) is skipped as "non-OCDS" and would otherwise sit uningested. Discovery walks the same listing, finds any `Договори и изменения на договори - YYYY` dataset whose year isn't in `LEGACY_DATASETS`, confirms its resource is a real `contracts*.csv` (not the out-of-scope `excl*` / `annexes*` dumps), and ingests it. On a normal day it finds nothing and exits in seconds; the `procurement:ingest` that follows rebuilds rollups + cross-reference over whatever it added.
 
 Expected output on a normal day (a few new daily resources published):
 
@@ -66,11 +66,11 @@ Expected output on a normal day (a few new daily resources published):
 
 **The per-settlement shards no longer exist.** `data/procurement/by_settlement/` and its writer were retired: /procurement/by-settlement, the settlement detail pages and the My-Area alert feed all read the same rollup from **Postgres** now (`procurement_by_settlement()` in migration 030, precomputed per `?pscope` window by migration 119). The ingest still resolves each awarder's `geo` block via `scripts/procurement/resolve_ekatte.ts` — that is what the SQL groups by — so nothing about the METHODOLOGY changed: central ministries and national state companies are still not pinned to settlements, they are aggregated into the national rollup. See [[project_procurement_geo]] and the curated tier overrides in `scripts/procurement/awarder_tier.ts`.
 
-After an ingest, publish the per-scope precomputes with `npm run db:load:procurement-scopes:pg` (local; `db:refresh` runs it) and `npm run db:load:procurement-scopes:pg:cloud` (prod) — otherwise the pages keep serving the previous corpus. This one loader refreshes ALL the per-scope precomputes — the by-settlement views (119), the `/procurement/contractors` leaderboard + KPIs (`contractor_rank` / `contractor_scope_kpis`, 122), the per-settlement page payloads (`procurement_settlement_payloads`, 123) and the six `/procurement` dashboard payloads (`procurement_payloads`, 124: overview / flow / rankings / concentration / sectors / benchmarks). So a contracts ingest that skips the `:cloud` step leaves the "Топ изпълнители" table, the settlement pages AND the whole `/procurement` dashboard stale on prod while local is current. The authoritative list is `SCOPED_MATVIEWS` in `scripts/db/lib/scopedMatviews.ts` — check there rather than trusting this sentence, which has gone stale twice.
+After an ingest, publish the per-scope precomputes with `pnpm run db:load:procurement-scopes:pg` (local; `db:refresh` runs it) and `pnpm run db:load:procurement-scopes:pg:cloud` (prod) — otherwise the pages keep serving the previous corpus. This one loader refreshes ALL the per-scope precomputes — the by-settlement views (119), the `/procurement/contractors` leaderboard + KPIs (`contractor_rank` / `contractor_scope_kpis`, 122), the per-settlement page payloads (`procurement_settlement_payloads`, 123) and the six `/procurement` dashboard payloads (`procurement_payloads`, 124: overview / flow / rankings / concentration / sectors / benchmarks). So a contracts ingest that skips the `:cloud` step leaves the "Топ изпълнители" table, the settlement pages AND the whole `/procurement` dashboard stale on prod while local is current. The authoritative list is `SCOPED_MATVIEWS` in `scripts/db/lib/scopedMatviews.ts` — check there rather than trusting this sentence, which has gone stale twice.
 
 **Notice type on the rollup rows:** since 2026 the slim `topContracts` rows in the contractor / awarder / by_settlement rollups carry the OCDS `tag` (`award` = announced/обявена, `contract` = awarded/възложена, `contractAmendment` = annex/анекс), and value-bearing `award` rows are no longer discarded. This lets the place dashboards and the My-Area alert feed (`scripts/myarea/build_alerts.ts`) label each contract announced / awarded / annex. No new ingest — a normal `procurement:ingest` rebuild populates it; publish via `db:refresh` (local) + the `db:load:*:cloud` loaders (prod), per the Deployment note in Step 1e.
 
-**One-shot enrichment after this commit:** existing awarder rollups built before this code change have no `geo` block (the normalizer wasn't capturing locality/postalCode). Run `npx tsx scripts/procurement/enrich_awarders_geo.ts` once to backfill from the cached fortnight bundles in `raw_data/procurement/`. From the next `procurement:ingest` onward the rollup builder applies geo automatically.
+**One-shot enrichment after this commit:** existing awarder rollups built before this code change have no `geo` block (the normalizer wasn't capturing locality/postalCode). Run `pnpm exec tsx scripts/procurement/enrich_awarders_geo.ts` once to backfill from the cached fortnight bundles in `raw_data/procurement/`. From the next `procurement:ingest` onward the rollup builder applies geo automatically.
 
 **Curating the awarder_tier "other" bucket:** the enrichment writes `data/procurement/awarder_tier_unclassified.json` with every awarder whose name didn't match a tier heuristic. Skim it for entities that should be classified (e.g. new ministry sub-units), add an `OVERRIDES` entry in `scripts/procurement/awarder_tier.ts`, and re-run the enrichment (cheap — re-reads the same cached bundles).
 
@@ -83,8 +83,8 @@ If the canary line is missing it's because the canary bundle's `datasetUuid` mat
 Run the **self-heal** cadence, then rebuild (the rebuild is single-sourced in Step 1's `procurement:ingest`, which re-reads every month-shard including the new EOP rows):
 
 ```bash
-npx tsx scripts/procurement/ingest_eop.ts --self-heal --apply   # covered-buyer gap-heal, last ~75 days
-npm run procurement:ingest                                       # rebuild rollups/derived/by-settlement/index
+pnpm exec tsx scripts/procurement/ingest_eop.ts --self-heal --apply   # covered-buyer gap-heal, last ~75 days
+pnpm run procurement:ingest                                       # rebuild rollups/derived/by-settlement/index
 ```
 
 **Why `--self-heal` (shipped 2026-07-26; replaces the old two-step).** `--self-heal` implies `--cross-source-dedup` over a **~75-day** window (wide enough to span АОП's OCDS-export lag behind the live ЦАИС feed; 90-day guard cap, no `--backfill`), keeping **all** buyers and content-deduping against the corpus. It is double-count-**safe** because `ingest.ts::writeMonthShards` evicts each `eop-` row once its authoritative OCDS twin lands (see the OCDS-lag section below). This single command subsumes both halves of the previous runbook:
@@ -102,9 +102,9 @@ Caveat — years with **no** OCDS at all (2024/2025): the `--include-existing-bu
 The nightly `--self-heal` run (above) covers this automatically for any lag up to ~75 days. Only if the OCDS lag ever **exceeds** the self-heal window (the missing `date` predates `today − 75d`) widen it explicitly:
 
 ```bash
-npx tsx scripts/procurement/ingest_eop.ts --apply --cross-source-dedup --backfill \
+pnpm exec tsx scripts/procurement/ingest_eop.ts --apply --cross-source-dedup --backfill \
   --from <ocds-periodEnd+1> --to <newest-flat-day>   # only when the gap is older than 75 days
-npm run procurement:ingest                            # rebuild; then db:load:pg, then db:load:pg:cloud to publish
+pnpm run procurement:ingest                            # rebuild; then db:load:pg, then db:load:pg:cloud to publish
 ```
 
 It is double-count-**safe** because `ingest.ts::writeMonthShards` runs `evictSupersededEopTwins` (`content_key.ts`): when АОП's OCDS export finally publishes that fortnight, the arriving OCDS row **evicts** the `eop-` twin it stood in for (content match, OCDS authoritative — the two feeds namespace `key`s disjointly, so the key merge alone would keep both). Validated on the real 2026-05-21…06-03 fortnight: 1827/1832 flat rows twin an OCDS row. **Shipped (2026-07-26):** the nightly cadence is now `--self-heal` (implemented in `eop_window.ts` / `ingest_eop.ts`), so the covered-buyer gap self-heals without a manual recovery and the old `--only-buyers` infra step is retired from the nightly path.
@@ -114,12 +114,12 @@ It is double-count-**safe** because `ingest.ts::writeMonthShards` runs `evictSup
 The flat ЦАИС ЕОП feed carries no buyer address, so the gap-fill schools (and legacy-only buyers) have no `geo` → they're dropped from `by_settlement` and the my-area place tiles. Two map-builders harvest geo from the same storage.eop.bg buckets, then `scripts/procurement/awarder_geo_map.ts` combines all tiers into an EKATTE override map; `buildRollups` applies it **fill-missing** (an address-derived geo always wins). Run after new buyers land, then rebuild:
 
 ```bash
-npx tsx scripts/procurement/build_ocds_party_geo.ts      # Tier E: OCDS обявления party addresses → settlement (storage.eop.bg, 2026+)
-npx tsx scripts/procurement/build_tender_oblast_map.ts   # Tier D: поръчки executionPlaceNuts → buyer oblast (--backfill for full history)
-npx tsx scripts/procurement/awarder_geo_map.ts           # combines tiers → data/procurement/awarder_geo_overrides.json
-npm run procurement:ingest                                # rebuild applies the overrides to by_settlement
-npm run db:load:awarder-seats:pg                          # PUBLISH — the rebuild alone reaches no database
-npm run proc:verify-seats                                 # confirm it landed
+pnpm exec tsx scripts/procurement/build_ocds_party_geo.ts      # Tier E: OCDS обявления party addresses → settlement (storage.eop.bg, 2026+)
+pnpm exec tsx scripts/procurement/build_tender_oblast_map.ts   # Tier D: поръчки executionPlaceNuts → buyer oblast (--backfill for full history)
+pnpm exec tsx scripts/procurement/awarder_geo_map.ts           # combines tiers → data/procurement/awarder_geo_overrides.json
+pnpm run procurement:ingest                                # rebuild applies the overrides to by_settlement
+pnpm run db:load:awarder-seats:pg                          # PUBLISH — the rebuild alone reaches no database
+pnpm run proc:verify-seats                                 # confirm it landed
 ```
 
 ⚠ **The map is not the site, and nothing red says so.** Rebuilding
@@ -131,7 +131,7 @@ on a table that cannot hold a placement (426 s on Cloud SQL, measured 2026-08-22
 says `ok`, row counts reconcile, and the site keeps the previous placements at a 200. Measured
 2026-08-24 — prod kept ЕИК `106633686` in Дърманци for hours after the map said Мездра.
 
-`npm run proc:verify-seats` (and `:cloud`) answers it for whichever database you point it at:
+`pnpm run proc:verify-seats` (and `:cloud`) answers it for whichever database you point it at:
 read-only, one SELECT, safe on the serving database. Exit 1 on drift **and** on "cannot conclude"
 — it refuses to report a clean bill of health for a map that failed to load, since both arms of the
 comparison come back empty for one. The local half is also a
@@ -178,7 +178,7 @@ The block is intermittent and environment-dependent — a BG residential IP is t
 Two dependencies to remember:
 - **Single-bidder reads `release.bids.statistics[]`** (the OCDS field that's actually populated — `tender.numberOfTenderers` is ~0%). New fortnights pick it up automatically. To back-fill bid counts onto **already-ingested** rows after the parser changed, run the manual re-normalize (skips the diff-cap; cache-only, no network; never in CI per [[feedback_one_off_backfills]]):
   ```bash
-  npm run procurement:ingest -- --renormalize   # re-process every cached bundle + full rebuild
+  pnpm run procurement:ingest --renormalize   # re-process every cached bundle + full rebuild
   ```
 - **`pep_connected` reads `company_politicians` at `kind='official'`** — the gated person layer, not a file. **[2026-08-21]** it read `data/officials/derived/company_links.json` (produced by `/update-officials`, HIGH-filtered here); that file and its builder are deleted. ⚠️ **The staleness trigger moved with it: it is now `db:load:tr:pg`** (which needs a resolved person layer) — a different skill and a different cadence, so a `cacbg`/officials refresh on its own no longer changes the input. It still only rebuilds when `procurement:ingest` runs, so re-run that afterwards. Three things about the swap are worth knowing:
   - **The `tier` vocabulary WIDENED.** The retired file had exactly `executive` / `municipal`. The person layer carries four sources under this arm — measured 2026-08-21: `official_exec` 415, `official_muni` 116, `public_sector` 46, `mep` 2 — and the last two pass through as THEMSELVES rather than being filed under a government tier they are not in.
@@ -194,8 +194,8 @@ touch rollups / `by_settlement` / the awarder geo) bring the corpus to SIGMA-lev
 field coverage. Run after Steps 1–1c (they read the on-disk shards):
 
 ```bash
-npx tsx scripts/procurement/eop_field_map.ts --apply   # CPV/procedure/bids/euFunded onto contracts — content-join on (buyer,supplier,date) with a consortium value-date fallback. 2020–26 CPV 34%→98%
-npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-contract detail store (contracts/by-id/shard/) — the PG load source for /procurement/contract/:key
+pnpm exec tsx scripts/procurement/eop_field_map.ts --apply   # CPV/procedure/bids/euFunded onto contracts — content-join on (buyer,supplier,date) with a consortium value-date fallback. 2020–26 CPV 34%→98%
+pnpm exec tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-contract detail store (contracts/by-id/shard/) — the PG load source for /procurement/contract/:key
 ```
 
 ⚠️ **`contract_index.ts` is NOT in that block, and putting it there is a silent data defect.**
@@ -210,13 +210,13 @@ Run it AFTER `rebuild_from_cache.ts` — see the ordered chain below.
 **Current (post-annex) value — the headline basis.** `amountEur` is the CURRENT contract value ("текуща стойност"), matching SIGMA's default list value. It is derived from the ЦАИС ЕОП `анекси` feed and must be (re)applied AFTER every base normalization (`procurement:ingest` and any re-ingest reset `amountEur` back to `toEur(amount)` = the signing value):
 
 ```bash
-npx tsx scripts/procurement/ingest_anexi.ts                    # fetch+cache annex feed (~30d incremental by default; --backfill --from 2020-01-01 once for full history; no --apply flag)
-npx tsx scripts/procurement/anexi_current_value.ts --apply     # FLIP amountEur → current value in place; original signing value kept in signingAmountEur
-npx tsx scripts/procurement/backfill_unp.ts --apply            # УНП onto the shards — the OCDS export carries none at parse time
-npx tsx scripts/procurement/reconcile_cross_source.ts --apply  # cross-source dedup; MUST follow backfill_unp (see below)
-npx tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups/by-id/index from the FLIPPED shards (this pass is flip-aware; see below)
-npx tsx scripts/procurement/contract_index.ts                  # AFTER the fold — it encodes amountEur and rebuild_from_cache does NOT regenerate it
-npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors)
+pnpm exec tsx scripts/procurement/ingest_anexi.ts                    # fetch+cache annex feed (~30d incremental by default; --backfill --from 2020-01-01 once for full history; no --apply flag)
+pnpm exec tsx scripts/procurement/anexi_current_value.ts --apply     # FLIP amountEur → current value in place; original signing value kept in signingAmountEur
+pnpm exec tsx scripts/procurement/backfill_unp.ts --apply            # УНП onto the shards — the OCDS export carries none at parse time
+pnpm exec tsx scripts/procurement/reconcile_cross_source.ts --apply  # cross-source dedup; MUST follow backfill_unp (see below)
+pnpm exec tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups/by-id/index from the FLIPPED shards (this pass is flip-aware; see below)
+pnpm exec tsx scripts/procurement/contract_index.ts                  # AFTER the fold — it encodes amountEur and rebuild_from_cache does NOT regenerate it
+pnpm exec tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors)
 ```
 
 - **THE RECONCILE IS NOT OPTIONAL AFTER AN INGEST, and its position is fixed.** The corpus is built
@@ -234,7 +234,7 @@ npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent 
   permanently-unresolvable groups it prints (7 ambiguous + 5 blocked today) are expected output,
   not failures. The exact refusal rules live beside the shared implementation in
   `scripts/procurement/cross_source.ts`.
-- To publish the same to prod: **`npm run db:load:annexes:pg:cloud`**, after `db:load:pg:cloud`. Nothing runs it automatically, and the orphan below is exactly as real on Cloud SQL as it is locally.
+- To publish the same to prod: **`pnpm run db:load:annexes:pg:cloud`**, after `db:load:pg:cloud`. Nothing runs it automatically, and the orphan below is exactly as real on Cloud SQL as it is locally.
 - Then **`db:load:annexes:pg` must follow the contracts reload**: an eviction orphans the evicted
   row's `procurement_annexes` rows (16 across 9 keys on the last run), and only that loader
   re-resolves them.
@@ -261,7 +261,7 @@ Notes:
 The corpus above is **signed contracts**. The sibling **`поръчки`** file in the same `storage.eop.bg` daily buckets is the tender STAGE — the procedure before any contract: estimated (прогнозна) value, lots, status. `ingest_tenders.ts` writes a **parallel** `data/procurement/tenders/` tree that NEVER touches the contracted-spend rollups (estimated value is a forecast, kept in its own aggregate). Tracked by the **same `eop_procurement` watcher** (it fingerprints all three EOP files — договори + **поръчки** + OCDS), so a `ЦАИС ЕОП open data` change should refresh tenders too. Self-contained: it does **not** rebuild the contracts rollups, so run it independently of Step 1's `procurement:ingest`.
 
 ```bash
-npx tsx scripts/procurement/ingest_tenders.ts --apply            # incremental: last ~30 days (then db:load:tenders:pg to publish)
+pnpm exec tsx scripts/procurement/ingest_tenders.ts --apply            # incremental: last ~30 days (then db:load:tenders:pg to publish)
 ```
 
 Output `data/procurement/tenders/`: `<YYYY>/<YYYY-MM>.json` month-shards + `by-tender/shard/` (per-procedure, keyed sha256(УНП)) + `by-ocid/shard/` (contract→tender lineage, keyed by the ocid's last 2 chars) + `by_year/<year>.json` (the slim search shards the FE `/procurement/tenders` search + the `openTenders` AI tool read) + `index.json`. All bulky shards are **gitignored** (see `.gitignore` — `tenders/{20*,by-tender,by-ocid,by_year}`); only the ~390 KB `index.json` is committed. They are the **local source for `db:load:tenders:pg`** — the `/procurement/tenders` search + `/tenders/:unp` read Postgres via `/api/db`, not GCS (tenders is inside the `procurement/` bucket exclusion). Lineage to a signed contract is free: a contract's `ocid` = `ocds-e82gsb-<parentTenderId>`.
@@ -269,7 +269,7 @@ Output `data/procurement/tenders/`: `<YYYY>/<YYYY-MM>.json` month-shards + `by-t
 **Full 2020→ history is a one-off, flag-gated operator backfill — never in the watcher/CI** (it crawls ~2,300 daily `поръчки` buckets; raw days cache to `raw_data/procurement/eop_tenders/` so re-runs are offline):
 
 ```bash
-npx tsx scripts/procurement/ingest_tenders.ts --from 2020-01-01 --to <today> --backfill --apply --upload
+pnpm exec tsx scripts/procurement/ingest_tenders.ts --from 2020-01-01 --to <today> --backfill --apply --upload
 ```
 
 ## Step 2 — Verify
@@ -301,7 +301,7 @@ Expected: 1-2 month-shards modified or added, plus `index.json` + `bundles.json`
 The local Postgres store (docker `electionsbg-pg`) is loaded from the just-written shards, so a fresh ingest leaves it stale — **for BOTH the `contracts` and the `tenders` tables** (this ingest refreshes both trees). Reload both:
 
 ```bash
-npm run db:refresh   # db:pg:up + db:load:pg (contracts) + db:load:tenders:pg + test:data
+pnpm run db:refresh   # db:pg:up + db:load:pg (contracts) + db:load:tenders:pg + test:data
 ```
 
 `db:refresh` rebuilds the `contracts` table (~10 s) AND the `tenders` table (~18 s) from the fresh shards, then `test:data` confirms the SQL captured them losslessly (it does NOT compare against the committed manifest/goldens baseline, so it won't false-fail on new data). Postgres is local + gitignored — **no commit or bucket sync needed** (it powers `/db`, the `/api/db` live pages, and the `db:gen-*` generators). Run after every procurement ingest — it's the ONLY thing that keeps `contracts` + `tenders` fresh; if a table's loader isn't in `db:refresh`, that table silently goes stale (the tenders-stale bug, fixed 2026-07-02).
@@ -311,28 +311,28 @@ npm run db:refresh   # db:pg:up + db:load:pg (contracts) + db:load:tenders:pg + 
 The `/procurement` HUB reads its stat-tile numbers (money, contracts, contractors, connected, tenders, appeals, NGOs, flags, places — per `?pscope` scope) from **one pre-generated file**, `data/procurement/derived/hub_stats.json`, instead of live DB calls. It's built from Postgres (so it runs AFTER Step 2b's `db:refresh`) and — unlike the rest of the PG-served procurement tree — it is **committed AND bucket-synced** (it's in the `bucket:sync` procurement allowlist alongside `roads.json` / `mp_party.json`), because the hub fetches it as a static file:
 
 ```bash
-npm run db:gen-hub-stats      # ~22 s: reads PG, writes data/procurement/derived/hub_stats.json (one entry per parliament / year / all)
-npm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_stats.json — per-sector all-time procurement € for the /governance/sectors + featured-sectors tiles
-npm run db:gen-roads-hub-stats # ~1 s: writes data/roads/derived/hub_stats.json — the /sector/roads hub; MUST follow gen-sector-stats (its KPI 1 equals sector_stats all.roads)
-npm run db:gen-water-flood     # ~2 s: writes data/water/flood_maintenance.json — the /water/floods riverbed tile + the /water and /water/floods prerender bodies
-npm run db:gen-water-hub-stats # ~1 s: writes data/water/derived/hub_stats.json — the /water hub; MUST follow gen-sector-stats AND gen-water-flood
-npm run db:load:transport-project-map:pg && npm run db:load:transport-facility-map:pg
-npm run db:gen-transport-hub-stats # ~1 s: writes data/transport/derived/hub_stats.json — the /sector/transport hub; MUST follow BOTH map loaders (its coverage figure reads transport_project_map()) and gen-sector-stats (KPI 1 = sector_stats all.transport)
+pnpm run db:gen-hub-stats      # ~22 s: reads PG, writes data/procurement/derived/hub_stats.json (one entry per parliament / year / all)
+pnpm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_stats.json — per-sector all-time procurement € for the /governance/sectors + featured-sectors tiles
+pnpm run db:gen-roads-hub-stats # ~1 s: writes data/roads/derived/hub_stats.json — the /sector/roads hub; MUST follow gen-sector-stats (its KPI 1 equals sector_stats all.roads)
+pnpm run db:gen-water-flood     # ~2 s: writes data/water/flood_maintenance.json — the /water/floods riverbed tile + the /water and /water/floods prerender bodies
+pnpm run db:gen-water-hub-stats # ~1 s: writes data/water/derived/hub_stats.json — the /water hub; MUST follow gen-sector-stats AND gen-water-flood
+pnpm run db:load:transport-project-map:pg && pnpm run db:load:transport-facility-map:pg
+pnpm run db:gen-transport-hub-stats # ~1 s: writes data/transport/derived/hub_stats.json — the /sector/transport hub; MUST follow BOTH map loaders (its coverage figure reads transport_project_map()) and gen-sector-stats (KPI 1 = sector_stats all.transport)
 ```
 
 The transport blob is the same shape: committed, bucket-served, not under `procurement/`.
-Sync it with `npm run bucket:sync:paths -- transport/derived/hub_stats.json`. Its gates are
+Sync it with `pnpm run bucket:sync:paths transport/derived/hub_stats.json`. Its gates are
 `transport_hub_figures.data.test.ts` (KPI 1 must equal `sector_stats.json` all.transport;
 every field re-derived), `transport_project_map.data.test.ts` and
 `transport_facility_map.data.test.ts` — run all three after regenerating:
 
 ```bash
-npx vitest run scripts/db/tests/transport_hub_figures.data.test.ts scripts/db/tests/transport_project_map.data.test.ts scripts/db/tests/transport_facility_map.data.test.ts
+pnpm exec vitest run scripts/db/tests/transport_hub_figures.data.test.ts scripts/db/tests/transport_project_map.data.test.ts scripts/db/tests/transport_facility_map.data.test.ts
 ```
 
 The two water artifacts are the same shape as the roads blob: committed, bucket-served, NOT
 under `procurement/`. Sync them with
-`npm run bucket:sync:paths -- water/flood_maintenance.json water/derived/hub_stats.json`.
+`pnpm run bucket:sync:paths water/flood_maintenance.json water/derived/hub_stats.json`.
 The hub blob's gate is `water_hub_figures.data.test.ts` (KPI 1 must equal `sector_stats.json`
 all.water).
 ⚠️ Until 2026-10-12 nothing regenerated the riverbed file, and it served a three-month-old snapshot 32%
@@ -341,7 +341,7 @@ below the corpus. Its gate is
 more than 45 days.
 
 The roads blob is NOT under `procurement/` and so is not covered by the publish note below —
-sync it with `npm run bucket:sync:paths -- roads/derived/hub_stats.json`. Its gate is
+sync it with `pnpm run bucket:sync:paths roads/derived/hub_stats.json`. Its gate is
 `roads_hub_figures.data.test.ts`.
 
 ⚠️ **`db:refresh` REWRITES TWO MORE COMMITTED ARTIFACTS, AND THEY ARE NOT UNDER
@@ -359,7 +359,7 @@ Do not maintain that list here — read it from `REFRESH_GENERATORS`
 with:
 
 ```bash
-npm run db:check-generated
+pnpm run db:check-generated
 ```
 
 `sector_stats.json` is the sibling of `hub_stats.json` for the government-sector
@@ -371,16 +371,16 @@ with the ingest. If it goes stale the hub tiles just show older numbers (no brea
 Procurement is served from **Postgres**, so publishing means reloading the Cloud SQL tables from the fresh on-disk shards — NOT an rsync to GCS. Local PG is refreshed by Step 2b's `db:refresh`; for prod, run the Cloud SQL loaders (proxy on `127.0.0.1:5434`, `.pgpass` set):
 
 ```bash
-npm run db:load:pg:cloud            # contracts
-npm run db:load:tenders:pg:cloud    # tenders
-npm run db:load:awarder-seats:pg:cloud
-npm run proc:verify-seats:cloud           # confirms the override map reached prod; exit 1 on drift
-npm run db:load:tender-dossier:pg:cloud   # ЦАИС ЕОП dossier + tender search — see below
-npm run db:load:persons-browse:pg:cloud   # /persons money column — see below
-npm run db:load:graph:pg:cloud            # /connections company money — see below
-npm run db:load:annexes:pg:cloud          # MANDATORY after the reconcile — see step 2c
-npm run db:load:employer-links:pg:cloud   # declared employer → buyer; needs declarations PHASE 1 too
-npm run db:load:grant-links:pg:cloud      # grant → the procurement it paid for (166).
+pnpm run db:load:pg:cloud            # contracts
+pnpm run db:load:tenders:pg:cloud    # tenders
+pnpm run db:load:awarder-seats:pg:cloud
+pnpm run proc:verify-seats:cloud           # confirms the override map reached prod; exit 1 on drift
+pnpm run db:load:tender-dossier:pg:cloud   # ЦАИС ЕОП dossier + tender search — see below
+pnpm run db:load:persons-browse:pg:cloud   # /persons money column — see below
+pnpm run db:load:graph:pg:cloud            # /connections company money — see below
+pnpm run db:load:annexes:pg:cloud          # MANDATORY after the reconcile — see step 2c
+pnpm run db:load:employer-links:pg:cloud   # declared employer → buyer; needs declarations PHASE 1 too
+pnpm run db:load:grant-links:pg:cloud      # grant → the procurement it paid for (166).
                                           # THREE inputs: contracts, tenders AND
                                           # fund_projects (beneficiary_eik decides each
                                           # link's confidence, so update-funds is a
@@ -388,7 +388,7 @@ npm run db:load:grant-links:pg:cloud      # grant → the procurement it paid fo
                                           # reader yet (T1.6c unbuilt) — run it anyway: it
                                           # is corpus-derived, so it would be stale the
                                           # day that ships.
-npm run db:load:transport-facility-map:pg:cloud   # rides awarder-seats, not contracts
+pnpm run db:load:transport-facility-map:pg:cloud   # rides awarder-seats, not contracts
 ```
 
 `db:load:tender-dossier:pg:cloud` publishes the ЦАИС ЕОП per-procedure dossier (146) and
@@ -396,18 +396,18 @@ the `tender_search_text` index behind the tenders document search (147). Three t
 about it differ from every other line above:
 
 - **Its input is a gitignored local SQLite capture** — `raw_data/procurement/eop_dossier.sqlite`,
-  written by `npx tsx scripts/procurement/ingest_eop_dossier.ts` (a rate-limited ~26 h
+  written by `pnpm exec tsx scripts/procurement/ingest_eop_dossier.ts` (a rate-limited ~26 h
   crawl of a shared public register, an operator action, not part of this ingest). It is
   therefore only useful on a machine that has earned that capture; elsewhere it applies
   the DDL and exits 0, which is the intended outcome rather than a failure.
-- **The LOCAL half needs naming too, because no chain runs it.** `npm run db:load:tender-dossier:pg`
+- **The LOCAL half needs naming too, because no chain runs it.** `pnpm run db:load:tender-dossier:pg`
   is a `REFRESH_EXCLUSIONS` member, so `db:refresh` never runs it and a machine that has
   earned the capture still serves an empty `tender_dossier` locally until it is run by
   hand. Run it after every `ingest_eop_dossier.ts` / `ingest_eop_spec_text.ts` pass, before
   the `:cloud` publish above:
 
   ```bash
-  npm run db:load:tender-dossier:pg          # local — nothing in db:refresh does this
+  pnpm run db:load:tender-dossier:pg          # local — nothing in db:refresh does this
   ```
 - **It is safe to run even when you have no capture, and worth running once anyway**:
   147 carries the `app_readonly` GRANTs for 146's seven tables, which shipped with none.
@@ -453,7 +453,7 @@ The "Регистър на стопанските субекти с наруше
 Run this step ONLY when the daily watcher reports the `aop_debarred` source as changed, or when explicitly asked to refresh the debarred list:
 
 ```bash
-npx tsx scripts/procurement/debarred.ts
+pnpm exec tsx scripts/procurement/debarred.ts
 ```
 
 Expected output on a normal run:
@@ -481,10 +481,10 @@ The Централен професионален регистър на стро
 Run this step ONLY when the daily watcher reports `cprs_register` as changed, or when explicitly asked to refresh the builder register:
 
 ```bash
-npm run cprs:ingest -- --apply --refresh          # ⚠️ --refresh, or nothing is fetched — see below
-npm run db:load:cprs:pg
-npm run db:load:cprs:pg:cloud                     # nothing runs this automatically
-npx vitest run scripts/db/tests/cprs.data.test.ts
+pnpm run cprs:ingest --apply --refresh          # ⚠️ --refresh, or nothing is fetched — see below
+pnpm run db:load:cprs:pg
+pnpm run db:load:cprs:pg:cloud                     # nothing runs this automatically
+pnpm exec vitest run scripts/db/tests/cprs.data.test.ts
 ```
 
 ⚠️ **`--refresh` is the whole step, and the command is easy to get wrong because the wrong one succeeds.** Every cell of the crawl is cached under `raw_data/procurement/cprs/` so a re-run after a mid-crawl timeout can resume, and WITHOUT the flag every cached cell is reused: a bare `--apply` on a watcher flip re-parses the previous crawl in ~6 s, fetches nothing from register.ksb.bg, exits 0 with plausible counts and republishes the old register. Measured 2026-09-08: 106,508 licences / 8,379 firms without the flag (the 2026-08-19 cache) against 107,034 / 8,414 with it. The ingest prints a loud „EVERY ONE OF THE 1,620 CELLS CAME FROM THE CACHE" line and keeps the artifact's `fetchedAt` at the cache's vintage when that happens — read either as the step NOT having run.
@@ -515,7 +515,7 @@ To backfill prior OCDS periods (e.g. on first ingest), pass `--since` for a cuto
 
 ```bash
 # Backfill everything published since the start of 2026 (when OCDS publishing began)
-npm run procurement:ingest -- --since 2020-01-01
+pnpm run procurement:ingest --since 2020-01-01
 
 # The 2026-06-04 → 2026-09-30 monthly backfill (115 daily resources, run 2026-10-03) needed
 # no flag: every unstamped resource is ingested. It evicted 10,824 `eop-` gap-fill twins in
@@ -523,7 +523,7 @@ npm run procurement:ingest -- --since 2020-01-01
 # OLDER shard (contracts signed 2021–2025, first published in a 2026 OCDS release).
 
 # Limit to N most recent bundles in one run (avoids long single runs)
-npm run procurement:ingest -- --max-bundles 5
+pnpm run procurement:ingest --max-bundles 5
 ```
 
 Bundles are processed oldest-first (so when one release reaches two resources the later one wins the key merge), and `--max-bundles N` takes the OLDEST N unstamped resources, so partial runs progress through history rather than re-fetching the same window.
@@ -534,18 +534,18 @@ Bundles are processed oldest-first (so when one release reaches two resources th
 
 ```bash
 # Auto-discover + ingest any annual-CSV year not in LEGACY_DATASETS
-npm run procurement:ingest-legacy -- --discover
+pnpm run procurement:ingest-legacy --discover
 
 # Ingest all known legacy years (2011-2015 bundled, 2016, 2017, 2019, 2020,
 # 2021, 2022 CE+RL, 2023 CE+RL)
-npm run procurement:ingest-legacy
+pnpm run procurement:ingest-legacy
 
 # Or one year at a time (the РОП variant uses a "-RL" token)
-npm run procurement:ingest-legacy -- --year 2023
-npm run procurement:ingest-legacy -- --year 2023-RL
+pnpm run procurement:ingest-legacy --year 2023
+pnpm run procurement:ingest-legacy --year 2023-RL
 
 # Dry-run (parse + validate but don't write)
-npm run procurement:ingest-legacy -- --year 2023 --dry-run
+pnpm run procurement:ingest-legacy --year 2023 --dry-run
 ```
 
 The legacy ingester:
@@ -553,7 +553,7 @@ The legacy ingester:
 - Caches the raw CSV under `raw_data/procurement/legacy/<year>.csv.gz`.
 - Maps columns by name pattern (defensive against schema drift across years).
 - Writes Contract rows into the same `data/procurement/contracts/<YYYY>/<YYYY-MM>.json` month-shards used by the OCDS ingest.
-- Does NOT rebuild rollups + cross-reference + by-id files itself — run `npm run procurement:ingest -- --since 2020-01-01` afterward to refresh derived state from the expanded corpus.
+- Does NOT rebuild rollups + cross-reference + by-id files itself — run `pnpm run procurement:ingest --since 2020-01-01` afterward to refresh derived state from the expanded corpus.
 
 `--discover` walks the listing and ingests any `Договори и изменения на договори - YYYY` dataset whose year isn't already in `LEGACY_DATASETS`, after confirming via the detail page that its resource is a `contracts*.csv` (the 2018 dataset is titled like an annual dump but actually carries the out-of-scope `excl2018.csv` — discovery rejects it).
 
@@ -576,8 +576,8 @@ Download-flow note: data.egov.bg's per-resource `/resource/download` endpoint br
 To capture the ~900 small authorities the OCDS feed omits across the full 2020→ history (not just the rolling incremental window of Step 1b), run the backfill once. It crawls ~1,600 daily flat-`договори` buckets (network-heavy, ~30-60 min; raw days cache to `raw_data/procurement/eop/` so re-runs are fast) and is **flag-gated and operator-run — never in the watcher or CI**:
 
 ```bash
-npx tsx scripts/procurement/ingest_eop.ts --from 2020-01-01 --to <today> --backfill --apply
-npm run procurement:ingest      # rebuild rollups/derived/by-settlement/index from the new shards
+pnpm exec tsx scripts/procurement/ingest_eop.ts --from 2020-01-01 --to <today> --backfill --apply
+pnpm run procurement:ingest      # rebuild rollups/derived/by-settlement/index from the new shards
 ```
 
 ### 2024/2025 coverage — ЦАИС ЕОП for buyers we already have (one-off)
@@ -585,9 +585,9 @@ npm run procurement:ingest      # rebuild rollups/derived/by-settlement/index fr
 АОП has no OCDS bundle or annual CSV for 2024/2025, but the ЦАИС ЕОП flat `договори` feed carries both years in full. Step 1b's gap-fill drops those rows because their buyers already exist in our corpus (from other years) — yet with **no OCDS for 2024/2025 there is nothing to double-count**, so the absent-buyer guard is wrong for exactly that window. `--include-existing-buyers` lifts it for a bounded range; all 731 days are already cached, so this runs offline:
 
 ```bash
-npx tsx scripts/procurement/ingest_eop.ts --from 2024-01-01 --to 2025-12-31 \
+pnpm exec tsx scripts/procurement/ingest_eop.ts --from 2024-01-01 --to 2025-12-31 \
   --backfill --include-existing-buyers --apply       # ~82k rows from raw_data/procurement/eop/
-npx tsx scripts/procurement/rebuild_from_cache.ts     # offline rebuild — use THIS, not procurement:ingest, while data.egov.bg IP-blocks us
+pnpm exec tsx scripts/procurement/rebuild_from_cache.ts     # offline rebuild — use THIS, not procurement:ingest, while data.egov.bg IP-blocks us
 ```
 
 **Only ever pass `--include-existing-buyers` for OCDS-gap years.** For 2020–2023 or 2026 it would double-count the whole corpus against the OCDS base.
@@ -598,10 +598,10 @@ npx tsx scripts/procurement/rebuild_from_cache.ts     # offline rebuild — use 
 
 ```bash
 # Re-ingest one specific dataset (a monthly dataset = all its daily resources) or one resource
-npm run procurement:ingest -- --bundle 3edde0c3-80da-468c-8536-53db74680863
+pnpm run procurement:ingest --bundle 3edde0c3-80da-468c-8536-53db74680863
 
 # Force a re-fetch even if the bundle is in the local cache
-npm run procurement:ingest -- --bundle <UUID> --refresh-cache
+pnpm run procurement:ingest --bundle <UUID> --refresh-cache
 ```
 
 The local cache lives under `raw_data/procurement/<resourceUuid>.json.gz` (gitignored — alongside `raw_data/tr/`).
@@ -638,8 +638,8 @@ Two different failures wear the same exit code, and the message says which.
 database the command named (it prints the URL it dialled, and flags the serving one):
 
 ```bash
-npx tsx scripts/procurement/awarder_geo_map.ts && npx tsx scripts/procurement/rebuild_from_cache.ts
-npm run db:load:awarder-seats:pg          # or :cloud — the command tells you which
+pnpm exec tsx scripts/procurement/awarder_geo_map.ts && pnpm exec tsx scripts/procurement/rebuild_from_cache.ts
+pnpm run db:load:awarder-seats:pg          # or :cloud — the command tells you which
 ```
 
 The reverse direction produces the same output: an ingest that gave a buyer a real OCDS address
@@ -662,9 +662,9 @@ The canary bundle is re-normalized at the start of every run. If the output byte
 4. Re-seed the fixture:
    ```bash
    rm tests/fixtures/procurement/canary.json
-   npm run procurement:ingest -- --bundle 3edde0c3-80da-468c-8536-53db74680863 --skip-canary
+   pnpm run procurement:ingest --bundle 3edde0c3-80da-468c-8536-53db74680863 --skip-canary
    ```
-5. Re-run `npm run procurement:ingest` — the canary will be re-seeded on the next run that includes the pinned bundle, or seeded fresh by deleting the fixture file.
+5. Re-run `pnpm run procurement:ingest` — the canary will be re-seeded on the next run that includes the pinned bundle, or seeded fresh by deleting the fixture file.
 
 ### `UnrecognisedOcdsLabelError` — "АОП OCDS resource label(s) carry no period"
 A dataset or resource says „стандарт OCDS" but its label matches neither the fortnight („периода от … до …") nor the daily („ЕОП на DD.MM.YYYY г.") shape. The walker throws naming every offending dataset + resource. This is how the 2026-06 monthly switch should have surfaced. Fix:
@@ -708,9 +708,9 @@ The cross-reference joins on the 9-digit canonical EIK on both sides — `Contra
 
 **[2026-08-20] The name-collision guard moved into SQL, and it is stricter than the one it replaced.** `cross_reference.ts` used to keep an MP↔company link only when the relation was a declared stake OR the MP's name mapped to a **single** TR company (`buildTrNamesakeCounts(raw_data/tr/state.sqlite)`, deleted with this change). That heuristic was wrong in both directions — migration 148's header records it dropping a rare-name MP's whole set behind one busy registered agent, and passing a name held by two people with six companies each. The gate is now the registry's OWN people-per-name fold, `tr_name_fold_people` (148): a fold the Commerce Registry says covers more than one human is **refused**, and an unmeasured fold is refused too. It cannot "degrade gracefully" and no longer needs to — there is no TR SQLite in the path and nothing to keep clean upstream of it. The inflation the old filter existed for is still the thing to watch for (it once took the headline from 38 MPs / €533M to a false 55 / €711M). **[2026-08-21] The officials arm followed one day later:** `pep_connected` used to be filtered upstream in `company_links.json` (HIGH-only); that file and its builder are deleted and it now reads `company_politicians` at `kind='official'`, gated on the same `tr_name_fold_people` fold.
 
-**Offline rebuild.** When data.egov.bg is IP-blocked (the АОП org listing 403s) but the link tables changed, `npx tsx scripts/procurement/rebuild_derived.ts` regenerates every link-dependent derived artifact (pep/mp connected + shards, top_contractors, flow + flow_full, by_ns, by-id, risk_feed, concentration_full, person_procurement_index) from disk — no network, no contract re-parse. It mirrors the no-new-bundles branch of `ingest.ts`. Pass **`--reuse-mp`** to load the existing `mp_connected.json` instead of recomputing it from the gated link set — use this when only the **officials** side changed, so the published MP figures stay byte-stable (the link set moves with the person layer, so a `db:resolve:persons` or `db:load:tr:pg` between two procurement rebuilds can otherwise shift the MP headline by a pair or two). With `--reuse-mp` the `index.json` `crossReference` is left untouched; `officialsCrossReference` is still refreshed.
+**Offline rebuild.** When data.egov.bg is IP-blocked (the АОП org listing 403s) but the link tables changed, `pnpm exec tsx scripts/procurement/rebuild_derived.ts` regenerates every link-dependent derived artifact (pep/mp connected + shards, top_contractors, flow + flow_full, by_ns, by-id, risk_feed, concentration_full, person_procurement_index) from disk — no network, no contract re-parse. It mirrors the no-new-bundles branch of `ingest.ts`. Pass **`--reuse-mp`** to load the existing `mp_connected.json` instead of recomputing it from the gated link set — use this when only the **officials** side changed, so the published MP figures stay byte-stable (the link set moves with the person layer, so a `db:resolve:persons` or `db:load:tr:pg` between two procurement rebuilds can otherwise shift the MP headline by a pair or two). With `--reuse-mp` the `index.json` `crossReference` is left untouched; `officialsCrossReference` is still refreshed.
 
-**Legacy "-x" twin guard (de-dup).** An early legacy-CSV ingest emitted blank-document-id rows that took the `documentId || "x"` ocid fallback in `legacy_csv.ts` (e.g. `aop-legacy-2019-x`); a later run re-ingested the same contracts with their real document number, and because `writeMonthShards` merges on `key` (which embeds the document id) the two never collapsed — ~34,091 duplicate pairs across 2016/2017/2019/2021 that double-counted ~€11bn. `dropSyntheticLegacyTwins` (`validate.ts`) drops the `-x` member of any pair sharing (date, awarderEik, contractorEik, amount, title) with a real twin; it is wired into **both** `writeMonthShards` paths (`ingest.ts` + `ingest_legacy.ts`), so every future ingest self-heals — no watcher/process-watch-report change needed. The corpus was cleaned once via `npx tsx scripts/procurement/dedup_legacy_twins.ts` (phase 1 strips `-x` from all shards; phase 2 full offline rebuild — same steps as `ingest.ts` minus the network walk; `--dry-run` to report, `--recompute-mp` to rebuild the MP roster instead of the default reuse-and-refresh). Unlike `rebuild_derived.ts --reuse-mp`, this runner's reuse mode **does** refresh the MP `crossReference` euro totals (contracts changed, so the inflated totals must drop) while keeping the MP roster byte-stable. This was a one-time cleanup — the guard makes a re-run unnecessary.
+**Legacy "-x" twin guard (de-dup).** An early legacy-CSV ingest emitted blank-document-id rows that took the `documentId || "x"` ocid fallback in `legacy_csv.ts` (e.g. `aop-legacy-2019-x`); a later run re-ingested the same contracts with their real document number, and because `writeMonthShards` merges on `key` (which embeds the document id) the two never collapsed — ~34,091 duplicate pairs across 2016/2017/2019/2021 that double-counted ~€11bn. `dropSyntheticLegacyTwins` (`validate.ts`) drops the `-x` member of any pair sharing (date, awarderEik, contractorEik, amount, title) with a real twin; it is wired into **both** `writeMonthShards` paths (`ingest.ts` + `ingest_legacy.ts`), so every future ingest self-heals — no watcher/process-watch-report change needed. The corpus was cleaned once via `pnpm exec tsx scripts/procurement/dedup_legacy_twins.ts` (phase 1 strips `-x` from all shards; phase 2 full offline rebuild — same steps as `ingest.ts` minus the network walk; `--dry-run` to report, `--recompute-mp` to rebuild the MP roster instead of the default reuse-and-refresh). Unlike `rebuild_derived.ts --reuse-mp`, this runner's reuse mode **does** refresh the MP `crossReference` euro totals (contracts changed, so the inflated totals must drop) while keeping the MP roster byte-stable. This was a one-time cleanup — the guard makes a re-run unnecessary.
 
 **Absent vs empty are different answers, and only one is a skip.** If the link set is absent entirely — no Postgres, or `company_politicians` never created — the procurement ingest still completes (raw contracts + rollups land on disk) and the cross-reference step logs a skip. A link set that EXISTS and yields no MP rows is REFUSED instead: that is a broken load, and rewriting `mp_connected.json` empty would have the budget dashboard state that no ministry awarded a contract to an MP-connected company, at exit 0.
 
@@ -753,7 +753,7 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance M
 | `scripts/procurement/normalize_eop_tender.ts` | Flat `поръчки` records → `Tender[]` (one per УНП, nested lots, ocid lineage); raw shape in `eop_tender_types.ts` |
 | `src/lib/tenderTopics.ts` | Shared topic-alias map (slug→regex+CPV set) for the FE tender search + the `openTenders` AI tool — robust phrasing match (e.g. `guardrails` → мантинели) |
 | `scripts/procurement/awarder_geo_map.ts` | EKATTE override builder for address-less buyers — combines Tier B (МОН) + E (OCDS party-geo) + D (tenders oblast) + A (name-parse) |
-| `scripts/procurement/verify_awarder_seats.ts` | Read-only check that the committed override map is PUBLISHED to a given database (`npm run proc:verify-seats[:cloud]`); exit 1 on drift or on "cannot conclude" |
+| `scripts/procurement/verify_awarder_seats.ts` | Read-only check that the committed override map is PUBLISHED to a given database (`pnpm run proc:verify-seats[:cloud]`); exit 1 on drift or on "cannot conclude" |
 | `scripts/procurement/awarder_seats_check.ts` | The artifact path, seats query, `CHECKED_FLOOR` and vacuity rule shared by that CLI and the `awarder_seats_freshness` data test — single-sourced so the local and prod halves cannot drift |
 | `scripts/procurement/awarder_geo_merge.ts` | The merge half of the above: carries a prior entry when its tier could not run, drops it only when the tier ran and no longer resolves it. Pure + tested — an unreachable tier must not shrink the committed map |
 | `scripts/procurement/build_ocds_party_geo.ts` | Tier E — harvests OCDS обявления party addresses (storage.eop.bg, 2026+) → `derived/ocds_party_geo_map.json` (eik→locality+NUTS) |
@@ -781,29 +781,29 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance M
 
 ```bash
 # Daily ingest after watcher flags new bundles
-npm run procurement:ingest
+pnpm run procurement:ingest
 
 # Ingest, publish to Postgres (local + prod), commit
-npm run procurement:ingest
-npm run db:refresh                  # local PG (Step 2b)
-npm run db:load:pg:cloud && npm run db:load:tenders:pg:cloud && npm run db:load:awarder-seats:pg:cloud   # prod
-npm run proc:verify-seats:cloud     # the override map really is published — nothing else checks prod
+pnpm run procurement:ingest
+pnpm run db:refresh                  # local PG (Step 2b)
+pnpm run db:load:pg:cloud && pnpm run db:load:tenders:pg:cloud && pnpm run db:load:awarder-seats:pg:cloud   # prod
+pnpm run proc:verify-seats:cloud     # the override map really is published — nothing else checks prod
 # …and the derived loaders that go stale with the corpus — the full list is Step 3:
-npm run db:load:annexes:pg:cloud          # MANDATORY (CLAUDE.md) — orphaned annex rows
-npm run db:load:employer-links:pg:cloud   # also needs declarations PHASE 1
-npm run db:load:grant-links:pg:cloud      # needs contracts + tenders + fund_projects (no declarations)
+pnpm run db:load:annexes:pg:cloud          # MANDATORY (CLAUDE.md) — orphaned annex rows
+pnpm run db:load:employer-links:pg:cloud   # also needs declarations PHASE 1
+pnpm run db:load:grant-links:pg:cloud      # needs contracts + tenders + fund_projects (no declarations)
 git add data/procurement/ tests/fixtures/procurement/
 git commit -m "procurement: ingest"
 
 # ЦПРС builder register, on a cprs_register watcher flip (Step 5b) — --refresh or nothing is fetched
-npm run cprs:ingest -- --apply --refresh && npm run db:load:cprs:pg && npm run db:load:cprs:pg:cloud
+pnpm run cprs:ingest --apply --refresh && pnpm run db:load:cprs:pg && pnpm run db:load:cprs:pg:cloud
 
 # Backfill from a cutoff
-npm run procurement:ingest -- --since 2026-01-01
+pnpm run procurement:ingest --since 2026-01-01
 
 # Process one specific bundle (debug)
-npm run procurement:ingest -- --bundle <UUID>
+pnpm run procurement:ingest --bundle <UUID>
 
 # Dry run (parse, validate, no writes)
-npm run procurement:ingest -- --dry-run
+pnpm run procurement:ingest --dry-run
 ```

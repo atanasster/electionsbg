@@ -1,5 +1,5 @@
 // Throwaway assertion harness for the org-name normaliser acronym fix.
-// Run: npx tsx scripts/lib/__test_normalize_name.ts
+// Run: pnpm exec tsx scripts/lib/__test_normalize_name.ts
 import {
   normaliseOrgName,
   repairTitleCasedAcronym,

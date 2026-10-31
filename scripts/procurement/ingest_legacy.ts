@@ -250,7 +250,7 @@ const main = async (args: {
     `✓ ingested ${totalRows} row(s) into ${totalNewFiles} new + ${totalModifiedFiles} modified month-shard(s)`,
   );
   console.log(
-    `  next: run \`npm run procurement:ingest -- --since 2020-01-01\` to rebuild rollups + cross-reference + by-id from the expanded corpus.`,
+    `  next: run \`pnpm run procurement:ingest --since 2020-01-01\` to rebuild rollups + cross-reference + by-id from the expanded corpus.`,
   );
 };
 

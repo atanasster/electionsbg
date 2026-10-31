@@ -34,8 +34,8 @@
 // subject — and inserting them would put rows in the corpus for magistrates no page can show
 // and no gate counts. They are reported, not stored.
 //
-// Run: `npx tsx scripts/db/load_magistrate_filing_assets_pg.ts` (local)
-//      `DATABASE_URL=…5434 npx tsx scripts/db/load_magistrate_filing_assets_pg.ts` (cloud)
+// Run: `pnpm exec tsx scripts/db/load_magistrate_filing_assets_pg.ts` (local)
+//      `DATABASE_URL=…5434 pnpm exec tsx scripts/db/load_magistrate_filing_assets_pg.ts` (cloud)
 
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -150,7 +150,7 @@ const run = async (): Promise<void> => {
   if (!existsSync(SRC)) {
     console.warn(
       `magistrate-filing-assets: ${SRC} absent — schema applied, nothing loaded.\n` +
-        `  Its input is a ~3.5-hour operator crawl: npx tsx scripts/judiciary/crawl_declarations.ts`,
+        `  Its input is a ~3.5-hour operator crawl: pnpm exec tsx scripts/judiciary/crawl_declarations.ts`,
     );
     await end();
     return;

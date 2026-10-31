@@ -2,7 +2,7 @@
 // the bespoke /sector/administration screen behind it. Audit 2026-08-19,
 // docs/plans/sector-administration-audit-v1.md.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Its own file, like the social / environment / regional nets, because nothing it
 // reads (a headcount series, a four-body e-gov awarder group, a state-owned
@@ -84,14 +84,14 @@ const reachable = async (): Promise<string | false> => {
     const [t] = await allRows<{ ok: boolean }>(
       "SELECT to_regclass('public.contracts') IS NOT NULL AS ok",
     );
-    return t?.ok ? false : "contracts is absent — run npm run db:load:pg";
+    return t?.ok ? false : "contracts is absent — run pnpm run db:load:pg";
   } catch {
     return "Postgres unreachable";
   }
 };
 
 // `test.skipIf(bool)`, never `test(name, { skip }, fn)` — Vitest's `skip` option
-// is typed `boolean`, so a `false | string` is a TS2769 and `npm run build` is
+// is typed `boolean`, so a `false | string` is a TS2769 and `pnpm run build` is
 // `tsc -b && vite build`: the file would run green while the build is red.
 // `reachable()` now returns the REASON; negating it would make the gate a bare
 // boolean again and throw the sentence away.

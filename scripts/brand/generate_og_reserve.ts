@@ -14,7 +14,7 @@
  *   muted  #9aa7bd  — dark --muted-foreground
  *
  * Regenerate with:
- *   npx tsx scripts/brand/generate_og_reserve.ts
+ *   pnpm exec tsx scripts/brand/generate_og_reserve.ts
  *
  * Output: public/og/bnb-reserve.png (1200x630)
  * Referenced by the `2026-06-13-bnb-reserve-after-euro` entry in public/articles/index.json.

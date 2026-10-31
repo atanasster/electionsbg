@@ -1,7 +1,7 @@
 // Self-contained correctness harness for the location-aware promo tools
 // (localDeals) + the settlementPrices promo narration. Unlike harness.ts this
 // does NOT need local Postgres: it stubs the db fetcher with fixture payloads,
-// so it runs anywhere. Run: npx tsx ai/tools/prices_deals.harness.ts
+// so it runs anywhere. Run: pnpm exec tsx ai/tools/prices_deals.harness.ts
 //
 // Covers: detectPriceDeal; localDeals scoped to a município (ambient ?area=
 // obshtina + ekatte), the uncovered-obshtina → national fallback, and a product

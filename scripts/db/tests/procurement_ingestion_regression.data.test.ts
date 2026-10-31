@@ -15,7 +15,7 @@
 //      change moved this — investigate", NOT "bump the number". The named УНП are
 //      historical (2020–2025) so they are stable across future fortnights.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // Requires the Postgres store (`db:pg:up` + `db:load:pg`); auto-skips when
 // Postgres is unreachable, exactly like the other *.data.test.ts files.

@@ -3,11 +3,11 @@
 // /process-watch-report after each successful Skill call.
 //
 // Usage:
-//   npx tsx scripts/stamp-ingest.ts <skill-name> [--summary "<text>"] [--at <iso>]
+//   pnpm exec tsx scripts/stamp-ingest.ts <skill-name> [--summary "<text>"] [--at <iso>]
 //
 // Examples:
-//   npx tsx scripts/stamp-ingest.ts update-rollcall
-//   npx tsx scripts/stamp-ingest.ts update-financing --summary "15 years tracked, otcheti only"
+//   pnpm exec tsx scripts/stamp-ingest.ts update-rollcall
+//   pnpm exec tsx scripts/stamp-ingest.ts update-financing --summary "15 years tracked, otcheti only"
 //
 // Idempotent: writes state/ingest/<skill>.json with the timestamp + optional
 // summary. Output goes through writeIngestState's stable stringify so

@@ -22,7 +22,7 @@ contract risk index (CRI), the per-contract grade and the buyer/supplier exposur
 | Why it is published at all | [docs/plans/procurement-risk-open-source-v1.md](docs/plans/procurement-risk-open-source-v1.md) |
 | The methodology it implements | [docs/plans/procurement-risk-v2.md](docs/plans/procurement-risk-v2.md) |
 
-Both the handbook and `risk-flags.json` are **generated** — `npm run gen:risk` — from
+Both the handbook and `risk-flags.json` are **generated** — `pnpm run gen:risk` — from
 `src/lib/riskFlagCatalog.ts`, so the published spec cannot drift from the code that computes the
 flags. `scripts/risk/gen_risk.test.ts` fails when either is stale.
 

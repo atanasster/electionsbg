@@ -16,18 +16,18 @@ Pulls per-MP roll-call vote data from parliament.bg's stenogram CSV attachments 
 
 | Trigger                                                              | Action                                                                                                                                                                                                   |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Daily watcher reports `Parliament roll-call votes: N new session(s)` | Run incremental ingest (`npm run rollcall:scrape`)                                                                                                                                                       |
+| Daily watcher reports `Parliament roll-call votes: N new session(s)` | Run incremental ingest (`pnpm run rollcall:scrape`)                                                                                                                                                       |
 | User asks to "refresh roll-call" or "ingest new votes"               | Same — incremental                                                                                                                                                                                       |
 | `data/parliament/votes/` is empty (fresh clone)                      | Cold-start ingest from the canary id (defaults to id 11100, ~Feb 2026)                                                                                                                                   |
 | Canary mismatch warning surfaced in a recent ingest                  | Investigate `scripts/parliament/rollcall/parse.ts` BEFORE re-running                                                                                                                                     |
-| Derived loyalty/similarity/cohesion metrics look stale               | They shouldn't — the ingest rebuilds them in-process after every run that ingests ≥1 session (Step 5). To force a standalone rebuild (e.g. after editing a metric script), run `npm run derived:rebuild` |
+| Derived loyalty/similarity/cohesion metrics look stale               | They shouldn't — the ingest rebuilds them in-process after every run that ingests ≥1 session (Step 5). To force a standalone rebuild (e.g. after editing a metric script), run `pnpm run derived:rebuild` |
 
 ## Step 1 — Prerequisites
 
 The ingest depends on `data/parliament/index.json` (the MP roster). If you got a "data/parliament/index.json not found" error or you're on a fresh clone, run the parliament-scrape skill FIRST:
 
 ```bash
-npx tsx scripts/parliament/scrape_mps.ts --all --refresh-current
+pnpm exec tsx scripts/parliament/scrape_mps.ts --all --refresh-current
 ```
 
 That writes the MP roster used to validate that every vote row refers to a known MP id.
@@ -35,7 +35,7 @@ That writes the MP roster used to validate that every vote row refers to a known
 ## Step 2 — Incremental ingest
 
 ```bash
-npm run rollcall:scrape
+pnpm run rollcall:scrape
 ```
 
 Walks parliament.bg stenogram ids forward from the last-known max (stored in `data/parliament/votes/index.json`), discovers new plenary sessions, downloads their roll-call CSVs, validates, and writes one JSON file per session day under `data/parliament/votes/sessions/`.
@@ -89,7 +89,7 @@ Two options:
 
 ```bash
 # Combined: ingest + upload in one pass
-npm run rollcall:scrape -- --upload
+pnpm run rollcall:scrape --upload
 
 # Or upload separately after the ingest
 gsutil -m -h "Cache-Control:no-cache, max-age=0" rsync -r -J \
@@ -105,8 +105,8 @@ The derived loyalty / attendance / similarity / cohesion / embedding / party-cor
 Force a standalone rebuild only when you've edited a metric script (no new votes) and want to regenerate without re-walking parliament.bg:
 
 ```bash
-npm run derived:rebuild           # local only
-npm run derived:rebuild -- --upload  # write + upload
+pnpm run derived:rebuild           # local only
+pnpm run derived:rebuild --upload  # write + upload
 ```
 
 `scripts/parliament/derived/index.ts` exports `rebuildDerived()` (imported by `scrape_rollcall.ts`); its CLI stays dormant when imported and only runs when invoked directly.
@@ -122,14 +122,14 @@ facts load, which reads `data/parliament/bills/ns<N>.json` (current assembly onl
 CLAUDE.md's `bill` section):
 
 ```bash
-npm run parliament:bills             # ~4 min: list + every non-promulgated bill's detail
+pnpm run parliament:bills             # ~4 min: list + every non-promulgated bill's detail
 ```
 
 ```bash
-npm run db:load:rollcall:pg          # local — facts
-npm run db:load:rollcall-derived:pg  # local — the four precomputes
-npm run db:load:rollcall:pg:cloud            # the serving database — NOTHING runs these
-npm run db:load:rollcall-derived:pg:cloud    # for you. Derived AFTER facts, always.
+pnpm run db:load:rollcall:pg          # local — facts
+pnpm run db:load:rollcall-derived:pg  # local — the four precomputes
+pnpm run db:load:rollcall:pg:cloud            # the serving database — NOTHING runs these
+pnpm run db:load:rollcall-derived:pg:cloud    # for you. Derived AFTER facts, always.
 ```
 
 The derived step rebuilds `mp_attendance`, `party_cohesion`, `mp_dissent`, `mp_vote_norm`
@@ -232,7 +232,7 @@ The canary id (currently 11120, 2026-04-01) is re-parsed at the start of every r
 4. Re-seed the fixture by deleting it:
    ```bash
    rm tests/fixtures/parliament/votes/canary.json
-   npm run rollcall:scrape -- --session-id 11120
+   pnpm run rollcall:scrape --session-id 11120
    ```
 5. Diff the new fixture against git history to verify only intended fields changed.
 
@@ -250,7 +250,7 @@ Do NOT widen the tolerance permanently — the 5-vote band is intentional. It ca
 Validation fails with "vote refers to unknown MP id NNNN". The MP roster is stale. Run:
 
 ```bash
-npx tsx scripts/parliament/scrape_mps.ts --all --refresh-current
+pnpm exec tsx scripts/parliament/scrape_mps.ts --all --refresh-current
 ```
 
 Then retry the ingest.
@@ -294,22 +294,22 @@ The walker walks FORWARD. To backfill older data, pass `--session-id <oldId>` fo
 
 ```bash
 # Daily ingest after watcher flags new sessions
-npm run rollcall:scrape
+pnpm run rollcall:scrape
 
 # Ingest + upload + commit in one pass
-npm run rollcall:scrape -- --upload
+pnpm run rollcall:scrape --upload
 git add data/parliament/votes/ && git commit -m "rollcall: ingest"
 
 # Parse a specific session only (debugging or backfill)
-npm run rollcall:scrape -- --session-id 11120
+pnpm run rollcall:scrape --session-id 11120
 
 # Dry run (validate without writing)
-npm run rollcall:scrape -- --dry-run
+pnpm run rollcall:scrape --dry-run
 
 # Skip canary (only when intentionally updating the fixture)
-npm run rollcall:scrape -- --session-id 11120 --skip-canary
+pnpm run rollcall:scrape --session-id 11120 --skip-canary
 
 # Standalone derived rebuild (only after editing a metric script — the ingest
 # already rebuilds derived metrics in-process after each new session)
-npm run derived:rebuild -- --upload
+pnpm run derived:rebuild --upload
 ```

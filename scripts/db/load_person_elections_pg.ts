@@ -14,7 +14,7 @@
 // Runs AFTER db:resolve:persons (it needs the person_id assignments). Schema:
 // 085_person_elections.sql. SERVING loader — never writes JSON back.
 //
-// Run: `npm run db:load:person-elections:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:person-elections:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import fs, { globSync } from "node:fs";
 import path from "node:path";

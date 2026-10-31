@@ -5,7 +5,7 @@
 // matter — only that every field value is captured and reconstructable. Also
 // reconciles the headline SUM(amount_eur) straight from SQL against index.json.
 //
-// Requires the Postgres store (`npm run db:pg:up` + `db:load:pg`); auto-skips
+// Requires the Postgres store (`pnpm run db:pg:up` + `db:load:pg`); auto-skips
 // otherwise, so CI (no container, no corpus) skips it. Under DB_VERIFY=1 every
 // row is compared; otherwise a deterministic stride sample (~5k) keeps it fast.
 //
@@ -33,9 +33,9 @@ const probe = async (): Promise<string | false> => {
         )[0],
       )[0],
     );
-    if (!n) return "contracts table empty — run npm run db:load:pg";
+    if (!n) return "contracts table empty — run pnpm run db:load:pg";
   } catch {
-    return "no Postgres — run npm run db:pg:up + db:load:pg";
+    return "no Postgres — run pnpm run db:pg:up + db:load:pg";
   }
   return false;
 };

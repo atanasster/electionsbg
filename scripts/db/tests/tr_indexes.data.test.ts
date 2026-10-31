@@ -58,7 +58,7 @@ const loaded =
 const skip = !haveDb
   ? "Postgres unreachable"
   : !loaded
-    ? "no TR corpus — run npm run db:load:tr:pg"
+    ? "no TR corpus — run pnpm run db:load:tr:pg"
     : false;
 reportSkip(import.meta.url, skip);
 

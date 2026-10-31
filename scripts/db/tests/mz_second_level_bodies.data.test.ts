@@ -43,7 +43,7 @@ const corpusState = async (): Promise<string | false> => {
     );
     return t?.ok
       ? false
-      : "the contracts table is absent — run npm run db:load:pg";
+      : "the contracts table is absent — run pnpm run db:load:pg";
   } catch (e) {
     return `Postgres unreachable (${(e as Error).message})`;
   }

@@ -1,7 +1,7 @@
 // The presidential SECTION RISK SCORE — the parliamentary `risk_score.ts` screening, scored on the
 // signals a presidential protocol supports, and the input to the presidential Election Risk Index.
 //
-//   npx tsx scripts/parsers_presidential/build_risk_score.ts <cycle|all> [--write]
+//   pnpm exec tsx scripts/parsers_presidential/build_risk_score.ts <cycle|all> [--write]
 //
 // ⚠⚠ A SCREENING, NOT A FRAUD DETERMINATION — `risk_score.ts`'s framing, inherited whole. A high
 // score means „this section is statistically unusual along several dimensions and warrants a

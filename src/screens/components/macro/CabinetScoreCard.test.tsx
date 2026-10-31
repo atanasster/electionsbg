@@ -5,7 +5,7 @@
 // tall above an already-painted page: 0.2016 CLS on the built dist (Pixel 5,
 // 150ms RTT, 1.6Mbps, 4x CPU), in every run where macro.json landed after
 // governments.json — which is every run that is not artificially reordered.
-// Re-measure with `npm run perf:cls -- /governments`.
+// Re-measure with `pnpm run perf:cls /governments`.
 //
 // The property asserted is STRUCTURAL EQUALITY between the two states, not a
 // pixel count: same cell count, same labels, values swapped for em-dashes. A

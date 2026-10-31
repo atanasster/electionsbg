@@ -40,7 +40,7 @@ const describeBuilt = built ? describe : describe.skip;
 if (!built) {
   console.warn(
     "distSitemap.test: dist-news/sitemap.xml is absent — SKIPPING. This is " +
-      "not a pass. Run `npm run build:news` to exercise it.",
+      "not a pass. Run `pnpm run build:news` to exercise it.",
   );
 }
 

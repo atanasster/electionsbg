@@ -1,11 +1,11 @@
 // Stage 7, steps 3–5 — gate a proposal, show the review queue, write `auto`, promote to
 // `reviewed`.
 //
-//   npm run opencalls:enrich-review                     gate every proposal, print the queue
-//   npm run opencalls:enrich-review -- --apply          … and store the survivors as 'auto'
+//   pnpm run opencalls:enrich-review                     gate every proposal, print the queue
+//   pnpm run opencalls:enrich-review --apply          … and store the survivors as 'auto'
 //                                                       (a proposal with NO survivor is left at
 //                                                        'none', so it stays in the queue)
-//   npm run opencalls:enrich-review -- --promote <key>  a human signs one off → 'reviewed'
+//   pnpm run opencalls:enrich-review --promote <key>  a human signs one off → 'reviewed'
 //
 // ═══════════════════════════════════════════════════════════════════════════════════════════
 // THE OUTPUT IS A REVIEW QUEUE, NOT A WRITE (plan Stage 7.5). Even `--apply` does not publish a
@@ -171,7 +171,7 @@ const review = async (apply: boolean): Promise<void> => {
   if (!proposals.length) {
     console.log(
       `No proposals in ${path.relative(process.cwd(), SCRATCH_DIR)}.\n` +
-        `Run: npm run opencalls:enrich -- --list`,
+        `Run: pnpm run opencalls:enrich --list`,
     );
     return;
   }
@@ -185,7 +185,7 @@ const review = async (apply: boolean): Promise<void> => {
       console.log(
         `\n${p.source_key}\n  SKIPPED — no worksheet at ${path.relative(process.cwd(), ws)}.` +
           ` The gate must check quotes against the text the model actually read;` +
-          ` re-run: npm run opencalls:enrich -- --key ${p.source_key}`,
+          ` re-run: pnpm run opencalls:enrich --key ${p.source_key}`,
       );
       continue;
     }
@@ -259,7 +259,7 @@ const review = async (apply: boolean): Promise<void> => {
     console.log(
       `\nStored ${stored} proposal(s) at enrichment='auto'. No money column was written.\n` +
         `Promote one after reading its quotes:\n` +
-        `  npm run opencalls:enrich-review -- --promote <source_key>`,
+        `  pnpm run opencalls:enrich-review --promote <source_key>`,
     );
   else
     console.log(

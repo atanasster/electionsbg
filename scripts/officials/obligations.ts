@@ -14,8 +14,8 @@
 //
 // One request per folder; no per-declaration fetches, so it is cheap enough to re-run.
 //
-//   npx tsx scripts/officials/obligations.ts             # every folder the register lists
-//   npx tsx scripts/officials/obligations.ts --year 2025
+//   pnpm exec tsx scripts/officials/obligations.ts             # every folder the register lists
+//   pnpm exec tsx scripts/officials/obligations.ts --year 2025
 
 import fs from "fs";
 import path from "path";

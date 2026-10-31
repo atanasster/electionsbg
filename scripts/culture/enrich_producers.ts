@@ -2,7 +2,7 @@
 // The matching rule lives in scripts/culture/producer_eik.ts, shared with the
 // ingest — see that file for why ambiguous names are left unlinked.
 //
-//   npx tsx scripts/culture/enrich_producers.ts
+//   pnpm exec tsx scripts/culture/enrich_producers.ts
 //
 // Needs Postgres (tr_companies). NOT a required post-step of the film ingest any
 // more: scripts/culture/ingest.ts links the producers itself before it writes

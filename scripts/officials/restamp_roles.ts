@@ -30,13 +30,13 @@
 // The alternative, scoping to the current bench, was rejected because it would make this
 // script and the ingest two different rules over one field. See FINDING-004's reasoning.
 //
-//   npx tsx scripts/officials/restamp_roles.ts            # dry run, prints every flip
-//   npx tsx scripts/officials/restamp_roles.ts --apply    # rewrite index.json
+//   pnpm exec tsx scripts/officials/restamp_roles.ts            # dry run, prints every flip
+//   pnpm exec tsx scripts/officials/restamp_roles.ts --apply    # rewrite index.json
 //
 // After --apply, re-emit the shards so the roster tree and everything derived from it follow:
-//   npx tsx scripts/officials/build_municipal_shards.ts        # the by_obshtina tree
-//   npm run data -- --resolve-local-canonicals                 # the officials_diff sidecars
-//   npm run db:load:ngo-board-links                            # official_roster
+//   pnpm exec tsx scripts/officials/build_municipal_shards.ts        # the by_obshtina tree
+//   pnpm run data --resolve-local-canonicals                 # the officials_diff sidecars
+//   pnpm run db:load:ngo-board-links                            # official_roster
 //
 // The sidecar step is the one that reaches /sverka. `reconcile_officials.ts` compares the
 // shards' mayor against the CIK winner, so until it re-runs, /sverka and the two
@@ -45,7 +45,7 @@
 //
 // ⚠️ THE MUNICIPALITY PAGE IS A DIFFERENT ROUTE AND A ROLE CORRECTION CANNOT TAKE THE CHEAP
 // ONE. `useMunicipalOfficials.tsx` reads `municipal_officials_current`, refreshed only by
-// `npm run db:load:official-candidate-links:pg` — and that matview takes its `role` from
+// `pnpm run db:load:official-candidate-links:pg` — and that matview takes its `role` from
 // `person_role.role`, which only `db:resolve:persons` writes. A shard that gains a MAYOR (a
 // new obshtina, or one carried forward) publishes after the candidate-links refresh; a row
 // whose ROLE this script changed does not, until a resolve re-derives it from
@@ -138,7 +138,7 @@ export const restampRoles = async (
     // clean run. Refuse instead.
     throw new Error(
       "no muni-tier declarations with a subject_ref in Postgres — run " +
-        "`npm run db:load:declarations:pg` first (this reads filed_position/filed_institution, " +
+        "`pnpm run db:load:declarations:pg` first (this reads filed_position/filed_institution, " +
         "which the declaration shards do not carry)",
     );
   }
@@ -218,7 +218,7 @@ export const restampRoles = async (
     throw new Error(
       `only ${(rate * 100).toFixed(1)}% of index rows joined a muni filing ` +
         `(${unmatched}/${index.entries.length} unmatched) — the shard tree and Postgres are ` +
-        "different vintages. Run `npm run db:load:declarations:pg` first, or pass " +
+        "different vintages. Run `pnpm run db:load:declarations:pg` first, or pass " +
         "--allow-partial to accept the gap.",
     );
 
@@ -240,8 +240,8 @@ export const restampRoles = async (
     writeJson(indexPath, index);
     console.log(
       `[restamp-roles] wrote ${indexPath} — now re-emit the shards ` +
-        "(`npx tsx scripts/officials/build_municipal_shards.ts`) and reload " +
-        "(`npm run db:load:ngo-board-links`)",
+        "(`pnpm exec tsx scripts/officials/build_municipal_shards.ts`) and reload " +
+        "(`pnpm run db:load:ngo-board-links`)",
     );
   } else if (apply) {
     console.log("[restamp-roles] nothing to change — index.json untouched");

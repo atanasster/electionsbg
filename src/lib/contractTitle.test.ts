@@ -1,4 +1,4 @@
-// Unit tests for splitContractTitle — run with `npm run test:lib`
+// Unit tests for splitContractTitle — run with `pnpm run test:lib`
 // (Vitest; see docs/testing-standards.md).
 import { test } from "vitest";
 import assert from "node:assert/strict";

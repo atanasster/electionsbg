@@ -1,6 +1,6 @@
 // Unit test for the grounded-number gate (ai/llm/grounding.ts) — the pure,
 // ReDoS-safe post-check both model providers use to reject narration prose that
-// surfaces a fabricated or ROUNDED figure. Run via npm run ai:test:all.
+// surfaces a fabricated or ROUNDED figure. Run via pnpm run ai:test:all.
 
 import { digitRuns, foldDigits, numbersGrounded } from "./grounding";
 

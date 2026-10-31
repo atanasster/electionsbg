@@ -5,7 +5,7 @@
  * procurement pack (which lists only the STATE awarders) and the national Ember
  * generation mix (which has no per-plant detail).
  *
- *   npx tsx scripts/energy/build_plants.ts   → data/energy/plants.json
+ *   pnpm exec tsx scripts/energy/build_plants.ts   → data/energy/plants.json
  *
  * CURATED, not auto-fetched (the defense/programs.json pattern): Global Energy
  * Monitor's per-plant data (gem.wiki / Global Integrated Power Tracker) is

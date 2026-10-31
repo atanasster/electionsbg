@@ -1,8 +1,8 @@
 // „Скрининг на секции" for a presidential round — the PROCEDURAL half of the parliamentary
 // risk score, and only that half.
 //
-//   npx tsx scripts/parsers_presidential/build_screening.ts <cycle> [--write]
-//   npx tsx scripts/parsers_presidential/build_screening.ts all --write
+//   pnpm exec tsx scripts/parsers_presidential/build_screening.ts <cycle> [--write]
+//   pnpm exec tsx scripts/parsers_presidential/build_screening.ts all --write
 //
 // ⚠⚠ IT IS A SCREENING, NOT A FRAUD DETERMINATION — `risk_score.ts`'s framing, inherited
 // deliberately. A high score means „this section is unusual along the paperwork dimensions and

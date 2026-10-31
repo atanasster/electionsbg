@@ -115,7 +115,7 @@ const shardSkip =
   (!haveShards
     ? "data/budget/reconciliation/ absent — GITIGNORED (bucket-shipped only), " +
       "so this machine has no admin grain to compare against. Run " +
-      "`npm run data -- --all` to regenerate it."
+      "`pnpm run data --all` to regenerate it."
     : false);
 
 // Reported only when it differs from `skip` — the file-level call above already
@@ -511,7 +511,7 @@ test.skipIf(stateSkip || !rollcallApplied)(
 
     // THE ANTI-VACUITY HALF, and it must SKIP rather than warn. `console.warn`
     // was the first cut and prints nothing under the default reporter that
-    // `npm run test:data` uses — measured — so the clause read in the runner as
+    // `pnpm run test:data` uses — measured — so the clause read in the runner as
     // „checked and clean" when its body had matched no rows at all. A skip is
     // in the summary. The day the resolver ships, this stops skipping and the
     // assertions above start doing work, with nothing here to edit.

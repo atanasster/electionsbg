@@ -1,8 +1,8 @@
 // АДФИ ingest (plan P7) — fetch the inspection listing and write
 // data/procurement/adfi.json.
 //
-//   npx tsx scripts/procurement/adfi/ingest.ts            # dry run
-//   npx tsx scripts/procurement/adfi/ingest.ts --apply
+//   pnpm exec tsx scripts/procurement/adfi/ingest.ts            # dry run
+//   pnpm exec tsx scripts/procurement/adfi/ingest.ts --apply
 //
 // One page, one request. There is nothing to paginate and nothing to rate-limit.
 

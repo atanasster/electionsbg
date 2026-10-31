@@ -82,7 +82,7 @@ export type SeoPensionFund = {
  * latest quarter's net assets (largest first).
  *
  * Returns `[]` when the archive is missing or unparseable — a fresh clone before
- * `npm run noi:kfn` — so the family is omitted rather than the build aborting,
+ * `pnpm run noi:kfn` — so the family is omitted rather than the build aborting,
  * matching the PG-backed readers' contract.
  */
 export const readSeoPensionFunds = (projectRoot: string): SeoPensionFund[] => {

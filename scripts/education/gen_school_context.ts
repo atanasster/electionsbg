@@ -20,7 +20,7 @@
 // critique that sank the UK's contextual value-added measure. Source: НСИ
 // Преброяване 2021 (data/census/municipalities).
 //
-// Run: `npx tsx scripts/education/gen_school_context.ts`
+// Run: `pnpm exec tsx scripts/education/gen_school_context.ts`
 
 import fs from "node:fs";
 import path from "node:path";

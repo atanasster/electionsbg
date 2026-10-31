@@ -1,5 +1,5 @@
 // Correctness harness for the place resolver.
-// Run: npx tsx ai/tools/place.harness.ts
+// Run: pnpm exec tsx ai/tools/place.harness.ts
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";

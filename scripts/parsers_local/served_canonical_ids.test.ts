@@ -133,7 +133,7 @@ describe("served artifacts name only real canonical parties", () => {
       [...offenders].map(([id, f]) => `${id} (first seen: ${f})`),
       "served artifacts naming a canonical id absent from canonical_parties.json — " +
         "these render as a raw token with no colour. Re-run " +
-        "`npm run data -- --resolve-local-canonicals` and the flow/trend generators.",
+        "`pnpm run data --resolve-local-canonicals` and the flow/trend generators.",
     ).toEqual([]);
   });
 

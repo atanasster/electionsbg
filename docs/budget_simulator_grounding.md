@@ -264,7 +264,7 @@ div↔salary sign + bounded < 25% of the dividend lever, ФС calibration untouc
 (`ai/tests/regression.ts`) updated to the netted wage/health numbers. κ=1.00 and
 the €113M МОД backtest are untouched (fitEarnings not in scope).
 
-## Regression suite — `npm run budget:test` (added 2026-06-12)
+## Regression suite — `pnpm run budget:test` (added 2026-06-12)
 
 One command runs **10 test files** for every simulator calculation and exits
 non-zero on any broken invariant (`scripts/budget/test.ts`):
@@ -284,7 +284,7 @@ non-zero on any broken invariant (`scripts/budget/test.ts`):
   tiers).
 
 The AI layer's own broader suite (routing, narration, 773 regression cases) stays
-in `npm run ai:test` + `npm run ai:harness`.
+in `pnpm run ai:test` + `pnpm run ai:harness`.
 
 ## Public tally — "what the public chose" (added 2026-06-12)
 

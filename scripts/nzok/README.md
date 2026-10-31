@@ -10,9 +10,9 @@ ledger.
 ## Run
 
 ```bash
-npm run data:nzok                 # the default four (no Postgres needed)
-npm run data:nzok -- --hospitals  # just one (--budget/--hospitals/--drugs/--execution)
-npm run data:nzok -- --crosswalk  # opt-in: rebuild Рег.№→EIK map (needs local PG)
+pnpm run data:nzok                 # the default four (no Postgres needed)
+pnpm run data:nzok --hospitals  # just one (--budget/--hospitals/--drugs/--execution)
+pnpm run data:nzok --crosswalk  # opt-in: rebuild Рег.№→EIK map (needs local PG)
 ```
 
 Then, for production: **`bucket:sync data/budget/nzok/`** — these files are

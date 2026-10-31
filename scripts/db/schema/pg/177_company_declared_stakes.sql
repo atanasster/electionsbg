@@ -34,7 +34,7 @@
 -- ⚠️ IT MUST BE APPLIED AFTER 096, IN THE SAME COMMAND. A `LANGUAGE sql` body is validated at
 -- CREATE, so applying this to a database without declaration_stake_company raises 42P01, and
 -- exec() sends a file as one transaction — the whole thing rolls back. The 081→082 trap.
---   npx tsx scripts/db/apply_functions.ts 096_stake_procurement.sql 177_company_declared_stakes.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 096_stake_procurement.sql 177_company_declared_stakes.sql
 --
 -- ⚠️ THE BODY MUST STAY A STRING, NEVER `BEGIN ATOMIC`. A string body records no pg_depend
 -- edge, which is what lets this function survive 096's CASCADE. The PG14+ atomic form DOES

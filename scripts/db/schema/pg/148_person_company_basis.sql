@@ -25,7 +25,7 @@
 -- view fails the whole file with 42P01 — the 081→082 trap CLAUDE.md documents. Both
 -- automated appliers order it that way: `SCHEMA_FILES` in resolve_persons.ts (before 082)
 -- and `SCHEMA_FILES` in load_persons_browse_pg.ts (before 120). The hand-run form is:
---   npx tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 082_person_api.sql 120_person_browse.sql
+--   pnpm exec tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 082_person_api.sql 120_person_browse.sql
 --
 -- ⚠️ PRECONDITIONS for that command, neither of which it creates: `company_politicians`
 -- (008, applied only by db:load:tr:pg) and `magistrate_company` (070) must already exist,

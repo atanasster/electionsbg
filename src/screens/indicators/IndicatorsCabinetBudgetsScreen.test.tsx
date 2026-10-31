@@ -9,7 +9,7 @@
 // each shoving the methodology off the viewport. Measured on the built dist
 // (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU): whichever landed first scored ~0.64 and
 // the second ~0.66, for 1.3276 median — 13x the CWV budget. Re-measure with
-// `npm run perf:cls -- /indicators/budgets`.
+// `pnpm run perf:cls /indicators/budgets`.
 //
 // The property is that NOTHING data-dependent renders before governments.json:
 // a page that renders its footer first has the defect regardless of which

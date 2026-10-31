@@ -1,5 +1,5 @@
 // Unit coverage for the schools-loader math (scripts/db/lib/school_stats.ts).
-// Pure — no Postgres, no filesystem — so it always runs under `npm run test:data`
+// Pure — no Postgres, no filesystem — so it always runs under `pnpm run test:data`
 // (unlike the Tier-3 schools_pg test, which skips when the DB is absent). Pins
 // the exact rules the loader depends on: the ДЗИ↔НВО year lag, the OLS null
 // guard, and the ±0.5·SD verdict banding — a silent off-by-one in any of these

@@ -21,7 +21,7 @@
 // The semi-join is read from the live REGISTRY, not copied, so a drift in db_table.js fails
 // here rather than silently unreconciling prod. Auto-skips when Postgres is down / no corpus.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

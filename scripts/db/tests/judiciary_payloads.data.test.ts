@@ -10,7 +10,7 @@
 // consumers depend on it (years[0] = latest), so that is asserted directly.
 //
 // Auto-skips when Postgres is down or the payload table is empty — like the other
-// *.data.test.ts gates.  npm run test:data
+// *.data.test.ts gates.  pnpm run test:data
 
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";

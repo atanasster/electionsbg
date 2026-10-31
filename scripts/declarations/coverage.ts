@@ -12,9 +12,9 @@
 // it fetches list.xml (one request per folder per tier) and reads the
 // published JSON, and writes nothing.
 //
-//   npx tsx scripts/declarations/coverage.ts            # every folder on file
-//   npx tsx scripts/declarations/coverage.ts --year 2025
-//   npx tsx scripts/declarations/coverage.ts --offline  # skip the register, local counts only
+//   pnpm exec tsx scripts/declarations/coverage.ts            # every folder on file
+//   pnpm exec tsx scripts/declarations/coverage.ts --year 2025
+//   pnpm exec tsx scripts/declarations/coverage.ts --offline  # skip the register, local counts only
 
 import path from "path";
 import { Agent } from "undici";

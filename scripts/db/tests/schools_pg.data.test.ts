@@ -4,9 +4,9 @@
 // Guards against a loader regression silently shipping an empty or inconsistent
 // education dataset — test:data would otherwise assert nothing about it.
 //
-//   npm run test:data   (or DB_VERIFY=1 npm run db:verify)
+//   pnpm run test:data   (or DB_VERIFY=1 pnpm run db:verify)
 //
-// Requires the Postgres store (`npm run db:pg:up` + `db:load:schools:pg`);
+// Requires the Postgres store (`pnpm run db:pg:up` + `db:load:schools:pg`);
 // auto-skips when Postgres is unreachable or the schools table is absent — so CI
 // (no container, no corpus) skips it, like the other *_pg.data.test.ts files.
 

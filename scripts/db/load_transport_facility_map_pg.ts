@@ -23,7 +23,7 @@
 // that resolves to no point is stored with NULL lng/lat and omitted from the
 // map by transport_facility_map().
 //
-// Run: `npm run db:load:transport-facility-map:pg` (local) / `:cloud`.
+// Run: `pnpm run db:load:transport-facility-map:pg` (local) / `:cloud`.
 // Must run AFTER db:load:awarder-seats:pg (it reads awarder_seats).
 // This is the REBUILD of an uncommitted 2026-07-16 loader — see gaps plan §5.
 

@@ -95,7 +95,7 @@ export const monRiRegister: WatchSource = {
     const delta =
       d > 0 ? ` (+${d})` : d < 0 ? ` (${d})` : ` (roster changed, net 0)`;
     // ⚠ Points at the runbook rather than quoting a command chain. An earlier
-    // draft of this line ended `… && npm run procurement:ingest`, which is
+    // draft of this line ended `… && pnpm run procurement:ingest`, which is
     // ACTIVELY WRONG as a standalone instruction: a bare ingest re-runs base
     // normalization, which recomputes `amountEur = toEur(amount)` and drops the
     // post-annex current-value fold (~€1.75bn) — silently, at exit 0, with the
@@ -104,8 +104,8 @@ export const monRiRegister: WatchSource = {
     // it, and half-quoting it is worse than naming where it lives.
     return (
       `${curr.detail}${delta} — re-crawl the Tier R crosswalk: ` +
-      `npx tsx scripts/procurement/mon_ri_crawl.ts (headed Playwright, ~1 min), ` +
-      `then npx tsx scripts/procurement/awarder_geo_map.ts. Tier B reads this ` +
+      `pnpm exec tsx scripts/procurement/mon_ri_crawl.ts (headed Playwright, ~1 min), ` +
+      `then pnpm exec tsx scripts/procurement/awarder_geo_map.ts. Tier B reads this ` +
       `register directly. To reach by_settlement the map needs an ingest — run ` +
       `the FULL current-value chain from the update-procurement skill, never a ` +
       `bare procurement:ingest, which resets amountEur to the signing value`

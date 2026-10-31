@@ -1,5 +1,5 @@
 // Correctness harness for the schoolMatura name matcher (two-way containment).
-// Run: npx tsx ai/tools/education.harness.ts  (part of `npm run ai:test:all`).
+// Run: pnpm exec tsx ai/tools/education.harness.ts  (part of `pnpm run ai:test:all`).
 //
 // Pins the exact matching contract the tool relies on: a clean school-name arg
 // (LLM path) matches as a substring of the record, a longer residual query

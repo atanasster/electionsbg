@@ -369,7 +369,7 @@ export const buildLocalDemographics = ({
 // Standalone backfill: rebuild the cleavages artifacts for every regular `_mi`
 // cycle straight from the already-written index.json + municipality bundles,
 // without re-running the full HTML parse. Idempotent.
-//   npx tsx scripts/parsers_local/build_local_demographics.ts [cycle]
+//   pnpm exec tsx scripts/parsers_local/build_local_demographics.ts [cycle]
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const here = path.dirname(fileURLToPath(import.meta.url));
   const publicFolder = path.resolve(here, "../../data");

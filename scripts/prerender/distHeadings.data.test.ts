@@ -27,12 +27,12 @@
 // Measured over the full dist/ (150,857 pages): 150,845 carry exactly one,
 // 12 carry none (the six routes below × two languages), NONE carries two.
 //
-// Auto-skips on a checkout that has not built. Run it AFTER `npm run build` —
+// Auto-skips on a checkout that has not built. Run it AFTER `pnpm run build` —
 // same contract as scripts/sitemap/families.data.test.ts, and for the same
 // reason: dist/ is not committed, so a gate that failed on its absence would
 // fail on every clone.
 //
-//   npm run build && npx vitest run scripts/prerender/distHeadings.data.test.ts
+//   pnpm run build && pnpm exec vitest run scripts/prerender/distHeadings.data.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

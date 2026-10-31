@@ -133,7 +133,7 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
   "person:slugs:cloud": {
     kind: "manual-trigger",
     reason:
-      "mints the committed /person prerender + sitemap manifest (data/person/prerender_slugs.json) FROM the serving DB (emit_prerender_slugs.ts refuses local docker). It is a build-time artifact for the NEXT `npm run build`, so its trigger is a person-page rebuild/deploy, not the daily person ingest. ⚠️ Least-certain classification (cloud-deploy-speed-v1 §v2-b): if the person prerender set widens, promote it into the person cloud chain in process-watch-report.",
+      "mints the committed /person prerender + sitemap manifest (data/person/prerender_slugs.json) FROM the serving DB (emit_prerender_slugs.ts refuses local docker). It is a build-time artifact for the NEXT `pnpm run build`, so its trigger is a person-page rebuild/deploy, not the daily person ingest. ⚠️ Least-certain classification (cloud-deploy-speed-v1 §v2-b): if the person prerender set widens, promote it into the person cloud chain in process-watch-report.",
   },
   // ── decided 2026-08-25 (red-gates-repair-v1) ──────────────────────────────
   "proc:verify-seats:cloud": {

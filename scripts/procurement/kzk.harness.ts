@@ -1,5 +1,5 @@
 // КЗК-appeals invariants: the register parser + the tender transparency score's
-// null-safe funding indicator. Run: npx tsx scripts/procurement/kzk.harness.ts
+// null-safe funding indicator. Run: pnpm exec tsx scripts/procurement/kzk.harness.ts
 //
 // parseComplaintsText is regex-heavy (split-on-"Жалба №", label extraction,
 // bgDate, ВМ negation) and is exactly where a reg.cpc.bg markup change breaks

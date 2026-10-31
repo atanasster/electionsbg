@@ -3,7 +3,7 @@
  * claims, with assertions — so a data refresh that moves the story fails the
  * BUILD rather than silently changing what the narration asserts.
  *
- *   npm run video:data-risk
+ *   pnpm run video:data-risk
  *
  * ── WHY IT RE-USES THE SITE'S OWN COMPUTATION ─────────────────────────────────
  * The composite is not stored anywhere: `/risk-analysis` computes it in the

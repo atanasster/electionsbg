@@ -217,7 +217,7 @@ const main = async (args: {
       `  ${Object.keys(awarders).length} EIK(s) → locality from ${parties.toLocaleString()} party row(s) across ${cachedDays} cached day(s)`,
   );
   console.log(
-    `→ now rebuild the geo map: npx tsx scripts/procurement/awarder_geo_map.ts`,
+    `→ now rebuild the geo map: pnpm exec tsx scripts/procurement/awarder_geo_map.ts`,
   );
 };
 

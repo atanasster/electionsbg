@@ -4,7 +4,7 @@
 // current behaviour — a future wording change fails loudly here instead of
 // silently emitting null metrics.
 //
-//   npx tsx --test scripts/administration/parse_service_quality.test.ts
+//   pnpm exec tsx --test scripts/administration/parse_service_quality.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";

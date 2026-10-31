@@ -2,7 +2,7 @@
 // component on /person/{slug}, the /api/db/person-connections + graph-ego routes, and the
 // personConnections AI tool.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // RE-POINTED ONTO graph_* (connections-engine-v1 §P3.5): the traversal reads graph_edge (co-ownership
 // kinds), the association-noise guard is the precomputed graph_company_node.public_officer_count column,

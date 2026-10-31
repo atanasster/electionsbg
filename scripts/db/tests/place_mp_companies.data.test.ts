@@ -2,7 +2,7 @@
 // replacement for parliament/companies-by-{ekatte,obshtina}/.
 // Plan: docs/plans/mp-tr-edges-pg-v1.md §4 Tier 2, revised by data-hub-lateral-edges-v1 §11.10.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // What this gates:
 //   1. the denormalized person_link_n has not drifted from the person layer it copies;

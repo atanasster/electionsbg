@@ -65,7 +65,7 @@ describe("useMyAreaAlerts", () => {
     // The rendered count is the count AFTER the filter, so a reader has no baseline — a
     // dropped row is exactly as silent as the grey row it replaced. The hazard is a real
     // deploy ordering: the builder publishes to Postgres while ALERT_KINDS ships in the
-    // bundle, so a builder run before `npm run deploy` empties a live feed of a whole kind.
+    // bundle, so a builder run before `pnpm run deploy` empties a live feed of a whole kind.
     // Asserted on the DATA rather than on a DEV-gated log, which would be silent in exactly
     // the situation that matters.
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});

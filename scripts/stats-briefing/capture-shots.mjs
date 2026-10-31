@@ -2,7 +2,7 @@
 // live local dev server.
 //
 // Usage:
-//   npm run dev                                   # in one terminal
+//   pnpm run dev                                   # in one terminal
 //   node scripts/stats-briefing/capture-shots.mjs
 //
 // Covers four of the eight figures — the two homepage tiles and the two

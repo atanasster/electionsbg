@@ -3,9 +3,9 @@
 // Asserts the data-version-independent rules that must hold no matter which sources
 // were resolved, most importantly the zero-false-public-merge invariant.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
-// Requires the Postgres store + a resolver run (`npx tsx scripts/person/resolve_persons.ts`);
+// Requires the Postgres store + a resolver run (`pnpm exec tsx scripts/person/resolve_persons.ts`);
 // auto-skips when Postgres is unreachable or the person table is absent/empty — so CI
 // (no container) skips it, exactly like the other *.data.test.ts gates.
 
@@ -202,7 +202,7 @@ const skipLicence = !haveDb
     : lic > 0
       ? false
       : "person_role.bridge is entirely NULL — no resolve has run since 081 added it. " +
-        "Run `npm run db:resolve:persons` (and its repair chain) to populate the licences.";
+        "Run `pnpm run db:resolve:persons` (and its repair chain) to populate the licences.";
 // `haveDb &&` so the database-absent case is announced ONCE, by line 39, rather than twice
 // under two different strings for one cause.
 reportSkip(import.meta.url, haveDb && skipLicence);
@@ -289,7 +289,7 @@ test.skipIf(skipLicence)("every Bridge-A role is still curated", async () => {
       `magistrate_company ∪ company_politicians. ⚠️ THE STAMP IS NOT THE LIKELY CULPRIT. ` +
       `company_politicians is TRUNCATE+rebuilt by db:load:tr:pg from person_role INNER JOIN ` +
       `contracts money, so a curated link leaves the set when the person layer or the ` +
-      `contracts corpus moves — decay, not a bad stamp. Re-run \`npm run db:resolve:persons\` ` +
+      `contracts corpus moves — decay, not a bad stamp. Re-run \`pnpm run db:resolve:persons\` ` +
       `to re-derive the stamps against the current curated set. Only if the person layer is ` +
       `already current is the stamp itself wrong. (Measured propagation ceiling on the ` +
       `2026-08-25 corpus: 19 rows / 17 EIKs.)`,

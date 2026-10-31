@@ -4,9 +4,9 @@
 // PROCUREMENT_BUYER_SECTORS), which otherwise needed a whole funds or Interreg
 // :cloud reload just to reach the call at its end.
 //
-//   npx tsx scripts/funds/install_query.ts           # local docker Postgres
+//   pnpm exec tsx scripts/funds/install_query.ts           # local docker Postgres
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-//     npx tsx scripts/funds/install_query.ts --cloud # Cloud SQL via the proxy
+//     pnpm exec tsx scripts/funds/install_query.ts --cloud # Cloud SQL via the proxy
 //
 // Deliberately NOT an npm `:cloud` script: those are corpus publishes, gated by
 // cloud_loader_coverage.test.ts to be emitted by a skill. This reloads no corpus.

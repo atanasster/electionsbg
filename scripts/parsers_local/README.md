@@ -32,7 +32,7 @@ lives only in CIK's CSV bundle. `--local-csv <slug>` automates the whole
 acquisition:
 
 ```bash
-npm run data -- --local-csv minr2015   # or mi2019
+pnpm run data --local-csv minr2015   # or mi2019
 ```
 
 It downloads the bundle through the CF-clearing headed Playwright session
@@ -69,7 +69,7 @@ section from the latest parliamentary election that ships coordinates — the
 the parliamentary GPS transfers verbatim:
 
 ```
-npm run data -- --local-coords
+pnpm run data --local-coords
 ```
 
 [`backfill_local_section_coords.ts`](./backfill_local_section_coords.ts) reads
@@ -93,7 +93,7 @@ manual operator step — the data has not changed since 2007, so it is NOT in th
 watcher or `--all`:
 
 ```bash
-npm run data -- --local-ingest mi2007            # downloads + extracts both ZIPs (Playwright/CF), parses, writes data/2007_10_28_mi/
+pnpm run data --local-ingest mi2007            # downloads + extracts both ZIPs (Playwright/CF), parses, writes data/2007_10_28_mi/
 ```
 
 Turnout stays `{0,0,0}` (2007 publishes activity only in a separate `activity1/`
@@ -110,7 +110,7 @@ is a single caption-based page (2007 template), ingested by `ingest_chmi2009.ts`
 and surfaced on `/local/chmi`. Also a one-off manual step:
 
 ```bash
-npm run data -- --local-ingest "chmi2008-2010/2009-11-15_chastichen"
+pnpm run data --local-ingest "chmi2008-2010/2009-11-15_chastichen"
 ```
 
 (An older `chmi2004-2006` umbrella exists on results.cik.bg with many 2004-2006
@@ -135,7 +135,7 @@ a fallback). Runs automatically at the tail of every current-style `chmi*`
 `--local-ingest` (so it survives the protocol-zeroing re-parse); re-run standalone:
 
 ```bash
-npm run data -- --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
+pnpm run data --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
 ```
 
 **Round-aware**: each race is fetched for the round that elected its winner
@@ -163,7 +163,7 @@ completes the vote share and adds turnout + per-station data.)
 
 > The Cloudflare-bypass automation above (`--local-csv`) is the normal path.
 > If it fails (e.g. CIK moves a bundle), drop the files into
-> `raw_data/<cycle>/` by hand and run `npm run data -- --local --local-date <cycle>`.
+> `raw_data/<cycle>/` by hand and run `pnpm run data --local --local-date <cycle>`.
 
 ### 1. Download `csv.zip` for the cycle
 
@@ -281,13 +281,13 @@ Playwright/TLS-fingerprint watcher that runs from CI.
 ### 4. Run the parser
 
 ```bash
-npm run data -- --local --local-date 2023_10_29_mi
+pnpm run data --local --local-date 2023_10_29_mi
 ```
 
 Or to reprocess every local cycle currently in `raw_data/`:
 
 ```bash
-npm run data -- --local --all
+pnpm run data --local --all
 ```
 
 The parser writes to `data/<cycle>/`:
@@ -307,7 +307,7 @@ data/2023_10_29_mi/
 regular `_mi` cycle by `build_local_demographics.ts` (the council-vote analogue
 of the parliamentary `scripts/parties/build_demographics.ts`). To regenerate it
 for all cycles straight from the already-written bundles — no HTML re-parse —
-run `npx tsx scripts/parsers_local/build_local_demographics.ts [cycle]`.
+run `pnpm exec tsx scripts/parsers_local/build_local_demographics.ts [cycle]`.
 
 ### 5. Curate unmatched coalitions
 

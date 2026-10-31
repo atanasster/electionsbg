@@ -1,7 +1,7 @@
 // Cloud-provider harness: exercises OpenRouterProvider against a MOCKED proxy
 // (no network, no key) to lock the contract that matters — the model picks the
 // tool + writes prose, but a bad/absent model never breaks the chat (it falls
-// back to the deterministic router + template narrator). Run via npm run ai:test:all.
+// back to the deterministic router + template narrator). Run via pnpm run ai:test:all.
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";

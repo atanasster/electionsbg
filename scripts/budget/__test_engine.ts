@@ -5,7 +5,7 @@
 // values — so a refactor that changes any calculation is caught regardless of
 // the baseline data. Every golden carries its derivation in a comment.
 //
-// Usage: npx tsx scripts/budget/__test_engine.ts   (or: npm run budget:test)
+// Usage: pnpm exec tsx scripts/budget/__test_engine.ts   (or: pnpm run budget:test)
 
 import {
   CORP_TAX_RATE,

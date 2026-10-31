@@ -1,7 +1,7 @@
 // Generates pg/141_shlyo_query_fold.sql from src/lib/shlyoRules.ts.
 //
-//   npm run gen:shlyo-sql            # rewrite the migration
-//   npm run gen:shlyo-sql -- --check # exit 1 if it is stale (the gate)
+//   pnpm run gen:shlyo-sql            # rewrite the migration
+//   pnpm run gen:shlyo-sql --check # exit 1 if it is stale (the gate)
 //
 // WHY GENERATE IT. The shliokavitsa rules have two consumers — the browser's substring
 // filter and every /api/db/*-search route — and a rule table hand-copied into SQL is the
@@ -51,7 +51,7 @@ export const buildSql = (): string => {
 
   return `-- GENERATED FILE — DO NOT EDIT.
 -- Source: src/lib/shlyoRules.ts · Generator: scripts/db/gen_sql/shlyo_query_fold.ts
--- Regenerate: npm run gen:shlyo-sql   ·   Verify: npm run gen:shlyo-sql -- --check
+-- Regenerate: pnpm run gen:shlyo-sql   ·   Verify: pnpm run gen:shlyo-sql --check
 --
 -- SHLIOKAVITSA, server side. translit_bg_latin() (000_search_fns.sql) folds Cyrillic to
 -- Streamlined Latin, so „Желязков" and „Zhelyazkov" already meet. What it cannot reach is
@@ -106,7 +106,7 @@ const run = (): void => {
     }
     console.error(
       `shlyo_query_fold: ${path.relative(ROOT, OUT)} is STALE — the rules in ` +
-        `src/lib/shlyoRules.ts have moved.\nRun: npm run gen:shlyo-sql`,
+        `src/lib/shlyoRules.ts have moved.\nRun: pnpm run gen:shlyo-sql`,
     );
     process.exit(1);
   }

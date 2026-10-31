@@ -1,4 +1,4 @@
-// `npm run polls:accept` — Tier 2, T2d (docs/plans/polls-agency-watchers-v1.md
+// `pnpm run polls:accept` — Tier 2, T2d (docs/plans/polls-agency-watchers-v1.md
 // decision 7), extended by Tier 4 to also accept presidential drafts.
 // Promotes ONE reviewed inbox draft into the matching corpus: sets
 // `locked` and `provenance`, merges the minified JSON, and deletes the
@@ -14,13 +14,13 @@
 // the superseded poll+details under the new poll's `locked.supersedes`
 // rather than discarding them.
 //
-//   npm run polls:accept -- tr-2026-04-16
-//   npm run polls:accept -- tr-2026-04-16 --genre forecast
-//   npm run polls:accept -- tr-2026-04-16 --election 2026-04-19
-//   npm run polls:accept -- tr-2026-04-16 --locked-by agency_pdf
-//   npm run polls:accept -- tr-2026-04-16 --replace
-//   npm run polls:accept -- gm-2026-07-11
-//   npm run polls:accept -- gm-2026-07-11 --cycle 2026_10_25_pvr
+//   pnpm run polls:accept tr-2026-04-16
+//   pnpm run polls:accept tr-2026-04-16 --genre forecast
+//   pnpm run polls:accept tr-2026-04-16 --election 2026-04-19
+//   pnpm run polls:accept tr-2026-04-16 --locked-by agency_pdf
+//   pnpm run polls:accept tr-2026-04-16 --replace
+//   pnpm run polls:accept gm-2026-07-11
+//   pnpm run polls:accept gm-2026-07-11 --cycle 2026_10_25_pvr
 //
 // `--cycle` is presidential-only (decision 11) and OPTIONAL: a 2026
 // draft's own `poll.cycle` is `null` at extraction time (no round-1
@@ -538,7 +538,7 @@ const acceptParliamentary = (
     console.log(
       // This branch accepted a parliamentary draft; presidential acceptance
       // emits its own race-specific recomputation hint below.
-      `  electionDate is set — run \`npm run polls:analyze\` to rescore it`,
+      `  electionDate is set — run \`pnpm run polls:analyze\` to rescore it`,
     );
   }
 };

@@ -10,7 +10,7 @@
 //      copy would render one office in the header and another in the home finder, both at a
 //      200. The parity arm below compares the served value against the producer row by row.
 //   2. NO pg_depend EDGE. 120 is `DROP MATERIALIZED VIEW person_browse_table` + `CREATE`, so
-//      a body that records a dependency turns every `db:load:declarations:pg -- --resolve`
+//      a body that records a dependency turns every `db:load:declarations:pg --resolve`
 //      into either a 2BP01 abort or — with CASCADE — a silent deletion of this function.
 //      That is why it is plpgsql (a string body records no edge) and why converting it to
 //      `BEGIN ATOMIC` would quietly reintroduce the hazard. `migration_drop_dependents`
@@ -29,7 +29,7 @@
 // producer" is trivially true of a function that returns NULL for everybody, which is
 // exactly the state this change exists to end — so each arm asserts it saw real values.
 //
-//   npx vitest run scripts/db/tests/person_search_card.data.test.ts
+//   pnpm exec vitest run scripts/db/tests/person_search_card.data.test.ts
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -41,7 +41,7 @@ import { allRows, end, pinLocalDatabase, withClient } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
 
 // Pinned local for the reason person_identity_duplicates.data.test.ts states: a
-// `DATABASE_URL=…:5434 npx vitest` run must not report LOCAL numbers under a cloud URL. The
+// `DATABASE_URL=…:5434 pnpm exec vitest` run must not report LOCAL numbers under a cloud URL. The
 // degrade arm is a second, harder reason — it takes ACCESS EXCLUSIVE on person_browse_table
 // (inside a rolled-back transaction), which has no business running against a database
 // serving live traffic.
@@ -97,7 +97,7 @@ const skip =
     ? false
     : dbState === "no-server"
       ? "Postgres unreachable"
-      : "person_browse_table not built — run npm run db:load:declarations:pg -- --resolve";
+      : "person_browse_table not built — run pnpm run db:load:declarations:pg --resolve";
 reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
@@ -158,7 +158,7 @@ test.skipIf(skip)("person_browse_card is applied to this database", () => {
     "no-fn",
     "person_browse_card(text) is missing — 082 has not been applied here, so every header " +
       "search row is rendering without its office/place line. Run: " +
-      "DATABASE_URL=… npx tsx scripts/db/apply_functions.ts 082_person_api.sql",
+      "DATABASE_URL=… pnpm exec tsx scripts/db/apply_functions.ts 082_person_api.sql",
   );
 });
 
@@ -336,7 +336,7 @@ test.skipIf(skip || dbState === "no-fn")(
     // Driving the function directly is the faithful probe.
     //
     // It is reachable in a real, documented window: `db:resolve:persons` rebuilds `person`
-    // and `db:load:declarations:pg -- --resolve` rebuilds the matview one step LATER, so
+    // and `db:load:declarations:pg --resolve` rebuilds the matview one step LATER, so
     // between them a newly resolved person is searchable with no card.
     const [row] = await allRows<{
       card_null: boolean;

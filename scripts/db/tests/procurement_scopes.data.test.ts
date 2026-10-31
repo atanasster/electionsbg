@@ -9,7 +9,7 @@
 // The window arithmetic itself is unit-tested in src/data/scope/windows.test.ts (no DB).
 // This gate is about what actually LANDED in the database.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -29,7 +29,7 @@ const reachable = async (): Promise<string | false> => {
     );
     return Number(c.n) > 0
       ? false
-      : "procurement_scopes is empty — run npm run db:load:procurement-scopes:pg";
+      : "procurement_scopes is empty — run pnpm run db:load:procurement-scopes:pg";
   } catch {
     return "Postgres unreachable";
   }

@@ -4,7 +4,7 @@
 // total rule), the euro/legacy boundary, geo-resolved awarders, and one of each
 // faceted/derived output. The set is deliberately small (~30 files, a few
 // hundred KB) — enough for readable diffs, light enough to refresh on the
-// fortnightly data update via `npm run db:goldens`.
+// fortnightly data update via `pnpm run db:goldens`.
 //
 // Targets are resolved against what's on disk; anything missing is skipped with
 // a warning rather than failing the snapshot.

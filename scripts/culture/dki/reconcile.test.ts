@@ -30,7 +30,7 @@ import { assertCommitted } from "../../lib/assert_committed";
 const FILE = path.resolve(__dirname, "../../../data/culture/dki_register.json");
 if (!fs.existsSync(FILE))
   throw new Error(
-    `${FILE} is missing — run \`npm run culture:dki -- --apply\` (needs local Postgres).`,
+    `${FILE} is missing — run \`pnpm run culture:dki --apply\` (needs local Postgres).`,
   );
 const reg = JSON.parse(fs.readFileSync(FILE, "utf8")) as DkiRegisterFile;
 

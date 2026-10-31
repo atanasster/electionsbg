@@ -24,7 +24,7 @@
 // `rows.length > 500` — returns 506 when broken, so it would have passed too.
 // A floor only guards if it sits ABOVE the broken value; these do.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -51,23 +51,23 @@ afterAll(async () => {
 });
 
 const skipProfile = !(await tableExists("mp_profile"))
-  ? "Postgres unreachable, or mp_profile is absent — run npm run db:load:mp-roster:pg"
+  ? "Postgres unreachable, or mp_profile is absent — run pnpm run db:load:mp-roster:pg"
   : false;
 const skipPoliticians =
   !haveDb || !(await tableExists("company_politicians"))
-    ? "Postgres unreachable, or company_politicians is absent — run npm run db:load:tr:pg"
+    ? "Postgres unreachable, or company_politicians is absent — run pnpm run db:load:tr:pg"
     : false;
 const skipMpLink =
   !haveDb || !(await tableExists("mp_person_link"))
-    ? "Postgres unreachable, or mp_person_link is absent — run npm run db:resolve:persons"
+    ? "Postgres unreachable, or mp_person_link is absent — run pnpm run db:resolve:persons"
     : false;
 const skipBrowse =
   !haveDb || !(await tableExists("person_browse_table"))
-    ? "Postgres unreachable, or person_browse_table is absent — run npm run db:load:persons-browse:pg"
+    ? "Postgres unreachable, or person_browse_table is absent — run pnpm run db:load:persons-browse:pg"
     : false;
 const skipRoles =
   !haveDb || !haveRoles
-    ? "Postgres unreachable, or person_role is absent — run npm run db:resolve:persons"
+    ? "Postgres unreachable, or person_role is absent — run pnpm run db:resolve:persons"
     : false;
 reportSkip(import.meta.url, skipProfile);
 reportSkip(import.meta.url, skipPoliticians);

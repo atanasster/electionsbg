@@ -19,7 +19,7 @@
 //   - vidin*.json   — already re-parsed from source (commit f7d2ad989).
 //
 // This is a manual backfill — NOT wired into any watcher.
-// Run: npx tsx scripts/budget/capital_programs/__unmangle_names.ts
+// Run: pnpm exec tsx scripts/budget/capital_programs/__unmangle_names.ts
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 

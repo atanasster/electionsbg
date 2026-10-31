@@ -17,7 +17,7 @@
 // as sections are renumbered between cycles (2005 sits near 63% because its ID
 // scheme predates the stable one). Zero, or near-zero, is the signal.
 //
-//   npm run test:unit -- scripts/tests/election/section_coords
+//   pnpm run test:unit scripts/tests/election/section_coords
 
 import { describe, test, expect } from "vitest";
 import fs from "node:fs";
@@ -66,7 +66,7 @@ describe.skipIf(skipCoords)("section GPS coverage", () => {
     expect(
       coverage,
       `${year}: only ${geocoded.length}/${sections.length} sections geocoded ` +
-        `(${(coverage * 100).toFixed(1)}%) — run \`npm run data -- --coords\` to repair`,
+        `(${(coverage * 100).toFixed(1)}%) — run \`pnpm run data --coords\` to repair`,
     ).toBeGreaterThan(MIN_COVERAGE);
   });
 });

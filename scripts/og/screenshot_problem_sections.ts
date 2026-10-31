@@ -4,8 +4,8 @@
 // scripts/prerender/dynamicRoutes.ts (buildReportRoutes).
 //
 // Run with the dev server up (needs the report JSON + map tiles):
-//   npm run dev    # in another shell
-//   npx tsx scripts/og/screenshot_problem_sections.ts
+//   pnpm run dev    # in another shell
+//   pnpm exec tsx scripts/og/screenshot_problem_sections.ts
 //
 // Output: public/og/problem-sections.png (1200×630 CSS px @2x → 2400×1260 PNG).
 

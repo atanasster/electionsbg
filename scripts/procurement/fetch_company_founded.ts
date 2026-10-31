@@ -248,7 +248,7 @@ const preflight = async (): Promise<void> => {
   if (row?.n === "0") {
     console.error(
       "✗ company_founded is missing http_status/attempts — apply 033 first:\n" +
-        "    npx tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql",
+        "    pnpm exec tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql",
     );
     await end();
     process.exit(2);

@@ -11,7 +11,7 @@
 // This re-derives the split from the route tags in src/routes.tsx and fails if
 // the corpus files disagree with it. Failing means one of two things:
 //   1. a bundled key is now reachable from somewhere else — run
-//      `npx tsx scripts/i18n/split_bundles.ts --apply` to move it back to core,
+//      `pnpm exec tsx scripts/i18n/split_bundles.ts --apply` to move it back to core,
 //      then re-ratchet the budgets in tests/perf.spec.ts;
 //   2. the route SHOULD have been tagged — add withBundle("<name>", …) in
 //      src/routes.tsx and re-run the splitter.

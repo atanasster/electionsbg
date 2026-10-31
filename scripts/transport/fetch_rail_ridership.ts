@@ -7,7 +7,7 @@
 //   MIO_PKM  → million passenger-kilometres
 //
 // See docs/plans/transport-view-v1.md "Phase 3 scope". Wire into update-macro (or a
-// eurostat_rail watcher). Run: npx tsx scripts/transport/fetch_rail_ridership.ts
+// eurostat_rail watcher). Run: pnpm exec tsx scripts/transport/fetch_rail_ridership.ts
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";

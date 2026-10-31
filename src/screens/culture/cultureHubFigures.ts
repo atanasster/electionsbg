@@ -226,7 +226,7 @@ export const demotedMetric = (
  *  `cultureRegistry.ts` and gated for the tiles by `cultureRegistry.test.ts`.
  *
  *  ⚠️ REFUSED WHEN THE ROWS ARE ABSENT rather than rendered empty: `topBuyers` is optional on
- *  the wire (this blob ships via `bucket:sync`, a different command from `npm run deploy`), so
+ *  the wire (this blob ships via `bucket:sync`, a different command from `pnpm run deploy`), so
  *  a bundle can load against a blob that predates it. An empty rail under a „biggest buyers"
  *  heading reads as „this sector has none". */
 export const cultureHubEvidence = (

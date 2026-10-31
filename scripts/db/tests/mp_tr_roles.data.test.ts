@@ -1,7 +1,7 @@
 // mp_tr_roles (migration 150) — the live replacement for parliament/mp-management/*.json.
 // Plan: docs/plans/mp-tr-edges-pg-v1.md §4 Tier 1, revised by data-hub-lateral-edges-v1 §11.10.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // The claim this file gates is NOT "the function returns rows". It is:
 //

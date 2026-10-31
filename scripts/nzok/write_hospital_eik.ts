@@ -30,7 +30,7 @@
 //
 // Requires the local Postgres (docker-compose, :5433). Because the Рег.№→EIK
 // mapping is near-static (unlike the monthly payments), this is a SEPARATE,
-// opt-in step — `npm run data:nzok -- --crosswalk` — not part of the default set.
+// opt-in step — `pnpm run data:nzok --crosswalk` — not part of the default set.
 
 import fs from "fs";
 import path from "path";

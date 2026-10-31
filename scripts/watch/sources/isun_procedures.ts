@@ -18,7 +18,7 @@
 //     max over. (The detail line's „closes soonest" is derived from the DETAIL pages, which this
 //     watcher does not fetch — see below.)
 //
-// LISTING ONLY, NO DETAIL PAGES. The fingerprint runs on every `npm run watch`, so it must cost
+// LISTING ONLY, NO DETAIL PAGES. The fingerprint runs on every `pnpm run watch`, so it must cost
 // two requests, not 55. That means it cannot see a change CONFINED to a procedure's detail page
 // (a deadline extended, a budget document added) — the ingest is what picks those up, and
 // `open_calls.last_seen_at` records that we looked. Stated because "the fingerprint is unchanged"

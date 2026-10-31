@@ -14,9 +14,9 @@
 // These assertions are data-version-independent: they hold for any year НЗОК
 // publishes, including one with no renames at all.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
-// Requires the Postgres store (`npm run db:pg:up` + `db:load:nzok-activities:pg`);
+// Requires the Postgres store (`pnpm run db:pg:up` + `db:load:nzok-activities:pg`);
 // auto-skips when Postgres is unreachable or the table is absent, exactly like
 // invariants_pg.data.test.ts.
 

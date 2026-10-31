@@ -1,7 +1,7 @@
 // The registry people-count guard (148 + resolve_persons). Plan:
 // docs/plans/tr-attribution-basis-v1.md §5.
 //
-//   npm run test:data
+//   pnpm run test:data
 //
 // This is the gate on the one thing standing between a public figure and a stranger's
 // companies. The assertions are ORDERED, and the order is load-bearing: assertion 2 is
@@ -165,7 +165,7 @@ test.skipIf(skip)(
       Number(r.pct) >= 90,
       `only ${r.pct}% of the ${r.n} folds Bridge B gates are measured (was 97.2%). Every ` +
         `unmeasured fold is REFUSED, so this decaying means the guard is silently withholding ` +
-        `companies from real people. Re-mint with npm run tr:count-people; if the feed no ` +
+        `companies from real people. Re-mint with pnpm run tr:count-people; if the feed no ` +
         `longer covers the corpus, the floor needs a deliberate decision.`,
     );
   },

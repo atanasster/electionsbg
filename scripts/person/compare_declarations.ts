@@ -3,9 +3,9 @@
  * decide whether their declarations can honestly be put side by side, and if so emit
  * the `renderVersusCard` spec for the pair.
  *
- *   npx tsx scripts/person/compare_declarations.ts --a <slug|name> --b <slug|name> \
+ *   pnpm exec tsx scripts/person/compare_declarations.ts --a <slug|name> --b <slug|name> \
  *     [--year N] [--class annual|inventory] [--total net|assets] [--out <path>]
- *   npx tsx scripts/person/compare_declarations.ts --a <slug> --b <slug> --same-role
+ *   pnpm exec tsx scripts/person/compare_declarations.ts --a <slug> --b <slug> --same-role
  *
  * TWO AXES. By default the pair is matched on the YEAR: the same period, the same form, one
  * moment compared across two lives. `--same-role` matches on the OFFICE instead — the same
@@ -455,7 +455,7 @@ export const compareDeclarations = async (
           noOffice
             .map(
               (sl) =>
-                `    npx tsx scripts/declarations/backfill_filed_position.ts --slug ${sl} --apply`,
+                `    pnpm exec tsx scripts/declarations/backfill_filed_position.ts --slug ${sl} --apply`,
             )
             .join("\n"),
       );

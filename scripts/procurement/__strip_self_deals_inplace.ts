@@ -15,7 +15,7 @@
 //   4. Recompute data/procurement/derived/top_contractors.json from the
 //      surviving contractor files.
 //
-// Run once: npx tsx scripts/procurement/__strip_self_deals_inplace.ts
+// Run once: pnpm exec tsx scripts/procurement/__strip_self_deals_inplace.ts
 
 import fs from "fs";
 import path from "path";

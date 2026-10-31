@@ -8,7 +8,7 @@
 // sub-pages. Splitting it keeps the hub's payload where it was and costs the
 // four pages one small extra fetch they alone make.
 //
-// Same generator (`npm run db:gen-culture-hub-stats`), same 404 → null degrade,
+// Same generator (`pnpm run db:gen-culture-hub-stats`), same 404 → null degrade,
 // and the same rule about figures: a page's numbers come from here, never from a
 // literal in the copy.
 //

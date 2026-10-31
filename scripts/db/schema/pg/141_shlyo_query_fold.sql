@@ -1,6 +1,6 @@
 -- GENERATED FILE — DO NOT EDIT.
 -- Source: src/lib/shlyoRules.ts · Generator: scripts/db/gen_sql/shlyo_query_fold.ts
--- Regenerate: npm run gen:shlyo-sql   ·   Verify: npm run gen:shlyo-sql -- --check
+-- Regenerate: pnpm run gen:shlyo-sql   ·   Verify: pnpm run gen:shlyo-sql --check
 --
 -- SHLIOKAVITSA, server side. translit_bg_latin() (000_search_fns.sql) folds Cyrillic to
 -- Streamlined Latin, so „Желязков" and „Zhelyazkov" already meet. What it cannot reach is

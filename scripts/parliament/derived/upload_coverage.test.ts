@@ -1,7 +1,7 @@
 // EVERY artifact rebuildDerived writes must also be in its --upload branch.
 //
 // This is the plan's §11 gate, and it is generic rather than a check on the two new files
-// because the failure it prevents has no symptom. `npm run watch` re-ingests roll calls
+// because the failure it prevents has no symptom. `pnpm run watch` re-ingests roll calls
 // daily and calls rebuildDerived({ upload: true }); an artifact missing from that list is
 // regenerated locally, committed, and never uploaded — so the bucket keeps serving the
 // previous week's numbers while every local check is green and the file's mtime moves.

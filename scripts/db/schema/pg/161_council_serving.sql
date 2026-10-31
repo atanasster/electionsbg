@@ -4,7 +4,7 @@
 -- always carries it; a body fix on its own ships with:
 --
 --   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
---     npx tsx scripts/db/apply_functions.ts 161_council_serving.sql
+--     pnpm exec tsx scripts/db/apply_functions.ts 161_council_serving.sql
 --
 -- Note `deploy:db` ships functions/ code, which is a different thing from a
 -- Postgres function — it does NOT carry this file.

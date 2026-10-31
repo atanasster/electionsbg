@@ -13,7 +13,7 @@
 // Auto-skips with a DISTINCT reason when the matview is absent or its inputs are unloaded —
 // "the corpus is not built yet" must never read as "the rule holds".
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -27,7 +27,7 @@ const reachable = async (): Promise<string | false> => {
       "SELECT to_regclass('public.company_browse_table') IS NOT NULL AS ok",
     );
     if (!t?.ok)
-      return "company_browse_table absent — apply 188 (npx tsx scripts/db/apply_functions.ts 188_company_browse.sql)";
+      return "company_browse_table absent — apply 188 (pnpm exec tsx scripts/db/apply_functions.ts 188_company_browse.sql)";
     // NOT a skip: an empty matview is one of the states this file exists to catch, same
     // discipline as official_companies.data.test.ts before it.
     return false;

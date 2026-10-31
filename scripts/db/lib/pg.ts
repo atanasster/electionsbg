@@ -181,7 +181,7 @@ const warnIfGrantingToAbsentRole = async (
     `[pg] app_readonly does not exist on ${redactUrl(connectionUrl())}, and this DDL grants to it.\n` +
       `     Every role guard will SKIP, so the objects are created with NO privileges and the\n` +
       `     load will report success — /api/db then fails with 42501 against a corpus that looks\n` +
-      `     fully loaded. Fix: \`npm run db:pg:bootstrap\` (local), or apply\n` +
+      `     fully loaded. Fix: \`pnpm run db:pg:bootstrap\` (local), or apply\n` +
       `     scripts/db/schema/pg/roles_readonly.sql by hand (serving database), then re-run this loader.`,
   );
 };

@@ -1,5 +1,5 @@
 // data.egov.bg Commerce Registry (Търговски регистър) daily-filings dataset.
-// `npm run tr:daily-refresh` (wired into process-watch-report) consumes the
+// `pnpm run tr:daily-refresh` (wired into process-watch-report) consumes the
 // daily filings from here; this watcher tells us when new daily files dropped.
 //
 // data.egov.bg's CKAN-style /api/3/action endpoints are broken (return

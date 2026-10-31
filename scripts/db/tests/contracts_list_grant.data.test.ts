@@ -22,7 +22,7 @@
 // OR REPLACE VIEW, which PRESERVES the ACL, so a plain REVOKE-then-rebuild does discriminate
 // there.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll, vi } from "vitest";
 import assert from "node:assert/strict";
@@ -66,7 +66,7 @@ afterAll(async () => {
 
 const skipRole =
   !haveDb || !hasRole
-    ? "Postgres unreachable, or the app_readonly role is absent — run npm run db:pg:bootstrap"
+    ? "Postgres unreachable, or the app_readonly role is absent — run pnpm run db:pg:bootstrap"
     : false;
 reportSkip(import.meta.url, skipRole);
 

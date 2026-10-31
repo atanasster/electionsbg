@@ -23,14 +23,14 @@
  *
  * Manual by design, per the repo's convention for one-off backfills.
  *
- *   npx tsx scripts/declarations/backfill_asset_is_spouse.ts           # dry run
- *   npx tsx scripts/declarations/backfill_asset_is_spouse.ts --apply
+ *   pnpm exec tsx scripts/declarations/backfill_asset_is_spouse.ts           # dry run
+ *   pnpm exec tsx scripts/declarations/backfill_asset_is_spouse.ts --apply
  *
  * Then, in this order — `--resolve` alone does NOT rewrite asset rows:
- *   npm run db:load:declarations:pg                 # phase 1
- *   npm run db:load:declarations:pg -- --resolve    # phase 2
- *   npx tsx scripts/declarations/rebuild_post.ts    # car-makes.json + mp-cars.json carry isSpouse
- *   npm run db:load:mp-roster:pg                    # mp-cars.json -> mp_cars.is_spouse (104)
+ *   pnpm run db:load:declarations:pg                 # phase 1
+ *   pnpm run db:load:declarations:pg --resolve    # phase 2
+ *   pnpm exec tsx scripts/declarations/rebuild_post.ts    # car-makes.json + mp-cars.json carry isSpouse
+ *   pnpm run db:load:mp-roster:pg                    # mp-cars.json -> mp_cars.is_spouse (104)
  *
  * ⚠️ THE LAST TWO ARE THE ONES THAT LOOK SKIPPABLE. Neither load phase touches the
  * COMMITTED artifacts: `build_car_makes.ts` writes `isSpouse` into

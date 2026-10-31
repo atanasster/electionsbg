@@ -5,8 +5,8 @@
 //
 // Manual capture (the screenshot OG images aren't part of postbuild, which only
 // runs the card-renderer scripts/og/generate.ts). Run with the dev server up:
-//   npm run dev    # in another shell
-//   npx tsx scripts/og/screenshot_budgets.ts
+//   pnpm run dev    # in another shell
+//   pnpm exec tsx scripts/og/screenshot_budgets.ts
 //
 // Output: public/og/indicators-budgets.png (1200×630 @2x).
 

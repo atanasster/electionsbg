@@ -5,7 +5,7 @@ import { installRollcallQuery } from "./lib/installRollcallQuery";
 // derived pipeline reads. This is the LOAD half only; 135 builds the matviews on top and
 // nothing serves from these tables yet.
 //
-// Run: `npm run db:load:rollcall:pg` (local) / `:cloud` (Cloud SQL proxy).
+// Run: `pnpm run db:load:rollcall:pg` (local) / `:cloud` (Cloud SQL proxy).
 //
 // ---------------------------------------------------------------------------
 // STAGE-MERGE, NOT TRUNCATE+COPY. vote_cast will be on a serving path, and a

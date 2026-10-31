@@ -637,7 +637,7 @@ test.skipIf(skip)(
 test.skipIf(skip)("interreg rows load and keep their programme", async () => {
   assert.ok(
     (await count("source = 'interreg'")) > 0,
-    "no interreg rows — `npm run opencalls:interreg` then `db:load:open-calls:pg` never ran",
+    "no interreg rows — `pnpm run opencalls:interreg` then `db:load:open-calls:pg` never ran",
   );
   assert.equal(
     await count("source = 'interreg' AND programme_code IS NULL"),

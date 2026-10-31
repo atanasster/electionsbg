@@ -1,8 +1,8 @@
 // The price half of the home feed's „what changed", measured from Postgres and COMMITTED as
 // `data/home/price_events.json` so `gen_home/feed.ts` never needs a database.
 //
-//   npm run db:gen-home-price-events
-//   npx tsx scripts/db/gen_home/price_events.ts --replay [--days 90]
+//   pnpm run db:gen-home-price-events
+//   pnpm exec tsx scripts/db/gen_home/price_events.ts --replay [--days 90]
 //
 // ===========================================================================
 // ⚠️ THE TWO THINGS A PRICE FEED GETS WRONG, AND WHAT IS DONE ABOUT THEM.
@@ -80,7 +80,7 @@ export const BASKET_SPAN_DAYS = BASKET_WINDOW_DAYS * 2;
 
 /**
  * ⚠️ 1.5%, AND THE NUMBER IS THE OUTPUT OF THE REPLAY RATHER THAN AN OPINION — re-check it
- * with `npx tsx scripts/db/gen_home/price_events.ts --replay --days 90`. Over the 92 measurable
+ * with `pnpm exec tsx scripts/db/gen_home/price_events.ts --replay --days 90`. Over the 92 measurable
  * days to 2026-08-31 the fixed-cohort series crosses ±1.5% on 18 days that form FOUR runs — one
  * episode roughly every three weeks, none of them split. At ±1.0% it is five runs but two of
  * them merge distinct episodes; at ±2.0% it is THREE, and one of those is a single August
@@ -524,7 +524,7 @@ const run = async (): Promise<void> => {
       missing.length > 0
         ? `missing relation(s): ${missing.join(", ")}`
         : "price_grid_days is empty",
-      "run the prices ingest (npm run prices:ingest) against this database first",
+      "run the prices ingest (pnpm run prices:ingest) against this database first",
     );
     return;
   }

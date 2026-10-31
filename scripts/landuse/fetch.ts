@@ -2,9 +2,9 @@
  * Refresh data/landuse/index.json from the NSI LANDUSE annex PDF(s).
  *
  * Usage:
- *   npx tsx scripts/landuse/fetch.ts            # process every year in LANDUSE_REPORTS
- *   npx tsx scripts/landuse/fetch.ts --year 2024
- *   npx tsx scripts/landuse/fetch.ts --refresh  # re-download cached PDFs
+ *   pnpm exec tsx scripts/landuse/fetch.ts            # process every year in LANDUSE_REPORTS
+ *   pnpm exec tsx scripts/landuse/fetch.ts --year 2024
+ *   pnpm exec tsx scripts/landuse/fetch.ts --refresh  # re-download cached PDFs
  *
  * Source: NSI press-release annex "Land use distribution of the Republic
  * of Bulgaria as of 31.12.YYYY" (https://www.nsi.bg/bg/content/2536).

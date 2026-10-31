@@ -71,13 +71,13 @@ upstream:
 
 | Intent | Command | Time | Network |
 |---|---|---|---|
-| **Refresh declarations only** (new filing year, e.g. 2026 filings appear) | `npm run data -- --declarations` | ~3-15 min | per-MP XML, ~1 req/150 ms |
-| **Refresh one filing year** (the usual incremental case) | `DECL_YEARS=2026 npm run data -- --declarations` | ~3-5 min | that folder only |
+| **Refresh declarations only** (new filing year, e.g. 2026 filings appear) | `pnpm run data --declarations` | ~3-15 min | per-MP XML, ~1 req/150 ms |
+| **Refresh one filing year** (the usual incremental case) | `DECL_YEARS=2026 pnpm run data --declarations` | ~3-5 min | that folder only |
 | **Refresh TR snapshot** (do this every few months — TR changes daily) | see "TR refresh playbook" below | ~30-60 min | one ~540 MB zip + replay |
-| **Rebuild every artifact from disk** (after editing a build script — no upstream fetch) | `npx tsx scripts/declarations/rebuild_all_from_cache.ts` | ~2-4 min | none |
+| **Rebuild every artifact from disk** (after editing a build script — no upstream fetch) | `pnpm exec tsx scripts/declarations/rebuild_all_from_cache.ts` | ~2-4 min | none |
 | **First-time bring-up** (fresh clone, no data) | TR bulk + reconstruct, then `--declarations` | ~1-2 h | full set |
 
-**`npm run data -- --declarations` is the safe default.** It fetches register.cacbg.bg incrementally (XML files cached in `raw_data/declarations/{year}/`), then re-runs every downstream builder — assets rankings, car makes, provenance — on each run. None of them reads the TR SQLite any more, so a checkout without it builds the full set.
+**`pnpm run data --declarations` is the safe default.** It fetches register.cacbg.bg incrementally (XML files cached in `raw_data/declarations/{year}/`), then re-runs every downstream builder — assets rankings, car makes, provenance — on each run. None of them reads the TR SQLite any more, so a checkout without it builds the full set.
 
 **`--prod` makes no difference to anything this skill writes, and that is deliberate.** Every
 other builder in `scripts/` takes its JSON formatter from `main.ts`'s single `stringify`, which
@@ -98,7 +98,7 @@ would be a ~million-line no-op diff and a full re-upload of the trees that ship)
 To rebuild the derived files without re-fetching declarations, use the runner rather than a
 hand-rolled one-liner — it sequences the builders and writes through the fixed formatters:
 ```bash
-npx tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
+pnpm exec tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
 ```
 `--skip-reparse` drops the whole-corpus XML re-parse — use it when the edit is to a downstream
 builder (`build_assets_rankings.ts`, `build_car_makes.ts`, `build_data_provenance.ts`) rather
@@ -119,7 +119,7 @@ NOT line up with `index.ts`'s.
 - `register.cacbg.bg/{year}/list.xml` — directory of all declarants for that filing year. Walked under the "Народни представители" category only.
 - `register.cacbg.bg/{year}/{xmlFile}` — per-MP declaration XML. Cached under `raw_data/declarations/{year}/`.
 - `raw_data/tr/state.sqlite` (~120 MB) — reconstructed Commerce Registry. **Optional**: phases 5 + 6 degrade gracefully without it. See "TR refresh playbook".
-- `data/postcode_ekatte.json` — BG Post postcode → EKATTE settlement map. Joined against the free-text `registeredOffice` field to assign each company a `ekatteHQ[]`, so the "Companies HQ'd here" tile (`/sofia` + every settlement page) can list MP-linked firms by HQ address. Regenerate from upstream with `npx tsx scripts/parliament/build_postcode_ekatte.ts` — triggered automatically by the watcher when `bgpost_postcodes` flips. Missing/empty file degrades to name-only matching: ~16 village ambiguities (Лозен, Лясково, …) get picked arbitrarily.
+- `data/postcode_ekatte.json` — BG Post postcode → EKATTE settlement map. Joined against the free-text `registeredOffice` field to assign each company a `ekatteHQ[]`, so the "Companies HQ'd here" tile (`/sofia` + every settlement page) can list MP-linked firms by HQ address. Regenerate from upstream with `pnpm exec tsx scripts/parliament/build_postcode_ekatte.ts` — triggered automatically by the watcher when `bgpost_postcodes` flips. Missing/empty file degrades to name-only matching: ~16 village ambiguities (Лозен, Лясково, …) get picked arbitrarily.
 
 ## Outputs
 
@@ -168,7 +168,7 @@ data/parliament/declarations/           [Phase 4] state.sqlite
                went 2026-08-16 — served from Postgres, migration 158.)
 ```
 
-Phase 1 and the downstream builders chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts`). Phases 3, 4 are kept out of `npm run prod` because they take 30-60 min and produce a 12 GB intermediate — and since 2026-08-21 no builder in the declarations chain reads `state.sqlite` at all. It is still built here, for `db:load:tr:pg` and the other pipelines that read it.
+Phase 1 and the downstream builders chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts`). Phases 3, 4 are kept out of `pnpm run prod` because they take 30-60 min and produce a 12 GB intermediate — and since 2026-08-21 no builder in the declarations chain reads `state.sqlite` at all. It is still built here, for `db:load:tr:pg` and the other pipelines that read it.
 
 ⚠️ **Do not trust a phase NUMBER on the last three builders.** The retirements left gaps, and the two runners number what is left differently — `index.ts` calls the assets rollup "Phase 7" while `rebuild_all_from_cache.ts` calls it "phase 6". The builder names are the stable reference; the numbers are scar tissue.
 
@@ -196,23 +196,23 @@ Both finish with `--reconstruct` to rebuild the SQLite.
 
 ```bash
 # ~540 MB zip download to raw_data/tr/all-resources.json.zip — resumable (HTTP Range)
-npx tsx scripts/declarations/tr/cli.ts --bulk
+pnpm exec tsx scripts/declarations/tr/cli.ts --bulk
 
 # OR for incremental:
 # walks the data.egov.bg dataset listing → dataset-index.json
-npx tsx scripts/declarations/tr/cli.ts --index
+pnpm exec tsx scripts/declarations/tr/cli.ts --index
 # fetches only daily filings not yet on disk
-npx tsx scripts/declarations/tr/cli.ts --incremental
+pnpm exec tsx scripts/declarations/tr/cli.ts --incremental
 
 # Replay every daily filing through the TR parser → raw_data/tr/state.sqlite (~120 MB)
 # Auto-detects zip mode vs raw_data/tr/daily/*.json
-npx tsx scripts/declarations/tr/cli.ts --reconstruct
+pnpm exec tsx scripts/declarations/tr/cli.ts --reconstruct
 
 # Then rebuild every declarations aggregate from disk (NO upstream fetch):
 # re-parse cached XML → rankings/car-makes/provenance.
 # Use this whenever a builder's logic changed but cacbg/data.egov is
 # unreachable.
-npx tsx scripts/declarations/rebuild_all_from_cache.ts
+pnpm exec tsx scripts/declarations/rebuild_all_from_cache.ts
 ```
 
 > Formats are not the runner's problem — each builder owns its own
@@ -241,7 +241,7 @@ When a new filing season opens (typically May for prior fiscal year):
 
 2. **Run the fetch** with the new year:
    ```bash
-   DECL_YEARS=2026 npm run data -- --declarations
+   DECL_YEARS=2026 pnpm run data --declarations
    ```
    Defaults to 2025 only. Set `DECL_YEARS=2024,2025,2026` to (re-)fetch multiple years; existing per-MP files are overwritten with the union.
 
@@ -250,7 +250,7 @@ When a new filing season opens (typically May for prior fiscal year):
 4. **Run the typo flagger** (mandatory). After the rebuild, scan the new
    declarations for unrealistic-looking BGN values that survived parsing:
    ```bash
-   npx tsx scripts/declarations/check_suspicious_values.ts
+   pnpm exec tsx scripts/declarations/check_suspicious_values.ts
    ```
    Flagged rows fall into three categories — see "Typo and unrealistic-value
    detection" below for the decision flow. Already-overridden typos do not
@@ -261,7 +261,7 @@ When a new filing season opens (typically May for prior fiscal year):
 
 6. **Regenerate the declarations-hub blob** (mandatory whenever the declarations moved):
    ```bash
-   npm run db:gen-declarations-hub-stats
+   pnpm run db:gen-declarations-hub-stats
    ```
    `data/governance/declarations_hub_stats.json` backs the whole `/governance/declarations`
    tile grid. Nothing else regenerates it outside a full `db:refresh`, so a rebuild that stops
@@ -295,10 +295,10 @@ When a new filing season opens (typically May for prior fiscal year):
    still carried `companies` / `companyMps`. Publish it:
 
    ```bash
-   npm run bucket:sync:paths -- governance/declarations_hub_stats.json
+   pnpm run bucket:sync:paths governance/declarations_hub_stats.json
    ```
 
-   Verify with `npm run db:check-generated`, which byte-compares all six
+   Verify with `pnpm run db:check-generated`, which byte-compares all six
    `REFRESH_GENERATORS` artifacts (`scripts/db/refresh_coverage.ts`) against the live bucket
    and exits 1 on any that differ. The registry is where a NEW generated artifact declares
    its publish path; do not re-add that knowledge as prose here.
@@ -349,7 +349,7 @@ Intentional non-fatal skips (logged with `[stage]` prefix, ingest continues):
 | Unmatched MP name (married, hyphen variant) | Counted in the "unmatched" tally at the end | Documented below — irreducible 1-2 per parliament |
 | Slug collision across companies | First-wins with a warning | Documented below |
 
-The per-stage summaries printed at the end of each `npm run data -- --connections` / `--declarations` / `--companies` run tell you the actual counts — if any of them suddenly drop by >10% vs. the previous run's commit, treat as a regression and investigate before committing.
+The per-stage summaries printed at the end of each `pnpm run data --connections` / `--declarations` / `--companies` run tell you the actual counts — if any of them suddenly drop by >10% vs. the previous run's commit, treat as a regression and investigate before committing.
 
 ## Common pitfalls
 
@@ -501,14 +501,14 @@ each already state the household's whole holding on one row.
 ### Layer 2 — automated flagging of unhandled rows
 
 ```bash
-npx tsx scripts/declarations/check_suspicious_values.ts
+pnpm exec tsx scripts/declarations/check_suspicious_values.ts
 ```
 
 Walks every row in `public/parliament/declarations/{mpId}.json` and prints
 "FLAG" lines for any whose declared BGN value passes a category-specific
 heuristic threshold. Already-overridden rows don't re-flag because Layer 1
 corrects them before they land in the per-MP JSON. Run after every
-`npm run data -- --declarations` (also wired into the new-year refresh
+`pnpm run data --declarations` (also wired into the new-year refresh
 playbook above).
 
 Current thresholds (`THRESHOLDS` constant in the script — keep narrow):
@@ -564,7 +564,7 @@ BGN — the magnitude gap is the tell. Add to `REAL_ESTATE_VALUE_OVERRIDES`:
 }
 ```
 
-Re-run `npx tsx scripts/declarations/rebuild_all_from_cache.ts`. The
+Re-run `pnpm exec tsx scripts/declarations/rebuild_all_from_cache.ts`. The
 flagger no longer reports the row, and the assets ranking / candidate
 page now show the corrected value.
 
@@ -573,9 +573,9 @@ page now show the corrected value.
 Three env vars on the declarations script for debugging without re-fetching everything:
 
 ```bash
-DECL_YEARS=2025 npm run data -- --declarations           # default
-DECL_LIMIT=20 npm run data -- --declarations             # first 20 declarations only
-DECL_MP_NAME=ИВЕЛИН npm run data -- --declarations       # only MPs whose normalized name contains "ИВЕЛИН"
+DECL_YEARS=2025 pnpm run data --declarations           # default
+DECL_LIMIT=20 pnpm run data --declarations             # first 20 declarations only
+DECL_MP_NAME=ИВЕЛИН pnpm run data --declarations       # only MPs whose normalized name contains "ИВЕЛИН"
 ```
 
 `DECL_MP_NAME` does substring matching after normalization, so `ИВЕЛИН` matches `ИВЕЛИН ЛЮДМИЛОВ МИХАЙЛОВ`. Useful for debugging a single MP's data without burning 10 minutes on the full set.
@@ -587,7 +587,7 @@ For the TR side, `--limit N` on `--reconstruct` replays only the first N days (s
 - **Does not refresh `public/parliament/index.json`.** That's the parliament-scrape skill's job. This pipeline reads the index but never writes it. If you see lots of `no MP match` warnings, run parliament-scrape first.
 - **Does not reconcile married names** to maiden names. There is no name-alias table. Affected MPs simply won't have declarations linked.
 - **Does not pull historical TR snapshots.** The TR dataset is a stream of daily filings; `--reconstruct` replays them to a single "current state" SQLite. There is no "TR as of 2022-12-31" mode.
-- **Does not run during `npm run prod`'s default flow.** Only `parseElections` runs by default. You must pass `--declarations` (and optionally refresh TR beforehand). This is intentional — the chain takes minutes and depends on external services.
+- **Does not run during `pnpm run prod`'s default flow.** Only `parseElections` runs by default. You must pass `--declarations` (and optionally refresh TR beforehand). This is intentional — the chain takes minutes and depends on external services.
 
 ## File map
 

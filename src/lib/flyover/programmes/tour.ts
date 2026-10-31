@@ -1,7 +1,7 @@
 // „The guided tour" — the money-map article's six chapters.
 //
 // ⚠️ THIS TABLE IS THE SPINE OF THREE SURFACES. The ARTICLE maps scroll position to (chapter,
-// intra-chapter t); the committed chapter stills and share card (`npm run
+// intra-chapter t); the committed chapter stills and share card (`pnpm run
 // home:flyover-posters`) are drawn from it; and the VIDEO takes the chapter STATES and gives
 // them the durations the narration measured. If the three ever derived their camera from
 // three tables, the same chapter would show three different pictures of the same sentence.

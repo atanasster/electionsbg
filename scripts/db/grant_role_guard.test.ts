@@ -14,7 +14,7 @@
 // job is to stop a text pattern reappearing must not be able to skip. It needs no database:
 // it reads the files.
 //
-//   npm run test:unit
+//   pnpm run test:unit
 
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";

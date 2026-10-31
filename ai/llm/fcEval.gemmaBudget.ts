@@ -4,7 +4,7 @@
 // off (background Bash here gets reclaimed on long runs). Writes the FcReport the
 // artifact builder ingests as the cache for the matching spec id.
 //
-//   npx tsx ai/llm/fcEval.gemmaBudget.ts 1536
+//   pnpm exec tsx ai/llm/fcEval.gemmaBudget.ts 1536
 //
 // Progress is visible via the .partial file (grows per case) even though stderr
 // buffers when redirected to a log. Re-run the same command to resume.

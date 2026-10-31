@@ -16,7 +16,7 @@
  *                constructed, to avoid missing variants.
  *
  * Usage:
- *   npx tsx scripts/macro/fetch_bnb_auctions.ts
+ *   pnpm exec tsx scripts/macro/fetch_bnb_auctions.ts
  */
 
 import fs from "fs";

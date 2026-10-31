@@ -1,7 +1,7 @@
 // Load the municipal corpus — WHAT THE STATE SENDS — into Postgres (154).
 //
-//   npm run db:load:budget-muni:pg
-//   npm run db:load:budget-muni:pg:cloud
+//   pnpm run db:load:budget-muni:pg
+//   pnpm run db:load:budget-muni:pg:cloud
 //
 // Plan: docs/plans/budget-hub-v1.md T2 and §8.
 //
@@ -137,7 +137,7 @@ const readJson = <T>(rel: string): T => {
   if (!existsSync(file)) {
     throw new Error(
       `${rel} is missing. Every input to this loader is a COMMITTED file, so this is ` +
-        "not the fresh-clone case — restore it or run `npm run data -- --all`.",
+        "not the fresh-clone case — restore it or run `pnpm run data --all`.",
     );
   }
   try {
@@ -576,7 +576,7 @@ const preflightPlaceDim = async (): Promise<void> => {
   );
   if (cols.length === 0) {
     throw new Error(
-      "place_dim is absent. Run `npm run db:load:place-dim:pg` (or its :cloud twin) " +
+      "place_dim is absent. Run `pnpm run db:load:place-dim:pg` (or its :cloud twin) " +
         "first — every municipal label in 154 resolves through it.",
     );
   }

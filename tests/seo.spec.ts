@@ -9,10 +9,10 @@ const enc = (p: string): string =>
     .map((seg) => (seg ? encodeURIComponent(seg) : seg))
     .join("/");
 
-// The prerender step in `npm run build` reads generated JSON under
+// The prerender step in `pnpm run build` reads generated JSON under
 // data/<YYYY_MM_DD>/ — most notably national_summary.json — to fill in
 // titles, h1s, and the hidden ssg-content body. Those files are produced by
-// `npm run data` and are gitignored (`/data/2*/*`), so on a fresh checkout
+// `pnpm run data` and are gitignored (`/data/2*/*`), so on a fresh checkout
 // with no data run the prerender silently emits empty bodies. Asserting on
 // empty content would just produce hundreds of confusing failures, so we skip
 // the SEO suite in that case. CI surfaces the skip in the run summary, which
@@ -37,7 +37,7 @@ const PREREQ_DATA_PRESENT = (() => {
     );
 })();
 const SKIP_REASON =
-  "prerender data not generated (no data/<date>/national_summary.json) — run `npm run data` first";
+  "prerender data not generated (no data/<date>/national_summary.json) — run `pnpm run data` first";
 
 // Sample dynamic identifiers that exist in every recent election dataset.
 // If these change, update here — the failure message will point to this file.
@@ -66,13 +66,13 @@ const SAMPLE_FUND = "upf-doverie";
 // /court/** is enumerated from Postgres at BUILD time (readSeoCourts degrades to
 // [] when the database is down or migration 116 is unapplied), so a checkout
 // that built without one has the election data but none of these pages. Skip
-// rather than emit seven failures that all mean "run `npm run db:pg:up`". The
+// rather than emit seven failures that all mean "run `pnpm run db:pg:up`". The
 // pension family needs no guard — its archive is committed.
 const PREREQ_COURTS_PRESENT = fs.existsSync(
   path.resolve(process.cwd(), "dist", "court", "sgs", "index.html"),
 );
 const SKIP_COURTS =
-  "judicial-body prerender absent (no dist/court/**) — Postgres was down at build time, run `npm run db:pg:up` and rebuild";
+  "judicial-body prerender absent (no dist/court/**) — Postgres was down at build time, run `pnpm run db:pg:up` and rebuild";
 
 const HOME_TITLE_BG_PREFIX = "Парламентарни избори";
 const HOME_TITLE_EN_PREFIX = "Bulgarian Parliamentary Elections";

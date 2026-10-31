@@ -16,9 +16,9 @@
 // Compares every component's available/fired bit AND the derived cri/score over
 // a random sample of real contracts. Fails non-zero on any mismatch.
 //
-//   npx tsx scripts/procurement/risk_parity.harness.ts            # 20k sample
-//   npx tsx scripts/procurement/risk_parity.harness.ts --n 120000
-//   npx tsx scripts/procurement/risk_parity.harness.ts --seed 7
+//   pnpm exec tsx scripts/procurement/risk_parity.harness.ts            # 20k sample
+//   pnpm exec tsx scripts/procurement/risk_parity.harness.ts --n 120000
+//   pnpm exec tsx scripts/procurement/risk_parity.harness.ts --seed 7
 //
 // Skips (exit 0) only when Postgres is UNREACHABLE or contract_risk_cache is
 // empty, matching the scripts/db/tests/*.data.test.ts convention — a machine with
@@ -31,9 +31,9 @@
 // is now decided structurally by dbReachable(), not by matching an error string —
 // see the comment on that helper before changing this.
 //
-// Where it runs: `npm run risk:parity` (full sample), the tail of `ai:test:all`,
+// Where it runs: `pnpm run risk:parity` (full sample), the tail of `ai:test:all`,
 // and — on a 2k sample — scripts/db/tests/risk_parity.data.test.ts, which rides
-// `npm run test:data` and therefore `db:refresh`. A gate that has to be
+// `pnpm run test:data` and therefore `db:refresh`. A gate that has to be
 // remembered is the failure mode this file is about, so prefer adding callers
 // over enlarging this one.
 
@@ -206,7 +206,7 @@ export const runParity = async ({
     throw new Error(
       "procurement_risk_indexes_cache is empty — run " +
         "`REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache;` " +
-        "(or npm run db:refresh:risk) and re-run",
+        "(or pnpm run db:refresh:risk) and re-run",
     );
   const { payload } = payloadRow;
 

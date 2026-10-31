@@ -6,7 +6,7 @@
  * repo's standing rule is that a wrong public link is one too — so the output is a file for
  * a human to work from, not a badge on /person. Nothing here is published.
  *
- *   npx tsx scripts/person/declared_vs_registry.ts [--out <path>] [--limit N]
+ *   pnpm exec tsx scripts/person/declared_vs_registry.ts [--out <path>] [--limit N]
  *
  * ── WHY THE SET IS SMALL, AND WHY THAT IS THE POINT ─────────────────────────────────────
  *

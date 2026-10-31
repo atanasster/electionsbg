@@ -19,7 +19,7 @@
 // exactly what this file exists to catch. It skips only when Postgres itself is
 // down, like every other *.data.test.ts gate.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -44,7 +44,7 @@ test.skipIf(skip)("kzk_decisions is populated", async () => {
   );
   assert.ok(
     Number(r.n) > 0,
-    "kzk_decisions is EMPTY — run `npm run db:load:kzk-decisions:pg`. Until the T4 " +
+    "kzk_decisions is EMPTY — run `pnpm run db:load:kzk-decisions:pg`. Until the T4 " +
       "crawler's backfill is proven this table and the gitignored " +
       "data/procurement/kzk_decisions.json are the only copies of the corpus.",
   );
@@ -143,7 +143,7 @@ const watchState = readWatchState();
 const anchorSkip = skip
   ? skip
   : !watchState
-    ? "DISARMED: state/watch/kzk_decisions.json absent — run `npm run watch` from " +
+    ? "DISARMED: state/watch/kzk_decisions.json absent — run `pnpm run watch` from " +
       "Bulgarian egress so the watcher records the register's newest act"
     : !watchState.meta?.newestAct
       ? "DISARMED: the watch state carries no meta.newestAct — check " +
@@ -177,9 +177,9 @@ test.skipIf(anchorSkip)(
       `the register's newest act ${newestAct} (${state.meta?.newestDate ?? "?"}) is NOT in ` +
         `kzk_decisions, which holds ${max.n} acts through ${max.d ?? "—"}. The merits arm ` +
         "is STALE. Re-crawl and publish:\n" +
-        "  npm run kzk:decisions -- --year <YYYY> --apply\n" +
-        "  npm run db:load:kzk-decisions:pg\n" +
-        "  npm run kzk:rejoin -- --apply\n" +
+        "  pnpm run kzk:decisions --year <YYYY> --apply\n" +
+        "  pnpm run db:load:kzk-decisions:pg\n" +
+        "  pnpm run kzk:rejoin --apply\n" +
         "(This is the exact condition that went unnoticed for five weeks.)",
     );
   },

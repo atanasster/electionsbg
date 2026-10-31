@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "vite-dev",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "run",
         "dev"
@@ -13,7 +13,7 @@
     },
     {
       "name": "vite-preview",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "run",
         "preview"
@@ -22,7 +22,7 @@
     },
     {
       "name": "ai-dev",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "run",
         "dev:ai"
@@ -31,11 +31,10 @@
     },
     {
       "name": "ai-preview",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "run",
         "preview:ai",
-        "--",
         "--port",
         "4180"
       ],
@@ -43,11 +42,10 @@
     },
     {
       "name": "ai-dev-5181",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "run",
         "dev:ai",
-        "--",
         "--port",
         "5181"
       ],
@@ -65,7 +63,7 @@
     },
     {
       "name": "news-dev",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "run",
         "dev:news"

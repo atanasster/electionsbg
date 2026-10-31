@@ -25,7 +25,7 @@
 //
 // Auto-skips when Postgres is down or the corpus is empty.
 //
-//   npm run test:data
+//   pnpm run test:data
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -89,9 +89,9 @@ test("every stored is_spouse re-derives from the row's own holder and declarant"
     bad.length,
     0,
     `${bad.length} of ${rows.length} asset row(s) disagree with isSpouseHolder — the fold changed and the corpus was not restamped. Run:\n` +
-      `  npx tsx scripts/declarations/backfill_asset_is_spouse.ts --apply\n` +
-      `  npm run db:load:declarations:pg\n` +
-      `  npm run db:load:declarations:pg -- --resolve\n${sample}`,
+      `  pnpm exec tsx scripts/declarations/backfill_asset_is_spouse.ts --apply\n` +
+      `  pnpm run db:load:declarations:pg\n` +
+      `  pnpm run db:load:declarations:pg --resolve\n${sample}`,
   );
 });
 

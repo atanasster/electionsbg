@@ -35,8 +35,8 @@
 // disagreement rather than voting; see resolveAnnexKey. Measured 2026-09-04: 336 synthetic
 // carriers resolve through it, against 0 before.
 //
-//   npm run db:load:annexes:pg          (needs `npm run db:pg:up`)
-//   npm run db:load:annexes:pg:cloud    (against the Cloud SQL proxy)
+//   pnpm run db:load:annexes:pg          (needs `pnpm run db:pg:up`)
+//   pnpm run db:load:annexes:pg:cloud    (against the Cloud SQL proxy)
 //
 // Both variants recompute from the LOCAL cache and COPY into whatever
 // DATABASE_URL points at — the cache is small (~26k records), so there is no
