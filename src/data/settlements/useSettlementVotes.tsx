@@ -22,6 +22,9 @@ export const useSettlementVotes = (ekatte: string) => {
   const { data: settlement } = useQuery({
     queryKey: ["settlement_votes", selected, ekatte],
     queryFn,
+    // Callers pass "" when there is no settlement (e.g. a municipality-level
+    // map), which would otherwise fetch `settlements/.json` and 404.
+    enabled: !!ekatte,
   });
 
   return {
