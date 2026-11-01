@@ -29,9 +29,9 @@
     },
     {
       "id": "unemployment_sa",
-      "value": 3.5,
+      "value": 3.4,
       "basis": {
-        "period": "2026-08",
+        "period": "2026-09",
         "frequency": "monthly",
         "unit": "pct",
         "adjustment": "seasonally_adjusted",
@@ -87,7 +87,7 @@
     },
     "procurement": {
       "tileId": "procurement",
-      "value": 94674542433,
+      "value": 94836754145,
       "unit": "eur",
       "basisKey": "home_basis_procurement_contracted_all",
       "to": "/procurement?pscope=all",
@@ -120,7 +120,7 @@
     },
     "eurostat_une_rt_m": {
       "available": true,
-      "asOf": "2026-08",
+      "asOf": "2026-09",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
       "datasetCode": "une_rt_m"
     },

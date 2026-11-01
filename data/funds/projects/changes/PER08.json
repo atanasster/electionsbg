@@ -1,25 +1,56 @@
 {
   "obshtina": "PER08",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-2288",
-      "title": "Подобряване на капацитета на семейното предприятие ВАНКООП ЕООД за предоставяне на повече услуги, свързани с развлечеиня и отдих, и повишаване качеството на предлаганите такива",
+      "contractNumber": "BG-RRP-4.034-0106",
+      "title": "Проект Брезник - Изграждане и въвеждане в експлоатация на 300 мВч ССЕЕ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 40087208.45,
+      "totalEur": 40087208.45,
+      "paidEur": 17918992.23,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ЗД Груп ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.014-0016",
+      "title": "„Внедряване на мерки за енергийна ефективност в сградите на РДПБЗН-Перник и РСПБЗН-Брезник“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2046421.42,
+      "totalEur": 2046421.42,
+      "paidEur": 716247.5,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Перник",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0370",
+      "title": "Изграждане на дигитален клуб в сградата на НЧ „Просвещение-1870г.“, гр. Брезник",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 101798.14,
-      "paidEur": 76348.61,
+      "prevTotalEur": 17383.92,
+      "totalEur": 17368.73,
+      "paidEur": 17368.73,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ванкооп ЕООД",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ Просвещение 1870",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

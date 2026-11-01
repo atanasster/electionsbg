@@ -1,39 +1,73 @@
 {
   "obshtina": "MON24",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0159",
-      "title": "Изграждане на ЛОКАЛНА СИСТЕМА ЗА СЪХРАНЕНИЕ на енергия с инсталирана мощност 1,6 MW и инсталиран капацитет 4 MWh към фотоволтаична централа в имот с идентификатор 44238.508.138 по КК на град Лом, община Лом",
+      "contractNumber": "BG-RRP-11.010-0078",
+      "title": "РЕКОНСТРУКЦИЯ НА ДОМ ЗА СТАРИ ХОРА С. ДОБРИ ДОЛ, ОБЩ ЛОМ",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1533824.51,
-      "totalEur": 1533824.51,
-      "paidEur": 664679.41,
+      "prevTotalEur": 1676571.46,
+      "totalEur": 1676571.46,
+      "paidEur": 1628429.34,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Азахар ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Община ЛОМ",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0116",
-      "title": "Изграждане на училищна STEM среда в IV ОУ „Христо Ботев“ гр. Лом",
+      "contractNumber": "BG16RFPR001-1.004-2290",
+      "title": "Подкрепа за семейно предприятие чрез инвестиции в иновативно оборудване и технологии",
       "type": "modified",
       "changedFields": [
+        "totalEur",
+        "grantEur",
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 92736.74,
-      "totalEur": 92736.74,
-      "paidEur": 92736.72,
+      "prevTotalEur": 102028.29,
+      "totalEur": 101630,
+      "paidEur": 76222.5,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "360 Консулт ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0281",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Артан Производство ООД.",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 99375.26,
+      "totalEur": 99375.26,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Четвърто основно училище \"Христо Ботев\"",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Артан Производство ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0185",
+      "title": "Позитивна сила",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 97398.65,
+      "totalEur": 97398.65,
+      "paidEur": 19479.73,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по производствени технологии",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

@@ -1,38 +1,39 @@
 {
   "obshtina": "SFO39",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0281",
-      "title": "Чиста енергия от \"ТИМ СОЛАР ЕКСПЕРТ\" ООД",
+      "contractNumber": "BG05SFPR002-1.035-0015",
+      "title": "Повишаване готовността за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 302684.8,
-      "totalEur": 302684.8,
-      "paidEur": 150733.95,
+      "prevTotalEur": 439554.27,
+      "totalEur": 439554.27,
+      "paidEur": 211237.21,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ТИМ Солар експерт ООД",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението София област\"",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0272",
-      "title": "Доставка и монтаж на Система за съхранение на енергия чрез батерии (ЛСС) с мощност от 200 KW към Фотоволтаична електрическа централа с мощност 0.5 MW на Пайп Индустриал България ООД",
+      "contractNumber": "BG16RFPR001-2.004-0296",
+      "title": "Подобряване на енергийната ефективност в ТЕРА ИНВЕСТМЪНТ ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 178440.87,
-      "totalEur": 178440.87,
-      "paidEur": 89130.95,
+      "prevTotalEur": 40333.58,
+      "totalEur": 36398.6,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Пайп индустриал българия ООД",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Тера инвестмънт ООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

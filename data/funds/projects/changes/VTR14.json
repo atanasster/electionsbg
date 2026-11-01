@@ -1,22 +1,42 @@
 {
   "obshtina": "VTR14",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.034-0110",
-      "title": "Проект Златарица - Изграждане и въвеждане в експлоатация на 20.04 мВч ССЕЕ",
+      "contractNumber": "BG-RRP-1.024-0298",
+      "title": "Изграждане на дигитален клуб в село Горско Ново село",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 2430391.01,
-      "totalEur": 2430391.01,
-      "paidEur": 1194351.52,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 14316.18,
+      "totalEur": 13306.89,
+      "paidEur": 13306.89,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЗД Груп ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Народно читалище Пробуждане 1902",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0201",
+      "title": "Изграждане на дигитален клуб в село Родина",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13173.13,
+      "paidEur": 13173.13,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Народно читалище напредък - 1912",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

@@ -1,71 +1,111 @@
 {
   "obshtina": "SZR12",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.034-0128",
-      "title": "Изграждане и въвеждане в експлоатация на съоръжения за съхранение на електроенергия от възобновяеми източници с мощност 80MW и капацитет 350MWh на равнището на електроенергийната мрежа от \"Арсенал 2000\" АД",
+      "contractNumber": "BG05SFPR002-1.004-1596",
+      "title": "Адаптирана работна среда в \"М - СТРОНГ\" ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 48850711.46,
-      "totalEur": 48850711.46,
-      "paidEur": 21473898.22,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Арсенал - 2000 АД",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 177657.52,
+      "totalEur": 153820.01,
+      "paidEur": 153820.01,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "\"М - стронг\" ЕООД",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-4.028-0046",
-      "title": "„Рехабилитация и модернизация на системите за външно изкуствено осветление на община Казанлък – Етап 2“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 964429.32,
-      "totalEur": 964429.32,
-      "paidEur": 917855.63,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.007-0001",
-      "title": "\"Гласове на промяната - грамотност, работа, достойнство\"",
+      "contractNumber": "BG16RFPR001-2.004-0095",
+      "title": "Подобряване на енергийната ефективност на \"КРЕС-Д\" ЕООД",
       "type": "modified",
       "changedFields": [
         "durationMonths"
       ],
-      "prevTotalEur": 169772.62,
-      "totalEur": 169772.62,
-      "paidEur": 33954.53,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище \"Свети Свети Кирил и Методий\"",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0626",
-      "title": "Енергийна ефективност в М-Маш ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 78318.27,
-      "totalEur": 76621.59,
+      "prevTotalEur": 69719,
+      "totalEur": 69719,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "М-Маш ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "КРЕС-Д ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.012-0242",
+      "title": "Устойчива заетост и социално включване на хора в неравностойно положение",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 54999.72,
+      "totalEur": 54999.72,
+      "paidEur": 50547.61,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Работилничка \"Бисквитките\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0055",
+      "title": "\"Изграждане на дигитален клуб в гр.Казанлък\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23519.43,
+      "totalEur": 22471.25,
+      "paidEur": 22471.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Синдикален Регионален съюз на Конфедерация по труда \"Подкрепа\" - Казанлък",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0317",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ОСВОБОЖДЕНИЕ - 1884\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 13318.63,
+      "paidEur": 13318.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Освобождение - 1884\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1092",
+      "title": "Изграждане на дигитален клуб в Народно читалище ЖАР 2002 в гр. Казанлък",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23519.41,
+      "totalEur": 11604.21,
+      "paidEur": 11604.21,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ЖАР 2002",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

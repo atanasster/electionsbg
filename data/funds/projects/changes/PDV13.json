@@ -1,56 +1,42 @@
 {
   "obshtina": "PDV13",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.028-0003",
-      "title": "“Подобряване на енергийната ефективност на населените места на територията на Община Карлово чрез обновяване на системата за улично осветление.“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1021356.66,
-      "totalEur": 1021356.66,
-      "paidEur": 255000,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Карлово",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0050",
-      "title": "Изграждане на локално съоръжение за съхранение на ел.енергия с инсталирана мощност от 200kW към съществуваща ФЕЦ 450 kW, въведена в експлоатация през 2023г.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 60230.18,
-      "totalEur": 60230.18,
-      "paidEur": 25351.07,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕКО Интер енерджи ООД",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG16FFPR003-2.005-0020",
-      "title": "Техническа подкрепа за изпълнение на ИТИ инструмента на Община Карлово",
+      "contractNumber": "BG16RFPR001-1.001-0053",
+      "title": "Разработване на иновация в Екзалто ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 30636.61,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Карлово",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 212186.13,
+      "totalEur": 211620.16,
+      "paidEur": 126972.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Екзалто ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0901",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 17608.38,
+      "totalEur": 17608.38,
+      "paidEur": 12325.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Цилков ООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

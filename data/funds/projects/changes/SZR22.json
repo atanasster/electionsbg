@@ -1,54 +1,42 @@
 {
   "obshtina": "SZR22",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.014-0082",
-      "title": "\"Подобряване на енергийната ефективност на три сгради на територията на община Мъглиж\"",
+      "contractNumber": "BG-RRP-1.024-1217",
+      "title": "Изграждане на мрежа от дигитални клубове в Народно читалище ''ПРОСВЕТА - 1929 Г.'' , село Юлиево, община Мъглиж.",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 5089874.06,
-      "totalEur": 5089874.06,
-      "paidEur": 1773469.26,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Мъглиж",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.014-0081",
-      "title": "\"Подобряване на енергийната ефективност на три сгради на територията на община Мъглиж\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 4349580.74,
-      "totalEur": 4349580.74,
-      "paidEur": 1521124.09,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Мъглиж",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0021",
-      "title": "Производство на електроенергия от възобновяеми източници и съхранение наелектроенергия с инсталирана мощност 1,196 MW",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 263482.5,
-      "totalEur": 263482.5,
-      "paidEur": 130989.56,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 14214.73,
+      "totalEur": 11788.54,
+      "paidEur": 11788.54,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сънбит ООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Народно читалище ''Просвета - 1929 г.'' , село Юлиево, община Мъглиж.",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0410",
+      "title": "Изграждане на дигитален клуб в НЧ НАУКА - 1905",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 9736.18,
+      "paidEur": 9736.18,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Наука - 1905\" НЧ",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

@@ -1,24 +1,92 @@
 {
   "obshtina": "KRZ16",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-0427",
-      "title": "Изграждане на училищна STEM среда и ВОСКС в ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО ТУРИЗЪМ\"ПРОФ. Д-Р АСЕН ЗЛАТАРОВ\"",
+      "contractNumber": "BG05SFPR002-1.004-2413",
+      "title": "Постигане на адаптирана работна среда в \"Крон Секюрити\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 149684.09,
+      "totalEur": 149684.09,
+      "paidEur": 71806.82,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Крон секюрити ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0330",
+      "title": "Технологична модернизация за осигуряване на устойчива пазарна конкурентоспособност на Рекламно студио ГАРС",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 128533.79,
-      "totalEur": 251390.25,
-      "paidEur": 128533.79,
+      "prevTotalEur": 101951.6,
+      "totalEur": 101832.04,
+      "paidEur": 76374.03,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Гарс ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1619",
+      "title": "Подобряване на производствения капацитет в ДЖИ ГЛОБАЛ МАРКЕТИНГ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 77409.59,
+      "totalEur": 76642.28,
+      "paidEur": 57481.71,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДЖИ Глобал маркетинг ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0743",
+      "title": "Здравословната и безопасна работна среда в МБАЛ - Д-р Ат. Дафовски АД за осигуряване на качествени работни места",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 76524.81,
+      "totalEur": 76524.81,
+      "paidEur": 48046.94,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по ТУРИЗЪМ\"ПРОФ. Д-Р асен Златаров\"",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Многопрофилна болница за активно лечение - Д-Р атанас Дафовски АД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1091",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 31260.38,
+      "totalEur": 31260.38,
+      "paidEur": 12482.99,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Елистайл ЕООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

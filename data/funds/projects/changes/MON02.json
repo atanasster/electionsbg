@@ -1,26 +1,26 @@
 {
   "obshtina": "MON02",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG06RDNP001-4.001-0043",
-      "title": "“Изграждане на предприятие за обработка и пакетиране на плодове“",
+      "contractNumber": "BG05SFPR001-1.004-0062",
+      "title": "Учим и се забавляваме ЗАЕДНО!",
       "type": "modified",
       "changedFields": [
-        "totalEur"
+        "paidEur"
       ],
-      "prevTotalEur": 1985564.45,
-      "totalEur": 1985564.44,
-      "paidEur": 497349.78,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "КОМ Агро ООД",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 235622.72,
+      "totalEur": 235622.72,
+      "paidEur": 137813.45,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Берковица",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2013",
-      "title": "Подкрепа за повишаване на производствения капацитет на \"Поликарт\" ООД",
+      "contractNumber": "BG16RFPR001-1.004-1291",
+      "title": "Подобряване на производствения капацитет на \"Пласт Комерс - 93\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -28,14 +28,30 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 102094.76,
-      "totalEur": 101500,
-      "paidEur": 76125,
+      "prevTotalEur": 100878.91,
+      "totalEur": 100681.04,
+      "paidEur": 75510.78,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Поликарт ООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Пласт комерс - 93 ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1561",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 20304.93,
+      "totalEur": 20304.93,
+      "paidEur": 5997.76,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АЕС-Л ООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

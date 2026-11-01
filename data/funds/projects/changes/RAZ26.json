@@ -1,25 +1,93 @@
 {
   "obshtina": "RAZ26",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-1467",
-      "title": "Подобряване на производствения капацитет и ефективността на процесите в ЙОТОВ ООД",
+      "contractNumber": "BG-RRP-13.009-0031",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в шест социални услуги на територията на община Разград, делегирана от държавата дейност и закупуване на електрически автомобил, включително и зарядна станция за една социална услуга от държавата дейност.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 295237.83,
+      "totalEur": 281643.74,
+      "paidEur": 281643.74,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Разград",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.035-0004",
+      "title": "Повишаване готовността на област Разград за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 112227.88,
+      "totalEur": 112227.88,
+      "paidEur": 72621.15,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Разград",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1567",
+      "title": "Подобряване на енергийната ефективност в Иноксис ООД",
+      "type": "modified",
+      "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 101593.36,
-      "totalEur": 101501.89,
-      "paidEur": 76126.42,
+      "prevTotalEur": 67561.76,
+      "totalEur": 67561.76,
+      "paidEur": 33780.88,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Йотов ООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Иноксис ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0009",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станции за нуждите на социалните услуги на територията на община Разград.\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 46538.28,
+      "paidEur": 46538.28,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Разград",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0748",
+      "title": "Изграждане на дигитален клуб в село Ушинци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13284.24,
+      "paidEur": 13284.24,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"НОВ Живот - 1909г\"",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

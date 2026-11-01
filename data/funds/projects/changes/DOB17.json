@@ -1,0 +1,41 @@
+{
+  "obshtina": "DOB17",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR001-1.004-0028",
+      "title": "\"Обединени Жънем успехи\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 220838.45,
+      "totalEur": 220838.45,
+      "paidEur": 110638.22,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Град добрич",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1958",
+      "title": "Повишаване капацитета на Краштим ЕООД, гр. Каварна",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 72282.87,
+      "totalEur": 65991.69,
+      "paidEur": 49493.77,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Краштим ЕООД",
+      "detectedAt": "2026-11-01"
+    }
+  ]
+}

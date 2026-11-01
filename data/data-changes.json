@@ -1,6 +1,96 @@
 {
-  "updatedAt": "2026-10-27T19:48:45.215Z",
+  "updatedAt": "2026-11-01T01:39:28.821Z",
   "entries": [
+    {
+      "timestamp": "2026-11-01T01:39:28.821Z",
+      "date": "2026-11-01",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 918 лица, 125 106 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-11-01T01:36:19.185Z",
+      "date": "2026-11-01",
+      "skill": "update-local-elections",
+      "summary": "Частични избори 18.10.2026: балотажи (Яворово, Рудник, Малорад) и точна активност за 14 избора",
+      "source": "ЦИК (results.cik.bg)"
+    },
+    {
+      "timestamp": "2026-11-01T01:32:32.851Z",
+      "date": "2026-11-01",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-10-31 (+5 daily archives; 1,110,724 store rows, 167 settlements, 65 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-10-31"
+    },
+    {
+      "timestamp": "2026-11-01T01:19:27.042Z",
+      "date": "2026-11-01",
+      "skill": "update-council-minutes",
+      "summary": "+29 council resolutions (Димитровград +24, Перник +5); 5,546 total",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-01T01:07:23.169Z",
+      "date": "2026-11-01",
+      "skill": "update-rollcall",
+      "summary": "1 new session through 2026-10-28 (641 plenary days)",
+      "source": "parliament.bg roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-01T00:56:28.301Z",
+      "date": "2026-11-01",
+      "skill": "update-macro",
+      "summary": "Eurostat sts_inpr_q/sts_trtu_m release: industrial production + retail volume through 2026 Q2; peers refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-01T00:51:15.221Z",
+      "date": "2026-11-01",
+      "skill": "update-funds",
+      "summary": "ИСУН 53,163 beneficiaries / 83,092 contracts; clean-delivery 10,107 contracts; Interreg 2,040 operations",
+      "source": "ИСУН 2020 / keep.eu"
+    },
+    {
+      "timestamp": "2026-10-31T23:44:43.538Z",
+      "date": "2026-10-31",
+      "skill": "kzk_decisions",
+      "summary": "КЗК decisions register refreshed: 35 acts for 2026; outcomes 3,155",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-10-31T23:44:43.063Z",
+      "date": "2026-10-31",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: 40 complaints for 2026",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-10-31T23:41:42.735Z",
+      "date": "2026-10-31",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП self-heal +704 rows through 2026-10-30; TED 223,252 notices; АДФИ 2,163 inspections; db:refresh reloaded",
+      "source": "ЦАИС ЕОП open data / TED / АДФИ"
+    },
+    {
+      "timestamp": "2026-10-31T23:25:41.255Z",
+      "date": "2026-10-31",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 916 лица, 125 105 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-10-27T19:48:45.215Z",
       "date": "2026-10-27",

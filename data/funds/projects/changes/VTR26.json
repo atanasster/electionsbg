@@ -1,22 +1,60 @@
 {
   "obshtina": "VTR26",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0141",
-      "title": "„Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в обект ФЕЦ Полски Тръмбеш 2127 - 3,2 MW в Солар 03 ЕООД“",
+      "contractNumber": "BG-RRP-1.024-0392",
+      "title": "Дигитален клуб Читалище Полски Тръмбеш",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1131748.93,
-      "totalEur": 1131748.93,
-      "paidEur": 546692.92,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 17258.15,
+      "totalEur": 17247.98,
+      "paidEur": 17247.98,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Солар 03 ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Народно читалище \"Отец Паисий 1905\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0702",
+      "title": "Изграждане на дигитален клуб в село Раданово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 15387.09,
+      "paidEur": 15387.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина 1883",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0595",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Съединение 1885\" село Климентово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13585.34,
+      "totalEur": 13564.39,
+      "paidEur": 13564.38,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Съединение 1885\"",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

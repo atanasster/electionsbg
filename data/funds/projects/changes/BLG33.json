@@ -1,72 +1,60 @@
 {
   "obshtina": "BLG33",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0124",
-      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия, в обект в с. Марикостиново с инвеститор \"ЕКО ВАТ 08\" ООД",
+      "contractNumber": "BG16RFPR001-2.004-1758",
+      "title": "Енергийна ефективност в РЪЖДАНОВ ТРЕЙД.",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 530209.68,
-      "totalEur": 530209.68,
-      "paidEur": 205305.86,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕКО ВАТ 08 ООД",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0129",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия с инсталирана мощност от 0.40 MW в \"МОНОЛИТ-21 - АНДОНОВ И ЗАХОВ\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 265871.78,
-      "totalEur": 265871.78,
-      "paidEur": 132036.02,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "МОНОЛИТ-21 - Андонов и Захов ООД",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0907",
-      "title": "Подобряване на енергийната ефективност на производството на \"ФЛЕЙМ ТРЕЙД\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 74304.95,
-      "totalEur": 74304.95,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 67070.34,
+      "totalEur": 67070.34,
+      "paidEur": 33535.17,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Флейм трейд\" ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Ръжданов трейд ЕООД",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0616",
-      "title": "Подкрепа за увеличаване на възможностите за производство и развитие на семейно предприятие САКИС 78",
+      "contractNumber": "BG16RFPR001-1.004-2298",
+      "title": "Подобряване и разнообразяване на предлаганите услуги в хотел Мантар",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 47737.79,
+      "totalEur": 46249.6,
+      "paidEur": 34687.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Мантар - 2012 ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2551",
+      "title": "Подобряване на конкурентоспособността на АБ Бизнес Консултинг ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 75717.21,
+      "prevTotalEur": 89744.12,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сакис 78 ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "АБ Бизнес Консултинг ООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

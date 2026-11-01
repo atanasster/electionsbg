@@ -1,6 +1,6 @@
 {
   "obshtina": "VRC27",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-11.010-0028",
@@ -11,12 +11,137 @@
       ],
       "prevTotalEur": 820343.05,
       "totalEur": 820343.05,
-      "paidEur": 698645.5,
+      "paidEur": 820343.05,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Мездра",
-      "detectedAt": "2026-10-24"
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.035-0026",
+      "title": "Повишаване готовността на област Враца за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 233903.56,
+      "totalEur": 233903.56,
+      "paidEur": 145508.98,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" Враца",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0536",
+      "title": "Адаптирана работна среда 2023",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 181283.96,
+      "totalEur": 172203.02,
+      "paidEur": 172203.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ИНЕРТСТРОЙ-КАЛЕТО АД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0036",
+      "title": "Изграждане на дигитален клуб Народно Читалище Просвета 1925- Мездра",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 20451.68,
+      "totalEur": 18501.45,
+      "paidEur": 18501.45,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище просвета 1925 - мездра",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0207",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1923-БОДЕНЕЦ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13472.78,
+      "paidEur": 13472.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ПРОСВЕТА-1923-БОДЕНЕЦ",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0056",
+      "title": "Изхраждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ СВЕТЛИНА 1926 - с. МОРАВИЦА 000184917",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13302.98,
+      "paidEur": 13302.98,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина 1926 - с. Моравица 000184917",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0093",
+      "title": "Изграждане на дигитален клуб в \"НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1897\" с.Долна Кремена",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12363.19,
+      "paidEur": 12363.19,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народно читалище ПРОСВЕТА-1897\" с.Долна Кремена",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0040",
+      "title": "Изграждане на дигитален клуб в \"НАРОДНО ЧИТАЛИЩЕ ПОДЕМ-РУСКА БЕЛА 1928\" с. Руска Бела",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 10260.68,
+      "paidEur": 10260.68,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народно читалище ПОДЕМ-РУСКА бела 1928\" с. Руска Бела",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

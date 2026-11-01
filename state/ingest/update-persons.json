@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-10-27T00:21:48.148Z",
+  "lastSuccessfulIngest": "2026-11-01T01:45:27.574Z",
   "skill": "update-persons",
-  "summary": "db:resolve:persons: 64916 persons, 125105 roles (+29098 tr bridge-B), +71351 tier-V private owners minted; 23798 mention(s) keyed by the register person id (1052 aliased to an MP id); 77038 aliases (136 dup folds collapsed); 3417 review group(s) over 12623 person(s); 0 slug(s) retired to a redirect; 0 dead slug(s) with no redirect; 2 human override(s) applied (0 fold-merge, 2 ref-merge, 0 fold-split, 0 ref-split). person-elections load runs separately."
+  "summary": "local re-resolve: 64,918 persons + 71,572 tier-V owners; 0/61,743 filings unattributed; council votes 94.1% attributed; graph 208,805 edges"
 }

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-26T23:59:59.999Z",
+  "computedAt": "2026-11-01T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
+      "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-26T00:00:00.000Z",
-      "firstSeenAt": "2026-10-26T00:00:00.000Z",
+      "occurredAt": "2026-10-31T00:00:00.000Z",
+      "firstSeenAt": "2026-10-31T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,27 +22,27 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/limoni",
+      "route": "/product/byalo-zele",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЛИМОНИ",
-        "pct": 60,
-        "promoEur": "0.79",
-        "regularEur": "1.99",
+        "title": "БЯЛО ЗЕЛЕ",
+        "pct": 61,
+        "promoEur": "0.39",
+        "regularEur": "0.99",
         "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8571428571428571,
+      "materiality": 0.8714285714285714,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:1kg-kafe-edusho-krema-strong-za",
+      "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-26T00:00:00.000Z",
-      "firstSeenAt": "2026-10-26T00:00:00.000Z",
+      "occurredAt": "2026-10-31T00:00:00.000Z",
+      "firstSeenAt": "2026-10-31T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -55,27 +55,27 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/1kg-kafe-edusho-krema-strong-za",
+      "route": "/product/shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "1КГ КАФЕ ЕДУШО КРЕМА СТРОНГ ЗЪ",
-        "pct": 48,
-        "promoEur": "12.98",
-        "regularEur": "24.77",
+        "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+        "pct": 57,
+        "promoEur": "0.79",
+        "regularEur": "1.82",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.6857142857142857,
+      "materiality": 0.8142857142857143,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-10-21",
+      "id": "parliament:sitting:2026-10-28",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-10-21T00:00:00.000Z",
-      "firstSeenAt": "2026-10-21T00:00:00.000Z",
+      "occurredAt": "2026-10-28T00:00:00.000Z",
+      "firstSeenAt": "2026-10-28T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -87,11 +87,11 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-10-21",
+      "route": "/votes/2026-10-28",
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 2,
-        "sittings": 11,
+        "sittings": 9,
         "windowDays": 30
       },
       "backfill": false,
@@ -101,15 +101,15 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r392",
+      "id": "council:resolution:HKV09-2026-prot41-r908",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "PDV01"
+        "id": "HKV09"
       },
       "source": {
         "id": "council_minutes",
@@ -119,16 +119,48 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/PDV01-2026-prot16-r392",
+      "route": "/council/resolution/HKV09-2026-prot41-r908",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Определяне на участник, спечелил публично оповестен конкурс за отдаване под наем на част от недвижим имот – публична общ",
-        "council": "PDV01",
-        "number": "392"
+        "title": "Създаване на временна комисия за провеждане на тайно гласуване за удостояване с отличие „ Почетен знак на община Димитро",
+        "council": "HKV09",
+        "number": "908"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.2,
+      "materiality": 0.52,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r886",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r886",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Допълнение към програмата за управление и разпореждане с общинска собственост за 2026 г",
+        "council": "HKV09",
+        "number": "886"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
       "actionability": 0.3
     },
     {
@@ -165,43 +197,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:aab2f9c6-fb6f-46e4-b267-d1cf30109b77",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-10-02T15:00:00.000Z",
-      "deadlineAt": "2026-11-02T21:59:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/aab2f9c6-fb6f-46e4-b267-d1cf30109b77"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Процедура №2 „Специфична цел 1 „Обща европейска система за убежище“ и Специфична цел 3 \"Връщане\"",
-        "programme": "Програма на Република България по фонд „Убежище, миграция и интеграция“"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:pryasno-mlyako-bozhentsi-3-6-1l",
+      "id": "prices:promotion:400ml-sh-n-schauma-men",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-10-26T00:00:00.000Z",
-      "firstSeenAt": "2026-10-26T00:00:00.000Z",
+      "occurredAt": "2026-10-31T00:00:00.000Z",
+      "firstSeenAt": "2026-10-31T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -214,14 +214,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/pryasno-mlyako-bozhentsi-3-6-1l",
+      "route": "/product/400ml-sh-n-schauma-men",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ПРЯСНО МЛЯКО БОЖЕНЦИ 3.6% 1Л.",
+        "title": "400МЛ Ш-Н SCHAUMA MEN",
         "pct": 48,
-        "promoEur": "0.99",
-        "regularEur": "1.89",
-        "chains": 3
+        "promoEur": "1.99",
+        "regularEur": "3.81",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
@@ -230,11 +230,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-10-26",
+      "id": "prices:basket_moved:2026-10-29",
       "kind": "basket_moved",
       "category": "prices",
-      "occurredAt": "2026-10-26T00:00:00.000Z",
-      "firstSeenAt": "2026-10-26T00:00:00.000Z",
+      "occurredAt": "2026-10-29T00:00:00.000Z",
+      "firstSeenAt": "2026-10-29T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -250,13 +250,13 @@
       "route": "/consumption",
       "factKey": "home_fact_basket_up",
       "factArgs": {
-        "pct": "2.1",
-        "costEur": "15.43",
+        "pct": "2.8",
+        "costEur": "15.51",
         "days": 7
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.527,
+      "materiality": 0.69575,
       "actionability": 0.5
     },
     {
@@ -322,6 +322,326 @@
     },
     {
       "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r887",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r887",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Продажба на недвижими имоти, общинска собственост, в община Димитровград, по реда на чл. 35 от ЗОС Гергана Кръстева: Изк",
+        "council": "HKV09",
+        "number": "887"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r888",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r888",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Етични правила за осъществяване на представителство на интереси пред председателя на Общински съвет – Димитр",
+        "council": "HKV09",
+        "number": "888"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r889",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r889",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Етични правила за осъществяване на представителство на интереси пред председателя на Общински съвет – Димитр",
+        "council": "HKV09",
+        "number": "889"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r890",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r890",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Етични правила за осъществяване на представителство на интереси пред председателя на Общински съвет – Димитр",
+        "council": "HKV09",
+        "number": "890"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r891",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r891",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Правилник за изменение и допълнение на Правилника за организацията и дейността на Общински съвет – Димитровг",
+        "council": "HKV09",
+        "number": "891"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r892",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r892",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Приемане на Правилник за изменение и допълнение на Правилника за организацията и дейността на Общински съвет – Димитровг",
+        "council": "HKV09",
+        "number": "892"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r895",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r895",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Отпускане на стипендии и финансово стимулиране на деца и младежи с доказани постижения в община Димитровград за 2026 год",
+        "council": "HKV09",
+        "number": "895"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r896",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r896",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Финансово подпомагане на лица, двойки във фактическо съжителство и семейства, с репродуктивни проблеми от община Димитро",
+        "council": "HKV09",
+        "number": "896"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r898",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r898",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Предоставяне на помещение на политическа партия БСП Димитровград",
+        "council": "HKV09",
+        "number": "898"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:HKV09-2026-prot41-r902",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-10-27T00:00:00.000Z",
+      "firstSeenAt": "2026-10-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "HKV09"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/HKV09-2026-prot41-r902",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Даване на съгласие за изработване на проект за изменение на Подробен устройствен план – план за регулация и застрояване ",
+        "council": "HKV09",
+        "number": "902"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.5,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
       "id": "prices:basket_moved:2026-10-18",
       "kind": "basket_moved",
       "category": "prices",
@@ -353,134 +673,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:e6e406b1-1175-47b1-81c3-59a38e0f82a8",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-10-02T15:00:00.000Z",
-      "deadlineAt": "2026-11-02T15:30:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/e6e406b1-1175-47b1-81c3-59a38e0f82a8"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Процедура № 4, Специфична цел 4 „Солидарност“",
-        "programme": "Програма на Република България по фонд „Убежище, миграция и интеграция“"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:fa86bbdc-9ed8-4608-920a-2c53ea413e61",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-10-02T15:00:00.000Z",
-      "deadlineAt": "2026-11-02T15:30:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/fa86bbdc-9ed8-4608-920a-2c53ea413e61"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Процедура № 5, Специфична цел 4 „Солидарност“",
-        "programme": "Програма на Република България по фонд „Убежище, миграция и интеграция“"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:1007fb47-81e2-485d-af52-b7525f4817cf",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-10-02T14:00:00.000Z",
-      "deadlineAt": "2026-12-31T15:00:00.000Z",
-      "firstSeenAt": "2026-10-02T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/1007fb47-81e2-485d-af52-b7525f4817cf"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Специфично оборудване на риболовния кораб, дейности и иновации, целящи опазването на околната среда и на биоразнообразие",
-        "programme": "Програма за морско дело, рибарство и аквакултури 2021-2027 г."
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:15f1ce8e-0ff6-423a-80a4-7d4ca8d8d28a",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-09-30T11:00:00.000Z",
-      "deadlineAt": "2026-12-30T15:00:00.000Z",
-      "firstSeenAt": "2026-09-30T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/15f1ce8e-0ff6-423a-80a4-7d4ca8d8d28a"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Подкрепа за интегриран градски транспорт и устойчива градска мобилност на Столична община",
-        "programme": "Програма \"Развитие на регионите\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:basket_moved:2026-10-04",
       "kind": "basket_moved",
       "category": "prices",
@@ -509,389 +701,6 @@
       "verification": "automatic",
       "materiality": 0.5165,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r393",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r393",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Изпълнение за 2026 година на Подпрограма „Подкрепа за формиране на дуални паралелки в общински и държавни образователни ",
-        "council": "PDV01",
-        "number": "393"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r394",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r394",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Приемане на Наредба за изменение и допълнение на Наредбата за осигуряване на обществения ред ПО ПРЕДЛОЖЕНИЕ НА: Ангел Сл",
-        "council": "PDV01",
-        "number": "394"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r395",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r395",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Одобряване отпускане на временен безлихвен заем в размер на 350 000 /триста и петдесет хиляди/ евро от бюджета на Община",
-        "council": "PDV01",
-        "number": "395"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r396",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r396",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Предоставяне на временен безлихвен заем в размер на 145 000 евро (сто четиридесет и пет хиляди евро) от бюджета на общин",
-        "council": "PDV01",
-        "number": "396"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r397",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r397",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за учредяване безвъзмездно право на ползване, за срок от 10 години върху недвижим имот – частна общин",
-        "council": "PDV01",
-        "number": "397"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r398",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r398",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за замяна на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Тракия”, б",
-        "council": "PDV01",
-        "number": "398"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r399",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r399",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за замяна на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Тракия”, б",
-        "council": "PDV01",
-        "number": "399"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r400",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r400",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за замяна на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Тракия”, б",
-        "council": "PDV01",
-        "number": "400"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r401",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r401",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Западен”",
-        "council": "PDV01",
-        "number": "401"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r402",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r402",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, ЖР „Тракия“, бл",
-        "council": "PDV01",
-        "number": "402"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot16-r403",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-10-15T00:00:00.000Z",
-      "firstSeenAt": "2026-10-15T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot16-r403",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Източен”",
-        "council": "PDV01",
-        "number": "403"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "debt:domestic_auction:BG-2026-09-28-119",
-      "kind": "debt_auction",
-      "category": "budget_debt",
-      "occurredAt": "2026-09-28T00:00:00.000Z",
-      "firstSeenAt": "2026-09-28T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "bnb_auctions",
-        "labelKey": "home_source_bnb"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators/fiscal",
-      "factKey": "home_fact_debt_auction_yield",
-      "factArgs": {
-        "millions": 150,
-        "currency": "EUR",
-        "years": 5,
-        "yieldPct": "4.02"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7263256490977231,
-      "actionability": 0.2
     }
   ],
   "sourceCoverage": {
@@ -903,7 +712,7 @@
     },
     "council": {
       "available": true,
-      "asOf": "2026-10-15",
+      "asOf": "2026-10-27",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -930,20 +739,20 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-09-24",
-      "observedAt": "2026-10-22",
+      "observedAt": "2026-11-01",
       "staleAfterDays": 45,
       "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-10-21",
+      "asOf": "2026-10-28",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-10-26",
-      "observedAt": "2026-10-26",
+      "asOf": "2026-10-31",
+      "observedAt": "2026-10-31",
       "staleAfterDays": 5,
       "stale": false
     }

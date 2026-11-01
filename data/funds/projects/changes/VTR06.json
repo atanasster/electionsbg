@@ -1,57 +1,96 @@
 {
   "obshtina": "VTR06",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0046",
-      "title": "Комбиниран проект за изграждане на локална система за съхранение(ЛСС) на енергия с инсталирана мощност от 400 kW и минимален капацитет от 1016 kWh заедно с новa мощност за производство на електрическа енергия от ФвЕЦ с номинална генераторна АС мощност от 1150 kW, находящи се в УПИ I - за фотоволтаични съоръжения в кв.43 по плана на, с.Писарево, община Горна Оряховица",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 278654.08,
-      "totalEur": 278654.08,
-      "paidEur": 82746.4,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "АЙ БИ ЕН Енерджи ЕООД",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2319",
-      "title": "Адаптирана работна среда в \"Каменица\" АД",
-      "type": "modified",
-      "changedFields": [
-        "grantEur"
-      ],
-      "prevTotalEur": 126475.97,
-      "totalEur": 126475.97,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Каменица АД",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2742",
-      "title": "Подобряване на производствения капацитет във ЖАНА И СИЕ - НИКОЛАЙ НИКОЛАЕВ ЕТ",
+      "contractNumber": "BG-RRP-1.024-1308",
+      "title": "Изграждане на дигитален клуб в гр. Горна Оряховица",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 41869.69,
-      "totalEur": 41829,
-      "paidEur": 31371.76,
+      "prevTotalEur": 23519.43,
+      "totalEur": 21234.59,
+      "paidEur": 21234.59,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕТ Жана и СИЕ - николай Николаев",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда - 1904\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0978",
+      "title": "Изграждане на дигитален клуб в ИВАН ВАЗОВ - 1893 в с. Първомайци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 16747.58,
+      "paidEur": 16747.58,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Иван Вазов - 1893",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1100",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"СЪЕДИНЕНИЕ - 1888\" в гр./с. Драганово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 13742.27,
+      "paidEur": 13742.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Съединение - 1888\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0955",
+      "title": "Дигитален клуб Върбица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12889.65,
+      "paidEur": 12889.65,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ,,Градина- Върбица 1894''",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1342",
+      "title": "Изграждане на дигитален клуб в село Горски долен Тръмбеш",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 6559.62,
+      "paidEur": 6559.62,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Наука и труд 1914",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

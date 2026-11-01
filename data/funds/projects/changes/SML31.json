@@ -1,6 +1,6 @@
 {
   "obshtina": "SML31",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-11.010-0061",
@@ -11,45 +11,46 @@
       ],
       "prevTotalEur": 3079267.57,
       "totalEur": 3079267.57,
-      "paidEur": 2702572.96,
+      "paidEur": 3079267.59,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-10-24"
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG05SFPR003-1.001-0237",
-      "title": "Топъл обяд в община Смолян",
+      "contractNumber": "BG16RFPR001-1.012-0260",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 33932.9,
+      "totalEur": 33932.9,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ВМ Комфорт ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0557",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"Проф. д-р Асен Златаров 1927\" - с. Смилян в с. Смилян",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 466913.11,
-      "totalEur": 468421.33,
-      "paidEur": 341289.66,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2319",
-      "title": "Адаптирана работна среда в \"Каменица\" АД",
-      "type": "modified",
-      "changedFields": [
-        "grantEur"
-      ],
-      "prevTotalEur": 126475.97,
-      "totalEur": 126475.97,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Каменица АД",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 17537.31,
+      "totalEur": 17322.08,
+      "paidEur": 17322.08,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Проф. д-р Асен Златаров 1927\" - с. Смилян",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

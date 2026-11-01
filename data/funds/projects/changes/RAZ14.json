@@ -1,40 +1,71 @@
 {
   "obshtina": "RAZ14",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG06AFSP001-1.001-0021",
-      "title": "\"Прилагане на Стратегия за Водено от общностите местно развитие за периода 2023 - 2027 г. на територията на МИГ Исперих\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 749988.5,
-      "totalEur": 749988.5,
-      "paidEur": 83301.18,
+      "contractNumber": "BG05SFPR002-2.016-0019",
+      "title": "\"Социално включване и равни възможности за уязвими и маргинализирани групи в община Исперих\"",
+      "type": "new",
+      "totalEur": 421159.01,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2023BG06AFSP001",
-      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "СНЦ \"Местна инициативна група - Исперих\"",
-      "detectedAt": "2026-10-24"
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0842",
-      "title": "Изграждане на дигитален клуб в \"Народно Читалище \"ПРОСВЕТА 1942\"\" в с. Райнино",
+      "contractNumber": "BG16RFPR001-2.004-0352",
+      "title": "Изграждане на фотоволтаична инсталация за повишаване на енергийната ефективност на КИМАЯ ШРИ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 104578.49,
+      "totalEur": 104578.49,
+      "paidEur": 51034.3,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Кимая ШРИ ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0738",
+      "title": "Дигитален Клуб Народно Читалище \"Пробуда -1927\" с. Китанчево",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 11802.25,
-      "paidEur": 12924.73,
+      "prevTotalEur": 17381.88,
+      "totalEur": 9515.1,
+      "paidEur": 9515.1,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Просвета 1942\"",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Народно Читалище \"Пробуда -1927\" с. Китанчево",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0869",
+      "title": "Дигитален клуб - Народно Читалище \"Пробуда 1929\" с. Свещари",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14314.14,
+      "totalEur": 7945.63,
+      "paidEur": 7945.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Пробуда 1929\" с. Свещари",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

@@ -1,42 +1,111 @@
 {
   "obshtina": "LOV34",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0189",
+      "title": "Топъл обяд в Община Троян",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 291484,
+      "totalEur": 355762.9,
+      "paidEur": 261545.33,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Троян",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0090",
+      "title": "Гарантиране здравето и безопасността на заетите в АС - ДС ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 190729.42,
+      "totalEur": 190729.42,
+      "paidEur": 190729.42,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "АС - ДС ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2445",
+      "title": "Повишаване на производствения капацитет на Био Планет България ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258,
+      "paidEur": 76693.5,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "БИО Планет българия ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1976",
+      "title": "Подобряване на производствения капацитет на \"Ава Вижън\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 102257.4,
+      "paidEur": 76693.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АВА Вижън ЕООД",
+      "detectedAt": "2026-11-01"
+    },
     {
       "contractNumber": "BG16RFPR001-1.004-2166",
       "title": "Подкрепа за повишаване на производствения капацитет на \"РАДИЛИНА 2020\" ЕООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 30581.39,
+      "prevTotalEur": 30567.68,
       "totalEur": 30567.68,
-      "paidEur": 10887.69,
+      "paidEur": 22925.79,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
       "beneficiaryName": "Радилина 2020 ЕООД",
-      "detectedAt": "2026-10-24"
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1145",
-      "title": "\"Изграждане на дигитален клуб в гр. Троян\"",
+      "contractNumber": "BG16RFPR001-1.012-0283",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 20422.53,
-      "totalEur": 20256.68,
-      "paidEur": 20256.68,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Наука - 1870 Г.\" гр. Троян",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 23442.73,
+      "totalEur": 6705.59,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "П консултинг ЕООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

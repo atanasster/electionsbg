@@ -1,24 +1,30 @@
 {
   "obshtina": "RSE13",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0123",
-      "title": "Дигиталеният клуб на с. Иваново, община Иваново",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14158.18,
-      "totalEur": 10962.6,
-      "paidEur": 10962.6,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Народно читалище христо Ботев 1925\" НЧ",
-      "detectedAt": "2026-10-24"
+      "contractNumber": "BG05SFPR002-2.016-0033",
+      "title": "Подкрепа за уязвими и маргинализирани общности в община Иваново",
+      "type": "new",
+      "totalEur": 299997.18,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Иваново",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.015-0003",
+      "title": "Интеграция и Социализация",
+      "type": "new",
+      "totalEur": 76199.76,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Сдружение \"Развитие на социалния капитал\"",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

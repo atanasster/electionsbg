@@ -1,108 +1,66 @@
 {
   "obshtina": "HKV09",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.036-0038",
-      "title": "Изграждане и въвеждане в експлоатация на ССЕЕ от Болкан Пауър Систем",
+      "contractNumber": "BG16FFPR003-4.011-0083",
+      "title": "Изграждане на фотоволтаична система в СИМАТ АД",
+      "type": "new",
+      "totalEur": 1497298.37,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Симат АД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.035-0006",
+      "title": "Повишаване на готовността на област Хасково за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 43057520,
-      "totalEur": 43057520,
-      "paidEur": 8986633,
+      "prevTotalEur": 211398.41,
+      "totalEur": 211398.41,
+      "paidEur": 113194.68,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Болкан Пауър Систем\" ЕООД",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Хасково",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0006",
-      "title": "Комбиниран проект за изграждане на локално съоръжение за съхранение (ЛСС) на електрическа енергия с инсталирана мощност от 0.4 МW и минимален капацитет 0.86 MWh, заедно с нова мощност производство на електрическа енергия от ФвЕЦ с номинална генериращана АС мощност от 0.9 MW, находяща се в ПИ: 21052.1007.130, УПИ-XIV , кв.204, гр. Димитровград, община Димитровград, област Хасково",
+      "contractNumber": "BG05SFPR002-1.004-1586",
+      "title": "Създаване на адаптирана работна среда в \"Дейзи Нова\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 294915.61,
-      "totalEur": 294915.61,
-      "paidEur": 83632.32,
+      "prevTotalEur": 60589.04,
+      "totalEur": 60589.04,
+      "paidEur": 51041.72,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Имоти стил ООД",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "\"Дейзи Нова\" ЕООД",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0220",
-      "title": "Подкрепа на НЕДЕВ ЕООД за нови мощности за производство на електроенергия от ВИ в комбинация с ЛСС",
+      "contractNumber": "BG05SFPR002-1.004-0451",
+      "title": "Подобряване на работната среда в ЖЕТ ЛОГИСТИК И КО ООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 250000.01,
-      "totalEur": 250000.01,
-      "paidEur": 112384.37,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Недев ЕООД",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0685",
-      "title": "Изграждане на дигитален клуб в ХРИСТО БОТЕВ - 1871 Народно читалище",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13645.25,
-      "paidEur": 13645.25,
+      "prevTotalEur": 13528.41,
+      "totalEur": 13528.41,
+      "paidEur": 13528.41,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Христо Ботев - 1871 Народно читалище",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0695",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА-1896\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13182.28,
-      "paidEur": 13182.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"ПРОБУДА-1896\"",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0672",
-      "title": "Изграждане на дигитален клуб в \"НАРОДНО ЧИТАЛИЩЕ ПРОБУДА - 1926\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 13084.01,
-      "paidEur": 13084.01,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Народно читалище пробуда - 1926\"",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЖЕТ Логистик и КО ООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

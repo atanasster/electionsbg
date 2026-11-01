@@ -1,0 +1,40 @@
+{
+  "obshtina": "MON14",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR002-1.004-0398",
+      "title": "Подобряване на работната среда във Валка ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 68708.33,
+      "totalEur": 68708.33,
+      "paidEur": 50306.51,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Валка ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0644",
+      "title": "Изграждане на дигитален клуб в с. Георги Дамяново",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14301.41,
+      "totalEur": 13309.57,
+      "paidEur": 13309.57,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище трудолюбие -1899 г., с. Георги дамяново",
+      "detectedAt": "2026-11-01"
+    }
+  ]
+}

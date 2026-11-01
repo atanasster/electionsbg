@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-26",
+  "computedAt": "2026-10-31",
   "thresholds": {
     "basketPids": [
       1,
@@ -63,46 +63,46 @@
       "cohortShare": 0.9472
     },
     {
-      "peakDay": "2026-10-26",
+      "peakDay": "2026-10-29",
       "startDay": "2026-10-26",
-      "endDay": "2026-10-26",
-      "pctChange": 2.108,
-      "costEur": 15.429,
-      "prevCostEur": 15.11,
+      "endDay": "2026-10-30",
+      "pctChange": 2.783,
+      "costEur": 15.51,
+      "prevCostEur": 15.09,
       "cohortCells": 1531,
-      "cohortShare": 0.8643
+      "cohortShare": 0.8755
     }
   ],
   "promotions": [
     {
-      "slug": "limoni",
-      "title": "ЛИМОНИ",
-      "atOrBelowSince": "2026-10-26",
-      "promoEur": 0.79,
-      "regularEur": 1.99,
-      "discountPct": 60,
-      "stores": 183,
+      "slug": "byalo-zele",
+      "title": "БЯЛО ЗЕЛЕ",
+      "atOrBelowSince": "2026-10-29",
+      "promoEur": 0.39,
+      "regularEur": 0.99,
+      "discountPct": 61,
+      "stores": 252,
       "chains": 4
     },
     {
-      "slug": "1kg-kafe-edusho-krema-strong-za",
-      "title": "1КГ КАФЕ ЕДУШО КРЕМА СТРОНГ ЗЪ",
-      "atOrBelowSince": "2026-10-22",
-      "promoEur": 12.98,
-      "regularEur": 24.77,
-      "discountPct": 48,
-      "stores": 40,
+      "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
+      "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
+      "atOrBelowSince": "2026-10-29",
+      "promoEur": 0.79,
+      "regularEur": 1.82,
+      "discountPct": 57,
+      "stores": 6,
       "chains": 2
     },
     {
-      "slug": "pryasno-mlyako-bozhentsi-3-6-1l",
-      "title": "ПРЯСНО МЛЯКО БОЖЕНЦИ 3.6% 1Л.",
-      "atOrBelowSince": "2026-10-22",
-      "promoEur": 0.99,
-      "regularEur": 1.89,
+      "slug": "400ml-sh-n-schauma-men",
+      "title": "400МЛ Ш-Н SCHAUMA MEN",
+      "atOrBelowSince": "2026-10-29",
+      "promoEur": 1.99,
+      "regularEur": 3.81,
       "discountPct": 48,
-      "stores": 58,
-      "chains": 3
+      "stores": 24,
+      "chains": 2
     }
   ]
 }

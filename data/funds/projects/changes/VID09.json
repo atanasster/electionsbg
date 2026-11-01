@@ -1,60 +1,93 @@
 {
   "obshtina": "VID09",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG06RDNP001-4.008-0177",
-      "title": "Модернизация на животновъдна на \"КМК-МИЛЕНА МИЛАНОВА\"ЕООД",
+      "contractNumber": "BG05SFPR001-3.009-0015",
+      "title": "Професионална гимназия \"Проф. д-р Асен Златаров\" Видин - активен център за високи постижения в професионалното образование и обучение",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 178708.13,
-      "totalEur": 178708.14,
-      "paidEur": 0,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "КМК-МИЛЕНА Миланова ЕООД",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 1256821.92,
+      "totalEur": 1256821.92,
+      "paidEur": 251364.38,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия \"Проф. д-р Асен Златаров\" - Видин",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1796",
-      "title": "Подкрепа за развитие на производствения капацитет на Ню Дженерейшън Артс ЕООД",
+      "contractNumber": "BG16RFPR001-2.004-2247",
+      "title": "Подобряване на енергийната ефективност на \"АНГО-КЛИМА\" ЕООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 55605.04,
-      "totalEur": 55600.71,
-      "paidEur": 41700.57,
+      "prevTotalEur": 24178.54,
+      "totalEur": 24178.54,
+      "paidEur": 15716.05,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "НЮ Дженерейшън артс ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "\"АНГО-КЛИМА\" ЕООД",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2563",
-      "title": "Подобряване на капацитета и конкурентноспособността на \"Мидиаблистър\" ЕООД",
+      "contractNumber": "BG-RRP-1.024-0572",
+      "title": "\"Създаване на дигитален клуб към НЧ \"Светъл ден 2009\" -Видин\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 42883.33,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Мидиаблистър ЕООД",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 18600.79,
+      "totalEur": 18100.13,
+      "paidEur": 18100.13,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Светъл ден 2009\" град Видин",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0970",
+      "title": "Създаване на дигитален клуб в село Градец, община Видин",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13156.91,
+      "totalEur": 11954.35,
+      "paidEur": 11954.35,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Просвета 28.11.1928\" село Градец",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0525",
+      "title": "Дигитален клуб - Народно Читалище \"Наука - 1925\" с. Синаговци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14295.73,
+      "totalEur": 10262.88,
+      "paidEur": 10262.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Наука - 1925\" с. Синаговци",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

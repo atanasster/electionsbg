@@ -1,22 +1,24 @@
 {
   "obshtina": "SZR27",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.002-0040",
-      "title": "13: Обучение на служители на \"Мини Марица-изток\" ЕАД за придобиване на втора степен на професионална квалификация по професията 071604 \"Пътностроителна техника\"",
+      "contractNumber": "BG-RRP-1.024-1252",
+      "title": "Изграждане на дигитален клуб в с. Любеново, общ. Раднево",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1600463.34,
-      "totalEur": 1600463.34,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "\"Мини Марица-изток\" ЕАД",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 14316.18,
+      "totalEur": 14087.67,
+      "paidEur": 14087.67,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Искра- 1927 година\"",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

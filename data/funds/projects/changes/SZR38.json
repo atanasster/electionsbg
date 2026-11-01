@@ -1,22 +1,42 @@
 {
   "obshtina": "SZR38",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0010",
-      "title": "Изграждане на социални услуги за резидентна грижа за лица с физически увреждания в Община Николаево",
+      "contractNumber": "BG-RRP-1.024-0133",
+      "title": "Изграждане на дигитален клуб в град Николаево",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1566551.2,
-      "totalEur": 1566551.2,
-      "paidEur": 1537140.27,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 17378.95,
+      "totalEur": 16991.24,
+      "paidEur": 16991.24,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Николаево",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Народно читалище \"Васил Левски 1923\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0332",
+      "title": "ИЗГРАЖДАНЕ НА ДИГИТАЛЕН КЛУБ В С. НОВА МАХАЛА",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14284.93,
+      "totalEur": 14127.74,
+      "paidEur": 14127.74,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Зорница 1928\"",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

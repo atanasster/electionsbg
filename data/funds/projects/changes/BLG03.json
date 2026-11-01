@@ -1,76 +1,136 @@
 {
   "obshtina": "BLG03",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.012-2297",
+      "contractNumber": "BG16FFPR003-1.001-0073",
+      "title": "Въвеждане на мерки за ЕЕ на сградата на Съдебна палата – Благоевград, реконструкция и обновяване на пространството между Съдебна палата и Административен съд",
+      "type": "new",
+      "totalEur": 4765135.56,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16FFPR003-1.001-0028",
+      "title": "\"Създаване на нови социални услуги за резидентна грижа в Община Благоевград и изграждане на паркова зона в кв. Струмско\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 4097646.52,
+      "totalEur": 4321955.5,
+      "paidEur": 1506410.61,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0369",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, бул. \"Кирил и Методий\" № 25, вх. А, Б, В, Г, Д, Е",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1275884.9,
+      "totalEur": 1275884.9,
+      "paidEur": 1275760.92,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1368",
+      "title": "Закупуване и монтиране на 115 Kw/h батерии с инвертори за същаствуваща фотоволтаична система с цел поробряване на енергийната ефективност на \"ГАЛЕНКОВ -СТОУН\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 75781.36,
+      "totalEur": 75781.36,
+      "paidEur": 49257.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Галенков -стоун\" ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0882",
+      "title": "Подобряване на енергийната ефективност в КИОГ ЕООД и използване на енергия от възобновяеми източници",
+      "type": "modified",
+      "changedFields": [
+        "totalEur"
+      ],
+      "prevTotalEur": 71029.61,
+      "totalEur": 73736.18,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Киог ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0293",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 27450.74,
-      "totalEur": 27450.74,
-      "paidEur": 19215.52,
+      "prevTotalEur": 50763.61,
+      "totalEur": 50763.61,
+      "paidEur": 25381.81,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Политрансфер електрик ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Денис - 2007",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-2087",
+      "contractNumber": "BG16RFPR001-1.012-2080",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 21225.25,
-      "totalEur": 21225.25,
-      "paidEur": 14857.68,
+      "prevTotalEur": 32537.08,
+      "totalEur": 32537.08,
+      "paidEur": 22775.96,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Дени - 2006",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "АЛ Консултинг груп",
+      "detectedAt": "2026-11-01"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0094",
-      "title": "\"Изграждане на дигитален клуб в Благоевград\"",
+      "contractNumber": "BG-RRP-1.024-0234",
+      "title": "Изграждане на дигитален клуб в Регионална библиотека \"Димитър Талев\" - Благоевград",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 26587.17,
-      "totalEur": 20750.31,
-      "paidEur": 20750.31,
+      "prevTotalEur": 26582.05,
+      "totalEur": 26582.04,
+      "paidEur": 26582.05,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Благоевград",
-      "detectedAt": "2026-10-24"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-2367",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 24538.42,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Деймос",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Регионална библиотека \"Димитър Талев\" - Благоевград",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

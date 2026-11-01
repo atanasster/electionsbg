@@ -1,22 +1,44 @@
 {
   "obshtina": "PDV26",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0095",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници с АС мощност 5MW и ЛСС за съхранение на електроенергия с мощност 1.53 MW и капацитет 3.06 MWh в ПИ 53833.6.232",
+      "contractNumber": "BG16RFPR001-1.004-2475",
+      "title": "Подкрепа за семейно предприятие - ЧАМ - 1 ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 1040400,
-      "totalEur": 1040400,
-      "paidEur": 520200,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ФЕЦ Оризари ЕООД",
-      "detectedAt": "2026-10-24"
+      "prevTotalEur": 106435.63,
+      "totalEur": 106369.17,
+      "paidEur": 76638.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЧАМ - 1 ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1558",
+      "title": "Подобряване на производствения капацитет на БЛАКОМ БГ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 92594.96,
+      "totalEur": 91788.31,
+      "paidEur": 68841.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Блаком БГ ЕООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

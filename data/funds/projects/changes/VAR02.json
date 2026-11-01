@@ -1,25 +1,68 @@
 {
   "obshtina": "VAR02",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-1365",
-      "title": "Подобряване на енергийната ефективност и дела на ВИ в „РУДИ АН“ ЕООД чрез термопомпени системи въздух-въздух за базата в гр. Аксаково и Мострената зала в гр. Варна.",
+      "contractNumber": "BG05SFPR001-1.010-0240",
+      "title": "Превенция и предотвратяване на тормоза и насилието и намаляване агресията в ОУ \"Христо Смирненски\" с. Въглен",
+      "type": "new",
+      "totalEur": 12199.53,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Христо Смирненски\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.006-0005",
+      "title": "Приятели в различни цветове",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 312327.35,
+      "totalEur": 312327.35,
+      "paidEur": 80757.96,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "СУ \" Св. св. Кирил и Методий\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0009",
+      "title": "Единни в многообразието",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 240463.03,
+      "totalEur": 240463.03,
+      "paidEur": 76467.29,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Аксаково",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2076",
+      "title": "Подобряване на производствения капацитет на \"Евро ремонт строй\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 96572.94,
-      "totalEur": 15202.45,
-      "paidEur": 9881.59,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 91778.41,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Руди АН ЕООД",
-      "detectedAt": "2026-10-24"
+      "beneficiaryName": "Евро ремонт строй ООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

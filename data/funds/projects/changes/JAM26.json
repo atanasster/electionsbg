@@ -1,22 +1,92 @@
 {
   "obshtina": "JAM26",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.001-0191",
-      "title": "Подкрепа за устойчиво енергийно обновяване на многофамилнa жилищнa сграда на ул. \"Търговска\" № 62, град Ямбол",
+      "contractNumber": "BG16FFPR003-4.014-0055",
+      "title": "Въвеждане на мерки за енергийна ефективност и на системи за оползотворяване на енергия от възобновяеми източници в 4 обществени сгради - община Тунджа",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1364273.38,
-      "totalEur": 1364273.38,
-      "paidEur": 791604.05,
+      "prevTotalEur": 2482820.23,
+      "totalEur": 2482820.23,
+      "paidEur": 868987.08,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Тунджа",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0188",
+      "title": "Подкрепа за устойчиво енергийно обновяване на многофамилнa жилищнa сграда в ж.к. \"Хале\" 12, гр. Ямбол",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1520838.76,
+      "totalEur": 1520838.76,
+      "paidEur": 776610.89,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Ямбол",
-      "detectedAt": "2026-10-24"
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.035-0025",
+      "title": "Повишаване готовността на област Ямбол за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 97675.95,
+      "totalEur": 97675.95,
+      "paidEur": 49573.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Ямбол",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2154",
+      "title": "Подобряване на производствения капацитет и ефективността на процесите в СВОИ - 2000 ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 95805.87,
+      "totalEur": 95163,
+      "paidEur": 71372.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Свои - 2000 ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0432",
+      "title": "Повишаване капацитета на \"НИРА 21\" ООД ,посредством опитимизация и модернизация на безнес процесите.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 75050.16,
+      "totalEur": 75043.37,
+      "paidEur": 56282.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Нира 21 ООД",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

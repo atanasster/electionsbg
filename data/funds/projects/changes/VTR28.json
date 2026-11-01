@@ -1,18 +1,166 @@
 {
   "obshtina": "VTR28",
-  "generatedAt": "2026-10-24T23:12:50.892Z",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0156",
-      "title": "„Да бъдем заедно“",
-      "type": "new",
-      "totalEur": 165376.85,
+      "contractNumber": "BG16FFPR003-2.006-0090",
+      "title": "Изграждане на инфраструктура, подпомагаща бизнеса",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 24067853.46,
+      "totalEur": 17458107.77,
+      "paidEur": 1023116.37,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Индустриален технологичен парк - Свищов ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2221",
+      "title": "Подкрепа за семейното предприятие ОНИКС 2007 ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102253.26,
+      "totalEur": 102253.25,
+      "paidEur": 76689.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ОНИКС-2007 ООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0369",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в предприятието РАЙКОВ-07 ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur"
+      ],
+      "prevTotalEur": 76918.75,
+      "totalEur": 94474.46,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Цветан Радославов\"",
-      "detectedAt": "2026-10-24"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "РАЙКОВ-07 ЕООД",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1049",
+      "title": "Изграждане на дигитален клуб в гр. Свищов",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23519.43,
+      "totalEur": 18734.81,
+      "paidEur": 18734.81,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Първо българско народно читалище „Еленка и Кирил Д. Аврамови – 1856“",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1185",
+      "title": "Дигитален клуб в НЧ \"Слънце - 1925\", с. Алеково, общ. Свищов",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14248.1,
+      "paidEur": 14248.1,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Слънце - 1925\" с. Алеково",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1206",
+      "title": "Изграждане на дигитален клуб в село Морава",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12449.65,
+      "paidEur": 12449.65,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Светлина 1911\"",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0405",
+      "title": "Изграждане на дигитален клуб в село Овча могила",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12410.14,
+      "paidEur": 12410.14,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Съзнателност – 1899“",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0022",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Заря - 1898\" с. Хаджидимитрово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12117.97,
+      "paidEur": 12117.97,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Заря - 1898\" с. Хаджидимитрово",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0037",
+      "title": "Изграждане на дигитален клуб в НЧ ПРОСВЕТА - ДРАГОМИРОВО 1912 с. Драгомирово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12084.07,
+      "paidEur": 12084.07,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ Просвета - драгомирово 1912",
+      "detectedAt": "2026-11-01"
     }
   ]
 }

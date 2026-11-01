@@ -1,0 +1,40 @@
+{
+  "obshtina": "PAZ24",
+  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR002-1.013-0163",
+      "title": "Насърчаване на социалната икономика в община Ракитово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 99993.01,
+      "totalEur": 99993.01,
+      "paidEur": 19998.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Ракитово",
+      "detectedAt": "2026-11-01"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2184",
+      "title": "Повишаване на качеството на предоставяни услуги в ДЕЙМОС ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 88073.93,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Деймос ЕООД",
+      "detectedAt": "2026-11-01"
+    }
+  ]
+}
