@@ -1,13 +1,10 @@
-// Exact first-party hosts only. Legacy clients remain allowed during migration
-// to the main project; verification still checks the widget hostname and action.
+// Exact first-party hosts only; verification still checks the widget hostname
+// and action.
 const AI_HOSTNAMES = Object.freeze([
   "naiasno.bg",
   "www.naiasno.bg",
   "ai.naiasno.bg",
   "news.naiasno.bg",
-  "ai.electionsbg.com",
-  "electionsbg-ai.web.app",
-  "electionsbg-ai.firebaseapp.com",
   "electionsbg.com",
   "elections-bg.web.app",
   "elections-bg.firebaseapp.com",

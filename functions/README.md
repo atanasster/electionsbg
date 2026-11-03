@@ -118,7 +118,7 @@ rotation to reset budget documents. Global day/month budgets remain unchanged.
 
 ## Local development and tests
 
-`npm run dev:ai` works in No AI mode without configuration. For cloud development,
+`npm run dev` serves `/chat` in No AI mode without configuration. For cloud development,
 run `npm run emulator` (functions and Firestore), set `VITE_LLM_PROXY_URL` to
 `http://127.0.0.1:5001/elections-bg/us-central1/llm`, and use a development
 Turnstile widget permitting localhost plus `AI_TURNSTILE_HOSTNAMES=localhost`.

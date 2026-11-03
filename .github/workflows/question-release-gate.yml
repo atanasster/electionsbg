@@ -39,10 +39,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Hermetic catalog and coverage decisions
         run: pnpm exec vitest run scripts/ai/question_release_gate.test.ts scripts/ai/editorial_dispositions.test.ts scripts/ai/step7_dispositions.test.ts scripts/ai/step8_dispositions.test.ts scripts/ai/step9_dispositions.test.ts ai/app/starters.test.ts ai/app/questionAdapter.test.ts src/lib/questions/catalog.test.ts src/lib/questions/selector/model.test.ts src/lib/questions/selector/QuestionSelector.test.tsx src/lib/questions/sql/catalog.test.ts src/lib/questions/sql/render.test.ts src/lib/questions/sql/url.test.ts
-      - name: Typecheck both applications
+      - name: Typecheck the app and the AI chat sources
         run: pnpm exec tsc --noEmit && pnpm run typecheck:ai
-      - name: Build both applications
-        run: pnpm run build && pnpm run build:ai
+      - name: Build
+        run: pnpm run build
         env:
           VITE_DATA_BASE_URL: https://storage.googleapis.com/data-electionsbg-com
       - name: Bootstrap app_readonly role

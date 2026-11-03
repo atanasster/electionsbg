@@ -78,13 +78,9 @@ const browserDbFetcher: DbFetcher = async (route, params) => {
       .filter(([, v]) => v != null && v !== "")
       .map(([k, v]) => [k, String(v)]),
   ).toString();
-  // The main app serves /api/db same-origin via a hosting rewrite, but the
-  // standalone AI app (ai.electionsbg.com) is a separate Firebase project with
-  // no such rewrite and no db function of its own — so it fetches the routes
-  // cross-origin from the main deployment, exactly like it fetches JSON from
-  // the data bucket. VITE_DB_API_ORIGIN carries that base in the AI prod build;
-  // empty (same-origin) everywhere else, so the main app / AI dev keep hitting
-  // the local /api/db plugin.
+  // The main app serves /api/db same-origin via a hosting rewrite (and the
+  // local /api/db plugin in dev). VITE_DB_API_ORIGIN is an optional override
+  // for a build served from another origin; empty means same-origin.
   const base = dbOriginOverride ?? import.meta.env?.VITE_DB_API_ORIGIN ?? "";
   const url = `${base}/api/db/${route}${qs ? `?${qs}` : ""}`;
   const res = await fetch(url);

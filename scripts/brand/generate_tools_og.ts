@@ -1,13 +1,12 @@
 /**
- * OG image (1200×630) for the /tools reference page (ai.electionsbg.com/tools).
+ * OG image (1200×630) for the chat tools reference page.
  *
  *   pnpm exec tsx scripts/brand/generate_tools_og.ts
  *
  * Number-led, on-brand (navy + coral, the site theme): the live tool count as
  * the hero, with a per-domain breakdown panel so it reads as a real reference
  * index at a glance. Crisp Cyrillic via @napi-rs/canvas. Writes
- * ai/assets/tools-og.png, which vite.config.ai.ts copies into dist-ai and the
- * generated tools.html points og:image at.
+ * ai/assets/tools-og.png.
  *
  * The count + per-domain split are read straight from the tool registry, so the
  * image stays in sync whenever tools are added or removed.

@@ -13,7 +13,6 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 `governments.json` and the two new bucket files, and hosting → `deploy:db` → hosting (bundle
 `index-B9gWD1hk.js` on `/`, `/person`, `/company`). Still open:
 
-- Firebase: clear the domain-level redirect on `ai.electionsbg.com` (see the AI app entry).
 - `pnpm run db:load:municipal-fiscal:pg:cloud` — optional; no verdict differs.
 - The cloud person chain ran 2026-10-21 (19 steps, 24 min): prod now equals local on persons,
   `/persons`, search and attribution; TR roles within 3, graph edges within 2. It cost two
@@ -541,21 +540,12 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   expose a signing date, replace the raw `financial_year_unavailable` reason string on missing ДФЗ
   egov years (`2024` in the 2015–2023 series) with human-readable copy, and split `/chat` funding
   starters into subtopics.
-- **Standalone AI app retirement & legacy `elections-bg-llm` cleanup**: `ai.electionsbg.com`
-  301s to the naiasno.bg HOMEPAGE, not `/chat`. Diagnosed 2026-10-21: `firebase.json` (target
-  `ai`) is CORRECT — `electionsbg-ai.web.app/` answers `301 → naiasno.bg/chat` — but the custom
-  domain carries a Firebase Hosting **domain-level redirect** (`redirectTarget: naiasno.bg`,
-  MOVED_PERMANENTLY, path-preserving), which wins over every `firebase.json` rule. ⚠️ The fix is
-  to CLEAR that redirect (Hosting console → Domains, or the `customDomains` API), NOT to add a
-  `firebase.json` catch-all: the same domain-level redirect is also breaking `/legacy-export`,
-  the recovery page where a returning reader exports chat history stored in THIS origin's
-  `localStorage`, and a catch-all redirect would break it the same way (redirects precede
-  rewrites). Then decide when the transition window closes and retire the standalone build —
-  `ai/main.tsx`, `ai/index.html`, `vite.config.ai.ts`, `vite/ai-public-assets.ts`, the
-  `dev/build/preview/deploy:ai` scripts and the `Build both applications` CI step. NOT `ai/app/`
-  or `ai/App.tsx`: those ARE the live `/chat` (`src/screens/ChatScreen.tsx` imports them).
-  Decommission the legacy `elections-bg-llm` Cloud Function project if no external callers
-  remain; the current gcloud account has no access to it, so confirm whether it still exists.
+- **Legacy `elections-bg-llm` cleanup**: the standalone AI app is RETIRED (2026-11-03) — the
+  `electionsbg-ai` Firebase project was deleted (restorable until ~2026-12-03), and with it
+  `ai.electionsbg.com`, `electionsbg-ai.web.app` and the `/legacy-export` recovery page; the
+  standalone build, its `ai` hosting target and the dead CORS origins were removed from the repo.
+  Still open: decommission the legacy `elections-bg-llm` Cloud Function project if no external
+  callers remain; the current gcloud account has no access to it, so confirm whether it exists.
 - **Search money basis (`company_public_money`)**: `contracts_eur` in `company_public_money` uses
   full contract face value per linked EIK (so consortium contracts credit each member's row,
   matching `/company/:eik`). If consortium-split attribution is ever needed in search badges, add

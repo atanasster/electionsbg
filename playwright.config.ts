@@ -46,13 +46,11 @@ export default defineConfig({
     // Requires a built dist/. Run `pnpm run build` before `pnpm test` (or use
     // pnpm run test:build which chains them).
     //
-    // Scope to the `main` hosting target only. firebase.json also defines an
-    // `ai` target (→ dist-ai, project electionsbg-ai), but that target isn't
-    // configured for the elections-bg project in .firebaserc — a bare
-    // `--only hosting` tries to resolve every target against elections-bg and
-    // exits 1 with "Deploy target ai not configured for project elections-bg",
-    // killing the emulator before any test runs. The suite only exercises the
-    // main site, so serve just that target.
+    // Scope to the `main` hosting target only. firebase.json also defines a
+    // `news` target that isn't configured for the elections-bg project in
+    // .firebaserc — a bare `--only hosting` tries to resolve every target
+    // against elections-bg and exits 1, killing the emulator before any test
+    // runs. The suite only exercises the main site, so serve just that target.
     //
     // NOTE: `--only hosting:main` does not stub the functions behind
     // firebase.json's rewrites — the hosting emulator FORWARDS un-emulated

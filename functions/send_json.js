@@ -81,8 +81,7 @@ const acceptsGzip = (header) => {
 const sendJson = async (req, res, body, status = 200) => {
   // res.vary() APPENDS; res.set("Vary", …) replaces. Both callers set
   // `Vary: Origin` a few lines earlier because they reflect the request Origin
-  // into Access-Control-Allow-Origin across an allowlist that includes a genuinely
-  // cross-origin caller (ai.electionsbg.com has no `db` function of its own).
+  // into Access-Control-Allow-Origin across an allowlist of several origins.
   // Overwriting it would drop Origin from the shared cache key and let one origin
   // receive another's ACAO — intermittent, cache-dependent CORS failures.
   if (typeof res.vary === "function") res.vary("Accept-Encoding");

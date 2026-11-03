@@ -117,7 +117,6 @@ test("news evals is an isolated Firebase codebase on the news project", () => {
 
   const emulatorBoundaries = [
     ["emulator", "firebase.main-functions.json", ["functions"]],
-    ["emulator:ai", "firebase.ai-functions.json", ["functions"]],
     [
       "emulator:news:evals",
       "firebase.news-evals-emulator.json",

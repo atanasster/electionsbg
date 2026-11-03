@@ -1,6 +1,6 @@
 // Build config for the standalone news comparison app (news.electionsbg.com).
 //
-// Third Vite entry in the same repo, mirroring vite.config.ai.ts: root is
+// Second Vite entry in the same repo: root is
 // ./newsapp, importing the shared design system straight from ./src via the `@/'
 // alias (theme, ui components, Logo). The bundles produced by
 // news/scripts/build_app_data.py are copied into the deploy under /news-data/;
@@ -72,8 +72,7 @@ const serveNewsData = (): Plugin => ({
 });
 
 // publicDir copies ALL of public/ (prerendered pages, images, sitemaps…) into
-// dist-news. The news app needs only the shell assets — same situation (and same
-// fix) as vite.config.ai.ts's pruneDistAi. Runs BEFORE copyNewsData/writeSeoFiles
+// dist-news. The news app needs only the shell assets, so prune the rest. Runs BEFORE copyNewsData/writeSeoFiles
 // (both enforced post), which re-add the deploy's own content afterwards.
 const KEEP = new Set([
   "index.html",

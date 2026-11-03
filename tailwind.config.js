@@ -3,7 +3,6 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./ai/index.html",
     "./ai/**/*.{js,ts,jsx,tsx}",
     "./newsapp/index.html",
     "./newsapp/**/*.{js,ts,jsx,tsx}",

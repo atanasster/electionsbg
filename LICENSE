@@ -53,7 +53,7 @@ Everything not listed in sections 2, 3 or 4, including:
     state/**          pipeline and watcher state
     data-reports/**   generated daily reports
 
-    index.html, vite.config.ts, vite.config.ai.ts, vitest.config.ts,
+    index.html, vite.config.ts, vitest.config.ts,
     vitest.setup.ts, tsconfig*.json, tailwind.config.js, postcss.config.js,
     eslint.config.js, playwright.config.ts, components.json, package.json,
     package-lock.json, docker-compose.yml, firebase.json, firestore.rules

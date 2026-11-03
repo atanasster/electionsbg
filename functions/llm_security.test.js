@@ -46,7 +46,7 @@ function fixture(overrides = {}) {
   let time = Date.parse("2026-09-10T10:00:00Z");
   let result = {
     success: true,
-    hostname: "ai.electionsbg.com",
+    hostname: "naiasno.bg",
     action: "ai_chat",
     challenge_ts: new Date(time).toISOString(),
   };
@@ -167,13 +167,13 @@ test("rejects invalid, wrong-host, wrong-action, old challenges and replay", asy
     },
     {
       success: true,
-      hostname: "ai.electionsbg.com",
+      hostname: "naiasno.bg",
       action: "other",
       challenge_ts: "2026-09-10T10:00:00Z",
     },
     {
       success: true,
-      hostname: "ai.electionsbg.com",
+      hostname: "naiasno.bg",
       action: "ai_chat",
       challenge_ts: "2026-09-10T09:00:00Z",
     },

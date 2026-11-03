@@ -10,8 +10,7 @@
 //
 //  - `scenarios` (deployed to the elections-bg project): the public scenario
 //    tally for /budget/simulator ("what the public chose"). Reached
-//    same-origin via the `/api/scenarios` rewrite on electionsbg.com; the AI
-//    chat origin (ai.electionsbg.com) is CORS-allowlisted for future use.
+//    same-origin via the `/api/scenarios` rewrite on electionsbg.com.
 //    Deploy:  firebase deploy --only functions:scenarios -P default
 //
 // Cost-abuse guards (both endpoints are public): origin allowlists, strict
@@ -107,11 +106,6 @@ const SCENARIO_ALLOWED_ORIGINS = [
   /^https:\/\/elections-bg\.firebaseapp\.com$/,
   /^https:\/\/electionsbg-staging\.web\.app$/,
   /^https:\/\/electionsbg-staging\.firebaseapp\.com$/,
-  // The AI chat site (separate origin) is allowlisted from day one so the
-  // assistant can read/write the tally without a function change.
-  /^https:\/\/ai\.electionsbg\.com$/,
-  /^https:\/\/electionsbg-ai\.web\.app$/,
-  /^https:\/\/electionsbg-ai\.firebaseapp\.com$/,
   /^http:\/\/localhost:\d+$/,
   /^http:\/\/127\.0\.0\.1:\d+$/,
 ];
@@ -309,8 +303,7 @@ const makeScenarios = () =>
     }
   });
 
-if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
-  exports.scenarios = makeScenarios();
+exports.scenarios = makeScenarios();
 
 // ---- db: Postgres-backed person / company / search API (elections-bg) --------
 // Serves the same JSON the dev Vite plugin (/api/db/*) serves, so the person
@@ -328,11 +321,6 @@ const DB_ALLOWED_ORIGINS = [
   /^https:\/\/naiasno\.bg$/,
   /^https:\/\/www\.naiasno\.bg$/,
   /^https:\/\/ai\.naiasno\.bg$/,
-  // Standalone AI app (electionsbg-ai project) — no db function of its own, so
-  // it calls this one cross-origin (VITE_DB_API_ORIGIN in ai/tools/dataClient).
-  /^https:\/\/ai\.electionsbg\.com$/,
-  /^https:\/\/electionsbg-ai\.web\.app$/,
-  /^https:\/\/electionsbg-ai\.firebaseapp\.com$/,
   /^http:\/\/localhost:\d+$/,
   /^http:\/\/127\.0\.0\.1:\d+$/,
 ];
@@ -795,8 +783,7 @@ const makeDb = () => {
   );
 };
 
-if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
-  exports.db = makeDb();
+exports.db = makeDb();
 
 // ---- sql: PUBLIC read-only SQL console over the open data (elections-bg) ------
 // Datasette-style: anyone can run SELECTs against the TR + procurement data.
@@ -886,5 +873,4 @@ const makeSql = () => {
   );
 };
 
-if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
-  exports.sql = makeSql();
+exports.sql = makeSql();
