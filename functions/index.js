@@ -104,8 +104,6 @@ const SCENARIO_ALLOWED_ORIGINS = [
   /^https:\/\/www\.electionsbg\.com$/,
   /^https:\/\/elections-bg\.web\.app$/,
   /^https:\/\/elections-bg\.firebaseapp\.com$/,
-  /^https:\/\/electionsbg-staging\.web\.app$/,
-  /^https:\/\/electionsbg-staging\.firebaseapp\.com$/,
   /^http:\/\/localhost:\d+$/,
   /^http:\/\/127\.0\.0\.1:\d+$/,
 ];
@@ -482,14 +480,14 @@ const resolveRetiredPersonTarget = async (pool, slug) => {
 
 const makeDb = () => {
   const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
-  // Bound on prod only — staging has no Cloudflare in front and no such secret.
+  // Bound on prod only — non-prod has no Cloudflare in front and no such secret.
   const EDGE_SECRET = defineSecret("EDGE_SHARED_SECRET");
   const edgeSecret = () => (isProdProject() ? EDGE_SECRET.value() : "");
   return onRequest(
     // minInstances: 1 (PROD ONLY) keeps one container + its pooled DB connection
     // warm, so "first run" of a /api/db page skips the cold container boot +
     // Cloud SQL connector handshake (the most-perceptible slice of first-load
-    // latency). Staging / ai stay at 0 — no always-on bill for non-prod.
+    // latency). Non-prod stays at 0 — no always-on bill.
     {
       secrets: isProdProject() ? [DB_PASSWORD, EDGE_SECRET] : [DB_PASSWORD],
       region: "europe-west3",

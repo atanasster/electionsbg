@@ -205,7 +205,6 @@ The main commands target separate layers:
 ```bash
 pnpm run deploy           # Firebase Hosting only
 pnpm run deploy:db        # Firebase `db` Function only
-pnpm run staging          # staging Hosting target
 pnpm run bucket:sync:dry  # preview the selected static-data upload
 pnpm run bucket:sync      # publish the selected static-data trees to GCS
 ```

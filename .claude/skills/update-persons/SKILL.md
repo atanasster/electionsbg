@@ -195,7 +195,7 @@ pnpm run bucket:sync
 `emit_prerender_slugs` (the `person:slugs` step below) also now folds municipal officials +
 village/район mayors into the /person prerender + sitemap set — a deliberate, staging-measured
 addition on top of the exec cap. **Measure the
-`dist/` file count on a `pnpm run staging` deploy before shipping to prod** — the local-officials
+`dist/` file count after `pnpm run build` before shipping to prod** — the local-officials
 set adds ~30k files.
 
 ## Publishing to production (Cloud SQL)

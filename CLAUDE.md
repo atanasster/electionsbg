@@ -70,7 +70,6 @@ pnpm run db:refresh   # Full reload: schema + every loader + resolve + generator
 pnpm run deploy       # Deploy to Firebase (elections-bg project) — HOSTING ONLY
 pnpm run deploy:db    # Deploy the `db` Cloud Function (/api/db, the /officials 301,
                      # and the server-rendered /funds/contract + /company pages)
-pnpm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
 
 ### The serving instance — and why a Cloud SQL timing means nothing without its tier

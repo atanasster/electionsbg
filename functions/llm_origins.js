@@ -8,8 +8,6 @@ const AI_HOSTNAMES = Object.freeze([
   "electionsbg.com",
   "elections-bg.web.app",
   "elections-bg.firebaseapp.com",
-  "electionsbg-staging.web.app",
-  "electionsbg-staging.firebaseapp.com",
   "elections-bg--chat-launch-gu0gkopz.web.app",
 ]);
 const AI_ALLOWED_ORIGINS = [
