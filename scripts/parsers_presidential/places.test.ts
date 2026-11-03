@@ -431,6 +431,7 @@ describe("abroad", () => {
         "2011_10_23_pvr": { city: 150, "code-group": 10, none: 1 },
         "2016_11_06_pvr": { name: 325 },
         "2021_11_14_pvr": { name: 749 },
+        "2026_10_25_pvr": { name: 613 },
       },
     };
     for (const cycle of CYCLES_OLDEST_FIRST)

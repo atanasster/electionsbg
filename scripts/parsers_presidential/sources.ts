@@ -134,6 +134,13 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
         warmUrl: `${RESULTS}/pvr202610/opendata/index.html`,
         strategy: "goto",
       },
+      // The runoff publishes under `tur2/opendata/` (checked in a browser 2026-11-03,
+      // ЦИК decision 440-ПВР/03.11.2026) — the round-1 shape plus a round segment.
+      tur2: {
+        url: `${RESULTS}/pvr202610/tur2/opendata/export.zip`,
+        warmUrl: `${RESULTS}/pvr202610/tur2/opendata/index.html`,
+        strategy: "goto",
+      },
     },
     rounds: {
       // The archive root, kept as-is: the text files are nested one level down in
@@ -145,10 +152,16 @@ export const PRESIDENTIAL_SOURCES: Record<string, PresidentialSource> = {
         date: "2026-10-25",
         flashRecords: "raw_data/2026_10_25_pvr/ТУР1/suemg",
       },
+      2: {
+        archive: "tur2",
+        subtree: "",
+        date: "2026-11-01",
+        flashRecords: "raw_data/2026_10_25_pvr/ТУР2/suemg",
+      },
     },
     note:
-      "Round 1 published 27.10.2026; the runoff (01.11.2026) is a separate publish, " +
-      "so until it lands this cycle is RUNOFF PENDING — round 1 elected nobody.",
+      "Round 1 published 27.10.2026; the runoff (01.11.2026) published 03.11.2026 " +
+      "as a separate archive under tur2/opendata/.",
   },
 
   "2021_11_14_pvr": {

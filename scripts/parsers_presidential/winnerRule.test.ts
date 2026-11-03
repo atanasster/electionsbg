@@ -197,14 +197,15 @@ describe("art. 93 (3) — both conditions", () => {
 describe("decideCycle", () => {
   it("puts every cycle in the corpus into a runoff, and names the winner", () => {
     // All five decided cycles, and each winner is the runoff's plurality — the runoff
-    // has no threshold. 2026 is pending and has its own test below.
-    expect(CYCLES_WITH_RUNOFF).toHaveLength(5);
+    // has no threshold. 2026's pending week has its own test below.
+    expect(CYCLES_WITH_RUNOFF).toHaveLength(6);
     const expected: Record<string, string> = {
       "2001_11_11_pvr": "Георги Седефчов Първанов",
       "2006_10_22_pvr": "Георги Първанов",
       "2011_10_23_pvr": "Росен Асенов Плевнелиев",
       "2016_11_06_pvr": "Румен Георгиев Радев",
       "2021_11_14_pvr": "Румен Георгиев Радев",
+      "2026_10_25_pvr": "Илияна Малинова Йотова",
     };
     for (const cycle of CYCLES_WITH_RUNOFF) {
       const o = decideCycle(tally(cycle, 1), tally(cycle, 2));
@@ -217,9 +218,9 @@ describe("decideCycle", () => {
     }
   });
 
-  // ⚠ 2026's round 1 elected nobody and its runoff is not published: the outcome is
-  // PENDING, never the round-1 leader.
-  it("leaves 2026 pending, and never promotes the round-1 leader", () => {
+  // ⚠ 2026's round 1 elected nobody, and for the week before the runoff published the
+  // outcome was PENDING, never the round-1 leader. Round 1 alone still exercises it.
+  it("leaves 2026's round 1 alone pending, and never promotes its leader", () => {
     const t = tally("2026_10_25_pvr", 1);
     expect(t.winsOutright).toBe(false);
     expect(t.meetsMajority).toBe(false);

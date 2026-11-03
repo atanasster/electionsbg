@@ -110,9 +110,10 @@ describe.runIf(hasCorpus)("presidential surfaces", () => {
     expect(s.ballots[0].totals.validVotes).not.toBe(
       s.ballots[1].totals.validVotes,
     );
-    // ⚠ A runoff-pending cycle carries round 1 ALONE — never an empty round-2 ballot.
+    // ⚠ The newest cycle carries its runoff once ЦИК publishes it (2026: 03.11.2026). In
+    // the pending week before that it carried round 1 ALONE — never an empty round-2 ballot.
     expect(at(LATEST, "region", "BGS").ballots.map((b) => b.round)).toEqual([
-      1,
+      1, 2,
     ]);
   });
 

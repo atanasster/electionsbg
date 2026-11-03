@@ -21,7 +21,7 @@ const cache = new Map<string, NationalSummary>();
 const summary = (cycle: string): NationalSummary => {
   const hit = cache.get(cycle);
   if (hit) return hit;
-  // ⚠ The rounds the cycle HAS — 2026 is round 1 alone, its runoff pending.
+  // ⚠ The rounds the cycle HAS — a cycle is round 1 alone in its runoff-pending week.
   const present = cycleRounds(cycle);
   const rounds = present.map((r) => corpusRound(cycle, r));
   const s = buildNationalSummary(rounds, rounds.map(aggregateRound), {
@@ -39,6 +39,7 @@ describe("the outcome", () => {
       "2011_10_23_pvr": "Росен Асенов Плевнелиев",
       "2016_11_06_pvr": "Румен Георгиев Радев",
       "2021_11_14_pvr": "Румен Георгиев Радев",
+      "2026_10_25_pvr": "Илияна Малинова Йотова",
     };
     for (const cycle of CYCLES_WITH_RUNOFF) {
       const s = summary(cycle);
@@ -49,8 +50,13 @@ describe("the outcome", () => {
     }
   });
 
-  it("leaves 2026 pending: no winner, no runoff, no swing", () => {
-    const s = summary("2026_10_25_pvr");
+  // ⚠ 2026 was in exactly this state from 27.10 (round 1 published) to 03.11.2026 (the
+  // runoff published), so its round 1 alone is the fixture for the pending week.
+  it("leaves 2026's round 1 alone pending: no winner, no runoff, no swing", () => {
+    const r1 = corpusRound("2026_10_25_pvr", 1);
+    const s = buildNationalSummary([r1], [aggregateRound(r1)], {
+      runoffPending: true,
+    });
     expect(s.decidedInRound).toBeNull();
     expect(s.winner).toBeNull();
     expect(s.round2Date).toBeNull();
@@ -272,18 +278,18 @@ describe("the round-to-round swing", () => {
       }
     }
     // ⚠ Both survivors gain votes in every cycle here, since a runoff draws the
-    // eliminated candidates' voters. Turnout, by contrast, falls in four of the five —
-    // 2001 is the exception, and a summary that assumed either direction would be wrong
-    // somewhere.
+    // eliminated candidates' voters. Turnout, by contrast, falls in four of the six —
+    // 2001 and 2026 (23.16% → 28.87%) are the exceptions, and a summary that assumed
+    // either direction would be wrong somewhere.
     for (const cycle of CYCLES_WITH_RUNOFF) {
       for (const t of summary(cycle).swing!.tickets) {
         expect(t.deltaVotes, `${cycle}/${t.number}`).toBeGreaterThan(0);
       }
     }
-    expect(summary("2001_11_11_pvr").swing!.turnoutDeltaPct).toBeGreaterThan(0);
-    for (const cycle of CYCLES_WITH_RUNOFF.filter(
-      (c) => c !== "2001_11_11_pvr",
-    )) {
+    const RISING = ["2001_11_11_pvr", "2026_10_25_pvr"];
+    for (const cycle of RISING)
+      expect(summary(cycle).swing!.turnoutDeltaPct, cycle).toBeGreaterThan(0);
+    for (const cycle of CYCLES_WITH_RUNOFF.filter((c) => !RISING.includes(c))) {
       expect(summary(cycle).swing!.turnoutDeltaPct, cycle).toBeLessThan(0);
     }
   });

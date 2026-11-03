@@ -67,12 +67,6 @@ describe("the ballot", () => {
   });
 
   it("records which rounds each ticket stood in", () => {
-    // ⚠ 2026's runoff is pending, so every ticket so far stood in round 1 only.
-    expect(
-      catalogue("2026_10_25_pvr").tickets.every(
-        (t) => t.rounds.length === 1 && t.rounds[0] === 1,
-      ),
-    ).toBe(true);
     for (const cycle of CYCLES_WITH_RUNOFF) {
       const c = catalogue(cycle);
       const inRunoff = c.tickets.filter((t) => t.rounds.includes(2));

@@ -101,12 +101,17 @@ describe("presidentialSearchSource", () => {
         .sort(),
     ).toEqual(["/presidential/2001_11_11_pvr", "/presidential/2006_10_22_pvr"]);
     // …and by the VICE-president, because a ticket is a pair: a reader looking for Йотова is
-    // looking for somebody who stood and won.
+    // looking for somebody who stood and won — twice as Радев's vice-president, and in 2026
+    // at the top of her own ticket.
     expect(
       hit("Йотова")
         .map((r) => r.href)
         .sort(),
-    ).toEqual(["/presidential/2016_11_06_pvr", "/presidential/2021_11_14_pvr"]);
+    ).toEqual([
+      "/presidential/2016_11_06_pvr",
+      "/presidential/2021_11_14_pvr",
+      "/presidential/2026_10_25_pvr",
+    ]);
     // A Latin-keyboard reader finds them too — the index's own transliteration. BOTH of
     // Радев's cycles, so a fold that reached only one of them cannot pass.
     expect(

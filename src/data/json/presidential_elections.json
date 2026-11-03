@@ -2,9 +2,13 @@
   {
     "name": "2026_10_25_pvr",
     "round1Date": "2026-10-25",
-    "round2Date": null,
-    "decidedInRound": null,
-    "winnerTicket": null,
+    "round2Date": "2026-11-01",
+    "decidedInRound": 2,
+    "winnerTicket": {
+      "number": 25,
+      "president": "Илияна Малинова Йотова",
+      "vicePresident": "Кирил Александров Вълчев"
+    },
     "tickets": 27,
     "rounds": {
       "1": {
@@ -12,6 +16,13 @@
         "flashRecords": true,
         "noneOfTheAbove": true,
         "turnoutPct": 23.16,
+        "turnoutBasis": "all-sections"
+      },
+      "2": {
+        "machineVoting": true,
+        "flashRecords": true,
+        "noneOfTheAbove": true,
+        "turnoutPct": 28.87,
         "turnoutBasis": "all-sections"
       }
     }

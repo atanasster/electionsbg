@@ -70,7 +70,7 @@ const votesOf = (t: RoundTally, surnames: string[]): Record<string, number> => {
  */
 const ANCHORS: Record<
   string,
-  // ⚠ `round2` is absent only for a runoff-pending cycle (2026).
+  // ⚠ `round2` is absent only for a runoff-pending cycle (2026, 27.10 → 03.11.2026).
   { round1: Record<string, number>; round2?: Record<string, number> }
 > = {
   "2001_11_11_pvr": {
@@ -125,7 +125,8 @@ const ANCHORS: Record<
     },
     round2: { Радев: 1_539_650, Герджиков: 733_791 },
   },
-  // ЦИК's round-1 protocol (2026-10-27); the runoff is not published yet.
+  // ЦИК's round-1 protocol (2026-10-27) and runoff protocol (2026-11-03, decision
+  // 440-ПВР), read off results.cik.bg/pvr202610/tur{1,2}/rezultati.
   "2026_10_25_pvr": {
     round1: {
       Йотова: 528_951,
@@ -134,6 +135,7 @@ const ANCHORS: Record<
       Василев: 70_127,
       Михайлов: 57_643,
     },
+    round2: { Йотова: 1_093_852, Гюров: 750_251 },
   },
 };
 
@@ -196,6 +198,21 @@ describe("the published valid-vote totals", () => {
     expect(t.protocolValidVotes).toBe(1_521_712);
     const r = corpusRound("2026_10_25_pvr", 1);
     expect(r.sections).toHaveLength(12_719);
+    expect(r.sections.filter((x) => x.code.startsWith("32"))).toHaveLength(613);
+  });
+
+  it("reproduces 2026's runoff protocol", () => {
+    const t = tally("2026_10_25_pvr", 2);
+    expect(t.registeredVoters).toBe(6_591_952);
+    expect(t.signatures).toBe(1_902_933);
+    expect(t.noneOfTheAbove).toBe(56_080);
+    expect(t.validVotes).toBe(1_900_183);
+    // ⚠ ЦИК's national protocol prints line 8 („общ брой на действителните гласове") as
+    // 1,900,072 — 111 below its own 8.1 + 8.2 (1,844,103 + 56,080). The section protocols
+    // sum to 8.1 + 8.2, so the residue here is 0 and the 111 is internal to that page.
+    expect(t.protocolValidVotes).toBe(1_900_183);
+    const r = corpusRound("2026_10_25_pvr", 2);
+    expect(r.sections).toHaveLength(12_717);
     expect(r.sections.filter((x) => x.code.startsWith("32"))).toHaveLength(613);
   });
 

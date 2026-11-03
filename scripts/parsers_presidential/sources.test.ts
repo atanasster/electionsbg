@@ -209,7 +209,7 @@ describe("the map matches the trees on disk", () => {
   // cycle different.
   it("says how each cycle differs, in words that are in the note", () => {
     const mustMention: Record<string, RegExp> = {
-      "2026_10_25_pvr": /RUNOFF PENDING/,
+      "2026_10_25_pvr": /tur2\/opendata/,
       "2021_11_14_pvr": /suemg|machine/i,
       "2016_11_06_pvr": /referendum/i,
       "2011_10_23_pvr": /oblast|ОИК/i,
