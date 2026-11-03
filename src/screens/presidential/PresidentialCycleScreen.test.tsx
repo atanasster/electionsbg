@@ -231,8 +231,11 @@ describe("the presidential country page", () => {
     });
     const second = within(toggle).getAllByRole("button")[1];
     fireEvent.click(second);
-    // Round 2 in this fixture WAS won outright — so the verdict must move with the round.
-    expect(ruleText()).toContain(bgCorpus.presidential_rule_won);
+    // The verdict moves with the round — and a runoff is judged by its own rule (plurality, no
+    // threshold), never by the round-1 conditions.
+    expect(ruleText()).toContain(bgCorpus.presidential_rule_runoff_round);
+    expect(ruleText()).not.toContain(bgCorpus.presidential_rule_runoff);
+    expect(ruleText()).not.toContain(bgCorpus.presidential_rule_majority_met);
   });
 
   it("renders no round toggle for a cycle with one round", async () => {
@@ -326,13 +329,13 @@ describe("the presidential country page", () => {
       name: bgCorpus.presidential_round_toggle_label,
     });
     fireEvent.click(within(toggle).getAllByRole("button")[1]);
-    expect(ruleText()).toContain(bgCorpus.presidential_rule_won);
+    expect(ruleText()).toContain(bgCorpus.presidential_rule_runoff_round);
 
     fireEvent.click(screen.getByText("go"));
     await waitFor(() =>
       expect(ruleText()).toContain(bgCorpus.presidential_rule_runoff),
     );
-    expect(ruleText()).not.toContain(bgCorpus.presidential_rule_won);
+    expect(ruleText()).not.toContain(bgCorpus.presidential_rule_runoff_round);
   });
 
   it("says NOTHING about the oblasts while the roll-up has not answered", async () => {
@@ -1432,19 +1435,28 @@ describe("the vote-flow section", () => {
     to: `${LATEST_PRESIDENTIAL_CYCLE}_tur${round}`,
   });
 
-  it("draws one flow per round, each titled with its round", async () => {
+  it("draws the flow of the round on screen, and follows the toggle", async () => {
+    // ⚠ ONE AT A TIME. Both rounds used to be stacked under either toggle position, so the
+    // round-2 view carried the round-1 ballot's Sankey beside the runoff's figures.
     serve(SUMMARY, {
       "transitions_presidential/index.json": { pairs: [pair(1), pair(2)] },
       "pvr_tur1/national.json": FLOW,
       "pvr_tur2/national.json": FLOW,
     });
-    await waitFor(() => expect(titles()).toHaveLength(2));
+    await waitFor(() => expect(titles()).toHaveLength(1));
     expect(titles()[0]).toContain(
       bgCorpus.election_round.replace("{{round}}", "1"),
     );
-    expect(titles()[1]).toContain(
-      bgCorpus.election_round.replace("{{round}}", "2"),
+    const toggle = await screen.findByRole("group", {
+      name: bgCorpus.presidential_round_toggle_label,
+    });
+    fireEvent.click(within(toggle).getAllByRole("button")[1]);
+    await waitFor(() =>
+      expect(titles()[0]).toContain(
+        bgCorpus.election_round.replace("{{round}}", "2"),
+      ),
     );
+    expect(titles()).toHaveLength(1);
   });
 
   it("draws ONE unsuffixed flow for a cycle with one round", async () => {

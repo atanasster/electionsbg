@@ -192,18 +192,12 @@ const RoundPanel: FC<{
   // it renders — so a tile that returns null leaves the heading standing over nothing. Measured
   // on 2006, whose flow the producer refuses on coverage. React Query dedupes this call against
   // the tile's own, so the gate costs no second request.
-  // ⚠ BOTH ROUNDS, whatever the toggle shows: „how did each party's voters vote" has an answer
-  // per round (the parliamentary vote → round 1, and → the runoff), and reading them one above
-  // the other is the comparison. A cycle with one round, or whose flow the producer refused,
-  // simply has no second (or first) file.
-  const flow1 = usePresidentialFlow(cycle, 1, "national");
-  const flow2 = usePresidentialFlow(
-    rounds.includes(2) ? cycle : undefined,
-    2,
-    "national",
-  );
-  const hasFlow1 = flow1.hasPair && flow1.hasFile;
-  const hasFlow2 = flow2.hasPair && flow2.hasFile;
+  // ⚠ THE ROUND ON SCREEN. „How did each party's voters vote" has an answer per round (the
+  // parliamentary vote → round 1, and → the runoff), and the toggle picks which one is shown —
+  // stacking both under a round-2 toggle drew the round-1 ballot beside the runoff's figures. A
+  // round whose flow the producer refused (or never wrote) simply has no file.
+  const flow = usePresidentialFlow(cycle, round.round, "national");
+  const hasFlow = flow.hasPair && flow.hasFile;
   // ⚠ THE COUNTRY SCOPE IS THE ARTIFACT ITSELF — `scopeNeighborhoods` returns the published
   // `tickets` array verbatim at this level rather than re-deriving it, so the country page and
   // the place pages cannot disagree about a share by a rounding step.
@@ -286,18 +280,27 @@ const RoundPanel: FC<{
         </h2>
         <p data-presidential-rule>
           {t("election_source_cik")}{" "}
-          {round.outcome.winsOutright
-            ? t("presidential_rule_won")
-            : t("presidential_rule_runoff")}{" "}
-          {t(
-            round.outcome.meetsMajority
-              ? "presidential_rule_majority_met"
-              : "presidential_rule_majority_unmet",
-          )}{" "}
-          {t(
-            round.outcome.meetsTurnout
-              ? "presidential_rule_turnout_met"
-              : "presidential_rule_turnout_unmet",
+          {/* ⚠ THE RUNOFF HAS NO THRESHOLD (чл. 93, ал. 4 of the Constitution), so the two
+              round-1 conditions are not a verdict on it — „не е избран никой" under a runoff
+              that elected a president is the sentence this branch exists to prevent. */}
+          {round.round === 2 ? (
+            t("presidential_rule_runoff_round")
+          ) : (
+            <>
+              {round.outcome.winsOutright
+                ? t("presidential_rule_won")
+                : t("presidential_rule_runoff")}{" "}
+              {t(
+                round.outcome.meetsMajority
+                  ? "presidential_rule_majority_met"
+                  : "presidential_rule_majority_unmet",
+              )}{" "}
+              {t(
+                round.outcome.meetsTurnout
+                  ? "presidential_rule_turnout_met"
+                  : "presidential_rule_turnout_unmet",
+              )}
+            </>
           )}
         </p>
         <p>
@@ -337,7 +340,7 @@ const RoundPanel: FC<{
              under its OWN heading: how each party's voters voted for president (one Sankey per
              round), and where round 1's votes went in the runoff. Both are ESTIMATES and both
              say so. */}
-      {hasFlow1 || hasFlow2 ? (
+      {hasFlow ? (
         <DashboardSection
           id="presidential-flow"
           // ⚠ THE SECTION AND THE TILE MUST NOT SAY THE SAME THING — rendered with the tile's own
@@ -346,20 +349,11 @@ const RoundPanel: FC<{
           icon={GitFork}
           headingLevel={2}
         >
-          {hasFlow1 ? (
-            <PresidentialFlowTile
-              cycle={cycle}
-              round={1}
-              showRound={hasFlow2}
-            />
-          ) : null}
-          {hasFlow2 ? (
-            <PresidentialFlowTile
-              cycle={cycle}
-              round={2}
-              showRound={hasFlow1}
-            />
-          ) : null}
+          <PresidentialFlowTile
+            cycle={cycle}
+            round={round.round}
+            showRound={rounds.includes(2)}
+          />
         </DashboardSection>
       ) : null}
 

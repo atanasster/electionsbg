@@ -111,11 +111,19 @@ Pure and offline — reads `raw_data/`, writes `data/<cycle>_pvr/`. It stamps `s
 ```bash
 pnpm run data --pvr <cycle>          # (step 3 already did this)
 pnpm run elections:surfaces --write                   # the per-place surface artifacts
+pnpm run data --presidential-flows                     # parliamentary vote → each round (party flow)
 # The ticket→/person map, IF the person layer has moved since it was last minted.
 # ⚠ LOCAL POSTGRES ONLY — person slugs are per-database, and the script refuses anything else.
 PGPASSFILE=$PWD/.pgpass pnpm exec tsx scripts/parsers_presidential/build_ticket_persons.ts --write
 pnpm run sitemap                                        # the presidential sitemap shard
 ```
+
+⚠ **`--presidential-flows` IS NOT PART OF `--pvr`, AND A RUNOFF NEEDS IT RE-RUN.** It writes
+`data/transitions_presidential/<parlDate>_<cycle>_tur<n>/` — the „Как гласуваха партийните
+избиратели" Sankey on the country and region pages, one per round. Skipped after a runoff
+publish, the round-2 view has no party flow at all (2026: the round-1 file existed, the
+round-2 one did not, until this step was run by hand). It is a separate bucket path too:
+`pnpm run bucket:sync:paths transitions_presidential`.
 
 ⚠ **THE SITEMAP IS A COMMITTED ARTIFACT AND `pnpm run sitemap` PRUNES BEFORE IT WRITES.** Run it only on a machine that HAS the `data/*_pvr` trees; a corpus-less mint deletes `public/sitemap_presidential.xml`, drops it from the index, and exits 0. `scripts/sitemap/families.data.test.ts` carries the floor that catches it.
 
@@ -148,6 +156,7 @@ pnpm exec vitest run scripts/parsers_presidential/ scripts/elections/ scripts/si
 
 ```bash
 pnpm run bucket:sync:paths <cycle>          # e.g. 2026_10_25_pvr — the id ALREADY ends in _pvr
+pnpm run bucket:sync:paths transitions_presidential   # the party-flow estimates (step 4)
 pnpm run db:load:election-national:pg:cloud    # the national summary → migration 195's tables
 pnpm run build && pnpm run deploy               # prerendered pages + og cards + the sitemap
 ```

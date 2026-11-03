@@ -71,6 +71,8 @@ import { findPresidentialEntry } from "@/data/presidentialCatalogue";
 import { useTicketsByNumber } from "@/data/presidential/useTickets";
 import { personHrefForTicket } from "@/data/presidential/ticketPersons";
 import { PresidentialPlaceTransfer } from "./PresidentialPlaceTransfer";
+import { PresidentialFlowTile } from "./PresidentialFlowTile";
+import { usePresidentialFlow } from "@/data/presidential/usePresidentialFlow";
 import { PresidentialPlaceNeighborhoods } from "./PresidentialPlaceNeighborhoods";
 import { PresidentialAbroadGeography } from "./PresidentialAbroadGeography";
 import { DiasporaFaqSection } from "@/screens/components/DiasporaFaqSection";
@@ -83,7 +85,7 @@ import {
   surfaceRounds,
 } from "@/data/presidential/roundSurface";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { Map as MapIcon } from "lucide-react";
+import { GitFork, Map as MapIcon } from "lucide-react";
 import type {
   ElectionSurfaceV1,
   PlaceDigestCell,
@@ -175,6 +177,16 @@ export const PresidentialPlaceScreen: FC<{
   const [round, setRound] = usePresidentialRound([1, 2]);
   const grain = CHILD_GRAIN[level];
   const hasChildTop = useHasChildTop(cycle ?? "", round, id, grain);
+  // ⚠ THE PARTY FLOW IS ESTIMATED PER OBLAST (the producer regresses inside each one), so the
+  // region page is the only place level that has one — and it follows the round toggle, as the
+  // country page does. The section owns its gate: `DashboardSection` cannot see through the
+  // tile's self-hide, and an unpublished file is a routine absence, not an empty state.
+  const regionFlow = usePresidentialFlow(
+    level === "region" ? cycle : undefined,
+    round,
+    id ?? "",
+  );
+  const hasRegionFlow = regionFlow.hasPair && regionFlow.hasFile;
   // ⚠ THE SAME QUERY THE RESULTS BOUNDARY MAKES (React Query dedupes it), read here only for
   // the section's parent settlement. Every other level passes no id, which is `loading` with no
   // request — hook order requires the call either way.
@@ -394,6 +406,21 @@ export const PresidentialPlaceScreen: FC<{
           ⚠ THE ORDER IS `/parliamentary`'s place page: where the votes went, then geography,
           then the risk districts. The transfer arm's levels are the component's own rule
           (`TRANSFER_LEVELS`), not a `level === "region"` written here. */}
+      {hasRegionFlow && id ? (
+        <DashboardSection
+          id="presidential-flow"
+          title={t("presidential_flow_section")}
+          icon={GitFork}
+          headingLevel={2}
+        >
+          <PresidentialFlowTile
+            cycle={cycle}
+            round={round}
+            oblast={id}
+            showRound
+          />
+        </DashboardSection>
+      ) : null}
       <PresidentialPlaceTransfer cycle={cycle} level={level} id={id} />
       {/* ⚠ THE SECTION CARRIES ITS OWN GATE — `DashboardSection` cannot see through the tile's
           self-hide, and a „География" heading over nothing reports a routine absence (the
