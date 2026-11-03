@@ -94,7 +94,6 @@ const section = (
   })),
 });
 
-
 /**
  * The per-shard `marginGap` bounds, per cycle and ratcheted on each one's MEASURED
  * distribution (see the table in the gate below).
