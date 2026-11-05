@@ -436,9 +436,9 @@ Final gate after Phase 5: `pnpm run lint`, `tsc -b`, `functions:test` and `pnpm 
 - Eight sampled failing test files were re-run on a clean checkout of `d8dceeccb8`. Every failure
   reproduced there except `scripts/tests/election/surfaces.data.test.ts`, whose count reads
   generated output the checkout does not have.
-- 76 of the 86 Playwright failures hardcode `electionsbg.com` in `tests/seo.spec.ts` or
-  `chat-migration.seo.spec.ts` while the build emits `naiasno.bg`. The rest were not re-run on the
-  old commit. They include hub heads with 0 KPI cells and the entry chunk at 62,364 B against a
+- 69 of the 86 Playwright failures are in the SEO project, mostly because `tests/seo.spec.ts` and
+  `chat-migration.seo.spec.ts` expect `electionsbg.com` while the build emits `naiasno.bg`. None
+  of the 86 was re-run on the old commit. They include hub heads with 0 KPI cells and the entry chunk at 62,364 B against a
   56,000 B budget; the removal only deleted code, so it should not have grown that chunk.
 
 Phase 6 hold ends 2026-11-19. Phase 7 is still to do, and the second copy (D4) does not exist yet.
