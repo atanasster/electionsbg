@@ -13,6 +13,11 @@ dist
 dist-ai
 dist-ssr
 dist-news
+# The news project moved to its own repo (docs/plans/news-extraction-v1.md). These
+# rules protect what is left on disk: the nested .gitignore files go with the tree.
+/news/
+/newsapp/
+/news-functions/
 # Generated news-app data bundles (rebuilt by news/scripts/build_app_data.py)
 /news/app-data/
 # M0 model-compile artifacts (large; built locally)
