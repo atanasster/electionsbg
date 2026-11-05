@@ -21,7 +21,7 @@ Verified foundations:
 - React 19, React Router, TanStack Query and Radix/shadcn-style controls already provide the UI primitives. `src/routes.tsx:1830` exports `AuthRoutes`, but that name is historical: it is an ordinary public router with no authentication guard.
 - Root dependencies contain neither the Firebase browser SDK nor Stripe. `functions/package.json` already includes Firebase Admin and Firebase Functions.
 - Firestore is already used server-side by the budget scenario tally. `firestore.rules:1` denies all browser reads/writes and is also deployed to the separate news project.
-- (2026-11-05: the news app has since left this repo and is frozen, see `news-extraction-v1.md`; references to it below are historical.)
+- (2026-11-05: the news app has since left this repo and is frozen, references to it below are historical.)
 - `.firebaserc` maps main, staging, AI and news to **different Firebase projects**. A hosting project is not automatically an identity provider shared with its siblings.
 - `/api/db/**` has public CDN caching in `firebase.json`; `/api/sql/query` deliberately exposes a restricted public read-only SQL console. Neither is a suitable destination for personal records.
 - `src/data/queryClient.ts:5` defaults to infinite stale/cache times and disables focus/reconnect refresh. Private queries must set their own lifecycle.

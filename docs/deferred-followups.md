@@ -554,7 +554,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
 ## News
 
 The news project is frozen and moved out of this repo; see
-`docs/plans/news-extraction-v1.md`. Its open follow-ups moved with it.
+`/Volumes/Storage/naiasno-news/docs/plans/news-extraction-v1.md`. Its open follow-ups moved with it.
 
 ## Infrastructure, Database & Site Hygiene
 

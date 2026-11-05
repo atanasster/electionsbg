@@ -106,6 +106,8 @@ it before changing data loaders, identity logic, PostgreSQL migrations, or
 deployment flows; it records correctness constraints and ordering requirements
 that do not belong in this introductory README.
 
+The frozen news project moved out of this repo in November 2026, to a private local repo.
+
 ## Local development
 
 The root uses pnpm (the exact version is pinned in `package.json`'s
