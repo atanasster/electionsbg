@@ -70,10 +70,11 @@ export const DATA_ROOT = path.join(process.cwd(), "data");
  *     which mirrors how every other kind is bounded, and folding abroad onto the one page its
  *     route serves took a further 297 off (302 artifacts on 5 URLs).
  *
- * The corpus lands at 58,915 — parliamentary 18,117 · local 5,548 · presidential 35,250
- * (region 155 · municipality 1,357 · settlement 21,245 · abroad 5 · section 12,488).
- * ⚠ That is 1.8% under the 60,000 gate, so the NEXT level added here needs its own arithmetic
- * rather than an assumption of room.
+ * The corpus landed at 58,915 with five cycles. The sixth, 2026, took it to 62,997 —
+ * parliamentary 18,117 · local 5,562 · presidential 39,318 (region 186 · municipality 1,629 ·
+ * settlement 25,391 · abroad 6 · section 12,106, 2026 only). The gate is 70,000: a cycle adds
+ * ~4,500 objects once its sections roll off, so the NEXT level added here needs its own
+ * arithmetic rather than an assumption of room.
  */
 const KINDS_NOT_PUBLISHED: readonly ElectionKind[] = [];
 export const coveredCycles = (

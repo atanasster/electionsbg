@@ -512,13 +512,16 @@ describe("§5.0's emit column, re-measured against GENERATED output", () => {
     "records the object-count delta, inside §5.0's bound",
     () => {
       // §5.0's own worked example is ~240,000 objects for all 13 parliamentary cycles, which it
-      // rejects. v1's bounded coverage must stay an order of magnitude below that.
+      // rejects. v1's coverage stays bounded: only the presidential non-section levels grow, by
+      // ~4,500 objects a cycle, so this bound holds through the 2031 cycle (~67,500). It was
+      // 60,000 until the 2026 presidential cycle took the corpus to 62,997; `coveredCycles`
+      // publishes every presidential cycle by decision, so that growth is the policy working.
       const { artifacts, embedded } = B.objectCounts(B.summarise(ALL));
       expect(artifacts).toBeGreaterThan(20_000);
       expect(
         artifacts,
         `${artifacts} new bucket objects — §5.0 rejects the 240,000-object shape`,
-      ).toBeLessThan(60_000);
+      ).toBeLessThan(70_000);
       expect(
         embedded,
         "the artifact run must not include the embedded level",
