@@ -40,7 +40,7 @@ describe.skipIf(!reachable)("normalized national election results", () => {
     );
     expect(result.rows).toEqual([
       { election_type: "parliamentary", n: "13", hashes: "13" },
-      { election_type: "presidential", n: "10", hashes: "5" },
+      { election_type: "presidential", n: "12", hashes: "6" },
     ]);
     const incomplete = await getPool().query(
       `SELECT c.contest_id FROM election_contest c

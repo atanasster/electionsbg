@@ -254,7 +254,14 @@ test.skipIf(skipIdentity)(
     // 2026-10-16: 135,249 → 135,772 (+523), operator-accepted as corpus growth. Tier-V private
     // owners 70,396 → 70,890 (+494) after a TR refresh (+287 companies, CR projection applied);
     // base 64,853 → 64,882 (+29). Nothing dropped.
-    const BASELINE = 135_772;
+    //
+    // 2026-11-05: 135,772 → 136,490 (+718) after the 2026-11-01 resolve. Tier-V private owners
+    // 70,890 → 71,572 (+682) on 1,874 new tr_company rows since 2026-10-16; base 64,882 →
+    // 64,918 (+36). The controls ROSE (folds 3,417 → 3,455, rows 9,638 → 9,731, review groups
+    // 3,387 → 3,419), which is new people with colliding names, not merges. The 11 slugs
+    // retired since the last baseline all point at a same-named person. 5.9b/5.9c moved too, to
+    // keep one vintage.
+    const BASELINE = 136_490;
     const TOLERANCE = 500;
     assert.ok(
       Math.abs(persons - BASELINE) <= TOLERANCE,
@@ -319,7 +326,7 @@ test.skipIf(skipIdentity)(
     // RE-BASELINED 2026-10-03 with 5.9 (see its note): 3,457 → 3,417 folds, 9,773 → 9,638
     // rows — a DROP, attributed to the deliberate sameMayoralty merge (e2e7e06423) and checked
     // pair by pair. Not to be read as precedent for an unattributed fall.
-    const FOLD_BASELINE = 3_417;
+    const FOLD_BASELINE = 3_455;
     const FOLD_TOLERANCE = 40;
     assert.ok(
       Math.abs(folds - FOLD_BASELINE) <= FOLD_TOLERANCE,
@@ -337,7 +344,7 @@ test.skipIf(skipIdentity)(
     // hold >= 3 people, so that class is a fifth of the population, not a hypothetical.
     // Tolerance is FOLD_TOLERANCE scaled by the same ratio (40/3,495 ≈ 1.14% of 9,962).
     const foldRows = Number(row.rows);
-    const FOLD_ROWS_BASELINE = 9_638;
+    const FOLD_ROWS_BASELINE = 9_731;
     const FOLD_ROWS_TOLERANCE = 120;
     assert.ok(
       Math.abs(foldRows - FOLD_ROWS_BASELINE) <= FOLD_ROWS_TOLERANCE,
@@ -375,7 +382,7 @@ test.skipIf(skipIdentity)(
     //
     // RE-BASELINED 2026-10-03 with 5.9/5.9b on the same attribution: 3,423 → 3,387. A merged
     // mayor pair no longer raises a "might be the same person" question.
-    const GROUP_BASELINE = 3_387;
+    const GROUP_BASELINE = 3_419;
     const GROUP_TOLERANCE = 40;
     assert.ok(
       Math.abs(groups - GROUP_BASELINE) <= GROUP_TOLERANCE,

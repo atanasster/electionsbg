@@ -1,4 +1,5 @@
 import { expect, test } from "./edgeTest";
+import { SITE_ORIGIN } from "../src/lib/siteOrigin";
 
 for (const prefix of ["", "/en"])
   for (const path of ["chat", "chat/tools", "chat/evals"]) {
@@ -9,7 +10,7 @@ for (const prefix of ["", "/en"])
       expect(response.ok()).toBe(true);
       const html = await response.text();
       expect(html).toContain(
-        `rel="canonical" href="https://electionsbg.com${prefix}/${path}"`,
+        `rel="canonical" href="${SITE_ORIGIN}${prefix}/${path}"`,
       );
       expect(html).toContain('hreflang="bg"');
       expect(html).toContain('hreflang="en"');

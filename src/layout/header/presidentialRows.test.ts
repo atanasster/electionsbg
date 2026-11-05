@@ -68,12 +68,22 @@ describe("presidentialRows", () => {
     // ⚠ 2006 publishes a TWO-part name („Георги Първанов"), so „the third token" would be
     // empty here — the row would render a date and a bare separator.
     expect(byName.get("2006_10_22_pvr")!.winnerSurname).toBe("Първанов");
+    expect(byName.get("2026_10_25_pvr")!.winnerSurname).toBe("Йотова");
     // Every DECIDED cycle in this corpus went to a runoff, which is why the row says so.
-    const decided = rows.filter((r) => r.name !== "2026_10_25_pvr");
-    expect(decided).toHaveLength(5);
-    expect(decided.every((r) => r.decidedInRound === 2)).toBe(true);
-    // ⚠ 2026 is RUNOFF PENDING: no round, and no surname — never the round-1 leader's.
-    const pending = byName.get("2026_10_25_pvr")!;
+    expect(rows).toHaveLength(6);
+    expect(rows.every((r) => r.decidedInRound === 2)).toBe(true);
+    // ⚠ RUNOFF PENDING: no round, and no surname — never the round-1 leader's. Derived,
+    // because the committed catalogue only holds this state in the week between rounds.
+    const latest = catalogue[0] as PresidentialElectionEntry;
+    const [pending] = presidentialRows([
+      {
+        ...latest,
+        round2Date: null,
+        decidedInRound: null,
+        winnerTicket: null,
+        rounds: { 1: latest.rounds[1] },
+      },
+    ]);
     expect(pending.decidedInRound).toBeNull();
     expect(pending.winnerSurname).toBe("");
     expect(decidedLabelKey(pending.decidedInRound)).toBe(

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { test, expect, type APIResponse } from "./edgeTest";
+import { SITE_ORIGIN } from "../src/lib/siteOrigin";
 
 // Per-segment percent-encode (matches scripts/prerender/index.ts:encodeUrlPath).
 const enc = (p: string): string =>
@@ -75,7 +76,7 @@ const SKIP_COURTS =
   "judicial-body prerender absent (no dist/court/**) — Postgres was down at build time, run `pnpm run db:pg:up` and rebuild";
 
 const HOME_TITLE_BG_PREFIX = "Парламентарни избори";
-const HOME_TITLE_EN_PREFIX = "Bulgarian Parliamentary Elections";
+const HOME_TITLE_EN_PREFIX = "Bulgaria in Data";
 
 type RouteCheck = {
   path: string;
@@ -512,7 +513,7 @@ const EN_ROUTES: RouteCheck[] = [
   {
     path: "/en/about",
     titleIncludes: "About",
-    h1Includes: "About electionsbg.com",
+    h1Includes: "About Naiasno",
     minBodyChars: 500,
     expectedCanonical: "/en/about",
   },
@@ -579,7 +580,7 @@ const EN_ROUTES: RouteCheck[] = [
 ];
 
 // Match the canonical the prerender step writes — origin + percent-encoded path.
-const ORIGIN = "https://electionsbg.com";
+const ORIGIN = SITE_ORIGIN;
 
 const fetchOk = async (
   request: { get(url: string): Promise<APIResponse> },
@@ -784,7 +785,7 @@ test.describe("prerender: English mirrors", () => {
 // Cross-cutting checks that don't fit the per-route table.
 test.describe("prerender: cross-cutting", () => {
   test.skip(!PREREQ_DATA_PRESENT, SKIP_REASON);
-  test("home page declares 3 JSON-LD blocks (WebSite + Organization + Dataset)", async ({
+  test("home page declares 3 JSON-LD blocks (WebSite + Organization + ItemList)", async ({
     request,
   }) => {
     const { body } = await fetchOk(request, "/");
@@ -794,7 +795,7 @@ test.describe("prerender: cross-cutting", () => {
       .map((b) => JSON.parse(b))
       .map((j: { "@type": string }) => j["@type"]);
     expect(types).toEqual(
-      expect.arrayContaining(["WebSite", "Organization", "Dataset"]),
+      expect.arrayContaining(["WebSite", "Organization", "ItemList"]),
     );
   });
 

@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { brotliCompressSync, constants } from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { LOCALE_BUNDLES } from "../src/locales/bundles";
+import { SITE_ORIGIN } from "../src/lib/siteOrigin";
 
 // Note: `path` is deliberately NOT imported — the CLS loops below bind `path`
 // as a per-route variable and would shadow it.
@@ -1288,9 +1289,9 @@ test.describe("data preload hints", () => {
     const js = fs.readFileSync(`${DIST_DIR}/assets/${entry}`, "utf8");
 
     for (const href of hintsIn(html)) {
-      const origin = new URL(href, "https://electionsbg.com").origin;
+      const origin = new URL(href, SITE_ORIGIN).origin;
       expect(
-        js.includes(origin) || origin === "https://electionsbg.com",
+        js.includes(origin) || origin === SITE_ORIGIN,
         `preload origin ${origin} is absent from the bundle — the prerender ` +
           `and \`vite build\` resolved different env modes, so every hint ` +
           `misses the fetch it is meant to warm`,

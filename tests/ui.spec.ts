@@ -114,7 +114,7 @@ test.describe("UI rendering", () => {
     // Title settles after i18n loads — give it a moment to update from the
     // prerendered title to the runtime BG/EN title.
     await page.waitForLoadState("networkidle");
-    await expect(page).toHaveTitle(/electionsbg|Избори/i);
+    await expect(page).toHaveTitle(/Наясно|Naiasno/);
 
     expect(filterErrors(c.errors), "console errors during home load").toEqual(
       [],

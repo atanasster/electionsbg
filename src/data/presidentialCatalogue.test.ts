@@ -116,8 +116,8 @@ describe("presidential_elections.json", () => {
     // ⚠ The positive control. Without it „every entry is well-formed" passes on a
     // validator that returns `true` unconditionally, which is the one implementation the
     // assertion above cannot distinguish from a working one.
-    // ⚠ The newest DECIDED cycle: `catalogue[0]` is now 2026, runoff pending, and the
-    // mutations below are written against a two-round entry.
+    // ⚠ The newest DECIDED cycle, not `catalogue[0]`: the newest row can be runoff pending,
+    // and the mutations below are written against a two-round entry.
     const good = catalogue.find(
       (e) => e.decidedInRound !== null,
     ) as unknown as Record<string, unknown>;
@@ -195,15 +195,18 @@ describe("presidential_elections.json", () => {
     ).toBe(false);
   });
 
-  it("accepts the runoff-pending 2026 row, and only in its consistent shape", () => {
-    const pending = catalogue.find(
-      (e) => e.name === "2026_10_25_pvr",
-    ) as unknown as Record<string, unknown>;
-    expect(pending).toBeDefined();
-    expect(pending.decidedInRound).toBeNull();
-    expect(pending.winnerTicket).toBeNull();
-    expect(pending.round2Date).toBeNull();
-    expect(Object.keys(pending.rounds as object)).toEqual(["1"]);
+  it("accepts a runoff-pending row, and only in its consistent shape", () => {
+    // Every cycle passes through this state for the week between round 1 and the runoff,
+    // but the committed catalogue only holds it during that week — 2026 left it on
+    // 2026-11-03 — so the row is derived from the latest cycle rather than found in the file.
+    const latest = catalogue[0] as unknown as Record<string, unknown>;
+    const pending = {
+      ...latest,
+      round2Date: null,
+      decidedInRound: null,
+      winnerTicket: null,
+      rounds: { 1: (latest.rounds as Record<string, unknown>)["1"] },
+    };
     expect(isPresidentialElectionEntry(pending)).toBe(true);
     // A pending row that names a winner names a president nobody elected.
     const decided = catalogue.find((e) => e.decidedInRound !== null)!;
@@ -221,8 +224,8 @@ describe("presidential_elections.json", () => {
     // KEYS check refuses it first and the `decidedInRound` guard could be deleted with
     // every assertion still passing. These carry a matching `rounds` so execution gets
     // there.
-    // ⚠ The newest DECIDED cycle: `catalogue[0]` is now 2026, runoff pending, and the
-    // mutations below are written against a two-round entry.
+    // ⚠ The newest DECIDED cycle, not `catalogue[0]`: the newest row can be runoff pending,
+    // and the mutations below are written against a two-round entry.
     const good = catalogue.find(
       (e) => e.decidedInRound !== null,
     ) as unknown as Record<string, unknown>;
