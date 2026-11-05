@@ -26,17 +26,7 @@ export default defineConfig({
         test: {
           name: "browser",
           environment: "jsdom",
-          // newsapp/** is the standalone news app (news.electionsbg.com). It
-          // is React and belongs in jsdom, and it matched NO project until
-          // 2026-08-26 — so a component test placed there would have been
-          // collected by nothing and passed by never running, which is the
-          // exact case the node project's comment block below describes for
-          // vite/**, video/** and news/scripts/**.
-          include: [
-            "src/**/*.test.{ts,tsx}",
-            "newsapp/**/*.test.{ts,tsx}",
-            "ai/app/**/*.test.tsx",
-          ],
+          include: ["src/**/*.test.{ts,tsx}", "ai/app/**/*.test.tsx"],
           // jest-dom matchers + Testing Library auto-cleanup.
           setupFiles: ["./vitest.setup.ts"],
         },
@@ -63,20 +53,12 @@ export default defineConfig({
           // easy to leave uncollected here — and per the note above that means a
           // test passing by never running. Only its pure logic is tested; the
           // compositions are verified by rendering and reading frames.
-          // news/scripts/** is the news-intake pipeline. Its Python halves
-          // have their own suites (run by `pnpm run news:test`); the ONE
-          // JavaScript half is harvest_browser.mjs, the headless browser
-          // tier. Its test file matched no include pattern at all — neither
-          // the directory nor the .mjs extension — so it was exactly the
-          // "collected by no project and passing vacuously by never running"
-          // case this comment block warns about, two paragraphs above.
           include: [
             "scripts/**/*.test.ts",
             "ai/**/*.test.ts",
             "functions/**/*.test.ts",
             "vite/**/*.test.ts",
             "video/**/*.test.ts",
-            "news/scripts/**/*.test.mjs",
           ],
           testTimeout: 120_000,
           hookTimeout: 120_000,

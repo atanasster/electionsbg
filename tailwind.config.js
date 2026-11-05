@@ -4,8 +4,6 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./ai/**/*.{js,ts,jsx,tsx}",
-    "./newsapp/index.html",
-    "./newsapp/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: ["class"],
   future: {

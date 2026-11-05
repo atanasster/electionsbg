@@ -1,17 +1,13 @@
 {
   "projects": {
-    "default": "elections-bg",
-    "news": "electionsbg-news"
+    "default": "elections-bg"
   },
   "targets": {
     "elections-bg": {
       "hosting": {
-        "main": ["elections-bg"]
-      }
-    },
-    "electionsbg-news": {
-      "hosting": {
-        "news": ["electionsbg-news"]
+        "main": [
+          "elections-bg"
+        ]
       }
     }
   },

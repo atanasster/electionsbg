@@ -76,6 +76,14 @@ describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
     expect(isExcluded("opencalls/isun.json")).toBeTruthy();
   });
 
+  // news/ in the bucket is what news.electionsbg.com reads, with no local source left.
+  it("excludes news/ in both the -x regexes and isExcluded()", () => {
+    expect(pkg["bucket:sync"]).toContain("^news/.*");
+    expect(pkg["bucket:sync:dry"]).toContain("^news/.*");
+    expect(isExcluded("news")).toBeTruthy();
+    expect(isExcluded("news/app-data")).toBeTruthy();
+  });
+
   // council/ is PG-served (migrations 160/161) — /api/db/council-overview, -muni
   // and -resolution. Every reader moved off the bucket in council-hub-v1 tiers
   // 5-7 (the My-Area tile, the alerts builder, both AI tools). The tree stays on

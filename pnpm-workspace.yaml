@@ -1,6 +1,6 @@
 # pnpm settings for the ROOT app only (pnpm 11+ reads them from here, not package.json).
-# functions/, news-functions/ and news/ are separately deployed and stay on npm with their
-# own package-lock.json — they are deliberately NOT workspace packages.
+# functions/ is separately deployed and stays on npm with its own package-lock.json — it is
+# deliberately NOT a workspace package.
 
 # A flat, npm-shaped node_modules (still hard-linked from the shared store), so the
 # undeclared imports the scripts rely on keep resolving.

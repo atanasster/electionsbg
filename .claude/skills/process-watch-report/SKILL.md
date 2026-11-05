@@ -1285,8 +1285,8 @@ pnpm run db:load:employer-links:pg:cloud     # 165+168 — a pure derivation ove
     - **Name every path; sweep none.** Expand the `--` list from the `git status` above. If a
       file in those trees is shown as already STAGED (a first-column `M`/`A`), it is not yours —
       leave it out and say so in the summary.
-    - **Nothing outside those five trees.** Source changes, test changes, skill edits and
-      `news/**` belong to whoever was editing them. This orchestrator is data-only.
+    - **Nothing outside those five trees.** Source changes, test changes and skill edits
+      belong to whoever was editing them. This orchestrator is data-only.
     - **`git commit -- <path>` reads the WORKING TREE, not the index.** You cannot partially
       commit a file another session is also editing; check `git diff -- <path>` first, and an
       EMPTY diff on a file you just wrote means somebody else already committed it.

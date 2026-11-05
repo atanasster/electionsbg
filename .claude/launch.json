@@ -29,16 +29,6 @@
         "hosting"
       ],
       "port": 5002
-    },
-    {
-      "name": "news-dev",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": [
-        "run",
-        "dev:news"
-      ],
-      "port": 5190,
-      "autoPort": true
     }
   ]
 }

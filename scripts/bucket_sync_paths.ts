@@ -53,6 +53,11 @@ const GZIP_EXTS = "json,svg,xml,txt,html,css,md";
 
 /** Paths under data/ that bucket:sync's -x regex excludes, i.e. never upload. */
 export const isExcluded = (rel: string): string | null => {
+  // news/ in the bucket holds the live news site's app-data as well as the mention
+  // shards, and neither has a local source any more, so a --delete here would empty
+  // the site. The objects are frozen, not retired.
+  if (rel === "news" || rel.startsWith("news/"))
+    return "news/ is frozen in the bucket and has no local source (news-extraction-v1)";
   if (rel === "_cache" || rel.startsWith("_cache/"))
     return "_cache/ is a local build cache";
   // polls-agency-watchers-v1 decision 7 + §6.4: an inbox draft is committed,

@@ -80,12 +80,11 @@ data/confirmation gate — see Post kinds. Rules 3–5 always apply.)_
    claims, and the second is the one that gets screenshotted.
 8. **No person-sentiment post near a vote.** A post built on how the media
    frame a named person (the news site's person pages, `/persons`, the outlet
-   grid, the main-site „В медиите" tile) is refused inside an election freeze
-   window and for 24 h before one (news-person-sentiment-v1 §8.2). Check first,
-   and stop if it exits non-zero:
-   ```bash
-   python3 news/scripts/publication_freeze.py --check-post
-   ```
+   grid) is refused inside an election freeze
+   window and for 24 h before one (news-person-sentiment-v1 §8.2). The window runs
+   from 00:00 on the day before a vote to 20:00 on voting day, Europe/Sofia. Check the
+   next vote date in `src/data/myarea/upcomingElections.ts` first, and stop if the post
+   falls inside that window or in the 24 hours before it opens.
 
 ## Pipeline
 

@@ -551,39 +551,10 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   matching `/company/:eik`). If consortium-split attribution is ever needed in search badges, add
   it as a separate column rather than changing `contracts_eur`.
 
-## News (`news.naiasno.bg`)
+## News
 
-- **Jev continuous sentiment & person-sentiment publication gates**:
-  - Flip `NEWS_PUBLISH_JEV_LEANING`, `NEWS_PUBLISH_JEV_RUSSIA`, and `NEWS_PUBLISH_JEV_PARTIES` on
-    in production once human-adjudicated calibration gates pass.
-  - Flip `NEWS_PUBLISH_PERSON_RAIL`, `NEWS_PUBLISH_PERSON_PAGES`, `NEWS_PUBLISH_PERSON_GRID`, and
-    `NEWS_PUBLISH_MAIN_SITE_MEDIA_TONE` on once the human adjudication queues (`Самоличност`,
-    `Фамилии`, `Нови лица`, `Оценки` in `pnpm run news:review`) clear `person_accuracy_gate.py`.
-- **Realtime worker & scheduler (Phases 5–6)**: Wire fast-path overlay invocation into
-  `run_hourly.sh` / LaunchAgent scheduler, run a 72h unattended local soak test, and decide between
-  local Mac mini vs a ~€6–9/mo EU VPS (Hetzner CX23 €5.49 / CAX11 €5.99 excl. VAT and IPv4 after
-  the April and June 2026 repricings, with limited availability reported; Netcup has retired G12 and
-  its smallest is the VPS 500 G12.5 at €8.26 on a 12-month term; prices checked 2026-10-21).
-- **Browser-tier harvest resilience**: Add per-article fallback and `storageState` persistence in
-  `news/scripts/harvest_browser.mjs` for `blitz.bg`, `dnevnik.bg`, `capital.bg`, and `24chasa.bg`.
-- **Entity & mention linking (`resolve_mentions.py`)**:
-  - Merge the 7 elected mayors whose two-part gazetteer surface is blocked by a candidate-only
-    namesake (incl. Благомир Коцев, Варна — still in office as of 2026-10; detained 07.2025 and
-    released on bail 11.2025, case pending) via `data/person/link_overrides.json`.
-  - Make short abbreviation matching case-sensitive in `news/scripts/resolve_mentions.py` so
-    lowercase `"мо"` does not false-match Министерство на отбраната (МО).
-- **Ground-news model follow-ups**:
-  - Full browse route for the „Показваме 1 от N" feed link and server/index-level filtering before
-    pagination on `OutletScreen`.
-  - Story auto-join promotion gate (requires ≥300 adjudicated accepted test pairs across ≥50
-    events with observed precision ≥0.99 and 95% Wilson LB ≥0.97).
-  - Bounded full-text/chunked pass for the ~13.5% of articles exceeding the 6,000-character body
-    prefix.
-  - Frontier-model reference baseline (`analyze_articles.py --eval-frontier` on the 250-article
-    gold set) on `/methodology`.
-  - Coverage-gap discovery route on observable outlet-health cohorts, `Outlet` EIK/ownership
-    provenance on `OutletScreen`, and production analytics sink + consent check for
-    `window.naiasnoNewsAnalytics`.
+The news project is frozen and moved out of this repo; see
+`docs/plans/news-extraction-v1.md`. Its open follow-ups moved with it.
 
 ## Infrastructure, Database & Site Hygiene
 

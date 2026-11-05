@@ -109,9 +109,8 @@ that do not belong in this introductory README.
 ## Local development
 
 The root uses pnpm (the exact version is pinned in `package.json`'s
-`packageManager` field; `corepack enable` provides it). `functions/`,
-`news-functions/` and `news/` are deployed separately and keep their own npm
-lockfiles. Install dependencies and start Vite:
+`packageManager` field; `corepack enable` provides it). `functions/` is deployed
+separately and keeps its own npm lockfile. Install dependencies and start Vite:
 
 ```bash
 pnpm install
