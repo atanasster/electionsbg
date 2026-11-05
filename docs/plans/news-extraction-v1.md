@@ -429,3 +429,16 @@ Where the run differed from the plan:
   to the source. `news:perf:gate` fails on the whole-corpus filter index budget and
   `news:home-health:gate` fails after a rebuild because the corpus is stale. None comes from the move.
 - **`bucket:sync`:** `^news/.*` was added to both `-x` regexes as well as `isExcluded`.
+
+Final gate after Phase 5: `pnpm run lint`, `tsc -b`, `functions:test` and `pnpm run build` pass.
+`test:unit`, `test:data` and `pnpm test` do not, for reasons unrelated to the removal:
+
+- Eight sampled failing test files were re-run on a clean checkout of `d8dceeccb8`. Every failure
+  reproduced there except `scripts/tests/election/surfaces.data.test.ts`, whose count reads
+  generated output the checkout does not have.
+- 76 of the 86 Playwright failures hardcode `electionsbg.com` in `tests/seo.spec.ts` or
+  `chat-migration.seo.spec.ts` while the build emits `naiasno.bg`. The rest were not re-run on the
+  old commit. They include hub heads with 0 KPI cells and the entry chunk at 62,364 B against a
+  56,000 B budget; the removal only deleted code, so it should not have grown that chunk.
+
+Phase 6 hold ends 2026-11-19. Phase 7 is still to do, and the second copy (D4) does not exist yet.
