@@ -6,6 +6,7 @@ const {
   renderIntoShell,
   contractPage,
   companyPage,
+  institutionPage,
   handleSpaPageRequest,
   FALLBACK_SHELL,
   isSpaPagePath,
@@ -817,4 +818,88 @@ test("selfUrlFor names the programme path", () => {
     selfUrlFor({ kind: "programme", key: "INTERREG-ROBG-1420", lang: "en" }),
     `${SITE_URL}/en/funds/interreg/programme/INTERREG-ROBG-1420`,
   );
+});
+
+// ── gone contracts and EIKs with no Commerce Registry row ───────────────────
+
+test("a procurement key that is gone answers 404, with the SPA body", async () => {
+  const res = fakeRes();
+  const handled = await handleSpaPageRequest(
+    { path: "/procurement/contract/63473c48d7a7", method: "GET" },
+    res,
+    deps({ loadProcurementContract: async () => null }),
+  );
+  assert.equal(handled, true);
+  assert.equal(res.statusCode, 404);
+  // The shell still boots, so a human gets the SPA's not-found page…
+  assert.ok(res.body.includes('<div id="root">'));
+  // …and the 404 is an ordinary cacheable answer, not a transient one.
+  assert.match(res.headers["Cache-Control"], /s-maxage=3600/);
+});
+
+test("a database blip on a procurement key is not reported as a 404", async () => {
+  // Discriminates the rule: a 404 here would tell a crawler a live contract is
+  // gone, on the strength of one bad second.
+  const res = fakeRes();
+  await handleSpaPageRequest(
+    { path: "/procurement/contract/63473c48d7a7", method: "GET" },
+    res,
+    deps({
+      loadProcurementContract: async () => {
+        throw new Error("db down");
+      },
+    }),
+  );
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.headers["Cache-Control"], "no-store");
+});
+
+test("the 404 is scoped to procurement keys", async () => {
+  const res = fakeRes();
+  await handleSpaPageRequest(
+    { path: "/company/998246635", method: "GET" },
+    res,
+    deps(),
+  );
+  assert.equal(res.statusCode, 200);
+  assert.ok(res.body.includes('name="robots" content="noindex"'));
+});
+
+const NO_MONEY = { contracts: 0, contractsEur: 0, fundsEur: 0 };
+
+test("institutionPage gives a buyer-only EIK its own head", () => {
+  const url = `${SITE_ORIGIN}/company/000044598`;
+  const page = institutionPage(
+    {
+      eik: "000044598",
+      name: "Регионален Исторически музей - бургас",
+      buyCount: 2,
+      buyEur: 154826,
+    },
+    NO_MONEY,
+    "bg",
+    url,
+  );
+  assert.match(page.title, /Регионален Исторически музей - бургас \(ЕИК 000044598\)/);
+  assert.match(page.description, /възложител на 2 обществени поръчки/);
+  // There is no TR row, so the copy must not cite the Commerce Registry.
+  assert.doesNotMatch(page.description, /Търговския регистър/);
+  const html = renderIntoShell(SHELL, page);
+  const robots = html.match(/<meta\b[^>]*\bname="robots"[^>]*>/g) ?? [];
+  assert.equal(robots.length, 1, robots.join(" | "));
+  assert.match(robots[0], /content="index, follow"/);
+  assert.ok(html.includes(`canonical" href="${url}"`));
+});
+
+test("institutionPage says which side of a contract the entity was on", () => {
+  const page = institutionPage(
+    { eik: "176123469", name: "ДЗЗД Строй", buyCount: 0, buyEur: 0 },
+    { contracts: 3, contractsEur: 3000000, fundsEur: 0 },
+    "en",
+    `${SITE_ORIGIN}/en/company/176123469`,
+  );
+  assert.match(page.description, /won 3 public contracts/);
+  assert.doesNotMatch(page.description, /awarded/);
+  assert.doesNotMatch(page.description, /Commerce Registry/);
+  assert.equal(page.canonicalUrl, `${SITE_ORIGIN}/company/176123469`);
 });

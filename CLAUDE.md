@@ -288,6 +288,18 @@ rewrite points every contract URL at a function with no handler for it. Amendmen
 (`tag = 'contractAmendment'`, 6,764) share the key space and are worded as amendments, never as
 their base contract.
 
+**A key no longer in `contracts` answers 404, and that is the only family that does.** A reconcile
+or re-key leaves no successor to redirect to: 23,923 of the 431,018 keys in `contract_first_seen`
+were gone on 2026-11-05. The body is still the SPA shell, so a reader gets the not-found page; a
+database failure stays a `no-store` 200, because one bad second must not tell a crawler that a live
+contract is gone. Not 410 — a later reconcile can bring a key back.
+
+**`/company/<eik>` with no TR row gets its own head (`institutionPage`).** The name order is
+`CompanyDbScreen`'s minus the curated TS override: `institution_identity()`, then the corpus
+`contractor_name`. Until 2026-11-05 `loadCompany` returned null for all of these, so ~3,700 buyers
+and every corpus-only supplier rendered a full page under the homepage head plus a `noindex`. Null
+now means the SPA dead-ends too.
+
 **`/council/resolution/**`is a fifth member, and the only one that is function-served for a
 CONTENT reason rather than a file-count one.** 4,813 resolutions as of 2026-08-25 (9,626 with the EN mirror)
 would fit under the Firebase ceiling comfortably — but each body is one title and a vote

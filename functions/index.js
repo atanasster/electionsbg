@@ -32,6 +32,7 @@ const {
   contractPage,
   procurementContractPage,
   companyPage,
+  institutionPage,
   interregPage,
   interregProgrammePage,
   councilResolutionPage,
@@ -651,15 +652,40 @@ const makeDb = () => {
                 [eik],
               ),
             ]);
-            if (!co.rows[0]) return null;
             const m = money.rows[0] || {};
-            return companyPage(
-              co.rows[0],
+            const amounts = {
+              contracts: Number(m.contracts) || 0,
+              contractsEur: Number(m.contracts_eur) || 0,
+              fundsEur: Number(m.funds_eur) || 0,
+            };
+            if (co.rows[0])
+              return companyPage(co.rows[0], amounts, lang, selfUrl);
+            // No TR row. Same name order as CompanyDbScreen's displayName:
+            // the institution, then the procurement-corpus name. Nothing to name
+            // means the SPA dead-ends too, so the head stays noindexed.
+            const { rows: idRows } = await p.query(
+              "SELECT institution_identity($1) AS r",
+              [eik],
+            );
+            const identity = idRows[0]?.r;
+            let name = identity?.name;
+            if (!name && amounts.contracts > 0) {
+              const { rows: nameRows } = await p.query(
+                `SELECT mode() WITHIN GROUP (ORDER BY contractor_name) AS name
+                   FROM contracts WHERE contractor_eik = $1`,
+                [eik],
+              );
+              name = nameRows[0]?.name;
+            }
+            if (!name) return null;
+            return institutionPage(
               {
-                contracts: Number(m.contracts) || 0,
-                contractsEur: Number(m.contracts_eur) || 0,
-                fundsEur: Number(m.funds_eur) || 0,
+                eik,
+                name,
+                buyCount: Number(identity?.buyContractCount) || 0,
+                buyEur: Number(identity?.buyTotalEur) || 0,
               },
+              amounts,
               lang,
               selfUrl,
             );

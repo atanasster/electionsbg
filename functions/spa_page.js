@@ -784,6 +784,83 @@ const companyPage = (co, money, lang, selfUrl) => {
   };
 };
 
+/**
+ * The head for an EIK with no Commerce Registry row: ~3,700 public bodies that
+ * only appear as buyers, and suppliers known from the procurement corpus alone
+ * (ДЗЗД consortia, deregistered firms). The SPA renders a full page for them, so
+ * falling through to the noindexed homepage head hid working pages. Separate
+ * from companyPage because its copy cites the Commerce Registry, which has
+ * nothing on these.
+ */
+const institutionPage = (entity, money, lang, selfUrl) => {
+  const bg = lang === "bg";
+  const base = bg ? SITE_URL : `${SITE_URL}/en`;
+  const title = bg
+    ? `${entity.name} (ЕИК ${entity.eik}) — обществени поръчки и европейски средства`
+    : `${entity.name} (EIK ${entity.eik}) — public contracts and EU funds`;
+  const parts = [];
+  if (entity.buyCount > 0)
+    parts.push(
+      bg
+        ? `възложител на ${entity.buyCount} обществени поръчки за ${eur(entity.buyEur, lang)}`
+        : `awarded ${entity.buyCount} public contracts worth ${eur(entity.buyEur, lang)}`,
+    );
+  if (money.contracts > 0)
+    parts.push(
+      bg
+        ? `изпълнител на ${money.contracts} обществени поръчки за ${eur(money.contractsEur, lang)}`
+        : `won ${money.contracts} public contracts worth ${eur(money.contractsEur, lang)}`,
+    );
+  if (money.fundsEur > 0)
+    parts.push(
+      bg
+        ? `${eur(money.fundsEur, lang)} по европейски програми`
+        : `${eur(money.fundsEur, lang)} in EU funding`,
+    );
+  const description = bg
+    ? `${entity.name}: ${parts.join(", ")}. Профил по данни от АОП и ИСУН 2020.`
+    : `${entity.name}: ${parts.join(", ")}. Profile from the public-procurement register and ИСУН 2020.`;
+  const rows = [
+    [bg ? "ЕИК" : "EIK", escapeHtml(entity.eik)],
+    entity.buyCount > 0
+      ? [bg ? "Възложени поръчки" : "Contracts awarded", String(entity.buyCount)]
+      : null,
+    entity.buyEur > 0
+      ? [
+          bg ? "Стойност на възложените" : "Value awarded",
+          eur(entity.buyEur, lang),
+        ]
+      : null,
+    money.contracts > 0
+      ? [bg ? "Спечелени поръчки" : "Contracts won", String(money.contracts)]
+      : null,
+    money.contractsEur > 0
+      ? [
+          bg ? "Стойност на спечелените" : "Value won",
+          eur(money.contractsEur, lang),
+        ]
+      : null,
+    money.fundsEur > 0
+      ? [bg ? "Европейски средства" : "EU funds", eur(money.fundsEur, lang)]
+      : null,
+  ]
+    .filter((r) => r && r[1])
+    .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${v}</td></tr>`)
+    .join("");
+  return {
+    title,
+    description,
+    selfUrl,
+    // The names come from Bulgarian-only registers — see contractPage.
+    canonicalUrl: bg ? selfUrl : selfUrl.replace(`${SITE_URL}/en`, SITE_URL),
+    ogImage: "/og/procurement.webp",
+    lang,
+    bodyHtml: `<h1>${escapeHtml(entity.name)}</h1>
+<table><tbody>${rows}</tbody></table>
+<p><a href="${base}/procurement">${bg ? "Обществени поръчки" : "Public procurement"}</a> · <a href="${base}/funds">${bg ? "Европейски средства" : "EU funds"}</a></p>`,
+  };
+};
+
 // A page under our prefixes that we could not name keeps the shell's head —
 // which is the HOMEPAGE's. That is the very duplication this module exists to
 // end, so mark it noindex: it is an unknown contract number or a malformed EIK,
@@ -893,7 +970,7 @@ const handleSpaPageRequest = async (req, res, deps) => {
   // `transient` separates "this entity does not exist" from "the database was
   // unreachable for a moment". Collapsing them would cache a blip for an hour
   // AND mark a working URL noindex — on a real page, from one bad second.
-  const sendShell = async (page, { transient = false } = {}) => {
+  const sendShell = async (page, { transient = false, status = 200 } = {}) => {
     let shell = FALLBACK_SHELL;
     try {
       const fetched = await deps.loadShell();
@@ -903,7 +980,7 @@ const handleSpaPageRequest = async (req, res, deps) => {
       console.error("spa shell fetch failed, serving bundle-less page", e);
     }
     res
-      .status(200)
+      .status(status)
       .set("Content-Type", "text/html; charset=utf-8")
       // The rows behind a page change only on a re-ingest, so an hour at the
       // edge is safe. A transient failure is never cached — it would pin a
@@ -950,6 +1027,15 @@ const handleSpaPageRequest = async (req, res, deps) => {
   }
   // Unknown entity — the SPA renders its own not-found state. Inventing a head
   // here would mint an indexable 200 for every typo.
+  //
+  // A procurement key that is not in `contracts` is a contract that is gone: a
+  // reconcile evicted it or a re-key moved it, and no successor can be derived.
+  // 23,923 such keys exist, so answer 404 rather than a soft 404 at a 200. Not
+  // 410 — a later reconcile can legitimately bring a key back. The body is still
+  // the shell, so a human gets the SPA's not-found page. Hosting keeps the
+  // function's Cache-Control on a 4xx, so this is cached like any other answer.
+  if (!page && match.kind === "procurement")
+    return sendShell(null, { status: 404 });
   return sendShell(page);
 };
 
@@ -964,6 +1050,7 @@ module.exports = {
   contractPage,
   procurementContractPage,
   companyPage,
+  institutionPage,
   handleSpaPageRequest,
   FALLBACK_SHELL,
   SITE_URL,
