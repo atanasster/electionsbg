@@ -1,6 +1,74 @@
 {
-  "updatedAt": "2026-11-03T18:50:16.194Z",
+  "updatedAt": "2026-11-06T01:08:52.768Z",
   "entries": [
+    {
+      "timestamp": "2026-11-06T01:08:52.768Z",
+      "date": "2026-11-06",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП contracts and tenders through 2026-11-04, TED notices",
+      "source": "ЦАИС ЕОП / TED"
+    },
+    {
+      "timestamp": "2026-11-06T00:50:39.227Z",
+      "date": "2026-11-06",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 925 лица, 125 109 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-11-06T00:09:23.105Z",
+      "date": "2026-11-06",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-11-05 (+5 daily archives; 1,080,630 store rows, 167 settlements, 67 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-11-05"
+    },
+    {
+      "timestamp": "2026-11-05T23:46:30.129Z",
+      "date": "2026-11-05",
+      "skill": "update-regional",
+      "summary": "НСИ museum visits per oblast refreshed",
+      "source": "НСИ regional open-data",
+      "links": [
+        {
+          "to": "/demographics/regions",
+          "labelKey": "data_changes_link_regions_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-05T23:43:54.468Z",
+      "date": "2026-11-05",
+      "skill": "update-council-minutes",
+      "summary": "+277 council resolutions across 8 municipalities (5,823 total)",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-05T23:30:34.926Z",
+      "date": "2026-11-05",
+      "skill": "update-rollcall",
+      "summary": "2 new plenary sessions through 2026-11-05",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-05T23:16:28.045Z",
+      "date": "2026-11-05",
+      "skill": "update-macro",
+      "summary": "Eurostat November releases (GDP, productivity, inflation, unemployment) and EU peers",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-03T18:50:16.194Z",
       "date": "2026-11-03",

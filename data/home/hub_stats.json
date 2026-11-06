@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-09-30",
+  "computedAt": "2026-10-31",
   "homeMode": "standard",
   "figures": [
     {
@@ -17,9 +17,9 @@
     },
     {
       "id": "inflation_hicp",
-      "value": 5.6,
+      "value": 6,
       "basis": {
-        "period": "2026-09",
+        "period": "2026-10",
         "frequency": "monthly",
         "unit": "pct",
         "adjustment": "unadjusted",
@@ -71,7 +71,7 @@
     },
     "funds": {
       "tileId": "funds",
-      "value": 45356362793,
+      "value": 45217328893,
       "unit": "eur",
       "basisKey": "home_basis_funds_contracted",
       "to": "/funds",
@@ -79,7 +79,7 @@
     },
     "governance": {
       "tileId": "governance",
-      "value": 63633,
+      "value": 63642,
       "unit": "count",
       "basisKey": "home_basis_governance_people",
       "to": "/governance",
@@ -87,7 +87,7 @@
     },
     "procurement": {
       "tileId": "procurement",
-      "value": 94836754145,
+      "value": 95035056468,
       "unit": "eur",
       "basisKey": "home_basis_procurement_contracted_all",
       "to": "/procurement?pscope=all",
@@ -114,7 +114,7 @@
     },
     "eurostat_prc_hicp_minr": {
       "available": true,
-      "asOf": "2026-09",
+      "asOf": "2026-10",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
       "datasetCode": "prc_hicp_minr"
     },

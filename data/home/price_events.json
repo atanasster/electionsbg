@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-10-31",
+  "computedAt": "2026-11-05",
   "thresholds": {
     "basketPids": [
       1,
@@ -33,16 +33,6 @@
   },
   "basketMoves": [
     {
-      "peakDay": "2026-10-04",
-      "startDay": "2026-10-04",
-      "endDay": "2026-10-04",
-      "pctChange": 2.066,
-      "costEur": 15.594,
-      "prevCostEur": 15.278,
-      "cohortCells": 1708,
-      "cohortShare": 0.9534
-    },
-    {
       "peakDay": "2026-10-18",
       "startDay": "2026-10-16",
       "endDay": "2026-10-19",
@@ -71,17 +61,37 @@
       "prevCostEur": 15.09,
       "cohortCells": 1531,
       "cohortShare": 0.8755
+    },
+    {
+      "peakDay": "2026-11-04",
+      "startDay": "2026-11-03",
+      "endDay": "2026-11-05",
+      "pctChange": -2.682,
+      "costEur": 15.394,
+      "prevCostEur": 15.819,
+      "cohortCells": 1582,
+      "cohortShare": 0.8965
     }
   ],
   "promotions": [
+    {
+      "slug": "krave-maslo-d-markenbutter-250gr",
+      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+      "atOrBelowSince": "2026-11-05",
+      "promoEur": 1.69,
+      "regularEur": 4.08,
+      "discountPct": 59,
+      "stores": 211,
+      "chains": 2
+    },
     {
       "slug": "byalo-zele",
       "title": "БЯЛО ЗЕЛЕ",
       "atOrBelowSince": "2026-10-29",
       "promoEur": 0.39,
-      "regularEur": 0.99,
-      "discountPct": 61,
-      "stores": 252,
+      "regularEur": 0.9,
+      "discountPct": 57,
+      "stores": 204,
       "chains": 4
     },
     {
@@ -92,16 +102,6 @@
       "regularEur": 1.82,
       "discountPct": 57,
       "stores": 6,
-      "chains": 2
-    },
-    {
-      "slug": "400ml-sh-n-schauma-men",
-      "title": "400МЛ Ш-Н SCHAUMA MEN",
-      "atOrBelowSince": "2026-10-29",
-      "promoEur": 1.99,
-      "regularEur": 3.81,
-      "discountPct": 48,
-      "stores": 24,
       "chains": 2
     }
   ]

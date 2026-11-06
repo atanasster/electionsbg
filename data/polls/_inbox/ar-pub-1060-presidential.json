@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-1060-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1060-01-noemvri-2026-demografski-profil-na-glasuvalite-na-ii-tur-na-izborite-za-prezident-i-viceprezident.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1060-01-noemvri-2026-demografski-profil-na-glasuvalite-na-ii-tur-na-izborite-za-prezident-i-viceprezident.html",
+      "fetchedAt": "2026-11-05T23:44:12.182Z",
+      "sha256": "6e7f059e32ad0d254255c4fda0107491aae0d112dcc2bbba3dd562ae50d57a68",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1060"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "01 ноември 2026: демографски профил на гласувалите на II тур на изборите за президент и вицепрезидент -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

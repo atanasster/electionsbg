@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-31T22:57:41.091Z",
-  "total": 117,
+  "generatedAt": "2026-11-05T23:07:25.060Z",
+  "total": 119,
   "entries": [
     {
       "mpId": 3271,
@@ -13,9 +13,9 @@
           "isCurrent": true
         }
       ],
-      "totalEur": 983347084.42,
+      "totalEur": 1073347084.42,
       "totalOther": {},
-      "contractCount": 23,
+      "contractCount": 24,
       "awardCount": 0,
       "byYear": [
         {
@@ -77,14 +77,20 @@
           "contractCount": 3,
           "totalEur": 88597403.13,
           "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 90000000,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000695089",
           "name": "Агенция \"Пътна инфраструктура\"",
-          "contractCount": 19,
-          "totalEur": 982943374.37,
+          "contractCount": 20,
+          "totalEur": 1072943374.37,
           "totalOther": {}
         },
         {
@@ -5285,6 +5291,103 @@
       ]
     },
     {
+      "mpId": 1051,
+      "mpName": "Ердоан Мустафов Ахмедов",
+      "contractorEik": "125043334",
+      "contractorName": "Омуртаг транс ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 470877.94,
+      "totalOther": {},
+      "contractCount": 14,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 17042.89,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 39318.35,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 2,
+          "totalEur": 52407.42,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 3,
+          "totalEur": 105265.88,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 4,
+          "totalEur": 102260.44,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 16534.15,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 138048.81,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000867731",
+          "name": "Профилирана гимназия \"Симеон Велчев\"",
+          "contractCount": 5,
+          "totalEur": 243315.57,
+          "totalOther": {}
+        },
+        {
+          "eik": "000875557",
+          "name": "ОБЩИНА АНТОНОВО",
+          "contractCount": 2,
+          "totalEur": 137793.17,
+          "totalOther": {}
+        },
+        {
+          "eik": "000875920",
+          "name": "Община Търговище",
+          "contractCount": 1,
+          "totalEur": 39318.35,
+          "totalOther": {}
+        },
+        {
+          "eik": "000875817",
+          "name": "Община Омуртаг",
+          "contractCount": 1,
+          "totalEur": 17042.89,
+          "totalOther": {}
+        },
+        {
+          "eik": "000866939",
+          "name": "1-ВО НАЧАЛНО УЧИЛИЩЕ \"ХР.СМИРНЕНСКИ",
+          "contractCount": 3,
+          "totalEur": 16873.81,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 5291,
       "mpName": "Николай Денков Денков",
       "contractorEik": "175935973",
@@ -5319,6 +5422,133 @@
           "name": "Министерство на образованието и науката",
           "contractCount": 2,
           "totalEur": 427373.54,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2822,
+      "mpName": "Любомир Бойков Бонев",
+      "contractorEik": "113566864",
+      "contractorName": "М контрол ЕООД",
+      "relations": [
+        {
+          "kind": "declared_role",
+          "declarationYear": 2026
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true
+        }
+      ],
+      "totalEur": 328057.91,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 869.2,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 4,
+          "totalEur": 46581.24,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 111078.47,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 4,
+          "totalEur": 169529,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000261517",
+          "name": "Община Кюстендил",
+          "contractCount": 4,
+          "totalEur": 254978.47,
+          "totalOther": {}
+        },
+        {
+          "eik": "000386790",
+          "name": "Община Трън",
+          "contractCount": 5,
+          "totalEur": 47450.44,
+          "totalOther": {}
+        },
+        {
+          "eik": "000386776",
+          "name": "Община Радомир",
+          "contractCount": 2,
+          "totalEur": 25629,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2977,
+      "mpName": "Елена Владимирова Ангелинина",
+      "contractorEik": "101681232",
+      "contractorName": "Етем инвест ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true
+        },
+        {
+          "kind": "stake",
+          "valueEur": 1278.23,
+          "shareSize": "25",
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 325339.02,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2015",
+          "contractCount": 2,
+          "totalEur": 91922.49,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 134375.18,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 99041.35,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000670627",
+          "name": "Национална спортна академия \"Васил Левски\"",
+          "contractCount": 2,
+          "totalEur": 233416.53,
+          "totalOther": {}
+        },
+        {
+          "eik": "101549540",
+          "name": "Дирекция \"Национален парк Пирин\" - Банско",
+          "contractCount": 2,
+          "totalEur": 91922.49,
           "totalOther": {}
         }
       ]
@@ -5434,68 +5664,6 @@
           "name": "Териториално поделение държавно горско стопанство /ТПДГС/ - Казанлък към Държавно предприятие - Югоизточно държавно предприятие /ДПЮИДП/ - Сливен",
           "contractCount": 1,
           "totalEur": 2086.07,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 2822,
-      "mpName": "Любомир Бойков Бонев",
-      "contractorEik": "113566864",
-      "contractorName": "М контрол ЕООД",
-      "relations": [
-        {
-          "kind": "declared_role",
-          "declarationYear": 2026
-        },
-        {
-          "kind": "manager",
-          "isCurrent": true
-        }
-      ],
-      "totalEur": 302428.91,
-      "totalOther": {},
-      "contractCount": 9,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2013",
-          "contractCount": 1,
-          "totalEur": 869.2,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 4,
-          "totalEur": 46581.24,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 2,
-          "totalEur": 111078.47,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 2,
-          "totalEur": 143900,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000261517",
-          "name": "Община Кюстендил",
-          "contractCount": 4,
-          "totalEur": 254978.47,
-          "totalOther": {}
-        },
-        {
-          "eik": "000386790",
-          "name": "Община Трън",
-          "contractCount": 5,
-          "totalEur": 47450.44,
           "totalOther": {}
         }
       ]

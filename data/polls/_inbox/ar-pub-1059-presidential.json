@@ -1,0 +1,53 @@
+{
+  "race": "presidential",
+  "poll": {
+    "id": "ar-pub-1059-presidential",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1059-01-noemvri-2026-ii-tur-na-izbori-za-prezident-i-viceprezident-01-november-2026-ii-round-of-presidential-election.html",
+    "cycle": null,
+    "electionDate": null,
+    "publishedAt": null,
+    "respondents": null,
+    "questions": [],
+    "genre": "unclear",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1059-01-noemvri-2026-ii-tur-na-izbori-za-prezident-i-viceprezident-01-november-2026-ii-round-of-presidential-election.html",
+      "fetchedAt": "2026-11-05T23:44:12.314Z",
+      "sha256": "f191967186f6add09b67ceda0d7c5993b53ce81b94c594ecdfc165d3eb14feb8",
+      "extractor": "AR",
+      "fieldworkStart": null,
+      "fieldworkEnd": null,
+      "basePhrase": null,
+      "quotes": {}
+    },
+    "publicationId": "AR:1059"
+  },
+  "details": [],
+  "runoffs": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {},
+  "refused": [
+    {
+      "field": "fieldwork",
+      "reason": "No unambiguous fieldwork range; inspect source methodology",
+      "quote": ""
+    },
+    {
+      "field": "respondents",
+      "reason": "No unambiguous overall sample size",
+      "quote": ""
+    },
+    {
+      "field": "questions",
+      "reason": "No safely mapped presidential voting table; review narrative, chart or multiple-column source",
+      "quote": "01 ноември 2026: II Тур на Избори за президент и вицепрезидент / 01 November 2026: II Round of Presidential Election -\n\t\tАлфа Рисърч"
+    },
+    {
+      "field": "methodology",
+      "reason": "Source review required for method, question/base and English translation",
+      "quote": ""
+    }
+  ]
+}

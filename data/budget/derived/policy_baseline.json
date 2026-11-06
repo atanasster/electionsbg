@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-04T21:56:19.278Z",
+  "generatedAt": "2026-11-05T23:16:36.817Z",
   "country": "BG",
   "baselineYear": 2025,
-  "gdpEur": 116018300000,
-  "gdpGrowthPct": 10.462506788342047,
-  "gdpNextEur": 128156722513,
+  "gdpEur": 116548500000,
+  "gdpGrowthPct": 10.519681011244565,
+  "gdpNextEur": 128809030423,
   "sources": {
     "kfp": "data.egov.bg КФП monthly execution (December snapshots)",
     "excise": "Митническа хроника — Българските митници през 2025 г. (split fuel/tobacco/alcohol, 2025)",
@@ -1406,7 +1406,7 @@
     ]
   },
   "vat": {
-    "factor": 1.1701666273269857,
+    "factor": 1.185822609634344,
     "calibration": [
       {
         "year": 2021,
@@ -1422,193 +1422,193 @@
       },
       {
         "year": 2023,
-        "modeledEur": 7215023303,
+        "modeledEur": 7186803435,
         "actualEur": 8296102745,
-        "factor": 1.1498372765960636
+        "factor": 1.154352254091688
       },
       {
         "year": 2024,
-        "modeledEur": 8011042957,
+        "modeledEur": 7979739168,
         "actualEur": 9497866006,
-        "factor": 1.1855966890799332
+        "factor": 1.190247676736552
       },
       {
         "year": 2025,
-        "modeledEur": 9425438732,
+        "modeledEur": 9300998111,
         "actualEur": 11029333852,
-        "factor": 1.1701666273269857
+        "factor": 1.185822609634344
       }
     ],
     "structureYear": 2022,
     "slices": [
       {
         "group": "food",
-        "valueEur": 724264788,
+        "valueEur": 714702585,
         "regime": "standard"
       },
       {
         "group": "food",
-        "valueEur": 13761030973,
+        "valueEur": 13579349113,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 3375960370,
+        "valueEur": 3331388799,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 2443258426,
+        "valueEur": 2411000978,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 713943220,
+        "valueEur": 704517289,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 740965947,
+        "valueEur": 731183244,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 952272525,
+        "valueEur": 939700019,
         "regime": "standard"
       },
       {
         "group": "energy",
-        "valueEur": 823482768,
+        "valueEur": 812610626,
         "regime": "standard"
       },
       {
         "group": "energy",
-        "valueEur": 3293931072,
+        "valueEur": 3250442504,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 4205725225,
+        "valueEur": 4150198572,
         "regime": "standard"
       },
       {
         "group": "medicines",
-        "valueEur": 3219883229,
+        "valueEur": 3177372289,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 572282845,
+        "valueEur": 564727204,
         "regime": null
       },
       {
         "group": "exempt",
-        "valueEur": 711435958,
+        "valueEur": 702043129,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 9541320791,
+        "valueEur": 9415350222,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 478608703,
+        "valueEur": 472289808,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 641441525,
+        "valueEur": 632972807,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 2190373065,
+        "valueEur": 2161454371,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 1365901321,
+        "valueEur": 1347867825,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 161300605,
+        "valueEur": 159171012,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 816114199,
+        "valueEur": 805339342,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 645592438,
+        "valueEur": 637068917,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 968388656,
+        "valueEur": 955603375,
         "regime": "standard"
       },
       {
         "group": "books",
-        "valueEur": 267023540,
+        "valueEur": 263498126,
         "regime": "reduced"
       },
       {
         "group": "other",
-        "valueEur": 178015693,
+        "valueEur": 175665417,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 566571856,
+        "valueEur": 559091615,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 929289279,
+        "valueEur": 917020212,
         "regime": null
       },
       {
         "group": "restaurants",
-        "valueEur": 2910027275,
+        "valueEur": 2871607249,
         "regime": "standard"
       },
       {
         "group": "hotels",
-        "valueEur": 1837406112,
+        "valueEur": 1813147511,
         "regime": "reduced"
       },
       {
         "group": "other",
-        "valueEur": 1119701996,
+        "valueEur": 1104918980,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 461197153,
+        "valueEur": 455108135,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 87336338,
+        "valueEur": 86183268,
         "regime": null
       },
       {
         "group": "exempt",
-        "valueEur": 337366204,
+        "valueEur": 332912081,
         "regime": null
       },
       {
         "group": "exempt",
-        "valueEur": 1161837948,
+        "valueEur": 1146498627,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 1048941454,
+        "valueEur": 1035092664,
         "regime": "standard"
       }
     ]
@@ -1620,7 +1620,7 @@
       "pensionerCount": 2050000,
       "supplementMassEur": 754666817,
       "cpiPct": 4.225,
-      "wageGrowthPct": 9.044999999999998
+      "wageGrowthPct": 9.42
     },
     "administration": {
       "year": 2025,
@@ -1679,8 +1679,8 @@
     },
     "minWage": {
       "currentEur": 620.2,
-      "formulaEur": 676,
-      "wageGrowthPct": 9.044999999999998,
+      "formulaEur": 679,
+      "wageGrowthPct": 9.42,
       "publicSectorShare": 0.18
     },
     "pensionFloor": {

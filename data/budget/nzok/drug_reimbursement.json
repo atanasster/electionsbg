@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T14:30:52.223Z",
+  "generatedAt": "2026-11-05T23:46:18.501Z",
   "source": {
     "publisher": "Национална здравноосигурителна каса (НЗОК)",
     "url": "https://www.nhif.bg/bg/medicine_food/quarter-payments/2026",
@@ -7,93 +7,87 @@
   },
   "year": 2026,
   "basis": "ytd",
-  "totalEur": 220903927,
-  "distinctInn": 584,
-  "productRows": 2310,
+  "totalEur": 213972683,
+  "distinctInn": 454,
+  "productRows": 897,
   "byAtcGroup": [
     {
       "code": "L",
       "bg": "Онкология и имуномодулатори",
       "en": "Antineoplastic & immunomodulating",
-      "eur": 137364675
+      "eur": 142398968
     },
     {
       "code": "A",
       "bg": "Храносмилане и обмяна",
       "en": "Alimentary & metabolism",
-      "eur": 24003035
-    },
-    {
-      "code": "C",
-      "bg": "Сърдечно-съдова система",
-      "en": "Cardiovascular system",
-      "eur": 13244495
+      "eur": 24100158
     },
     {
       "code": "B",
       "bg": "Кръв и кръвотворни органи",
       "en": "Blood & blood-forming organs",
-      "eur": 12619232
+      "eur": 11818775
     },
     {
       "code": "R",
       "bg": "Дихателна система",
       "en": "Respiratory system",
-      "eur": 10856948
+      "eur": 10359306
     },
     {
       "code": "N",
       "bg": "Нервна система",
       "en": "Nervous system",
-      "eur": 8632180
+      "eur": 7543903
+    },
+    {
+      "code": "C",
+      "bg": "Сърдечно-съдова система",
+      "en": "Cardiovascular system",
+      "eur": 6843203
     },
     {
       "code": "M",
       "bg": "Мускулно-скелетна система",
       "en": "Musculoskeletal system",
-      "eur": 5563734
+      "eur": 4244111
     },
     {
       "code": "J",
       "bg": "Противоинфекциозни",
       "en": "Anti-infectives",
-      "eur": 3648668
+      "eur": 2728561
     },
     {
       "code": "S",
       "bg": "Сетивни органи",
       "en": "Sensory organs",
-      "eur": 2179075
+      "eur": 1907906
     },
     {
       "code": "H",
       "bg": "Хормони (без полови)",
       "en": "Systemic hormones",
-      "eur": 1269900
+      "eur": 1003102
     },
     {
       "code": "D",
       "bg": "Дерматология",
       "en": "Dermatology",
-      "eur": 774836
+      "eur": 746509
     },
     {
       "code": "G",
       "bg": "Пикочо-полова система",
       "en": "Genito-urinary system",
-      "eur": 428739
+      "eur": 192625
     },
     {
       "code": "V",
       "bg": "Разни",
       "en": "Various",
-      "eur": 311990
-    },
-    {
-      "code": "P",
-      "bg": "Антипаразитни",
-      "en": "Antiparasitic",
-      "eur": 6421
+      "eur": 85554
     }
   ],
   "top": [
@@ -101,7 +95,7 @@
       "inn": "PEMBROLIZUMAB",
       "atc": "L01XC18",
       "atcGroup": "L",
-      "eur": 25297743,
+      "eur": 26587748,
       "productCount": 1,
       "topProduct": "Keytruda"
     },
@@ -109,7 +103,7 @@
       "inn": "NIVOLUMAB",
       "atc": "L01XC17",
       "atcGroup": "L",
-      "eur": 6489210,
+      "eur": 7055078,
       "productCount": 2,
       "topProduct": "Opdivo"
     },
@@ -117,7 +111,7 @@
       "inn": "ENZALUTAMIDE",
       "atc": "L02BB04",
       "atcGroup": "L",
-      "eur": 5359348,
+      "eur": 5709965,
       "productCount": 1,
       "topProduct": "Xtandi"
     },
@@ -125,7 +119,7 @@
       "inn": "RISANKIZUMAB",
       "atc": "L04AC18",
       "atcGroup": "L",
-      "eur": 4411508,
+      "eur": 4768735,
       "productCount": 3,
       "topProduct": "Skyrizi"
     },
@@ -133,7 +127,7 @@
       "inn": "UPADACITINIB",
       "atc": "L04AF03",
       "atcGroup": "L",
-      "eur": 4298221,
+      "eur": 4668824,
       "productCount": 1,
       "topProduct": "Rinvoq"
     },
@@ -141,15 +135,23 @@
       "inn": "TRASTUZUMAB DERUXTECAN",
       "atc": "L01FD04",
       "atcGroup": "L",
-      "eur": 3648773,
+      "eur": 4020088,
       "productCount": 1,
       "topProduct": "Enhertu"
+    },
+    {
+      "inn": "DARATUMUMAB",
+      "atc": "L01XC24",
+      "atcGroup": "L",
+      "eur": 3872104,
+      "productCount": 3,
+      "topProduct": "Darzalex"
     },
     {
       "inn": "OLAPARIB",
       "atc": "L01XX46",
       "atcGroup": "L",
-      "eur": 3577598,
+      "eur": 3844957,
       "productCount": 2,
       "topProduct": "Lynparza"
     },
@@ -157,145 +159,137 @@
       "inn": "DAPAGLIFLOZIN",
       "atc": "A10BK01",
       "atcGroup": "A",
-      "eur": 3502387,
+      "eur": 3768946,
       "productCount": 2,
       "topProduct": "Forxiga"
-    },
-    {
-      "inn": "DARATUMUMAB",
-      "atc": "L01XC24",
-      "atcGroup": "L",
-      "eur": 3303998,
-      "productCount": 3,
-      "topProduct": "Darzalex"
-    },
-    {
-      "inn": "SEMAGLUTIDE",
-      "atc": "A10BJ06",
-      "atcGroup": "A",
-      "eur": 3241108,
-      "productCount": 7,
-      "topProduct": "Rybelsus"
-    },
-    {
-      "inn": "GUSELKUMAB",
-      "atc": "L04AC16",
-      "atcGroup": "L",
-      "eur": 3205606,
-      "productCount": 1,
-      "topProduct": "Tremfya"
-    },
-    {
-      "inn": "SECUKINUMAB",
-      "atc": "L04AC10",
-      "atcGroup": "L",
-      "eur": 3187495,
-      "productCount": 3,
-      "topProduct": "Cosentyx"
-    },
-    {
-      "inn": "APIXABAN",
-      "atc": "B01AF02",
-      "atcGroup": "B",
-      "eur": 3100048,
-      "productCount": 3,
-      "topProduct": "Eliquis"
     },
     {
       "inn": "RIBOCICLIB",
       "atc": "L01XE42",
       "atcGroup": "L",
-      "eur": 3071312,
-      "productCount": 1,
+      "eur": 3748527,
+      "productCount": 2,
       "topProduct": "Kisqali"
     },
     {
-      "inn": "OSIMERTINIB",
-      "atc": "L01XE35",
-      "atcGroup": "L",
-      "eur": 2945352,
-      "productCount": 2,
-      "topProduct": "Tagrisso"
+      "inn": "SEMAGLUTIDE",
+      "atc": "A10BJ06",
+      "atcGroup": "A",
+      "eur": 3483899,
+      "productCount": 9,
+      "topProduct": "Rybelsus"
     },
     {
       "inn": "DURVALUMAB",
       "atc": "L01XC28",
       "atcGroup": "L",
-      "eur": 2881546,
+      "eur": 3331376,
       "productCount": 2,
       "topProduct": "Imfinzi"
     },
     {
-      "inn": "EMPAGLIFLOZIN",
-      "atc": "A10BK03",
-      "atcGroup": "A",
-      "eur": 2845743,
+      "inn": "GUSELKUMAB",
+      "atc": "L04AC16",
+      "atcGroup": "L",
+      "eur": 3279565,
+      "productCount": 1,
+      "topProduct": "Tremfya"
+    },
+    {
+      "inn": "OSIMERTINIB",
+      "atc": "L01XE35",
+      "atcGroup": "L",
+      "eur": 3229605,
       "productCount": 2,
-      "topProduct": "Jardiance"
+      "topProduct": "Tagrisso"
+    },
+    {
+      "inn": "SECUKINUMAB",
+      "atc": "L04AC10",
+      "atcGroup": "L",
+      "eur": 3202740,
+      "productCount": 3,
+      "topProduct": "Cosentyx"
     },
     {
       "inn": "VUTRISIRAN",
       "atc": "N07XX18",
       "atcGroup": "N",
-      "eur": 2676182,
+      "eur": 3155498,
       "productCount": 1,
       "topProduct": "Amvuttra"
+    },
+    {
+      "inn": "EMPAGLIFLOZIN",
+      "atc": "A10BK03",
+      "atcGroup": "A",
+      "eur": 3133588,
+      "productCount": 2,
+      "topProduct": "Jardiance"
+    },
+    {
+      "inn": "APIXABAN",
+      "atc": "B01AF02",
+      "atcGroup": "B",
+      "eur": 3075232,
+      "productCount": 3,
+      "topProduct": "Eliquis"
     },
     {
       "inn": "ATEZOLIZUMAB",
       "atc": "L01XC32",
       "atcGroup": "L",
-      "eur": 2540811,
+      "eur": 2793832,
       "productCount": 3,
       "topProduct": "Tecentriq"
-    },
-    {
-      "inn": "SACUBITRIL, VALSARTAN",
-      "atc": "C09DX04",
-      "atcGroup": "C",
-      "eur": 2325074,
-      "productCount": 3,
-      "topProduct": "Entresto"
     },
     {
       "inn": "DAROLUTAMIDE",
       "atc": "L02BB06",
       "atcGroup": "L",
-      "eur": 2299933,
+      "eur": 2672696,
       "productCount": 1,
       "topProduct": "Nubeqa"
     },
     {
-      "inn": "COAGULATION FACTOR VIII",
-      "atc": "B02BD02",
-      "atcGroup": "B",
-      "eur": 2292600,
-      "productCount": 22,
-      "topProduct": "Elocta"
-    },
-    {
-      "inn": "RUXOLITINIB",
-      "atc": "L01XE18",
-      "atcGroup": "L",
-      "eur": 2257785,
-      "productCount": 1,
-      "topProduct": "JAKAVI"
-    },
-    {
-      "inn": "ABEMACICLIB",
-      "atc": "L01XE50",
-      "atcGroup": "L",
-      "eur": 2249594,
+      "inn": "SACUBITRIL, VALSARTAN",
+      "atc": "C09DX04",
+      "atcGroup": "C",
+      "eur": 2388456,
       "productCount": 3,
-      "topProduct": "Verzenios"
+      "topProduct": "Entresto"
     },
     {
       "inn": "IVACAFTOR, TEZACAFTOR, ELEXACAFTOR",
       "atc": "R07AX32",
       "atcGroup": "R",
-      "eur": 2174271,
+      "eur": 2332889,
       "productCount": 4,
       "topProduct": "Kaftrio"
+    },
+    {
+      "inn": "RUXOLITINIB",
+      "atc": "L01XE18",
+      "atcGroup": "L",
+      "eur": 2308610,
+      "productCount": 1,
+      "topProduct": "JAKAVI"
+    },
+    {
+      "inn": "COAGULATION FACTOR VIII",
+      "atc": "B02BD02",
+      "atcGroup": "B",
+      "eur": 2278701,
+      "productCount": 22,
+      "topProduct": "Elocta"
+    },
+    {
+      "inn": "ABEMACICLIB",
+      "atc": "L01XE50",
+      "atcGroup": "L",
+      "eur": 2235102,
+      "productCount": 3,
+      "topProduct": "Verzenios"
     }
   ],
   "growth": {

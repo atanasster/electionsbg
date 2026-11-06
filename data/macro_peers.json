@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-01T00:56:16.076Z",
+  "fetchedAt": "2026-11-05T23:16:21.205Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -28884,6 +28884,26 @@
       "series": {
         "BG": [
           {
+            "year": 2010,
+            "period": "2010",
+            "value": 33.2
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 35
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 33.6
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 35.4
+          },
+          {
             "year": 2014,
             "period": "2014",
             "value": 35.4
@@ -28945,6 +28965,26 @@
           }
         ],
         "EU27_2020": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 30.2
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 30.5
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 30.4
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 30.6
+          },
           {
             "year": 2014,
             "period": "2014",
@@ -29008,6 +29048,26 @@
         ],
         "RO": [
           {
+            "year": 2010,
+            "period": "2010",
+            "value": 33.5
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 33.5
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 34
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 34.6
+          },
+          {
             "year": 2014,
             "period": "2014",
             "value": 35
@@ -29069,6 +29129,26 @@
           }
         ],
         "GR": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 32.9
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 33.5
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 34.3
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 34.4
+          },
           {
             "year": 2014,
             "period": "2014",
@@ -29132,6 +29212,26 @@
         ],
         "HU": [
           {
+            "year": 2010,
+            "period": "2010",
+            "value": 24.1
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 26.9
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 27.2
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 28.3
+          },
+          {
             "year": 2014,
             "period": "2014",
             "value": 28.6
@@ -29193,6 +29293,26 @@
           }
         ],
         "HR": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 31.6
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 31.2
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 30.9
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 30.9
+          },
           {
             "year": 2014,
             "period": "2014",
@@ -32663,7 +32783,7 @@
     }
   },
   "wgi": {
-    "fetchedAt": "2026-11-01T00:56:16.069Z",
+    "fetchedAt": "2026-11-05T23:16:21.201Z",
     "latestYear": 2025,
     "source": {
       "name": "World Bank — Worldwide Governance Indicators",
