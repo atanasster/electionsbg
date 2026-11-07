@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T01:05:35.084Z",
+  "generatedAt": "2026-11-07T04:06:02.333Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -29,7 +29,7 @@
     {
       "id": "contractor:206117083",
       "type": "contractor",
-      "label": "КЕР Токи пауър ЕАД"
+      "label": "КЕР Токи пауър АД"
     },
     {
       "id": "awarder:000014128",
@@ -3029,7 +3029,7 @@
     {
       "id": "awarder:000852633",
       "type": "awarder",
-      "label": "Община Генерал тошево"
+      "label": "ОБЩИНА ГЕНЕРАЛ ТОШЕВО"
     },
     {
       "id": "contractor:115813904",
@@ -6407,6 +6407,11 @@
       "label": "Веселин Борисов Черкезов"
     },
     {
+      "id": "mp:3551",
+      "type": "mp",
+      "label": "Златомира Димитрова Карагеоргиева-Мострова"
+    },
+    {
       "id": "mp:2924",
       "type": "mp",
       "label": "Мартин Владимиров Тинчев"
@@ -6420,11 +6425,6 @@
       "id": "mp:3427",
       "type": "mp",
       "label": "Петко Ангелов Кущирев"
-    },
-    {
-      "id": "mp:3551",
-      "type": "mp",
-      "label": "Златомира Димитрова Карагеоргиева-Мострова"
     },
     {
       "id": "mp:4716",
@@ -6615,6 +6615,16 @@
       "id": "mp:4108",
       "type": "mp",
       "label": "Смиляна Николова Нитова - Кръстева"
+    },
+    {
+      "id": "contractor:204770025",
+      "type": "contractor",
+      "label": "Полихронов мотърс ООД"
+    },
+    {
+      "id": "mp:2956",
+      "type": "mp",
+      "label": "Митко Костадинов Полихронов"
     },
     {
       "id": "contractor:000620161",
@@ -8297,6 +8307,31 @@
       "label": "Валентин Георгиев Терзийски"
     },
     {
+      "id": "official:dimitr-petrov-gandzhov-1740ec",
+      "type": "official",
+      "label": "Димитър Петров Ганджов"
+    },
+    {
+      "id": "official:evgeni-zhechev-popov-971f7f",
+      "type": "official",
+      "label": "Евгени Жечев Попов"
+    },
+    {
+      "id": "official:metodi-georgiev-smilov-fb3639",
+      "type": "official",
+      "label": "Методи Георгиев Смилов"
+    },
+    {
+      "id": "official:stanislav-ivanov-darachev-e2483c",
+      "type": "official",
+      "label": "Станислав Иванов Дарачев"
+    },
+    {
+      "id": "official:zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
+      "type": "official",
+      "label": "Златомира Димитрова Карагеоргиева-Мострова"
+    },
+    {
       "id": "official:plamen-hristov-mihalev-34621c",
       "type": "official",
       "label": "Пламен Христов Михалев"
@@ -8415,31 +8450,6 @@
       "id": "official:tsvetelina-gavrilova-hubenova-eb377d",
       "type": "official",
       "label": "Цветелина Гаврилова Хубенова"
-    },
-    {
-      "id": "official:dimitr-petrov-gandzhov-1740ec",
-      "type": "official",
-      "label": "Димитър Петров Ганджов"
-    },
-    {
-      "id": "official:evgeni-zhechev-popov-971f7f",
-      "type": "official",
-      "label": "Евгени Жечев Попов"
-    },
-    {
-      "id": "official:metodi-georgiev-smilov-fb3639",
-      "type": "official",
-      "label": "Методи Георгиев Смилов"
-    },
-    {
-      "id": "official:stanislav-ivanov-darachev-e2483c",
-      "type": "official",
-      "label": "Станислав Иванов Дарачев"
-    },
-    {
-      "id": "official:zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
-      "type": "official",
-      "label": "Златомира Димитрова Карагеоргиева-Мострова"
     },
     {
       "id": "official:anastasiya-grigorova-boneva-25ff22",
@@ -11982,6 +11992,11 @@
       "label": "ОБЩИНА РУСЕ"
     },
     {
+      "id": "awarder:000903946",
+      "type": "awarder",
+      "label": "Община Хасково"
+    },
+    {
       "id": "awarder:000472182",
       "type": "awarder",
       "label": "Община Марица, област Пловдив"
@@ -12050,11 +12065,6 @@
       "id": "awarder:000697179",
       "type": "awarder",
       "label": "Държавно предприятие \"Ръководство на въздушното движение\" ТПП"
-    },
-    {
-      "id": "awarder:000903946",
-      "type": "awarder",
-      "label": "Община Хасково"
     },
     {
       "id": "awarder:000903533",
@@ -13881,7 +13891,7 @@
     {
       "source": "awarder:000590654",
       "target": "contractor:119547647",
-      "valueEur": 7523051.92
+      "valueEur": 7523225.07
     },
     {
       "source": "awarder:000590654",
@@ -18235,6 +18245,11 @@
     },
     {
       "source": "awarder:129010029",
+      "target": "contractor:812115210",
+      "valueEur": 1698959.53
+    },
+    {
+      "source": "awarder:129010029",
       "target": "contractor:831609046",
       "valueEur": 1642242.96
     },
@@ -19961,7 +19976,7 @@
     {
       "source": "awarder:205967328",
       "target": "contractor:175040885",
-      "valueEur": 320642.73
+      "valueEur": 320192.8
     },
     {
       "source": "awarder:206086428",
@@ -20929,6 +20944,11 @@
       "valueEur": 4714467.35
     },
     {
+      "source": "contractor:812115210",
+      "target": "mp:3551",
+      "valueEur": 3820303.26
+    },
+    {
       "source": "contractor:000639140",
       "target": "mp:2924",
       "valueEur": 3653732.69
@@ -20942,11 +20962,6 @@
       "source": "contractor:202314393",
       "target": "mp:3427",
       "valueEur": 3050882.04
-    },
-    {
-      "source": "contractor:812115210",
-      "target": "mp:3551",
-      "valueEur": 2843707.92
     },
     {
       "source": "contractor:831635354",
@@ -21122,6 +21137,11 @@
       "source": "contractor:121031861",
       "target": "mp:4108",
       "valueEur": 201238.35
+    },
+    {
+      "source": "contractor:204770025",
+      "target": "mp:2956",
+      "valueEur": 184226.38
     },
     {
       "source": "contractor:000620161",
@@ -22196,7 +22216,7 @@
     {
       "source": "contractor:175040885",
       "target": "official:decho-petrov-dechev-154400",
-      "valueEur": 22546663.04
+      "valueEur": 22547632.11
     },
     {
       "source": "contractor:121660480",
@@ -22451,7 +22471,7 @@
     {
       "source": "contractor:126720807",
       "target": "official:bogdana-vladimirova-panaiotova-f7456e",
-      "valueEur": 10838334.24
+      "valueEur": 10842971.65
     },
     {
       "source": "contractor:175445129",
@@ -22561,12 +22581,12 @@
     {
       "source": "contractor:119547647",
       "target": "official:antonii-nikolaev-andonov-1ed026",
-      "valueEur": 7658509.79
+      "valueEur": 7658682.94
     },
     {
       "source": "contractor:119547647",
       "target": "official:margarita-ivanova-trifonova-30e0c5",
-      "valueEur": 7658509.79
+      "valueEur": 7658682.94
     },
     {
       "source": "contractor:831616457",
@@ -22744,6 +22764,36 @@
       "valueEur": 3840731.12
     },
     {
+      "source": "contractor:812115210",
+      "target": "official:dimitr-petrov-gandzhov-1740ec",
+      "valueEur": 3820303.26
+    },
+    {
+      "source": "contractor:812115210",
+      "target": "official:evgeni-zhechev-popov-971f7f",
+      "valueEur": 3820303.26
+    },
+    {
+      "source": "contractor:812115210",
+      "target": "official:ioanis-parmenion-parteniotis-c99b34",
+      "valueEur": 3820303.26
+    },
+    {
+      "source": "contractor:812115210",
+      "target": "official:metodi-georgiev-smilov-fb3639",
+      "valueEur": 3820303.26
+    },
+    {
+      "source": "contractor:812115210",
+      "target": "official:stanislav-ivanov-darachev-e2483c",
+      "valueEur": 3820303.26
+    },
+    {
+      "source": "contractor:812115210",
+      "target": "official:zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
+      "valueEur": 3820303.26
+    },
+    {
       "source": "contractor:833038336",
       "target": "official:plamen-hristov-mihalev-34621c",
       "valueEur": 3556515.97
@@ -22857,36 +22907,6 @@
       "source": "contractor:203172982",
       "target": "official:tsvetelina-gavrilova-hubenova-eb377d",
       "valueEur": 2847533.13
-    },
-    {
-      "source": "contractor:812115210",
-      "target": "official:dimitr-petrov-gandzhov-1740ec",
-      "valueEur": 2843707.92
-    },
-    {
-      "source": "contractor:812115210",
-      "target": "official:evgeni-zhechev-popov-971f7f",
-      "valueEur": 2843707.92
-    },
-    {
-      "source": "contractor:812115210",
-      "target": "official:ioanis-parmenion-parteniotis-c99b34",
-      "valueEur": 2843707.92
-    },
-    {
-      "source": "contractor:812115210",
-      "target": "official:metodi-georgiev-smilov-fb3639",
-      "valueEur": 2843707.92
-    },
-    {
-      "source": "contractor:812115210",
-      "target": "official:stanislav-ivanov-darachev-e2483c",
-      "valueEur": 2843707.92
-    },
-    {
-      "source": "contractor:812115210",
-      "target": "official:zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
-      "valueEur": 2843707.92
     },
     {
       "source": "contractor:831643269",
@@ -25847,6 +25867,21 @@
       "source": "awarder:000530632",
       "target": "contractor:206033767",
       "valueEur": 202324.84
+    },
+    {
+      "source": "awarder:000903825",
+      "target": "contractor:204770025",
+      "valueEur": 129991.27
+    },
+    {
+      "source": "awarder:000903946",
+      "target": "contractor:204770025",
+      "valueEur": 34081.69
+    },
+    {
+      "source": "awarder:000852633",
+      "target": "contractor:204770025",
+      "valueEur": 20153.42
     },
     {
       "source": "awarder:121015056",

@@ -1,75 +1,108 @@
 {
   "obshtina": "MON29",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-2529",
-      "title": "Увеличаване на производствения капацитет и ефективността при приготвянето на разнобразни храни и специалитети в ресторанта на семейната фирма “СТИВ” ООД, Монтана",
+      "contractNumber": "BG05SFPR002-1.004-0241",
+      "title": "Адаптирана работна среда в МБАЛ \"Сити клиник-Св.Георги\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 195405.02,
+      "totalEur": 195405.02,
+      "paidEur": 195405.02,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Многопрофилна болница за активно лечение сити клиник - свети георги ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0855",
+      "title": "Изграждане на училищна STEM среда в училище Tрето основно училище \"Д-р Петър Берон\", гр. Монтана",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 183082.71,
+      "totalEur": 185905.72,
+      "paidEur": 183082.69,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Трето основно училище \"Д-Р петър берон\"",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0285",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 79254.84,
-      "totalEur": 77220.97,
-      "paidEur": 57915.73,
+      "prevTotalEur": 17832.83,
+      "totalEur": 17832.83,
+      "paidEur": 12482.99,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Стив ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "ХИТ Електроникс ООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0398",
-      "title": "Подобряване на работната среда във Валка ЕООД",
+      "contractNumber": "BG-RRP-1.024-0512",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"НАРОДНА ПРОСВЕТА - 1908\" в с. Смоляновци",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 68708.33,
-      "totalEur": 68708.33,
-      "paidEur": 50306.51,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Валка ЕООД",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 13616.85,
+      "totalEur": 13616.85,
+      "paidEur": 13616.85,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Народна просвета - 1908\"",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-1572",
-      "title": "ПОДКРЕПА ЗА ЕНЕРГИЙНО ОБНОВЯВАНЕ НА СГРАДИ И ИЗГРАЖДАНЕ НА ФТЕЦ ЗА СОБСТВЕНИ НУЖДИ В БЕЛ ВЮ ООД",
+      "contractNumber": "BG16RFPR001-1.012-1754",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 41057.15,
-      "totalEur": 41057.15,
-      "paidEur": 11845.07,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 13383.57,
+      "totalEur": 13383.57,
+      "paidEur": 9368.5,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "БЕЛ ВЮ ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Тиес трейд ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1119",
-      "title": "Изграждане на дигитален клуб в с. Габровница, община Монтана, област Монтана.",
+      "contractNumber": "BG16RFPR001-1.004-2727",
+      "title": "Подобряване на производствения капацитет на \"Ево Авиейшън\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14193.47,
-      "totalEur": 13356.3,
-      "paidEur": 13356.3,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Асен Йосифов - 1926\"",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 102258.38,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Ево Авиейшън ЕООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

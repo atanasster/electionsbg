@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-05T23:59:59.999Z",
+  "computedAt": "2026-11-06T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-06T00:00:00.000Z",
+      "firstSeenAt": "2026-11-06T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -38,11 +38,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-11-05",
+      "id": "parliament:sitting:2026-11-06",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-06T00:00:00.000Z",
+      "firstSeenAt": "2026-11-06T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -54,10 +54,10 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-11-05",
+      "route": "/votes/2026-11-06",
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
-        "items": 9,
+        "items": 33,
         "sittings": 11,
         "windowDays": 30
       },
@@ -71,8 +71,8 @@
       "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-06T00:00:00.000Z",
+      "firstSeenAt": "2026-11-06T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -200,8 +200,8 @@
       "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-06T00:00:00.000Z",
+      "firstSeenAt": "2026-11-06T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -701,44 +701,12 @@
       "verification": "automatic",
       "materiality": 0.5255,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:37cc65e6-1cff-4604-9eed-8f31446bbd10",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-10-07T14:30:00.000Z",
-      "deadlineAt": "2027-01-04T21:59:00.000Z",
-      "firstSeenAt": "2026-10-07T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/37cc65e6-1cff-4604-9eed-8f31446bbd10"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Изпълнение на мерки 26, 29, 33 и 60 от Националната рамка за приоритетни действия за Натура 2000",
-        "programme": "Програма \"Околна среда\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
     }
   ],
   "sourceCoverage": {
     "budget": {
       "available": true,
-      "asOf": "2026-08-31",
+      "asOf": "2026-09-30",
       "staleAfterDays": 120,
       "stale": false
     },
@@ -777,14 +745,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-11-05",
+      "asOf": "2026-11-06",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-05",
-      "observedAt": "2026-11-05",
+      "asOf": "2026-11-06",
+      "observedAt": "2026-11-06",
       "staleAfterDays": 5,
       "stale": false
     }

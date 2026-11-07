@@ -1,90 +1,112 @@
 {
   "obshtina": "BGS04",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-2.006-0040",
-      "title": "Нов модел на интегрирана здравна грижа за деца в Югоизточния регион",
+      "contractNumber": "BG16FFPR003-1.001-0056",
+      "title": "Изграждане на иновативен, високотехнологичен, академичен център за интегриране на съвременни образователни и технологични инициативи, насърчаващ растежа на знанието и икономическия напредък.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 12243000.28,
-      "totalEur": 12243000.28,
-      "paidEur": 8092742.06,
+      "prevTotalEur": 18918434.04,
+      "totalEur": 18918434.04,
+      "paidEur": 4963297.85,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-11-01"
+      "detectedAt": "2026-11-07"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-0140",
       "title": "Здравословна и добре приспособена работна среда за заетите в KAMKO ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 173760.05,
-      "totalEur": 173760.05,
+      "totalEur": 166762.87,
       "paidEur": 166762.87,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Камко ЕООД",
-      "detectedAt": "2026-11-01"
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0545",
-      "title": "Адаптирана работна среда 2023",
+      "contractNumber": "BG05SFPR002-1.013-0099",
+      "title": "Насърчаване на социалната икономика, чрез осигуряване на заетост на лица от уязвими групи.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 169555.62,
-      "totalEur": 169555.62,
-      "paidEur": 168140.76,
+      "prevTotalEur": 165378.6,
+      "totalEur": 165378.6,
+      "paidEur": 14447.38,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Просол ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Филтри бургас ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1115",
-      "title": "Подобряване на условията на труд и адаптирана работна среда",
+      "contractNumber": "BG-RRP-1.015-0743",
+      "title": "Изграждане на училищна STEM среда в СУ „Иван Вазов“- гр. Бургас",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 128950.02,
+      "totalEur": 129072.85,
+      "paidEur": 128950.03,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Средно училище \"Иван Вазов\"",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0328",
+      "title": "Адаптирана работна среда в Комерс Тони 91",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 158851.72,
-      "totalEur": 158851.72,
-      "paidEur": 158851.72,
+      "prevTotalEur": 128104.46,
+      "totalEur": 128104.46,
+      "paidEur": 122379.47,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Комерс тони - 91 ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1079",
+      "title": "Адаптирана работна среда в ЕТ ДАРС-91- ДИМИТЪР СЪБКОВ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 122281.12,
+      "totalEur": 112361.16,
+      "paidEur": 6659.07,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Динамик 2012 ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "ЕТ ДАРС-91 - Димитър Събков",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-2417",
-      "title": "Адаптрана работна среда в \"Бултекс 99\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 136150.06,
-      "totalEur": 136150.06,
-      "paidEur": 105955.32,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Бултекс 99 ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0501",
-      "title": "Повишаване капацитета на \"ММБ Инженеринг\" ЕООД,чрез оптимизация и модернизация на /rpkei безнес процесите.",
+      "contractNumber": "BG16RFPR001-1.004-2472",
+      "title": "Подкрепа за предприятиeтo от творческите индустрии \"НЮ УЕЙВ 2\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -92,35 +114,18 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 102257.78,
-      "totalEur": 102243.41,
-      "paidEur": 76682.49,
+      "prevTotalEur": 95861.62,
+      "totalEur": 93549.37,
+      "paidEur": 70162.06,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ММБ Инженеринг ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "\"НЮ Уейв 2\" ООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0491",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Хидро мат ЕООД.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 98845.24,
-      "totalEur": 98845.24,
-      "paidEur": 49422.62,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Хидро мат ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0916",
-      "title": "Подобряване на производствения капацитет на Ай Пи Дизайн ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-2814",
+      "title": "Подобряване на производствения капацитет в СПА Креатив ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -128,82 +133,66 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 95471.12,
-      "paidEur": 71603.34,
+      "prevTotalEur": 92646.01,
+      "totalEur": 92055.11,
+      "paidEur": 69041.49,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ай Пи Дизайн ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "\"СПА Креатив\" ООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-2405",
-      "title": "Адаптирана работна среда в Амбулатория за първична дентална помощ - индивидуална практика - МАЙ СМАЙЛ ЕООД",
+      "contractNumber": "BG16RFPR001-1.012-0062",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 76194.78,
-      "totalEur": 76194.78,
-      "paidEur": 76194.78,
+      "prevTotalEur": 37749.7,
+      "totalEur": 37749.7,
+      "paidEur": 3396,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Амбулатория за първична дентална помощ - индивидуална практика - МАЙ Смайл ЕООД",
-      "detectedAt": "2026-11-01"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Д и п корп\" ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0858",
+      "contractNumber": "BG16RFPR001-1.012-1488",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 30914.76,
-      "totalEur": 30914.76,
-      "paidEur": 21640.33,
+      "prevTotalEur": 23442.73,
+      "totalEur": 23442.73,
+      "paidEur": 16409.91,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Стил - алтънджиян ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Логикус ООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0682",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 20077.41,
-      "totalEur": 20077.41,
-      "paidEur": 14054.19,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Стройкомерс 2002 ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1573",
-      "title": "Подобряване на енергийната ефективност на Черноморски солници АД",
+      "contractNumber": "BG16RFPR001-1.004-2492",
+      "title": "Подобряване производствения капацитет на ЛАЙТЕЛ ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 64809.06,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 20682.22,
+      "totalEur": 19276.87,
+      "paidEur": 14457.68,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Черноморски солници АД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Лайтел ООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

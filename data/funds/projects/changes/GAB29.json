@@ -1,42 +1,10 @@
 {
   "obshtina": "GAB29",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0025",
-      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане в Дом за стари хора Севлиево, ул. “Великотърновско шосе” 10, гр. Севлиево (бивш ДСХ с. Стоките, общ. Севлиево)",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 2528718.65,
-      "totalEur": 2528718.65,
-      "paidEur": 2266644.46,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0292",
-      "title": "Прилагане на мерки за енергийна ефективност в НЧ \"Развитие -1870, гр. Севлиево\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 696428.44,
-      "totalEur": 696428.44,
-      "paidEur": 672165.6,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Севлиево",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0428",
-      "title": "Увеличаване на капацитета за предлагане на интернет и телевизия, както и внедряване на модули за управление на клиенти и процеси във фирма КИВИ ТВ ООД.",
+      "contractNumber": "BG16RFPR001-1.001-0113",
+      "title": "Разработване на иновация в Консехо",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -44,47 +12,31 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 101775.92,
-      "totalEur": 86411.9,
-      "paidEur": 64808.93,
+      "prevTotalEur": 324670.34,
+      "totalEur": 324543.2,
+      "paidEur": 194725.92,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "КИВИ-ТВ ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Консехо ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0087",
-      "title": "\"Енергийна ефективност в Нектар АД\"",
+      "contractNumber": "BG16RFPR001-2.004-1320",
+      "title": "Повишаване на енергийната ефективност на Авко АД",
       "type": "modified",
       "changedFields": [
-        "paidEur",
-        "status"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 76690.89,
-      "totalEur": 76690.89,
-      "paidEur": 49849.08,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 77379.33,
+      "totalEur": 45242.73,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Нектар\" АД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1059",
-      "title": "Подобряване на работната среда в Росица АД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 60570.65,
-      "totalEur": 60570.65,
-      "paidEur": 59700.15,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Росица АД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Авко АД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

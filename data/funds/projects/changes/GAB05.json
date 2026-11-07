@@ -1,179 +1,109 @@
 {
   "obshtina": "GAB05",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-2.006-0124",
-      "title": "Брегове на съвремието – комплекс от мерки по Програма „Развитие на регионите“ 2021 – 2027",
+      "contractNumber": "BG16RFPR001-2.004-0686",
+      "title": "Енергийна ефективност в АДТЕХ ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 153539.62,
+      "totalEur": 153539.62,
+      "paidEur": 51128.69,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Адтех ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0415",
+      "title": "Прилагане на мерки за енергийна ефективност чрез изграждане на фотоволтаична електроцентрала за търговска фирма в гр. Габрово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 69718.99,
+      "totalEur": 69718.99,
+      "paidEur": 42605.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Рета българия ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0684",
+      "title": "Подобряване на енергийната ефективност в ТАЙГЪР БУЛЛ ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 36557359.6,
-      "totalEur": 41805162.16,
-      "paidEur": 14123645.85,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Габрово",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.012-0067",
-      "title": "Устойчива заетост",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 199671.3,
-      "totalEur": 199671.3,
-      "paidEur": 153365.49,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Занималня ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1456",
-      "title": "Подобряване на производствения капацитет и ефективността на процесите в ЖУ-БГ ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 98986.14,
-      "paidEur": 74239.61,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЖУ-БГ ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0532",
-      "title": "Прилагане на мерки за енергийна ефективност в машиностроителен цех в гр. Габрово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 83662.79,
-      "totalEur": 83662.79,
-      "paidEur": 51129.19,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Апронекс“ ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-2112",
-      "title": "„ВЕИ за собствено потребление – ЕТ „Проектстрой – Петър Петров – Петя Пътева“, гр. Габрово“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 83662.79,
-      "totalEur": 83662.79,
-      "paidEur": 20451.68,
+      "prevTotalEur": 75511.72,
+      "totalEur": 62039.59,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕТ ПРОЕКТСТРОЙ-ПЕТЪР ПЕТРОВ-ПЕТЯ Пътева",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Тайгър булл ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0855",
-      "title": "Повишаване на качеството на услугите, и добавяне на нови услуги в ЛИК-М.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 76555.29,
-      "totalEur": 74930.45,
-      "paidEur": 56197.84,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЛИК-М ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0371",
-      "title": "Разширяване на капацитета на дейност на ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА ДЕНТАЛНА ПОМОЩ ВИГ- ДЕНТ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 72951.08,
-      "totalEur": 65264.39,
-      "paidEur": 47954.67,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Групова практика за първична дентална помощ ВИГ- дент ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFTA001-1.010-0034",
-      "title": "РИЦ „Амбициозно Габрово\" – граждански капацитет и партньорство за ефективно сближаване",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 49346.83,
-      "totalEur": 49346.83,
-      "paidEur": 16412.46,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение Регионален иновационен център \"Амбициозно Габрово\"",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0996",
+      "contractNumber": "BG16RFPR001-1.012-0194",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 35437.64,
-      "totalEur": 35437.64,
-      "paidEur": 24806.35,
+      "prevTotalEur": 31669.42,
+      "totalEur": 31669.42,
+      "paidEur": 22168.59,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "К.А.С.И. ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Елтрон сервиз ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0124",
+      "contractNumber": "BG16RFPR001-1.012-0252",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 9488.55,
-      "totalEur": 9488.55,
-      "paidEur": 6641.99,
+      "prevTotalEur": 29397.24,
+      "totalEur": 29397.24,
+      "paidEur": 20578.07,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Амарал",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Актив ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR002-1.005-0092",
+      "title": "Услуги за иновации в полза на БУРЯ ТД ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 15042.21,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR002",
+      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
+      "beneficiaryName": "Буря ТД ЕООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

@@ -1,40 +1,38 @@
 {
   "obshtina": "VRC32",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.035-0026",
-      "title": "Повишаване готовността на област Враца за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
+      "contractNumber": "BG-RRP-4.033-0033",
+      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в МЕТИЗИ АД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 233903.56,
-      "totalEur": 233903.56,
-      "paidEur": 145508.98,
+      "prevTotalEur": 2020110,
+      "totalEur": 2020110,
+      "paidEur": 859290.65,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" Враца",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0045",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ИСКРА-1921 - 106036627 с. Синьо бърдо",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13203.64,
-      "paidEur": 13203.64,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"ИСКРА-1921 - 106036627 с. Синьо бърдо",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Метизи АД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0240",
+      "title": "Топъл обяд в община Роман",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 206669.55,
+      "totalEur": 206669.55,
+      "paidEur": 156898.48,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "община Роман",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

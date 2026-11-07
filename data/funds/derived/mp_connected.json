@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-01T00:00:15.668Z",
-  "total": 181,
-  "mpCount": 153,
-  "beneficiaryCount": 170,
-  "contractedEur": 4853355121.75,
-  "paidEur": 2259009701.99,
+  "generatedAt": "2026-11-07T02:49:24.873Z",
+  "total": 182,
+  "mpCount": 154,
+  "beneficiaryCount": 171,
+  "contractedEur": 4853360229.12,
+  "paidEur": 2259359574.24,
   "entries": [
     {
       "mpId": 4507,
@@ -24,7 +24,7 @@
       ],
       "contractCount": 17,
       "contractedEur": 2118180923.56,
-      "paidEur": 981863794.36
+      "paidEur": 981845575.49
     },
     {
       "mpId": 4838,
@@ -40,7 +40,7 @@
       ],
       "contractCount": 17,
       "contractedEur": 2118180923.56,
-      "paidEur": 981863794.36
+      "paidEur": 981845575.49
     },
     {
       "mpId": 3551,
@@ -260,7 +260,7 @@
       "mpId": 3427,
       "mpName": "Петко Ангелов Кущирев",
       "beneficiaryEik": "200712697",
-      "beneficiaryName": "ПАК Дизайн ЕООД",
+      "beneficiaryName": "ПАК дизайн ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -326,7 +326,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 3087118.73,
-      "paidEur": 910455.52
+      "paidEur": 1171835.78
     },
     {
       "mpId": 897,
@@ -362,7 +362,7 @@
       ],
       "contractCount": 3,
       "contractedEur": 2084060.47,
-      "paidEur": 630794.39
+      "paidEur": 745130.33
     },
     {
       "mpId": 3080,
@@ -919,7 +919,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 434114.13,
-      "paidEur": 150502.73
+      "paidEur": 155983.6
     },
     {
       "mpId": 4800,
@@ -1125,7 +1125,7 @@
       "mpId": 599,
       "mpName": "Милена Иванова Милотинова-Колева",
       "beneficiaryEik": "205388313",
-      "beneficiaryName": "МПроект ЕООД",
+      "beneficiaryName": "Мпроект ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -2430,7 +2430,7 @@
         }
       ],
       "contractCount": 1,
-      "contractedEur": 17375.74,
+      "contractedEur": 17370.19,
       "paidEur": 17257.6
     },
     {
@@ -2608,6 +2608,22 @@
         },
         {
           "kind": "sole_owner",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 5112.92,
+      "paidEur": 5112.92
+    },
+    {
+      "mpId": 1051,
+      "mpName": "Ердоан Мустафов Ахмедов",
+      "beneficiaryEik": "125043334",
+      "beneficiaryName": "Омуртаг транс ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
           "isCurrent": true
         }
       ],

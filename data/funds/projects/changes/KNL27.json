@@ -1,22 +1,40 @@
 {
   "obshtina": "KNL27",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0072",
-      "title": "РЕКОНСТРУКЦИЯ НА ДОМ ЗА СТАРИ ХОРА „СВ. ИВАН РИЛСКИ“ ГР. КОЧЕРИНОВО",
+      "contractNumber": "BG16FFPR003-4.001-0326",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда в град Кочериново, ул. \"Жельо Демиревски\" №17",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "status"
       ],
-      "prevTotalEur": 1699589.89,
-      "totalEur": 1699589.89,
-      "paidEur": 1699589.89,
+      "prevTotalEur": 785738.66,
+      "totalEur": 785738.66,
+      "paidEur": 275008.53,
+      "status": "В изпълнение (временно спрян)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Кочериново",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1291",
+      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище „САМООБРАЗОВАНИЕ - 1914 Г.“, село Стоб",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 11857.12,
+      "paidEur": 11857.12,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кочериново",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Народно Читалище „Самообразование - 1914\"",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

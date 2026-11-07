@@ -1,74 +1,78 @@
 {
   "obshtina": "VRC10",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0231",
-      "title": "Изграждане на система за съхранение на електроенергия към фотоволтаична инсталация намираща се в поземлен имот 12259.1008.440, гр. Враца",
+      "contractNumber": "BG16FFPR003-2.006-0150",
+      "title": "Зелени решения за устойчиво развитие на СЗР",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 27261559.83,
+      "totalEur": 29286206.76,
+      "paidEur": 8301036.91,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Враца",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0249",
+      "title": "Изграждане на система за съхранение на електроенергия към фотоволтаична инсталация намираща се в поземлен имот 12259.1008.442, гр. Враца",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 728590.93,
-      "totalEur": 728590.93,
-      "paidEur": 353531.3,
+      "prevTotalEur": 1923480.06,
+      "totalEur": 1923480.06,
+      "paidEur": 958520,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "В-ХЕРБ Стор ООД",
-      "detectedAt": "2026-11-01"
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.001-0492",
-      "title": "Разработване на иновации в СТАРК ТЕХНОЛОДЖИ АД.",
+      "contractNumber": "BG-RRP-4.032-0234",
+      "title": "Изграждане на система за съхранение на електроенергия към фотоволтаична инсталация намираща се в поземлен имот 12259.1008.441, гр. Враца",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 409033.5,
-      "totalEur": 409033.5,
-      "paidEur": 81754.3,
+      "prevTotalEur": 1748618.24,
+      "totalEur": 1748618.24,
+      "paidEur": 871120,
       "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "В-ХЕРБ Стор ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.003-0569",
+      "title": "Внедряване на иновации в \"Интелигентни системи за сигурност\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 904475.34,
+      "totalEur": 903500,
+      "paidEur": 406575,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
       "beneficiaryName": "Старк технолоджи АД",
-      "detectedAt": "2026-11-01"
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.035-0026",
-      "title": "Повишаване готовността на област Враца за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 233903.56,
-      "totalEur": 233903.56,
-      "paidEur": 145508.98,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" Враца",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2417",
-      "title": "Адаптрана работна среда в \"Бултекс 99\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 136150.06,
-      "totalEur": 136150.06,
-      "paidEur": 105955.32,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Бултекс 99 ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1495",
-      "title": "Инвестиции в подобряване на производствения капацитет на \"Съни гардънс\" ООД",
+      "contractNumber": "BG16RFPR001-1.001-0042",
+      "title": "Разработване на софтуерна платформа за подобряване ефективността на машиностроителното производство в \"ЛЕСТО ПРОДУКТ\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -76,98 +80,50 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 92162.92,
-      "totalEur": 74238.57,
-      "paidEur": 55678.93,
+      "prevTotalEur": 518930.58,
+      "totalEur": 518929.87,
+      "paidEur": 255572.95,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Съни гардънс ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Лесто продукт ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0775",
-      "title": "Подобряване на енергийната ефективност на „ИлиЦвет 74“ ЕООД",
+      "contractNumber": "BG05SFPR003-1.001-0123",
+      "title": "Топъл обяд в община Враца",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 72058.92,
-      "totalEur": 72058.92,
-      "paidEur": 6798.01,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"ИлиЦвет 74\" ЕООД",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 447935.98,
+      "totalEur": 447935.98,
+      "paidEur": 361321.09,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Враца",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0398",
-      "title": "Подобряване на работната среда във Валка ЕООД",
+      "contractNumber": "BG05SFPR001-1.010-0013",
+      "title": "Бъдеще за доброто",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 68708.33,
-      "totalEur": 68708.33,
-      "paidEur": 50306.51,
+      "prevTotalEur": 176777.89,
+      "totalEur": 176777.89,
+      "paidEur": 43612.78,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Валка ЕООД",
-      "detectedAt": "2026-11-01"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Профилирана природо-математическа гимназия \"Академик Иван Ценов\", гр. Враца",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0903",
-      "title": "Адаптирана работна среда в Аресгаз ЕАД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 61233.52,
-      "totalEur": 61233.52,
-      "paidEur": 39415.41,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Аресгаз ЕАД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFTA001-1.010-0053",
-      "title": "Укрепване на капацитета - нови възможности за участие и ангажираност",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 48608.26,
-      "totalEur": 48608.26,
-      "paidEur": 32100,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение \"Сдружение младежки алианс за равенство и солидарсност\"",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFTA001-1.010-0092",
-      "title": "Капацитет за партньорско управление, дигитална трансформация и устойчиво младежко развитие",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 48594.59,
-      "totalEur": 48594.59,
-      "paidEur": 32356.7,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение „Младежка академична консолидация ”",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFTA001-1.010-0052",
-      "title": "Укрепване на експертния капацитет за участие, социална интеграция и устойчив растеж",
+      "contractNumber": "BG16RFPR001-1.001-0292",
+      "title": "Разработване на иновации в \"Петроффсофт\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -175,50 +131,118 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 48580.91,
-      "totalEur": 48421.61,
-      "paidEur": 48421.61,
+      "prevTotalEur": 212997.63,
+      "totalEur": 127074.76,
+      "paidEur": 76117.56,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Сдружение „Европейски център за мобилност и интеграция“",
-      "detectedAt": "2026-11-01"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ПетроффСофт ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0196",
-      "title": "Изграждане на дигитален клуб в село Мраморен",
+      "contractNumber": "BG16RFPR001-1.004-2675",
+      "title": "Постигане на устойчив растеж и повишаване на конкурентоспособността на Булпласт-М ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
+      "paidEur": 76693.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "БУЛПЛАСТ-М ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1783",
+      "title": "\"Подобряване на производственият капацитет на ВИКТОРИ СПОРТ КОНСУЛТ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 66764.07,
+      "totalEur": 48906.9,
+      "paidEur": 36680.14,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Виктори спорт консулт ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2393",
+      "title": "Подобряване на производствения капацитет на \"ДДД-Инсекта контрол\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 41670.29,
+      "totalEur": 41670.29,
+      "paidEur": 31252.72,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДДД - Инсекта контрол ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1986",
+      "title": "Инвестиции за зелена трансформация и енергийна ефективност",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 30312.3,
+      "totalEur": 30312.3,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "МЦ Света АНА ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0954",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 5031.11,
+      "totalEur": 5031.11,
+      "paidEur": 3521.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"ИВ Дизайн студио\" ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1059",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 13017.32,
-      "paidEur": 13017.32,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Милин камък - 1927",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.003-0232",
-      "title": "Внедряване на продуктова иновация в Новамед ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 114910,
+      "prevTotalEur": 15046.3,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Новамед ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "„СИ ЕМ ЕН Проджектс\" ЕООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

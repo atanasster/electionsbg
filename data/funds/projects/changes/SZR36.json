@@ -1,22 +1,25 @@
 {
   "obshtina": "SZR36",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0020",
-      "title": "Предоставяне на интегрирани здравно – социални услуги в община Чирпан",
+      "contractNumber": "BG16RFPR001-1.001-0308",
+      "title": "Разработване на иновативен секционен хидравличен разпределител",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 273290.06,
-      "totalEur": 273290.06,
-      "paidEur": 218632.05,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Чирпан",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 510121.02,
+      "totalEur": 509695.26,
+      "paidEur": 254847.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Бъдещност АД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

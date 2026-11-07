@@ -1,93 +1,110 @@
 {
   "obshtina": "VID09",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-3.009-0015",
-      "title": "Професионална гимназия \"Проф. д-р Асен Златаров\" Видин - активен център за високи постижения в професионалното образование и обучение",
+      "contractNumber": "BG05SFPR002-2.016-0075",
+      "title": "Социално включване и равни възможности за видинчани",
+      "type": "new",
+      "totalEur": 146081.6,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Сдружение \"Заедно за бъдеще\"",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.016-0076",
+      "title": "Подкрепа за заетост и успех",
+      "type": "new",
+      "totalEur": 94173.84,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Агенция за регионално развитие и бизнес ЦЕНТЪР-ВИДИН Сдружение",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0169",
+      "title": "„Заедно създаваме спокойна среда и сме срещу агресията“",
+      "type": "new",
+      "totalEur": 36558.24,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \" Христо Ботев\"",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-4.034-0029",
+      "title": "Изграждане на самостоятелно съоръжение за съхранение на електрическа енергия с инсталирана мощност 10 MW и капацитет 40 MWh, с адрес в гр. Видин 3700, ул. Широка №151-ю, поземлен имот с идентификатор №10971.511.193",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1256821.92,
-      "totalEur": 1256821.92,
-      "paidEur": 251364.38,
+      "prevTotalEur": 6000000,
+      "totalEur": 6000000,
+      "paidEur": 1903998.79,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Токи сторидж ЕАД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0237",
+      "title": "Заедно за спокойствие и разбирателство в училище",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 160302.77,
+      "totalEur": 160302.77,
+      "paidEur": 32060.55,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Професионална гимназия \"Проф. д-р Асен Златаров\" - Видин",
-      "detectedAt": "2026-11-01"
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-2247",
-      "title": "Подобряване на енергийната ефективност на \"АНГО-КЛИМА\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 24178.54,
-      "totalEur": 24178.54,
-      "paidEur": 15716.05,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"АНГО-КЛИМА\" ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0572",
-      "title": "\"Създаване на дигитален клуб към НЧ \"Светъл ден 2009\" -Видин\"",
+      "contractNumber": "BG-RRP-1.024-1078",
+      "title": "Създаване на дигитален клуб в село Кошава, общ. Видин",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 18600.79,
-      "totalEur": 18100.13,
-      "paidEur": 18100.13,
+      "prevTotalEur": 14158.11,
+      "totalEur": 14101.28,
+      "paidEur": 14101.28,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Светъл ден 2009\" град Видин",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Народно читалище \"Съзнание-1928\" село Кошава",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0970",
-      "title": "Създаване на дигитален клуб в село Градец, община Видин",
+      "contractNumber": "BG-RRP-1.024-0292",
+      "title": "\"Дигитален клуб 2025 - град Дунавци\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 13156.91,
-      "totalEur": 11954.35,
-      "paidEur": 11954.35,
+      "prevTotalEur": 14512.73,
+      "totalEur": 12851.73,
+      "paidEur": 13234.23,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Просвета 28.11.1928\" село Градец",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0525",
-      "title": "Дигитален клуб - Народно Читалище \"Наука - 1925\" с. Синаговци",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14295.73,
-      "totalEur": 10262.88,
-      "paidEur": 10262.88,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Наука - 1925\" с. Синаговци",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Народно читалище \"Феникс-2020\"",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

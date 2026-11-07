@@ -1,59 +1,44 @@
 {
   "obshtina": "PER32",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.014-0016",
-      "title": "„Внедряване на мерки за енергийна ефективност в сградите на РДПБЗН-Перник и РСПБЗН-Брезник“",
+      "contractNumber": "BG16RFPR001-1.004-1034",
+      "title": "Подобряване на производствения капацитет на \"Алфа проджект мениджмънт\" ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 2046421.42,
-      "totalEur": 2046421.42,
-      "paidEur": 716247.5,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Перник",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 101965.73,
+      "totalEur": 101965.73,
+      "paidEur": 76474.33,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Алфа проджект мениджмънт ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0972",
-      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Перник, ул. \"Върбица\", бл. 11, вх. А и Б",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 330390.48,
-      "totalEur": 330390.48,
-      "paidEur": 329302.34,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Перник",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0268",
-      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия във фирма \"Автотрейд 99\" ЕООД",
+      "contractNumber": "BG16RFPR001-2.004-1966",
+      "title": "Подобряване на енергийната ефективност в Бау Център ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 214742.6,
-      "totalEur": 214742.59,
+      "prevTotalEur": 71322.23,
+      "totalEur": 70941.83,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Автотрейд 99 ЕООД",
-      "detectedAt": "2026-11-01"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "БАУ Център ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2633",
-      "title": "Подобряване на производствения капацитет в семейното предприятие КОМАНС 2000 АД",
+      "contractNumber": "BG16RFPR001-1.004-2575",
+      "title": "ПОДОБРЯВАНЕ НА КОНКУРЕНТОСПОСОБНОСТТА НА “АДВЕНЧЪР ФИЛМС” ЕООД, ЧРЕЗ ЗАКУПУВАНЕ НА НОВА СНИМАЧНА ТЕХНИКА ЗА КИНО И ВИДЕО ЗАСНЕМАНЕ, КОМПЮТЪРНИ СИСТЕМИ ЗА ВИДЕО-МОНТАЖ, ЗВУКОЗАПИСНА ТЕХНИКА И ОСВЕТЛЕНИЕ, С ЦЕЛ МОДЕРНИЗАЦИЯ И ТЕХНОЛОГИЧНО ОБНОВЛЕНИЕ НА ПРОИЗВОДСТВЕНИТЕ ПРОЦЕСИ И ПРЕДЛАГАНИТЕ ОТ ПРЕДПРИЯТИЕТО УСЛУГИ.",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -61,160 +46,47 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 101761.4,
-      "totalEur": 101761,
-      "paidEur": 76320.75,
+      "prevTotalEur": 61574.87,
+      "totalEur": 61562,
+      "paidEur": 46171.5,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Команс 2000 АД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Адвенчър филмс ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2087",
-      "title": "Повишаване на производствения капацитет и подобрено пазарно присъствие на \"ТК Бус Перник\" ООД",
+      "contractNumber": "BG16RFPR001-2.004-2253",
+      "title": "„Подкрепата за енергийно ефективно оборудване и използване на енергия от възобновяеми източници за предприятие НЕТ МАГ ЕООД“",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 101695.96,
-      "totalEur": 101487.08,
-      "paidEur": 76115.3,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 56819.57,
+      "totalEur": 56819.57,
+      "paidEur": 28835.18,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ТК БУС Перник ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "НЕТ МАГ ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0229",
-      "title": "Подобряване на технологичния капацитет за предоставяне на услуги от архитектурно бюро \"Идея М\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 54822.42,
-      "totalEur": 54475.53,
-      "paidEur": 40856.67,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Идея м ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1383",
-      "title": "Подобряване на работния капацитет и ефективност в АУТО БРАДЪРС 09 ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 27262.08,
-      "totalEur": 24014.25,
-      "paidEur": 16809.97,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ауто брадърс 09 ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0148",
-      "title": "Изграждане на дигитален клуб в Регионална Библиотека град Перник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 26587.18,
-      "totalEur": 19045.09,
-      "paidEur": 19045.09,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Регионална библиотека \"Светослав Минков\"",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0003",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG16RFPR001-2.004-0722",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"Европа - Р\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 15969.69,
-      "totalEur": 15969.69,
-      "paidEur": 11178.78,
+      "prevTotalEur": 41831.4,
+      "totalEur": 41831.4,
+      "paidEur": 27190.41,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"СОТ - 555\" ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0287",
-      "title": "Дигитален клуб - Народно Читалище \"Пробуда -1937\" с. Кладница",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17380.86,
-      "totalEur": 11123.26,
-      "paidEur": 11123.26,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Пробуда -1937\" с. Кладница",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0154",
-      "title": "Дигитален клуб Народно Читалище - \"Св. Паисий Хилендарски -1927\" с. Кралев дол",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 10370.02,
-      "totalEur": 9091.26,
-      "paidEur": 9091.27,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище - \"Св. Паисий Хилендарски -1927\" с. Кралев дол",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0150",
-      "title": "Дигитален клуб - Народно Читалище \"Люлински изгрев - 1903\" с. Големо Бучино",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14254.81,
-      "totalEur": 7477.3,
-      "paidEur": 7477.31,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Люлински изгрев - 1903\" с. Големо Бучино",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "\"Европа - Р\" ЕООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

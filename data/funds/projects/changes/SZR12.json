@@ -1,10 +1,39 @@
 {
   "obshtina": "SZR12",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.004-1596",
-      "title": "Адаптирана работна среда в \"М - СТРОНГ\" ЕООД",
+      "contractNumber": "BG16FFPR003-4.011-0007",
+      "title": "Изграждане на ФЕЦ за собствени нужди в комбинация с локални съоръжения за съхранение в ЗЕОЛИТ УОТЪР КЪМПАНИ ЕООД",
+      "type": "new",
+      "totalEur": 217076.4,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Зеолит уотър къмпани ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1289",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"ТЕРА ГРАНД\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 74226.2,
+      "totalEur": 74226.2,
+      "paidEur": 48247.03,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Тера гранд\" ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2861",
+      "title": "Подобряване на производствения капацитет на \"ФУУДИ\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -12,100 +41,14 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 177657.52,
-      "totalEur": 153820.01,
-      "paidEur": 153820.01,
+      "prevTotalEur": 63859.33,
+      "totalEur": 63629,
+      "paidEur": 47721.76,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "\"М - стронг\" ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0095",
-      "title": "Подобряване на енергийната ефективност на \"КРЕС-Д\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 69719,
-      "totalEur": 69719,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "КРЕС-Д ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.012-0242",
-      "title": "Устойчива заетост и социално включване на хора в неравностойно положение",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 54999.72,
-      "totalEur": 54999.72,
-      "paidEur": 50547.61,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Работилничка \"Бисквитките\"",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0055",
-      "title": "\"Изграждане на дигитален клуб в гр.Казанлък\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 23519.43,
-      "totalEur": 22471.25,
-      "paidEur": 22471.25,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Синдикален Регионален съюз на Конфедерация по труда \"Подкрепа\" - Казанлък",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0317",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ОСВОБОЖДЕНИЕ - 1884\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 13318.63,
-      "paidEur": 13318.63,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Освобождение - 1884\"",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1092",
-      "title": "Изграждане на дигитален клуб в Народно читалище ЖАР 2002 в гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 23519.41,
-      "totalEur": 11604.21,
-      "paidEur": 11604.21,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище ЖАР 2002",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Фууди ООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

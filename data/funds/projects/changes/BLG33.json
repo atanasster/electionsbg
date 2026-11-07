@@ -1,27 +1,28 @@
 {
   "obshtina": "BLG33",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-1758",
-      "title": "Енергийна ефективност в РЪЖДАНОВ ТРЕЙД.",
+      "contractNumber": "BG16RFOP001-6.002-0016",
+      "title": "„РЕСТАВРАЦИЯ, КОНСЕРВАЦИЯ, ОПАЗВАНЕ, ПОПУЛЯРИЗИРАНЕ И РАЗВИТИЕ НА АРХЕОЛОГИЧЕСКИ ОБЕКТ „АНТИЧЕН ГРАД ХЕРАКЛЕЯ СИНТИКА” И ПРИЛЕЖАЩИ НЕКРОПОЛИ”",
       "type": "modified",
       "changedFields": [
-        "paidEur",
+        "totalEur",
+        "grantEur",
         "status"
       ],
-      "prevTotalEur": 67070.34,
-      "totalEur": 67070.34,
-      "paidEur": 33535.17,
+      "prevTotalEur": 2884104.96,
+      "totalEur": 2697154.16,
+      "paidEur": 2697154.19,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ръжданов трейд ЕООД",
-      "detectedAt": "2026-11-01"
+      "programCode": "2014BG16RFOP001",
+      "programName": "Региони в растеж",
+      "beneficiaryName": "Община Петрич",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2298",
-      "title": "Подобряване и разнообразяване на предлаганите услуги в хотел Мантар",
+      "contractNumber": "BG16RFPR001-1.004-2816",
+      "title": "Подобряване на производствения капацитет в семейното предприятие на СТОНАС ГРУП ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -29,32 +30,30 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 47737.79,
-      "totalEur": 46249.6,
-      "paidEur": 34687.2,
+      "prevTotalEur": 102258.38,
+      "totalEur": 102170,
+      "paidEur": 76627.5,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Мантар - 2012 ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Стонас груп ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2551",
-      "title": "Подобряване на конкурентоспособността на АБ Бизнес Консултинг ООД",
+      "contractNumber": "BG16FFPR003-2.005-0021",
+      "title": "Техническа подкрепа на община Петрич за изпълнение на ИТИ инструмента",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 89744.12,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "АБ Бизнес Консултинг ООД",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 31938.67,
+      "totalEur": 31938.67,
+      "paidEur": 31938.67,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Петрич",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

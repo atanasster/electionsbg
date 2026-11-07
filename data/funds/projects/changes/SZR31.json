@@ -1,354 +1,277 @@
 {
   "obshtina": "SZR31",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
+    {
+      "contractNumber": "BG16FFPR003-1.001-0038",
+      "title": "Изграждане на продължение на ул. \"Георги Байданов\" до ул. \"Алеко Константинов\" и кръстовище с кръгово движение на бул. \"България\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 12782297.03,
+      "totalEur": 14611780.14,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Стара Загора",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.014-0026",
+      "title": "\"Реализиране на енергийно обновяване на сгради на Държавна агенция \"Архиви\" (ДАА), с адреси: гр. Стара Загора, ул. „Генерал Гурко” №81“; гр. Сливен, бул. „Хаджи Димитър” № 41“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1553212.76,
+      "totalEur": 1553212.76,
+      "paidEur": 543624.47,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Държавна агенция \"Архиви\"",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0732",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда на ул. \"Ген. Гурко\" № 101. град Стара Загора",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1452057.9,
+      "totalEur": 1411458.09,
+      "paidEur": 1411278.37,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община - стара загора",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1015",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда в кв. „Самара“, бл.7, град Стара Загора",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1204154.56,
+      "totalEur": 1204154.56,
+      "paidEur": 1086173.64,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община - стара загора",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1018",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда на ул. „Райна Княгиня“ № 2, град Стара Загора",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1253907.08,
+      "totalEur": 1196327.83,
+      "paidEur": 1196150.12,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община - стара загора",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG06RDNP001-4.012-1461",
+      "title": "Изграждане на оранжерия за зеленчуци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 961551.86,
+      "totalEur": 961551.88,
+      "paidEur": 481115.36,
+      "status": "Сключен",
+      "programCode": "2014BG06RDNP001",
+      "programName": "Програма за развитие на селските райони",
+      "beneficiaryName": "Баръмов агро ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1012",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда на ул. „Христо Ботев“ № 149, град Стара Загора“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 922984.22,
+      "totalEur": 903315.68,
+      "paidEur": 903143.16,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община - стара загора",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0025",
+      "title": "Изграждане на комбиниран проект за нова инсталирана мощност за производство на електрическа енергия от слънчева енергия и за ЛСС",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 779413.34,
+      "totalEur": 779413.34,
+      "paidEur": 387802.09,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АТЗ Проджект ЕООД",
+      "detectedAt": "2026-11-07"
+    },
     {
       "contractNumber": "BG16FFPR003-4.011-0062",
       "title": "Повишаване на енергийната независимост чрез изграждане на ФЕЦ и батерии в БРАДЪРС ЛОГИСТИК ООД",
-      "type": "new",
+      "type": "modified",
+      "changedFields": [
+        "grantEur"
+      ],
+      "prevTotalEur": 498900,
       "totalEur": 498900,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Брадърс логистик ООД",
-      "detectedAt": "2026-11-01"
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG-RRP-4.036-0087",
-      "title": "Изграждане на самостоятелно съоръжение за съхранение на електрическа енергия с инсталирана мощност 10 MW и капацитет 40 MWh, с адрес в град Стара Загора 6000, кв. Голиш, поземлен имот с идентификатор №68850.517.1604",
+      "contractNumber": "BG-RRP-4.023-0424",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда на бул. „Митрополит Методий Кусев“ № 60, град Стара Загора“",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 5537498.04,
-      "totalEur": 5537498.04,
-      "paidEur": 1170073.33,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 156409.47,
+      "totalEur": 155745,
+      "paidEur": 155585.97,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Токи сторидж ЕАД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.001-0267",
-      "title": "Изпълнение на мерки за енергийна ефективност на многофамилна жилищна сграда на ул. „Подполковник Калитин“ № 2, включително за намаляване на енергийната бедност в град Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 1640114.8,
-      "totalEur": 1640114.8,
-      "paidEur": 574040.18,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община - стара загора",
-      "detectedAt": "2026-11-01"
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16FFPR003-4.001-0271",
-      "title": "Изпълнение на мерки за енергийна ефективност на многофамилна жилищна сграда в ул. \"Иван Вазов\" № 3, включително за намаляване на енергийната бедност в град Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 1470578.15,
-      "totalEur": 1470578.15,
-      "paidEur": 514702.35,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община - стара загора",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.001-0128",
-      "title": "Изпълнение на мерки за енергийна ефективност на многофамилна жилищна сграда на бул. \"Славянски\" № 3, включително за намаляване на енергийната бедност в град Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 1297169.5,
-      "totalEur": 1297169.5,
-      "paidEur": 428960.76,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община - стара загора",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.001-0213",
-      "title": "Изпълнение на мерки за енергийна ефективност на многофамилна жилищна сграда в кв. „Казански\", блок 24, включително за намаляване на енергийната бедност в град Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 1248394.18,
-      "totalEur": 1248394.18,
-      "paidEur": 257245.8,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община - стара загора",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.001-0119",
-      "title": "Изпълнение на мерки за енергийна ефективност на многофамилна жилищна сграда на ул. \"Княз Александър Батенберг\" № 10, включително за намаляване на енергийната бедност в град Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 465269.52,
-      "totalEur": 465269.52,
-      "paidEur": 162844.33,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община - стара загора",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.008-0023",
-      "title": "Заедно за децата на община Стара Загора",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 380402.89,
-      "totalEur": 380402.89,
-      "paidEur": 109202.77,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Стара загора",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.001-0257",
-      "title": "Иновативна софтуерна система за подобряване и проследяване на процеса на комуникация между зъболекари и пациенти",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 213038.28,
-      "totalEur": 213019.38,
-      "paidEur": 127811.63,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Софт Зен ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2417",
-      "title": "Адаптрана работна среда в \"Бултекс 99\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 136150.06,
-      "totalEur": 136150.06,
-      "paidEur": 105955.32,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Бултекс 99 ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2806",
-      "title": "Подобряване на производствения капацитет на АКВА Билд Системс ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 100922.89,
-      "totalEur": 100901,
-      "paidEur": 75675.77,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Аква Билд Системс ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0229",
-      "title": "Енергийна ефективност в Ремонтинвест ООД.",
+      "contractNumber": "BG16RFPR001-2.004-2460",
+      "title": "Изграждане на Локални съоръжения за съхранение на енергия (батерии в комбинация с инвертори) за \"ЛАЙФ ГАРД 88 ЕООД\"",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 100133.96,
-      "totalEur": 100133.96,
-      "paidEur": 50066.98,
+      "prevTotalEur": 105434.83,
+      "totalEur": 105434.83,
+      "paidEur": 50608.72,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ремонтинвест ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Лайф гард 88 ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0161",
-      "title": "Адаптиране на работната среда в ЕЛ - ГРУП 07 ООД",
+      "contractNumber": "BG16RFPR001-2.004-1494",
+      "title": "Постигане на енергийна ефективност в предприятие ТЕХНОСНАБ ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 76079.98,
-      "totalEur": 76079.98,
-      "paidEur": 64986.17,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ЕЛ - Груп 07 ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0586",
-      "title": "Повишаване на енергийната ефективност на фирма \"ИТС–Ивона\" ООД.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 64434.03,
-      "totalEur": 64434.03,
-      "paidEur": 41882.12,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "и Т с - ивона ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0289",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 50370.93,
-      "totalEur": 50370.93,
-      "paidEur": 25185.47,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Тева - ТМ ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.001-0073",
-      "title": "Разработване на продуктова иновация в \"ГРИЙН ФЮЧЪР\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 51230.42,
-      "totalEur": 46014.4,
-      "paidEur": 27608.64,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Грийн фючър ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0362",
-      "title": "Насърчаване на адаптирането на работниците към промените чрез прилагане на мерки за адаптирана, здравословна и добре приспособена работна среда в \"Магейа\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 37347.99,
-      "totalEur": 37347.99,
-      "paidEur": 36428.63,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Магейа ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1552",
-      "title": "Подобряване на пазарното присъствие и капацитет на ДИЛИЯ - 2004 ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 33859.28,
-      "totalEur": 33859.28,
-      "paidEur": 25394.46,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Дилия - 2004 ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-2007",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 32654.67,
-      "totalEur": 32654.67,
-      "paidEur": 22858.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Йолена 2008 Еоод",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1150",
-      "title": "Адаптирана работна среда в Информат ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 23972.42,
-      "totalEur": 23972.42,
-      "paidEur": 23972.42,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Информат ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0227",
-      "title": "Адаптирана работна среда в Пресков АД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 123292.21,
-      "totalEur": 0,
+      "prevTotalEur": 101187.74,
+      "totalEur": 101187.74,
       "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Пресков АД",
-      "detectedAt": "2026-11-01"
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Техноснаб ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1803",
+      "title": "Подкрепа за семейното предприятие Кадуоркс Плюс ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 87526.35,
+      "totalEur": 87526.35,
+      "paidEur": 65644.77,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Кадуоркс Плюс ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1515",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 48295.1,
+      "totalEur": 48295.1,
+      "paidEur": 12915.74,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Хеалт ЕНД спорт ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1747",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 41275.06,
+      "totalEur": 41275.06,
+      "paidEur": 25549.26,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Бютифорс\" ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2698",
+      "title": "Подобряване на производствения капацитет на АРТ СТУДИО ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 39654.26,
+      "totalEur": 36652.68,
+      "paidEur": 27489.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "АРТ Студио ЕООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

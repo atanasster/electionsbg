@@ -1,22 +1,76 @@
 {
   "obshtina": "BGS01",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0069",
-      "title": "Изграждане на сграда за резидентна грижа за възрастни хора в надтрудоспособна възраст без увреждания (Дом за стари хора) в гр. Айтос",
+      "contractNumber": "BG05SFPR001-1.010-0159",
+      "title": "Сигурна и приобщаваща училищна среда за всеки: Интегрирани подходи за превенция на тормоза, насилието и дискриминацията",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 3723529.85,
-      "totalEur": 3723529.85,
-      "paidEur": 3723529.85,
+      "prevTotalEur": 98676.23,
+      "totalEur": 98676.23,
+      "paidEur": 19735.25,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по селско стопанство \"Златна нива\"",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1497",
+      "title": "АДАПТИРАНЕ НА РАБОТНАТА СРЕДА В ЕТ „ЦВЕТЕЛИНА-93 ИВАН ГЕНЧЕВ“ КЪМ СЪВРЕМЕННИТЕ ИЗИСКВАНИЯ ЗА ЗДРАВОСЛОВНИ И БЕЗОПАСНИ УСЛОВИЯ НА ТРУД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 82250.61,
+      "totalEur": 79966.56,
+      "paidEur": 79966.56,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Айтос",
-      "detectedAt": "2026-11-01"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЕТ ЦВЕТЕЛИНА-93 Иван Генчев",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0680",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 20077.4,
+      "totalEur": 20077.4,
+      "paidEur": 14054.19,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Юникс Ауто ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2308",
+      "title": "Адаптиране на работната среда във фирма ЕН БИ ПИ ГРУП ООД.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 27822.58,
+      "totalEur": 6771.52,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЕН БИ ПИ Груп ООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

@@ -1,59 +1,10 @@
 {
   "obshtina": "PDV01",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-0492",
-      "title": "\"Внедряване на мерки за енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Асеновград, жк. \"Изток\", бл.7, вх.А Б В\"",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 876127.01,
-      "totalEur": 876127.01,
-      "paidEur": 874451.9,
-      "status": "В изпълнение (временно спрян)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Асеновград",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2179",
-      "title": "Адаптирана работна среда в ГЕОПС ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 185533.82,
-      "totalEur": 185533.82,
-      "paidEur": 185533.83,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Геопс ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0057",
-      "title": "Енергийна ефективност в хотел САНИ АСЕНОВГРАД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 80327.59,
-      "totalEur": 80327.59,
-      "paidEur": 51128.51,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "РХ 5 ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0405",
-      "title": "Подобряване производствения капацитети и подобряване на услугите на \"КОЛАКОВ-17\" ООД",
+      "contractNumber": "BG16RFPR001-1.001-0412",
+      "title": "Иновация в сферата на водород-базираните технологии с акцент върху съхранението на водорода",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -61,14 +12,51 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 23715.48,
-      "totalEur": 23715.39,
-      "paidEur": 17786.55,
+      "prevTotalEur": 126800.39,
+      "totalEur": 102533.78,
+      "paidEur": 57326.65,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "КОЛАКОВ-17 ООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Солери ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1778",
+      "title": "Подобряване на производствения капацитет на \"ЛАТЕДА-Л\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 76668.22,
+      "totalEur": 76610,
+      "paidEur": 57457.5,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЛАТЕДА-Л ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1632",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 42143.22,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Кокиком ООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-16T22:48:49.124Z",
+  "generatedAt": "2026-11-07T02:53:47.445Z",
   "source": {
     "publisher": "Агенция „Митници“",
     "register": "Регистър на лицензираните складодържатели и данъчните складове",
     "url": "http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing"
   },
-  "totalOperators": 566,
-  "activeOperators": 293,
+  "totalOperators": 567,
+  "activeOperators": 296,
   "operators": [
     {
       "eik": "121699202",
@@ -40,8 +40,8 @@
       ],
       "warehouses": 2,
       "active": true,
-      "procurementEur": 257069376.84,
-      "contractCount": 464
+      "procurementEur": 257115015.54,
+      "contractCount": 465
     },
     {
       "eik": "201109588",
@@ -51,8 +51,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 174339700.35,
-      "contractCount": 62
+      "procurementEur": 201379412.45,
+      "contractCount": 65
     },
     {
       "eik": "115624227",
@@ -85,8 +85,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 33531955.21,
-      "contractCount": 285
+      "procurementEur": 33840406.11,
+      "contractCount": 288
     },
     {
       "eik": "824033568",
@@ -107,8 +107,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 20451371.98,
-      "contractCount": 64
+      "procurementEur": 20563955.98,
+      "contractCount": 66
     },
     {
       "eik": "121759222",
@@ -184,8 +184,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 5227912.06,
-      "contractCount": 188
+      "procurementEur": 5287912.06,
+      "contractCount": 190
     },
     {
       "eik": "106067341",
@@ -206,8 +206,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 3661204.08,
-      "contractCount": 60
+      "procurementEur": 3791480.48,
+      "contractCount": 61
     },
     {
       "eik": "201703950",
@@ -911,6 +911,18 @@
       "contractCount": 0
     },
     {
+      "eik": "208571355",
+      "name": "АРОМА БЛЕНД ЕООД",
+      "categories": [
+        "tobacco",
+        "other"
+      ],
+      "warehouses": 1,
+      "active": true,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
       "eik": "106575553",
       "name": "АСК-БУЛ ООД",
       "categories": [
@@ -1468,6 +1480,17 @@
       "contractCount": 0
     },
     {
+      "eik": "117595863",
+      "name": "ВИНПРОМ БЯЛА 2002 ЕООД",
+      "categories": [
+        "alcohol"
+      ],
+      "warehouses": 1,
+      "active": true,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
       "eik": "101008264",
       "name": "ВИНПРОМ ГОРНА ДЖУМАЯ - БЛАГОЕВГРАД ООД",
       "categories": [
@@ -1728,6 +1751,18 @@
       "name": "ДСМК-Данъчен склад под митнически контрол ЕООД",
       "categories": [
         "alcohol"
+      ],
+      "warehouses": 1,
+      "active": true,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
+      "eik": "207488255",
+      "name": "Дъ Ликуидс Лаб ЕООД",
+      "categories": [
+        "tobacco",
+        "other"
       ],
       "warehouses": 1,
       "active": true,
@@ -3372,8 +3407,8 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 6236894.68,
-      "contractCount": 25
+      "procurementEur": 6432450.13,
+      "contractCount": 28
     },
     {
       "eik": "113507403",
@@ -4409,17 +4444,6 @@
       "contractCount": 0
     },
     {
-      "eik": "117595863",
-      "name": "ВИНПРОМ БЯЛА 2002 ЕООД",
-      "categories": [
-        "alcohol"
-      ],
-      "warehouses": 0,
-      "active": false,
-      "procurementEur": 0,
-      "contractCount": 0
-    },
-    {
       "eik": "204011269",
       "name": "ВИНПРОМ ЛОГИСТИКС ЕООД",
       "categories": [
@@ -4801,18 +4825,6 @@
       "eik": "118043216",
       "name": "ДРАЦИЯ ЕООД",
       "categories": [],
-      "warehouses": 0,
-      "active": false,
-      "procurementEur": 0,
-      "contractCount": 0
-    },
-    {
-      "eik": "207488255",
-      "name": "Дъ Ликуидс Лаб ЕООД",
-      "categories": [
-        "tobacco",
-        "other"
-      ],
       "warehouses": 0,
       "active": false,
       "procurementEur": 0,

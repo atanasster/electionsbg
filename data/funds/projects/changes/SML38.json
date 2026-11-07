@@ -1,22 +1,25 @@
 {
   "obshtina": "SML38",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-2.003-0039",
-      "title": "Подкрепа за ученици с таланти в Община Чепеларе",
+      "contractNumber": "BG16RFPR001-1.004-0549",
+      "title": "Повишаване капацитета на семейното предприятие \"Алкор 2000\" ООД, град Чепеларе чрез модернизация и оптимизация на бизнес процесите",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 206965.71,
-      "totalEur": 206965.71,
-      "paidEur": 41393,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Чепеларе",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 71272.6,
+      "totalEur": 71128.36,
+      "paidEur": 53346.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Алкор 2000\" ООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

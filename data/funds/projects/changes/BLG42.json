@@ -1,22 +1,26 @@
 {
   "obshtina": "BLG42",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.016-0008",
-      "title": "Подкрепа за уязвими и маргинализирани общности в община Сатовча",
-      "type": "new",
-      "totalEur": 299997.69,
+      "contractNumber": "BG16RFPR001-2.004-0800",
+      "title": "„Повишаване на енергийната ефективност на производствената сграда на шивашкия цех в с. Слащен, община Сатовча, чрез полагане на фасадна топлоизолация“",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 75419.98,
+      "totalEur": 75419.98,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Сатовча",
-      "detectedAt": "2026-11-01"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "СИГМАТЕКС-МЦ ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0172",
-      "title": "Изграждане на дигитален клуб в село Вълкосел",
+      "contractNumber": "BG-RRP-1.024-0280",
+      "title": "Изграждане на дигитален клуб в село Слащен",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -24,13 +28,31 @@
         "status"
       ],
       "prevTotalEur": 17383.92,
-      "totalEur": 17096.68,
-      "paidEur": 17096.68,
+      "totalEur": 16824.47,
+      "paidEur": 16824.47,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Изгрев-1950\"",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Народно читалище \" Пробуда-1928“",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0288",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Св. св. Кирил и Методий-1926\" с. Сатовча",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 16215.35,
+      "paidEur": 16215.35,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Св. св. Кирил и Методий-1926\" с. Сатовча",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

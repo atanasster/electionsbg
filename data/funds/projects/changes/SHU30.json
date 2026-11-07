@@ -1,283 +1,79 @@
 {
   "obshtina": "SHU30",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-0693",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, бул. \"Велики Преслав\" № 37 и № 39",
+      "contractNumber": "BG05SFPR002-1.004-1289",
+      "title": "Подобряване на микроклимата и ЛПС на служителите на Алкомет АД.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 441205.02,
-      "totalEur": 220602.51,
-      "paidEur": 215689.25,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.035-0003",
-      "title": "Повишаване готовността на област Шумен за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 214449.35,
-      "totalEur": 214449.35,
-      "paidEur": 92316.77,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Регионална дирекция „Пожарна безопасност и защита на населението“ – Шумен",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1096",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, бул. \"Велики Преслав\" № 33 А и 33 Б",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 422063.1,
-      "totalEur": 211031.55,
-      "paidEur": 210479.35,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-2417",
-      "title": "Адаптрана работна среда в \"Бултекс 99\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 136150.06,
-      "totalEur": 136150.06,
-      "paidEur": 105955.32,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Бултекс 99 ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.006-0001",
-      "title": "Комплексни програми за десегрегацията и дискриминация в ОбУ \"Христо Ботев\" с. Друмево и ОУ \"Св.Св. Кирил и Методий\" с. Царев брод",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 127822.96,
-      "totalEur": 127822.96,
-      "paidEur": 65266.59,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Обединено училище \"Христо Ботев\"",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2669",
-      "title": "Подобряване на производствения капацитет на ЧЕРЕН ПЕТЪР 2.0 ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 102258.38,
-      "paidEur": 76693.78,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Черен петър 2.0 ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0963",
-      "title": "Подобряване на производствения капацитет и ефективността на процесите в НН ЕЛЕКТРОНИК ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 102123.29,
-      "totalEur": 102068.97,
-      "paidEur": 76551.77,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "НН Електроник ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1379",
-      "title": "Подобряване на произвдоствения капацитет в ,,Алфети'' ЕООД.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 88858.51,
-      "totalEur": 87563.23,
-      "paidEur": 65672.44,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Алфети ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1690",
-      "title": "Повишаване на енергийната ефективност в предприятието със закупуване на съвременно оборудване за съхранение на енергия и топлинно изолиране на производствената сграда",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 79171.07,
-      "totalEur": 79171.07,
-      "paidEur": 6407.1,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Вълеви 2010 ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0504",
-      "title": "Адаптирана работна среда 2023",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 66322.64,
-      "totalEur": 66322.64,
-      "paidEur": 43962.41,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Шуменска крепост АД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0903",
-      "title": "Адаптирана работна среда в Аресгаз ЕАД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 61233.52,
-      "totalEur": 61233.52,
-      "paidEur": 39415.41,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Аресгаз ЕАД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0956",
-      "title": "Подкрепа на семейното предприятие на \"Деси кейк\" ЕООД, чрез подобряване на производствения капацитет",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 58717.42,
-      "totalEur": 58602,
-      "paidEur": 43951.51,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Деси кейк ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0377",
-      "title": "Повишаване на енергийната ефективност в „РИКС – Колев и Стойков“ ООД чрез инсталиране на термопомпи и система за съхранение на енергия",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 47225.16,
-      "totalEur": 47225.16,
-      "paidEur": 30696.35,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Рикс - Колев и Стойков ООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0213",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 31669.42,
-      "totalEur": 31669.42,
-      "paidEur": 22168.59,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Велосвят - шумен ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2416",
-      "title": "Подобряване на производствения капацитет на \"Боренда\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 25790.53,
-      "totalEur": 25409.99,
-      "paidEur": 19057.5,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Боренда ЕООД",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2160",
-      "title": "Подобряване на производствения капацитет в \"Стоеви 96\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 59974.54,
-      "totalEur": 0,
+      "prevTotalEur": 233878.91,
+      "totalEur": 209644.06,
       "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Алкомет АД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2179",
+      "title": "„Подобряване на производствения капацитет на „ДЕТЕКС“ ООД, чрез предлагането на нов продукт на пазара“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 85808.31,
+      "totalEur": 85808.31,
+      "paidEur": 64356.23,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Стоеви 96 ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Детекс ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2266",
+      "title": "Увеличаване на производствения капацитет, повишаване на конкурентнспособността и засилване на пазарното присъствие на СМТЛ ДАНИТИ- ДЕНТ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 37382.08,
+      "totalEur": 37382.05,
+      "paidEur": 28036.55,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Самостоятелна МЕДИКО-ТЕХНИЧЕСКА лаборатория - ДАНИТИ-ДЕНТ ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1856",
+      "title": "Подкрепа за подобряване на производствения капацитет на ФОРМАТ ДИЗАЙН ООД – микро предприятие от творческите индустрии",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 17511.75,
+      "totalEur": 15831.97,
+      "paidEur": 11873.98,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Формат дизайн ООД",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

@@ -1,26 +1,42 @@
 {
   "obshtina": "TGV35",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.004-0903",
-      "title": "Адаптирана работна среда в Аресгаз ЕАД",
+      "contractNumber": "BG05SFPR001-1.004-0056",
+      "title": "РАМО ДО РАМО ПО ДИРИТЕ НА ДОСТОЙНИ ПРЕДЦИ",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 61233.52,
-      "totalEur": 61233.52,
-      "paidEur": 39415.41,
+      "prevTotalEur": 254999.65,
+      "totalEur": 254999.65,
+      "paidEur": 152618.69,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Аресгаз ЕАД",
-      "detectedAt": "2026-11-01"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Д-Р петър берон\"",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2254",
-      "title": "Подобряване производствения капацитет на \"Сиемпре дизайн\" ЕООД - гр. Търговище",
+      "contractNumber": "BG16RFPR001-2.004-1692",
+      "title": "Подобряване на енергийната ефективност в предприятието на „НИКОЛА СИМОВ - 99“ ООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 79320.45,
+      "totalEur": 79320.45,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "„Никола Симов - 99“ ООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2584",
+      "title": "Подобряване на производствения капацитет на ИНГАЗ КОМЕРС ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -28,49 +44,33 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 17258.66,
-      "totalEur": 16778.36,
-      "paidEur": 12583.8,
+      "prevTotalEur": 46778.38,
+      "totalEur": 39971.41,
+      "paidEur": 29978.57,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сиемпре дизайн ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Ингаз комерс ЕООД",
+      "detectedAt": "2026-11-07"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1352",
-      "title": "\"Изграждане на дигитален клуб в Макариополско\"",
+      "contractNumber": "BG-RRP-1.024-0441",
+      "title": "„Изграждане на дигитален клуб в гр. Търговище“",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 13830.75,
-      "paidEur": 13830.75,
+      "prevTotalEur": 23519.43,
+      "totalEur": 18474.64,
+      "paidEur": 18475.35,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Минчо Иванов-1912\"",
-      "detectedAt": "2026-11-01"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-2415",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 8340.7,
-      "totalEur": 8340.7,
-      "paidEur": 5838.49,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "СК Спасов ЕООД",
-      "detectedAt": "2026-11-01"
+      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Търговище",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

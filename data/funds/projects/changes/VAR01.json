@@ -1,25 +1,40 @@
 {
   "obshtina": "VAR01",
-  "generatedAt": "2026-11-01T00:01:06.929Z",
+  "generatedAt": "2026-11-07T02:50:08.372Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-2766",
-      "title": "Повишаване на производствения капацитет на Мултимедиа ООД",
+      "contractNumber": "BG16RFPR001-2.004-0215",
+      "title": "Подобрена енергийна ефективност във фирма \"МАЙ ХОЛД\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 55775.2,
+      "totalEur": 55775.2,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"МАЙ Холд\" ЕООД",
+      "detectedAt": "2026-11-07"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1339",
+      "title": "Изграждане на дигитален клуб в Народно Читалище Н. Й. ВАПЦАРОВ-1908 в /с. Синдел",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 101052.06,
-      "totalEur": 100359.02,
-      "paidEur": 75269.28,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Мултимедиа ООД",
-      "detectedAt": "2026-11-01"
+      "prevTotalEur": 14316.16,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище Н.Й.ВАПЦАРОВ-1908",
+      "detectedAt": "2026-11-07"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T23:16:36.817Z",
+  "generatedAt": "2026-11-07T03:11:41.667Z",
   "country": "BG",
   "baselineYear": 2025,
   "gdpEur": 116548500000,
@@ -1406,209 +1406,209 @@
     ]
   },
   "vat": {
-    "factor": 1.185822609634344,
+    "factor": 1.1858239207371148,
     "calibration": [
       {
         "year": 2021,
-        "modeledEur": 5464328440,
+        "modeledEur": 5464340581,
         "actualEur": 6635814342,
-        "factor": 1.2143879004638654
+        "factor": 1.2143852023106025
       },
       {
         "year": 2022,
-        "modeledEur": 6675332578,
+        "modeledEur": 6675327776,
         "actualEur": 7838788322,
-        "factor": 1.1742918020609332
+        "factor": 1.1742926467778276
       },
       {
         "year": 2023,
-        "modeledEur": 7186803435,
+        "modeledEur": 7186798531,
         "actualEur": 8296102745,
-        "factor": 1.154352254091688
+        "factor": 1.1543530417391668
       },
       {
         "year": 2024,
-        "modeledEur": 7979739168,
+        "modeledEur": 7979733474,
         "actualEur": 9497866006,
-        "factor": 1.190247676736552
+        "factor": 1.1902485261501836
       },
       {
         "year": 2025,
-        "modeledEur": 9300998111,
+        "modeledEur": 9300987827,
         "actualEur": 11029333852,
-        "factor": 1.185822609634344
+        "factor": 1.1858239207371148
       }
     ],
     "structureYear": 2022,
     "slices": [
       {
         "group": "food",
-        "valueEur": 714702585,
+        "valueEur": 714699019,
         "regime": "standard"
       },
       {
         "group": "food",
-        "valueEur": 13579349113,
+        "valueEur": 13579281355,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 3331388799,
+        "valueEur": 3331408779,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 2411000978,
+        "valueEur": 2411050648,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 704517289,
+        "valueEur": 704483272,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 731183244,
+        "valueEur": 731097981,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 939700019,
+        "valueEur": 939714282,
         "regime": "standard"
       },
       {
         "group": "energy",
-        "valueEur": 812610626,
+        "valueEur": 812608886,
         "regime": "standard"
       },
       {
         "group": "energy",
-        "valueEur": 3250442504,
+        "valueEur": 3250435544,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 4150198572,
+        "valueEur": 4150147113,
         "regime": "standard"
       },
       {
         "group": "medicines",
-        "valueEur": 3177372289,
+        "valueEur": 3177366072,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 564727204,
+        "valueEur": 564688843,
         "regime": null
       },
       {
         "group": "exempt",
-        "valueEur": 702043129,
+        "valueEur": 702063753,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 9415350222,
+        "valueEur": 9415423634,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 472289808,
+        "valueEur": 472209451,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 632972807,
+        "valueEur": 632973045,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 2161454371,
+        "valueEur": 2161436942,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 1347867825,
+        "valueEur": 1347806481,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 159171012,
+        "valueEur": 159150581,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 805339342,
+        "valueEur": 805430980,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 637068917,
+        "valueEur": 637086227,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 955603375,
+        "valueEur": 955629340,
         "regime": "standard"
       },
       {
         "group": "books",
-        "valueEur": 263498126,
+        "valueEur": 263485615,
         "regime": "reduced"
       },
       {
         "group": "other",
-        "valueEur": 175665417,
+        "valueEur": 175657077,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 559091615,
+        "valueEur": 559043299,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 917020212,
+        "valueEur": 916997688,
         "regime": null
       },
       {
         "group": "restaurants",
-        "valueEur": 2871607249,
+        "valueEur": 2871565758,
         "regime": "standard"
       },
       {
         "group": "hotels",
-        "valueEur": 1813147511,
+        "valueEur": 1813160629,
         "regime": "reduced"
       },
       {
         "group": "other",
-        "valueEur": 1104918980,
+        "valueEur": 1104913661,
         "regime": "standard"
       },
       {
         "group": "other",
-        "valueEur": 455108135,
+        "valueEur": 455138401,
         "regime": "standard"
       },
       {
         "group": "exempt",
-        "valueEur": 86183268,
+        "valueEur": 86161759,
         "regime": null
       },
       {
         "group": "exempt",
-        "valueEur": 332912081,
+        "valueEur": 332952693,
         "regime": null
       },
       {
         "group": "exempt",
-        "valueEur": 1146498627,
+        "valueEur": 1146448736,
         "regime": null
       },
       {
         "group": "other",
-        "valueEur": 1035092664,
+        "valueEur": 1035150864,
         "regime": "standard"
       }
     ]
