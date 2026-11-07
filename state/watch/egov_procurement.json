@@ -1,18 +1,26 @@
 {
-  "detail": "6 datasets on page 1, latest OCDS resource „Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 30.09.2026 г., съгласно стандарт OCDS\", hash 2972f356fba8503d",
-  "fingerprint": "2972f356fba8503d",
-  "lastChanged": "2026-10-09T21:40:27.435Z",
-  "lastChecked": "2026-10-30T23:33:25.309Z",
+  "detail": "6 datasets on page 1, latest OCDS resource „Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 05.11.2026 г., съгласно стандарт OCDS\", hash 914104f08ecacd00",
+  "fingerprint": "914104f08ecacd00",
+  "lastChanged": "2026-11-07T02:33:21.652Z",
+  "lastChecked": "2026-11-07T02:33:21.652Z",
   "meta": {
     "topUuids": [
+      "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "160877dc-051d-4c5a-987f-b03d80c1aaf4",
       "30437d16-3fec-4fad-8ac8-1eddee200e7c",
       "8139a848-8e94-4b6b-b558-c49639c2e768",
-      "3d400439-1a68-44f0-a717-d3ee91c412c3",
-      "b55dcb49-7d7a-41b0-b1db-4cee4e8ebc4d",
-      "7990cb41-719d-4616-b656-c750ebb487d7"
+      "3d400439-1a68-44f0-a717-d3ee91c412c3"
     ],
     "count": 6,
     "datasets": [
+      {
+        "uuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+        "kind": "ocds"
+      },
+      {
+        "uuid": "160877dc-051d-4c5a-987f-b03d80c1aaf4",
+        "kind": "ocds"
+      },
       {
         "uuid": "30437d16-3fec-4fad-8ac8-1eddee200e7c",
         "kind": "ocds"
@@ -28,21 +36,11 @@
       {
         "uuid": "b55dcb49-7d7a-41b0-b1db-4cee4e8ebc4d",
         "kind": "ocds"
-      },
-      {
-        "uuid": "7990cb41-719d-4616-b656-c750ebb487d7",
-        "kind": "annual",
-        "year": "2025"
-      },
-      {
-        "uuid": "88ea1672-944b-4b9a-b074-528e316eab46",
-        "kind": "annual",
-        "year": "2024"
       }
     ],
     "latestOcdsResource": {
-      "uuid": "ab3c591a-9302-4d32-af13-5530284c6b03",
-      "label": "Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 30.09.2026 г., съгласно стандарт OCDS"
+      "uuid": "6672be0c-1391-4269-9eae-5c3633bad837",
+      "label": "Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 05.11.2026 г., съгласно стандарт OCDS"
     }
   }
 }
