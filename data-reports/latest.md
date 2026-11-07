@@ -1,13 +1,10 @@
-# Watch report — 2026-11-07 (08.11.2026 г., 00:43 Europe/Sofia)
+# Watch report — 2026-11-07 (08.11.2026 г., 01:56 Europe/Sofia)
 
 ## Changed
-- **Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202)**: nrg_pc_204:2026-10-19T23:00:00+0200 · nrg_pc_202:2026-10-19T11:00:00+0200
-- **Ember Yearly Electricity Data (generation mix, CC BY 4.0)**: Ember CSV Mon, 02 Nov 2026 14:10:55 GMT (320 bytes)
+_(no changes — all upstreams stable)_
 
 ## Unchanged
-- АОП debarred-suppliers register: unchanged (3 entries on debarred register, hash 0f289ac0f9e9c51f)
 - TED — обявления за България (api.ted.europa.eu): unchanged (25,178 BG notices published this year)
-- World Bank WGI (Bulgaria, Rule of Law canary): unchanged (21 year(s) · latest 2025 = -0.046 (Rule of Law))
 
 ## Skipped (off-cadence)
 - АДФИ — доклади от финансови инспекции (adfi.minfin.bg) (weekly): 2,191 inspection reports listed · next check 2026-11-13
@@ -43,6 +40,7 @@
 - Български пощи — пощенски кодове (data.egov.bg) (monthly): 5293 postcode rows, hash 3be6f2ba6308076e · next check 2026-12-04
 - data.egov.bg АОП (Агенция по обществени поръчки) (weekly): 6 datasets on page 1, latest OCDS resource „Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 05.11.2026 г., съгласно стандарт OCDS", hash 914104f08ecacd00 · next check 2026-11-13
 - ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления) (daily): latest published day 2026-11-05; 10/12 recent days published, hash 02f4eb0dcb327050 · next check 2026-11-08
+- АОП debarred-suppliers register (monthly): 3 entries on debarred register, hash 0f289ac0f9e9c51f · next check 2026-12-06
 - КЗК procurement-appeals register (жалби по ЗОП) (weekly): 1178 complaints this year, newest 300698279 (hash b825a751e4235cb6) · next check 2026-11-13
 - КЗК decisions register (решения и определения по ЗОП) (weekly): 567 acts this year, newest АКТ-1099-29.10.2026 (hash 13fc21e5a841774c) · next check 2026-11-13
 - МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo) (daily): 4512 institutions · next check 2026-11-08
@@ -72,8 +70,10 @@
 - МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение (daily): IPOP CSV sample 32768B · hash 279615bcf51261f9 · next check 2026-11-08
 - Eurostat macro (BG): 29 datasets (daily): 29 datasets · latest update 2026-11-06T23:00:00+0100 · next check 2026-11-08
 - Eurostat policy-baseline (BG): consumption + tax aggregates (monthly): 5 datasets · latest update 2026-11-05T23:00:00+0100 · next check 2026-12-04
+- Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202) (monthly): nrg_pc_204:2026-10-19T23:00:00+0200 · nrg_pc_202:2026-10-19T11:00:00+0200 · next check 2026-12-06
 - Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw) (weekly): tour_occ_nim:2026-11-04T23:00:00+0100 · tour_occ_ninraw:2026-10-12T23:00:00+0200 · next check 2026-11-13
 - Eurostat tourism (BG): annual nights spent (tour_occ_ninat) (monthly): latest year 2025 · BG 28,816,601 nights · updated 2026-10-12T23:00:00+0200 · next check 2026-11-19
+- Ember Yearly Electricity Data (generation mix, CC BY 4.0) (monthly): Ember CSV Mon, 02 Nov 2026 14:10:55 GMT (320 bytes) · next check 2026-12-06
 - НОИ STATB пенсии + НСИ заплати (policy-baseline) (weekly): STATB3/2026 current · next quarter not yet · НСИ wages updated 2025-11-28T11:00:00 · next check 2026-11-13
 - PwC tax summaries — EU comparator rates (monthly): VAT 27(HU)/24(EE) · CIT 9(HU) · PIT 22(EE) · 8044c4a74da0d043 · next check 2026-12-04
 - Tax Foundation — EU excise rates (fuel + cigarettes) (monthly): BG fuel 363/330 €/1000L · DE cig 196 €/1000 · 9ccbe86c9fb54ffd · next check 2026-11-08
@@ -108,6 +108,7 @@
 - НСИ: Население с водни услуги / воден режим (Ecology_9.8) (daily): 15 years · latest 2024 · next check 2026-11-08
 - ГРАО: население по постоянен и настоящ адрес (по населени места) (daily): 2026-09-15 · 505573 bytes · next check 2026-11-08
 - Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-11-18
+- World Bank WGI (Bulgaria, Rule of Law canary) (monthly): 21 year(s) · latest 2025 = -0.046 (Rule of Law) · next check 2026-12-06
 - Standard Eurobarometer (institutional trust) (monthly): latest wave: Standard Eurobarometer 104 (Autumn 2025) · next check 2026-11-18
 - CIK local-elections results bundles (daily): 0/2 regular bundle(s) reachable · 15 partial cycle(s) tracked · next check 2026-11-08
 - ЦИК presidential-elections results bundles (daily): 5 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle · next check 2026-11-08
@@ -145,4 +146,4 @@
 - **МВнР programmatic execution reports (via Wayback)**: The operation was aborted due to timeout
 
 ---
-_Watcher run at 2026-11-07T22:43:46.368Z UTC._
+_Watcher run at 2026-11-07T23:56:53.276Z UTC._
