@@ -6,7 +6,7 @@
  *
  *   pnpm exec tsx scripts/energy/fetch_generation.ts
  *
- * Source: https://ember-energy.org/data/  (yearly_full_release_long_format.csv)
+ * Source: https://ember-energy.org/data/  (release_generation_yearly_global.csv)
  * Attribution required on the tile: "Ember — Yearly Electricity Data (CC BY 4.0)".
  *
  * The story this feeds: nuclear-heavy mix, a persistent NET EXPORTER (negative
@@ -20,8 +20,10 @@ import { parse } from "csv-parse/sync";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.resolve(__dirname, "../../data/energy/generation.json");
+// The legacy yearly_full_release_long_format.csv is now a 320-byte "no longer
+// updated" stub (since ~2026-11); this is the replacement named in that stub.
 const CSV_URL =
-  "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv";
+  "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv";
 
 const FIRST_YEAR = 2007; // align with the procurement corpus window (SCOPE_FIRST_YEAR era)
 
@@ -34,19 +36,25 @@ const FUEL_KEY: Record<string, string> = {
   Solar: "solar",
   Wind: "wind",
   Bioenergy: "bioenergy",
-  "Other Fossil": "otherFossil",
-  "Other Renewables": "otherRenewables",
+  "Other fossil": "otherFossil",
+  "Other renewables": "otherRenewables",
 };
 
 interface Row {
   Area: string;
   Year: string;
-  Category: string;
-  Subcategory: string;
-  Variable: string;
-  Unit: string;
-  Value: string;
+  "Electricity source": string;
+  "Is aggregated source": string;
+  "Generation (TWh)": string;
+  "Emissions (MtCO2e)": string;
+  "Emissions intensity (gCO2e/kWh)": string;
 }
+
+const num = (v: string): number | null => {
+  if (v === "" || v == null) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+};
 
 interface YearRec {
   year: number;
@@ -90,43 +98,20 @@ const main = async (): Promise<void> => {
     if (row.Area !== "Bulgaria") continue;
     const year = Number(row.Year);
     if (!Number.isFinite(year) || year < FIRST_YEAR) continue;
-    const val = row.Value === "" ? null : Number(row.Value);
-    if (val == null || !Number.isFinite(val)) continue;
+    const src = row["Electricity source"];
+    const gen = num(row["Generation (TWh)"]);
     const rec = ensure(year);
 
-    if (
-      row.Category === "Electricity generation" &&
-      row.Subcategory === "Fuel" &&
-      row.Unit === "TWh" &&
-      FUEL_KEY[row.Variable]
-    ) {
-      rec.byFuel[FUEL_KEY[row.Variable]] = val;
-    } else if (
-      row.Category === "Electricity generation" &&
-      row.Variable === "Total Generation" &&
-      row.Unit === "TWh"
-    ) {
-      rec.totalGen = val;
-    } else if (row.Category === "Electricity demand" && row.Unit === "TWh") {
-      rec.demand = val;
-    } else if (
-      row.Category === "Electricity imports" &&
-      row.Variable === "Net Imports" &&
-      row.Unit === "TWh"
-    ) {
-      rec.netImports = val;
-    } else if (
-      row.Category === "Power sector emissions" &&
-      row.Variable === "CO2 intensity" &&
-      row.Unit === "gCO2/kWh"
-    ) {
-      rec.co2Intensity = val;
-    } else if (
-      row.Category === "Power sector emissions" &&
-      row.Variable === "Total emissions" &&
-      row.Unit === "mtCO2"
-    ) {
-      rec.totalEmissions = val;
+    if (row["Is aggregated source"] === "False" && FUEL_KEY[src]) {
+      if (gen != null) rec.byFuel[FUEL_KEY[src]] = gen;
+    } else if (src === "Total generation") {
+      rec.totalGen = gen;
+      rec.co2Intensity = num(row["Emissions intensity (gCO2e/kWh)"]);
+      rec.totalEmissions = num(row["Emissions (MtCO2e)"]);
+    } else if (src === "Demand") {
+      rec.demand = gen;
+    } else if (src === "Net imports") {
+      rec.netImports = gen;
     }
   }
 

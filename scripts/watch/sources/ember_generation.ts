@@ -7,7 +7,7 @@
 import type { WatchSource, Fingerprint } from "../types";
 
 const CSV_URL =
-  "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv";
+  "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv";
 
 export const emberGeneration: WatchSource = {
   id: "ember_generation",
