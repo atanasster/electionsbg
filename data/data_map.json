@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-07T04:08:52.138Z",
+  "generatedAt": "2026-11-08T00:14:48.133Z",
   "nodes": [
     {
       "id": "src:water",
@@ -2038,7 +2038,7 @@
       "url": "https://ember-energy.org/data/",
       "origin": "intl",
       "cadence": "monthly",
-      "freshness": "2026-10-09T21:40:27.435Z",
+      "freshness": "2026-11-07T22:43:46.368Z",
       "skills": [
         "update-energy"
       ],
@@ -2048,14 +2048,14 @@
           "label": "Ember Yearly Electricity Data (generation mix, CC BY 4.0)",
           "url": "https://ember-energy.org/data/",
           "cadence": "monthly",
-          "freshness": "2026-07-14T06:08:38.433Z"
+          "freshness": "2026-11-07T22:43:46.368Z"
         },
         {
           "id": "eurostat_energy_prices",
           "label": "Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202)",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table",
           "cadence": "monthly",
-          "freshness": "2026-10-09T21:40:27.435Z"
+          "freshness": "2026-11-07T22:43:46.368Z"
         }
       ],
       "x": 28,
