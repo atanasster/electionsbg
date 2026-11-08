@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-06T23:59:59.999Z",
+  "computedAt": "2026-11-08T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-06T00:00:00.000Z",
-      "firstSeenAt": "2026-11-06T00:00:00.000Z",
+      "occurredAt": "2026-11-08T00:00:00.000Z",
+      "firstSeenAt": "2026-11-08T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -28,7 +28,7 @@
         "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
         "pct": 59,
         "promoEur": "1.69",
-        "regularEur": "4.08",
+        "regularEur": "4.10",
         "chains": 2
       },
       "backfill": false,
@@ -38,41 +38,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-11-06",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-11-06T00:00:00.000Z",
-      "firstSeenAt": "2026-11-06T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-11-06",
-      "factKey": "home_fact_plenary_sittings",
-      "factArgs": {
-        "items": 33,
-        "sittings": 11,
-        "windowDays": 30
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 1,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-06T00:00:00.000Z",
-      "firstSeenAt": "2026-11-06T00:00:00.000Z",
+      "occurredAt": "2026-11-08T00:00:00.000Z",
+      "firstSeenAt": "2026-11-08T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -98,6 +68,36 @@
       "verification": "automatic",
       "materiality": 0.8142857142857143,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-11-06",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-11-06T00:00:00.000Z",
+      "firstSeenAt": "2026-11-06T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-11-06",
+      "factKey": "home_fact_plenary_sittings",
+      "factArgs": {
+        "items": 33,
+        "sittings": 9,
+        "windowDays": 30
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 1,
+      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -200,8 +200,8 @@
       "id": "prices:promotion:shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-06T00:00:00.000Z",
-      "firstSeenAt": "2026-11-06T00:00:00.000Z",
+      "occurredAt": "2026-11-08T00:00:00.000Z",
+      "firstSeenAt": "2026-11-08T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -751,8 +751,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-06",
-      "observedAt": "2026-11-06",
+      "asOf": "2026-11-08",
+      "observedAt": "2026-11-08",
       "staleAfterDays": 5,
       "stale": false
     }

@@ -1,6 +1,48 @@
 {
-  "updatedAt": "2026-11-07T04:07:59.884Z",
+  "updatedAt": "2026-11-08T23:42:24.922Z",
   "entries": [
+    {
+      "timestamp": "2026-11-08T23:42:24.922Z",
+      "date": "2026-11-08",
+      "skill": "eurostat_road_safety",
+      "summary": "Road deaths series refreshed through 2024",
+      "source": "Eurostat road safety (BG)"
+    },
+    {
+      "timestamp": "2026-11-08T23:42:24.651Z",
+      "date": "2026-11-08",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: +113 contracts, tenders 242,008, annex current-value fold",
+      "source": "ЦАИС ЕОП open data"
+    },
+    {
+      "timestamp": "2026-11-08T23:42:24.380Z",
+      "date": "2026-11-08",
+      "skill": "update-macro",
+      "summary": "Eurostat refresh: inflation 2026-10, unemployment 2026-09; peers refreshed",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-08T23:30:43.675Z",
+      "date": "2026-11-08",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 64 927 лица, 125 111 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-11-08T22:59:30.635Z",
+      "date": "2026-11-08",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-11-08 (+2 daily archives; 1,105,837 store rows, 167 settlements, 65 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-11-08"
+    },
     {
       "timestamp": "2026-11-07T04:07:59.884Z",
       "date": "2026-11-07",
