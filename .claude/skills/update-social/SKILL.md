@@ -33,7 +33,8 @@ households, child children, disability recipients) and flags drift. There is **n
 | Watcher: `asp_benefits` describe-line says "нов годишен отчет на АСП…" (a new report landed) | §1 — verify + update `benefits.json` |
 | User asks to refresh social-assistance / АСП / benefit data | §1 |
 | Fresh clone, `data/social/benefits.json` missing | §1 (restore from git or re-curate from the reports) |
-| Eurostat SILC release (the `eurostat` watcher's poverty rows) OR poverty series looks stale | §2 — regenerate `poverty_impact.json` |
+| Eurostat SILC release (the `eurostat` watcher's poverty rows) | nothing here — `update-macro` regenerates `poverty_impact.json` on every `eurostat` flip (routing `eurostat` here would queue this skill nightly) |
+| Poverty series looks stale outside a watcher run | §2 — regenerate `poverty_impact.json` by hand |
 | Fresh clone, `data/social/poverty_impact.json` missing | §2 |
 | Watcher: `git_inspections` describe-line says "нов годишен доклад на ГИТ…" | §3 — verify + update `git_inspections.json` |
 | Fresh clone, `data/social/git_inspections.json` missing | §3 |

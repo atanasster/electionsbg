@@ -38,6 +38,7 @@
     "perf:report": "tsx ./scripts/perf/log_step.ts report",
     "pipeline:plan": "tsx ./scripts/pipeline/cli/plan.ts",
     "pipeline:doctor": "tsx ./scripts/pipeline/cli/doctor.ts",
+    "pipeline:shadow": "tsx ./scripts/pipeline/cli/shadow.ts",
     "upload:manifest": "tsx ./scripts/upload_manifest.ts",
     "i18n:prune": "tsx ./scripts/i18n/prune_translations.ts",
     "i18n:split": "tsx ./scripts/i18n/split_bundles.ts",

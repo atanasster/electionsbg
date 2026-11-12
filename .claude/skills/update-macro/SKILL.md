@@ -82,6 +82,18 @@ node -e "for(const f of ['./data/macro.json','./data/macro_peers.json'])console.
 A `degraded` that persists across several runs means the outage is not transient
 (an indicator code was retired, say) and needs investigating, not another re-run.
 
+**When the `eurostat` source moved, also regenerate the SILC poverty-impact series**
+(`data/social/poverty_impact.json`, publish path `social/poverty_impact.json`):
+
+```bash
+pnpm exec tsx scripts/social/fetch_poverty_impact.ts
+```
+
+It lives here rather than in `update-social` because `eurostat` moves almost daily:
+routing it to `update-social` would queue that whole skill every night. The
+pipeline registry (`scripts/pipeline/registry/handlers/budget_macro.ts`) carries the
+same assignment.
+
 ## Step 2 — Verify
 
 Quick sanity check on the new file:

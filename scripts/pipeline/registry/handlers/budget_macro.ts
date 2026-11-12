@@ -235,6 +235,12 @@ export const BUDGET_MACRO: Handler[] = [
       derive("admin:build-context", pnpm("admin:build-context"), {
         on: ["eurostat"],
       }),
+      // The SILC poverty-impact series (data/social) moves with eurostat.
+      ingest(
+        "social:poverty_impact",
+        tsx("scripts/social/fetch_poverty_impact.ts"),
+        { on: ["eurostat"] },
+      ),
     ],
     operator: [
       {
@@ -274,6 +280,7 @@ export const BUDGET_MACRO: Handler[] = [
         "debt-emissions.json",
         "debt-emissions-domestic.json",
         "administration",
+        "social/poverty_impact.json",
       ],
     },
     changelog: "orchestrator",
@@ -286,6 +293,7 @@ export const BUDGET_MACRO: Handler[] = [
       "data/debt-emissions.json",
       "data/debt-emissions-domestic.json",
       "data/administration",
+      "data/social/poverty_impact.json",
     ],
   },
   {
@@ -409,17 +417,15 @@ export const BUDGET_MACRO: Handler[] = [
     id: "update-social",
     skill: "update-social",
     runner: "skill",
-    sources: ["asp_benefits", "git_inspections", "eurostat"],
+    // `eurostat` is NOT a source here: it moves almost daily, and routing it
+    // would re-queue this whole handler every night. Its SILC step rides
+    // update-macro instead (the shadow run against the LLM trace found this).
+    sources: ["asp_benefits", "git_inspections"],
     steps: [
       verify("social:asp", tsx("scripts/social/fetch_asp_benefits.ts"), {
         on: ["asp_benefits"],
         needs: ["egress:bg"],
       }),
-      ingest(
-        "social:poverty_impact",
-        tsx("scripts/social/fetch_poverty_impact.ts"),
-        { on: ["eurostat"] },
-      ),
       verify("social:git", tsx("scripts/social/fetch_git_inspections.ts"), {
         on: ["git_inspections"],
         needs: ["egress:bg"],

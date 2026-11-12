@@ -383,10 +383,29 @@ until Tier 6.
 
 **Tier 0 — registry and planner (read-only).**
 Build the registry for all 133 rows from the inventories, `pipeline:plan`,
-`pipeline:doctor`, the coverage tests. Repoint `source_map_coverage`,
-`cloud_loader_coverage`, `skill_wiring` at the registry. Run the planner in shadow next
-to the nightly LLM run. Done when shadow agrees on the queue for 7 consecutive runs or
+`pipeline:doctor`, the coverage tests, and `pipeline:shadow`, which replays the planner
+over the state committed before each past LLM session and diffs it against that
+session's perf trace. Done when shadow agrees on the queue for 7 consecutive runs or
 every difference is explained and fixed on one side.
+
+`source_map_coverage`, `cloud_loader_coverage` and `skill_wiring` keep reading the
+SKILL.md files until Tier 6: the LLM orchestrator still runs from that prose, so the
+prose still needs its gates. `registry/coverage.test.ts` holds the same rules for the
+registry. Each prose gate is retired with the runbook it protects.
+
+First shadow result (2026-11-12, last 8 sessions; a row the LLM recorded as `skipped`
+counts as not run): 53 agreements, 0 run-not-planned, 6 both-held (culture and defense:
+the LLM skipped them and the planner holds them as needs-operator), 17 planned-not-run.
+Of the 17, 8 are the 11-12 session, which aborted at its first step on the egress
+problem; 2 are a session that stopped early (`tr-daily-refresh`, `update-procurement`).
+The other 7 are differences where the registry follows the runbooks more literally
+than the LLM did, open for a decision rather than a fix:
+`update-judiciary` ×3 (the LLM skipped the whole skill because the ВСС arm needs a
+URL by hand; the planner runs the automated ІВСС arm and defers only ВСС),
+`update-persons` ×2 (queued on the people-source flips its runbook lists) and
+`update-polls` ×2 (the `wiki_polls` cross-check). The run also found one registry bug:
+`update-social` listened to `eurostat` and would have re-queued every night; its SILC
+step moved to `update-macro` (registry and both runbooks).
 
 **Tier 1 — publish runner.**
 `pipeline:publish` with executor, classifier, report, packets. Lowest risk: 2,480 of
