@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-08",
+  "computedAt": "2026-11-12",
   "thresholds": {
     "basketPids": [
       1,
@@ -71,17 +71,27 @@
       "prevCostEur": 15.819,
       "cohortCells": 1582,
       "cohortShare": 0.8965
+    },
+    {
+      "peakDay": "2026-11-12",
+      "startDay": "2026-11-12",
+      "endDay": "2026-11-12",
+      "pctChange": 2.008,
+      "costEur": 16.473,
+      "prevCostEur": 16.149,
+      "cohortCells": 1811,
+      "cohortShare": 0.9834
     }
   ],
   "promotions": [
     {
-      "slug": "krave-maslo-d-markenbutter-250gr",
-      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-      "atOrBelowSince": "2026-11-05",
-      "promoEur": 1.69,
-      "regularEur": 4.1,
-      "discountPct": 59,
-      "stores": 210,
+      "slug": "zele",
+      "title": "ЗЕЛЕ",
+      "atOrBelowSince": "2026-11-12",
+      "promoEur": 0.29,
+      "regularEur": 0.83,
+      "discountPct": 65,
+      "stores": 177,
       "chains": 2
     },
     {
@@ -89,19 +99,19 @@
       "title": "БЯЛО ЗЕЛЕ",
       "atOrBelowSince": "2026-10-29",
       "promoEur": 0.39,
-      "regularEur": 0.9,
-      "discountPct": 57,
-      "stores": 66,
-      "chains": 4
+      "regularEur": 0.95,
+      "discountPct": 59,
+      "stores": 108,
+      "chains": 3
     },
     {
-      "slug": "shokolad-lakmi-cherno-i-byalo-s-karamel-100gr",
-      "title": "ШОКОЛАД ЛАКМИ ЧЕРНО И БЯЛО С КАРАМЕЛ 100ГР",
-      "atOrBelowSince": "2026-10-29",
-      "promoEur": 0.79,
-      "regularEur": 1.82,
-      "discountPct": 57,
-      "stores": 6,
+      "slug": "krave-maslo-d-markenbutter-250gr",
+      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+      "atOrBelowSince": "2026-11-05",
+      "promoEur": 1.79,
+      "regularEur": 4.1,
+      "discountPct": 56,
+      "stores": 208,
       "chains": 2
     }
   ]
