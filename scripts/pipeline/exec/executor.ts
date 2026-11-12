@@ -52,6 +52,18 @@ export interface RunContext {
   tailLines?: number;
 }
 
+/** Where a step's perf row goes. Under a test runner the real trace is off
+ *  limits: a test that forgets `perfDir` would append fake sessions to the
+ *  committed state/perf/*.jsonl — which happened once, and was only noticed
+ *  because the file showed up modified. */
+const perfDirOf = (ctx: RunContext): string | undefined => {
+  if (!ctx.perfDir && process.env.VITEST)
+    throw new Error(
+      "executor: running under a test without ctx.perfDir would write the real state/perf trace",
+    );
+  return ctx.perfDir;
+};
+
 export type StepStatus = "ok" | "error" | "timeout" | "skipped";
 
 export interface StepOutcome {
@@ -174,6 +186,7 @@ export const runStep = async (
   ctx: RunContext,
   chainOf?: string,
 ): Promise<StepOutcome> => {
+  perfDirOf(ctx); // refuse BEFORE spawning anything, not after
   const seq = ctx.nextSeq();
   fs.mkdirSync(ctx.logDir, { recursive: true });
   const base = `${String(seq).padStart(3, "0")}-${slug(spec.id)}`;
@@ -325,7 +338,7 @@ export const runStep = async (
               300,
             ),
     },
-    ctx.perfDir,
+    perfDirOf(ctx),
   );
 
   return {
@@ -355,6 +368,7 @@ export const recordSkip = (
   why: string,
   ctx: RunContext,
 ): StepOutcome => {
+  perfDirOf(ctx);
   const seq = ctx.nextSeq();
   const now = new Date().toISOString();
   appendStep(
@@ -371,7 +385,7 @@ export const recordSkip = (
       status: "skipped",
       notes: why.slice(0, 300),
     },
-    ctx.perfDir,
+    perfDirOf(ctx),
   );
   return {
     seq,

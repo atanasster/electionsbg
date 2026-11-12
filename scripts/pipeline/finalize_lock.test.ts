@@ -13,9 +13,19 @@ describe("acquireLock", () => {
   it("refuses while a live run holds it, and releases only its own", () => {
     const f = path.join(tmp("lock-"), "lock");
     const held = acquireLock("s1", f);
-    expect(() => acquireLock("s2", f)).toThrow(LockHeldError);
+    // Re-entrant within this process (nightly → ingest → publish)...
+    expect(() => acquireLock("s2", f).release()).not.toThrow();
+    expect(fs.existsSync(f)).toBe(true); // ...and the inner release is a no-op.
     held.release();
     expect(fs.existsSync(f)).toBe(false);
+    // Another LIVE process holding it refuses. The parent (the test runner's
+    // worker host) is alive for the whole test.
+    fs.writeFileSync(
+      f,
+      JSON.stringify({ pid: process.ppid, session: "other" }),
+    );
+    expect(() => acquireLock("s3", f)).toThrow(LockHeldError);
+    fs.rmSync(f);
     const again = acquireLock("s3", f);
     expect(again.tookOver).toBeUndefined();
     again.release();

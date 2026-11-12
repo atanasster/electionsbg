@@ -1,9 +1,17 @@
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { UploadManifest } from "../lib/upload-manifest";
 import type { StepOutcome, StepSpec } from "./exec/executor";
 import { planPublish, runPublish, type PublishDeps } from "./publish";
 import type { RunRecord } from "./report/record";
 
+// Every run here records perf rows; they go to a scratch dir, never state/perf.
+const PERF_TMP = path.join(
+  fs.mkdtempSync(path.join(os.tmpdir(), "pipeline-perf-")),
+  "perf",
+);
 const manifest = (over: Partial<UploadManifest> = {}): UploadManifest => ({
   session: "ingest-s",
   createdAt: "2026-11-11T00:00:00Z",
@@ -152,6 +160,11 @@ describe("planPublish", () => {
     expect(p.steps.some((s) => s.spec.id === "db:check-cloud")).toBe(false);
   });
 
+  it("blocks a manifest that names no ingest commit", () => {
+    const p = planPublish(manifest({ commit: undefined }), deps, true);
+    expect(p.blocked.join()).toMatch(/names no ingest commit/);
+  });
+
   it("does not need the proxy for a bucket-only manifest", () => {
     expect(
       planPublish(manifest({ cloudCommands: [] }), deps, false).blocked,
@@ -185,7 +198,10 @@ describe("runPublish", () => {
 
   it("publishes everything, clears the manifest and commits only its own paths", async () => {
     const h = harness(manifest());
-    const out = await runPublish(h.deps, { session: "pub-s" });
+    const out = await runPublish(h.deps, {
+      perfDir: PERF_TMP,
+      session: "pub-s",
+    });
     expect(out.exitCode).toBe(0);
     expect(h.cleared).toEqual(["pub-s"]);
     expect(h.commits[0].paths).toEqual([
@@ -200,7 +216,7 @@ describe("runPublish", () => {
 
   it("stops at the first failure, keeps the manifest, still verifies", async () => {
     const h = harness(manifest(), { fail: "pnpm run db:load:pg:cloud" });
-    const out = await runPublish(h.deps, { session: "s" });
+    const out = await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
     expect(out.exitCode).toBe(1);
     expect(h.ran).not.toContain("pnpm run db:load:graph:pg:cloud");
     expect(h.ran).toContain("pnpm run db:check-generated");
@@ -221,7 +237,7 @@ describe("runPublish", () => {
     const h = harness(manifest(), {
       exitOf: { "pnpm run db:check-generated": 1 },
     });
-    const out = await runPublish(h.deps, { session: "s" });
+    const out = await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
     expect(out.exitCode).toBe(0);
     expect(h.finalized[0].findings.join()).toMatch(
       /db:check-generated exited 1/,
@@ -230,7 +246,7 @@ describe("runPublish", () => {
 
   it("runs nothing and exits 3 when blocked, but still writes and commits the report", async () => {
     const h = harness(manifest(), { proxyUp: async () => false });
-    const out = await runPublish(h.deps, { session: "s" });
+    const out = await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
     expect(out.exitCode).toBe(3);
     expect(h.ran).toEqual([]);
     expect(h.finalized[0].units[0]).toMatchObject({
@@ -246,7 +262,9 @@ describe("runPublish", () => {
     const h = harness(manifest(), {
       lock: () => ((locked = true), { release: () => {} }),
     });
-    expect((await runPublish(h.deps, { dryRun: true })).exitCode).toBe(0);
+    expect(
+      (await runPublish(h.deps, { perfDir: PERF_TMP, dryRun: true })).exitCode,
+    ).toBe(0);
     expect([locked, h.ran.length, h.commits.length]).toEqual([false, 0, 0]);
   });
 
@@ -267,7 +285,7 @@ describe("runPublish", () => {
 
   it("keeps state/upload out of a held run's commit", async () => {
     const h = harness(manifest(), { fail: "pnpm run db:load:pg:cloud" });
-    await runPublish(h.deps, { session: "s" });
+    await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
     expect(h.commits[0].paths).toEqual([
       "state/perf/upload-watch-changes.jsonl",
       "state/pipeline/runs/s",
@@ -278,7 +296,7 @@ describe("runPublish", () => {
     const h = harness(manifest(), {
       staged: () => ["state/upload/pending.json"],
     });
-    await runPublish(h.deps, { session: "s" });
+    await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
     expect(h.finalized[0].findings.join()).toMatch(
       /already staged by someone else.*pending\.json/,
     );
@@ -287,6 +305,7 @@ describe("runPublish", () => {
   it("refuses a --start-at that names no step, before touching anything", async () => {
     const h = harness(manifest());
     const out = await runPublish(h.deps, {
+      perfDir: PERF_TMP,
       session: "s",
       startAt: "db:load:graf:pg:cloud",
     });
@@ -300,6 +319,7 @@ describe("runPublish", () => {
   it("refuses a --start-at no earlier run of this manifest failed at", async () => {
     const h = harness(manifest(), { findResumable: () => null });
     const out = await runPublish(h.deps, {
+      perfDir: PERF_TMP,
       session: "s",
       startAt: "db:load:graph:pg:cloud",
     });
@@ -311,6 +331,7 @@ describe("runPublish", () => {
   it("refuses when the manifest changed since it was confirmed", async () => {
     const h = harness(manifest());
     const out = await runPublish(h.deps, {
+      perfDir: PERF_TMP,
       session: "s",
       expectDigest: "0000000000000000",
     });
@@ -322,6 +343,7 @@ describe("runPublish", () => {
   it("resumes at --start-at, recording the earlier steps as skipped", async () => {
     const h = harness(manifest());
     await runPublish(h.deps, {
+      perfDir: PERF_TMP,
       session: "s",
       startAt: "db:load:graph:pg:cloud",
     });
@@ -338,7 +360,9 @@ describe("runPublish", () => {
         throw new Error("boom");
       },
     });
-    await expect(runPublish(h.deps, { session: "s" })).rejects.toThrow("boom");
+    await expect(
+      runPublish(h.deps, { perfDir: PERF_TMP, session: "s" }),
+    ).rejects.toThrow("boom");
     expect(h.released()).toBe(true);
   });
 });

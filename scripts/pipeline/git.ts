@@ -93,16 +93,19 @@ export type CommitResult =
   | { status: "nothing" }
   | { status: "failed"; error: string };
 
-/** Commit exactly the changes under `pathspecs`. New files under them are
- *  added first (`git add --` on those paths only); nothing else is staged. A
+/** Commit exactly the changes under `pathspecs`, minus `exclude` (files a
+ *  failed step left behind, files someone else staged). New files are added
+ *  first (`git add --` on those paths only); nothing else is staged. A
  *  deleted tracked file is recorded as a deletion. */
 export const commitPaths = (
   message: string,
   pathspecs: readonly string[],
   cwd: string = REPO,
+  exclude: readonly string[] = [],
 ): CommitResult => {
   try {
-    const files = changedUnder(pathspecs, cwd);
+    const skip = new Set(exclude);
+    const files = changedUnder(pathspecs, cwd).filter((f) => !skip.has(f));
     if (!files.length) return { status: "nothing" };
     // Explicit paths only. `git add <deleted path>` stages the deletion.
     git(["add", "--", ...files], cwd);
@@ -117,4 +120,36 @@ export const commitPaths = (
         .slice(0, 500),
     };
   }
+};
+
+/** Paths under `pathspecs` that differ from `sinceSha` (committed since, or
+ *  modified in the working tree) or are untracked. `sinceSha` null = HEAD. */
+export const differingFrom = (
+  sinceSha: string | null,
+  pathspecs: readonly string[],
+  cwd: string = REPO,
+): string[] => {
+  if (!pathspecs.length) return [];
+  const opts = {
+    cwd,
+    encoding: "utf8" as const,
+    stdio: ["ignore", "pipe", "pipe"] as ["ignore", "pipe", "pipe"],
+    timeout: 120_000,
+    maxBuffer: 256 * 1024 * 1024,
+  };
+  const tracked = execFileSync(
+    "git",
+    ["diff", "--name-only", "-z", sinceSha ?? "HEAD", "--", ...pathspecs],
+    opts,
+  );
+  const untracked = execFileSync(
+    "git",
+    ["ls-files", "--others", "--exclude-standard", "-z", "--", ...pathspecs],
+    opts,
+  );
+  return [
+    ...new Set(
+      [...tracked.split("\0"), ...untracked.split("\0")].filter(Boolean),
+    ),
+  ];
 };

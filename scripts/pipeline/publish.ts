@@ -133,7 +133,11 @@ export const planPublish = (
   const blocked: string[] = [];
   const findings: string[] = [];
 
-  if (manifest.commit && !deps.containsCommit(manifest.commit))
+  if (!manifest.commit)
+    blocked.push(
+      "the manifest names no ingest commit — the ingest that wrote it did not finish committing; check its run report before publishing",
+    );
+  else if (!deps.containsCommit(manifest.commit))
     blocked.push(
       `HEAD (${deps.head()?.slice(0, 10) ?? "?"}) does not contain the ingest commit ${manifest.commit} — publishing would ship files the ingest did not verify`,
     );

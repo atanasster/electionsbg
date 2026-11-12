@@ -34,6 +34,12 @@ export const acquireLock = (
 ): Held => {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   const prev = readLock(file);
+  // Re-entrant within ONE process: nightly holds the lock across the watcher,
+  // the ingest and the publish it starts, each acquiring under its own
+  // session. A process runs its pipeline stages one after another, never two
+  // at once, so the outer holder's release is the one that counts.
+  if (prev?.alive && prev.pid === process.pid)
+    return { session, release: () => {} };
   if (prev?.alive) throw new LockHeldError(prev.pid, prev.session);
   if (prev) {
     // Move the stale lock aside with an atomic rename. Of two runs that both
