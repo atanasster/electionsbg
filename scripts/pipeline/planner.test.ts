@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import type { IngestState } from "../lib/ingest-state";
 import type { WatchState } from "../watch/types";
 import { plan, type PlanInputs } from "./planner";
-import { derive, ingest } from "./registry/build";
+import { derive, ingest, scopeList } from "./registry/build";
 import type { Handler } from "./registry/types";
 import { renderPlan } from "./render_plan";
 import { loadState } from "./state";
@@ -169,6 +169,45 @@ describe("steps", () => {
     const s = p.entries[0].steps.find((x) => x.id === "scoped")!;
     expect(s.status).toBe("skip");
     expect(s.why).toMatch(/no scope/);
+  });
+
+  it("scopes a step by every change since the handler's marker, not the latest", () => {
+    // FINDING-001: SOF00 flipped before VAR06; a run that fell behind both
+    // must ingest both, or the marker advances past SOF00 for ever.
+    const scoped = H({
+      id: "lt",
+      sources: ["nar"],
+      steps: [
+        ingest("x", "pnpm run x", {
+          args: (ctx) => {
+            const v = scopeList(ctx, "nar", "obshtini");
+            return v ? ["--o", v.join(",")] : null;
+          },
+        }),
+      ],
+    });
+    const meta = {
+      scopeLog: [
+        { at: "2026-11-01T00:00:00Z", scope: { obshtini: ["SOF00"] } },
+        { at: "2026-11-08T00:00:00Z", scope: { obshtini: ["VAR06"] } },
+      ],
+      scopeLogSince: "2026-10-01T00:00:00Z",
+    };
+    const run = (markerAt: string) =>
+      plan(
+        inputs(
+          [scoped],
+          { nar: w("2026-11-08T00:00:00Z", meta) },
+          { lt: mark("lt", markerAt) },
+        ),
+      ).entries[0].steps[0];
+    expect(run("2026-10-20T00:00:00Z")).toMatchObject({
+      status: "run",
+      run: "pnpm run x --o SOF00,VAR06",
+    });
+    expect(run("2026-11-03T00:00:00Z").run).toBe("pnpm run x --o VAR06");
+    // A marker older than the log's floor cannot be answered completely.
+    expect(run("2026-09-01T00:00:00Z")).toMatchObject({ status: "skip" });
   });
 
   it("skips a step whose args() throws, and says so", () => {

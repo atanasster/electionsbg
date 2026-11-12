@@ -56,6 +56,8 @@ export const parliamentVotes: WatchSource = {
   label: "Parliament roll-call votes",
   url: "https://www.parliament.bg/api/v1/pl-sten/{id}",
   cadence: "daily",
+  // Behind a Bulgarian VPN exit this upstream times out; say so instead.
+  egress: "non-bg",
 
   async fingerprint(): Promise<Fingerprint> {
     // Resume from state — written into meta on prior runs.

@@ -819,8 +819,10 @@ first, then re-run the orchestrator.
    Then inspect both state directories via Bash. Each watcher source has `lastChanged`; each ingested skill has `lastSuccessfulIngest`.
 
    ```bash
-   # Watcher state — one per source
+   # Watcher state — one per source (`_`-prefixed files such as
+   # _health.json are runner bookkeeping, not sources: skip them)
    for f in state/watch/*.json; do
+     case "$(basename "$f")" in _*) continue ;; esac
      jq -r --arg name "$f" '"\($name) lastChanged=\(.lastChanged // "?")"' "$f"
    done
 
@@ -835,7 +837,7 @@ first, then re-run the orchestrator.
 
    ```bash
    # Watcher state as one object: {id: lastChanged}
-   jq -n 'reduce inputs as $x ({}; . + {($x|input_filename|sub(".*/";"")|sub(".json$";"")): ($x.lastChanged)})' state/watch/*.json
+   jq -n 'reduce inputs as $x ({}; ($x|input_filename|sub(".*/";"")|sub(".json$";"")) as $id | if ($id|startswith("_")) then . else . + {($id): ($x.lastChanged)} end)' state/watch/*.json
    # Ingest markers as one object: {skill: lastSuccessfulIngest}
    jq -n 'reduce inputs as $x ({}; . + {($x|input_filename|sub(".*/";"")|sub(".json$";"")): ($x.lastSuccessfulIngest)})' state/ingest/*.json
    ```

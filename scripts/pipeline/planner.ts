@@ -129,11 +129,13 @@ export const makeCtx = (
   flipped: ReadonlySet<string>,
   watch: ReadonlyMap<string, WatchState>,
   now: Date,
+  since: string | null = null,
 ): RunCtx => ({
   flipped,
   meta: (id) => watch.get(id)?.meta,
   detail: (id) => watch.get(id)?.detail,
   now,
+  since,
 });
 
 const intersects = (a: readonly string[], b: ReadonlySet<string>): boolean =>
@@ -244,7 +246,7 @@ const planHandler = (
     const relevant = (on ?? [...flipped]).filter((s) => flipped.has(s));
     return relevant.every((s) => ackMs >= (changedAt.get(s) ?? 0));
   };
-  const fullCtx = makeCtx(flipped, inp.watch, inp.now);
+  const fullCtx = makeCtx(flipped, inp.watch, inp.now, last);
 
   // An item with a done-check is resolved by that check ALONE: it exists
   // because a human's "I did it" is not proof (a file drop either landed or
@@ -273,7 +275,7 @@ const planHandler = (
   // Everything downstream of the operator check sees only the sources this
   // run can actually serve — cloud loaders included.
   const served = new Set([...flipped].filter((s) => !deferred.has(s)));
-  const ctx = makeCtx(served, inp.watch, inp.now);
+  const ctx = makeCtx(served, inp.watch, inp.now, last);
 
   const steps: PlannedStep[] = h.steps.map((s) => {
     const base = {

@@ -12,7 +12,15 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { SOURCES } from "./sources/index";
 import { readState, writeState } from "./state";
-import { renderReport } from "./report";
+import { renderJsonReport, renderReport } from "./report";
+import {
+  egressMismatch,
+  readHealth,
+  updateHealth,
+  writeHealth,
+} from "./health";
+import { lookupCountry } from "../pipeline/doctor";
+import { annotateStreaks, exitCode, nextState } from "./run_core";
 import { CADENCE_WINDOW_MS, dueForCheck } from "./cadence";
 import { rememberPollWatch } from "../polls/lib/capture";
 import type {
@@ -27,9 +35,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPORTS_DIR = path.resolve(__dirname, "../../data-reports");
 
-const main = async (): Promise<void> => {
+const main = async (): Promise<number> => {
   const runAt = new Date().toISOString();
   const entries: ReportEntry[] = [];
+  // The exit IP's country, once per run — only asked when some source
+  // declares an `egress`. null = unknown, and then every source is probed.
+  const egress = SOURCES.some((s) => s.egress)
+    ? await lookupCountry()
+    : { country: null };
+  const country = egress.country;
 
   const nowMs = Date.parse(runAt);
 
@@ -80,6 +94,21 @@ const main = async (): Promise<void> => {
       continue;
     }
 
+    // A source behind the wrong exit would just time out after 300 s and
+    // read as an upstream error. Say why instead, and leave its state (and so
+    // its cadence window) untouched, exactly as for an error.
+    const mismatch = egressMismatch(src.egress, country);
+    if (mismatch) {
+      entries.push({
+        source: src,
+        status: "blocked",
+        line: mismatch,
+        manual: askManual(src, prev, null),
+      });
+      continue;
+    }
+
+    const t0 = Date.now();
     try {
       const fingerprintP = src.fingerprint();
       const timeoutP = new Promise<never>((_, reject) =>
@@ -96,14 +125,19 @@ const main = async (): Promise<void> => {
         ? (src.describe?.(prev, curr) ?? curr.detail)
         : `unchanged (${curr.detail})`;
 
-      const next: WatchState = {
-        fingerprint: curr.value,
-        detail: curr.detail,
-        meta: curr.meta,
-        lastChecked: runAt,
-        lastChanged: changed ? runAt : prev!.lastChanged,
-      };
-      writeState(src.id, next);
+      // What moved, as data, for the pipeline's scoped steps. Computed from
+      // the same comparison as the describe-line; a scope() that throws must
+      // not cost the source its state write.
+      let scope: Record<string, string[]> | null = null;
+      if (changed && src.scope)
+        try {
+          scope = src.scope(prev, curr);
+        } catch (e) {
+          console.warn(
+            `[watch] ${src.id}: scope() threw — ${e instanceof Error ? e.message : String(e)}`,
+          );
+        }
+      writeState(src.id, nextState(prev, curr, scope, runAt));
       // AFTER the state write: the request describes what is outstanding NOW,
       // so it must see the fingerprint this run produced, not the previous one.
       entries.push({
@@ -111,6 +145,7 @@ const main = async (): Promise<void> => {
         status,
         line,
         manual: askManual(src, prev, curr),
+        durationMs: Date.now() - t0,
       });
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
@@ -119,6 +154,7 @@ const main = async (): Promise<void> => {
         status: "error",
         line: msg,
         error: msg,
+        durationMs: Date.now() - t0,
         // An unreachable upstream does not make the outstanding download go
         // away — if anything it is the run where the operator most needs to be
         // told. `curr` is null: the fetch is what failed.
@@ -128,6 +164,16 @@ const main = async (): Promise<void> => {
       // next successful run can still detect "changed since last good".
     }
   }
+
+  // The health ledger: consecutive failures per source, which the per-source
+  // state cannot hold (it is deliberately not written on error).
+  const health = updateHealth(
+    readHealth(),
+    entries.map((e) => ({ id: e.source.id, status: e.status, error: e.error })),
+    runAt,
+  );
+  writeHealth(health);
+  annotateStreaks(entries, health);
 
   const report = renderReport(entries, runAt);
   process.stdout.write(report);
@@ -141,10 +187,21 @@ const main = async (): Promise<void> => {
   fs.writeFileSync(dayFile, report);
   const latestFile = path.join(REPORTS_DIR, "latest.md");
   fs.writeFileSync(latestFile, report);
+  // The same run as data, for scripts (the pipeline reads this, not markdown).
+  const json =
+    JSON.stringify(
+      renderJsonReport(entries, runAt, country, egress.error),
+      null,
+      2,
+    ) + "\n";
+  fs.writeFileSync(path.join(REPORTS_DIR, `${runAt.slice(0, 10)}.json`), json);
+  fs.writeFileSync(path.join(REPORTS_DIR, "latest.json"), json);
 
   // Exit 0 even when individual sources errored — the report is the success
   // signal and lists every error in its own section. Whole-process crashes
-  // (caught below) still exit 2 so true failures fail loudly.
+  // (caught below) still exit 2 so true failures fail loudly. `--strict`
+  // exits 1 on a per-source error or a standing blocked streak (run_core).
+  return exitCode(entries, health, process.argv.includes("--strict"));
 };
 
 // The watcher must actually terminate: it runs unattended (one daily routine
@@ -169,7 +226,7 @@ const exitWhenDrained = (code: number): void => {
 };
 
 main().then(
-  () => exitWhenDrained(0),
+  (code) => exitWhenDrained(code),
   (e) => {
     console.error(e);
     exitWhenDrained(2);

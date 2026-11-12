@@ -28,6 +28,7 @@ const ctxWith = (source: string, meta: Record<string, unknown>): RunCtx => ({
   meta: (id) => (id === source ? meta : undefined),
   detail: () => undefined,
   now: new Date(),
+  since: null,
 });
 
 const doneOf = (handler: string, op: string) => {

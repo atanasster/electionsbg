@@ -72,6 +72,34 @@ const asArray = (v: PerSourceFp | PerSourceFp[] | undefined): PerSourceFp[] => {
 const fpKey = (v: PerSourceFp): string =>
   `${v.url}#${v.status ?? 0}:${v.length ?? ""}:${v.lastModified ?? ""}`;
 
+/** The municípios whose naredba source(s) changed since `prev`. One
+ *  comparison feeds both `describe` and `scope`. */
+export const flippedObshtini = (
+  prev: WatchState | null,
+  curr: Fingerprint,
+): string[] => {
+  if (!prev) return [];
+  const prevMap =
+    (prev.meta?.perObshtina as
+      | Record<string, PerSourceFp | PerSourceFp[]>
+      | undefined) ?? {};
+  const currMap =
+    (curr.meta?.perObshtina as Record<string, PerSourceFp[]> | undefined) ?? {};
+  const flipped: string[] = [];
+  for (const code of Object.keys(currMap).sort()) {
+    const a = asArray(prevMap[code]);
+    const b = currMap[code];
+    if (a.length !== b.length) {
+      flipped.push(code);
+      continue;
+    }
+    const aKeys = a.map(fpKey).sort().join("|");
+    const bKeys = b.map(fpKey).sort().join("|");
+    if (aKeys !== bKeys) flipped.push(code);
+  }
+  return flipped;
+};
+
 export const municipalNaredba: WatchSource = {
   id: "municipal_naredba",
   label: "Общински наредби за местни данъци",
@@ -101,27 +129,12 @@ export const municipalNaredba: WatchSource = {
   },
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
-    if (!prev) return curr.detail;
-    const prevMap =
-      (prev.meta?.perObshtina as
-        | Record<string, PerSourceFp | PerSourceFp[]>
-        | undefined) ?? {};
-    const currMap =
-      (curr.meta?.perObshtina as Record<string, PerSourceFp[]> | undefined) ??
-      {};
-    const flipped: string[] = [];
-    for (const code of Object.keys(currMap).sort()) {
-      const a = asArray(prevMap[code]);
-      const b = currMap[code];
-      if (a.length !== b.length) {
-        flipped.push(code);
-        continue;
-      }
-      const aKeys = a.map(fpKey).sort().join("|");
-      const bKeys = b.map(fpKey).sort().join("|");
-      if (aKeys !== bKeys) flipped.push(code);
-    }
+    const flipped = flippedObshtini(prev, curr);
     if (flipped.length === 0) return curr.detail;
     return `${flipped.length} naredba(s) re-uploaded: ${flipped.join(", ")}`;
+  },
+  scope(prev: WatchState | null, curr: Fingerprint) {
+    const obshtini = flippedObshtini(prev, curr);
+    return obshtini.length ? { obshtini } : null;
   },
 };

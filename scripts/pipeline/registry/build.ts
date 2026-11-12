@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { REPO } from "../state";
+import { scopeSince } from "../../watch/scope_log";
 import type { Phase, RunCtx, Step } from "./types";
 
 type StepOpts = Omit<Step, "id" | "run" | "phase"> & { phase?: Phase };
@@ -28,24 +29,19 @@ export const tsx = (file: string, ...args: string[]): string =>
 export const pnpm = (script: string, ...args: string[]): string =>
   ["pnpm run", script, ...args].join(" ");
 
-/** `meta.scope.<key>` as a string list, or null when the watcher stored none.
+/** What moved under `key` for `sourceId` since this handler's marker — the
+ *  union of every scope-log entry newer than `ctx.since` (plan §3.2) — or
+ *  null when that cannot be known COMPLETELY: the handler never ran, the
+ *  source logs no scope, or the marker predates what the log still holds.
  *
- *  The watcher reports WHAT moved in a free-text describe-line today; the
- *  structured form lands with plan §3.2. Until a source emits it, a step scoped
- *  through this returns null and is skipped with "no scope" — which surfaces as
- *  a needs-agent item rather than an unscoped run. */
+ *  Null skips the step with "no scope", which surfaces as a needs-agent item:
+ *  a partial scope would run, succeed, advance the marker and lose the
+ *  change it left out — the one outcome worse than not running. */
 export const scopeList = (
   ctx: RunCtx,
   sourceId: string,
   key: string,
-): string[] | null => {
-  const scope = ctx.meta(sourceId)?.scope;
-  if (!scope || typeof scope !== "object") return null;
-  const v = (scope as Record<string, unknown>)[key];
-  if (!Array.isArray(v) || v.length === 0) return null;
-  const out = v.filter((x): x is string => typeof x === "string" && x !== "");
-  return out.length ? out : null;
-};
+): string[] | null => scopeSince(ctx.meta(sourceId), key, ctx.since);
 
 export const currentYear = (ctx: RunCtx): string =>
   String(ctx.now.getUTCFullYear());

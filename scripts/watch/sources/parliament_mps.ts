@@ -15,6 +15,8 @@ export const parliamentMps: WatchSource = {
   label: "Parliament MPs (active roster)",
   url: "https://www.parliament.bg/api/v1/coll-list-ns/bg",
   cadence: "daily",
+  // Behind a Bulgarian VPN exit this upstream times out; say so instead.
+  egress: "non-bg",
 
   async fingerprint(): Promise<Fingerprint> {
     const data = await fetchJson<CollListNs>(this.url);

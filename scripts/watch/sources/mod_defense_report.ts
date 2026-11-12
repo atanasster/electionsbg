@@ -24,6 +24,8 @@ export const modDefenseReport: WatchSource = {
   label: "МО — доклад за отбраната",
   url: MOD_DOCS_PAGE,
   cadence: "monthly",
+  // Behind a Bulgarian VPN exit this upstream times out; say so instead.
+  egress: "non-bg",
 
   async fingerprint(): Promise<Fingerprint> {
     const html = await fetchText(MOD_DOCS_PAGE);

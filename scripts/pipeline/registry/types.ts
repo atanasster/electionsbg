@@ -41,6 +41,10 @@ export interface RunCtx {
   /** `state/watch/<id>.json.detail`. */
   detail(sourceId: string): string | undefined;
   now: Date;
+  /** This handler's marker (`lastSuccessfulIngest`), null when it never ran.
+   *  A scoped step reads every scope entry NEWER than this — not just the
+   *  latest one — so a run that fell behind still covers every change. */
+  since: string | null;
 }
 
 export interface Step {

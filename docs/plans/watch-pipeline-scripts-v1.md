@@ -466,6 +466,26 @@ human or `agent`.
 (structured scope), which Tier 3 needs for the handlers listed there — do those
 sources first.
 
+**Tier 5 as built (2026-11-12).** `pnpm run watch` now also writes
+`data-reports/<date>.json` and `latest.json` (§3.1). It times each source and keeps a health
+ledger of consecutive failures in `state/watch/_health.json` (§3.4–3.5); the markdown report
+shows a streak. `cik_results`, `cik_presidential` and `municipal_naredba` store
+their scope from the same comparison as their describe-line (§3.2) — as a timestamped
+**scope log** (`meta.scopeLog`, `scripts/watch/scope_log.ts`), carried forward on every run,
+not as the latest delta alone. A scoped step reads the UNION of entries newer than its
+handler's marker (`RunCtx.since`): with only the latest delta, a run that fell behind two
+changes would ingest the second, succeed, advance the marker and lose the first for good. When
+the marker predates the log's floor (`scopeLogSince`, which moves as the 60-entry cap prunes),
+the scope is unknowable and the step skips with "no scope" rather than run partially. The five
+sources the repo knows need a non-BG exit (parliament ×2, ЦИК ×2, МО) report `blocked` behind a
+BG VPN instead of timing out (§3.3), and the ledger counts a blocked streak too — a source
+blocked every day is a source nobody is watching. `--strict` exits 1 on any per-source error
+or on a blocked streak of 3+ runs (§3.7). The runner's pure decisions (next state, streak
+annotation, exit code) live in `scripts/watch/run_core.ts` and are unit-tested.
+Not done: the record/replay fixture harness (§3.6) and `publishes` on every source; and
+update-local-elections / update-presidential-elections can now be scoped but stay delegated
+until a shadow run shows their scoped commands match what the agent ran.
+
 **Tier 6 — retire the prose orchestration.**
 Schedule `pipeline:nightly` from launchd or keep the Claude routine as a thin wrapper
 (open decision 1). Generate a short handler index from the registry. Reduce each

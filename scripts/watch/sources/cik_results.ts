@@ -156,11 +156,57 @@ type CikResultsMeta = {
   discoveredAt: string;
 };
 
+/** The cycles that moved since `prev`, each with the describe-line label.
+ *  One comparison feeds both `describe` and `scope`. */
+export const changedCycles = (
+  prev: WatchState | null,
+  curr: Fingerprint,
+): { cycle: string; label: string }[] => {
+  const prevCycles =
+    (prev?.meta as unknown as CikResultsMeta | undefined)?.cycles ?? [];
+  const currCycles =
+    (curr.meta as unknown as CikResultsMeta | undefined)?.cycles ?? [];
+  const prevByCycle = new Map(prevCycles.map((c) => [c.cycle, c]));
+  const changed: { cycle: string; label: string }[] = [];
+  for (const c of currCycles) {
+    const p = prevByCycle.get(c.cycle);
+    if (!p) {
+      // A newly-appeared cycle: partials are existence-based (always 200);
+      // a regular bundle counts only once it's actually reachable.
+      if (c.kind === "partial" || c.status === 200) {
+        changed.push({ cycle: c.cycle, label: `new cycle: ${c.cycle}` });
+      }
+      continue;
+    }
+    // Regular bundles also flag on re-upload (Last-Modified/length change).
+    if (
+      c.kind === "regular" &&
+      (c.status !== p.status ||
+        c.lastModified !== p.lastModified ||
+        c.contentLength !== p.contentLength)
+    ) {
+      changed.push({ cycle: c.cycle, label: `${c.cycle} re-uploaded` });
+    }
+    // A partial entering a runoff-recheck stage — round 1 was ingested
+    // earlier (both finalists stubbed as elected); re-ingesting now picks up
+    // the tur2 pages published since and resolves the real winner.
+    if (c.kind === "partial" && c.runoffStage > (p.runoffStage ?? 0)) {
+      changed.push({
+        cycle: c.cycle,
+        label: `${c.cycle} тур2 (runoff) re-check`,
+      });
+    }
+  }
+  return changed;
+};
+
 export const cikResults: WatchSource = {
   id: SOURCE_ID,
   label: "CIK local-elections results bundles",
   url: `${ROOT}/`,
   cadence: "daily",
+  // Behind a Bulgarian VPN exit this upstream times out; say so instead.
+  egress: "non-bg",
 
   async fingerprint(): Promise<Fingerprint> {
     const fps: CycleFingerprint[] = [];
@@ -216,39 +262,12 @@ export const cikResults: WatchSource = {
   },
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
-    const prevCycles =
-      (prev?.meta as unknown as CikResultsMeta | undefined)?.cycles ?? [];
-    const currCycles =
-      (curr.meta as unknown as CikResultsMeta | undefined)?.cycles ?? [];
-    const prevByCycle = new Map(prevCycles.map((c) => [c.cycle, c]));
-    const changed: string[] = [];
-    for (const c of currCycles) {
-      const p = prevByCycle.get(c.cycle);
-      if (!p) {
-        // A newly-appeared cycle: partials are existence-based (always 200);
-        // a regular bundle counts only once it's actually reachable.
-        if (c.kind === "partial" || c.status === 200) {
-          changed.push(`new cycle: ${c.cycle}`);
-        }
-        continue;
-      }
-      // Regular bundles also flag on re-upload (Last-Modified/length change).
-      if (
-        c.kind === "regular" &&
-        (c.status !== p.status ||
-          c.lastModified !== p.lastModified ||
-          c.contentLength !== p.contentLength)
-      ) {
-        changed.push(`${c.cycle} re-uploaded`);
-      }
-      // A partial entering a runoff-recheck stage — round 1 was ingested
-      // earlier (both finalists stubbed as elected); re-ingesting now picks up
-      // the tur2 pages published since and resolves the real winner.
-      if (c.kind === "partial" && c.runoffStage > (p.runoffStage ?? 0)) {
-        changed.push(`${c.cycle} тур2 (runoff) re-check`);
-      }
-    }
+    const changed = changedCycles(prev, curr).map((c) => c.label);
     if (changed.length === 0) return curr.detail;
     return `${changed.length} cycle(s) changed: ${changed.slice(0, 4).join(", ")}${changed.length > 4 ? "…" : ""}`;
+  },
+  scope(prev: WatchState | null, curr: Fingerprint) {
+    const cycles = [...new Set(changedCycles(prev, curr).map((c) => c.cycle))];
+    return cycles.length ? { cycles } : null;
   },
 };

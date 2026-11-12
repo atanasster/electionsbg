@@ -288,7 +288,7 @@ const onPath = (bin: string): boolean => {
 export const parseCfTrace = (body: string): string | null =>
   body.match(/^loc=([A-Z]{2})$/m)?.[1] ?? null;
 
-const lookupCountry = async (): Promise<{
+export const lookupCountry = async (): Promise<{
   country: string | null;
   error?: string;
 }> => {

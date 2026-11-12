@@ -152,6 +152,86 @@ const fingerprintRound = async (
   };
 };
 
+/** Every change since `prev`, with its describe-line label and whether it
+ *  calls for an ingest. One comparison feeds both `describe` and `scope`. */
+export const presidentialChanges = (
+  prev: WatchState | null,
+  curr: Fingerprint,
+): { slug: string; label: string; ingest: boolean }[] => {
+  // ⚠⚠ THE PERSISTED META IS GUARDED, NOT ASSUMED. `prev.meta` is a double-cast over a file
+  // a PREVIOUS BUILD wrote, and `types.ts` names this exact trap: `describe()` runs inside
+  // the runner's try, and the catch deliberately skips the state write — so one unguarded
+  // read of a shape that has since changed makes this source error on every run FOR EVER,
+  // until someone deletes `state/watch/cik_presidential.json` by hand. Both fixes in this
+  // very step change the meta shape, so it is reachable rather than theoretical.
+  const cyclesOf = (m: unknown): CycleFingerprint[] => {
+    const cs = (m as CikPresidentialMeta | undefined)?.cycles;
+    return Array.isArray(cs) ? cs : [];
+  };
+  const roundsOf = (c: CycleFingerprint | undefined): RoundFingerprint[] =>
+    Array.isArray(c?.rounds) ? c.rounds : [];
+  const prevCycles = cyclesOf(prev?.meta);
+  const currCycles = cyclesOf(curr.meta);
+  const prevBySlug = new Map(prevCycles.map((c) => [c.slug, c]));
+  const changed: { slug: string; label: string; ingest: boolean }[] = [];
+  for (const c of currCycles) {
+    const p = prevBySlug.get(c.slug);
+    if (!p) {
+      // ⚠ A NEW SLUG IS THE HEADLINE ONLY WHEN WE DO NOT HAVE IT. ЦИК's index gains rows
+      // for reasons of its own; „a presidential archive we have never ingested" is the one
+      // that means an election happened.
+      changed.push({
+        slug: c.slug,
+        label: c.known
+          ? `${c.slug}: newly listed`
+          : `${c.slug}: NEW CYCLE ${c.year} — not ingested`,
+        // A listed cycle we already hold needs no ingest; a new one does.
+        ingest: !c.known,
+      });
+      continue;
+    }
+    for (const r of roundsOf(c)) {
+      const pr = roundsOf(p).find((x) => x.round === r.round);
+      if (!pr) continue;
+      // A round appearing is the publish; a round CHANGING is a re-upload, and ЦИК
+      // re-uploads corrected bundles — both are re-ingest triggers.
+      // ⚠ A TRANSIENT HEAD FAILURE IS NOT A PUBLISH AND NOT A WITHDRAWAL. `cikHead` returns
+      // `status: 0` when the request itself failed, and treating that as „gone" (or its
+      // recovery as „published") reports an upstream event that never happened.
+      if (pr.status === 0 || r.status === 0) continue;
+      if (pr.status !== 200 && r.status === 200)
+        changed.push({
+          slug: c.slug,
+          label: r.guessedUrl
+            ? `${c.slug} tur${r.round}: bundle published (URL guessed)`
+            : `${c.slug} tur${r.round}: bundle published`,
+          ingest: true,
+        });
+      else if (
+        r.status === 200 &&
+        (pr.lastModified !== r.lastModified ||
+          pr.contentLength !== r.contentLength)
+      )
+        changed.push({
+          slug: c.slug,
+          label: `${c.slug} tur${r.round}: bundle re-uploaded`,
+          ingest: true,
+        });
+    }
+  }
+  // ⚠ A DISAPPEARANCE IS REPORTED, NOT SWALLOWED. A slug leaving the index while we hold
+  // its data is not a re-ingest trigger, but it is the kind of thing an operator wants to
+  // hear about before a link on the site starts 404ing.
+  for (const p of prevCycles)
+    if (!currCycles.some((c) => c.slug === p.slug))
+      changed.push({
+        slug: p.slug,
+        label: `${p.slug}: no longer listed by ЦИК`,
+        ingest: false,
+      });
+  return changed;
+};
+
 export const cikPresidential: WatchSource = {
   id: SOURCE_ID,
   label: "ЦИК presidential-elections results bundles",
@@ -161,6 +241,8 @@ export const cikPresidential: WatchSource = {
   // after that, and the 2021 bundle was dated four days after election day. A cadence tuned
   // to the election would miss the whole publication window.
   cadence: "daily",
+  // Behind a Bulgarian VPN exit this upstream times out; say so instead.
+  egress: "non-bg",
   publishes: "irregular",
 
   async fingerprint(): Promise<Fingerprint> {
@@ -248,64 +330,17 @@ export const cikPresidential: WatchSource = {
   },
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
-    // ⚠⚠ THE PERSISTED META IS GUARDED, NOT ASSUMED. `prev.meta` is a double-cast over a file
-    // a PREVIOUS BUILD wrote, and `types.ts` names this exact trap: `describe()` runs inside
-    // the runner's try, and the catch deliberately skips the state write — so one unguarded
-    // read of a shape that has since changed makes this source error on every run FOR EVER,
-    // until someone deletes `state/watch/cik_presidential.json` by hand. Both fixes in this
-    // very step change the meta shape, so it is reachable rather than theoretical.
-    const cyclesOf = (m: unknown): CycleFingerprint[] => {
-      const cs = (m as CikPresidentialMeta | undefined)?.cycles;
-      return Array.isArray(cs) ? cs : [];
-    };
-    const roundsOf = (c: CycleFingerprint | undefined): RoundFingerprint[] =>
-      Array.isArray(c?.rounds) ? c.rounds : [];
-    const prevCycles = cyclesOf(prev?.meta);
-    const currCycles = cyclesOf(curr.meta);
-    const prevBySlug = new Map(prevCycles.map((c) => [c.slug, c]));
-    const changed: string[] = [];
-    for (const c of currCycles) {
-      const p = prevBySlug.get(c.slug);
-      if (!p) {
-        // ⚠ A NEW SLUG IS THE HEADLINE ONLY WHEN WE DO NOT HAVE IT. ЦИК's index gains rows
-        // for reasons of its own; „a presidential archive we have never ingested" is the one
-        // that means an election happened.
-        changed.push(
-          c.known
-            ? `${c.slug}: newly listed`
-            : `${c.slug}: NEW CYCLE ${c.year} — not ingested`,
-        );
-        continue;
-      }
-      for (const r of roundsOf(c)) {
-        const pr = roundsOf(p).find((x) => x.round === r.round);
-        if (!pr) continue;
-        // A round appearing is the publish; a round CHANGING is a re-upload, and ЦИК
-        // re-uploads corrected bundles — both are re-ingest triggers.
-        // ⚠ A TRANSIENT HEAD FAILURE IS NOT A PUBLISH AND NOT A WITHDRAWAL. `cikHead` returns
-        // `status: 0` when the request itself failed, and treating that as „gone" (or its
-        // recovery as „published") reports an upstream event that never happened.
-        if (pr.status === 0 || r.status === 0) continue;
-        if (pr.status !== 200 && r.status === 200)
-          changed.push(
-            r.guessedUrl
-              ? `${c.slug} tur${r.round}: bundle published (URL guessed)`
-              : `${c.slug} tur${r.round}: bundle published`,
-          );
-        else if (
-          r.status === 200 &&
-          (pr.lastModified !== r.lastModified ||
-            pr.contentLength !== r.contentLength)
-        )
-          changed.push(`${c.slug} tur${r.round}: bundle re-uploaded`);
-      }
-    }
-    // ⚠ A DISAPPEARANCE IS REPORTED, NOT SWALLOWED. A slug leaving the index while we hold
-    // its data is not a re-ingest trigger, but it is the kind of thing an operator wants to
-    // hear about before a link on the site starts 404ing.
-    for (const p of prevCycles)
-      if (!currCycles.some((c) => c.slug === p.slug))
-        changed.push(`${p.slug}: no longer listed by ЦИК`);
+    const changed = presidentialChanges(prev, curr).map((c) => c.label);
     return changed.length ? changed.join("; ") : (curr.detail ?? "no change");
+  },
+  scope(prev: WatchState | null, curr: Fingerprint) {
+    const cycles = [
+      ...new Set(
+        presidentialChanges(prev, curr)
+          .filter((c) => c.ingest)
+          .map((c) => c.slug),
+      ),
+    ];
+    return cycles.length ? { cycles } : null;
   },
 };

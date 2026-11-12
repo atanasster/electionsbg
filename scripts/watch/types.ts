@@ -94,6 +94,19 @@ export interface WatchSource {
   // Optional override for the report's "what changed" line. Default just shows
   // current detail. Receives previous state (null on first run) and current fp.
   describe?(prev: WatchState | null, curr: Fingerprint): string;
+  /** WHAT moved, as data — e.g. `{ cycles: ["mi2027"] }`. Stored as
+   *  `meta.scope` on a changed run, so a downstream step can be scoped to it
+   *  (scripts/pipeline/registry/build.ts `scopeList`) instead of parsing the
+   *  describe-line. Derive it from the same comparison `describe` makes, so
+   *  the two cannot disagree. Return null when nothing scoped moved. */
+  scope?(
+    prev: WatchState | null,
+    curr: Fingerprint,
+  ): Record<string, string[]> | null;
+  /** The exit country this source needs, when it is not "any" — checked by
+   *  the runner before probing, so a source behind the wrong VPN reports
+   *  `blocked` instead of timing out. */
+  egress?: "bg" | "non-bg";
   /** Non-null when a human must fetch something before any ingest can run.
    *
    *  Evaluated on EVERY run — including runs where this source is off-cadence
@@ -122,6 +135,8 @@ export type ReportStatus =
   | "changed"
   | "first-run"
   | "skipped"
+  /** Not probed: this source needs a different exit country (`egress`). */
+  | "blocked"
   | "error";
 
 export interface ReportEntry {
@@ -131,4 +146,10 @@ export interface ReportEntry {
   error?: string;
   /** Populated by the runner when `manualRequest()` returned non-null. */
   manual?: ManualRequest;
+  /** Wall-clock of the probe, ms (absent when not probed). */
+  durationMs?: number;
+  /** Consecutive failed runs, from the health ledger (errors only). */
+  consecutiveErrors?: number;
+  /** Consecutive blocked runs, from the health ledger (blocked only). */
+  consecutiveBlocked?: number;
 }
