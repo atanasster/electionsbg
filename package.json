@@ -36,6 +36,7 @@
     "perf:step": "tsx ./scripts/perf/log_step.ts",
     "perf:chain": "tsx ./scripts/perf/run_chain.ts",
     "perf:report": "tsx ./scripts/perf/log_step.ts report",
+    "pipeline:plan": "tsx ./scripts/pipeline/cli/plan.ts",
     "upload:manifest": "tsx ./scripts/upload_manifest.ts",
     "i18n:prune": "tsx ./scripts/i18n/prune_translations.ts",
     "i18n:split": "tsx ./scripts/i18n/split_bundles.ts",
