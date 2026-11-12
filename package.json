@@ -306,6 +306,8 @@
     "kzk:decisions": "tsx ./scripts/procurement/kzk_decisions.ts",
     "kzk:rejoin": "tsx ./scripts/procurement/kzk_rejoin.ts",
     "kzk:rejoin:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm run kzk:rejoin",
+    "kzk:appeals:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql && DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg tsx scripts/procurement/kzk_appeals.ts --apply",
+    "ipop:fetch": "mkdir -p raw_data/budget/ipop && curl -fsSL -o raw_data/budget/ipop/projects-$(date +%Y).csv 'https://ipop.mrrb.bg/reports_projects_export.php'",
     "procurement:ingest-legacy": "tsx ./scripts/procurement/ingest_legacy.ts",
     "budget:ingest": "tsx ./scripts/budget/ingest.ts",
     "budget:revenue-breakdown": "tsx ./scripts/budget/run_customs_revenue.ts && tsx ./scripts/budget/run_nap_annual.ts",
