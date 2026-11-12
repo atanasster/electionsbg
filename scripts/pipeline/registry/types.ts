@@ -19,6 +19,7 @@ export const NEEDS = [
   "bin:unzip",
   "tr-state", // raw_data/tr/state.sqlite present
   "gemini", // GEMINI_API_KEY for an OCR arm
+  "proxy", // the Cloud SQL proxy on 5434 (a read-only check against prod)
 ] as const;
 export type Need = (typeof NEEDS)[number];
 
@@ -140,6 +141,9 @@ export interface Handler {
   stamp?: "runner" | "self";
   /** Post-step ids (registry/post_steps.ts) this handler triggers. */
   followUps?: readonly string[];
+  /** Assertions on what the handler produced (registry/gates.ts). A failed
+   *  gate fails the handler: no stamp, publish held. */
+  gates?: readonly import("./gates").Gate[];
   /** Repo-relative trees the handler writes; the commit pathspec. */
   outputs?: readonly string[];
   notes?: string;

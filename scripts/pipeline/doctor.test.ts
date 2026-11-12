@@ -76,7 +76,7 @@ describe("evaluate", () => {
     expect(r.unmet.get("pg-local")).toMatch(/db:pg:up/);
   });
 
-  it("never turns an info check into an unmet need", () => {
+  it("never turns an info check into an unmet need (the proxy is a need)", () => {
     const r = evaluate(
       {
         ...healthy,
@@ -89,7 +89,7 @@ describe("evaluate", () => {
       },
       NOW,
     );
-    expect([...r.unmet.keys()]).toEqual(["egress:bg"]);
+    expect([...r.unmet.keys()]).toEqual(["egress:bg", "proxy"]);
     const failing = r.checks.filter((c) => !c.ok).map((c) => c.id);
     expect(failing).toEqual(
       expect.arrayContaining([
@@ -115,10 +115,17 @@ describe("evaluate", () => {
 
   it("renders FAIL for an unmet need and warn for an info problem", () => {
     const text = renderDoctor(
-      evaluate({ ...healthy, pgLocal: false, proxy: false }, NOW),
+      evaluate(
+        {
+          ...healthy,
+          pgLocal: false,
+          bins: { ...healthy.bins, gsutil: false },
+        },
+        NOW,
+      ),
     );
     expect(text).toMatch(/^FAIL pg-local/m);
-    expect(text).toMatch(/^warn proxy/m);
+    expect(text).toMatch(/^warn bin:gsutil/m);
     expect(text).toMatch(/need\(s\) unmet: .*pg-local/);
   });
 });

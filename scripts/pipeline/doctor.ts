@@ -190,7 +190,8 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
   // Not needs of any handler — they decide the publish half or warn.
   add({
     id: "proxy",
-    severity: "info",
+    need: "proxy",
+    severity: "need",
     ok: f.proxy,
     detail: f.proxy
       ? "Cloud SQL proxy answers on 127.0.0.1:5434"

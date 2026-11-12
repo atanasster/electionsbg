@@ -2,6 +2,7 @@
 // sources. The purely manual sources live at the foot of this file.
 
 import { derive, ingest, pnpm, scopeList, tsx, verify } from "../build";
+import { at, jsonNumber, len, noShrink } from "../gates";
 import type { Handler } from "../types";
 
 /** A source that maps to exactly one fetch script and one bucket path. */
@@ -242,6 +243,35 @@ export const SECTORS_LOCAL: Handler[] = [
     runner: "skill",
     sources: ["nsi_landuse"],
     steps: [ingest("landuse:fetch", tsx("scripts/landuse/fetch.ts"))],
+    // Runbook: 28 oblasts, and the national category percentages sum to
+    // 100 ± 0.05 (a column shift breaks the sum before anything else).
+    gates: [
+      jsonNumber(
+        "landuse-oblasts",
+        "data/landuse/index.json",
+        (j) => len(at(j, "years", String(at(j, "latestYear")), "oblasts")),
+        { eq: 28 },
+      ),
+      jsonNumber(
+        "landuse-national-pct-sum",
+        "data/landuse/index.json",
+        (j) => {
+          const pct = at(
+            j,
+            "years",
+            String(at(j, "latestYear")),
+            "national",
+            "byCategoryPct",
+          );
+          const sum = Object.values(pct as Record<string, number>).reduce(
+            (a, b) => a + b,
+            0,
+          );
+          return Math.round(sum * 100) / 100;
+        },
+        { min: 99.95, max: 100.05 },
+      ),
+    ],
     operator: [
       {
         id: "landuse-report-url",
@@ -260,6 +290,21 @@ export const SECTORS_LOCAL: Handler[] = [
     runner: "script",
     sources: ["grao"],
     steps: [ingest("grao:fetch", tsx("scripts/grao/fetch.ts"))],
+    // Runbook: "~5,106 settlements"; a sharp drop means the table layout moved.
+    gates: [
+      jsonNumber(
+        "grao-settlements",
+        "data/grao_population.json",
+        (j) => len(at(j, "settlements")),
+        { min: 4900, max: 5400 },
+      ),
+      noShrink(
+        "grao-no-shrink",
+        "data/grao_population.json",
+        (j) => len(at(j, "settlements")),
+        2,
+      ),
+    ],
     publish: { paths: ["grao", "grao_population.json"] },
     changelog: "orchestrator",
     outputs: ["data/grao", "data/grao_population.json"],
@@ -286,6 +331,15 @@ export const SECTORS_LOCAL: Handler[] = [
     runner: "script",
     sources: ["iaos_air_quality"],
     steps: [ingest("air:build_index", tsx("scripts/air/build_index.ts"))],
+    // Runbook: 30–45 município stations; fewer means station-prefix aliases rotted.
+    gates: [
+      jsonNumber(
+        "air-stations",
+        "data/air/index.json",
+        (j) => len(at(j, "stations")),
+        { min: 30, max: 45 },
+      ),
+    ],
     publish: { paths: ["air"] },
     changelog: "orchestrator",
     outputs: ["data/air", "raw_data/air/iaos"],
@@ -330,6 +384,21 @@ export const SECTORS_LOCAL: Handler[] = [
             return codes ? [codes.join(",")] : null;
           },
         },
+      ),
+    ],
+    // Runbook: every indicator ranks all 265 municipalities. `rankTotals` is
+    // what the build computed, unlike `indicators`, which is a constant the
+    // script copies into the file and so can never fail.
+    gates: [
+      jsonNumber(
+        "local-taxes-ranked-everywhere",
+        "data/local_taxes/index.json",
+        (j) =>
+          Math.min(
+            ...Object.values(at(j, "rankTotals") as Record<string, number>),
+          ),
+        { eq: 265 },
+        ["ipi_local_taxes"],
       ),
     ],
     publish: { paths: ["local_taxes"] },

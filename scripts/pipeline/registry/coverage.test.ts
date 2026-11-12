@@ -17,6 +17,8 @@ import {
 import { SOURCES } from "../../watch/sources";
 import { CLOUD_ORDER, cloudSlot } from "./cloud_order";
 import { HANDLERS, UNROUTED, markerOwners } from "./index";
+import { makeGateCtx, runGates } from "./gates";
+import { POST_STEPS } from "./post_steps";
 import type { CloudSpec, Handler, RunCtx } from "./types";
 
 const REPO = path.resolve(
@@ -41,11 +43,25 @@ const cloudCommands = (h: Handler): string[] =>
   });
 
 /** Every command line the registry can emit, with where it came from. */
-const allCommands = (): { where: string; run: string }[] =>
-  HANDLERS.flatMap((h) => [
+const allCommands = (): { where: string; run: string }[] => [
+  ...HANDLERS.flatMap((h) => [
     ...h.steps.map((s) => ({ where: `${h.id} › ${s.id}`, run: s.run })),
     ...cloudCommands(h).map((run) => ({ where: `${h.id} › publish`, run })),
-  ]);
+  ]),
+  ...POST_STEPS.flatMap((p) => [
+    ...p.steps.map((s) => ({ where: `post ${p.id} › ${s.id}`, run: s.run })),
+    ...(p.publish?.cloud ?? []).map((run) => ({
+      where: `post ${p.id} › publish`,
+      run,
+    })),
+  ]),
+];
+
+/** Every cloud command anything in the registry can put on a manifest. */
+const emittedCloud = (): string[] => [
+  ...HANDLERS.flatMap((h) => cloudCommands(h)),
+  ...POST_STEPS.flatMap((p) => [...(p.publish?.cloud ?? [])]),
+];
 
 describe("routing", () => {
   const ids = new Set(SOURCES.map((s) => s.id));
@@ -221,19 +237,13 @@ describe("commands", () => {
 
 describe("publish", () => {
   it("gives every cloud command a slot in CLOUD_ORDER", () => {
-    const unranked = HANDLERS.flatMap((h) =>
-      cloudCommands(h)
-        .filter((c) => cloudSlot(c) === null)
-        .map((c) => `${h.id}: ${c}`),
-    );
+    const unranked = emittedCloud().filter((c) => cloudSlot(c) === null);
     expect(unranked).toEqual([]);
   });
 
   it("keeps CLOUD_ORDER free of duplicates and of dead slots", () => {
     expect(new Set(CLOUD_ORDER).size).toBe(CLOUD_ORDER.length);
-    const used = new Set(
-      HANDLERS.flatMap((h) => cloudCommands(h)).map((c) => cloudSlot(c)),
-    );
+    const used = new Set(emittedCloud().map((c) => cloudSlot(c)));
     const dead = CLOUD_ORDER.filter((c) => !used.has(c));
     expect(dead, "ranked but emitted by no handler").toEqual([]);
   });
@@ -284,7 +294,7 @@ describe("publish", () => {
     // watcher-driven publish (operator tools, manual-trigger crawls). Anything
     // else must be emitted by a handler, or prod keeps the previous vintage.
     const emitted = new Set(
-      HANDLERS.flatMap((h) => cloudCommands(h))
+      emittedCloud()
         .map((c) => c.match(/^pnpm run ([^\s]+)/)?.[1])
         .filter((s): s is string => !!s),
     );
@@ -301,7 +311,7 @@ describe("publish", () => {
 
   it("carries no registry cloud exemption for a script it now emits", () => {
     const emitted = new Set(
-      HANDLERS.flatMap((h) => cloudCommands(h))
+      emittedCloud()
         .map((c) => c.match(/^pnpm run ([^\s]+)/)?.[1])
         .filter((s): s is string => !!s),
     );
@@ -331,11 +341,74 @@ describe("publish", () => {
 /** `:cloud` scripts the registry deliberately does not emit, beyond the two
  *  exemption maps in scripts/db/cloud_loader_coverage.ts. */
 const REGISTRY_CLOUD_EXEMPTIONS: Record<string, string> = {
-  "myarea:alerts:cloud":
-    "an unconditional post-step of every ingest run (registry/post_steps), not a handler's publish",
   "db:dump:cloud": "an operator backup, not a corpus reload",
   "db:sync:cloud":
     "a destructive whole-database reconcile, run by hand — never part of a scheduled publish",
-  "prices:payloads:cloud":
-    "run by the price-hub post-step only when a builder input moved without kzp_prices",
 };
+
+describe("post-steps and gates", () => {
+  it("resolves every handler followUp to a post-step", () => {
+    const ids = new Set(POST_STEPS.map((p) => p.id));
+    const dangling = HANDLERS.flatMap((h) =>
+      (h.followUps ?? [])
+        .filter((f) => !ids.has(f))
+        .map((f) => `${h.id}: ${f}`),
+    );
+    expect(dangling).toEqual([]);
+  });
+
+  it("has no follow-up-only post-step that nothing triggers", () => {
+    const used = new Set(HANDLERS.flatMap((h) => h.followUps ?? []));
+    const orphans = POST_STEPS.filter(
+      (p) => p.when === "followUp" && !used.has(p.id),
+    ).map((p) => p.id);
+    expect(orphans).toEqual([]);
+  });
+
+  it("keeps post-step ids unique", () => {
+    const ids = POST_STEPS.map((p) => p.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("passes every declared gate against the data on disk", () => {
+    // A gate that fails on the data we already publish is mis-specified — it
+    // would fail every future run. This proves only that each gate reads a
+    // real file and observes a value; whether it CAN fail is gates.test.ts's
+    // job (each helper has a failing case) and the reviewer's (a gate over a
+    // constant the script copies into its output can never fail).
+    const ctx = makeGateCtx("");
+    const results = HANDLERS.flatMap((h) =>
+      runGates(h.gates ?? [], new Set(h.sources), ctx).map((r) => ({
+        handler: h.id,
+        ...r,
+      })),
+    );
+    expect(results.length).toBeGreaterThan(0);
+    expect(results.filter((r) => !r.ok)).toEqual([]);
+  });
+});
+
+describe("selectPostSteps", () => {
+  it("keeps POST_STEPS order, adds follow-ups, and honours skipWhen", async () => {
+    const { selectPostSteps } = await import("./post_steps");
+    const ids = (f: string[], flipped: string[]) =>
+      selectPostSteps(f, new Set(flipped)).map((p) => p.id);
+    const base = ids([], []);
+    expect(base).toEqual(
+      POST_STEPS.filter((p) => p.when === "always").map((p) => p.id),
+    );
+    expect(ids(["price-hub-payloads"], ["eurostat"])).toContain(
+      "price-hub-payloads",
+    );
+    expect(
+      ids(["price-hub-payloads"], ["kzp_prices", "eurostat"]),
+    ).not.toContain("price-hub-payloads");
+    const withHubs = ids(["water-hub-stats", "sector-stats"], []);
+    expect(withHubs.indexOf("sector-stats")).toBeLessThan(
+      withHubs.indexOf("water-hub-stats"),
+    );
+    expect(withHubs.indexOf("water-hub-stats")).toBeLessThan(
+      withHubs.indexOf("home"),
+    );
+  });
+});

@@ -102,6 +102,10 @@ export const CLOUD_ORDER: readonly string[] = [
   "data:local-person-refresh:cloud",
 
   "prices:ingest:cloud",
+  // Post-steps: the price hub after its corpus; the alerts feed last, since
+  // it reads across every family above.
+  "prices:payloads:cloud",
+  "myarea:alerts:cloud",
 ];
 
 const RANK = new Map(CLOUD_ORDER.map((c, i) => [c, i]));
