@@ -7,6 +7,9 @@ import { LOCAL_DATABASE_URL } from "../../db/lib/pg";
 import { REPO } from "../state";
 import {
   LineSplitter,
+  redSetIsComplete,
+  redTestFiles,
+  rerunRedTestsSolo,
   expandChain,
   pinnedEnv,
   recordSkip,
@@ -268,4 +271,220 @@ describe("chain budget", () => {
     // 1.2 s budget: the first link times out, the second never starts.
     expect(out.map((o) => o.status)).toEqual(["timeout"]);
   }, 20_000);
+});
+
+describe("re-run red test files solo", () => {
+  it("parses vitest's FAIL lines", () => {
+    expect(
+      redTestFiles(
+        " FAIL  |node| scripts/db/tests/a.data.test.ts > x > y\n FAIL  |node| scripts/db/tests/a.data.test.ts > z\n FAIL  scripts/b.test.ts\n",
+      ),
+    ).toEqual(["scripts/db/tests/a.data.test.ts", "scripts/b.test.ts"]);
+  });
+
+  const fakeFailed = (tail: string) =>
+    ({
+      seq: 1,
+      id: "test:data",
+      command: "pnpm run test:data",
+      phase: "verify",
+      status: "error",
+      exitCode: 1,
+      signal: null,
+      startedAt: "t",
+      durationMs: 1,
+      log: "",
+      tail,
+      failure: {
+        class: "test-failed",
+        retryable: false,
+        holdsPublish: true,
+        hint: "",
+      },
+    }) as const;
+
+  // A stand-in solo command that passes for "flaky" files and fails for
+  // "broken" ones. A nested vitest would inherit this runner's VITEST_* env
+  // and is slow; the real default is `pnpm exec vitest run <file>`.
+  const solo = (f: string): string =>
+    `node -e "process.exit(${f.includes("broken") ? 1 : 0})" # ${f}`;
+
+  it("turns a run red only under load into a pass, naming the files", async () => {
+    const out = await rerunRedTestsSolo(
+      {
+        ...fakeFailed(
+          " FAIL  |node| scripts/flaky.test.ts > x\n Test Files  1 failed | 9 passed (10)",
+        ),
+      },
+      spec("pnpm run test:data", { id: "test:data" }),
+      mkCtx(),
+      solo,
+    );
+    expect(out[0].status).toBe("ok");
+    expect(out[0].result?.warnings?.[0]).toBe(
+      "red under load, green alone: scripts/flaky.test.ts",
+    );
+    expect(out[1].id).toBe("test:data › solo scripts/flaky.test.ts");
+  });
+
+  it("leaves a genuinely red file failed", async () => {
+    const out = await rerunRedTestsSolo(
+      {
+        ...fakeFailed(
+          " FAIL  |node| scripts/a.test.ts > x\n FAIL  |node| scripts/broken.test.ts > y\n Test Files  2 failed | 8 passed (10)",
+        ),
+      },
+      spec("pnpm run test:data", { id: "test:data" }),
+      mkCtx(),
+      solo,
+    );
+    // One file stays red alone: the step stays failed, both re-runs recorded.
+    expect(out[0].status).toBe("error");
+    expect(out.slice(1).map((o) => o.status)).toEqual(["ok", "error"]);
+  });
+
+  it("does nothing for a non-test step or a non-test failure class", async () => {
+    const o = { ...fakeFailed(" FAIL  |node| scripts/x.test.ts") };
+    expect(
+      await rerunRedTestsSolo(o, spec("pnpm run prices"), mkCtx(), solo),
+    ).toEqual([o]);
+    const other = {
+      ...o,
+      failure: { ...o.failure, class: "code-bug" as const },
+    };
+    expect(
+      await rerunRedTestsSolo(other, spec("pnpm run test:data"), mkCtx(), solo),
+    ).toEqual([other]);
+  });
+
+  it("gives up on a suite with too many red files — that is not flakiness", async () => {
+    const tail = Array.from(
+      { length: 11 },
+      (_, i) => ` FAIL  |node| scripts/f${i}.test.ts > x`,
+    ).join("\n");
+    const out = await rerunRedTestsSolo(
+      { ...fakeFailed(tail) },
+      spec("pnpm run test:data"),
+      mkCtx(),
+      solo,
+    );
+    expect(out).toHaveLength(1);
+    expect(out[0].status).toBe("error");
+  });
+});
+
+describe("redSetIsComplete", () => {
+  it("accepts only a summary that accounts for every file", () => {
+    expect(
+      redSetIsComplete(" Test Files  2 failed | 140 passed (142)", 2),
+    ).toBe(true);
+    expect(
+      redSetIsComplete(
+        " Test Files  2 failed | 139 passed | 1 skipped (142)",
+        2,
+      ),
+    ).toBe(true);
+  });
+
+  it("refuses when the parsed set is smaller than vitest's own count", () => {
+    expect(
+      redSetIsComplete(" Test Files  3 failed | 139 passed (142)", 2),
+    ).toBe(false);
+  });
+
+  it("refuses a file left unrun, an unhandled error, or no summary at all", () => {
+    expect(redSetIsComplete(" Test Files  1 failed | 30 passed (32)", 1)).toBe(
+      false,
+    );
+    expect(
+      redSetIsComplete(
+        "Unhandled Errors\n Test Files  1 failed | 9 passed (10)",
+        1,
+      ),
+    ).toBe(false);
+    expect(
+      redSetIsComplete(
+        " Errors  1 error\n Test Files  1 failed | 9 passed (10)",
+        1,
+      ),
+    ).toBe(false);
+    expect(redSetIsComplete("", 1)).toBe(false);
+  });
+
+  it("strips the log framing before parsing", async () => {
+    const { logBody } = await import("./executor");
+    expect(
+      logBody(
+        "# step x\n12:00:00.123    FAIL  |node| a.test.ts > y\n12:00:00.124 ! err",
+      ),
+    ).toBe(" FAIL  |node| a.test.ts > y\nerr");
+  });
+
+  it("re-reads the FULL log, so an early FAIL line outside the tail still counts", async () => {
+    const ctx = mkCtx();
+    // 200 FAIL lines' worth of noise would push the broken file out of a
+    // 120-line tail; the full log still has it.
+    const noise = Array.from(
+      { length: 200 },
+      (_, i) => `assertion diff line ${i}`,
+    ).join("\\n");
+    const o = await runStepOrChain(
+      {
+        ...spec(
+          `node -e "console.log(' FAIL  |node| scripts/broken.test.ts > x\\n${noise}\\n FAIL  |node| scripts/flaky.test.ts > y\\n Test Files  2 failed | 8 passed (10)'); process.exit(1)" # vitest run`,
+        ),
+        id: "t",
+      },
+      ctx,
+      {},
+      (f) => `node -e "process.exit(${f.includes("broken") ? 1 : 0})" # ${f}`,
+    );
+    expect(o[0].tail).not.toContain("broken.test.ts");
+    expect(o[0].status).toBe("error");
+    // Both files were found — in the log, not the tail — and both re-run.
+    expect(o.slice(1).map((x) => x.id)).toEqual([
+      "t › solo scripts/broken.test.ts",
+      "t › solo scripts/flaky.test.ts",
+    ]);
+  });
+});
+
+describe("solo rerun inside a chain", () => {
+  // A chain whose first link "fails tests" by printing a vitest-shaped tail,
+  // and whose second link proves the chain went on.
+  const testLink = (files: string[], total: number) => {
+    const lines = [
+      ...files.map((f) => ` FAIL  |node| ${f} > x`),
+      ` Test Files  ${files.length} failed | ${total - files.length} passed (${total})`,
+    ].join("\\n");
+    return `node -e "console.log('${lines}'); process.exit(1)" # vitest run`;
+  };
+  const solo = (f: string): string =>
+    `node -e "process.exit(${f.includes("broken") ? 1 : 0})" # ${f}`;
+
+  it("continues the chain when the red link's files pass alone", async () => {
+    const out = await runStepOrChain(
+      { ...spec("pnpm run chain"), id: "c", kind: "chain" },
+      mkCtx(),
+      {
+        chain: `${testLink(["scripts/flaky.test.ts"], 10)} && node -e "console.log('after')"`,
+      },
+      solo,
+    );
+    expect(out.map((o) => o.status)).toEqual(["ok", "ok", "ok"]);
+    expect(out[2].tail).toContain("after");
+  });
+
+  it("stops the chain when a red file stays red alone", async () => {
+    const out = await runStepOrChain(
+      { ...spec("pnpm run chain"), id: "c", kind: "chain" },
+      mkCtx(),
+      {
+        chain: `${testLink(["scripts/broken.test.ts"], 10)} && node -e "console.log('after')"`,
+      },
+      solo,
+    );
+    expect(out.map((o) => o.status)).toEqual(["error", "error"]);
+    expect(out.some((o) => o.tail.includes("after"))).toBe(false);
+  });
 });

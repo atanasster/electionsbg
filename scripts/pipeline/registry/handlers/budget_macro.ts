@@ -1,6 +1,7 @@
 // State budget, macro indicators, regional/municipal indicators, social funds.
 
 import { currentYear, derive, ingest, pnpm, tsx, verify } from "../build";
+import { outputLacks } from "../gates";
 import type { Handler } from "../types";
 
 const KFP = [
@@ -46,6 +47,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-budget",
     skill: "update-budget",
+    // Still delegated — FINDING-004/005/006: new Доклад years, NOI_STATB_URL quarters and the budget-law work after the ack are hand-kept, and the admin-grain sanity warning is read by eye.
     runner: "skill",
     sources: [
       ...KFP,
@@ -103,21 +105,21 @@ export const BUDGET_MACRO: Handler[] = [
         on: ["budget_law", "dv_laws"],
         instruction:
           "A budget law was promulgated: resolve its idMat, edit scripts/budget/fetch_sources.ts and re-verify the statutory constants.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "investment-annex-pdf",
         on: ["dv_investment_annex"],
         instruction:
           "Fetch the Приложение III PDF, add it to the SOURCES maps and run scripts/budget/investment_program/__write_program.ts.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "capital-programmes",
         on: ["capital_programs"],
         instruction:
           "Download each changed município's capital programme and run its scripts/budget/capital_programs/<muni>.ts parser (OCR pre-step for scan sources), then scripts/budget/capital_programs/__shrink_for_tile.ts.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "revenue-new-year",
@@ -131,7 +133,7 @@ export const BUDGET_MACRO: Handler[] = [
         on: ["minfin_program_otchet", "mfa_program_otchet"],
         instruction:
           "Backfill the new programme report and extend EXECUTION_REPORTS (WAF-blocked PDFs need a browser download into raw_data/budget/).",
-        blocks: "nothing",
+        blocks: "arm",
       },
     ],
     publish: {
@@ -144,6 +146,10 @@ export const BUDGET_MACRO: Handler[] = [
         "pnpm run db:load:agri-hub-stats:pg:cloud",
       ],
     },
+    never: [
+      "Re-seed a canary only on a confirmed upstream change.",
+      "Never loosen a policy-baseline tolerance to make it pass — fix the constant.",
+    ],
     changelog: "orchestrator",
     followUps: ["sector-stats"],
     outputs: ["data/budget", "data/budget_laws.json"],
@@ -151,6 +157,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-budget-municipal-fiscal",
     skill: "update-budget",
+    // Still delegated — FINDING-007: an ack without the МФ workbook would stamp the quarter; needs a done-check on the dropped files.
     runner: "skill",
     sources: ["municipal_fiscal_due"],
     needs: ["pg-local"],
@@ -193,7 +200,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-macro",
     skill: "update-macro",
-    runner: "skill",
+    runner: "script",
     sources: [
       "eurostat",
       "ec_budget_per_ms",
@@ -248,27 +255,27 @@ export const BUDGET_MACRO: Handler[] = [
         on: ["transparency_cpi"],
         instruction:
           "Paste the new TI CPI {year, value} into the TI_CPI constant in scripts/macro/fetch_eurostat.ts.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "eurobarometer-paste",
         on: ["eurobarometer"],
         instruction:
           "Read QA6 from the new Standard Eurobarometer and paste it into fetch_eurostat.ts.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "ec-budget-per-ms",
         on: ["ec_budget_per_ms"],
         instruction:
           "Read the EC per-member-state XLSX and patch EU_FUNDS / EU_CONTRIBUTION.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "eurobond-emission",
         on: ["minfin_eurobond"],
         instruction: "Hand-add the new emission to data/debt-emissions.json.",
-        blocks: "nothing",
+        blocks: "arm",
       },
     ],
     publish: {
@@ -299,7 +306,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-indicators",
     skill: "update-indicators",
-    runner: "skill",
+    runner: "script",
     sources: [
       "indicators_az",
       "indicators_mon_dzi",
@@ -320,6 +327,13 @@ export const BUDGET_MACRO: Handler[] = [
       },
     ],
     publish: { paths: ["indicators", "indicators.json"] },
+    gates: [
+      outputLacks(
+        "indicators-all-matched",
+        /, [1-9]\d* unmatched/,
+        "every unmatched municipality needs a scripts/indicators/sources/_name_aliases.json entry",
+      ),
+    ],
     changelog: "orchestrator",
     outputs: ["data/indicators", "data/indicators.json"],
   },
@@ -416,6 +430,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-social",
     skill: "update-social",
+    // Still delegated — FINDING-009: the verifiers re-check the curated year, so a NEW annual report passes unread.
     runner: "skill",
     // `eurostat` is NOT a source here: it moves almost daily, and routing it
     // would re-queue this whole handler every night. Its SILC step rides
@@ -441,12 +456,20 @@ export const BUDGET_MACRO: Handler[] = [
       },
     ],
     publish: { paths: ["social"] },
+    gates: [
+      outputLacks(
+        "social-curated-current",
+        /✗/,
+        "a curated figure no longer matches the source report — update data/social/*.json",
+      ),
+    ],
     changelog: "orchestrator",
     outputs: ["data/social"],
   },
   {
     id: "update-noi",
     skill: "update-noi",
+    // Still delegated — FINDING-008: TRY_YEARS stops at 2025, so --fetch cannot see a new year without a code edit.
     runner: "skill",
     sources: ["nssi_b1", "nssi_yearbook", "kfn_pensions"],
     steps: [
@@ -459,13 +482,15 @@ export const BUDGET_MACRO: Handler[] = [
         on: ["nssi_yearbook"],
       }),
     ],
-    agent: [
+    operator: [
       {
+        // The fetch IS this arm's ingest: until a human (or an agent) drops
+        // the files and acks, the derived step would re-run on old inputs.
         id: "noi-yearbook-and-kfn",
         on: ["nssi_yearbook", "kfn_pensions"],
         instruction:
-          "Fetch the new Yearbook_Pensions ZIP / locate the КФН statistics ZIP URL, then run the matching __write_*.ts.",
-        doc: ".claude/skills/update-noi/SKILL.md",
+          "Fetch the new Yearbook_Pensions ZIP / locate the КФН statistics ZIP URL, run the matching scripts/budget/{noi,kfn}/__write_*.ts, then `pnpm run pipeline:ack update-noi noi-yearbook-and-kfn`.",
+        blocks: "arm",
       },
     ],
     publish: { paths: ["budget"] },
@@ -475,7 +500,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-nzok",
     skill: "update-nzok",
-    runner: "skill",
+    runner: "script",
     sources: [
       "nzok_hospital_bmp",
       "nzok_drug_quarterly",
@@ -498,9 +523,15 @@ export const BUDGET_MACRO: Handler[] = [
         pnpm("db:load:nzok-hospital-map:pg"),
         { on: ["nzok_hospital_bmp"] },
       ),
-      ingest("data:nzok --drugs", pnpm("data:nzok", "--drugs"), {
-        on: ["nzok_drug_quarterly"],
-      }),
+      // `--drugs` writes drug_reimbursement.json only; the quarterly loader
+      // reads drug_quarterly.json, which only `--drug-quarterly` writes.
+      ingest(
+        "data:nzok --drugs",
+        pnpm("data:nzok", "--drugs", "--drug-quarterly"),
+        {
+          on: ["nzok_drug_quarterly"],
+        },
+      ),
       derive(
         "db:load:nzok-drug-quarterly:pg",
         pnpm("db:load:nzok-drug-quarterly:pg"),
@@ -535,8 +566,8 @@ export const BUDGET_MACRO: Handler[] = [
         id: "nzok-nrd-tariffs",
         on: ["nzok_nrd_tariffs"],
         instruction:
-          "A new НРД/amendment PDF: run write_pathway_tariffs.ts with --dump, check the parse by hand, then db:load:nzok-tariffs:pg.",
-        blocks: "nothing",
+          "A new НРД/amendment PDF: `pnpm exec tsx scripts/nzok/write_pathway_tariffs.ts --annex <pdf-url> --dump --nrd-year <Y>` (add --bgn before 2026), check the dump by hand, iterate with --from-dump, then `pnpm run db:load:nzok-tariffs:pg` and ack.",
+        blocks: "arm",
       },
     ],
     publish: {

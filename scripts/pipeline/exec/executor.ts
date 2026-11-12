@@ -419,15 +419,121 @@ export const expandChain = (
   return links.length > 1 ? links : null;
 };
 
+/** Test files a vitest run reported red: ` FAIL  |node| scripts/…test.ts > …`. */
+export const redTestFiles = (tail: string): string[] => [
+  ...new Set(
+    [...tail.matchAll(/^\s*FAIL\s+(?:\|[^|]+\|\s+)?(\S+\.test\.tsx?)\b/gm)].map(
+      (m) => m[1],
+    ),
+  ),
+];
+
+/** A step log's output lines without the runner's own framing: the `# …`
+ *  header/footer lines and the `HH:MM:SS.mmm [ !] ` prefix on every line. */
+export const logBody = (log: string): string =>
+  log
+    .split("\n")
+    .filter((l) => !l.startsWith("#"))
+    .map((l) => l.replace(/^\d\d:\d\d:\d\d\.\d{3} [ !] /, ""))
+    .join("\n");
+
+/** Promotion is safe only when vitest's own summary proves the parsed red
+ *  set is ALL that failed: its failed-file count equals the files found,
+ *  every file is accounted for (failed + passed + skipped = total), and no
+ *  error happened outside a test file (Unhandled Errors, a worker that died
+ *  and left a file unrun). Anything else stays failed. */
+export const redSetIsComplete = (output: string, parsed: number): boolean => {
+  if (/Unhandled Errors?|^\s*Errors\s+\d+ errors?/m.test(output)) return false;
+  const m = output.match(
+    /Test Files\s+(\d+) failed(?:\s*\|\s*(\d+) passed)?(?:\s*\|\s*(\d+) skipped)?\s*\((\d+)\)/,
+  );
+  if (!m) return false;
+  const [failed, passed, skipped, total] = [
+    m[1],
+    m[2] ?? "0",
+    m[3] ?? "0",
+    m[4],
+  ].map(Number);
+  return failed === parsed && failed + passed + skipped === total;
+};
+
+/** At most this many red files are re-run alone; more than that is not
+ *  flakiness under load, it is a broken suite. */
+export const MAX_SOLO_RERUNS = 10;
+
+/** `pnpm run test:data` — and any vitest step — is flaky under load: a data
+ *  gate that times out beside 15 concurrent workers passes alone (the repo's
+ *  standing rule: re-run a red file alone before believing it). A test step
+ *  that failed only on files that then pass solo counts as passed, with the
+ *  files named as a warning; anything else stays failed. */
+export const rerunRedTestsSolo = async (
+  o: StepOutcome,
+  spec: StepSpec,
+  ctx: RunContext,
+  soloCommand: (file: string) => string = (f) => `pnpm exec vitest run ${f}`,
+): Promise<StepOutcome[]> => {
+  const isTest = /\btest:data\b|\bvitest run\b|\btest:unit\b/.test(spec.run);
+  if (o.status !== "error" || !isTest || o.failure?.class !== "test-failed")
+    return [o];
+  // The FULL log, not the tail: with several failures the earlier FAIL
+  // headers scroll out of the last 120 lines, and a broken file must never
+  // be dropped from the re-run set because it printed early.
+  let output = o.tail;
+  try {
+    if (o.log)
+      output = logBody(fs.readFileSync(path.resolve(REPO, o.log), "utf8"));
+  } catch {
+    output = o.tail;
+  }
+  const files = redTestFiles(output);
+  if (!files.length || files.length > MAX_SOLO_RERUNS) return [o];
+  if (!redSetIsComplete(output, files.length)) return [o];
+  const reruns: StepOutcome[] = [];
+  for (const f of files) {
+    if (isInterrupted()) break;
+    reruns.push(
+      await runStep(
+        {
+          ...spec,
+          id: `${spec.id} › solo ${f}`,
+          run: soloCommand(f),
+          okExit: [],
+        },
+        ctx,
+        o.chainOf,
+      ),
+    );
+  }
+  if (reruns.length === files.length && reruns.every((r) => r.status === "ok"))
+    return [
+      {
+        ...o,
+        status: "ok",
+        failure: undefined,
+        result: {
+          ...o.result,
+          warnings: [
+            ...(o.result?.warnings ?? []),
+            `red under load, green alone: ${files.join(", ")}`,
+          ],
+        },
+      },
+      ...reruns,
+    ];
+  return [o, ...reruns];
+};
+
 /** Run a step; a `chain` step runs link by link, stopping at the first
  *  failure exactly as `&&` would, one log and one perf row per link. */
 export const runStepOrChain = async (
   spec: StepSpec & { kind?: "command" | "chain" },
   ctx: RunContext,
   scripts: Record<string, string>,
+  soloCommand?: (file: string) => string,
 ): Promise<StepOutcome[]> => {
   const links = spec.kind === "chain" ? expandChain(spec.run, scripts) : null;
-  if (!links) return [await runStep(spec, ctx)];
+  if (!links)
+    return rerunRedTestsSolo(await runStep(spec, ctx), spec, ctx, soloCommand);
   // The step's timeout is a budget for the WHOLE chain: each link gets what is
   // left of it, so an N-link chain cannot run N times its budget.
   const deadline = Date.now() + spec.timeoutMin * 60_000;
@@ -459,13 +565,15 @@ export const runStepOrChain = async (
       });
       break;
     }
-    const o = await runStep(
-      { ...spec, id, run: link, timeoutMin: leftMin },
+    const linkSpec = { ...spec, id, run: link, timeoutMin: leftMin };
+    const got = await rerunRedTestsSolo(
+      await runStep(linkSpec, ctx, spec.id),
+      linkSpec,
       ctx,
-      spec.id,
+      soloCommand,
     );
-    out.push(o);
-    if (o.status !== "ok") break;
+    out.push(...got);
+    if (got[0].status !== "ok") break;
   }
   return out;
 };

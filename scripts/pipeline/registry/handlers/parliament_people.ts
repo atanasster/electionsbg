@@ -2,13 +2,14 @@
 // person layer.
 
 import { derive, ingest, pnpm, tsx, verify } from "../build";
+import { at, len, noShrink } from "../gates";
 import type { Handler } from "../types";
 
 export const PARLIAMENT_PEOPLE: Handler[] = [
   {
     id: "update-rollcall",
     skill: "update-rollcall",
-    runner: "skill",
+    runner: "script",
     sources: ["parliament_votes"],
     needs: ["pg-local", "egress:non-bg"],
     steps: [
@@ -35,13 +36,35 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         "pnpm run db:load:rollcall-derived:pg:cloud",
       ],
     },
+    never: [
+      "Never raise --seated-tolerance to make a run pass — a tally mismatch is a parser bug.",
+    ],
+    knownFailures: [
+      {
+        match: /canary|tally|unknown vote code/i,
+        advice:
+          "parliament.bg changed a session page or a vote code: fix the parser in scripts/parliament/votes/.",
+      },
+    ],
+    gates: [
+      noShrink(
+        "rollcall-sessions",
+        "data/parliament/votes/index.json",
+        (j) => len(at(j, "sessions")),
+        0,
+      ),
+    ],
     changelog: "orchestrator",
-    outputs: ["data/parliament/votes", "data/parliament/bills"],
+    outputs: [
+      "data/parliament/votes",
+      "data/parliament/bills",
+      "tests/fixtures/parliament/votes",
+    ],
   },
   {
     id: "parliament-scrape",
     skill: "parliament-scrape",
-    runner: "skill",
+    runner: "script",
     sources: ["parliament_mps"],
     needs: ["pg-local", "egress:non-bg"],
     steps: [
@@ -62,6 +85,9 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     ],
     publish: {
       paths: ["parliament"],
+      // decorate_local_mp_links / rebuild_resolved rewrite the gitignored,
+      // bucket-only per-election candidates and per-cycle município trees.
+      dirsMatching: /^\d{4}_\d{2}_\d{2}(_mi|_chmi(_nov)?)?$/,
       cloud: ["pnpm run db:load:mp-roster:pg:cloud"],
     },
     changelog: "orchestrator",
@@ -128,6 +154,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
   {
     id: "update-connections",
     skill: "update-connections",
+    // Still delegated — FINDING-019: the >10% drop and `no MP match` checks are read by eye.
     runner: "skill",
     sources: ["cacbg_declarations", "bgpost_postcodes"],
     needs: ["pg-local"],
@@ -161,6 +188,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
   {
     id: "update-officials",
     skill: "update-officials",
+    // Still delegated — FINDING-012/019: the runbook's >20% rankings-drop and alias checks have no working gate yet.
     runner: "skill",
     sources: ["cacbg_officials", "cacbg_local"],
     needs: ["pg-local"],
@@ -297,7 +325,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         on: ["ofac_sanctions", "comdos_ds", "regulator_rosters"],
         instruction:
           "Verify the change at the official source and edit data/person/{sanctions,ds,regulators}.json by hand (defamation rules apply).",
-        blocks: "nothing",
+        blocks: "arm",
       },
     ],
     publish: {

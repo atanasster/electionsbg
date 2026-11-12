@@ -141,6 +141,12 @@ export interface Handler {
   stamp?: "runner" | "self";
   /** Post-step ids (registry/post_steps.ts) this handler triggers. */
   followUps?: readonly string[];
+  /** The runbook's troubleshooting table, as data: when a failed step's
+   *  output matches `match`, the repair packet quotes `advice`. */
+  knownFailures?: readonly { match: RegExp; advice: string }[];
+  /** Rules a fix must NOT break — quoted in every repair packet for this
+   *  handler (e.g. "never lower minimumYears"). */
+  never?: readonly string[];
   /** Assertions on what the handler produced (registry/gates.ts). A failed
    *  gate fails the handler: no stamp, publish held. */
   gates?: readonly import("./gates").Gate[];

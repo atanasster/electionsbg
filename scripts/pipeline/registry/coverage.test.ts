@@ -412,3 +412,55 @@ describe("selectPostSteps", () => {
     );
   });
 });
+
+describe("human-only arms", () => {
+  it("blocks the arm of every operator item that IS its source's ingest", () => {
+    // A source with no scoped ingest/verify step of its own is ingested only
+    // by the human: if that item does not block its arm, another arm's
+    // success stamps the marker and the human-only change never re-queues.
+    const loose = HANDLERS.filter((h) => h.runner !== "skill").flatMap((h) =>
+      (h.operator ?? [])
+        .filter((o) => o.on && o.blocks === "nothing")
+        .filter((o) =>
+          (o.on ?? []).some(
+            (src) =>
+              !h.steps.some(
+                (st) => st.phase !== "derive" && st.on?.includes(src),
+              ),
+          ),
+        )
+        .map((o) => `${h.id} › ${o.id}`),
+    );
+    expect(loose).toEqual([]);
+  });
+
+  it("gives every drop-a-file operator item on a script handler a done-check", () => {
+    // An ack says "I did it"; for a FILE DROP the file itself is the proof.
+    // Without a done-check, an ack with no file stamps work that never landed
+    // (the municipal-fiscal and FTS cases, which therefore stay delegated).
+    const unchecked = HANDLERS.filter((h) => h.runner === "script").flatMap(
+      (h) =>
+        (h.operator ?? [])
+          .filter((o) => o.dropDir && !o.done)
+          .map((o) => `${h.id} › ${o.id}`),
+    );
+    expect(unchecked).toEqual([]);
+  });
+
+  it("has no agent item standing in for a source's only ingest", () => {
+    const orphaned = HANDLERS.filter((h) => h.runner !== "skill").flatMap((h) =>
+      (h.agent ?? [])
+        .filter((a) => a.on)
+        .filter((a) =>
+          (a.on ?? []).some(
+            (src) =>
+              !h.steps.some(
+                (st) => st.phase !== "derive" && st.on?.includes(src),
+              ),
+          ),
+        )
+        .map((a) => `${h.id} › ${a.id}`),
+    );
+    expect(orphaned).toEqual([]);
+  });
+});

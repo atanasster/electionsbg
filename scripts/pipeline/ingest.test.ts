@@ -87,6 +87,7 @@ const sim = (
     writes?: Record<string, string[]>;
     gateValue?: number;
     throwOn?: "commit" | "postSteps";
+    dirs?: string[];
     manifestError?: string;
   } = {},
 ): Sim => {
@@ -161,7 +162,9 @@ const sim = (
       s.manifests.push(m);
       return { ok: true };
     },
-    dataDirsTouched: () => [],
+    dataDirsTouched: () => opts.dirs ?? [],
+    filesWrittenSince: (paths) =>
+      [...tree.keys()].filter((f) => paths.some((p) => f.startsWith(p + "/"))),
     snapshotBaselines: () => new Map(),
     gateCtx: (output) => ({
       output,
@@ -524,6 +527,32 @@ describe("review fixes", () => {
     const out = await runIngest(s.deps, { session: "s", perfDir: PERF_TMP });
     expect(s.commits[0].exclude).toContain("data/a/theirs.json");
     expect(out.exitCode).toBe(4);
+  });
+});
+
+describe("dirsMatching", () => {
+  it("commits and publishes exactly the files the handler wrote into a matched folder", async () => {
+    const h = H({
+      id: "update-financing",
+      outputs: ["data/financing"],
+      publish: { paths: ["financing"], dirsMatching: /^\d{4}_\d{2}_\d{2}$/ },
+    });
+    const s = sim([h], {
+      dirs: ["2026_04_19"],
+      writes: {
+        "pnpm run update-financing:fetch": [
+          "data/financing/index.json",
+          "data/2026_04_19/parties/financing.json",
+        ],
+      },
+    });
+    await runIngest(s.deps, { session: "s", perfDir: PERF_TMP });
+    expect(s.commits[0].paths).toContain(
+      "data/2026_04_19/parties/financing.json",
+    );
+    // The folder itself is never a pathspec: other work may live there.
+    expect(s.commits[0].paths).not.toContain("data/2026_04_19");
+    expect(lastManifest(s).paths).toEqual(["financing", "2026_04_19"]);
   });
 });
 

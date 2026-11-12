@@ -106,6 +106,13 @@ export interface IngestDeps {
   ) => WriteResult;
   /** Top-level data/ entries matching `re` modified at or after `sinceMs`. */
   dataDirsTouched: (re: RegExp, sinceMs: number) => string[];
+  /** Files under `paths` that differ from `sinceSha` AND were modified at or
+   *  after `sinceMs` — what a run wrote into a folder it does not own. */
+  filesWrittenSince: (
+    paths: readonly string[],
+    sinceSha: string | null,
+    sinceMs: number,
+  ) => string[];
   snapshotBaselines: (gates: readonly Gate[]) => Map<string, unknown>;
   gateCtx: (output: string, baselines: Map<string, unknown>) => GateCtx;
   lock: (session: string) => {
@@ -169,6 +176,9 @@ interface Succeeded {
   entry: PlanEntry;
   handler: Handler;
   dirs: string[];
+  /** Tracked files the handler wrote inside `dirs` — committed one by one,
+   *  never the whole folder (other work may live there). */
+  dirFiles: string[];
 }
 
 export const runIngest = async (
@@ -464,7 +474,18 @@ export const runIngest = async (
           unit.stamped = true;
           settle("ok");
         }
-        if (h.changelog === "orchestrator" && wrote.length)
+        const dirs = h.publish?.dirsMatching
+          ? deps.dataDirsTouched(h.publish.dirsMatching, startedMs)
+          : [];
+        const dirFiles = dirs.length
+          ? deps.filesWrittenSince(
+              dirs.map((d) => `data/${d}`),
+              headBefore,
+              startedMs,
+            )
+          : [];
+        unit.filesChanged = [...wrote, ...dirFiles];
+        if (h.changelog === "orchestrator" && unit.filesChanged.length)
           deps.appendChange({
             skill: h.skill ?? h.id,
             summary: unit.summary,
@@ -473,10 +494,7 @@ export const runIngest = async (
               .join("; "),
           });
         for (const a of entry.agent) rec.needsAgent.push({ unit: h.id, ...a });
-        const dirs = h.publish?.dirsMatching
-          ? deps.dataDirsTouched(h.publish.dirsMatching, startedMs)
-          : [];
-        succeeded.push({ entry, handler: h, dirs });
+        succeeded.push({ entry, handler: h, dirs, dirFiles });
         // Durable promise first: a stamped marker's work is on the manifest
         // before anything else can go wrong.
         writeManifest(manifestFor());
@@ -554,7 +572,10 @@ export const runIngest = async (
       const runFolder = path.relative(REPO, runDir(session));
       const commitPathspec = [
         ...new Set([
-          ...succeeded.flatMap((s) => s.handler.outputs ?? []),
+          ...succeeded.flatMap((s) => [
+            ...(s.handler.outputs ?? []),
+            ...s.dirFiles,
+          ]),
           ...postOk.flatMap((p) => p.outputs ?? []),
           ...BOOKKEEPING,
           runFolder,

@@ -87,3 +87,22 @@ describe("outputSignatureIn", () => {
     ]);
   });
 });
+
+describe("knownAdvice", () => {
+  it("quotes only the advice whose pattern matches this failure", async () => {
+    const { knownAdvice } = await import("./ingest_wiring");
+    const h = {
+      knownFailures: [
+        { match: /canary/i, advice: "fix the parser" },
+        { match: /403/, advice: "re-run later" },
+      ],
+    };
+    expect(
+      knownAdvice(h, { firstError: "canary mismatch for 2026-10" }),
+    ).toEqual(["Known failure for this handler: fix the parser"]);
+    expect(
+      knownAdvice(h, { failure: { evidence: "HTTP 403 from data.egov.bg" } }),
+    ).toEqual(["Known failure for this handler: re-run later"]);
+    expect(knownAdvice(undefined, { firstError: "x" })).toEqual([]);
+  });
+});

@@ -2,7 +2,7 @@
 // sources. The purely manual sources live at the foot of this file.
 
 import { derive, ingest, pnpm, scopeList, tsx, verify } from "../build";
-import { at, jsonNumber, len, noShrink } from "../gates";
+import { at, jsonNumber, len, noShrink, outputLacks } from "../gates";
 import type { Handler } from "../types";
 
 /** A source that maps to exactly one fetch script and one bucket path. */
@@ -37,7 +37,7 @@ export const SECTORS_LOCAL: Handler[] = [
   {
     id: "update-financing",
     skill: "update-financing",
-    runner: "skill",
+    runner: "script",
     sources: ["smetna_palata", "financing_reports", "erik_campaign_financing"],
     steps: [
       ingest(
@@ -66,13 +66,19 @@ export const SECTORS_LOCAL: Handler[] = [
         blocks: "nothing",
       },
     ],
-    publish: { paths: ["financing"] },
+    // `data --erik --financing` writes data/<election>/parties/**: tracked
+    // AND bucket-served. The runner commits the files there this run wrote.
+    publish: { paths: ["financing"], dirsMatching: /^\d{4}_\d{2}_\d{2}$/ },
+    never: [
+      "Never lower minimumYears — a missing year is a parser or register change to fix.",
+    ],
     changelog: "orchestrator",
     outputs: ["data/financing"],
   },
   {
     id: "update-judiciary",
     skill: "update-judiciary",
+    // Still delegated — FINDING-013: the high-value spot-check against the source PDFs is mandatory before commit.
     runner: "skill",
     sources: ["vss_court_statistics", "ivss_declarations"],
     needs: ["pg-local"],
@@ -141,7 +147,7 @@ export const SECTORS_LOCAL: Handler[] = [
   {
     id: "update-defense",
     skill: "update-defense",
-    runner: "skill",
+    runner: "script",
     sources: ["nato_defexp", "mod_defense_report", "moe_arms_exports"],
     steps: [
       ingest("defense:write_nato", tsx("scripts/defense/__write_nato.ts"), {
@@ -154,14 +160,14 @@ export const SECTORS_LOCAL: Handler[] = [
         on: ["moe_arms_exports"],
         instruction:
           "Read the Ministry of Economy export-control report and hand-edit data/defense/exports.json.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "defense-readiness-read",
         on: ["mod_defense_report"],
         instruction:
           "pdftotext the МО state-of-defence report and hand-edit data/defense/readiness.json.",
-        blocks: "nothing",
+        blocks: "arm",
       },
     ],
     publish: { paths: ["defense"] },
@@ -171,6 +177,7 @@ export const SECTORS_LOCAL: Handler[] = [
   {
     id: "update-culture",
     skill: "update-culture",
+    // Still delegated — FINDING-010: the NFC_FILES year map is hand-kept and the ingest re-parses cached files.
     runner: "skill",
     sources: [
       "nfc_film_register",
@@ -197,14 +204,14 @@ export const SECTORS_LOCAL: Handler[] = [
         on: ["ncf_grant_results"],
         instruction:
           "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "nfc-commissions-transcribe",
         on: ["nfc_commissions"],
         instruction:
           "Read the order PDF, hand-edit the 21 members and the mandate window, run scripts/culture/write_commissions.ts.",
-        blocks: "nothing",
+        blocks: "arm",
       },
       {
         id: "dki-reconciliation-ruling",
@@ -215,6 +222,21 @@ export const SECTORS_LOCAL: Handler[] = [
       },
     ],
     publish: { paths: ["culture"] },
+    gates: [
+      outputLacks(
+        "culture-eik-linking",
+        /producer→EIK linking SKIPPED/,
+        "films kept the previous EIKs — Postgres was not reachable",
+        ["nfc_film_register"],
+      ),
+      noShrink(
+        "culture-films",
+        "data/culture/films.json",
+        (j) => len(at(j, "films")),
+        2,
+        ["nfc_film_register"],
+      ),
+    ],
     changelog: "orchestrator",
     followUps: ["culture-hub-stats"],
     outputs: ["data/culture"],
@@ -240,7 +262,7 @@ export const SECTORS_LOCAL: Handler[] = [
   {
     id: "update-landuse",
     skill: "update-landuse",
-    runner: "skill",
+    runner: "script",
     sources: ["nsi_landuse"],
     steps: [ingest("landuse:fetch", tsx("scripts/landuse/fetch.ts"))],
     // Runbook: 28 oblasts, and the national category percentages sum to
@@ -276,7 +298,7 @@ export const SECTORS_LOCAL: Handler[] = [
       {
         id: "landuse-report-url",
         instruction:
-          "Find the new land-use PDF URL on nsi.bg and append it to LANDUSE_REPORTS in scripts/landuse/sources.ts.",
+          "Find the new land-use PDF URL on nsi.bg and append it to LANDUSE_REPORTS in scripts/landuse/sources.ts. For a same-year CORRECTION instead, re-run `pnpm exec tsx scripts/landuse/fetch.ts --refresh` first (without it the cached PDF is re-parsed). Then ack.",
         blocks: "handler",
       },
     ],
@@ -347,6 +369,7 @@ export const SECTORS_LOCAL: Handler[] = [
   {
     id: "update-transparency-lisi",
     skill: "update-transparency-lisi",
+    // Still delegated — FINDING-018: unmatched names pass and the hand-edited script must be committed.
     runner: "skill",
     sources: ["ti_bg_lisi"],
     steps: [derive("build_lisi", tsx("scripts/transparency/build_lisi.ts"))],
@@ -527,7 +550,7 @@ export const SECTORS_LOCAL: Handler[] = [
   {
     id: "update-council-minutes",
     skill: "update-council-minutes",
-    runner: "skill",
+    runner: "script",
     sources: ["council_minutes"],
     needs: ["pg-local", "bin:pdftotext", "bin:unzip"],
     // The loader re-attaches council_vote.person_id, so it follows a resolve.
@@ -543,6 +566,18 @@ export const SECTORS_LOCAL: Handler[] = [
       ),
     ],
     publish: { cloud: ["pnpm run db:load:council:pg:cloud"] },
+    knownFailures: [
+      {
+        match: /refus\w* to (?:prune|shrink)/,
+        advice:
+          "A município lost protocols: find out why (recipe rot, an IP block — curl first) before any scoped --allow-prune / --allow-shrink.",
+      },
+      {
+        match: /attribution/i,
+        advice:
+          "Attribution fell below the floor: the councillor-name folds have drifted (councilNameKey must be the only fold).",
+      },
+    ],
     changelog: "orchestrator",
     outputs: ["data/council", "state/ingest"],
   },

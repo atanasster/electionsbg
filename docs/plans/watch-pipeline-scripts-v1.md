@@ -431,6 +431,20 @@ troubleshooting table to `knownFailures`. Specific glue already identified:
   and gate on "rows written > 0 or source unchanged" so a dry-run exit 0 cannot stamp;
 - kzk: needs `headed` + `egress:bg`; planned as `blocked` otherwise, never attempted.
 
+**Tier 3 as built (2026-11-12).** Flipped to `runner: "script"`: parliament-scrape,
+update-rollcall, kzk_appeals, kzk_decisions, update-funds, update-macro, update-indicators,
+update-nzok, update-financing, update-defense, update-landuse, update-council-minutes, plus
+every handler that was a script from the start. Each human-only arm is an operator item with
+`blocks: "arm"`, so its source stays unstamped until `pipeline:ack`. Twelve handlers were
+flipped and then put BACK under the agent after review, because a scripted run would exit 0
+without ingesting the new period and still stamp: update-budget, update-budget-municipal-fiscal,
+update-noi, update-social, update-culture, update-officials, update-connections,
+update-judiciary, update-procurement, update-agri, db-load-ngo-funding,
+update-transparency-lisi. Each carries the reason in its registry entry; each is a Tier 4 item
+(a done-check, a discovery scraper, or a gate that can actually fail). Still delegated from
+the start: update-polls, mon_ri_register, update-local-elections and
+update-presidential-elections (the last two wait for structured watcher scope, Tier 5).
+
 **Tier 4 — PARTIAL handlers.**
 Split each into automated arm + `OperatorStep` with a done-check. Where a judgment
 step is really "find a URL" (landuse, ВСС tables, НФК grants, КФН ZIP), write the

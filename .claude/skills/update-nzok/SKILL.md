@@ -19,7 +19,7 @@ Refreshes `data/budget/nzok/` — the data behind the **health sector pack** on 
 | Trigger | Action |
 |---|---|
 | Watcher flags `nzok_hospital_bmp` changed (new monthly hospital-payments PDF) | `pnpm run data:nzok --hospitals` |
-| Watcher flags `nzok_drug_quarterly` changed (new quarter / annual drug XLS) | `pnpm run data:nzok --drugs` |
+| Watcher flags `nzok_drug_quarterly` changed (new quarter / annual drug XLS) | `pnpm run data:nzok --drugs --drug-quarterly` — `--drugs` alone writes only `drug_reimbursement.json`; `drug_quarterly.json` (what `db:load:nzok-drug-quarterly:pg` reads) needs `--drug-quarterly` |
 | Watcher flags `nzok_execution_b1` changed (new monthly B1 execution XLS) | `pnpm run data:nzok --execution` |
 | Two or three flagged together | `pnpm run data:nzok` (runs all steps) |
 | User asks "refresh НЗОК / health-fund data" | `pnpm run data:nzok` |

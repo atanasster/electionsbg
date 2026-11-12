@@ -1,11 +1,19 @@
 // Procurement (АОП / ЦАИС ЕОП / КЗК), EU funds, open calls, farm subsidies.
 
 import { currentYear, derive, ingest, pnpm, tsx, verify } from "../build";
+import { outputLacks } from "../gates";
 import type { Handler } from "../types";
 
 const PROC_MAIN = ["egov_procurement", "eop_procurement"] as const;
 const FUNDS_MAIN = ["isun_eu_funds", "isun_eu_funds_projects"] as const;
 
+// kzk_appeals runs only the intake-side gates: kzk_decisions.data.test.ts
+// asserts the MERITS register's newest act is loaded, which only the
+// kzk_decisions handler (running after this one) can make true — so running
+// it here would fail the intake whenever the merits arm moved, and block both.
+const KZK_INTAKE_GATES =
+  "pnpm exec vitest run scripts/db/tests/kzk_appeals_provenance.data.test.ts " +
+  "scripts/db/tests/kzk_suspension.data.test.ts";
 const KZK_GATES =
   "pnpm exec vitest run scripts/db/tests/kzk_decisions.data.test.ts " +
   "scripts/db/tests/kzk_appeals_provenance.data.test.ts " +
@@ -15,6 +23,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
   {
     id: "update-procurement",
     skill: "update-procurement",
+    // Still delegated — FINDING-014: the ≥1B review, the new-buyer geo chain and the reopened-АОП-experts framing are judgment steps.
     runner: "skill",
     sources: [
       "egov_procurement",
@@ -172,6 +181,27 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         { run: "pnpm run db:load:aop-experts:pg:cloud", on: ["aop_experts"] },
       ],
     },
+    never: [
+      "Re-seed a canary only on a CONFIRMED upstream change, never to make a run pass.",
+      "Never pass --allow-shrink without finding out why the source shrank.",
+    ],
+    knownFailures: [
+      {
+        match: /canary/i,
+        advice:
+          "The АОП / ЦАИС feed changed shape: fix the parser and re-seed its fixture from the new upstream.",
+      },
+      {
+        match: /Unrecogni[sz]ed\w*Error/,
+        advice:
+          "An OCDS label the parser does not know: add it to the label table — an unreadable label must throw, never map to a guess.",
+      },
+      {
+        match: /\b403\b/,
+        advice:
+          "data.egov.bg answered 403: not a dead portal; the geo merge keeps the previous tier — re-run later.",
+      },
+    ],
     changelog: "orchestrator",
     followUps: [
       "funds-political-links",
@@ -191,7 +221,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
   {
     id: "kzk_appeals",
     skill: "update-kzk-appeals",
-    runner: "skill",
+    runner: "script",
     sources: ["kzk_appeals"],
     needs: ["pg-local", "headed", "egress:bg"],
     steps: [
@@ -199,7 +229,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         args: (ctx) => ["--year", currentYear(ctx), "--apply"],
         timeoutMin: 60,
       }),
-      verify("kzk:gates", KZK_GATES),
+      verify("kzk:gates", KZK_INTAKE_GATES),
       derive("kzk:summary", pnpm("kzk:summary")),
     ],
     publish: {
@@ -210,6 +240,20 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         },
       ],
     },
+    never: [
+      "Never lower the kzk_baselines ratchet.",
+      "Never overwrite a hand-seeded outcome (decision_act_no IS NULL).",
+    ],
+    gates: [
+      outputLacks(
+        "kzk-gates-armed",
+        /\bDISARMED\b/,
+        // Catches gates that announce through report_skip (stderr). Gates that
+        // only console.warn are swallowed by vitest's reporter and stay
+        // invisible here — a gap in those tests, not in this gate.
+        "a disarmed data gate proves nothing — its input is missing",
+      ),
+    ],
     changelog: "orchestrator",
     followUps: ["procurement-hub-stats"],
     outputs: ["data/procurement"],
@@ -220,7 +264,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
   {
     id: "kzk_decisions",
     skill: "update-kzk-appeals",
-    runner: "skill",
+    runner: "script",
     sources: ["kzk_decisions"],
     needs: ["pg-local", "headed", "egress:bg"],
     after: ["kzk_appeals"],
@@ -241,6 +285,20 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         "pnpm run kzk:rejoin:cloud --apply",
       ],
     },
+    never: [
+      "Never lower the kzk_baselines ratchet.",
+      "Never overwrite a hand-seeded outcome (decision_act_no IS NULL).",
+    ],
+    gates: [
+      outputLacks(
+        "kzk-gates-armed",
+        /\bDISARMED\b/,
+        // Catches gates that announce through report_skip (stderr). Gates that
+        // only console.warn are swallowed by vitest's reporter and stay
+        // invisible here — a gap in those tests, not in this gate.
+        "a disarmed data gate proves nothing — its input is missing",
+      ),
+    ],
     changelog: "orchestrator",
     followUps: ["procurement-hub-stats"],
     outputs: ["data/procurement"],
@@ -286,7 +344,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
   {
     id: "update-funds",
     skill: "update-funds",
-    runner: "skill",
+    runner: "script",
     sources: [
       "isun_eu_funds",
       "isun_eu_funds_projects",
@@ -313,10 +371,6 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       verify("funds:parity", tsx("scripts/db/gen_funds/parity.ts", "--full"), {
         on: FUNDS_MAIN,
       }),
-      ingest("funds:crawl-interreg", pnpm("funds:crawl-interreg", "--full"), {
-        on: ["keep_eu_interreg"],
-        timeoutMin: 200,
-      }),
       ingest("funds:ingest-interreg", pnpm("funds:ingest-interreg"), {
         on: ["keep_eu_interreg"],
       }),
@@ -334,6 +388,17 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       derive("db:load:clean-delivery:pg", pnpm("db:load:clean-delivery:pg"), {
         on: ["isun_clean_delivery"],
       }),
+    ],
+    operator: [
+      {
+        // The crawl is rate-limited against keep.eu and operator-run (probe
+        // first with --index-only --max-pages 1); never an unattended step.
+        id: "interreg-crawl",
+        on: ["keep_eu_interreg"],
+        instruction:
+          "Probe with `pnpm run funds:crawl-interreg --index-only --max-pages 1`; if healthy run `pnpm run funds:crawl-interreg --full` (~2 h), then ack — the ingest and loads run on the next pipeline run.",
+        blocks: "arm",
+      },
     ],
     publish: {
       cloud: [
@@ -356,6 +421,13 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         },
       ],
     },
+    knownFailures: [
+      {
+        match: /Request Rejected/,
+        advice:
+          "The ИСУН F5 refused the client: it rejects node's TLS fingerprint and any Referer — fetch through curl without a Referer, or hand-download and pass --file.",
+      },
+    ],
     changelog: "orchestrator",
     followUps: ["roads-hub-stats", "water-hub-stats", "transport-hub-stats"],
     outputs: ["data/funds", "data/roads", "data/water", "data/transport"],
@@ -399,6 +471,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
   {
     id: "update-agri",
     skill: "update-agri",
+    // Still delegated — FINDING-016: a new egov year must be promoted by hand and there is no FY sanity gate yet.
     runner: "skill",
     sources: ["dfz_subsidies"],
     needs: ["pg-local"],
@@ -426,11 +499,15 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         "pnpm run db:load:tr-company-place:pg:cloud",
       ],
     },
+    never: [
+      "Never promote an 18-column СЕУ-layout year into AGRI_YEAR_RESOURCES — it carries no ЕИК.",
+    ],
     changelog: "orchestrator",
     outputs: [],
   },
   {
     id: "db-load-ngo-funding",
+    // Still delegated — FINDING-017: an ack without the FTS XLSX truncates ~65% of the corpus; needs a done-check.
     runner: "skill",
     sources: ["ec_fts"],
     needs: ["pg-local"],

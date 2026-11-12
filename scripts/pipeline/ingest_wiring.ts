@@ -90,6 +90,24 @@ export const outputSignatureIn = (
   return out;
 };
 
+/** Files under `paths` that differ from `sinceSha` and were modified at or
+ *  after `sinceMs`. */
+export const filesWrittenSinceIn = (
+  paths: readonly string[],
+  sinceSha: string | null,
+  sinceMs: number,
+  repo: string = REPO,
+): string[] =>
+  differingFrom(sinceSha, paths, repo)
+    .filter((f) => {
+      try {
+        return fs.statSync(path.join(repo, f)).mtimeMs >= sinceMs;
+      } catch {
+        return false; // deleted: not something this run wrote
+      }
+    })
+    .sort();
+
 /** Merge into the pending manifest — but never over one that does not parse:
  *  `readPending()` returns null for both "absent" and "corrupt", and writing
  *  in the second case would silently drop an earlier run's unpublished work. */
@@ -106,6 +124,22 @@ export const writeManifestSafely = (
   writePending(mergeManifest(existing, m), file);
   return { ok: true };
 };
+
+/** The handler's known-failure advice whose pattern matches this failure's
+ *  first error line or the line the classifier matched. */
+export const knownAdvice = (
+  h:
+    | { knownFailures?: readonly { match: RegExp; advice: string }[] }
+    | undefined,
+  step: { firstError?: string; failure?: { evidence?: string } },
+): string[] =>
+  (h?.knownFailures ?? [])
+    .filter((k) =>
+      [step.firstError, step.failure?.evidence].some(
+        (t) => !!t && k.match.test(t),
+      ),
+    )
+    .map((k) => `Known failure for this handler: ${k.advice}`);
 
 export const realIngestDeps = (
   scripts: Record<string, string>,
@@ -154,6 +188,8 @@ export const realIngestDeps = (
     generatedPaths: (files) =>
       generatedPathsTouched(files, publishedArtifacts()),
     writeManifest: (m) => writeManifestSafely(m),
+    filesWrittenSince: (paths, sha, since) =>
+      filesWrittenSinceIn(paths, sha, since),
     dataDirsTouched: (re, since) =>
       dataDirsTouchedIn(path.join(REPO, "data"), re, since),
     snapshotBaselines: (gates) => snapshotBaselines(gates),
@@ -173,11 +209,15 @@ export const realIngestDeps = (
               detail: watchState.get(s)?.detail,
               meta: watchState.get(s)?.meta,
             })),
-            guidance: h?.skill
-              ? [
-                  `The runbook for this handler: .claude/skills/${h.skill}/SKILL.md (troubleshooting section).`,
-                ]
-              : [],
+            guidance: [
+              ...knownAdvice(h, step),
+              ...(h?.skill
+                ? [
+                    `The runbook for this handler: .claude/skills/${h.skill}/SKILL.md (troubleshooting section).`,
+                  ]
+                : []),
+            ],
+            never: [...(h?.never ?? [])],
             stateLeft: [
               h
                 ? `Marker state/ingest/${h.marker ?? h.id}.json was NOT stamped${h.stamp === "self" ? " (restored to its pre-run copy)" : ""} — the handler re-queues on the next run.`
