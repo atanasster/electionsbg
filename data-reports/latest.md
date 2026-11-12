@@ -1,19 +1,14 @@
-# Watch report — 2026-11-11 (12.11.2026 г., 01:04 Europe/Sofia)
+# Watch report — 2026-11-12 (13.11.2026 г., 00:41 Europe/Sofia)
 
 ## Changed
-- **Parliament roll-call votes**: 1 new roll-call session(s) since 2026-11-07 (latest: 2026-11-11)
-- **data.egov.bg Commerce Registry (Търговски регистър)**: 4 new resource(s) on top: 48f6dccd-95cf-42af-ba5f-5e45167ae9e5, cda80d1c-e396-47b5-9fa9-4a67eac68a2f, 0f3a19d9-e93c-4de2-8452-762fb5c4575a
-- **ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)**: 3 new publication day(s) (latest 2026-11-10) — run the incremental EOP gap-fill + geo refresh in /update-procurement
-- **ИСУН — отворени процедури**: 48 отворени · 0 за обсъждане (4 затворени)
-- **Eurostat macro (BG): 29 datasets**: new release · bop_fdi6_flow 2026-11-11T11:00:00+0100, nama_10_gdp 2026-11-11T23:00:00+0100, nama_10_lp_ulc 2026-11-11T23:00:00+0100, namq_10_a10 2026-11-11T23:00:00+0100, namq_10_gdp 2026-11-11T23:00:00+0100, sts_inpr_q 2026-11-11T11:00:00+0100, sts_trtu_m 2026-11-11T11:00:00+0100
-- **Eurostat rail (BG): жп пътници (rail_pa_total)**: Eurostat rail_pa_total republished (was 2026-09-29T23:00:00+0200) — run `pnpm exec tsx scripts/transport/fetch_rail_ridership.ts` to refresh the /sector/transport/money rail subsidy-per-passenger tile, then `pnpm run bucket:sync:paths transport/rail_ridership.json`
-- **TED — обявления за България (api.ted.europa.eu)**: 347 new BG notices (25,525 this year)
-- **Council resolutions + vote tallies**: periodic safety re-check (no count change) · 16 município(s) wired, 869 session-link(s) total · 1 fetch error(s)
-- **КЗП Колко струва (retail prices, kolkostruva.bg)**: new daily price archive: 2026-11-11 (was 2026-11-08)
+- **data.egov.bg Commerce Registry (Търговски регистър)**: 1 new resource(s) on top: 0f5d785a-3f88-4401-b3be-95ea0a47fafd
+- **ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)**: 1 new publication day(s) (latest 2026-11-11) — run the incremental EOP gap-fill + geo refresh in /update-procurement
+- **МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение**: IPOP CSV re-uploaded — re-run `tsx scripts/budget/ipop/ingest.ts`
+- **Eurostat macro (BG): 29 datasets**: new release · gov_10q_ggdebt 2026-11-12T23:00:00+0100, ilc_di12 2026-11-12T23:00:00+0100
+- **Council resolutions + vote tallies**: periodic safety re-check (no count change) · 16 município(s) wired, 869 session-link(s) total · 4 fetch error(s)
+- **КЗП Колко струва (retail prices, kolkostruva.bg)**: new daily price archive: 2026-11-12 (was 2026-11-11)
 
 ## Unchanged
-- АОП — исторически списък с външни експерти по отм. чл. 232а, ал. 2 ЗОП (aop.bg): unchanged (92 expert(s) — register closed since 2023-01-01)
-- Parliament MPs (active roster): unchanged (52-ро Народно събрание — 240 MPs)
 - Курирани решения за идентичност на лица: unchanged (2 audited person identity decision(s))
 - BG Wikipedia polls (cross-check only): unchanged (115 parliamentary + 19 presidential poll table rows)
 - Polls — Тренд (rctrend.bg): unchanged (no new electoral publications (newest id 213033))
@@ -30,8 +25,9 @@
 - МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo): unchanged (4512 institutions)
 - Interreg — трансгранични покани: unchanged (31 покани от 5 програми · недостъпни: interreg-bsb)
 - АХУ — конкурси за финансиране (хора с увреждания): unchanged (7 конкурса за финансиране на страницата с новини)
-- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК): unchanged (бр. 102 от 2026-11-10 · 14 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени · неинспектирани броеве: 100)
-- МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение: unchanged (IPOP CSV sample 32768B · hash 279615bcf51261f9)
+- ИСУН — отворени процедури: unchanged (48 отворени · 0 за обсъждане)
+- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК): unchanged (бр. 103 от 2026-11-13 · 20 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени · неинспектирани броеве: 100)
+- State Budget Law promulgation (minfin, via Wayback): unchanged (45 budget-law file(s) cached · latest FY 2025)
 - AZ (Агенция по заетостта): annual unemployment reviews: unchanged (18 annual reviews · latest 2025)
 - МОН: ДЗИ резултати (data.egov.bg): unchanged (10 resources)
 - МОН: НВО 7. клас резултати (data.egov.bg): unchanged (9 resources)
@@ -40,12 +36,13 @@
 - НСИ: Баланс на територията (LANDUSE annex): unchanged (1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година)
 - НСИ: Население с водни услуги / воден режим (Ecology_9.8): unchanged (15 years · latest 2024)
 - ГРАО: население по постоянен и настоящ адрес (по населени места): unchanged (2026-09-15 · 505573 bytes)
-- CIK local-elections results bundles: unchanged (0/2 regular bundle(s) reachable · 15 partial cycle(s) tracked)
-- ЦИК presidential-elections results bundles: unchanged (5 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle)
+- TED — обявления за България (api.ted.europa.eu): unchanged (25,635 BG notices published this year)
+- Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1): unchanged (PLI updated 2026-07-09T23:00:00+0200)
 - Procurement scope windows (calendar / election rollover): unchanged (16 year window(s) 2011..2026 + 13 election window(s) (+ all))
 
 ## Skipped (off-cadence)
 - АДФИ — доклади от финансови инспекции (adfi.minfin.bg) (weekly): 2,191 inspection reports listed · next check 2026-11-13
+- АОП — исторически списък с външни експерти по отм. чл. 232а, ал. 2 ЗОП (aop.bg) (weekly): 92 expert(s) — register closed since 2023-01-01 · next check 2026-11-17
 - ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg) (weekly): contracts=407 · beneficiaries=1411 page(s) of 25 · next check 2026-11-13
 - OFAC SDN — Bulgaria-linked designations (sanctions facet) (weekly): 92 Bulgaria-linked SDN row(s) · next check 2026-11-13
 - Комисия по досиетата (comdos.bg) — решения (ДС facet) (monthly): 20 решение(я) on the comdos.bg archive · next check 2026-11-18
@@ -74,7 +71,7 @@
 - Доклад за състоянието на администрацията (IISDA) (weekly): 1 report(s) 2025–2025, hash 72e9a235091a22c5 · next check 2026-11-13
 - Административен регистър — услуги (IISDA) (weekly): 2674 services across 4 tiers, hash e42c76615e995998 · next check 2026-11-13
 - Eurostat e-government (isoc_ciegi_ac) (monthly): isoc_ciegi_ac updated 2026-04-17T11:00:00+0200 · next check 2026-12-07
-- Eurostat digital skills (isoc_sk_dskl_i21) (monthly): isoc_sk_dskl_i21 updated 2026-04-17T11:00:00+0200 · next check 2026-11-11
+- Eurostat digital skills (isoc_sk_dskl_i21) (monthly): isoc_sk_dskl_i21 updated 2026-04-17T11:00:00+0200 · next check 2026-12-11
 - Агенция "Митници" — Митническа хроника annual reports (weekly): 4 report(s) tracked · latest 2025 · hash 9fb6d66edb03d199 · next check 2026-11-13
 - Агенция "Митници" — регистър на лицензираните акцизни складодържатели (monthly): 809 licences (357 active) · hash f8c0bc020b74b4c4 · next check 2026-12-06
 - НАП — Годишен отчет за дейността (weekly): 1 report(s) tracked · latest 2024 · hash 516ba7f51998b8d1 · next check 2026-11-13
@@ -101,12 +98,14 @@
 - Фискален съвет — publications (weekly): 15 publication(s) · latest: efekt-ot-poskypvane-na-petrola-vyrhu-cenite-v-bulgaria-analiz-na-liubomir-dacov · next check 2026-11-13
 - АПИ — годишни приходи от пътни такси (винетки + тол) (weekly): АПИ road-charge revenue: latest FY2025 (no revenue press release on the front page) · next check 2026-11-13
 - Eurostat regional (BG): 5 NUTS3 datasets (monthly): 5 datasets · latest update 2026-07-21T23:00:00+0200 · next check 2026-12-06
-- Eurostat environment (BG): рециклиране на отпадъци (cei_wm011) (monthly): cei_wm011 · update 2026-03-30T23:00:00+0200 · next check 2026-11-11
+- Eurostat rail (BG): жп пътници (rail_pa_total) (monthly): rail_pa_total · update 2026-10-29T23:00:00+0100 · next check 2026-12-10
+- Eurostat environment (BG): рециклиране на отпадъци (cei_wm011) (monthly): cei_wm011 · update 2026-10-15T11:00:00+0200 · next check 2026-12-11
 - НСИ regional open-data (BG): 4 oblast datasets (monthly): 4 datasets · latest update 2026-10-06T11:00:00 · next check 2026-12-04
 - EC EU budget per-MS spreadsheet (BG receipts/contributions) (weekly): BG receipts/contributions XLSX · years 2000-2025 · next check 2026-11-13
 - EC Financial Transparency System (EU direct funds to BG NGOs) (weekly): latest FTS dataset year 2025 · next check 2026-11-13
 - BNB domestic ДЦК auctions (weekly): 25 auction(s) in 2025-2026 · latest 2026-09-28 · next check 2026-11-13
 - BNB monthly FDI flows (monthly): latest 2026-08 · next check 2026-11-18
+- Minfin КФП monthly bulletins (via Wayback) (monthly): 371 bulletins cached · latest 2025-02 · next check 2026-12-11
 - Minfin government-debt bulletins (Eurobond signal, via Wayback) (monthly): 137 debt bulletin(s) cached · latest 2025-02 · next check 2026-11-18
 - Minfin programme-budget execution reports (via Wayback) (monthly): 27 report(s) cached · latest 2024-06 (H1) · next check 2026-11-18
 - МВнР programmatic execution reports (via Wayback) (monthly): 22 report(s) cached · latest 2025-12 (annual) · next check 2026-12-07
@@ -121,7 +120,6 @@
 - ИПИ — Местни данъци (265 общини) (monthly): 5/5 indicator CSVs · latest year 2025 · next check 2026-11-22
 - Общински наредби за местни данъци (weekly): 10 município(s) wired · next check 2026-11-13
 - EC Weekly Oil Bulletin: consumer fuel prices (petrol 95 & diesel) (weekly): history XLSX 906e60ca… · next check 2026-11-13
-- Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1) (monthly): PLI updated 2026-07-09T23:00:00+0200 · next check 2026-11-12
 - НЗОК болнични плащания по лечебни заведения — БМП/ЛП/МИ (nhif.bg) (monthly): newest payments: bmp 2026-09 · drugs 2026-09 · devices 2026-09 · next check 2026-12-04
 - НЗОК Справка 5 (ПЛС2) — реимбурсирани лекарства по лечебни заведения (monthly): newest Справка 5: 2026-08 (74 files listed) · next check 2026-12-04
 - МЗ финансови показатели на болниците (ЕЕОФ, тримесечно) (monthly): newest quarter: 2025-Q3 (26 quarters listed) · next check 2026-12-04
@@ -132,17 +130,21 @@
 - НАТО — разходи за отбрана (monthly): 6 def-exp PDFs · latest edition 2026 · next check 2026-12-06
 - МО — доклад за отбраната (monthly): 10 МО PDFs · latest year 2026 · next check 2026-12-04
 - МИ — износ на оръжие (monthly): 54 export-report links · latest year 0 · next check 2026-12-04
-- АСП — отчети и доклади (monthly): 21 годишни отчета на АСП · next check 2026-11-11
-- ГИТ — доклади за дейността (monthly): 5 годишни доклада на ГИТ · next check 2026-11-11
+- АСП — отчети и доклади (monthly): 21 годишни отчета на АСП · next check 2026-12-11
+- ГИТ — доклади за дейността (monthly): 5 годишни доклада на ГИТ · next check 2026-12-11
 - Eurostat road safety (BG): пътни жертви (sdg_11_40) (monthly): sdg_11_40 · update 2026-10-27T23:00:00+0100 · next check 2026-12-07
 - Финансови показатели на общините (ЗПФ чл. 130г) — предстоящо тримесечие (weekly): up to date at 2026-Q2 · next check 2026-11-13
 
+## Blocked (wrong exit country — not probed)
+- Parliament roll-call votes: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG
+- Parliament MPs (active roster): needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG
+- CIK local-elections results bundles: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG
+- ЦИК presidential-elections results bundles: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG
+
 ## Errors
-- **НФЦ Единен публичен регистър (financed films, nfc.bg)**: HTTP 520 <none>
-- **НФЦ artistic-commission appointments (nfc.bg заповеди)**: HTTP 520 <none>
-- **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata
-- **Minfin КФП monthly bulletins (via Wayback)**: The operation was aborted due to timeout
-- **State Budget Law promulgation (minfin, via Wayback)**: The operation was aborted due to timeout
+- **НФЦ Единен публичен регистър (financed films, nfc.bg)**: HTTP 520 <none> _(failing 2 runs in a row)_
+- **НФЦ artistic-commission appointments (nfc.bg заповеди)**: HTTP 520 <none> _(failing 2 runs in a row)_
+- **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata _(failing 2 runs in a row)_
 
 ---
-_Watcher run at 2026-11-11T23:04:10.295Z UTC._
+_Watcher run at 2026-11-12T22:41:17.036Z UTC._

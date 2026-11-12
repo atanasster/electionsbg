@@ -1,0 +1,197 @@
+{
+  "ahu_calls": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "asp_benefits": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T16:05:51.317Z"
+  },
+  "budget_law": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "cacbg_declarations": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "cacbg_local": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "cacbg_officials": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "cik_presidential": {
+    "consecutiveErrors": 0,
+    "consecutiveBlocked": 1
+  },
+  "cik_results": {
+    "consecutiveErrors": 0,
+    "consecutiveBlocked": 1
+  },
+  "council_minutes": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "dv_laws": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "egov_commerce": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "eop_procurement": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "eurostat": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "eurostat_digital_skills": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T16:05:51.317Z"
+  },
+  "eurostat_env": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T16:05:51.317Z"
+  },
+  "eurostat_food_pli": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "git_inspections": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T16:05:51.317Z"
+  },
+  "grao": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "indicators_az": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "indicators_mon_dzi": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "indicators_mon_nvo": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "indicators_nsi_pop": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "indicators_nsi_vital": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "interreg_calls": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "ipop_mrrb": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "isun_procedures": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "kzp_prices": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "minfin_mreports": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T16:05:51.317Z"
+  },
+  "mon_ri_register": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "nfc_commissions": {
+    "consecutiveErrors": 2,
+    "firstFailedAt": "2026-11-12T16:05:51.317Z",
+    "lastError": "HTTP 520 <none>"
+  },
+  "nfc_film_register": {
+    "consecutiveErrors": 2,
+    "firstFailedAt": "2026-11-12T16:05:51.317Z",
+    "lastError": "HTTP 520 <none>"
+  },
+  "nsi_landuse": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "nsi_water_stats": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "oecd_pit_params": {
+    "consecutiveErrors": 2,
+    "firstFailedAt": "2026-11-12T16:05:51.317Z",
+    "lastError": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata"
+  },
+  "parliament_mps": {
+    "consecutiveErrors": 0,
+    "consecutiveBlocked": 1
+  },
+  "parliament_votes": {
+    "consecutiveErrors": 0,
+    "consecutiveBlocked": 1
+  },
+  "person_link_overrides": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_alpha_research": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_gallup": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_global_metrics": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_market_links": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_myara": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_press": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_sova_harris": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "polls_trend": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "procurement_scope_windows": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "ted_bg": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  },
+  "wiki_polls": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-12T22:41:17.036Z"
+  }
+}
