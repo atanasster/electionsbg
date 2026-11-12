@@ -1,6 +1,55 @@
 {
-  "updatedAt": "2026-11-08T23:42:24.922Z",
+  "updatedAt": "2026-11-12T23:18:27.015Z",
   "entries": [
+    {
+      "timestamp": "2026-11-12T23:18:27.015Z",
+      "date": "2026-11-12",
+      "skill": "eurostat_env",
+      "summary": "1 step(s) ok",
+      "source": "Eurostat environment (BG): рециклиране на отпадъци (cei_wm011)"
+    },
+    {
+      "timestamp": "2026-11-12T23:18:23.335Z",
+      "date": "2026-11-12",
+      "skill": "eurostat_rail",
+      "summary": "1 step(s) ok",
+      "source": "Eurostat rail (BG): жп пътници (rail_pa_total)"
+    },
+    {
+      "timestamp": "2026-11-12T23:18:21.585Z",
+      "date": "2026-11-12",
+      "skill": "update-council-minutes",
+      "summary": "3 step(s) ok",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-12T23:07:27.987Z",
+      "date": "2026-11-12",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-11-12 (+4 daily archives; 1,095,989 store rows, 167 settlements, 65 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-11-12"
+    },
+    {
+      "timestamp": "2026-11-12T22:59:09.285Z",
+      "date": "2026-11-12",
+      "skill": "update-macro",
+      "summary": "6 step(s) ok",
+      "source": "Eurostat macro (BG): 29 datasets",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-12T16:21:38.221Z",
+      "date": "2026-11-12",
+      "skill": "update-open-calls",
+      "summary": "4 step(s) ok",
+      "source": "ИСУН — отворени процедури"
+    },
     {
       "timestamp": "2026-11-08T23:42:24.922Z",
       "date": "2026-11-08",
