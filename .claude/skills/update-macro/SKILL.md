@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Macro skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-macro`](../../../docs/pipeline-handlers.md#update-macro) runs this unattended — `pnpm run pipeline:ingest --only update-macro`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/macro.json` — the per-Bulgarian-cabinet macro/governance backdrop rendered on `/governments`. Pulls quarterly Eurostat series (GDP growth, HICP inflation, unemployment, gov debt, budget balance, current account; same fiscal/external triple plus government revenue + expenditure in nominal EUR), the **authoritative annual ESA deficit ratio** (`esaBalanceAnnual`, from the EDP notification table `gov_10dd_edpt1` — the figure Eurostat headlines, e.g. BG 2025 = −3.5%), annual Eurostat GDP per capita, annual nominal GDP and net inward FDI, the **productivity block** (`nama_10_lp_ulc` → `labourProductivity` + `unitLabourCost`, both indexed 2015 = 100, and `compensationPerEmployee` as a EUR level; plus `prc_hicp_aind` → `priceIndex`, the annual HICP INDEX that deflates it), World Bank WGI, plus curated CPI / Eurobarometer trust / EU funds.
 
 The productivity block is the first part of this artifact whose **page** — the "Производителност и разходи за труд" chart on `/indicators/economy` plus its derived pay-vs-productivity caption — can go stale independently of the headline series, so its two datasets are fingerprinted individually in `scripts/watch/sources/eurostat.ts` rather than riding the bundle's other members. Two things about it are easy to get backwards:

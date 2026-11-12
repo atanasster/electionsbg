@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Roll-call skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-rollcall`](../../../docs/pipeline-handlers.md#update-rollcall) runs this unattended — `pnpm run pipeline:ingest --only update-rollcall`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Pulls per-MP roll-call vote data from parliament.bg's stenogram CSV attachments ("Поименно гласуване") and writes canonical JSON to `data/parliament/votes/`. Optionally uploads to the GCS bucket and rebuilds the derived loyalty/attendance/similarity/cohesion metrics.
 
 ## When to run

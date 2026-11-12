@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Council Minutes skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-council-minutes`](../../../docs/pipeline-handlers.md#update-council-minutes) runs this unattended — `pnpm run pipeline:ingest --only update-council-minutes`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Pulls per-município council resolutions + aggregate vote tallies (and per-councillor named votes where the protocol PDF carries them) from each município's own website. Writes canonical JSON to `data/council/{obshtinaCode}/{YYYY}/` and updates the `resolutionsByObshtina` slot in `data/council/index.json` that the React hook `useCouncilMinutes` reads.
 
 There is **no central register**. Bulgaria's РМС 436/2017 only mandates the narrow чл.45 ЗМСМА "returned-decisions" register on data.egov.bg (verified by sampling — see memory `project-council-votes-ingest`). Every município publishes its own протоколи, on its own CMS, in its own format. The ingest is a fleet of per-município parsers under `scripts/council/parsers/`.

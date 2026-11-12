@@ -5,6 +5,10 @@ description: Refresh the Култура (culture) data behind /culture — the �
 
 # update-culture
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-culture`](../../../docs/pipeline-handlers.md#update-culture) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Refreshes the culture-spending data served at `/culture` (the dedicated dashboard)
 and read by the `cultureOverview` / `topCultureGrantees` / `filmSubsidyForProducer`
 AI tools. Phase 1 covers the **НФЦ film-subsidy register**; НФК grants, the pack on

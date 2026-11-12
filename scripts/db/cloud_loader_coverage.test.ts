@@ -23,6 +23,16 @@ const cloudScripts = (): string[] => {
   return Object.keys(pkg.scripts).filter((k) => k.endsWith(":cloud"));
 };
 
+// The pipeline registry, as rendered into docs/pipeline-handlers.md (generated,
+// and gated against the registry by handler_index.test.ts). Since Tier 6 of
+// docs/plans/watch-pipeline-scripts-v1.md the orchestrator's source → loader
+// routing lives THERE, not in process-watch-report's prose, so a loader the
+// registry publishes is wired even when no runbook spells it.
+const handlerIndexText = (): string => {
+  const p = path.join(ROOT, "docs/pipeline-handlers.md");
+  return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : "";
+};
+
 const skillText = (): string => {
   const dir = path.join(ROOT, ".claude/skills");
   if (!fs.existsSync(dir)) return "";
@@ -35,7 +45,7 @@ const skillText = (): string => {
     }
   };
   walk(dir);
-  return out.join("\n");
+  return out.join("\n") + "\n" + handlerIndexText();
 };
 
 // The ORCHESTRATOR itself — the skill whose Step 9 is the operator's consolidated
@@ -53,7 +63,13 @@ const skillText = (): string => {
 // caveat. Narrowing it is a change to the ORCHESTRATOR's shape, not to this gate.
 const orchestratorText = (): string => {
   const p = path.join(ROOT, ".claude/skills/process-watch-report/SKILL.md");
-  return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : "";
+  const text = fs.existsSync(p) ? fs.readFileSync(p, "utf8") : "";
+  // Since Tier 6 the skill's front half is operator instructions ("fix the
+  // proxy with db:proxy:cloud"), not an emit table — a mention there is not an
+  // emit. The emit table (Step 9) lives in the appendix; the registry, rendered
+  // into the handler index, is the rest of the orchestrator.
+  const at = text.indexOf("## Appendix: the manual procedure");
+  return (at >= 0 ? text.slice(at) : text) + "\n" + handlerIndexText();
 };
 
 describe("every :cloud loader is reachable from a skill", () => {
@@ -112,12 +128,27 @@ describe("every :cloud loader is reachable from a skill", () => {
     const missing = Object.keys(pkg.scripts)
       .filter((k) => k.endsWith(":pg:cloud"))
       .map((k) => k.replace(/:cloud$/, ""))
-      .filter(
-        (local) =>
+      .filter((local) => {
+        const re = new RegExp(`${local}(?![\\w:-])`);
+        // A skill (or the registry) may reach the local half through a package
+        // script it names — `tr:daily-refresh` chains db:load:cr-nkid:pg — so
+        // look one level into the bodies of the scripts the skills name.
+        // Skip the `:cloud` scripts: every X:pg:cloud body is
+        // `DATABASE_URL=… pnpm run X:pg`, so counting it would admit every
+        // candidate and the assertion could never fail.
+        const viaNamedScript = Object.entries(pkg.scripts).some(
+          ([name, body]) =>
+            !name.endsWith(":cloud") &&
+            re.test(body) &&
+            new RegExp(`pnpm run ${name}(?![\\w:-])`).test(skills),
+        );
+        return (
           skills.includes(`${local}:cloud`) &&
-          !new RegExp(`${local}(?![\\w:-])`).test(refresh) &&
-          !new RegExp(`${local}(?![\\w:-])`).test(skills),
-      );
+          !re.test(refresh) &&
+          !re.test(skills) &&
+          !viaNamedScript
+        );
+      });
     expect(
       missing,
       "these are published to PROD by a skill, but their LOCAL half is neither in " +
@@ -195,7 +226,7 @@ describe("every :cloud loader is reachable from a skill", () => {
       "an exemption was added or removed — if you EXEMPTED a loader, say why in " +
         "CLOUD_SKILL_EXEMPTIONS and raise this number deliberately; if you WIRED " +
         "one, lower it",
-    ).toBe(7);
+    ).toBe(6);
   });
 
   it("reports the unreviewed backlog so it stays visible", () => {
@@ -281,7 +312,7 @@ describe("every :cloud loader is reachable from a skill", () => {
       "an orchestrator-exemption was added or removed — if you EXEMPTED a loader, " +
         "say why in ORCHESTRATOR_EXEMPTIONS and raise this number deliberately; if " +
         "you WIRED one into process-watch-report's Step 9, lower it",
-    ).toBe(6);
+    ).toBe(3);
   });
 
   it("the two exemption maps are DISJOINT — a script is exempt for exactly one reason", () => {

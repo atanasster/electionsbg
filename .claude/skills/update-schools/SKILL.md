@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Schools skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-schools`](../../../docs/pipeline-handlers.md#update-schools) runs this unattended — `pnpm run pipeline:ingest --only update-schools`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Rebuilds the education data layer. Four artifacts, one dependency chain:
 
 1. **`raw_data/indicators/mon_nvo/{year}.csv`** — 7th-grade НВО per-school results

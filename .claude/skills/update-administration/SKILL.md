@@ -5,6 +5,10 @@ description: Refresh the Държавна администрация data behind
 
 # update-administration
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-administration`](../../../docs/pipeline-handlers.md#update-administration) runs this unattended — `pnpm run pipeline:ingest --only update-administration`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes the data served at `/sector/administration` (the bespoke
 institution-first dashboard) + `/sector/administration/services` (the DbDataTable
 services browser), and read by the `administrationOverview` AI chat tool.

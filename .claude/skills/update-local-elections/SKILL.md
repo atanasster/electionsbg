@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update local-elections skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-local-elections`](../../../docs/pipeline-handlers.md#update-local-elections) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Ingests Bulgarian local-elections data (общински съветници + кметове на община/кметство/район) from `results.cik.bg` into `data/<cycle>/`. Handles both regular cycles (`mi2019`, `mi2023`, future `mi2027`) and partial-elections dates under the rolling `chmi*` umbrella.
 
 Two historical archives are also supported as one-time backfills (not watched, since the data is frozen): `minr2015` (мест. избори + национален референдум, 2015-10-25) and `mipvr2011` (мест. избори + президентски избори, 2011-10-23). They use the same `--local-ingest <slug>` CLI but require parser tolerance the modern cycles don't (different URL pattern `mestni/` vs `rezultati/`, missing CSS class markers, 3- and 4-column council tables, район mayor races split into separate `NNNN_NNNNNr.html` subpages on Sofia/Plovdiv/Varna). See "Historical cycles" below.

@@ -345,6 +345,8 @@ const REGISTRY_CLOUD_EXEMPTIONS: Record<string, string> = {
   "db:dump:cloud": "an operator backup, not a corpus reload",
   "db:sync:cloud":
     "a destructive whole-database reconcile, run by hand — never part of a scheduled publish",
+  "db:proxy:cloud":
+    "opens the Cloud SQL proxy and loads nothing; the doctor checks it and the publish runner's advice names it",
 };
 
 describe("post-steps and gates", () => {

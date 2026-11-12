@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update municipal contacts skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-municipal-contacts`](../../../docs/pipeline-handlers.md#update-municipal-contacts) runs this unattended — `pnpm run pipeline:ingest --only update-municipal-contacts`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/officials/municipal_contacts/index.json` — the per-municipality mayor + deputy-mayor email contacts that power the inline `mailto:` icons next to each official's name on the My-Area dashboard's `MyAreaGovernmentCard`. Covers 258 of Bulgaria's 265 municipalities with at least one official, and ~600 deputy-mayor emails on top of the 260 município mayors. Sofia city contributes once under the synthetic `SOF00` code (with the 12 city-wide deputies) and fans out to the 24 районы via the hook fallback.
 
 Source contract:

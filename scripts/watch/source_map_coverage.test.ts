@@ -20,6 +20,9 @@ const REPO = path.resolve(
   "../..",
 );
 const MAP = path.join(REPO, ".claude/skills/process-watch-report/SKILL.md");
+// Since Tier 6 (docs/plans/watch-pipeline-scripts-v1.md) the routing table is the
+// pipeline registry, rendered into this generated page; the skill points at it.
+const INDEX = path.join(REPO, "docs/pipeline-handlers.md");
 
 /** Sources the map deliberately does not route, each with the reason.
  *
@@ -27,16 +30,13 @@ const MAP = path.join(REPO, ".claude/skills/process-watch-report/SKILL.md");
  *  refuses a name that is no longer registered — so this list cannot become the place an
  *  unrouted source hides. */
 const UNROUTED: Record<string, string> = {
-  // Measured 2026-09-06: the map discusses both at length under a different heading —
-  // „Interreg (programme re-imports)" and „Ember Yearly Electricity Data" — so each IS
-  // routed; what it does not do is spell the source id. Exempted rather than renamed,
-  // because editing a prose runbook to satisfy a regex is the wrong direction.
-  interreg_calls: "routed under the Interreg programme re-imports heading",
-  ember_generation: "routed under the Ember Yearly Electricity Data heading",
+  // interreg_calls and ember_generation left 2026-11-12: the generated handler
+  // index names every registry source id, so neither needs a heading exemption.
 };
 
 describe("the orchestrator's source→skill map", () => {
-  const map = fs.readFileSync(MAP, "utf-8");
+  const map =
+    fs.readFileSync(MAP, "utf-8") + "\n" + fs.readFileSync(INDEX, "utf-8");
 
   it("names every registered source somewhere in the map", () => {
     // ⚠ MATCHED ON THE ID, NOT THE LABEL. The map's row headings are shortened, human-facing

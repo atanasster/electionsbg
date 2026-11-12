@@ -10,6 +10,12 @@ allowed-tools:
 
 # Update КЗК appeals skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`kzk_appeals`](../../../docs/pipeline-handlers.md#kzk_appeals) runs this unattended — `pnpm run pipeline:ingest --only kzk_appeals`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+>
+> **Pipeline:** handler [`kzk_decisions`](../../../docs/pipeline-handlers.md#kzk_decisions) runs this unattended — `pnpm run pipeline:ingest --only kzk_decisions`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Crawls the КЗК registers (`reg.cpc.bg`) and keeps both arms of the appeals pack current:
 
 - **intake** — every complaint, into `kzk_appeals` (Step 1);

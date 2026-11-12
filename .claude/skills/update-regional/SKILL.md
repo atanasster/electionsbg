@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Regional skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-regional`](../../../docs/pipeline-handlers.md#update-regional) runs this unattended — `pnpm run pipeline:ingest --only update-regional`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/regional.json` — the per-oblast indicator backdrop rendered on `/municipality/<oblast>` drilldowns and the `/demographics` regional choropleth. Pulls Eurostat NUTS 3 annual series: GDP per capita (`nama_10r_3gdp`), population (`nama_10r_3popgdp`), net migration rate (`demo_r_gind3`), recorded-theft rate (`crim_gen_reg`), plus a derived active-enterprise density (`bd_size_r3` ÷ population); merges one АЗ oblast series — long-term unemployment share (`ltUnemployment`); and merges four NSI JSON-stat open-data datasets — cumulative FDI per capita (id=629), museum visits per 1000 (id=844), hospital beds per 1000 (id=1206), crude death rate per 1000 (id=1139 = deaths by district ÷ population; a descriptive age-dominated demographic outcome, NOT a spend-adjustable measure). Together these close the Regional-Profiles gap categories Security, Business environment, Investment, Culture and Health at oblast grain.
 
 ## When to run

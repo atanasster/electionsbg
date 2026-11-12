@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update НЗОК skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-nzok`](../../../docs/pipeline-handlers.md#update-nzok) runs this unattended — `pnpm run pipeline:ingest --only update-nzok`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/budget/nzok/` — the data behind the **health sector pack** on `/awarder/121858220`. НЗОК's public-procurement footprint (~€79M) is ~1.5% of its ~€5.5bn budget; the pack fuses the budget law + the non-ЗОП payment streams (hospital reimbursements, drug reimbursement, cash execution) with the contract ledger. Ingest details: `scripts/nzok/README.md`; memory `[[project_nzok_health_pack]]`.
 
 **Source:** `nhif.bg` — fetched directly over plain HTTPS (no Cloudflare, unlike the NSSI B1 flow which needs a manual download). All four generators auto-discover and download the newest file.

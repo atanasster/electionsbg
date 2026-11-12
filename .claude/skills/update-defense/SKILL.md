@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Defense skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-defense`](../../../docs/pipeline-handlers.md#update-defense) runs this unattended — `pnpm run pipeline:ingest --only update-defense`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Three watched artifacts (+ one manually-curated one). Each has its own trigger; a
 change in one does not force re-parsing the others.
 

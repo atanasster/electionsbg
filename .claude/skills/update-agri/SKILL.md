@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update ДФ „Земеделие" farm subsidies skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-agri`](../../../docs/pipeline-handlers.md#update-agri) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, `/subsidies/browse`, `/farm/:eik`, and the "Земеделски субсидии" tile on `/company/:eik`). The pack is **Postgres-only** — the ingest writes the `agri_subsidies` (per-payment detail) + `agri_payloads` (precomputed per-scope overview + per-recipient jsonb) tables **directly**, no static JSON on disk (so there is NO `bucket:sync` step). Memory: `[[project_agri_subsidies_pack]]`.
 
 ## Two sources

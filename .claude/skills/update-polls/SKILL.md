@@ -11,6 +11,10 @@ allowed-tools:
 
 # Update Polls skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-polls`](../../../docs/pipeline-handlers.md#update-polls) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Walks through the full refresh cycle for `data/polls/*.json`.
 
 ⚠️ **The corpus's primary source is each agency's OWN publication, never

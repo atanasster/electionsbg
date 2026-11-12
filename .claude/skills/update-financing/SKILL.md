@@ -11,6 +11,10 @@ allowed-tools:
 
 # Update Financing skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-financing`](../../../docs/pipeline-handlers.md#update-financing) runs this unattended — `pnpm run pipeline:ingest --only update-financing`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Tier-2 ingest for Сметна палата (Court of Audit) party-financing disclosures. Three scrapers:
 
 - **`scrape_index.ts`** — catalogs the per-year annual-report index that the Court publishes at `https://www.bulnao.government.bg/bg/kontrol-partii/otcheti-na-partii/` → `data/financing/index.json`.

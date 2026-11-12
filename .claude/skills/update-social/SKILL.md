@@ -11,6 +11,10 @@ allowed-tools:
 
 # Update Social (Социално подпомагане) skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-social`](../../../docs/pipeline-handlers.md#update-social) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Refreshes the two small static artifacts behind `/sector/social`:
 
 | Artifact | Source | Grain | Generator |

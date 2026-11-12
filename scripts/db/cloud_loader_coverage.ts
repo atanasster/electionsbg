@@ -60,6 +60,8 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
   },
 
   // ── decided 2026-08-20 (cloud-loader-coverage-v1) ──────────────────────────
+  // (db:load:cr-nkid:pg:cloud left this list 2026-11-12: the pipeline registry's
+  // TR handler publishes it — see docs/pipeline-handlers.md.)
   // These four were part of the original 19-entry backlog and are now SANCTIONED
   // with their real kind. The other 15 were wired into an owning skill instead.
   "build:project-members:cloud": {
@@ -71,11 +73,6 @@ export const CLOUD_SKILL_EXEMPTIONS: Record<
     kind: "manual-trigger",
     reason:
       "ships the output of a slow rate-limited scrape (fetch_company_founded.ts) that only ever runs against LOCAL Postgres — so its trigger is that operator crawl, which has no watcher. The publish path is documented in CLAUDE.md's CR Deeds section.",
-  },
-  "db:load:cr-nkid:pg:cloud": {
-    kind: "manual-trigger",
-    reason:
-      "reads the gitignored raw_data/tr/cr_deeds.sqlite operator crawl, so on most machines it has nothing to do. Its four-step cloud publish order is in CLAUDE.md's CR Deeds section.",
   },
   "person:kmetstvo-flips:cloud": {
     kind: "operator-tool",
@@ -107,18 +104,16 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
   string,
   { kind: CloudExemptionKind; reason: string }
 > = {
-  // Moved out of CLOUD_SKILL_EXEMPTIONS 2026-09-03: `upload-watch-changes` now names it
-  // (start the proxy before any `--cloud` command, and restart it when a load dies with
-  // `Connection terminated unexpectedly`), so "no skill names it" stopped being true and
-  // the stale-exemption clause was right to fire. It still belongs in NO orchestrator emit
-  // table — it opens the Cloud SQL proxy and loads nothing, so no corpus can go stale on
-  // prod for want of it.
+  // ── 2026-11-12 (watch-pipeline-scripts-v1 Tier 6) ──────────────────────────
+  // person:slugs:cloud, proc:verify-seats:cloud and data:local-person-refresh:cloud
+  // left this list: the orchestrator is now the pipeline registry
+  // (docs/pipeline-handlers.md), whose handlers run each of them.
   "db:proxy:cloud": {
     kind: "operator-tool",
     reason:
       "opens the Cloud SQL proxy; loads nothing, so it publishes no corpus and cannot " +
-      "leave prod on a previous vintage. Named in upload-watch-changes as the operator " +
-      "step before the `--cloud` commands and as the recovery for a dead proxy.",
+      "leave prod on a previous vintage. The pipeline's doctor checks the proxy and the " +
+      "runbooks name this as the recovery for a dead one — a mention, never an emit.",
   },
   "db:load:tender-dossier:pg:cloud": {
     kind: "manual-trigger",
@@ -130,29 +125,5 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
     reason:
       "loads an officials re-slug map into person_slug_retired and takes the map FILE as an argument (-- raw_data/person/officials_reslug_<date>.json), so it cannot be a blind daily emit; run it when a new re-slug drop lands. Named in update-persons; procedure in CLAUDE.md's person-layer section.",
   },
-  "person:slugs:cloud": {
-    kind: "manual-trigger",
-    reason:
-      "mints the committed /person prerender + sitemap manifest (data/person/prerender_slugs.json) FROM the serving DB (emit_prerender_slugs.ts refuses local docker). It is a build-time artifact for the NEXT `pnpm run build`, so its trigger is a person-page rebuild/deploy, not the daily person ingest. ⚠️ Least-certain classification (cloud-deploy-speed-v1 §v2-b): if the person prerender set widens, promote it into the person cloud chain in process-watch-report.",
-  },
   // ── decided 2026-08-25 (red-gates-repair-v1) ──────────────────────────────
-  "proc:verify-seats:cloud": {
-    kind: "operator-tool",
-    reason:
-      "a READ-ONLY verifier, not a publish: verify_awarder_seats.ts issues one SELECT and writes " +
-      "nothing, so it cannot leave prod on the previous vintage at a 200 — the harm this gate exists " +
-      "to catch. It IS named in update-procurement, as the last line of the publish path, which is " +
-      "in the publication path immediately after the seats loader, exactly where the gate must run " +
-      "it; that plan's §6 then states deliberately that nothing in this repo runs a :cloud " +
-      "verification on a schedule. Emitting it blindly would also risk a false alarm: §4 documents a " +
-      "BENIGN divergence (an awarder gaining a real OCDS address) on which it would correctly exit 1 " +
-      "— not yet observed firing, since the one measured occurrence resolved to the same ekatte and " +
-      "true divergence is 0/2,174 — so an orchestrated run could read an expected event as a failed " +
-      "publish. The exemption stands on the read-only argument alone regardless.",
-  },
-  "data:local-person-refresh:cloud": {
-    kind: "operator-tool",
-    reason:
-      "the :cloud suffix only redirects which DB it READS — it rebuilds the committed local-election JSON artifacts (rollups / place-trends / chmi-history) decorated against the person layer, and publishes NO cloud table (its output ships via bucket:sync). Trigger is a local-elections re-parse or a person-layer change; named in update-local-elections / update-persons. Same reads-only-redirect shape as build:project-members:cloud.",
-  },
 };

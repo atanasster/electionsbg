@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update air quality skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-air-quality`](../../../docs/pipeline-handlers.md#update-air-quality) runs this unattended — `pnpm run pipeline:ingest --only update-air-quality`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/air/index.json` — the per-município air-quality monitoring-station index that powers the My-Area "Качество на въздуха" tile. Covers ~37 município-attributed stations + ~14 background/mountain stations (Витиня, Копитото, Рожен — КФС, Гара Яна) from ИАОС's quarterly publication on data.egov.bg.
 
 Source contract:

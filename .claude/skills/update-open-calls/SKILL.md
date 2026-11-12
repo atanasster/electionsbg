@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update open calls skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-open-calls`](../../../docs/pipeline-handlers.md#update-open-calls) runs this unattended — `pnpm run pipeline:ingest --only update-open-calls`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Crawls two registers of things you can still apply to, and publishes them:
 
 - **ИСУН 2020** — `/Active` (real procedures, `kind='call'`) and `/PublicDiscussion`

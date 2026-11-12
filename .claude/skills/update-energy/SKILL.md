@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Energy skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-energy`](../../../docs/pipeline-handlers.md#update-energy) runs this unattended — `pnpm run pipeline:ingest --only update-energy`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Two watched artifacts, independent triggers. Both are small hand-verifiable JSON
 served via the `dataUrl` seam at `/energy/*.json`, committed + bucket-synced (no
 PG, so no `recordIngestBatch`).

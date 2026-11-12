@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update ГРАО skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-grao`](../../../docs/pipeline-handlers.md#update-grao) runs this unattended — `pnpm run pipeline:ingest --only update-grao`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/grao_population.json` — per-settlement (EKATTE) population by **permanent** and **current** address, the only frequently-updated population source below municipality grain between the decennial censuses.
 
 Source contract:

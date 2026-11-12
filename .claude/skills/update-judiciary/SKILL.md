@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Judiciary skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-judiciary`](../../../docs/pipeline-handlers.md#update-judiciary) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Two independent artifacts, two independent triggers.
 
 | Artifact | Source | Watcher | Script |

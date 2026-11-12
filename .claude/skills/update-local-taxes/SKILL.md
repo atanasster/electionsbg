@@ -11,6 +11,10 @@ allowed-tools:
 
 # Update local taxes skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-local-taxes`](../../../docs/pipeline-handlers.md#update-local-taxes) runs this unattended — `pnpm run pipeline:ingest --only update-local-taxes`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/local_taxes/index.json` — Bulgaria's per-município local-tax rates. Powers the My-Area "Местни данъци" tile.
 
 The file has two tiers that merge into one structure:

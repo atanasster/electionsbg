@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Indicators skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-indicators`](../../../docs/pipeline-handlers.md#update-indicators) runs this unattended — `pnpm run pipeline:ingest --only update-indicators`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/indicators.json` — annual sub-national indicators rendered on municipality drilldowns, `/sofia`, and (in Phase 3) the `/demographics` muni choropleth.
 
 Source contract:

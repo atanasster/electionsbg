@@ -10,6 +10,10 @@ allowed-tools:
 
 # Parliament.bg scraper skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`parliament-scrape`](../../../docs/pipeline-handlers.md#parliament-scrape) runs this unattended — `pnpm run pipeline:ingest --only parliament-scrape`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Pulls MP data (photos, bios, region, party, term history) from `parliament.bg`'s public `/api/v1` endpoints and stores it under `public/parliament/`. The frontend integrates this with the existing CIK candidate data via case-insensitive name matching.
 
 ## When to use which command

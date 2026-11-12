@@ -11,6 +11,10 @@ allowed-tools:
 
 # Update TI-BG LISI skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-transparency-lisi`](../../../docs/pipeline-handlers.md#update-transparency-lisi) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/municipal_transparency/index.json` — the annual Local Integrity System Index composite scores for Bulgaria's 27 oblast-center municipalities, published by Асоциация "Прозрачност без граници" (Transparency International Bulgaria). Powers the My-Area "Прозрачност на местното управление" tile.
 
 Source contract:

@@ -18,6 +18,36 @@ two ways: the operator invokes it directly, or `/process-watch-report` invokes i
 after a run with no major issue — in which case the operator's yes to that run's plan (which
 names the publish) is the authorisation, and step 0 does not re-ask.
 
+## How this runs now: `pnpm run pipeline:publish`
+
+The publish is a script: `scripts/pipeline/cli/publish.ts`. It reads the manifest, orders the
+cloud commands by the registry's global `CLOUD_ORDER`, and runs each step through the executor,
+which times it, logs it to `logs/pipeline/<session>/` and appends the perf trace. It stops at the
+first failure and keeps the manifest. It only commits and clears the manifest after a clean
+publish, and it can resume.
+
+1. Preview what it will do: `pnpm run pipeline:publish --dry-run`.
+2. Publish:
+   - interactive: `pnpm run pipeline:publish` (it asks before touching production);
+   - pre-authorised: `pnpm run pipeline:publish --yes`. A pre-authorised run is the
+     operator's yes to the ingest plan, or the unattended nightly.
+3. Read the report: `pnpm run pipeline:report`. A failed step has a repair packet under
+   `state/pipeline/runs/<session>/failures/`. Fix the cause, then resume with
+   `pnpm run pipeline:publish --yes --start-at "<step>"`. If a cloud load dies with
+   `Connection terminated unexpectedly`, the proxy died: run `pnpm run db:proxy:cloud` and
+   resume.
+
+| exit | meaning |
+| --- | --- |
+| 0 | published, or nothing pending |
+| 1 | a step failed; the manifest is kept |
+| 2 | bad arguments, not confirmed, or refused |
+| 3 | blocked before anything ran |
+
+The rest of this file is the manual procedure the script replaces. Keep it for recovery when
+the runner itself is broken. Its rules (the manifest is the work list; production is
+confirm-first) are the ones the script enforces.
+
 ## Inputs
 
 - **`state/upload/pending.json`** — the manifest. The ingest run wrote it because it is the only

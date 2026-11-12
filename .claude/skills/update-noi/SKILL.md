@@ -11,6 +11,10 @@ allowed-tools:
 
 # Update NOI skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-noi`](../../../docs/pipeline-handlers.md#update-noi) runs this unattended — `pnpm run pipeline:ingest --only update-noi`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes the NOI per-fund cash-execution data that powers the **"Социалноосигурителни фондове"** drill-down on `/budget`. Single artifact: `data/budget/noi/funds.json`.
 
 Three funds at the EBK level — all aggregated to fund 5500 from sub-funds:

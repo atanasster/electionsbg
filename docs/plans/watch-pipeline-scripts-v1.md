@@ -493,6 +493,30 @@ Schedule `pipeline:nightly` from launchd or keep the Claude routine as a thin wr
 `process-watch-report` becomes "run `pipeline:nightly`; if the verdict is not clean,
 open the failure packets and fix".
 
+**Tier 6 as built (2026-11-12).** The scheduler decision (open decision 1): keep the Claude
+nightly routine as a thin wrapper around `pipeline:nightly`. 13 handlers are still delegated,
+so an agent has to stay in the loop to run them and to act on repair packets. launchd would
+need a second agent trigger anyway.
+
+What changed:
+
+- **The handler index.** `pnpm run pipeline:index` renders the registry into
+  `docs/pipeline-handlers.md`, and writes a generated pointer block into every runbook a
+  handler names. The pointer says whether the handler runs unattended or is still delegated,
+  and links its entry. `handler_index.test.ts` fails when either output is stale.
+- **process-watch-report** is now the procedure "doctor → `pipeline:nightly` → report →
+  packets → delegated skills → Needs operator". Its 630-line source → skill table is gone; the
+  registry is the table. The old procedure is kept as an appendix for delegated handlers and
+  for recovery.
+- **upload-watch-changes** leads with `pipeline:publish`.
+- **The routing gates** (`source_map_coverage`, `cloud_loader_coverage`) read the generated
+  index alongside the skill text. Five exemptions that the registry now wires were retired.
+
+Not done: the update-* runbooks are not yet cut down to their operator/agent steps. Each has
+the pointer, and its procedure stays until its handler has run cleanly under the pipeline for
+a while. Cutting text that the delegated handlers still depend on would remove the only
+instructions they have.
+
 ## 6. Defects found during the analysis (fix as the handlers move)
 
 - Seven watched ids have no row in the canonical table: `bnb_fdi`, `eurobarometer`,
@@ -531,7 +555,7 @@ open the failure packets and fix".
 
 ## 8. Open decisions
 
-1. Scheduler: keep the Claude nightly routine as a wrapper around `pipeline:nightly`
+1. **Decided 2026-11-12: keep the wrapper (see Tier 6 as built).** Scheduler: keep the Claude nightly routine as a wrapper around `pipeline:nightly`
    (it can also act on failure packets), or move to launchd and invoke an agent only on
    a non-clean verdict. Recommendation: keep the wrapper through Tier 4, decide at
    Tier 6.

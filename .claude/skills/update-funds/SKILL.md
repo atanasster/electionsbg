@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Funds skill (ИСУН EU-funds beneficiaries)
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-funds`](../../../docs/pipeline-handlers.md#update-funds) runs this unattended — `pnpm run pipeline:ingest --only update-funds`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Pulls the public "Бенефициенти" register of **ИСУН 2020** — Bulgaria's Management & Monitoring Information System for EU funds — and writes canonical JSON to `data/funds/`. One row per organisation that has signed at least one EU-funds contract, with all-time rollup totals: contracts signed, funds contracted, funds actually paid (all EUR).
 
 This covers the 2014-2020 cohesion operational programmes, the 2021-2027 period, and the National Recovery Plan — all funnelled through ИСУН. It is a major public-money channel the project otherwise does not track.

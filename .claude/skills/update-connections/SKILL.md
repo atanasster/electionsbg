@@ -10,6 +10,10 @@ allowed-tools:
 
 # MP business-connections data pipeline
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-connections`](../../../docs/pipeline-handlers.md#update-connections) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 > **⚠️ RETIREMENT NOTICE (connections-engine-v1 §P4.3).** The static person↔person MP-connections
 > graph — `build_connections_graph.ts` (declarations phase 6) + `build_officials_connections.ts` and
 > their outputs `connections*.json` / `mp-connections/` / `official-connections/` — is **RETIRED**.

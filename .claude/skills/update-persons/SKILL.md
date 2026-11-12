@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Persons skill (the identity spine)
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-persons`](../../../docs/pipeline-handlers.md#update-persons) runs this unattended — `pnpm run pipeline:ingest --only update-persons`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 The person layer sits ABOVE nine people datasets and resolves them to one stable
 `person_id`. It is a pure, idempotent
 **re-derivation** — `scripts/person/resolve_persons.ts` reads the already-ingested

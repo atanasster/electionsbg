@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update presidential-elections skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-presidential-elections`](../../../docs/pipeline-handlers.md#update-presidential-elections) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+<!-- pipeline-pointer:end -->
+
 Ingests Bulgarian presidential-elections data (президент и вицепрезидент) from ЦИК into `data/<cycle>_pvr/`. Five cycles are committed — 2001, 2006, 2011, 2016, 2021 — and the next is due in **November 2026**.
 
 ⚠ **THIS IS ITS OWN WATCHER AND ITS OWN SKILL, deliberately.** `cik_results` (local elections) is coupled by `process-watch-report` to `update-persons` and `db:load:person-elections:pg`, and that loader reads the **parliamentary** candidate files. A presidential flip routed through it would stall on a tree it cannot read or skip the new cycle silently. The watcher is `cik_presidential`; the map routes it here and nowhere else.

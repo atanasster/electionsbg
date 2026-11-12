@@ -31,3 +31,6 @@ package-lock.json
 
 # Hand-formatted briefing template (rendered to PDF by render-pdf.mjs)
 scripts/stats-briefing/doc.html
+
+# Generated from the pipeline registry (pnpm run pipeline:index); a reformat would make it stale
+docs/pipeline-handlers.md

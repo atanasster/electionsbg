@@ -10,6 +10,10 @@ allowed-tools:
 
 # Update Land-use skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-landuse`](../../../docs/pipeline-handlers.md#update-landuse) runs this unattended — `pnpm run pipeline:ingest --only update-landuse`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Refreshes `data/landuse/index.json` — the per-oblast land-composition backdrop rendered on the My-Area dashboard's "Имотен фонд" / "Property stock" tile. Source is NSI's annual press-release annex, computed by NSI from the digital cadastral map (АГКК) in BGS2005 UTM35N. Granularity: **28 oblasts** + national total. NSI computes município-level figures but does not publish them; this skill cannot fill that gap without a ЗДОИ FOI request or a custom GIS pipeline (out of scope).
 
 ## When to run

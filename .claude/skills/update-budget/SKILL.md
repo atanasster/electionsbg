@@ -11,6 +11,12 @@ allowed-tools:
 
 # Update Budget skill
 
+<!-- pipeline-pointer:start (generated from the registry; edit scripts/pipeline/registry) -->
+> **Pipeline:** handler [`update-budget`](../../../docs/pipeline-handlers.md#update-budget) is still **delegated** — `pipeline:ingest` lists it under *Needs agent*; why is a comment on its entry in `scripts/pipeline/registry/handlers/`. Follow this runbook to run it.
+>
+> **Pipeline:** handler [`update-budget-municipal-fiscal`](../../../docs/pipeline-handlers.md#update-budget-municipal-fiscal) runs this unattended — `pnpm run pipeline:ingest --only update-budget-municipal-fiscal`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
+<!-- pipeline-pointer:end -->
+
 Ingests the Bulgarian state budget into `data/budget/`. **Four pillars** run from one CLI (`pnpm run budget:ingest`):
 
 1. **КФП feed** (data.egov.bg) — monthly consolidated execution snapshots → time series, economic-grain plan-vs-actual, fiscal-year roll-ups, latest snapshot.
