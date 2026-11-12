@@ -96,6 +96,9 @@ export interface RunRecord {
   /** Report-only findings (db:check-*, watcher errors, warnings). */
   findings: string[];
   publish?: { decision: "go" | "held" | "n/a"; heldBecause: string[] };
+  /** Publish runs: digest of the manifest content they worked from, so a
+   *  resume can prove it continues the SAME work list. */
+  manifestDigest?: string;
   verdict?: Verdict;
   /** Exit code the runner returns. */
   exitCode?: number;

@@ -261,7 +261,7 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
 
 // ---------------------------------------------------------------- gathering
 
-const portOpen = (port: number, timeoutMs = 1500): Promise<boolean> =>
+export const portOpen = (port: number, timeoutMs = 1500): Promise<boolean> =>
   new Promise((resolve) => {
     const s = net.connect({ host: "127.0.0.1", port });
     const done = (ok: boolean): void => {
