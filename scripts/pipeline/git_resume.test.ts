@@ -33,7 +33,9 @@ describe("commitPaths", () => {
     const r = commitPaths("publish: test", ["state/upload"], dir);
     expect(r.status).toBe("committed");
     expect(
-      g(dir, "show", "--no-renames", "--name-status", "--format=", "HEAD").split("\n").sort(),
+      g(dir, "show", "--no-renames", "--name-status", "--format=", "HEAD")
+        .split("\n")
+        .sort(),
     ).toEqual([
       "A\tstate/upload/history.jsonl",
       "D\tstate/upload/pending.json",
