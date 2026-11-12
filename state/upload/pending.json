@@ -1,0 +1,41 @@
+{
+  "session": "20261112T224531Z-2bec",
+  "createdAt": "2026-11-12T16:21:38.237Z",
+  "commit": "ec00ed244294237e5446fcd27f765a2abcd87cd0",
+  "skills": [
+    "update-open-calls",
+    "tr-daily-refresh",
+    "update-macro",
+    "update-prices",
+    "update-council-minutes",
+    "eurostat_rail",
+    "eurostat_env"
+  ],
+  "paths": [
+    "macro.json",
+    "macro_fdi.json",
+    "macro_peers.json",
+    "cofog.json",
+    "debt-emissions.json",
+    "debt-emissions-domestic.json",
+    "administration",
+    "social/poverty_impact.json",
+    "transport",
+    "environment",
+    "data_map.json",
+    "governance/hub_stats.json"
+  ],
+  "cloudCommands": [
+    "pnpm run db:load:open-calls:pg:cloud",
+    "pnpm run db:load:tr:pg:cloud",
+    "pnpm run db:load:cr-nkid:pg:cloud",
+    "pnpm run db:refresh:risk:cloud",
+    "pnpm run db:load:persons-browse:pg:cloud",
+    "pnpm run db:load:person-search:pg:cloud",
+    "pnpm run db:load:graph:pg:cloud",
+    "pnpm run db:load:tr-company-place:pg:cloud",
+    "pnpm run prices:ingest:cloud",
+    "pnpm run db:load:council:pg:cloud",
+    "pnpm run myarea:alerts:cloud"
+  ]
+}
