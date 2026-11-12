@@ -14,6 +14,7 @@ import {
   type Facts,
 } from "./doctor";
 import { HANDLERS, NEEDS, stepNeeds } from "./registry";
+import { preflightBlockers, publishWarnings } from "./doctor";
 
 const NOW = new Date("2026-11-12T00:00:00Z");
 
@@ -245,4 +246,35 @@ describe("cli", () => {
       expect(r.stdout).toBe("");
     },
   );
+});
+
+describe("preflight", () => {
+  it("lets a healthy machine start, whatever the egress", () => {
+    expect(preflightBlockers(evaluate(healthy, NOW))).toEqual([]);
+    expect(publishWarnings(evaluate(healthy, NOW))).toEqual([]);
+  });
+
+  it("refuses on local Postgres down, git mid-operation or off main, low disk", () => {
+    const b = (f: Partial<Facts>) =>
+      preflightBlockers(evaluate({ ...healthy, ...f }, NOW)).map(
+        (x) => x.split(":")[0],
+      );
+    expect(b({ pgLocal: false })).toEqual(["pg-local"]);
+    expect(b({ git: { ...healthy.git, midOperation: "rebase" } })).toEqual([
+      "git",
+    ]);
+    expect(b({ git: { ...healthy.git, branch: "feature" } })).toEqual(["git"]);
+    expect(b({ diskFreeGb: 3 })).toEqual(["disk"]);
+    expect(b({ dockerDiskFreeGb: 2 })).toEqual(["disk"]);
+    // Unknown free space is not a reason to refuse.
+    expect(b({ diskFreeGb: null, dockerDiskFreeGb: null })).toEqual([]);
+  });
+
+  it("warns up front about what will stop the publish", () => {
+    expect(
+      publishWarnings(evaluate({ ...healthy, proxy: false }, NOW)).map(
+        (x) => x.split(":")[0],
+      ),
+    ).toEqual(["proxy"]);
+  });
 });

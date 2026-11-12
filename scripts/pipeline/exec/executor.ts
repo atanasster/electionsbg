@@ -17,6 +17,7 @@ import { LOCAL_DATABASE_URL } from "../../db/lib/pg";
 import { redact } from "../report/redact";
 import { REPO } from "../state";
 import { classify, firstErrorLine, type Classification } from "./classify";
+import { monitorFor } from "./monitor";
 import { readResult, RESULT_ENV, type StepResult } from "./result";
 
 /** Which database a step may see. `local` pins the docker Postgres whatever
@@ -50,6 +51,9 @@ export interface RunContext {
   env?: NodeJS.ProcessEnv;
   /** Lines of output kept for classification and the report. */
   tailLines?: number;
+  /** A step's usual duration (median of earlier ok runs), for the live
+   *  monitor's "usually Ns" and its over-2× warning. */
+  medianMs?: (stepId: string) => number | undefined;
 }
 
 /** Where a step's perf row goes. Under a test runner the real trace is off
@@ -165,9 +169,28 @@ export const isInterrupted = (): NodeJS.Signals | null => interrupted;
 const installSignalForwarding = (): void => {
   if (signalsInstalled) return;
   signalsInstalled = true;
-  for (const sig of ["SIGINT", "SIGTERM"] as const)
+  // After SIGHUP the terminal is gone and a write to it raises EIO as an
+  // uncaught 'error' — which would kill the runner before its report.
+  process.stdout.on("error", () => {});
+  process.stderr.on("error", () => {});
+  // SIGHUP too: a closed terminal must stop the steps, not orphan them —
+  // they run in their own process groups, so nothing else would.
+  for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"] as const)
     process.on(sig, () => {
-      if (interrupted) process.exit(130);
+      if (interrupted) {
+        // Second signal: do not leave detached step groups running behind a
+        // runner that is gone (a :cloud loader would keep writing).
+        for (const pgid of liveGroups)
+          try {
+            process.kill(-pgid, "SIGKILL");
+          } catch {
+            // Already gone.
+          }
+        process.stderr.write(
+          `\npipeline: second ${sig} — killed ${liveGroups.size} step group(s); exiting without a report\n`,
+        );
+        process.exit(130);
+      }
       interrupted = sig;
       process.stderr.write(
         `\npipeline: ${sig} — stopping ${liveGroups.size} running step(s); send it again to exit at once\n`,
@@ -210,6 +233,15 @@ export const runStep = async (
 
   const tail = new Tail(ctx.tailLines ?? DEFAULT_TAIL);
   const startedAt = new Date();
+  const monitor = monitorFor(ctx.session, ctx.logDir);
+  monitor.stepStart({
+    seq,
+    id: spec.id,
+    command: spec.run,
+    log: path.relative(REPO, logFile),
+    startedAt: startedAt.toISOString(),
+    medianMs: ctx.medianMs?.(spec.id),
+  });
   let timedOut = false;
   installSignalForwarding();
 
@@ -341,6 +373,16 @@ export const runStep = async (
     perfDirOf(ctx),
   );
 
+  monitor.stepEnd({
+    seq,
+    id: spec.id,
+    status,
+    exitCode: code,
+    durationMs,
+    log: path.relative(REPO, logFile),
+    firstError: status === "ok" ? undefined : firstErrorLine(tailText),
+  });
+
   return {
     seq,
     id: spec.id,
@@ -387,6 +429,15 @@ export const recordSkip = (
     },
     perfDirOf(ctx),
   );
+  monitorFor(ctx.session, ctx.logDir).stepEnd({
+    seq,
+    id: spec.id,
+    status: "skipped",
+    exitCode: null,
+    durationMs: 0,
+    log: "",
+    firstError: why,
+  });
   return {
     seq,
     id: spec.id,

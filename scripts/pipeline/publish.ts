@@ -379,13 +379,22 @@ export const runPublish = async (
         } else if (
           o.exitCode !== 0 &&
           s.spec.okExit?.includes(o.exitCode ?? -1)
-        )
-          // db:check-generated reports a false STALE right after a sync (it
-          // compares over HTTP without cache-busting), so a finding here is
-          // reported, not a reason to keep the manifest.
+        ) // db:check-generated reports a false STALE right after a sync (it
+        // compares over HTTP without cache-busting), so a finding here is
+        // reported, not a reason to keep the manifest.
+        {
           rec.findings.push(
             `${o.id} exited ${o.exitCode}: it found something — read ${o.log} and act on what it names`,
           );
+          // db:check-generated's finding is usually the false STALE above;
+          // db:check-cloud's is real drift between local and Cloud SQL. The
+          // data is published either way, but the verdict must not read
+          // clean over it.
+          if (o.id === "db:check-cloud" && u.status === "ok") {
+            u.status = "partial";
+            u.why = `db:check-cloud found drift — read ${o.log}`;
+          }
+        }
       }
     }
 

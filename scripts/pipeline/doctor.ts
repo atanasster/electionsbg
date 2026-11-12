@@ -51,6 +51,11 @@ export interface Facts {
   pendingManifest: PendingManifestFact | null;
   /** `df` of the Postgres container's /dev/shm, MB, or null when unknown. */
   shmMb: number | null;
+  /** Free GB on the repo's volume, or null when unknown. */
+  diskFreeGb?: number | null;
+  /** Free GB on the Docker VM disk Postgres writes to (pgsql_tmp spills
+   *  there — the 53100 incident), or null when unknown. */
+  dockerDiskFreeGb?: number | null;
 }
 
 export type PendingManifestFact =
@@ -110,6 +115,10 @@ export interface DoctorResult {
  *  the only thing country decides. */
 const BG = "BG";
 const MIN_SHM_MB = 256;
+/** Below these a nightly run refuses to start: a full disk mid-ingest
+ *  fails every later step and can leave half-written shards. */
+export const MIN_DISK_FREE_GB = 10;
+export const MIN_DOCKER_DISK_FREE_GB = 8;
 const STALE_MANIFEST_H = 48;
 
 export const evaluate = (f: Facts, now: Date): DoctorResult => {
@@ -255,6 +264,15 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
         : `Postgres /dev/shm is ${f.shmMb} MB${f.shmMb < MIN_SHM_MB ? " — parallel queries fail under test:data load; recreate the container" : ""}`,
   });
 
+  add({
+    id: "disk",
+    severity: "info",
+    ok:
+      (f.diskFreeGb ?? Infinity) >= MIN_DISK_FREE_GB &&
+      (f.dockerDiskFreeGb ?? Infinity) >= MIN_DOCKER_DISK_FREE_GB,
+    detail: `repo volume ${f.diskFreeGb == null ? "?" : f.diskFreeGb.toFixed(1)} GB free (min ${MIN_DISK_FREE_GB}); Docker VM ${f.dockerDiskFreeGb == null ? "?" : f.dockerDiskFreeGb.toFixed(1)} GB free (min ${MIN_DOCKER_DISK_FREE_GB}; \`docker builder prune -af\` frees space)`,
+  });
+
   const unmet = new Map<Need, string>();
   for (const c of checks) if (c.need && !c.ok) unmet.set(c.need, c.detail);
   return { checkedAt: now.toISOString(), checks, unmet };
@@ -384,6 +402,29 @@ const macGuiSession = (): boolean => {
   }
 };
 
+const freeGb = (dir: string): number | null => {
+  try {
+    const s = fs.statfsSync(dir);
+    return (s.bavail * s.bsize) / 1024 ** 3;
+  } catch {
+    return null;
+  }
+};
+
+const dockerFreeGb = (): number | null => {
+  try {
+    const out = execFileSync(
+      "docker",
+      ["exec", "electionsbg-pg", "df", "-Pk", "/var/lib/postgresql/data"],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], timeout: 5000 },
+    );
+    const n = Number(out.trim().split("\n").pop()?.split(/\s+/)[3]);
+    return Number.isFinite(n) ? n / 1024 ** 2 : null;
+  } catch {
+    return null;
+  }
+};
+
 const shmMb = (): number | null => {
   try {
     const out = execFileSync(
@@ -441,8 +482,36 @@ export const gatherFacts = async (now: Date): Promise<Facts> => {
     lock: readLock(),
     pendingManifest,
     shmMb: pgLocal ? shmMb() : null,
+    diskFreeGb: freeGb(REPO),
+    dockerDiskFreeGb: pgLocal ? dockerFreeGb() : null,
   };
 };
+
+/** Why an unattended run must not START, or [] when it may. These are the
+ *  conditions under which running would either fail every handler (no local
+ *  Postgres, a full disk) or commit somewhere wrong (mid-rebase, off main) —
+ *  as opposed to an unmet need, which only blocks the handlers that need it. */
+export const preflightBlockers = (r: DoctorResult): string[] => {
+  const by = new Map(r.checks.map((c) => [c.id, c]));
+  const out: string[] = [];
+  for (const id of ["pg-local", "git", "disk"]) {
+    const c = by.get(id);
+    if (c && !c.ok) out.push(`${id}: ${c.detail}`);
+  }
+  // The lock is not checked here: acquiring it is what refuses a second run,
+  // and the caller holds it by the time this runs.
+  return out;
+};
+
+/** What will make the publish half fail or hold, known before hours of
+ *  ingest — reported up front, not a reason to skip the ingest. */
+export const publishWarnings = (r: DoctorResult): string[] =>
+  r.checks
+    .filter(
+      (c) =>
+        !c.ok && ["proxy", "bin:gsutil", "pending-manifest"].includes(c.id),
+    )
+    .map((c) => `${c.id}: ${c.detail}`);
 
 export const runDoctor = async (now = new Date()): Promise<DoctorResult> =>
   evaluate(await gatherFacts(now), now);

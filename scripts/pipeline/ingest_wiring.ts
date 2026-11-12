@@ -237,8 +237,10 @@ export const realIngestDeps = (
           };
         },
       }),
-    publish: async () =>
-      (await runPublish(realPublishDeps(scripts, log), {})).exitCode,
+    publish: async () => {
+      const r = await runPublish(realPublishDeps(scripts, log), {});
+      return { exitCode: r.exitCode, report: r.report };
+    },
     log,
   };
 };

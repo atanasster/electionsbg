@@ -73,6 +73,9 @@ export interface UnitRecord {
   steps: StepRecord[];
   gates: GateRecord[];
   filesChanged?: string[];
+  /** Repo-relative path of the repair packet for this unit's failed gate(s),
+   *  when a gate (not a step) is what failed it. */
+  gatePacket?: string;
 }
 
 export interface RunRecord {
@@ -96,6 +99,10 @@ export interface RunRecord {
   /** Report-only findings (db:check-*, watcher errors, warnings). */
   findings: string[];
   publish?: { decision: "go" | "held" | "n/a"; heldBecause: string[] };
+  /** Set on an ingest run that went on to publish (the nightly path): what
+   *  the publish did, so this report never tells a reader to run a publish
+   *  that already ran. */
+  published?: { exitCode: number; report?: string };
   /** Publish runs: digest of the manifest content they worked from, so a
    *  resume can prove it continues the SAME work list. */
   manifestDigest?: string;
@@ -132,7 +139,8 @@ export const verdictOf = (rec: RunRecord): Verdict => {
     rec.units.some((u) => u.status !== "ok" && u.status !== "skipped") ||
     rec.needsOperator.length > 0 ||
     rec.needsAgent.length > 0 ||
-    rec.publish?.decision === "held"
+    rec.publish?.decision === "held" ||
+    (rec.published !== undefined && rec.published.exitCode !== 0)
   )
     return "degraded";
   return "clean";

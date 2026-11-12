@@ -354,3 +354,43 @@ describe("redaction in committed output", () => {
     expect(e?.lines[0].startsWith("1991 ")).toBe(true);
   });
 });
+
+describe("report: nightly hardening", () => {
+  it("lists a failed unit with no failed step under Failures", () => {
+    const md = renderReport(
+      record({
+        verdict: "failed",
+        units: [
+          {
+            id: "runner",
+            status: "failed",
+            why: "TypeError: x is undefined",
+            steps: [],
+            gates: [],
+          },
+        ],
+      }),
+    );
+    const failures = md.split("## Failures")[1].split("## ")[0];
+    expect(failures).toMatch(
+      /\*\*runner\*\* — failed: TypeError: x is undefined/,
+    );
+    expect(failures).not.toMatch(/_\(none\)_/);
+  });
+
+  it("says what the publish did instead of telling the reader to publish", () => {
+    const go = record({ publish: { decision: "go", heldBecause: [] } });
+    expect(renderReport(go)).toMatch(/pnpm run pipeline:publish/);
+    const done = renderReport({
+      ...go,
+      published: { exitCode: 0, report: "state/pipeline/runs/p/report.md" },
+    });
+    expect(done).toMatch(/Published in this run: exit 0 \(ok\)/);
+    expect(done.split("## Next commands")[1]).not.toMatch(/pipeline:publish/);
+    const failed = renderReport({ ...go, published: { exitCode: 1 } });
+    expect(failed).toMatch(/FAILED — the manifest is left pending/);
+    expect(failed.split("## Next commands")[1]).toMatch(
+      /resume: pnpm run pipeline:publish/,
+    );
+  });
+});

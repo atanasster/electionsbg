@@ -27,23 +27,55 @@ carries a source → skill table. If you need to know what a source does, read t
    local Postgres, the Cloud SQL proxy, binaries and drives. A handler whose needs are unmet
    is blocked, not failed. Fix what you can (`pnpm run db:pg:up`, `pnpm run
    db:proxy:cloud`). The VPN is the operator's to flip; never change it yourself.
-2. **Run it.** Use `pnpm run pipeline:nightly` for the whole chain. If the watcher already
-   ran today, use `pnpm run pipeline:ingest --publish` instead. Run it in the foreground with
-   a long timeout, never in the background. It exits as follows:
+2. **Run it.** Use `pnpm run pipeline:nightly` for the whole chain (`--no-publish` stops
+   after the ingest commit, leaving the manifest for `pipeline:publish`). If the watcher
+   already ran today, use `pnpm run pipeline:ingest --publish` instead. Run it in the
+   foreground with a long timeout, never in the background. It stops rather than continues
+   when something critical happens:
+   - **preflight** (the doctor runs first): local Postgres down, git mid-rebase/merge or off
+     `main`, or low disk (repo volume < 10 GB, Docker VM < 8 GB) — nothing runs, exit 3;
+   - **the watcher** crashes or times out — nothing is ingested, exit 5. Per-source watcher
+     errors are NOT critical: they are listed as findings (a streak of 3+ marks the
+     `watcher` unit `partial`) and the ingest runs on what the watcher found;
+   - **mid-ingest**, a step failing with an environment class (`db-local-down`, `disk`,
+     `db-auth`) aborts every later handler and holds the publish;
+   - any handler failure holds the publish.
 
    | exit | meaning |
    | --- | --- |
    | 0 | clean or degraded (only operator/agent items left) |
    | 1 | a handler or post-step failed |
-   | 3 | another run holds the lock |
+   | 2 | the runner itself crashed (the report still exists; its `runner` unit has the stack) |
+   | 3 | another run holds the lock, or preflight refused |
    | 4 | the ingest was fine, but the publish was held or failed |
-   | 5 | the watcher crashed |
+   | 5 | the watcher failed |
+   | 130 | interrupted (Ctrl-C/SIGTERM/SIGHUP) during the watcher |
+
+   Every exit path writes `state/pipeline/runs/<session>/report.md` — preflight refusal and
+   crashes included — and prints its path last. Two exceptions: a run refused by the lock
+   (read the holder's run instead) and a second Ctrl-C, which kills the running steps and
+   exits at once. A preflight refusal caused by git (mid-rebase, off `main`) writes its
+   report but does not commit it.
+
+   **Watching a live run.** The first line printed is the live log:
+   `tail -f logs/pipeline/<session>/run.log` (`logs/pipeline/LATEST` names the current
+   session). One timestamped line per event: each phase, each step's start (command, log
+   file, usual duration) and end (status, exit, duration, first error), a heartbeat every
+   5 min while a step runs (flagged when over 2× its usual time), and every orchestrator
+   decision. `status.json` beside it is rewritten on every event and every minute: the
+   phase, the step running now and for how long, counts so far, the last step. Each step's
+   full output is `logs/pipeline/<session>/<seq>-<step>.log`. On macOS a desktop
+   notification carries the final exit code.
 
 3. **Read the report.** Run `pnpm run pipeline:report` (or open
    `state/pipeline/runs/<session>/report.md`). Its sections, in order: Verdict, Failures,
-   Needs operator, Needs agent, What ran, Findings. `--json` gives `run.json`.
+   Needs operator, Needs agent, What ran, Findings. `--json` gives `run.json`. Under
+   nightly, the first unit is `watcher` (its source counts and any standing streak) and
+   the Publish decision section says what the publish did, with a link to its own report.
 4. **Failures: open the packet, don't re-derive.** Each failed step has
-   `state/pipeline/runs/<session>/failures/<seq>-<step-id>.md` (the report links each one). It holds:
+   `state/pipeline/runs/<session>/failures/<seq>-<step-id>.md`, and a unit failed by a
+   gate (every step ok, result refused) has `<seq>-<step-id>-gate.md` (the report links
+   each one). It holds:
    - the exact command;
    - the log tail;
    - the failure class;

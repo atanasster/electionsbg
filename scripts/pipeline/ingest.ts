@@ -50,6 +50,7 @@ import {
   type UnitRecord,
 } from "./report/record";
 import path from "node:path";
+import { medianIndex } from "./report/finalize";
 import { REPO } from "./state";
 
 export const PERF_RUN = "process-watch-report";
@@ -120,8 +121,9 @@ export interface IngestDeps {
     tookOver?: { pid: number; session: string };
   };
   finalize: (rec: RunRecord) => string;
-  /** Run the publish; returns its exit code. */
-  publish: () => Promise<number>;
+  /** Run the publish; returns its exit code (and, when it got that far, the
+   *  publish run's own report). */
+  publish: () => Promise<number | { exitCode: number; report?: string }>;
   log: (line: string) => void;
 }
 
@@ -136,7 +138,19 @@ export interface IngestOptions {
   /** Do not commit (local experiments). Holds the publish. */
   noCommit?: boolean;
   perfDir?: string;
+  /** Units and findings from before the ingest (the nightly watcher), so one
+   *  report covers the whole chain. */
+  preamble?: { units: UnitRecord[]; findings: string[] };
 }
+
+/** Failure classes that mean the ENVIRONMENT is broken, not the handler: once
+ *  one is seen, every later handler would fail the same way (each burning its
+ *  own timeout), so the run stops there instead. */
+export const ABORT_CLASSES: ReadonlySet<string> = new Set([
+  "db-local-down",
+  "db-auth",
+  "disk",
+]);
 
 export interface IngestOutcome {
   exitCode: number;
@@ -181,26 +195,90 @@ interface Succeeded {
   dirFiles: string[];
 }
 
+const safeHead = (deps: IngestDeps): string | null => {
+  try {
+    return deps.head();
+  } catch {
+    return null;
+  }
+};
+
 export const runIngest = async (
   deps: IngestDeps,
   opt: IngestOptions = {},
 ): Promise<IngestOutcome> => {
-  const doctor = await deps.doctor();
-  const state = deps.loadState();
-  const thePlan = plan({
-    handlers: deps.handlers,
-    watch: state.watch,
-    ingest: state.ingest,
-    acks: state.acks,
-    now: new Date(),
-    bootstrap: opt.bootstrap ?? "ask",
-    unmet: doctor.unmet,
-    only: opt.only,
-    inputErrors: state.errors,
-  });
+  const session = opt.session ?? newSessionId();
+  let doctor: DoctorResult;
+  let thePlan: Plan;
+  try {
+    doctor = await deps.doctor();
+    const state = deps.loadState();
+    thePlan = plan({
+      handlers: deps.handlers,
+      watch: state.watch,
+      ingest: state.ingest,
+      acks: state.acks,
+      now: new Date(),
+      bootstrap: opt.bootstrap ?? "ask",
+      unmet: doctor.unmet,
+      only: opt.only,
+      inputErrors: state.errors,
+    });
+  } catch (e) {
+    // Nothing ran and nothing was stamped — but the reader still needs a
+    // report saying so, not the previous session's.
+    const msg = e instanceof Error ? (e.stack ?? e.message) : String(e);
+    deps.log(`✗ the run could not plan: ${msg.split("\n")[0]}`);
+    const emptyPlan: Plan = {
+      schema: 1,
+      generatedAt: new Date().toISOString(),
+      bootstrap: opt.bootstrap ?? "ask",
+      entries: [],
+      followUps: [],
+      cloud: [],
+      unrouted: [],
+      warnings: [],
+    };
+    if (opt.dryRun) throw e;
+    const rec: RunRecord = {
+      schema: 1,
+      session,
+      kind: "ingest",
+      startedAt: new Date().toISOString(),
+      endedAt: new Date().toISOString(),
+      git: { shaStart: safeHead(deps) },
+      env: {},
+      units: [
+        ...(opt.preamble?.units ?? []),
+        {
+          id: "runner",
+          status: "failed",
+          why: `planning failed: ${msg.split("\n")[0]}`,
+          steps: [],
+          gates: [],
+        },
+      ],
+      needsOperator: [],
+      needsAgent: [],
+      findings: [
+        ...(opt.preamble?.findings ?? []),
+        `runner error before any handler ran: ${msg.split("\n").slice(0, 6).join(" | ")}`,
+      ],
+      publish: { decision: "n/a", heldBecause: [] },
+      exitCode: 2,
+    };
+    let report: string | undefined;
+    try {
+      report = deps.finalize(rec);
+    } catch (fe) {
+      deps.log(
+        `report could not be written either: ${fe instanceof Error ? fe.message : String(fe)}`,
+      );
+    }
+    return { exitCode: 2, plan: emptyPlan, record: rec, report };
+  }
   if (opt.dryRun) return { exitCode: 0, plan: thePlan };
 
-  const session = opt.session ?? newSessionId();
   const lock = deps.lock(session);
   const byId = new Map(deps.handlers.map((h) => [h.id, h]));
   const rec: RunRecord = {
@@ -212,10 +290,11 @@ export const runIngest = async (
     env: Object.fromEntries(
       doctor.checks.map((c) => [c.id, { ok: c.ok, detail: c.detail }]),
     ),
-    units: [],
+    units: [...(opt.preamble?.units ?? [])],
     needsOperator: [],
     needsAgent: [],
     findings: [
+      ...(opt.preamble?.findings ?? []),
       ...thePlan.warnings,
       ...(thePlan.unrouted.length
         ? [`unrouted watcher sources: ${thePlan.unrouted.join(", ")}`]
@@ -234,9 +313,16 @@ export const runIngest = async (
     logDir: logDir(session),
     nextSeq: () => ++seq,
     perfDir: opt.perfDir,
+    medianMs: medianIndex(PERF_RUN, session, opt.perfDir),
   };
   const unmet = (needs: readonly Need[]): Need[] =>
     needs.filter((n) => doctor.unmet.has(n));
+  /** Set when a step failed for an environment reason (ABORT_CLASSES): every
+   *  later handler and post-step is skipped with this as the reason. */
+  let aborted: string | null = null;
+  deps.log(
+    `── ingest ${session}: ${thePlan.entries.filter((e) => e.status === "run").length} handler(s) to run, ${thePlan.entries.length} planned`,
+  );
 
   const succeeded: Succeeded[] = [];
   /** handler id → its unit's final status in THIS run. */
@@ -310,6 +396,11 @@ export const runIngest = async (
 
         if (isInterrupted()) {
           settle("skipped", "runner interrupted");
+          continue;
+        }
+        if (aborted && entry.status === "run") {
+          settle("skipped", `run aborted: ${aborted}`);
+          heldBecause.push(`${h.id}: not run — ${aborted}`);
           continue;
         }
         if (entry.status === "bootstrap") {
@@ -416,6 +507,12 @@ export const runIngest = async (
           for (const o of await deps.run(spec, ctx)) {
             outs.push(o);
             if (o.status !== "ok") broke ??= o.id;
+            if (
+              o.status !== "ok" &&
+              o.failure &&
+              ABORT_CLASSES.has(o.failure.class)
+            )
+              aborted ??= `${h.id} › ${o.id} failed with ${o.failure.class} (${o.firstError ?? "no output"}) — the environment is broken, so later handlers were not started`;
           }
         }
         unit.steps = outs.map((o) => toStepRecord(o));
@@ -455,6 +552,11 @@ export const runIngest = async (
           if (h.stamp === "self") deps.restoreFile(markerFile, markerBefore);
           if (h.changelog === "self")
             deps.restoreFile(CHANGELOG_FILE, changelogBefore);
+          deps.log(`✗ ${h.id}: ${unit.why}`);
+          if (aborted) {
+            rec.findings.push(`run aborted: ${aborted}`);
+            deps.log(`■ aborting the run: ${aborted}`);
+          }
           continue;
         }
 
@@ -495,6 +597,9 @@ export const runIngest = async (
           });
         for (const a of entry.agent) rec.needsAgent.push({ unit: h.id, ...a });
         succeeded.push({ entry, handler: h, dirs, dirFiles });
+        deps.log(
+          `✓ ${h.id}: ${unit.status}${unit.stamped ? " (marker stamped)" : ""} — ${unit.summary}`,
+        );
         // Durable promise first: a stamped marker's work is on the manifest
         // before anything else can go wrong.
         writeManifest(manifestFor());
@@ -509,7 +614,19 @@ export const runIngest = async (
           )
         : [];
       const postOk: PostStep[] = [];
+      if (posts.length && !aborted)
+        deps.log(`── post-steps: ${posts.map((p) => p.id).join(", ")}`);
       for (const p of posts) {
+        if (aborted) {
+          rec.units.push({
+            id: `post:${p.id}`,
+            status: "skipped",
+            why: `run aborted: ${aborted}`,
+            steps: [],
+            gates: [],
+          });
+          continue;
+        }
         const unit: UnitRecord = {
           id: `post:${p.id}`,
           status: "ok",
@@ -569,6 +686,7 @@ export const runIngest = async (
       }
 
       // ---- commit
+      deps.log("── commit");
       const runFolder = path.relative(REPO, runDir(session));
       const commitPathspec = [
         ...new Set([
@@ -648,7 +766,23 @@ export const runIngest = async (
           : { decision: "n/a", heldBecause: [] };
     const anyFailed = rec.units.some((u) => u.status === "failed");
     rec.exitCode = anyFailed ? 1 : rec.publish.decision === "held" ? 4 : 0;
-    const report = finish();
+    let report: string | undefined;
+    try {
+      report = finish();
+    } catch (e) {
+      // A report that cannot be written (disk full, permissions) must not
+      // turn into an uncaught crash with the publish decision unknown.
+      deps.log(
+        `✗ the run report could not be written: ${e instanceof Error ? e.message : String(e)}`,
+      );
+      if (rec.exitCode === 0) rec.exitCode = 4;
+      if (rec.publish.decision === "go") {
+        rec.publish = {
+          decision: "held",
+          heldBecause: ["the run report could not be written"],
+        };
+      }
+    }
     if (!opt.noCommit) {
       let c: CommitResult;
       try {
@@ -675,7 +809,44 @@ export const runIngest = async (
     let publishExit: number | undefined;
     if (opt.publish && rec.publish.decision === "go") {
       lock.release();
-      publishExit = await deps.publish();
+      deps.log("── publish");
+      let publishReport: string | undefined;
+      try {
+        const r = await deps.publish();
+        if (typeof r === "number") publishExit = r;
+        else {
+          publishExit = r.exitCode;
+          publishReport = r.report;
+        }
+      } catch (e) {
+        publishExit = 2;
+        rec.findings.push(
+          `publish runner crashed: ${e instanceof Error ? (e.stack ?? e.message).split("\n").slice(0, 6).join(" | ") : String(e)}`,
+        );
+      }
+      // The ingest report is what a reader opens first: it must say what the
+      // publish did, not tell them to run a publish that already ran.
+      if (publishExit !== 0 && rec.exitCode === 0) rec.exitCode = 4;
+      rec.published = {
+        exitCode: publishExit,
+        report: publishReport ? path.relative(REPO, publishReport) : undefined,
+      };
+      deps.log(
+        `${publishExit === 0 ? "✓" : "✗"} publish exited ${publishExit}${publishReport ? ` — report ${path.relative(REPO, publishReport)}` : ""}`,
+      );
+      try {
+        finish();
+        if (!opt.noCommit)
+          deps.commit(
+            `watch: run report ${session} (publish exit ${publishExit})`,
+            [path.relative(REPO, runDir(session))],
+            [],
+          );
+      } catch (e) {
+        deps.log(
+          `could not record the publish result in the ingest report: ${e instanceof Error ? e.message : String(e)}`,
+        );
+      }
     } else if (opt.publish && rec.publish.decision === "held")
       deps.log(`publish held: ${heldBecause.join("; ")}`);
     const exitCode =

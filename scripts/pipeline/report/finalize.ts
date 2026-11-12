@@ -71,41 +71,75 @@ export const finalizeRun = (rec: RunRecord, opt: FinalizeOptions): string => {
   const failDir = path.join(dir, "failures");
   const med = medianIndex(opt.perfRun, rec.session, opt.perfDir);
 
-  for (const u of rec.units)
+  const write = (
+    u: RunRecord["units"][number],
+    s: StepRecord,
+    suffix: string,
+    extra: { guidance: string[]; doneMeans?: string[] },
+  ): string => {
+    const ex = opt.extras(u.id, s);
+    const packet: PacketInput = {
+      session: rec.session,
+      unit: u.id,
+      step: s,
+      reproduce: (ex.reproduce ?? defaultReproduce)(s),
+      excerpt: s.log
+        ? excerptLog(path.resolve(REPO, s.log), s.firstError)
+        : null,
+      code: codeContext(s.command, opt.scripts),
+      history: stepHistory(opt.perfRun, s.id, rec.session, 5, opt.perfDir),
+      watcher: ex.watcher ?? [],
+      guidance: [...extra.guidance, ...(ex.guidance ?? [])],
+      never: ex.never ?? [],
+      stateLeft: ex.stateLeft,
+      doneMeans: extra.doneMeans ??
+        ex.doneMeans ?? [`\`${s.command}\` exits 0 when re-run.`],
+      gates: u.gates,
+    };
+    fs.mkdirSync(failDir, { recursive: true });
+    const file = path.join(
+      failDir,
+      `${String(s.seq).padStart(3, "0")}-${s.id.replace(/[^A-Za-z0-9._-]+/g, "_").slice(0, 80)}${suffix}.md`,
+    );
+    fs.writeFileSync(file, renderPacket(packet));
+    return path.relative(REPO, file);
+  };
+
+  for (const u of rec.units) {
     for (const s of u.steps) {
       if (s.status !== "skipped") s.medianMs = med(s.id);
       if (s.status !== "error" && s.status !== "timeout") continue;
-      const ex = opt.extras(u.id, s);
-      const packet: PacketInput = {
-        session: rec.session,
-        unit: u.id,
-        step: s,
-        reproduce: (ex.reproduce ?? defaultReproduce)(s),
-        excerpt: s.log
-          ? excerptLog(path.resolve(REPO, s.log), s.firstError)
-          : null,
-        code: codeContext(s.command, opt.scripts),
-        history: stepHistory(opt.perfRun, s.id, rec.session, 5, opt.perfDir),
-        watcher: ex.watcher ?? [],
-        guidance: [
-          ...(s.failure
-            ? [`Classifier hint (${s.failure.class}): ${s.failure.hint}`]
-            : []),
-          ...(ex.guidance ?? []),
-        ],
-        never: ex.never ?? [],
-        stateLeft: ex.stateLeft,
-        doneMeans: ex.doneMeans ?? [`\`${s.command}\` exits 0 when re-run.`],
-        gates: u.gates,
-      };
-      fs.mkdirSync(failDir, { recursive: true });
-      const file = path.join(
-        failDir,
-        `${String(s.seq).padStart(3, "0")}-${s.id.replace(/[^A-Za-z0-9._-]+/g, "_").slice(0, 80)}.md`,
-      );
-      fs.writeFileSync(file, renderPacket(packet));
-      s.packet = path.relative(REPO, file);
+      s.packet = write(u, s, "", {
+        guidance: s.failure
+          ? [`Classifier hint (${s.failure.class}): ${s.failure.hint}`]
+          : [],
+      });
     }
+    // Every step succeeded but a gate refused the result: the packet hangs
+    // off the last step that ran, since its output is what the gate read.
+    const badGates = u.gates.filter((g) => !g.ok);
+    const ran = u.steps.filter((s) => s.status !== "skipped");
+    if (
+      badGates.length &&
+      ran.length &&
+      !u.steps.some((s) => s.status === "error" || s.status === "timeout")
+    )
+      u.gatePacket = write(u, ran[ran.length - 1], "-gate", {
+        guidance: [
+          `Every step exited 0, but the unit's gate(s) refused the result: ${badGates
+            .map(
+              (g) => `${g.id} expected ${g.expected}, observed ${g.observed}`,
+            )
+            .join(
+              "; ",
+            )}. The marker was NOT stamped, so the handler re-queues next run.`,
+          "Decide whether the data really changed that much (then adjust the gate in the handler's registry entry) or the ingest is wrong (then fix it and re-run).",
+        ],
+        doneMeans: badGates.map(
+          (g) => `gate ${g.id} passes on re-run (expected ${g.expected}).`,
+        ),
+      });
+  }
 
   rec.verdict = verdictOf(rec);
   writeRecord(rec, dir);

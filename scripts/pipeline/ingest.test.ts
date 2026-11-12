@@ -86,7 +86,9 @@ const sim = (
      *  `<first output>/out.json`. */
     writes?: Record<string, string[]>;
     gateValue?: number;
-    throwOn?: "commit" | "postSteps";
+    throwOn?: "commit" | "postSteps" | "doctor" | "publish";
+    /** command → the failure class its error carries. */
+    failClass?: Record<string, string>;
     dirs?: string[];
     manifestError?: string;
   } = {},
@@ -114,11 +116,14 @@ const sim = (
   s.deps = {
     handlers,
     postSteps: opts.postSteps ?? [],
-    doctor: async (): Promise<DoctorResult> => ({
-      checkedAt: "t",
-      checks: [],
-      unmet: new Map((opts.unmet ?? []).map((n) => [n, `${n} is down`])),
-    }),
+    doctor: async (): Promise<DoctorResult> => {
+      if (opts.throwOn === "doctor") throw new Error("doctor exploded");
+      return {
+        checkedAt: "t",
+        checks: [],
+        unmet: new Map((opts.unmet ?? []).map((n) => [n, `${n} is down`])),
+      };
+    },
     loadState: () => ({
       watch: new Map(flipped.map((id) => [id, watch(CHANGED)])),
       ingest: new Map<string, IngestState>(
@@ -138,7 +143,17 @@ const sim = (
             status: "error",
             exitCode: 1,
             firstError: "boom",
-          },
+            ...(opts.failClass?.[spec.run]
+              ? {
+                  failure: {
+                    class: opts.failClass[spec.run],
+                    retryable: true,
+                    holdsPublish: true,
+                    hint: "h",
+                  },
+                }
+              : {}),
+          } as StepOutcome,
         ];
       return [okOutcome(spec)];
     },
@@ -178,6 +193,7 @@ const sim = (
     },
     publish: async () => {
       s.published++;
+      if (opts.throwOn === "publish") throw new Error("publish exploded");
       return 0;
     },
     log: () => {},
@@ -699,5 +715,95 @@ describe("parseIngestArgs", () => {
       /--bootstrap/,
     );
     expect(() => parseIngestArgs(["--bogus"])).toThrow();
+  });
+});
+
+describe("stopping and reporting (nightly hardening)", () => {
+  it("aborts the remaining handlers after an environment failure", async () => {
+    const a = H({ id: "a" });
+    const b = H({ id: "b" });
+    const c = H({ id: "c" });
+    const s = sim([a, b, c], {
+      fail: ["pnpm run b:fetch"],
+      failClass: { "pnpm run b:fetch": "db-local-down" },
+    });
+    const out = await runIngest(s.deps, { session: "s", perfDir: PERF_TMP });
+    expect(s.ran).toEqual(["pnpm run a:fetch", "pnpm run b:fetch"]);
+    expect(unitOf(s, "c").status).toBe("skipped");
+    expect(unitOf(s, "c").why).toMatch(
+      /run aborted: b › fetch failed with db-local-down/,
+    );
+    expect(s.finalized[0].publish?.decision).toBe("held");
+    expect(out.exitCode).toBe(1);
+  });
+
+  it("does not abort on an ordinary handler failure", async () => {
+    const s = sim([H({ id: "a" }), H({ id: "b" })], {
+      fail: ["pnpm run a:fetch"],
+      failClass: { "pnpm run a:fetch": "upstream-down" },
+    });
+    await runIngest(s.deps, { session: "s", perfDir: PERF_TMP });
+    expect(s.ran).toEqual(["pnpm run a:fetch", "pnpm run b:fetch"]);
+  });
+
+  it("writes a report, exit 2, when planning itself throws", async () => {
+    const s = sim([H({ id: "a" })], { throwOn: "doctor" });
+    const out = await runIngest(s.deps, {
+      session: "s",
+      perfDir: PERF_TMP,
+      preamble: { units: [], findings: ["watcher: x errored"] },
+    });
+    expect(out.exitCode).toBe(2);
+    expect(s.ran).toEqual([]);
+    const rec = s.finalized[0];
+    expect(rec.units.map((u) => [u.id, u.status])).toEqual([
+      ["runner", "failed"],
+    ]);
+    expect(rec.findings.join()).toMatch(/watcher: x errored/);
+    expect(rec.findings.join()).toMatch(/doctor exploded/);
+  });
+
+  it("carries the watcher preamble into the run record", async () => {
+    const s = sim([H({ id: "a" })]);
+    await runIngest(s.deps, {
+      session: "s",
+      perfDir: PERF_TMP,
+      preamble: {
+        units: [{ id: "watcher", status: "ok", steps: [], gates: [] }],
+        findings: ["watcher STANDING: y"],
+      },
+    });
+    expect(s.finalized[0].units[0].id).toBe("watcher");
+    expect(s.finalized[0].findings).toContain("watcher STANDING: y");
+  });
+
+  it("records what the publish did in the ingest report", async () => {
+    const s = sim([
+      H({ id: "a", publish: { cloud: ["pnpm run db:load:pg:cloud"] } }),
+    ]);
+    const out = await runIngest(s.deps, {
+      session: "s",
+      perfDir: PERF_TMP,
+      publish: true,
+    });
+    expect(out.exitCode).toBe(0);
+    const last = s.finalized[s.finalized.length - 1];
+    expect(last.published).toEqual({ exitCode: 0, report: undefined });
+  });
+
+  it("turns a crashing publish into exit 4 and a finding, not a throw", async () => {
+    const s = sim(
+      [H({ id: "a", publish: { cloud: ["pnpm run db:load:pg:cloud"] } })],
+      { throwOn: "publish" },
+    );
+    const out = await runIngest(s.deps, {
+      session: "s",
+      perfDir: PERF_TMP,
+      publish: true,
+    });
+    expect(out.exitCode).toBe(4);
+    const last = s.finalized[s.finalized.length - 1];
+    expect(last.published?.exitCode).toBe(2);
+    expect(last.findings.join()).toMatch(/publish runner crashed/);
   });
 });

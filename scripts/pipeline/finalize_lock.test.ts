@@ -124,4 +124,69 @@ describe("finalizeRun", () => {
       /failures\/002-second\.md$/,
     );
   });
+
+  it("writes a gate packet when every step passed but a gate refused", async () => {
+    const root = tmp("finalize-gate-");
+    let seq = 0;
+    const ctx = {
+      perfRun: "pipeline-test",
+      session: "20261112T000000Z-gate",
+      logDir: path.join(root, "logs"),
+      perfDir: path.join(root, "perf"),
+      nextSeq: () => ++seq,
+    };
+    const ok = await runStep(
+      {
+        id: "build",
+        run: `node -e "console.log('rows 12')"`,
+        phase: "ingest",
+        timeoutMin: 1,
+        db: "inherit",
+      },
+      ctx,
+    );
+    const rec: RunRecord = {
+      schema: 1,
+      session: ctx.session,
+      kind: "ingest",
+      startedAt: "2026-11-12T00:00:00Z",
+      git: { shaStart: null },
+      env: {},
+      units: [
+        {
+          id: "update-y",
+          status: "failed",
+          why: "gate(s) failed: no-shrink",
+          steps: [toStepRecord(ok)],
+          gates: [
+            { id: "no-shrink", ok: false, expected: ">= 100", observed: "12" },
+          ],
+        },
+      ],
+      needsOperator: [],
+      needsAgent: [],
+      findings: [],
+      exitCode: 1,
+    };
+    const dir = path.join(root, "run");
+    const report = finalizeRun(rec, {
+      perfRun: "pipeline-test",
+      perfDir: ctx.perfDir,
+      scripts: {},
+      dir,
+      extras: () => ({ stateLeft: ["marker update-y NOT stamped"] }),
+    });
+    expect(fs.readdirSync(path.join(dir, "failures"))).toEqual([
+      "001-build-gate.md",
+    ]);
+    const pkt = fs.readFileSync(
+      path.join(dir, "failures", "001-build-gate.md"),
+      "utf8",
+    );
+    expect(pkt).toMatch(/no-shrink expected >= 100, observed 12/);
+    expect(pkt).toMatch(/gate no-shrink passes on re-run/);
+    expect(fs.readFileSync(report, "utf8")).toMatch(
+      /gate no-shrink.*\n\s+Repair packet: `[^`]*001-build-gate\.md`/,
+    );
+  });
 });

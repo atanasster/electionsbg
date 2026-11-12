@@ -41,6 +41,10 @@ const isSlow = (s: StepRecord): boolean =>
   s.medianMs > 5_000 &&
   s.durationMs > s.medianMs * SLOW_FACTOR;
 
+/** The packet finalize wrote for a unit's failed gate(s), if any. */
+const gatePacket = (rec: RunRecord, unit: string): string | undefined =>
+  rec.units.find((u) => u.id === unit)?.gatePacket;
+
 export const renderReport = (rec: RunRecord): string => {
   const out: string[] = [];
   const steps = rec.units.flatMap((u) =>
@@ -51,6 +55,15 @@ export const renderReport = (rec: RunRecord): string => {
   );
   const failedGates = rec.units.flatMap((u) =>
     u.gates.filter((g) => !g.ok).map((g) => ({ unit: u.id, g })),
+  );
+  // A unit can fail with no failed step and no failed gate — the runner
+  // itself crashed, or the run was interrupted between steps. Those must
+  // still be listed under Failures, or a FAILED verdict reads "(none)".
+  const failedBare = rec.units.filter(
+    (u) =>
+      u.status === "failed" &&
+      !u.steps.some((s) => s.status === "error" || s.status === "timeout") &&
+      !u.gates.some((g) => !g.ok),
   );
 
   out.push(`# Pipeline ${rec.kind} run — ${rec.session}`);
@@ -68,7 +81,12 @@ export const renderReport = (rec: RunRecord): string => {
   );
 
   out.push("", "## Failures");
-  if (!failed.length && !failedGates.length) out.push("_(none)_");
+  if (!failed.length && !failedGates.length && !failedBare.length)
+    out.push("_(none)_");
+  for (const u of failedBare)
+    out.push(
+      `- **${flat(u.id)}** — failed: ${flat(u.why ?? "no reason recorded")}`,
+    );
   for (const { unit, s } of failed)
     out.push(
       `- **${flat(unit)} › ${flat(s.id)}** — ${s.status}, exit ${s.exitCode ?? "signal"} after ${formatDuration(s.durationMs)}; ` +
@@ -80,7 +98,10 @@ export const renderReport = (rec: RunRecord): string => {
     );
   for (const { unit, g } of failedGates)
     out.push(
-      `- **${flat(unit)} › gate ${flat(g.id)}** — expected ${code(g.expected)}, observed ${code(g.observed)}`,
+      `- **${flat(unit)} › gate ${flat(g.id)}** — expected ${code(g.expected)}, observed ${code(g.observed)}` +
+        (gatePacket(rec, unit)
+          ? `\n  Repair packet: ${code(gatePacket(rec, unit))}`
+          : ""),
     );
 
   out.push("", "## Needs operator");
@@ -171,13 +192,31 @@ export const renderReport = (rec: RunRecord): string => {
     out.push(`**${rec.publish.decision.toUpperCase()}**`);
     for (const r of rec.publish.heldBecause) out.push(`- held: ${flat(r)}`);
   }
+  if (rec.published)
+    out.push(
+      `Published in this run: exit ${rec.published.exitCode}${rec.published.exitCode === 0 ? " (ok)" : " (FAILED — the manifest is left pending)"}` +
+        (rec.published.report
+          ? ` · publish report ${code(rec.published.report)}`
+          : ""),
+    );
 
   out.push("", "## Next commands");
   const next: string[] = [];
   for (const { s } of failed)
     if (s.packet) next.push(`# fix, then re-run: see ${s.packet}`);
-  if (rec.kind === "ingest" && rec.publish?.decision === "go")
+  if (rec.published && rec.published.exitCode !== 0)
+    next.push(
+      `# the publish failed — read ${rec.published.report ?? "its report"}, fix, then resume: pnpm run pipeline:publish`,
+    );
+  else if (
+    rec.kind === "ingest" &&
+    rec.publish?.decision === "go" &&
+    !rec.published
+  )
     next.push("pnpm run pipeline:publish");
+  for (const u of rec.units)
+    if (u.steps.length === 0 && u.status === "failed" && u.id !== "runner")
+      next.push(`# ${u.id}: ${flat(u.why)}`);
   if (rec.kind === "ingest" && rec.publish?.decision === "held")
     next.push(
       "# publish held — fix the failures above, then: pnpm run pipeline:publish",
