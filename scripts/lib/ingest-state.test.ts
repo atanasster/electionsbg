@@ -18,6 +18,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import { fileURLToPath } from "url";
+import { handlerById, markerOf } from "../pipeline/registry";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   INGEST_STATE_DIR,
@@ -31,7 +32,6 @@ const REPO = path.resolve(
   "../..",
 );
 const SKILLS_DIR = path.join(REPO, ".claude/skills");
-const WATCH_SKILL = path.join(SKILLS_DIR, "process-watch-report", "SKILL.md");
 
 const markerFiles = (): string[] =>
   fs
@@ -87,11 +87,14 @@ describe("the person-layer marker", () => {
   // The map is what turns "a people source changed" into "run update-persons".
   // If it stopped naming the skill, the marker would go unread again.
   it("is the skill the watcher→skill map queues for the person layer", () => {
-    const map = fs.readFileSync(WATCH_SKILL, "utf-8");
+    // The map is the pipeline registry since Tier 6 (watch-pipeline-scripts-v1).
+    const h = handlerById(SKILL);
     expect(
-      map.includes(`\`${SKILL}\``),
-      `${WATCH_SKILL} no longer queues \`${SKILL}\` — the marker would go unread again`,
-    ).toBe(true);
+      h,
+      `no registry handler ${SKILL} — the marker would go unread again`,
+    ).toBeTruthy();
+    expect(markerOf(h!)).toBe(SKILL);
+    expect(h!.sources.length).toBeGreaterThan(0);
   });
 
   // The tests above pin the ARTIFACT. Without this one, renaming the constant
@@ -200,12 +203,16 @@ describe("the presidential marker", () => {
     expect(fs.existsSync(path.join(SKILLS_DIR, SKILL, "SKILL.md"))).toBe(true);
   });
 
-  it("is the skill the watcher→skill map queues", () => {
-    const map = fs.readFileSync(WATCH_SKILL, "utf-8");
+  it("is the marker the pipeline registry reads for the presidential sources", () => {
+    // Since Tier 6 of docs/plans/watch-pipeline-scripts-v1.md the watcher→skill
+    // map is the registry, not process-watch-report's prose.
+    const h = handlerById(SKILL);
     expect(
-      map.includes(`\`${SKILL}\``),
-      `${WATCH_SKILL} no longer queues \`${SKILL}\` — the marker would go unread`,
-    ).toBe(true);
+      h,
+      `no registry handler ${SKILL} — the marker would go unread`,
+    ).toBeTruthy();
+    expect(markerOf(h!)).toBe(SKILL);
+    expect(h!.sources).toContain("cik_presidential");
   });
 
   it("is the name `--pvr` actually stamps", () => {
