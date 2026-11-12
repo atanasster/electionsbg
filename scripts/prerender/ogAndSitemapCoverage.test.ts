@@ -1743,7 +1743,7 @@ describe("a hub's og capture anchors on its head", () => {
     "governance-sectors": {
       payloads: ["data/procurement/derived/sector_stats.json"],
       project: sectorsFigures,
-      md5: "d0e54b6eeeb750e5e5c586a2ebc55b26",
+      md5: "1d35d9928d2a6b693e9364e92bd08dd7",
       // ⚠️ RE-SHOT 2026-09-03, AND IT FIRED EXACTLY AS THE 08-31 NOTE PREDICTED. That note
       // measured the procurement total at €8.6m (0.029%) below the boundary into
       // „€29,7 млрд." and said the entry was „expected to fire soon, for real" — it did, on
@@ -1769,13 +1769,16 @@ describe("a hub's og capture anchors on its head", () => {
       // (procurement-same-feed-dedup-v1 §7) removed €1.18bn of duplicates. LOOKED AT:
       // procurement €30,1 → €29,7 млрд., energy €10,3 → €10,1, transport €7,3 → €7,2; the
       // other five values are unchanged.
-      shot: "2026-10-16",
+      // ⚠️ RE-SHOT 2026-11-12 (UTC) — the nightly corpus refreshes since 10-16 crossed two
+      // rounding boundaries. LOOKED AT: procurement €29,7 → €29,8 млрд. and roads €9,1 →
+      // €9,2 млрд.; the other six values are unchanged.
+      shot: "2026-11-12",
       figures:
-        "sectors_kpi_procurement=€29,7 млрд. [sectors_kpi_procurement_basis:4] " +
+        "sectors_kpi_procurement=€29,8 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
         "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
         "administration=133 275 [sectors_kpi_headcount_basis:2025] " +
-        "| energy=€10,1 млрд. roads=€9,1 млрд. transport=€7,2 млрд. water=€3,3 млрд.",
+        "| energy=€10,1 млрд. roads=€9,2 млрд. transport=€7,2 млрд. water=€3,3 млрд.",
     },
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
