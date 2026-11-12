@@ -9,16 +9,18 @@
 /** Something a handler or one of its steps cannot run without. Checked by the
  *  preflight (`pipeline:doctor`); an unmet need plans the handler as `blocked`
  *  instead of letting it time out half-way. */
-export type Need =
-  | "pg-local" // docker Postgres on 5433
-  | "egress:bg" // a Bulgarian exit IP (КЗК, АСП, ГИТ)
-  | "egress:non-bg" // anything BUT a Bulgarian exit (parliament.bg, МО, ЦИК)
-  | "headed" // a display for headed Playwright
-  | "drive:prices" // raw_data/prices symlink target mounted
-  | "bin:pdftotext"
-  | "bin:unzip"
-  | "tr-state" // raw_data/tr/state.sqlite present
-  | "gemini"; // GEMINI_API_KEY for an OCR arm
+export const NEEDS = [
+  "pg-local", // docker Postgres on 5433
+  "egress:bg", // a Bulgarian exit IP (КЗК, АСП, ГИТ)
+  "egress:non-bg", // anything BUT a Bulgarian exit (parliament.bg, МО, ЦИК)
+  "headed", // a display for headed Playwright
+  "drive:prices", // raw_data/prices symlink target mounted
+  "bin:pdftotext",
+  "bin:unzip",
+  "tr-state", // raw_data/tr/state.sqlite present
+  "gemini", // GEMINI_API_KEY for an OCR arm
+] as const;
+export type Need = (typeof NEEDS)[number];
 
 /** Who can carry this handler end to end today.
  *    script   — `pipeline:ingest` runs every step itself.

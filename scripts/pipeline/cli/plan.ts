@@ -6,9 +6,11 @@
 //   pnpm run pipeline:plan --out <file>           # also write the JSON there
 //   pnpm run pipeline:plan --only update-macro,update-prices
 //   pnpm run pipeline:plan --bootstrap run|seed|ask   (default ask)
+//   pnpm run pipeline:plan --doctor               # block handlers whose needs are unmet here
 
 import fs from "node:fs";
 import { parseArgs } from "node:util";
+import { runDoctor } from "../doctor";
 import { plan, type BootstrapPolicy } from "../planner";
 import { HANDLERS, UNROUTED } from "../registry";
 import { renderPlan } from "../render_plan";
@@ -24,6 +26,7 @@ const parse = (): {
   out?: string;
   only?: string;
   bootstrap?: string;
+  doctor?: boolean;
 } => {
   try {
     // strict: an unknown flag, a missing value (`--only` at the end) or a flag
@@ -37,6 +40,7 @@ const parse = (): {
         out: { type: "string" },
         only: { type: "string" },
         bootstrap: { type: "string" },
+        doctor: { type: "boolean" },
       },
     }).values;
   } catch (e) {
@@ -66,6 +70,7 @@ if (unknown.length)
   die(`--only names unknown handler(s): ${unknown.join(", ")}`);
 
 const state = loadState();
+const unmet = values.doctor ? (await runDoctor()).unmet : undefined;
 const p = plan({
   handlers: HANDLERS,
   watch: state.watch,
@@ -76,6 +81,7 @@ const p = plan({
   only: onlySet,
   exemptUnrouted: new Set(Object.keys(UNROUTED)),
   inputErrors: state.errors,
+  unmet,
 });
 if (values.out) fs.writeFileSync(values.out, JSON.stringify(p, null, 2) + "\n");
 
