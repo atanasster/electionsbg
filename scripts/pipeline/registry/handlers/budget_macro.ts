@@ -1,7 +1,16 @@
 // State budget, macro indicators, regional/municipal indicators, social funds.
 
-import { currentYear, derive, ingest, pnpm, tsx, verify } from "../build";
-import { outputLacks } from "../gates";
+import {
+  currentYear,
+  derive,
+  listDir,
+  ingest,
+  pnpm,
+  tsx,
+  verify,
+} from "../build";
+import { noiYearsLoaded, outputLacks } from "../gates";
+import { coversQuarter } from "../drop_rules";
 import type { Handler } from "../types";
 
 const KFP = [
@@ -157,8 +166,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-budget-municipal-fiscal",
     skill: "update-budget",
-    // Still delegated — FINDING-007: an ack without the МФ workbook would stamp the quarter; needs a done-check on the dropped files.
-    runner: "skill",
+    runner: "script",
     sources: ["municipal_fiscal_due"],
     needs: ["pg-local"],
     steps: [
@@ -180,6 +188,14 @@ export const BUDGET_MACRO: Handler[] = [
         url: "https://www.minfin.bg/bg/810",
         dropDir: "data/_cache/minfin_municipal_fiscal",
         blocks: "handler",
+        // Done = a workbook covering the due quarter is on disk, by the same
+        // highest-quarter-token rule the ingest uses (МФ's names vary). An ack
+        // cannot stand in: it would stamp a quarter that was never loaded.
+        done: (ctx) =>
+          coversQuarter(
+            listDir("data/_cache/minfin_municipal_fiscal"),
+            ctx.meta("municipal_fiscal_due")?.due,
+          ),
       },
     ],
     publish: {
@@ -469,8 +485,7 @@ export const BUDGET_MACRO: Handler[] = [
   {
     id: "update-noi",
     skill: "update-noi",
-    // Still delegated — FINDING-008: TRY_YEARS stops at 2025, so --fetch cannot see a new year without a code edit.
-    runner: "skill",
+    runner: "script",
     sources: ["nssi_b1", "nssi_yearbook", "kfn_pensions"],
     steps: [
       ingest(
@@ -493,6 +508,7 @@ export const BUDGET_MACRO: Handler[] = [
         blocks: "arm",
       },
     ],
+    gates: [noiYearsLoaded(["nssi_b1"])],
     publish: { paths: ["budget"] },
     changelog: "orchestrator",
     outputs: ["data/budget/noi", "data/budget/kfn"],

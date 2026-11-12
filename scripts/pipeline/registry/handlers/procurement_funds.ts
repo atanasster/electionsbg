@@ -1,7 +1,16 @@
 // Procurement (АОП / ЦАИС ЕОП / КЗК), EU funds, open calls, farm subsidies.
 
-import { currentYear, derive, ingest, pnpm, tsx, verify } from "../build";
+import {
+  currentYear,
+  derive,
+  listDir,
+  ingest,
+  pnpm,
+  tsx,
+  verify,
+} from "../build";
 import { outputLacks } from "../gates";
+import { hasFtsYear } from "../drop_rules";
 import type { Handler } from "../types";
 
 const PROC_MAIN = ["egov_procurement", "eop_procurement"] as const;
@@ -507,8 +516,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
   },
   {
     id: "db-load-ngo-funding",
-    // Still delegated — FINDING-017: an ack without the FTS XLSX truncates ~65% of the corpus; needs a done-check.
-    runner: "skill",
+    runner: "script",
     sources: ["ec_fts"],
     needs: ["pg-local"],
     steps: [derive("db:load:ngo-funding:pg", pnpm("db:load:ngo-funding:pg"))],
@@ -520,6 +528,14 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         url: "https://ec.europa.eu/budget/financial-transparency-system/",
         dropDir: "raw_data/ngo_funding/fts",
         blocks: "handler",
+        // The loader rebuilds the whole corpus from the files present: without
+        // the new year's XLSX it truncates ngo_funding, so the FILE is the
+        // proof, never an ack.
+        done: (ctx) =>
+          hasFtsYear(
+            listDir("raw_data/ngo_funding/fts"),
+            ctx.meta("ec_fts")?.latestYear,
+          ),
       },
     ],
     publish: {

@@ -246,12 +246,24 @@ const planHandler = (
   };
   const fullCtx = makeCtx(flipped, inp.watch, inp.now);
 
-  const operator = (h.operator ?? []).filter(
-    (o) =>
-      (!o.on || intersects(o.on, flipped)) &&
-      !isAck(o.id, o.on) &&
-      !(o.done?.(fullCtx) ?? false),
-  );
+  // An item with a done-check is resolved by that check ALONE: it exists
+  // because a human's "I did it" is not proof (a file drop either landed or
+  // it did not). Only items with no check can be resolved by an ack.
+  const outstanding = (o: (typeof h.operator & object)[number]): boolean => {
+    if (o.on && !intersects(o.on, flipped)) return false;
+    if (o.done) {
+      try {
+        return !o.done(fullCtx);
+      } catch (e) {
+        warnings.push(
+          `${h.id}: done-check ${o.id} threw (${e instanceof Error ? e.message : String(e)}); treated as not done`,
+        );
+        return true;
+      }
+    }
+    return !isAck(o.id, o.on);
+  };
+  const operator = (h.operator ?? []).filter(outstanding);
   const deferred = new Set(
     operator
       .filter((o) => o.blocks === "arm")

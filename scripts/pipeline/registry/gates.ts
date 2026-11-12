@@ -239,3 +239,58 @@ export const len = (v: unknown): number => {
   if (v && typeof v === "object") return Object.keys(v).length;
   throw new Error(`not a list or object: ${typeof v}`);
 };
+
+/** Every NSSI B1 year the watcher saw as published (any fund's `_12_` file
+ *  answered 200) is in funds.json. `fetchB1File` reports a failed download
+ *  the same way as an unpublished year ("unavailable"), so without this a
+ *  broken fetch exits 0 and the run stamps a year it never loaded. */
+export const noiYearsLoaded = (on?: readonly string[]): Gate => ({
+  id: "noi-published-years-loaded",
+  on,
+  check: (ctx) => {
+    const expected =
+      "every year state/watch/nssi_b1.json sees as published is a fiscalYear in data/budget/noi/funds.json";
+    const w = safely(() =>
+      at(ctx.readJson("state/watch/nssi_b1.json"), "meta", "signatures"),
+    );
+    if (w.error)
+      return {
+        ok: false,
+        expected,
+        observed: `cannot read watcher state: ${w.error}`,
+      };
+    const published = [
+      ...new Set(
+        Object.entries(w.value as Record<string, unknown>)
+          .filter(
+            ([, sig]) =>
+              typeof sig === "string" && !/^status:(?!200)/.test(sig),
+          )
+          .map(([k]) => Number(k.split("-")[0]))
+          .filter(Number.isInteger),
+      ),
+    ].sort();
+    const f = safely(() =>
+      at(ctx.readJson("data/budget/noi/funds.json"), "years"),
+    );
+    if (f.error || !Array.isArray(f.value))
+      return {
+        ok: false,
+        expected,
+        observed: `cannot read funds.json years: ${f.error ?? "not a list"}`,
+      };
+    const have = new Set(
+      (f.value as { fiscalYear?: unknown }[])
+        .map((y) => y.fiscalYear)
+        .filter((y) => typeof y === "number"),
+    );
+    const missing = published.filter((y) => !have.has(y));
+    return {
+      ok: missing.length === 0,
+      expected,
+      observed: missing.length
+        ? `published but not loaded: ${missing.join(", ")}`
+        : `published ${published.join(", ") || "none"}; all loaded`,
+    };
+  },
+});

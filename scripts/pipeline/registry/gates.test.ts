@@ -9,6 +9,7 @@ import {
   len,
   makeGateCtx,
   noShrink,
+  noiYearsLoaded,
   outputLacks,
   runGates,
   snapshotBaselines,
@@ -174,5 +175,38 @@ describe("makeGateCtx", () => {
     });
     // Against HEAD alone the same check would compare the file with itself.
     expect(gate.check(makeGateCtx("", undefined, dir)).ok).toBe(true);
+  });
+});
+
+describe("noiYearsLoaded", () => {
+  const ctx = (sigs: Record<string, string>, years: number[]) =>
+    ctxOf({
+      "state/watch/nssi_b1.json": { meta: { signatures: sigs } },
+      "data/budget/noi/funds.json": {
+        years: years.map((fiscalYear) => ({ fiscalYear })),
+      },
+    });
+
+  it("fails when a year the watcher saw published is missing from funds.json", () => {
+    const r = noiYearsLoaded().check(
+      ctx(
+        { "2025-12-5500": "len:1234|lm:x", "2026-12-5500": "status:302" },
+        [2023, 2024],
+      ),
+    );
+    expect(r).toMatchObject({
+      ok: false,
+      observed: "published but not loaded: 2025",
+    });
+  });
+
+  it("passes when every published year is loaded and ignores unpublished ones", () => {
+    const r = noiYearsLoaded().check(
+      ctx(
+        { "2025-12-5500": "len:1234|lm:x", "2026-12-5500": "status:302" },
+        [2024, 2025],
+      ),
+    );
+    expect(r.ok).toBe(true);
   });
 });

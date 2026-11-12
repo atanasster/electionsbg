@@ -36,7 +36,13 @@ const RAW_DIR = path.resolve(__dirname, "../../../raw_data/budget/noi");
 const OUT_FILE = path.resolve(__dirname, "../../../data/budget/noi/funds.json");
 
 const FUNDS: NoiFundCode[] = ["5500", "5591", "5592"];
-const TRY_YEARS = [2020, 2021, 2022, 2023, 2024, 2025];
+// 2020 → the current year. A year nssi.bg has not published yet comes back
+// "unavailable" from the fetcher and has no file for the parser, so both
+// skip it; a hand-kept list instead silently stopped at its last entry.
+const TRY_YEARS = Array.from(
+  { length: new Date().getUTCFullYear() - 2019 },
+  (_, i) => 2020 + i,
+);
 
 const YEARBOOK_DIR = path.resolve(
   __dirname,

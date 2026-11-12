@@ -1,5 +1,8 @@
 // Small constructors so a handler entry reads as a list, not as object noise.
 
+import fs from "node:fs";
+import path from "node:path";
+import { REPO } from "../state";
 import type { Phase, RunCtx, Step } from "./types";
 
 type StepOpts = Omit<Step, "id" | "run" | "phase"> & { phase?: Phase };
@@ -46,3 +49,13 @@ export const scopeList = (
 
 export const currentYear = (ctx: RunCtx): string =>
   String(ctx.now.getUTCFullYear());
+
+/** The file names in a repo-relative directory ([] when it does not exist).
+ *  An operator's file drop is proven by what is here — an ack is a claim. */
+export const listDir = (dir: string): string[] => {
+  try {
+    return fs.readdirSync(path.join(REPO, dir));
+  } catch {
+    return [];
+  }
+};

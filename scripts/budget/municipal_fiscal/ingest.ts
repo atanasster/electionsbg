@@ -55,6 +55,7 @@ import type { OfficialCriteria } from "./criteria";
 import { diffRoster } from "./codes";
 import { parsePokazateli, parseRecoverySheet } from "./parse";
 import type { Money, MunicipalFiscalQuarter } from "./types";
+import { newestQuarterOf } from "./quarter_token";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DROP_DIR = resolve(
@@ -468,12 +469,6 @@ const main = () => {
   // unprefixed 2023 one. The filename is only a hint for the periods (row 2 is
   // the truth), but for ordering releases it is the only signal available
   // before parsing.
-  const newestQuarterOf = (f: string): string => {
-    const found = [...f.matchAll(/Q([1-4])[- ]?(\d{4})/gi)].map(
-      (m) => `${m[2]}-Q${m[1]}`,
-    );
-    return found.sort().slice(-1)[0] ?? "";
-  };
   const newest = [...files]
     .sort((a, b) => (newestQuarterOf(a) < newestQuarterOf(b) ? -1 : 1))
     .slice(-1)[0];

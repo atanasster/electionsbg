@@ -435,13 +435,22 @@ troubleshooting table to `knownFailures`. Specific glue already identified:
 update-rollcall, kzk_appeals, kzk_decisions, update-funds, update-macro, update-indicators,
 update-nzok, update-financing, update-defense, update-landuse, update-council-minutes, plus
 every handler that was a script from the start. Each human-only arm is an operator item with
-`blocks: "arm"`, so its source stays unstamped until `pipeline:ack`. Twelve handlers were
-flipped and then put BACK under the agent after review, because a scripted run would exit 0
-without ingesting the new period and still stamp: update-budget, update-budget-municipal-fiscal,
-update-noi, update-social, update-culture, update-officials, update-connections,
-update-judiciary, update-procurement, update-agri, db-load-ngo-funding,
-update-transparency-lisi. Each carries the reason in its registry entry; each is a Tier 4 item
-(a done-check, a discovery scraper, or a gate that can actually fail). Still delegated from
+`blocks: "arm"`, so its source stays unstamped until `pipeline:ack`.
+
+**Tier 4, first pass (2026-11-12).** update-budget-municipal-fiscal and db-load-ngo-funding
+run as scripts behind a real done-check: the due quarter's МФ workbook, or the watcher's
+latest-year FTS XLSX, must be on disk. An ack alone does not release them, because each
+loader rebuilds from the files present and would otherwise stamp a period it never loaded.
+update-noi runs as a script now that `TRY_YEARS` follows the calendar instead of a
+hand-kept list.
+
+Still delegated, each with its reason in its registry entry — the Tier 4 backlog:
+update-budget (Доклад ids, NOI_STATB_URL and the budget-law follow-ups are hand-kept; the
+admin-grain warning is read by eye), update-social (the verifiers re-check the curated
+year), update-culture (the NFC_FILES year map), update-officials and update-connections
+(drop and alias checks with no working gate), update-judiciary (the high-value spot-check),
+update-procurement (≥1B review, new-buyer geo chain), update-agri (new-year promotion, no FY
+gate), update-transparency-lisi (unmatched names, committed script edit). Delegated from
 the start: update-polls, mon_ri_register, update-local-elections and
 update-presidential-elections (the last two wait for structured watcher scope, Tier 5).
 

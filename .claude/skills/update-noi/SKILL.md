@@ -27,7 +27,7 @@ Three funds at the EBK level — all aggregated to fund 5500 from sub-funds:
 |---|---|
 | Watcher: `nssi_b1` describe-line says "N new B1 file(s)" or "N B1 file(s) re-uploaded" | `tsx scripts/budget/noi/__write_funds.ts --fetch` (auto-downloads + rebuilds `funds.json`) |
 | User asks to refresh NOI / social-security data | Same |
-| Adding a new fiscal year (e.g. 2026 once Jan 2027 file lands) | Same — `TRY_YEARS` in `__write_funds.ts` already covers 2020-2025 |
+| Adding a new fiscal year (e.g. 2026 once Jan 2027 file lands) | Same — `TRY_YEARS` in `__write_funds.ts` runs 2020 → the current year, so a new year needs no edit |
 | Fresh clone, `data/budget/noi/funds.json` missing | `--fetch` re-run (the Referer workaround pulls the bodies) |
 | Watcher: `nssi_yearbook` says "N new yearbook ZIP(s)" | Pensions ingest (§ Yearbook below) → `pensions.json` |
 | Watcher: `kfn_pensions` says "N new КФН statistics period(s)" | КФН ingest (§ КФН below) → `kfn/funds.json` |
@@ -81,7 +81,7 @@ cached, and overwrites a cached file only when the bytes differ (reports
 year mid-cycle — e.g. 2025 only had months 01–11 as of Jul 2026) simply 302 and
 are skipped. Files land in `raw_data/budget/noi/`.
 
-Then the writer iterates `TRY_YEARS = [2020..2025]`, skipping any year × fund
+Then the writer iterates `TRY_YEARS` (2020 → the current year), skipping any year × fund
 without a cached XLS, and writes `data/budget/noi/funds.json` (~16 KB).
 
 Offline / testing: drop the `--fetch` flag to parse whatever is already cached.
@@ -216,9 +216,8 @@ Amounts in B1 files are in **whole leva** (not thousands like the budget-law tab
 When a new full-year-end file (`B1_{YYYY+1}_12_5500.xls`) lands:
 
 1. Manually download all three funds (5500, 5591, 5592) for the new YYYY.
-2. Re-run `tsx scripts/budget/noi/__write_funds.ts` (no code change needed — the writer iterates years 2020-2025 and gracefully skips missing files).
-3. Bump the `TRY_YEARS` array in `__write_funds.ts` if going past 2025.
-4. Stamp the marker.
+2. Re-run `tsx scripts/budget/noi/__write_funds.ts` (no code change needed — the writer iterates years 2020 → the current year and gracefully skips missing files).
+3. Stamp the marker. (`TRY_YEARS` follows the calendar — no edit for a new year.)
 
 The watcher's `nssi_b1.ts` tracks the current and prior fiscal year — extend its `trackedYears()` function if you need monitoring of older years.
 

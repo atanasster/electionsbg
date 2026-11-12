@@ -332,6 +332,55 @@ describe("statuses", () => {
     expect(p.entries[0]).toMatchObject({ status: "run", steps: [] });
   });
 
+  it("does not let an ack release an item whose done-check fails", () => {
+    const h = H({
+      id: "h",
+      sources: ["s1"],
+      operator: [
+        {
+          id: "drop",
+          instruction: "drop the file",
+          blocks: "handler",
+          done: () => false,
+        },
+      ],
+    });
+    const p = plan(
+      inputs(
+        [h],
+        { s1: w("2026-11-01T00:00:00Z") },
+        {},
+        {
+          acks: new Map([["h:drop", "2026-11-02T00:00:00Z"]]),
+        },
+      ),
+    );
+    expect(p.entries[0]).toMatchObject({
+      status: "needs-operator",
+      why: "drop the file",
+    });
+  });
+
+  it("treats a throwing done-check as not done, with a warning", () => {
+    const h = H({
+      id: "h",
+      sources: ["s1"],
+      operator: [
+        {
+          id: "drop",
+          instruction: "x",
+          blocks: "handler",
+          done: () => {
+            throw new Error("bad meta");
+          },
+        },
+      ],
+    });
+    const p = plan(inputs([h], { s1: w("2026-11-01T00:00:00Z") }, {}));
+    expect(p.entries[0].status).toBe("needs-operator");
+    expect(p.warnings.join()).toMatch(/done-check drop threw \(bad meta\)/);
+  });
+
   it("clears an operator item whose done-check passes", () => {
     const h = H({
       id: "h",
