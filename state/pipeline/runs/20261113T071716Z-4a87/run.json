@@ -1,0 +1,319 @@
+{
+  "schema": 1,
+  "session": "20261113T071716Z-4a87",
+  "kind": "ingest",
+  "startedAt": "2026-11-13T07:17:39.081Z",
+  "git": {
+    "shaStart": "30f7100765851cf36d106645620bdcbeffec9f48",
+    "shaEnd": "8cd853137ab05e3b43509bf3daf844c43ff7cc1d"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": false,
+      "detail": "exit IP country unknown (The operation was aborted due to timeout); КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "egress:non-bg": {
+      "ok": false,
+      "detail": "exit IP country unknown (The operation was aborted due to timeout); parliament.bg, МО and ЦИК time out behind a Bulgarian exit"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": false,
+      "detail": "Cloud SQL proxy is down — a publish needs `pnpm run db:proxy:cloud`"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 103 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "an unpublished manifest is 1 h old"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": false,
+      "detail": "repo volume 5.5 GB free (min 10); Docker VM 33.6 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-macro",
+      "status": "ok",
+      "sources": [
+        "bnb_auctions"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "fetch_bnb_auctions",
+          "command": "pnpm exec tsx scripts/macro/fetch_bnb_auctions.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 55379,
+          "medianMs": 42711,
+          "log": "logs/pipeline/20261113T071716Z-4a87/001-fetch_bnb_auctions.log"
+        },
+        {
+          "seq": 2,
+          "id": "fetch_eurostat",
+          "command": "pnpm exec tsx scripts/macro/fetch_eurostat.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 18508,
+          "medianMs": 10288,
+          "log": "logs/pipeline/20261113T071716Z-4a87/002-fetch_eurostat.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/debt-emissions-domestic.json",
+        "data/macro.json"
+      ],
+      "summary": "2 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "post:price-hub-payloads",
+      "status": "failed",
+      "steps": [
+        {
+          "seq": 3,
+          "id": "prices:payloads",
+          "command": "pnpm run prices:payloads",
+          "phase": "derive",
+          "status": "error",
+          "exitCode": 1,
+          "durationMs": 93158,
+          "log": "logs/pipeline/20261113T071716Z-4a87/003-prices_payloads.log",
+          "firstError": "Error: Connection terminated unexpectedly",
+          "failure": {
+            "class": "db-local-down",
+            "retryable": false,
+            "holdsPublish": true,
+            "hint": "Local Postgres is down — `pnpm run db:pg:up`. The step is pinned to the local database, so this dropped connection was the docker Postgres (restarted, OOM-killed, or its container removed) — `docker ps -a | grep electionsbg-pg`.",
+            "evidence": "Error: Connection terminated unexpectedly"
+          },
+          "packet": "state/pipeline/runs/20261113T071716Z-4a87/failures/003-prices_payloads.md"
+        }
+      ],
+      "gates": [],
+      "why": "prices:payloads failed"
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "failed",
+      "steps": [
+        {
+          "seq": 4,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "error",
+          "exitCode": 1,
+          "durationMs": 20773,
+          "medianMs": 13621.5,
+          "log": "logs/pipeline/20261113T071716Z-4a87/004-myarea_alerts.log",
+          "firstError": "Error: [alerts] municipal awarders: Postgres unavailable — refusing to rewrite every alerts file without procurement data. Run `pnpm run db:pg:up` (and db:load:awarder-seats:pg), or set ALERTS_ALLOW_EMPTY=1 to accept empty alerts. Cause: the database system is in recovery mode",
+          "failure": {
+            "class": "unknown",
+            "retryable": false,
+            "holdsPublish": true,
+            "hint": "Exit 1 with no recognisable error — read the full log."
+          },
+          "packet": "state/pipeline/runs/20261113T071716Z-4a87/failures/004-myarea_alerts.md"
+        }
+      ],
+      "gates": [],
+      "why": "myarea:alerts failed"
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 5,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 8133,
+          "medianMs": 5607,
+          "log": "logs/pipeline/20261113T071716Z-4a87/005-data_map.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 6,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3734,
+          "medianMs": 607.5,
+          "log": "logs/pipeline/20261113T071716Z-4a87/006-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 7,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 695,
+          "medianMs": 242.5,
+          "log": "logs/pipeline/20261113T071716Z-4a87/007-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 8,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 24677,
+          "medianMs": 6605.5,
+          "log": "logs/pipeline/20261113T071716Z-4a87/008-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 9,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4193,
+          "medianMs": 5181,
+          "log": "logs/pipeline/20261113T071716Z-4a87/009-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 10,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1252,
+          "medianMs": 1000.5,
+          "log": "logs/pipeline/20261113T071716Z-4a87/010-db_gen-home-feed.log"
+        },
+        {
+          "seq": 11,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 473,
+          "medianMs": 424,
+          "log": "logs/pipeline/20261113T071716Z-4a87/011-home_health.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 12,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 745,
+          "medianMs": 814.5,
+          "log": "logs/pipeline/20261113T071716Z-4a87/012-db_check-generated.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "skipped",
+      "steps": [
+        {
+          "seq": 13,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "unmet need(s): proxy"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261113T071716Z-4a87/012-db_check-generated.log"
+  ],
+  "publish": {
+    "decision": "held",
+    "heldBecause": [
+      "post-step price-hub-payloads: prices:payloads failed",
+      "post-step myarea-alerts: myarea:alerts failed"
+    ]
+  },
+  "exitCode": 1,
+  "endedAt": "2026-11-13T07:21:40.584Z",
+  "verdict": "failed"
+}
