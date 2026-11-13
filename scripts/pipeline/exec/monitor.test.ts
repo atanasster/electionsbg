@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { Monitor, monitorFor, resetMonitorForTests } from "./monitor";
+import { deadRuns, Monitor, monitorFor, resetMonitorForTests } from "./monitor";
 
 const tmp = (): string =>
   path.join(fs.mkdtempSync(path.join(os.tmpdir(), "monitor-")), "sess");
@@ -83,5 +83,46 @@ describe("Monitor", () => {
       fs.readFileSync(path.join(path.dirname(a), "LATEST"), "utf8").trim(),
     ).toBe("nightly");
     resetMonitorForTests();
+  });
+
+  it("names a run whose process died before it finished", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "dead-"));
+    const put = (session: string, st: object) => {
+      fs.mkdirSync(path.join(root, session));
+      fs.writeFileSync(
+        path.join(root, session, "status.json"),
+        JSON.stringify(st),
+      );
+    };
+    const now = new Date().toISOString();
+    const gone = 2 ** 22 + 13;
+    put("a-died", {
+      pid: gone,
+      phase: "ingest",
+      updatedAt: now,
+      current: { seq: 8, id: "fetch_eurostat" },
+    });
+    put("b-done", { pid: gone, phase: "done", updatedAt: now, current: null });
+    put("c-alive", {
+      pid: process.pid,
+      phase: "ingest",
+      updatedAt: now,
+      current: null,
+    });
+    put("d-reported", {
+      pid: gone,
+      phase: "ingest",
+      updatedAt: now,
+      current: null,
+    });
+    put("e-me", { pid: gone, phase: "watch", updatedAt: now, current: null });
+    expect(deadRuns(root, "e-me", (s) => s === "d-reported")).toEqual([
+      {
+        session: "a-died",
+        phase: "ingest",
+        step: "8 fetch_eurostat",
+        updatedAt: now,
+      },
+    ]);
   });
 });

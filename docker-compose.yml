@@ -11,6 +11,11 @@ services:
   postgres:
     image: postgres:16
     container_name: electionsbg-pg
+    # Come back after a Docker Desktop restart. Without it the container was
+    # left stopped (then found removed) after a restart on 2026-11-12, and the
+    # pipeline's next load died mid-way with "Connection terminated
+    # unexpectedly". `pnpm run db:pg:down` still stops it for good.
+    restart: unless-stopped
     # pg_stat_statements → query-level perf visibility (which /api/db queries
     # are actually slow). `CREATE EXTENSION pg_stat_statements` runs in
     # 000_search_fns.sql on every load.

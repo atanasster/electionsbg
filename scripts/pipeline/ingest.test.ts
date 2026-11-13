@@ -737,6 +737,29 @@ describe("stopping and reporting (nightly hardening)", () => {
     expect(out.exitCode).toBe(1);
   });
 
+  it("does not abort when the environment answers again (a blip)", async () => {
+    const s = sim([H({ id: "a" }), H({ id: "b" })], {
+      fail: ["pnpm run a:fetch"],
+      failClass: { "pnpm run a:fetch": "db-local-down" },
+    });
+    s.deps.envStillBroken = async () => false;
+    await runIngest(s.deps, { session: "s", perfDir: PERF_TMP });
+    expect(s.ran).toEqual(["pnpm run a:fetch", "pnpm run b:fetch"]);
+    expect(s.finalized[0].findings.join()).toMatch(/transient blip/);
+  });
+
+  it("continues the caller's step sequence", async () => {
+    const s = sim([H({ id: "a" })]);
+    const seqs: number[] = [];
+    const run = s.deps.run;
+    s.deps.run = async (spec, ctx) => {
+      seqs.push(ctx.nextSeq());
+      return run(spec, ctx);
+    };
+    await runIngest(s.deps, { session: "s", perfDir: PERF_TMP, seqStart: 7 });
+    expect(seqs).toEqual([8]);
+  });
+
   it("does not abort on an ordinary handler failure", async () => {
     const s = sim([H({ id: "a" }), H({ id: "b" })], {
       fail: ["pnpm run a:fetch"],

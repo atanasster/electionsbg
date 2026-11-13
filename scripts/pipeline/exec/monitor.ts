@@ -219,3 +219,60 @@ export const monitorFor = (session: string, dir: string): Monitor => {
 export const resetMonitorForTests = (): void => {
   primary = null;
 };
+
+const pidAlive = (pid: number): boolean => {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (e) {
+    return (e as NodeJS.ErrnoException).code === "EPERM";
+  }
+};
+
+export interface DeadRun {
+  session: string;
+  phase: string;
+  /** The step running when it went silent, or null between steps. */
+  step: string | null;
+  updatedAt: string;
+}
+
+/** Runs whose process is gone but whose status.json never reached "done" —
+ *  killed (SIGKILL, a closed session, a reboot) before it could write its
+ *  report. Without this the next reader sees an older report and no trace of
+ *  the run that died; with it, the next run names it. `hasReport` lets the
+ *  caller skip one that did finish its report (killed after finalize). */
+export const deadRuns = (
+  logsRoot: string,
+  current: string,
+  hasReport: (session: string) => boolean,
+  maxAgeDays = 14,
+): DeadRun[] => {
+  const out: DeadRun[] = [];
+  let dirs: string[] = [];
+  try {
+    dirs = fs.readdirSync(logsRoot);
+  } catch {
+    return out;
+  }
+  const cutoff = Date.now() - maxAgeDays * 86_400_000;
+  for (const d of dirs.sort()) {
+    if (d === current) continue;
+    try {
+      const st = JSON.parse(
+        fs.readFileSync(path.join(logsRoot, d, "status.json"), "utf8"),
+      ) as Status;
+      if (st.phase === "done" || Date.parse(st.updatedAt) < cutoff) continue;
+      if (pidAlive(st.pid) || hasReport(d)) continue;
+      out.push({
+        session: d,
+        phase: st.phase,
+        step: st.current ? `${st.current.seq} ${st.current.id}` : null,
+        updatedAt: st.updatedAt,
+      });
+    } catch {
+      // No status.json (an old run) — nothing to say.
+    }
+  }
+  return out;
+};

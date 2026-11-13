@@ -44,7 +44,7 @@ import {
   type DoctorResult,
 } from "../doctor";
 import { isInterrupted, runStep } from "../exec/executor";
-import { monitorFor } from "../exec/monitor";
+import { deadRuns, monitorFor } from "../exec/monitor";
 import { runIngest } from "../ingest";
 import { realIngestDeps } from "../ingest_wiring";
 import { acquireLock, LockHeldError } from "../lock";
@@ -187,13 +187,51 @@ const main = async (): Promise<void> => {
     throw e;
   }
   process.once("exit", () => held.release());
+  let seq = 0;
   monitor = monitorFor(session, logDir(session));
   const m = monitor;
   log(`── nightly ${session}${publish ? "" : " (--no-publish)"}`);
 
+  // A previous run that was killed before writing its report leaves no trace
+  // a reader would find — name it here, in the run that follows.
+  const dead = deadRuns(path.dirname(logDir(session)), session, (s) =>
+    fs.existsSync(path.join(runDir(s), "report.md")),
+  );
+  const deadFindings = dead.map(
+    (d) =>
+      `previous run ${d.session} died without a report during ${d.phase}${d.step ? ` (step ${d.step})` : ""}; last sign of life ${d.updatedAt} — its live log is logs/pipeline/${d.session}/run.log, and its markers were not stamped for the unfinished work, so this run re-queues it`,
+  );
+  for (const f of deadFindings) log(`! ${f}`);
+
   // ---- preflight
   m.setPhase("preflight");
-  const doctor = await runDoctor();
+  let doctor = await runDoctor();
+  // Local Postgres down is the one blocker the run can fix itself: the
+  // container has no restart policy history it can rely on (it has vanished
+  // after Docker restarts), its data lives in a named volume, and
+  // `db:pg:up` only (re)creates the container — nothing is reset.
+  if (doctor.checks.some((c) => c.id === "pg-local" && !c.ok)) {
+    log("! local Postgres is down — starting it (`pnpm run db:pg:up`)");
+    const up = await runStep(
+      {
+        id: "preflight:db:pg:up",
+        run: "pnpm run db:pg:up && for i in $(seq 1 30); do docker exec electionsbg-pg pg_isready -U postgres -q && exit 0; sleep 2; done; exit 1",
+        phase: "plan",
+        timeoutMin: 5,
+        db: "inherit",
+      },
+      {
+        perfRun: "process-watch-report",
+        session,
+        logDir: logDir(session),
+        nextSeq: () => ++seq,
+      },
+    );
+    doctor = await runDoctor();
+    deadFindings.push(
+      `preflight started local Postgres (${up.status}); it was down at the start of the run`,
+    );
+  }
   for (const l of renderDoctor(doctor).trim().split("\n")) log(`  ${l}`);
   const blockers = preflightBlockers(doctor);
   if (blockers.length) {
@@ -209,7 +247,7 @@ const main = async (): Promise<void> => {
           gates: [],
         },
       ],
-      blockers.map((b) => `preflight refused: ${b}`),
+      [...deadFindings, ...blockers.map((b) => `preflight refused: ${b}`)],
       doctor,
       !blockers.some((b) => b.startsWith("git:")),
     );
@@ -222,7 +260,6 @@ const main = async (): Promise<void> => {
 
   // ---- watcher
   m.setPhase("watch");
-  let seq = 0;
   const watchStarted = Date.now();
   const watch = await runStep(
     {
@@ -251,6 +288,7 @@ const main = async (): Promise<void> => {
   const pre = watcherPreamble(watch, json, watchStarted);
   for (const f of pre.findings) log(`  ${f}`);
   const findings = [
+    ...deadFindings,
     ...pubWarn.map((w) => `publish prerequisite missing at start: ${w}`),
     ...pre.findings,
   ];
@@ -283,6 +321,7 @@ const main = async (): Promise<void> => {
     session,
     publish,
     preamble: { units: pre.units, findings },
+    seqStart: seq,
   });
   return end(out.exitCode, out.report);
 };

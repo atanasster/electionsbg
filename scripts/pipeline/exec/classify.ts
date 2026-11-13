@@ -164,6 +164,10 @@ export const classify = (input: {
   timedOut: boolean;
   tail: string;
   gate?: boolean;
+  /** The step's database pin. "Connection terminated unexpectedly" names no
+   *  host: under a `local` pin it is the docker Postgres that dropped, not
+   *  the Cloud SQL proxy — and the two need opposite fixes. */
+  db?: "local" | "cloud" | "inherit";
 }): Classification => {
   if (input.timedOut)
     return {
@@ -179,7 +183,22 @@ export const classify = (input: {
   const lines = input.tail.split("\n").reverse();
   for (const line of lines)
     for (const rule of RULES)
-      if (rule.re.test(line))
+      if (rule.re.test(line)) {
+        if (
+          rule.class === "proxy-down" &&
+          input.db === "local" &&
+          /Connection terminated unexpectedly/.test(line) &&
+          !/5434/.test(line)
+        ) {
+          const local = RULES.find((r) => r.class === "db-local-down")!;
+          return {
+            class: local.class,
+            retryable: local.retryable,
+            holdsPublish: local.holdsPublish,
+            hint: `${local.hint} The step is pinned to the local database, so this dropped connection was the docker Postgres (restarted, OOM-killed, or its container removed) — \`docker ps -a | grep electionsbg-pg\`.`,
+            evidence: line.trim().slice(0, 300),
+          };
+        }
         return {
           class: rule.class,
           retryable: rule.retryable,
@@ -187,6 +206,7 @@ export const classify = (input: {
           hint: rule.hint,
           evidence: line.trim().slice(0, 400),
         };
+      }
   return {
     class: "unknown",
     retryable: false,

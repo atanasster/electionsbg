@@ -23,6 +23,7 @@ import { runStepOrChain } from "./exec/executor";
 import { commitPaths, differingFrom, headSha, stagedUnder } from "./git";
 import { PERF_RUN, type IngestDeps, type WriteResult } from "./ingest";
 import { acquireLock } from "./lock";
+import { portOpen } from "./doctor";
 import { realPublishDeps, runPublish } from "./publish";
 import { HANDLERS, handlerById } from "./registry";
 import { makeGateCtx, snapshotBaselines } from "./registry/gates";
@@ -237,6 +238,12 @@ export const realIngestDeps = (
           };
         },
       }),
+    envStillBroken: async (cls) => {
+      if (cls !== "db-local-down") return true;
+      // Give a restarting container a moment, then ask the port.
+      await new Promise((r) => setTimeout(r, 10_000));
+      return !(await portOpen(5433));
+    },
     publish: async () => {
       const r = await runPublish(realPublishDeps(scripts, log), {});
       return { exitCode: r.exitCode, report: r.report };

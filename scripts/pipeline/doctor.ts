@@ -232,13 +232,15 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
   add({
     id: "lock",
     severity: "info",
-    ok: f.lock === null || !f.lock.alive,
+    ok: f.lock === null || !f.lock.alive || f.lock.pid === process.pid,
     detail:
       f.lock === null
         ? "no pipeline run holds the lock"
-        : f.lock.alive
-          ? `session ${f.lock.session} (pid ${f.lock.pid}) is running`
-          : `stale lock from session ${f.lock.session} (pid ${f.lock.pid} is gone) — a runner will take it over`,
+        : f.lock.pid === process.pid
+          ? `held by this run (session ${f.lock.session})`
+          : f.lock.alive
+            ? `session ${f.lock.session} (pid ${f.lock.pid}) is running`
+            : `stale lock from session ${f.lock.session} (pid ${f.lock.pid} is gone) — a runner will take it over`,
   });
   add({
     id: "pending-manifest",

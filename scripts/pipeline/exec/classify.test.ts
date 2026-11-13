@@ -154,3 +154,21 @@ describe("firstErrorLine and pnpm", () => {
     expect(firstErrorLine(tail)).toBe("Error: refusing to shrink table");
   });
 });
+
+describe("a dropped connection names the database the step was pinned to", () => {
+  const tail =
+    "Error: Connection terminated unexpectedly\n    at Client._handleErrorEvent (pg/lib/client.js:417:10)";
+  it("is the local Postgres under a local pin", () => {
+    const c = classify({ exitCode: 1, timedOut: false, tail, db: "local" });
+    expect(c.class).toBe("db-local-down");
+    expect(c.hint).toMatch(/docker ps -a/);
+  });
+  it("is still the proxy under a cloud pin, or with no pin", () => {
+    expect(
+      classify({ exitCode: 1, timedOut: false, tail, db: "cloud" }).class,
+    ).toBe("proxy-down");
+    expect(classify({ exitCode: 1, timedOut: false, tail }).class).toBe(
+      "proxy-down",
+    );
+  });
+});

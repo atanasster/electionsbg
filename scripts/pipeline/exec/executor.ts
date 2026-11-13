@@ -342,7 +342,7 @@ export const runStep = async (
             holdsPublish: true,
             hint: `The runner received ${interrupted} and stopped this step — re-run when ready.`,
           }
-        : classify({ exitCode: code, timedOut, tail: tailText });
+        : classify({ exitCode: code, timedOut, tail: tailText, db: spec.db });
   log.write(
     `\n# ended    ${new Date().toISOString()} · ${status} · exit ${code ?? `signal ${signal}`} · ${durationMs} ms\n`,
   );

@@ -32,13 +32,19 @@ carries a source → skill table. If you need to know what a source does, read t
    already ran today, use `pnpm run pipeline:ingest --publish` instead. Run it in the
    foreground with a long timeout, never in the background. It stops rather than continues
    when something critical happens:
-   - **preflight** (the doctor runs first): local Postgres down, git mid-rebase/merge or off
-     `main`, or low disk (repo volume < 10 GB, Docker VM < 8 GB) — nothing runs, exit 3;
+   - **preflight** (the doctor runs first): git mid-rebase/merge or off `main`, low disk
+     (repo volume < 10 GB, Docker VM < 8 GB), or local Postgres down AFTER the run tried
+     `pnpm run db:pg:up` itself (the container has been found removed after Docker
+     restarts; its data is in the `data-bg_pgdata` volume, so recreating it loses nothing)
+     — nothing runs, exit 3;
    - **the watcher** crashes or times out — nothing is ingested, exit 5. Per-source watcher
      errors are NOT critical: they are listed as findings (a streak of 3+ marks the
      `watcher` unit `partial`) and the ingest runs on what the watcher found;
    - **mid-ingest**, a step failing with an environment class (`db-local-down`, `disk`,
-     `db-auth`) aborts every later handler and holds the publish;
+     `db-auth`) aborts every later handler and holds the publish — unless the environment
+     answers again 10 s later (a restarted container), which is recorded as a transient
+     blip and the run goes on. A dropped connection in a step pinned to the LOCAL
+     database is `db-local-down`, not `proxy-down`;
    - any handler failure holds the publish.
 
    | exit | meaning |
@@ -56,6 +62,12 @@ carries a source → skill table. If you need to know what a source does, read t
    (read the holder's run instead) and a second Ctrl-C, which kills the running steps and
    exits at once. A preflight refusal caused by git (mid-rebase, off `main`) writes its
    report but does not commit it.
+
+   **A run killed outright** (SIGKILL, the session that launched it ending, a reboot)
+   cannot write its report. The next nightly names it in its findings — session, phase,
+   the step it died in — from the dead run's `status.json`. To launch a run that outlives
+   the terminal or agent session that starts it, detach it from that process group:
+   `perl -MPOSIX -e 'setsid; exec @ARGV' pnpm run pipeline:nightly > /tmp/nightly.out 2>&1 &`.
 
    **Watching a live run.** The first line printed is the live log:
    `tail -f logs/pipeline/<session>/run.log` (`logs/pipeline/LATEST` names the current

@@ -124,6 +124,11 @@ export interface IngestDeps {
   /** Run the publish; returns its exit code (and, when it got that far, the
    *  publish run's own report). */
   publish: () => Promise<number | { exitCode: number; report?: string }>;
+  /** After an ABORT_CLASSES failure: is the environment STILL broken? A
+   *  local Postgres that restarted mid-load is back seconds later, and
+   *  aborting the night over a blip would skip every later handler for
+   *  nothing. Absent = assume broken. */
+  envStillBroken?: (failureClass: string) => Promise<boolean>;
   log: (line: string) => void;
 }
 
@@ -141,6 +146,9 @@ export interface IngestOptions {
   /** Units and findings from before the ingest (the nightly watcher), so one
    *  report covers the whole chain. */
   preamble?: { units: UnitRecord[]; findings: string[] };
+  /** Step numbers already used by the caller (the nightly watcher), so the
+   *  run's log files and run.log lines keep one sequence. */
+  seqStart?: number;
 }
 
 /** Failure classes that mean the ENVIRONMENT is broken, not the handler: once
@@ -306,7 +314,7 @@ export const runIngest = async (
       `took over a stale lock from session ${lock.tookOver.session} (pid ${lock.tookOver.pid})`,
     );
 
-  let seq = 0;
+  let seq = opt.seqStart ?? 0;
   const ctx: RunContext = {
     perfRun: PERF_RUN,
     session,
@@ -508,11 +516,21 @@ export const runIngest = async (
             outs.push(o);
             if (o.status !== "ok") broke ??= o.id;
             if (
+              !aborted &&
               o.status !== "ok" &&
               o.failure &&
               ABORT_CLASSES.has(o.failure.class)
-            )
-              aborted ??= `${h.id} › ${o.id} failed with ${o.failure.class} (${o.firstError ?? "no output"}) — the environment is broken, so later handlers were not started`;
+            ) {
+              const still = deps.envStillBroken
+                ? await deps.envStillBroken(o.failure.class)
+                : true;
+              if (still)
+                aborted = `${h.id} › ${o.id} failed with ${o.failure.class} (${o.firstError ?? "no output"}) and it is still broken — later handlers were not started`;
+              else
+                rec.findings.push(
+                  `${h.id} › ${o.id} failed with ${o.failure.class}, but the environment answered again right after — a transient blip; later handlers ran (re-run ${h.id})`,
+                );
+            }
           }
         }
         unit.steps = outs.map((o) => toStepRecord(o));
