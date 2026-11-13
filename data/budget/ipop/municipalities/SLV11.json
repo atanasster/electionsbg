@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.707Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.565Z",
   "obshtinaCode": "SLV11",
   "municipalityName": "Котел",
   "oblastCode": "SLV",
@@ -11,14 +11,14 @@
     "oblastCode": "SLV",
     "oblastName": "Сливен",
     "projectCount": 8,
-    "stalledCount": 5,
+    "stalledCount": 3,
     "agreementEur": 22992847.040000003,
-    "submittedEur": 0,
-    "awaitingEur": 3054793.8400000003,
-    "paidEur": 6095477.92,
-    "mrrbPaidEur": 6052079.93,
+    "submittedEur": 272575.7,
+    "awaitingEur": 0,
+    "paidEur": 9150271.760000002,
+    "mrrbPaidEur": 9106873.770000001,
     "bbrPaidEur": 43397.99,
-    "paidPct": 26.51
+    "paidPct": 39.8
   },
   "projects": [
     {
@@ -30,12 +30,12 @@
       "municipalityName": "Котел",
       "agreementEur": 5362940.54,
       "submittedEur": 0,
-      "awaitingEur": 2600883.22,
-      "paidEur": 43397.99,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 2644281.21,
+      "mrrbPaidEur": 2600883.22,
       "bbrPaidEur": 43397.99,
-      "paidPct": 0.81,
-      "stalled": true
+      "paidPct": 49.31,
+      "stalled": false
     },
     {
       "id": "OP-24.001-2959",
@@ -45,7 +45,7 @@
       "obshtinaCode": "SLV11",
       "municipalityName": "Котел",
       "agreementEur": 5065368.67,
-      "submittedEur": 0,
+      "submittedEur": 171114.94,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,
@@ -94,11 +94,11 @@
       "municipalityName": "Котел",
       "agreementEur": 2194464.75,
       "submittedEur": 0,
-      "awaitingEur": 210869.62,
-      "paidEur": 1982422.2,
-      "mrrbPaidEur": 1982422.2,
+      "awaitingEur": 0,
+      "paidEur": 2193291.82,
+      "mrrbPaidEur": 2193291.82,
       "bbrPaidEur": 0,
-      "paidPct": 90.34,
+      "paidPct": 99.95,
       "stalled": false
     },
     {
@@ -126,12 +126,12 @@
       "municipalityName": "Котел",
       "agreementEur": 689732.75,
       "submittedEur": 0,
-      "awaitingEur": 141580.23,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 141580.23,
+      "mrrbPaidEur": 141580.23,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 20.53,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1140",
@@ -141,12 +141,12 @@
       "obshtinaCode": "SLV11",
       "municipalityName": "Котел",
       "agreementEur": 247005.11,
-      "submittedEur": 0,
-      "awaitingEur": 101460.77,
-      "paidEur": 145544.34,
-      "mrrbPaidEur": 145544.34,
+      "submittedEur": 101460.76,
+      "awaitingEur": 0,
+      "paidEur": 247005.11,
+      "mrrbPaidEur": 247005.11,
       "bbrPaidEur": 0,
-      "paidPct": 58.92,
+      "paidPct": 100,
       "stalled": false
     }
   ]

@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.712Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.569Z",
   "obshtinaCode": "SFO24",
   "municipalityName": "Копривщица",
   "oblastCode": "SFO",
@@ -11,16 +11,32 @@
     "oblastCode": "SFO",
     "oblastName": "София област",
     "projectCount": 6,
-    "stalledCount": 1,
-    "agreementEur": 1137624.43,
+    "stalledCount": 2,
+    "agreementEur": 3086157.79,
     "submittedEur": 0,
     "awaitingEur": 0,
     "paidEur": 910201.81,
     "mrrbPaidEur": 910201.81,
     "bbrPaidEur": 0,
-    "paidPct": 80.01
+    "paidPct": 29.49
   },
   "projects": [
+    {
+      "id": "OP-24.001-1364",
+      "description": "Подмяна на водопровод, канализация и пътна настилка по ул. \"Райново дере\", ул. \"Тороманова\" от ОТ. 1066 до ОТ. 212 и по ул. \"Любен Каравелов\" от ОТ. 1227 до ОТ. 616 и разклонения",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO24",
+      "municipalityName": "Копривщица",
+      "agreementEur": 1948533.36,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
     {
       "id": "OP-24.001-2208",
       "description": "Пътна настилка по бул. \"Хаджи Ненчо Дончев Палавеев\" – западен бряг на река Тополница",
@@ -52,22 +68,6 @@
       "bbrPaidEur": 0,
       "paidPct": 0,
       "stalled": true
-    },
-    {
-      "id": "OP-24.001-1364",
-      "description": "Подмяна на водопровод, канализация и пътна настилка по ул. \"Райново дере\", ул. \"Тороманова\" от ОТ. 1066 до ОТ. 212 и по ул. \"Любен Каравелов\" от ОТ. 1227 до ОТ. 616 и разклонения",
-      "oblastCode": "SFO",
-      "oblastName": "София област",
-      "obshtinaCode": "SFO24",
-      "municipalityName": "Копривщица",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
     },
     {
       "id": "OP-24.001-1365",

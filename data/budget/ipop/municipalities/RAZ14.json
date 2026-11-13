@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.704Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.563Z",
   "obshtinaCode": "RAZ14",
   "municipalityName": "Исперих",
   "oblastCode": "RAZ",
@@ -11,14 +11,14 @@
     "oblastCode": "RAZ",
     "oblastName": "Разград",
     "projectCount": 8,
-    "stalledCount": 3,
-    "agreementEur": 7577805.83,
-    "submittedEur": 0,
-    "awaitingEur": 539665.86,
-    "paidEur": 3671687.9899999998,
-    "mrrbPaidEur": 2222064.5700000003,
+    "stalledCount": 4,
+    "agreementEur": 8040678.37,
+    "submittedEur": 501110.15,
+    "awaitingEur": 1984630.16,
+    "paidEur": 3674878.4499999997,
+    "mrrbPaidEur": 2225255.0300000003,
     "bbrPaidEur": 1449623.42,
-    "paidPct": 48.45
+    "paidPct": 45.7
   },
   "projects": [
     {
@@ -30,7 +30,7 @@
       "municipalityName": "Исперих",
       "agreementEur": 2815019.71,
       "submittedEur": 0,
-      "awaitingEur": 539657.9,
+      "awaitingEur": 1796143.77,
       "paidEur": 736359.32,
       "mrrbPaidEur": 0,
       "bbrPaidEur": 736359.32,
@@ -77,7 +77,7 @@
       "obshtinaCode": "RAZ14",
       "municipalityName": "Исперих",
       "agreementEur": 1081893.62,
-      "submittedEur": 0,
+      "submittedEur": 106067.22,
       "awaitingEur": 7.96,
       "paidEur": 968075.72,
       "mrrbPaidEur": 384500.86,
@@ -102,6 +102,22 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0540",
+      "description": "Рехабилитация на уличната мрежа в населени места на територията на община Исперих: с. Драгомъж – ул. \"Захари Стоянов\", ул. \"Елин Пелин\", ул. \"Иван Кръстев\", ул. \"Йордан Йовков\", ул. \"Димитър Полянов\" и ул. \"Борис Савов\"; с. Вазово – ул. \"Дунав\"; с. Китанчево – ул. \"Гео Милев\"",
+      "oblastCode": "RAZ",
+      "oblastName": "Разград",
+      "obshtinaCode": "RAZ14",
+      "municipalityName": "Исперих",
+      "agreementEur": 462872.54,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-2079",
       "description": "Основен ремонт на ул. \"Ангел Кънчев\" от о.т. 509 до о.т. 544 и ул. \"Втора\" от о.т. 525 до о.т. 531, Промишлена зона – гр. Исперих",
       "oblastCode": "RAZ",
@@ -109,12 +125,12 @@
       "obshtinaCode": "RAZ14",
       "municipalityName": "Исперих",
       "agreementEur": 398500.89,
-      "submittedEur": 0,
+      "submittedEur": 395042.93,
       "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "paidEur": 3190.46,
+      "mrrbPaidEur": 3190.46,
       "bbrPaidEur": 0,
-      "paidPct": 0,
+      "paidPct": 0.8,
       "stalled": true
     },
     {
@@ -126,28 +142,12 @@
       "municipalityName": "Исперих",
       "agreementEur": 188973.48,
       "submittedEur": 0,
-      "awaitingEur": 0,
+      "awaitingEur": 188478.43,
       "paidEur": 0,
       "mrrbPaidEur": 0,
       "bbrPaidEur": 0,
       "paidPct": 0,
       "stalled": true
-    },
-    {
-      "id": "OP-25.001-0540",
-      "description": "Рехабилитация на уличната мрежа в населени места на територията на община Исперих: с. Драгомъж – ул. \"Захари Стоянов\", ул. \"Елин Пелин\", ул. \"Иван Кръстев\", ул. \"Йордан Йовков\", ул. \"Димитър Полянов\" и ул. \"Борис Савов\"; с. Вазово – ул. \"Дунав\"; с. Китанчево – ул. \"Гео Милев\"",
-      "oblastCode": "RAZ",
-      "oblastName": "Разград",
-      "obshtinaCode": "RAZ14",
-      "municipalityName": "Исперих",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
     }
   ]
 }

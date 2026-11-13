@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.687Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.551Z",
   "obshtinaCode": "VTR22",
   "municipalityName": "Павликени",
   "oblastCode": "VTR",
@@ -12,13 +12,13 @@
     "oblastName": "Велико Търново",
     "projectCount": 16,
     "stalledCount": 1,
-    "agreementEur": 7164465.209999997,
-    "submittedEur": 0,
-    "awaitingEur": 805850.74,
-    "paidEur": 4922025.379999999,
-    "mrrbPaidEur": 4322148.17,
+    "agreementEur": 9489820.689999998,
+    "submittedEur": 654000.98,
+    "awaitingEur": 0,
+    "paidEur": 5873339.939999999,
+    "mrrbPaidEur": 5273462.7299999995,
     "bbrPaidEur": 599877.21,
-    "paidPct": 68.7
+    "paidPct": 61.89
   },
   "projects": [
     {
@@ -38,6 +38,22 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0333",
+      "description": "Път ІV 34325 VTR 1202 /ІІІ 405 Павликени – Дъскот – Паскалевец – граница община Павликени – Велико Търново VTR 1012 / от км 13+738 до км 19+510 – ЕТАП 2 – реконструкция и рехабилитация – Подетап 2.2 от км 15+720 до км 19+510,69",
+      "oblastCode": "VTR",
+      "oblastName": "Велико Търново",
+      "obshtinaCode": "VTR22",
+      "municipalityName": "Павликени",
+      "agreementEur": 2325355.48,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-0323",
       "description": "Път ІV 34325 VTR 1202 /ІІІ 405 Павликени – Дъскот – Паскалевец – граница община Павликени – Велико Търново VTR 1012 / от км 13+738 до 19+510 – Етап 2 – реконструкция и рехабилитация",
       "oblastCode": "VTR",
@@ -45,12 +61,12 @@
       "obshtinaCode": "VTR22",
       "municipalityName": "Павликени",
       "agreementEur": 1727808.65,
-      "submittedEur": 0,
-      "awaitingEur": 654006,
-      "paidEur": 247641.56,
-      "mrrbPaidEur": 0,
+      "submittedEur": 654000.98,
+      "awaitingEur": 0,
+      "paidEur": 901647.56,
+      "mrrbPaidEur": 654006,
       "bbrPaidEur": 247641.56,
-      "paidPct": 14.33,
+      "paidPct": 52.18,
       "stalled": false
     },
     {
@@ -110,12 +126,12 @@
       "municipalityName": "Павликени",
       "agreementEur": 347167.18,
       "submittedEur": 0,
-      "awaitingEur": 151844.74,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 297308.56,
+      "mrrbPaidEur": 297308.56,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 85.64,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1761",
@@ -211,22 +227,6 @@
       "mrrbPaidEur": 0,
       "bbrPaidEur": 12782.3,
       "paidPct": 49.82,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0333",
-      "description": "Път ІV 34325 VTR 1202 /ІІІ 405 Павликени – Дъскот – Паскалевец – граница община Павликени – Велико Търново VTR 1012 / от км 13+738 до км 19+510 – ЕТАП 2 – реконструкция и рехабилитация – Подетап 2.2 от км 15+720 до км 19+510,69",
-      "oblastCode": "VTR",
-      "oblastName": "Велико Търново",
-      "obshtinaCode": "VTR22",
-      "municipalityName": "Павликени",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
       "stalled": false
     },
     {

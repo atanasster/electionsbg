@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.684Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.549Z",
   "obshtinaCode": "BGS21",
   "municipalityName": "Созопол",
   "oblastCode": "BGS",
@@ -11,14 +11,14 @@
     "oblastCode": "BGS",
     "oblastName": "Бургас",
     "projectCount": 7,
-    "stalledCount": 1,
-    "agreementEur": 7668253.380000001,
+    "stalledCount": 2,
+    "agreementEur": 9822632.850000001,
     "submittedEur": 31971.28,
     "awaitingEur": 0,
-    "paidEur": 2234289.58,
-    "mrrbPaidEur": 997102.74,
+    "paidEur": 2684558.1599999997,
+    "mrrbPaidEur": 1447371.32,
     "bbrPaidEur": 1237186.8399999999,
-    "paidPct": 29.14
+    "paidPct": 27.33
   },
   "projects": [
     {
@@ -36,6 +36,22 @@
       "bbrPaidEur": 1027020.84,
       "paidPct": 18.82,
       "stalled": false
+    },
+    {
+      "id": "OP-25.001-0230",
+      "description": "Напорен резервоар и отклонение към него от главен водопровод за питейно водообезпечаване на с. Равадиново, община Созопол",
+      "oblastCode": "BGS",
+      "oblastName": "Бургас",
+      "obshtinaCode": "BGS21",
+      "municipalityName": "Созопол",
+      "agreementEur": 2154379.47,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-0183",
@@ -63,10 +79,10 @@
       "agreementEur": 680018.2,
       "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 141558.26,
-      "mrrbPaidEur": 0,
+      "paidEur": 591826.84,
+      "mrrbPaidEur": 450268.58,
       "bbrPaidEur": 141558.26,
-      "paidPct": 20.82,
+      "paidPct": 87.03,
       "stalled": false
     },
     {
@@ -115,22 +131,6 @@
       "mrrbPaidEur": 0,
       "bbrPaidEur": 5942.91,
       "paidPct": 15.92,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0230",
-      "description": "Напорен резервоар и отклонение към него от главен водопровод за питейно водообезпечаване на с. Равадиново, община Созопол",
-      "oblastCode": "BGS",
-      "oblastName": "Бургас",
-      "obshtinaCode": "BGS21",
-      "municipalityName": "Созопол",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
       "stalled": false
     }
   ]

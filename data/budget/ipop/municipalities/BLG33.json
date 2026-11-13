@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.681Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.546Z",
   "obshtinaCode": "BLG33",
   "municipalityName": "Петрич",
   "oblastCode": "BLG",
@@ -11,14 +11,14 @@
     "oblastCode": "BLG",
     "oblastName": "Благоевград",
     "projectCount": 18,
-    "stalledCount": 1,
-    "agreementEur": 15825301.790000003,
-    "submittedEur": 1375790.51,
+    "stalledCount": 5,
+    "agreementEur": 17749242.01,
+    "submittedEur": 1754988.2,
     "awaitingEur": 0,
     "paidEur": 10804098.549999999,
     "mrrbPaidEur": 7456952.829999999,
     "bbrPaidEur": 3347145.72,
-    "paidPct": 68.27
+    "paidPct": 60.87
   },
   "projects": [
     {
@@ -166,6 +166,38 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0205",
+      "description": "Основен ремонт на улично платно от о.т. 67-о.т. 66-о.т. 65-о.т. 64-о.т. 63-о.т. 62-о.т. 104-о.т. 50-о.т. 17-о.т. 40, с. Кърналово, община Петрич",
+      "oblastCode": "BLG",
+      "oblastName": "Благоевград",
+      "obshtinaCode": "BLG33",
+      "municipalityName": "Петрич",
+      "agreementEur": 576277.08,
+      "submittedEur": 113939.08,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-25.001-0206",
+      "description": "Реконструкция на улично платно на ул. \"Беласица\" от о.т. 103а – о.т. 14 – о.т. 7 – о.т. 13 – о.т. 22 – о.т. 23 – о.т. 44 – о.т. 41, с. Беласица, община Петрич",
+      "oblastCode": "BLG",
+      "oblastName": "Благоевград",
+      "obshtinaCode": "BLG33",
+      "municipalityName": "Петрич",
+      "agreementEur": 557819.44,
+      "submittedEur": 109824.33,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-0078",
       "description": "Основен ремонт на ул. \"Отец Паисий\" – гр. Пет­рич, от о.т. 328 – о.т. 330 – о.т. 332 – о.т. 333 – о.т. 334 – о.т. 335 – о.т. 338, включително тротоари в участъка",
       "oblastCode": "BLG",
@@ -230,6 +262,22 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0207",
+      "description": "Реконструкция на улично платно от о.т. 33-о.т.32-о.т.31-о.т.30-о.т.22, вкл. тротоари и уличен водопровод в участъка, с. Генерал Тодоров, община Петрич",
+      "oblastCode": "BLG",
+      "oblastName": "Благоевград",
+      "obshtinaCode": "BLG33",
+      "municipalityName": "Петрич",
+      "agreementEur": 442318.61,
+      "submittedEur": 87108.62,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-0081",
       "description": "Основен ремонт на ул. \"Тома Митов\" от о.т. 233 – о.т. 225, включително тротоари и уличен водопровод в участъка",
       "oblastCode": "BLG",
@@ -246,68 +294,20 @@
       "stalled": true
     },
     {
-      "id": "OP-25.001-0205",
-      "description": "Основен ремонт на улично платно от о.т. 67-о.т. 66-о.т. 65-о.т. 64-о.т. 63-о.т. 62-о.т. 104-о.т. 50-о.т. 17-о.т. 40, с. Кърналово, община Петрич",
-      "oblastCode": "BLG",
-      "oblastName": "Благоевград",
-      "obshtinaCode": "BLG33",
-      "municipalityName": "Петрич",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0206",
-      "description": "Реконструкция на улично платно на ул. \"Беласица\" от о.т. 103а – о.т. 14 – о.т. 7 – о.т. 13 – о.т. 22 – о.т. 23 – о.т. 44 – о.т. 41, с. Беласица, община Петрич",
-      "oblastCode": "BLG",
-      "oblastName": "Благоевград",
-      "obshtinaCode": "BLG33",
-      "municipalityName": "Петрич",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0207",
-      "description": "Реконструкция на улично платно от о.т. 33-о.т.32-о.т.31-о.т.30-о.т.22, вкл. тротоари и уличен водопровод в участъка, с. Генерал Тодоров, община Петрич",
-      "oblastCode": "BLG",
-      "oblastName": "Благоевград",
-      "obshtinaCode": "BLG33",
-      "municipalityName": "Петрич",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
       "id": "OP-25.001-0208",
       "description": "Реконструкция на улично платно на ул. \"Пет­ра\" от о.т. 25а – о.т. 12а и ул. \"Беласица\" от о.т. 27а – о.т. 73, продължение на ул. \"Георги Раковски\" от о.т. 25 – о.т. 25а – о.т. 27 – о.т. 27а, с. Рупите, община Петрич",
       "oblastCode": "BLG",
       "oblastName": "Благоевград",
       "obshtinaCode": "BLG33",
       "municipalityName": "Петрич",
-      "agreementEur": 0,
-      "submittedEur": 0,
+      "agreementEur": 347525.09,
+      "submittedEur": 68325.66,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,
       "bbrPaidEur": 0,
       "paidPct": 0,
-      "stalled": false
+      "stalled": true
     }
   ]
 }

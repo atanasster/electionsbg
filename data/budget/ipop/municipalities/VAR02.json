@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.684Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.549Z",
   "obshtinaCode": "VAR02",
   "municipalityName": "Аксаково",
   "oblastCode": "VAR",
@@ -11,14 +11,14 @@
     "oblastCode": "VAR",
     "oblastName": "Варна",
     "projectCount": 7,
-    "stalledCount": 0,
-    "agreementEur": 14298970.020000001,
-    "submittedEur": 1730375.2,
+    "stalledCount": 1,
+    "agreementEur": 14553695.64,
+    "submittedEur": 476198,
     "awaitingEur": 717307.77,
-    "paidEur": 8898286.870000001,
-    "mrrbPaidEur": 5331479.24,
+    "paidEur": 10628662.07,
+    "mrrbPaidEur": 7061854.4399999995,
     "bbrPaidEur": 3566807.6300000004,
-    "paidPct": 62.23
+    "paidPct": 73.03
   },
   "projects": [
     {
@@ -29,12 +29,12 @@
       "obshtinaCode": "VAR02",
       "municipalityName": "Аксаково",
       "agreementEur": 4045597.01,
-      "submittedEur": 1730375.2,
+      "submittedEur": 0,
       "awaitingEur": 209.57,
-      "paidEur": 1730165.63,
-      "mrrbPaidEur": 0,
+      "paidEur": 3460540.83,
+      "mrrbPaidEur": 1730375.2,
       "bbrPaidEur": 1730165.63,
-      "paidPct": 42.77,
+      "paidPct": 85.54,
       "stalled": false
     },
     {
@@ -61,7 +61,7 @@
       "obshtinaCode": "VAR02",
       "municipalityName": "Аксаково",
       "agreementEur": 3357851.41,
-      "submittedEur": 0,
+      "submittedEur": 476198,
       "awaitingEur": 28.65,
       "paidEur": 2874132.87,
       "mrrbPaidEur": 1732910.8,
@@ -108,14 +108,14 @@
       "oblastName": "Варна",
       "obshtinaCode": "VAR02",
       "municipalityName": "Аксаково",
-      "agreementEur": 0,
+      "agreementEur": 254725.62,
       "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,
       "bbrPaidEur": 0,
       "paidPct": 0,
-      "stalled": false
+      "stalled": true
     },
     {
       "id": "OP-25.001-0077",

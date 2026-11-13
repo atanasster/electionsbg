@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.701Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.561Z",
   "obshtinaCode": "PVN03",
   "municipalityName": "Белене",
   "oblastCode": "PVN",
@@ -11,14 +11,14 @@
     "oblastCode": "PVN",
     "oblastName": "Плевен",
     "projectCount": 6,
-    "stalledCount": 1,
+    "stalledCount": 0,
     "agreementEur": 4703374.010000001,
-    "submittedEur": 454424,
+    "submittedEur": 0,
     "awaitingEur": 35604.14,
-    "paidEur": 1877008.07,
-    "mrrbPaidEur": 1175571.5999999999,
+    "paidEur": 2949890.7299999995,
+    "mrrbPaidEur": 2248454.26,
     "bbrPaidEur": 701436.47,
-    "paidPct": 39.91
+    "paidPct": 62.72
   },
   "projects": [
     {
@@ -31,10 +31,10 @@
       "agreementEur": 1729189.14,
       "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 257588.85,
-      "mrrbPaidEur": 44993.69,
+      "paidEur": 876047.51,
+      "mrrbPaidEur": 663452.35,
       "bbrPaidEur": 212595.16,
-      "paidPct": 14.9,
+      "paidPct": 50.66,
       "stalled": false
     },
     {
@@ -45,12 +45,12 @@
       "obshtinaCode": "PVN03",
       "municipalityName": "Белене",
       "agreementEur": 1269588.87,
-      "submittedEur": 350562.27,
+      "submittedEur": 0,
       "awaitingEur": 35604.14,
-      "paidEur": 521568.32,
-      "mrrbPaidEur": 206610.19,
+      "paidEur": 872130.59,
+      "mrrbPaidEur": 557172.46,
       "bbrPaidEur": 314958.13,
-      "paidPct": 41.08,
+      "paidPct": 68.69,
       "stalled": false
     },
     {
@@ -77,13 +77,13 @@
       "obshtinaCode": "PVN03",
       "municipalityName": "Белене",
       "agreementEur": 506485.74,
-      "submittedEur": 103861.73,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "paidEur": 103861.73,
+      "mrrbPaidEur": 103861.73,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 20.51,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0917",

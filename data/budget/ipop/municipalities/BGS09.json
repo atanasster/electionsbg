@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.683Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.548Z",
   "obshtinaCode": "BGS09",
   "municipalityName": "Карнобат",
   "oblastCode": "BGS",
@@ -12,13 +12,13 @@
     "oblastName": "Бургас",
     "projectCount": 21,
     "stalledCount": 3,
-    "agreementEur": 8793300.04,
+    "agreementEur": 9404651.739999998,
     "submittedEur": 156107.6,
     "awaitingEur": 137546.3,
-    "paidEur": 3630908.6599999997,
-    "mrrbPaidEur": 2450739.1,
+    "paidEur": 3850088.51,
+    "mrrbPaidEur": 2669918.95,
     "bbrPaidEur": 1180169.56,
-    "paidPct": 41.29
+    "paidPct": 40.94
   },
   "projects": [
     {
@@ -79,11 +79,11 @@
       "agreementEur": 1191821.38,
       "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "paidEur": 219179.85,
+      "mrrbPaidEur": 219179.85,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 18.39,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0159",
@@ -100,6 +100,22 @@
       "bbrPaidEur": 0,
       "paidPct": 87.42,
       "stalled": false
+    },
+    {
+      "id": "OP-25.001-0223",
+      "description": "Благоустрояване на междублоково пространство в УПИ I?1557, 1558, 1559, 1560, 3569, 4010, кв. 89, гр. Карнобат (ул. \"Христо Смирненски\")",
+      "oblastCode": "BGS",
+      "oblastName": "Бургас",
+      "obshtinaCode": "BGS09",
+      "municipalityName": "Карнобат",
+      "agreementEur": 567124.95,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-2359",
@@ -148,6 +164,22 @@
       "bbrPaidEur": 0,
       "paidPct": 0,
       "stalled": true
+    },
+    {
+      "id": "OP-24.001-2712",
+      "description": "Изготвяне на инвестиционен проект на обект \"Реконструкция на улична водопроводна мрежа в с. Житосвят, община Карнобат\"",
+      "oblastCode": "BGS",
+      "oblastName": "Бургас",
+      "obshtinaCode": "BGS09",
+      "municipalityName": "Карнобат",
+      "agreementEur": 44226.75,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": false
     },
     {
       "id": "OP-24.001-2357",
@@ -262,22 +294,6 @@
       "stalled": false
     },
     {
-      "id": "OP-24.001-2712",
-      "description": "Изготвяне на инвестиционен проект на обект \"Реконструкция на улична водопроводна мрежа в с. Житосвят, община Карнобат\"",
-      "oblastCode": "BGS",
-      "oblastName": "Бургас",
-      "obshtinaCode": "BGS09",
-      "municipalityName": "Карнобат",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
       "id": "OP-24.001-2713",
       "description": "Изготвяне на инвестиционен проект на обект \"Реконструкция на улична водопроводна мрежа в с. Смолник, община Карнобат\"",
       "oblastCode": "BGS",
@@ -328,22 +344,6 @@
     {
       "id": "OP-25.001-0222",
       "description": "Инженеринг – проектиране, СМР и упражняване на авторски надзор на обект: \"Основен ремонт на велосипедна алея и тротоарна настилка по част от бул. \"Москва\", заключена между о.т. 527, 528, 529 до вход на под. 1472А",
-      "oblastCode": "BGS",
-      "oblastName": "Бургас",
-      "obshtinaCode": "BGS09",
-      "municipalityName": "Карнобат",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0223",
-      "description": "Благоустрояване на междублоково пространство в УПИ I?1557, 1558, 1559, 1560, 3569, 4010, кв. 89, гр. Карнобат (ул. \"Христо Смирненски\")",
       "oblastCode": "BGS",
       "oblastName": "Бургас",
       "obshtinaCode": "BGS09",

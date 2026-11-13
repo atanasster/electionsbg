@@ -1,6 +1,6 @@
 {
-  "fiscalYear": 2025,
-  "generatedAt": "2026-11-07T03:11:36.698Z",
+  "fiscalYear": 2026,
+  "generatedAt": "2026-11-13T00:57:27.558Z",
   "obshtinaCode": "MON36",
   "municipalityName": "Чипровци",
   "oblastCode": "MON",
@@ -11,14 +11,14 @@
     "oblastCode": "MON",
     "oblastName": "Монтана",
     "projectCount": 19,
-    "stalledCount": 2,
+    "stalledCount": 1,
     "agreementEur": 5104673.22,
-    "submittedEur": 0,
-    "awaitingEur": 24627.329999999998,
-    "paidEur": 2076527.7500000002,
-    "mrrbPaidEur": 1109008.95,
+    "submittedEur": 11091.47,
+    "awaitingEur": 18224.23,
+    "paidEur": 2101155.0700000003,
+    "mrrbPaidEur": 1133636.27,
     "bbrPaidEur": 967518.7999999998,
-    "paidPct": 40.68
+    "paidPct": 41.16
   },
   "projects": [
     {
@@ -158,12 +158,12 @@
       "municipalityName": "Чипровци",
       "agreementEur": 124192.8,
       "submittedEur": 0,
-      "awaitingEur": 24627.32,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 24627.32,
+      "mrrbPaidEur": 24627.32,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 19.83,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0779",
@@ -174,7 +174,7 @@
       "municipalityName": "Чипровци",
       "agreementEur": 92339.31,
       "submittedEur": 0,
-      "awaitingEur": 0,
+      "awaitingEur": 18224.22,
       "paidEur": 0,
       "mrrbPaidEur": 0,
       "bbrPaidEur": 0,
@@ -221,7 +221,7 @@
       "obshtinaCode": "MON36",
       "municipalityName": "Чипровци",
       "agreementEur": 60928.1,
-      "submittedEur": 0,
+      "submittedEur": 11091.47,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,
