@@ -1,0 +1,36 @@
+{
+  "session": "20261113T061351Z-5c11",
+  "createdAt": "2026-11-13T06:17:49.830Z",
+  "commit": "a3e2929872d3186c9153c42cc3e94f9da7027e73",
+  "skills": [
+    "update-kzk-appeals",
+    "update-funds",
+    "update-financing"
+  ],
+  "paths": [
+    "procurement/derived/hub_stats.json",
+    "financing",
+    "data_map.json",
+    "home",
+    "roads/derived/hub_stats.json",
+    "transport/derived/hub_stats.json",
+    "governance/hub_stats.json",
+    "home/flyover.json",
+    "home/hub_stats.json"
+  ],
+  "cloudCommands": [
+    "pnpm run kzk:appeals:cloud --year 2026",
+    "pnpm run db:load:kzk-decisions:pg:cloud",
+    "pnpm run kzk:rejoin:cloud --apply",
+    "pnpm run db:load:funds:pg:cloud --full",
+    "pnpm run db:load:funds-fit:pg:cloud",
+    "pnpm run db:load:clean-delivery:pg:cloud",
+    "pnpm run db:load:grant-links:pg:cloud",
+    "pnpm run db:load:persons-browse:pg:cloud",
+    "pnpm run db:load:person-search:pg:cloud",
+    "pnpm run db:load:graph:pg:cloud",
+    "pnpm run db:load:agri-hub-stats:pg:cloud",
+    "pnpm run db:load:tr-company-place:pg:cloud",
+    "pnpm run myarea:alerts:cloud"
+  ]
+}
