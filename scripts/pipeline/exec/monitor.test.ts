@@ -2,6 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { REPO } from "../state";
 import { deadRuns, Monitor, monitorFor, resetMonitorForTests } from "./monitor";
 
 const tmp = (): string =>
@@ -124,5 +125,12 @@ describe("Monitor", () => {
         updatedAt: now,
       },
     ]);
+  });
+
+  it("never writes into the real logs/pipeline under a test runner", () => {
+    resetMonitorForTests();
+    const m = monitorFor("t", path.join(REPO, "logs/pipeline", "t-probe"));
+    expect(m.dir.startsWith(path.join(REPO, "logs/pipeline"))).toBe(false);
+    resetMonitorForTests();
   });
 });

@@ -20,7 +20,11 @@
 // a run, so an I/O error here is swallowed after one stderr warning.
 
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
+import { REPO } from "../state";
+
+const REAL_LOGS = path.join(REPO, "logs/pipeline");
 
 export const HEARTBEAT_MS = 60_000;
 /** A heartbeat line goes to run.log only every Nth beat (status.json gets
@@ -211,6 +215,12 @@ export class Monitor {
  *  single ordered stream). The first call creates it; later calls — whatever
  *  session they name — return it. */
 export const monitorFor = (session: string, dir: string): Monitor => {
+  // Under a test runner the real logs/pipeline is off limits: a test that
+  // records a skipped step would otherwise create a fake session folder
+  // there and overwrite LATEST — during a live run, the one file a watcher
+  // follows. (Found when the nightly's dead-run check named a session "s".)
+  if (process.env.VITEST && path.resolve(dir).startsWith(REAL_LOGS))
+    dir = path.join(os.tmpdir(), "pipeline-monitor-test", path.basename(dir));
   primary ??= new Monitor(session, dir);
   return primary;
 };
