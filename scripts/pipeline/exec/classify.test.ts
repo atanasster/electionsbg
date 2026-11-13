@@ -172,3 +172,21 @@ describe("a dropped connection names the database the step was pinned to", () =>
     );
   });
 });
+
+describe("upstream 5xx in the phrasings the fetchers use", () => {
+  it.each([
+    "Error: BNB returned 500 for https://www.bnb.bg/FiscalAgent/x?forYear=2019",
+    "fetch failed with status 503",
+    "upstream responded with 502",
+    "500 Internal Server Error",
+  ])("%s", (line) => {
+    expect(classify({ exitCode: 1, timedOut: false, tail: line }).class).toBe(
+      "upstream-down",
+    );
+  });
+  it("does not read a 500-row count as an HTTP error", () => {
+    expect(
+      classify({ exitCode: 1, timedOut: false, tail: "loaded 500 rows" }).class,
+    ).not.toBe("upstream-down");
+  });
+});

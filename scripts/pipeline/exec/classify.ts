@@ -130,7 +130,7 @@ const RULES: readonly Rule[] = [
   },
   {
     class: "upstream-down",
-    re: /\b(502|503|504)\b.*(Bad Gateway|Service Unavailable|Gateway Timeout)|HTTP (5\d\d)|ECONNRESET|EAI_AGAIN|ENOTFOUND|socket hang up|fetch failed/i,
+    re: /\b(502|503|504)\b.*(Bad Gateway|Service Unavailable|Gateway Timeout)|HTTP (5\d\d)|\b(?:returned|status(?: code)?:?|responded with)\s+5\d\d\b|\b500 Internal Server Error|ECONNRESET|EAI_AGAIN|ENOTFOUND|socket hang up|fetch failed/i,
     retryable: true,
     holdsPublish: true,
     hint: "The upstream is down or flaky — one retry later; persistent failure means a moved endpoint.",
