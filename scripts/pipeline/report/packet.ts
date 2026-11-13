@@ -341,5 +341,6 @@ export const renderPacket = (p: PacketInput): string => {
   out.push("", "## 9. Done means");
   for (const d of p.doneMeans) out.push(`- ${flat(d)}`);
 
-  return out.join("\n") + "\n";
+  // Committed, like report.md: redact the whole packet, not just the excerpt.
+  return redact(out.join("\n") + "\n");
 };

@@ -3,8 +3,8 @@
 // exit code a caller gates on are unit-tested, not just exercised by a
 // daily run (plan §3.4).
 
-import { carryScopeLog } from "./scope_log";
-import { standingProblem, type HealthLedger } from "./health";
+import { carryScopeLog, type RunScope } from "./scope_log";
+import { reportStreaks, standingProblem, type HealthLedger } from "./health";
 import type { Fingerprint, ReportEntry, WatchState } from "./types";
 
 /** The state written after a successful probe. `lastChanged` moves only on a
@@ -12,7 +12,7 @@ import type { Fingerprint, ReportEntry, WatchState } from "./types";
 export const nextState = (
   prev: WatchState | null,
   curr: Fingerprint,
-  scope: Record<string, string[]> | null,
+  scope: RunScope,
   runAt: string,
 ): WatchState => {
   const changed = !prev || prev.fingerprint !== curr.value;
@@ -32,9 +32,11 @@ export const annotateStreaks = (
   health: HealthLedger,
 ): void => {
   for (const e of entries) {
-    const h = health[e.source.id];
-    if (e.status === "error") e.consecutiveErrors = h?.consecutiveErrors;
-    if (e.status === "blocked") e.consecutiveBlocked = h?.consecutiveBlocked;
+    const s = reportStreaks(e.status, health[e.source.id]);
+    if (s.consecutiveErrors !== undefined)
+      e.consecutiveErrors = s.consecutiveErrors;
+    if (s.consecutiveBlocked !== undefined)
+      e.consecutiveBlocked = s.consecutiveBlocked;
   }
 };
 

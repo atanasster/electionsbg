@@ -95,7 +95,7 @@ describe("exitCode", () => {
 });
 
 describe("annotateStreaks", () => {
-  it("copies each streak onto the matching status only", () => {
+  it("copies the error streak onto error rows and both streaks onto blocked rows", () => {
     const es: ReportEntry[] = [
       { source: src("e"), status: "error", line: "" },
       { source: src("b"), status: "blocked", line: "" },
@@ -105,7 +105,48 @@ describe("annotateStreaks", () => {
       b: { consecutiveErrors: 2, consecutiveBlocked: 4 },
     });
     expect(es[0].consecutiveErrors).toBe(3);
-    expect(es[1]).toMatchObject({ consecutiveBlocked: 4 });
-    expect(es[1].consecutiveErrors).toBeUndefined();
+    // A blocked row also carries the standing error streak it was not
+    // probed against (health.ts reportStreaks).
+    expect(es[1]).toMatchObject({
+      consecutiveBlocked: 4,
+      consecutiveErrors: 2,
+    });
+  });
+});
+
+describe("annotateStreaks — a standing error streak on a not-probed source", () => {
+  it("carries the error streak onto blocked and skipped rows", () => {
+    const entries = [
+      { source: src("b"), status: "blocked", line: "x" },
+      { source: src("s"), status: "skipped", line: "x" },
+      { source: src("ok"), status: "unchanged", line: "x" },
+    ] as ReportEntry[];
+    annotateStreaks(entries, {
+      b: { consecutiveErrors: 5, consecutiveBlocked: 1 },
+      s: { consecutiveErrors: 4 },
+      ok: { consecutiveErrors: 0 },
+    });
+    expect(entries[0]).toMatchObject({
+      consecutiveErrors: 5,
+      consecutiveBlocked: 1,
+    });
+    expect(entries[1]).toMatchObject({ consecutiveErrors: 4 });
+    expect(entries[2].consecutiveErrors).toBeUndefined();
+  });
+
+  it("renders it in the markdown and JSON reports", async () => {
+    const { renderReport, renderJsonReport } = await import("./report");
+    const entries = [
+      { source: src("b"), status: "blocked", line: "needs BG" },
+    ] as ReportEntry[];
+    annotateStreaks(entries, {
+      b: { consecutiveErrors: 6, consecutiveBlocked: 1 },
+    });
+    expect(renderReport(entries, "2026-11-13T00:00:00Z")).toMatch(
+      /last 6 probe\(s\) failed/,
+    );
+    expect(
+      renderJsonReport(entries, "2026-11-13T00:00:00Z", "BG").sources[0],
+    ).toMatchObject({ consecutiveErrors: 6 });
   });
 });

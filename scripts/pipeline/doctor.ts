@@ -11,6 +11,7 @@
 // evaluate() is pure.
 
 import { execFileSync } from "node:child_process";
+import { Client } from "pg";
 import fs from "node:fs";
 import net from "node:net";
 import path from "node:path";
@@ -28,11 +29,20 @@ export interface Facts {
   /** ISO-3166 alpha-2 of the exit IP, or null when the lookup failed. */
   country: string | null;
   countryError?: string;
+  /** Local Postgres answers `SELECT 1` (not merely: a port is open). */
   pgLocal: boolean;
+  /** Why it does not, when it does not. */
+  pgLocalError?: string;
+  /** The Cloud SQL proxy answers `SELECT 1`. A listening proxy whose
+   *  backend is gone accepts the TCP connect and then drops the session. */
   proxy: boolean;
-  /** Where raw_data/prices points, and whether that target exists. */
+  proxyError?: string;
+  /** Where raw_data/prices points, and whether that target is the mounted
+   *  external volume with data on it. */
   pricesTarget: string | null;
   pricesMounted: boolean;
+  /** Why raw_data/prices does not count as mounted, when it does not. */
+  pricesProblem?: string;
   trState: boolean;
   bins: Record<string, boolean>;
   geminiKey: boolean;
@@ -148,8 +158,8 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
     severity: "need",
     ok: f.pgLocal,
     detail: f.pgLocal
-      ? "docker Postgres answers on 127.0.0.1:5433"
-      : "nothing listens on 127.0.0.1:5433 — start it with `pnpm run db:pg:up`",
+      ? "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+      : `${f.pgLocalError ?? "nothing listens on 127.0.0.1:5433"} — start it with \`pnpm run db:pg:up\``,
   });
   add({
     id: "headed",
@@ -167,7 +177,7 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
     ok: f.pricesMounted,
     detail: f.pricesMounted
       ? `raw_data/prices → ${f.pricesTarget}`
-      : `raw_data/prices → ${f.pricesTarget ?? "(missing)"} is not reachable — mount the external drive`,
+      : `raw_data/prices → ${f.pricesTarget ?? "(missing)"}: ${f.pricesProblem ?? "not reachable"} — mount the external drive`,
   });
   add({
     id: "tr-state",
@@ -203,8 +213,8 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
     severity: "need",
     ok: f.proxy,
     detail: f.proxy
-      ? "Cloud SQL proxy answers on 127.0.0.1:5434"
-      : "Cloud SQL proxy is down — a publish needs `pnpm run db:proxy:cloud`",
+      ? "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+      : `Cloud SQL proxy is down (${f.proxyError ?? "no answer on 127.0.0.1:5434"}) — a publish needs \`pnpm run db:proxy:cloud\``,
   });
   add({
     id: "bin:gsutil",
@@ -294,6 +304,90 @@ export const portOpen = (port: number, timeoutMs = 1500): Promise<boolean> =>
     s.once("error", () => done(false));
   });
 
+/** Does a Postgres on 127.0.0.1:`port` answer `SELECT 1`? TCP first (fast,
+ *  and names "nothing listens" plainly), then a real query with a short
+ *  timeout — an open port alone passes a proxy whose Cloud SQL side is gone,
+ *  which is exactly the "Connection terminated unexpectedly" mid-load. The
+ *  password comes from the repo's .pgpass, as for every step. */
+export const pgAnswers = async (
+  port: number,
+  timeoutMs = 4000,
+): Promise<{ ok: boolean; error?: string }> => {
+  if (!(await portOpen(port)))
+    return { ok: false, error: `nothing listens on 127.0.0.1:${port}` };
+  const pgpass = path.join(REPO, ".pgpass");
+  if (!process.env.PGPASSFILE && fs.existsSync(pgpass))
+    process.env.PGPASSFILE = pgpass;
+  const client = new Client({
+    host: "127.0.0.1",
+    port,
+    user: "postgres",
+    database: "electionsbg",
+    // The docker Postgres's password is inline (LOCAL_DATABASE_URL); the
+    // proxy's comes from .pgpass.
+    ...(port === 5433 ? { password: "postgres" } : {}),
+    connectionTimeoutMillis: timeoutMs,
+    query_timeout: timeoutMs,
+  });
+  // A dropped connection emits 'error' on the client; unhandled, it throws.
+  client.on("error", () => {});
+  try {
+    await client.connect();
+    await client.query("SELECT 1");
+    return { ok: true };
+  } catch (e) {
+    return {
+      ok: false,
+      error: `port ${port} is open but SELECT 1 failed: ${e instanceof Error ? e.message : String(e)}`,
+    };
+  } finally {
+    client.end().catch(() => {});
+  }
+};
+
+/** raw_data/prices must be a symlink (or mount) resolving onto the external
+ *  volume under /Volumes/ — scripts/prices/ingest.ts documents it as "a
+ *  symlink onto the external /Volumes/Storage drive" — and must hold data.
+ *  A plain local directory passes `existsSync` and is the wrong place: an
+ *  ingest would write gigabytes onto the internal disk. */
+export const pricesDrive = (
+  link: string,
+): { target: string | null; mounted: boolean; problem?: string } => {
+  let target: string | null;
+  try {
+    target = fs.lstatSync(link).isSymbolicLink() ? fs.readlinkSync(link) : link;
+  } catch {
+    return { target: null, mounted: false, problem: "missing" };
+  }
+  let real: string;
+  try {
+    real = fs.realpathSync(link);
+  } catch {
+    return {
+      target,
+      mounted: false,
+      problem: "the link's target is not reachable",
+    };
+  }
+  if (!real.startsWith("/Volumes/"))
+    return {
+      target,
+      mounted: false,
+      problem: `resolves to ${real}, not onto an external volume under /Volumes/`,
+    };
+  try {
+    if (!fs.readdirSync(real).some((n) => !n.startsWith(".")))
+      return { target, mounted: false, problem: `${real} is empty` };
+  } catch (e) {
+    return {
+      target,
+      mounted: false,
+      problem: `${real} is not readable: ${e instanceof Error ? e.message : String(e)}`,
+    };
+  }
+  return { target, mounted: true };
+};
+
 const onPath = (bin: string): boolean => {
   try {
     execFileSync("which", [bin], { stdio: "ignore" });
@@ -361,23 +455,72 @@ const pidAlive = (pid: number): boolean => {
   }
 };
 
+/** The start time `ps` reports for a pid (`lstart`, e.g. "Fri Nov 13 07:17:16
+ *  2026"), or null when the pid is gone or `ps` failed. Stored in the lock so
+ *  a REUSED pid — the runner crashed, the machine rebooted, an unrelated
+ *  process now has that number — does not read as the holder still running. */
+export const processStart = (pid: number): string | null => {
+  if (!(pid > 0)) return null;
+  try {
+    const out = execFileSync("ps", ["-o", "lstart=", "-p", String(pid)], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+      timeout: 5000,
+    })
+      .trim()
+      .replace(/\s+/g, " ");
+    return out || null;
+  } catch {
+    return null;
+  }
+};
+
+/** A lock file that is empty or does not parse is a writer mid-write for this
+ *  long after its mtime; only after that is it debris from a crash. */
+export const LOCK_WRITE_GRACE_MS = 5000;
+
 export const readLock = (
   file: string = LOCK_FILE,
+  now: number = Date.now(),
 ): { pid: number; session: string; alive: boolean } | null => {
-  if (!fs.existsSync(file)) return null;
+  let text: string;
+  let mtimeMs: number;
   try {
-    const raw = JSON.parse(fs.readFileSync(file, "utf8")) as {
+    text = fs.readFileSync(file, "utf8");
+    mtimeMs = fs.statSync(file).mtimeMs;
+  } catch {
+    return null;
+  }
+  try {
+    const raw = JSON.parse(text) as {
       pid?: unknown;
       session?: unknown;
+      procStart?: unknown;
     };
     const pid = typeof raw.pid === "number" ? raw.pid : -1;
+    let alive = pid > 0 && pidAlive(pid);
+    // A recorded start time that no longer matches is a different process
+    // under a recycled pid. A lock written before the field existed (or a
+    // `ps` that failed) falls back to the pid check alone.
+    if (alive && typeof raw.procStart === "string" && raw.procStart) {
+      const cur = processStart(pid);
+      if (cur !== null && cur !== raw.procStart.trim().replace(/\s+/g, " "))
+        alive = false;
+    }
     return {
       pid,
       session: typeof raw.session === "string" ? raw.session : "unknown",
-      alive: pid > 0 && pidAlive(pid),
+      alive,
     };
   } catch {
-    return { pid: -1, session: "unreadable lock file", alive: false };
+    // Empty or half-written: a fresh one is somebody mid-acquire, never
+    // stale — taking it over would hand the lock to two runs.
+    const fresh = now - mtimeMs < LOCK_WRITE_GRACE_MS;
+    return {
+      pid: -1,
+      session: fresh ? "lock being written" : "unreadable lock file",
+      alive: fresh,
+    };
   }
 };
 
@@ -442,20 +585,14 @@ const shmMb = (): number | null => {
 };
 
 export const gatherFacts = async (now: Date): Promise<Facts> => {
-  const [{ country, error }, pgLocal, proxy] = await Promise.all([
+  const [{ country, error }, local, cloud] = await Promise.all([
     lookupCountry(),
-    portOpen(5433),
-    portOpen(5434),
+    pgAnswers(5433),
+    pgAnswers(5434),
   ]);
-  const pricesLink = path.join(REPO, "raw_data/prices");
-  let pricesTarget: string | null = null;
-  try {
-    pricesTarget = fs.lstatSync(pricesLink).isSymbolicLink()
-      ? fs.readlinkSync(pricesLink)
-      : pricesLink;
-  } catch {
-    pricesTarget = null;
-  }
+  const pgLocal = local.ok;
+  const proxy = cloud.ok;
+  const prices = pricesDrive(path.join(REPO, "raw_data/prices"));
   const status = git("status", "--porcelain", "--", "data");
   const pendingManifest = fs.existsSync(UPLOAD_PENDING)
     ? pendingManifestFact(readPending(), now)
@@ -464,9 +601,12 @@ export const gatherFacts = async (now: Date): Promise<Facts> => {
     country,
     countryError: error,
     pgLocal,
+    pgLocalError: local.error,
     proxy,
-    pricesTarget,
-    pricesMounted: fs.existsSync(pricesLink), // follows the symlink
+    proxyError: cloud.error,
+    pricesTarget: prices.target,
+    pricesMounted: prices.mounted,
+    pricesProblem: prices.problem,
     trState: fs.existsSync(path.join(REPO, "raw_data/tr/state.sqlite")),
     bins: Object.fromEntries(
       ["pdftotext", "unzip", "gsutil"].map((b) => [b, onPath(b)]),

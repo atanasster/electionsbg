@@ -25,6 +25,16 @@ export interface ScopeLogMeta {
   scopeLogSince?: string;
 }
 
+/** A changed run whose scope() threw: what moved is unknown. Logging nothing
+ *  would let scopeSince() return a partial union (and the pipeline run a
+ *  subset), so instead the log restarts at this run — any consumer whose
+ *  marker predates it gets null ("unknown scope → full run"). */
+export const SCOPE_UNKNOWN = "unknown" as const;
+export type RunScope = Record<string, string[]> | null | typeof SCOPE_UNKNOWN;
+
+const later = (a: string | undefined, b: string): string =>
+  a !== undefined && Date.parse(a) >= Date.parse(b) ? a : b;
+
 /** Entries kept per source; the oldest drop first, moving scopeLogSince. */
 export const MAX_SCOPE_ENTRIES = 60;
 
@@ -51,22 +61,27 @@ const readLog = (meta: unknown): ScopeLogMeta => {
 export const carryScopeLog = (
   prev: WatchState | null,
   curr: Fingerprint,
-  scope: Record<string, string[]> | null,
+  scope: RunScope,
   runAt: string,
 ): Record<string, unknown> | undefined => {
   const prevLog = readLog(prev?.meta);
+  const unknown = scope === SCOPE_UNKNOWN;
+  const entry = scope && !unknown ? scope : null;
   // A source without a scope hook never grows a log; keep its meta exactly.
-  if (!scope && !prevLog.scopeLog?.length) return curr.meta;
+  if (!entry && !unknown && !prevLog.scopeLog?.length) return curr.meta;
   const log = [
     ...(prevLog.scopeLog ?? []),
-    ...(scope ? [{ at: runAt, scope }] : []),
+    ...(entry ? [{ at: runAt, scope: entry }] : []),
   ];
   // First ever entry: the log is complete from now; changes before it were
-  // never logged.
-  let since = prevLog.scopeLogSince ?? (scope ? runAt : undefined);
+  // never logged. An unknown scope restarts completeness at this run.
+  let since = unknown
+    ? runAt
+    : (prevLog.scopeLogSince ?? (entry ? runAt : undefined));
   while (log.length > MAX_SCOPE_ENTRIES) {
     log.shift();
-    since = log[0].at;
+    // Never move `since` backwards past an unknown-scope reset.
+    since = later(since, log[0].at);
   }
   return {
     ...(curr.meta ?? {}),

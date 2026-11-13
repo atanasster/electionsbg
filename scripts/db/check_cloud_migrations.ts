@@ -50,10 +50,16 @@
 // Read-only. It never applies anything: it prints the `apply_functions.ts` line
 // and exits 1, because this repo's standing rule is that a checker emits the
 // production command rather than running it.
+//
+// Exit: 0 in step · 1 FOUND drift (the finding callers gate on with
+// `--ok-exit 1`) · 2 COULD NOT CHECK (a crash — proxy down, auth, a bad
+// catalog query). The two must differ: with a crash on 1, a dead proxy read as
+// "drift reported" and a publish cleared its manifest over a check that never
+// ran.
 
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { Pool } from "pg";
 import { LOCAL_DATABASE_URL } from "./lib/pg";
 import { isCommentOnlyDrift } from "./lib/sqlCommentDrift";
@@ -272,10 +278,15 @@ const main = async (): Promise<number> => {
   return 1;
 };
 
-main().then(
-  (code) => process.exit(code),
-  (e) => {
-    console.error(String(e instanceof Error ? e.message : e));
-    process.exit(1);
-  },
-);
+/** Exit codes — see the header. `CHECK_CRASHED` is never a finding. */
+export const CHECK_FOUND = 1;
+export const CHECK_CRASHED = 2;
+
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href)
+  main().then(
+    (code) => process.exit(code),
+    (e) => {
+      console.error(String(e instanceof Error ? e.message : e));
+      process.exit(CHECK_CRASHED);
+    },
+  );

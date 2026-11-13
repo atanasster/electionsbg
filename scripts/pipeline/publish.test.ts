@@ -4,7 +4,15 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { UploadManifest } from "../lib/upload-manifest";
 import type { StepOutcome, StepSpec } from "./exec/executor";
-import { planPublish, runPublish, type PublishDeps } from "./publish";
+import { writeRecord } from "./report/record";
+import {
+  findResumableIn,
+  INTERRUPTED_SKIP,
+  manifestDigest,
+  planPublish,
+  runPublish,
+  type PublishDeps,
+} from "./publish";
 import type { RunRecord } from "./report/record";
 
 // Every run here records perf rows; they go to a scratch dir, never state/perf.
@@ -66,16 +74,21 @@ const harness = (
   let released = false;
   const deps: PublishDeps = {
     readManifest: () => m,
-    clearManifest: (s) => void cleared.push(s),
+    clearManifest: (s) => (cleared.push(s), { status: "cleared" }),
     proxyUp: async () => true,
     head: () => "def456",
     containsCommit: () => true,
     excluded: () => null,
-    run: async (spec) => {
+    run: async (spec, ctx) => {
       ran.push(spec.run);
-      if (over.fail === spec.run) return [outcome(spec, "error")];
-      const code = over.exitOf?.[spec.run];
-      return [outcome(spec, "ok", code ?? 0)];
+      if (over.fail === spec.run)
+        return [{ ...outcome(spec, "error"), seq: ctx.nextSeq() }];
+      const code = over.exitOf?.[spec.run] ?? 0;
+      // As the executor does: an exit outside {0, ...okExit} is an error.
+      const ok = code === 0 || (spec.okExit ?? []).includes(code);
+      return [
+        { ...outcome(spec, ok ? "ok" : "error", code), seq: ctx.nextSeq() },
+      ];
     },
     commit: (message, paths) => {
       commits.push({ message, paths });
@@ -171,7 +184,7 @@ describe("planPublish", () => {
     ).toEqual([]);
   });
 
-  it("runs as written but reports a manifest order that breaks CLOUD_ORDER", () => {
+  it("reorders the manifest's cloud commands into CLOUD_ORDER and says so", () => {
     const p = planPublish(
       manifest({
         cloudCommands: [
@@ -184,8 +197,31 @@ describe("planPublish", () => {
     );
     expect(
       p.steps.filter((s) => s.unit === "cloud").map((s) => s.spec.run),
-    ).toEqual(["pnpm run db:load:graph:pg:cloud", "pnpm run db:load:pg:cloud"]);
-    expect(p.findings.join()).toMatch(/differs from CLOUD_ORDER/);
+    ).toEqual(["pnpm run db:load:pg:cloud", "pnpm run db:load:graph:pg:cloud"]);
+    expect(p.findings.join()).toMatch(/differs from CLOUD_ORDER — reordered/);
+  });
+
+  it("keeps unknown cloud commands, in their relative order, after the known ones", () => {
+    const p = planPublish(
+      manifest({
+        cloudCommands: [
+          "DATABASE_URL=x pnpm exec tsx scripts/b.ts",
+          "pnpm run db:load:graph:pg:cloud",
+          "DATABASE_URL=x pnpm exec tsx scripts/a.ts",
+          "pnpm run db:load:pg:cloud",
+        ],
+      }),
+      deps,
+      true,
+    );
+    expect(
+      p.steps.filter((s) => s.unit === "cloud").map((s) => s.spec.run),
+    ).toEqual([
+      "pnpm run db:load:pg:cloud",
+      "pnpm run db:load:graph:pg:cloud",
+      "DATABASE_URL=x pnpm exec tsx scripts/b.ts",
+      "DATABASE_URL=x pnpm exec tsx scripts/a.ts",
+    ]);
   });
 });
 
@@ -364,5 +400,148 @@ describe("runPublish", () => {
       runPublish(h.deps, { perfDir: PERF_TMP, session: "s" }),
     ).rejects.toThrow("boom");
     expect(h.released()).toBe(true);
+  });
+  it("holds the manifest when a verifier CRASHES (exit 2), not only on a step failure", async () => {
+    // Exit 1 is "found drift" (a finding); exit 2 is "could not check". With
+    // both on 1, a dead proxy cleared the manifest with decision go.
+    const h = harness(manifest(), {
+      exitOf: { "pnpm run db:check-cloud": 2 },
+    });
+    const out = await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
+    expect(out.exitCode).toBe(1);
+    expect(h.cleared).toEqual([]);
+    expect(h.finalized[0].publish?.decision).toBe("held");
+    expect(h.finalized[0].units.find((u) => u.id === "verify")?.status).toBe(
+      "failed",
+    );
+  });
+
+  it("refuses when the manifest moved between the plan and the lock", async () => {
+    let reads = 0;
+    const h = harness(manifest(), {
+      readManifest: () =>
+        ++reads === 1 ? manifest() : manifest({ paths: ["funds"] }),
+    });
+    const out = await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
+    expect(out.exitCode).toBe(2);
+    expect(out.refused).toMatch(/changed before the lock was taken/);
+    expect([h.ran.length, h.cleared.length]).toEqual([0, 0]);
+    expect(h.released()).toBe(true);
+  });
+
+  it("clears with the manifest it published and reports a partial settle", async () => {
+    let got: UploadManifest | null = null;
+    const h = harness(manifest(), {
+      clearManifest: (_s, published) => {
+        got = published;
+        return {
+          status: "partial",
+          remaining: manifest({ paths: ["funds"], cloudCommands: [] }),
+          why: "pending.json gained work during the publish",
+        };
+      },
+    });
+    const out = await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
+    expect(out.exitCode).toBe(0);
+    expect(got).toEqual(manifest());
+    expect(h.finalized[0].findings.join()).toMatch(
+      /gained work during the publish; still pending: 1 path/,
+    );
+    expect(h.commits[0].paths).toContain("state/upload/pending.json");
+  });
+
+  it("runs inside a caller's lock without acquiring or releasing it", async () => {
+    let locked = false;
+    const h = harness(manifest(), {
+      lock: () => ((locked = true), { release: () => {} }),
+    });
+    const out = await runPublish(h.deps, {
+      perfDir: PERF_TMP,
+      session: "s",
+      heldLock: { session: "ingest-s" },
+    });
+    expect(out.exitCode).toBe(0);
+    expect(locked).toBe(false);
+    expect(h.finalized[0].findings.join()).toMatch(
+      /lock held by session ingest-s/,
+    );
+  });
+
+  it("starts nothing after a signal, holds the manifest, and stays resumable there", async () => {
+    let sig: string | null = null;
+    const h = harness(manifest(), {
+      run: async (spec, ctx) => {
+        if (spec.run === "pnpm run db:load:pg:cloud") sig = "SIGINT";
+        return [{ ...outcome(spec, "ok"), seq: ctx.nextSeq() }];
+      },
+      interrupted: () => sig,
+    });
+    const out = await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
+    expect(out.exitCode).toBe(1);
+    expect(h.cleared).toEqual([]);
+    const steps = h.finalized[0].units.flatMap((u) => u.steps);
+    const graph = steps.find((x) => x.id === "db:load:graph:pg:cloud")!;
+    expect(graph.status).toBe("skipped");
+    expect(graph.firstError).toMatch(new RegExp(`^${INTERRUPTED_SKIP}`));
+    // Verification does not run after a signal either.
+    expect(steps.find((x) => x.id === "db:check-cloud")?.status).toBe(
+      "skipped",
+    );
+
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "resume-int-"));
+    const rec = {
+      ...h.finalized[0],
+      manifestDigest: manifestDigest(manifest()),
+    };
+    writeRecord(rec, path.join(root, rec.session));
+    expect(
+      findResumableIn(
+        "db:load:graph:pg:cloud",
+        manifestDigest(manifest()),
+        root,
+      ),
+    ).toBe(rec.session);
+  });
+
+  it("resumes at a VERIFY step: re-runs only verification, then clears", async () => {
+    const m = manifest();
+    const crashed = harness(m, { exitOf: { "pnpm run db:check-cloud": 2 } });
+    await runPublish(crashed.deps, {
+      perfDir: PERF_TMP,
+      session: "20261112T000000Z-a",
+    });
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "resume-verify-"));
+    writeRecord(crashed.finalized[0], path.join(root, "20261112T000000Z-a"));
+
+    const h = harness(m, {
+      findResumable: (id, d) => findResumableIn(id, d, root),
+    });
+    const out = await runPublish(h.deps, {
+      perfDir: PERF_TMP,
+      session: "s2",
+      startAt: "db:check-cloud",
+    });
+    expect(out.exitCode).toBe(0);
+    expect(h.ran).toEqual(["pnpm run db:check-cloud"]);
+    expect(h.cleared).toEqual(["s2"]);
+    // …and it is refused for a verify step that did NOT fail.
+    expect(findResumableIn("db:check-generated", manifestDigest(m), root)).toBe(
+      null,
+    );
+  });
+
+  it("commits the run folders finalize pruned", async () => {
+    let runs = ["20261101T000000Z-old", "s"];
+    const h = harness(manifest(), {
+      listRuns: () => runs,
+      finalize: () => {
+        runs = ["s"];
+        return "report.md";
+      },
+    });
+    await runPublish(h.deps, { perfDir: PERF_TMP, session: "s" });
+    expect(h.commits[0].paths).toContain(
+      "state/pipeline/runs/20261101T000000Z-old",
+    );
   });
 });

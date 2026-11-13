@@ -5,24 +5,28 @@
 //
 // The rules it keeps from that runbook, each of which was a documented miss:
 //   - the manifest IS the work list — nothing is re-derived from git;
-//   - cloud commands run in MANIFEST order and the run stops at the first
-//     failure (half a chain is worse than none);
-//   - a partial publish never clears the manifest — it is the debt;
+//   - cloud commands run in CLOUD_ORDER (the registry's one dependency order),
+//     not in the order handlers happened to append them, and the run stops at
+//     the first failure (half a chain is worse than none);
+//   - a partial publish never clears the manifest — it is the debt — and a
+//     clear removes only what THIS run shipped (settlePending);
 //   - one timed perf step per bucket subtree;
 //   - commit by explicit pathspec, only what this runner wrote.
 
-import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { isExcluded } from "../bucket_sync_paths";
 import {
-  clearPending,
+  manifestDigest,
   readPending,
+  settlePending,
+  type SettleResult,
   type UploadManifest,
 } from "../lib/upload-manifest";
 import { newSessionId } from "../perf/perf_log";
 import { portOpen } from "./doctor";
 import {
+  isInterrupted,
   recordSkip,
   runStepOrChain,
   type RunContext,
@@ -52,9 +56,13 @@ import { REPO } from "./state";
 
 export const PERF_RUN = "upload-watch-changes";
 
+export { manifestDigest };
+
 export interface PublishDeps {
   readManifest: () => UploadManifest | null;
-  clearManifest: (session: string) => void;
+  /** Archive what this run published. Must compare against `published` and
+   *  keep anything pending.json gained meanwhile (settlePending). */
+  clearManifest: (session: string, published: UploadManifest) => SettleResult;
   proxyUp: () => Promise<boolean>;
   head: () => string | null;
   containsCommit: (sha: string) => boolean;
@@ -73,6 +81,10 @@ export interface PublishDeps {
   /** The session of an earlier publish of THIS manifest that failed at
    *  `stepId` with nothing failing before it, or null. */
   findResumable: (stepId: string, digest: string) => string | null;
+  /** The signal the runner received, if any — no step starts after one. */
+  interrupted?: () => string | null;
+  /** Session folders under the runs dir, to see which ones finalize pruned. */
+  listRuns?: () => string[];
   log: (line: string) => void;
 }
 
@@ -85,6 +97,10 @@ export interface PublishOptions {
   /** The digest the operator confirmed; the run refuses if the manifest moved. */
   expectDigest?: string;
   perfDir?: string;
+  /** The caller already holds the pipeline lock (an ingest that publishes in
+   *  the same run): publish neither acquires nor releases it. Pass the held
+   *  lock's session so the report names it. */
+  heldLock?: { session: string };
 }
 
 export interface PlannedPublishStep {
@@ -103,20 +119,6 @@ export interface PublishPlan {
 const BUCKET_TIMEOUT_MIN = 45;
 const CLOUD_TIMEOUT_MIN = 90;
 const VERIFY_TIMEOUT_MIN = 10;
-
-/** Content digest of the work a manifest describes (not its timestamps). */
-export const manifestDigest = (m: UploadManifest): string =>
-  createHash("sha256")
-    .update(
-      JSON.stringify({
-        commit: m.commit ?? null,
-        skills: m.skills,
-        paths: m.paths,
-        cloudCommands: m.cloudCommands,
-      }),
-    )
-    .digest("hex")
-    .slice(0, 16);
 
 /** `:cloud` package scripts carry their own URL; anything else is run as the
  *  manifest wrote it (an env-prefixed raw command). */
@@ -151,11 +153,15 @@ export const planPublish = (
       "the Cloud SQL proxy is down — start it with `pnpm run db:proxy:cloud`",
     );
 
+  // The manifest's order is whatever order handlers (or a prose skill)
+  // appended in; CLOUD_ORDER is the one place the "loader B reads what loader
+  // A wrote" rules live. Run in CLOUD_ORDER, and say so when that moved
+  // anything. Unknown commands keep their relative order at the end.
   const asWritten = [...new Set(manifest.cloudCommands)];
   const ordered = orderCloud(manifest.cloudCommands);
   if (ordered.join("\n") !== asWritten.join("\n"))
     findings.push(
-      `manifest cloud order differs from CLOUD_ORDER (run as written): manifest ${asWritten.join(" → ")}; registry order ${ordered.join(" → ")}`,
+      `manifest cloud order differs from CLOUD_ORDER — reordered: manifest ${asWritten.join(" → ")}; run as ${ordered.join(" → ")}`,
     );
 
   const steps: PlannedPublishStep[] = [];
@@ -178,7 +184,7 @@ export const planPublish = (
     // and the other globals too. Re-gzip after every bucket publish.
     bucket("bucket:gz", "pnpm run bucket:gz");
   }
-  for (const c of asWritten)
+  for (const c of ordered)
     steps.push({
       unit: "cloud",
       spec: {
@@ -189,6 +195,9 @@ export const planPublish = (
         db: dbPinOf(c),
       },
     });
+  // Both checkers exit 1 for "found something" and 2 for "could not check"
+  // (a crash: proxy down, bucket unreachable). Only 1 is a finding; 2 is a
+  // failed step that holds the manifest.
   const verify = (id: string): void => {
     steps.push({
       unit: "verify",
@@ -271,7 +280,21 @@ export const runPublish = async (
   }
 
   const session = opt.session ?? newSessionId();
-  const lock = deps.lock(session);
+  const lock = opt.heldLock
+    ? { release: () => {}, tookOver: undefined }
+    : deps.lock(session);
+  // The plan was read BEFORE the lock; an ingest may have merged into the
+  // manifest while this run waited. Re-read under the lock and publish only
+  // the work list that was planned (and confirmed) — never a different one.
+  const underLock = deps.readManifest();
+  if (!underLock || manifestDigest(underLock) !== plan.digest) {
+    lock.release();
+    return refuse(
+      underLock
+        ? `the manifest changed before the lock was taken (${plan.digest} → ${manifestDigest(underLock)}) — re-run to review the new plan`
+        : "the manifest disappeared before the lock was taken — another publish cleared it",
+    );
+  }
   const rec: RunRecord = {
     schema: 1,
     session,
@@ -295,6 +318,11 @@ export const runPublish = async (
       ...(lock.tookOver
         ? [
             `took over a stale lock from session ${lock.tookOver.session} (pid ${lock.tookOver.pid})`,
+          ]
+        : []),
+      ...(opt.heldLock
+        ? [
+            `ran under the pipeline lock held by session ${opt.heldLock.session}`,
           ]
         : []),
       ...(resumeOf ? [`resumed publish ${resumeOf} at ${opt.startAt}`] : []),
@@ -341,9 +369,22 @@ export const runPublish = async (
     };
     let failedAt: string | null = null;
     let started = !opt.startAt;
+    const interrupted = deps.interrupted ?? ((): string | null => null);
     for (const s of plan.steps) {
       const u = unit(s.unit);
       if (!started && s.spec.id === opt.startAt) started = true;
+      // A signal stops everything, verification included. The first step not
+      // started is recorded with this reason, which findResumableIn accepts:
+      // the resume command a held run prints must be one it will take.
+      const sig = started ? interrupted() : null;
+      if (sig) {
+        u.steps.push(
+          toStepRecord(recordSkip(s.spec, `${INTERRUPTED_SKIP} (${sig})`, ctx)),
+        );
+        if (u.status === "ok") u.status = "skipped";
+        failedAt ??= s.spec.id;
+        continue;
+      }
       if (!started) {
         u.steps.push(
           toStepRecord(
@@ -399,7 +440,18 @@ export const runPublish = async (
     }
 
     const ok = failedAt === null;
-    if (ok) deps.clearManifest(session);
+    let settled: SettleResult | null = null;
+    if (ok) {
+      settled = deps.clearManifest(session, manifest);
+      if (settled.status === "partial")
+        rec.findings.push(
+          `${settled.why}; still pending: ${settled.remaining.paths.length} path(s), ${settled.remaining.cloudCommands.length} cloud command(s)`,
+        );
+      else if (settled.status === "absent")
+        rec.findings.push(
+          "pending.json was already gone when this publish went to clear it — another run settled it; nothing archived",
+        );
+    }
     rec.publish = ok
       ? { decision: "go", heldBecause: [] }
       : {
@@ -411,12 +463,20 @@ export const runPublish = async (
       exitCode: rec.exitCode,
       plan,
       record: rec,
-      report: close(rec, deps, manifest, ok),
+      report: close(
+        rec,
+        deps,
+        manifest,
+        settled !== null && settled.status !== "absent",
+      ),
     };
   } finally {
     lock.release();
   }
 };
+
+/** The skip reason a step gets when a signal stopped the run before it. */
+export const INTERRUPTED_SKIP = "runner interrupted";
 
 /** Finalize, then commit what this run wrote. The manifest files are in the
  *  pathspec only when this run cleared the manifest: on a held run this
@@ -442,7 +502,16 @@ const close = (
     rec.findings.push(
       `already staged by someone else and committed with this run's version: ${staged.join(", ")}`,
     );
+  // finalize prunes old run folders; a pruned folder that was committed is a
+  // deletion this run made, so it goes in the pathspec (commitPaths stages a
+  // deleted path's removal). Diffing the listing keeps that true whatever
+  // finalize's own return value is.
+  const before = deps.listRuns?.() ?? [];
   const report = deps.finalize(rec);
+  const after = new Set(deps.listRuns?.() ?? []);
+  for (const s of before)
+    if (!after.has(s) && s !== rec.session)
+      paths.push(path.relative(REPO, path.join(RUNS_DIR, s)));
   const c = deps.commit(
     `publish: ${cleared ? "published" : "held"} ${manifest.skills.join(", ") || "manifest"} (${manifest.commit?.slice(0, 10) ?? "no ingest commit"})`,
     paths,
@@ -453,8 +522,15 @@ const close = (
   return report;
 };
 
-/** The latest earlier publish of `digest` that failed at `stepId` with no
- *  earlier failure — the only run a resume may continue. */
+/** The latest earlier publish of `digest` that stopped at `stepId` with
+ *  everything before it done — the only run a resume may continue.
+ *
+ *  Every unit counts, verification included: a run whose bucket and cloud
+ *  steps all succeeded but whose verify step crashed (proxy down) is resumed
+ *  at that verify step, which re-runs only the verification and then clears
+ *  the manifest. "Stopped" is an error, a timeout, or the first step skipped
+ *  because a signal stopped the runner — the three states a report's repair
+ *  packet tells the operator to `--start-at`. */
 export const findResumableIn = (
   stepId: string,
   digest: string,
@@ -470,27 +546,28 @@ export const findResumableIn = (
       continue;
     }
     if (rec.kind !== "publish" || rec.manifestDigest !== digest) continue;
-    // Verification runs even after a failure and proves nothing about what
-    // was published, so only the bucket and cloud units count.
     const steps = rec.units
-      .filter((u) => u.id === "bucket" || u.id === "cloud")
       .flatMap((u) => u.steps)
       .sort((a, b) => a.seq - b.seq);
     const at = steps.findIndex((st) => st.id === stepId);
     if (at === -1) continue;
-    const failedHere =
-      steps[at].status === "error" || steps[at].status === "timeout";
+    const st = steps[at];
+    const stoppedHere =
+      st.status === "error" ||
+      st.status === "timeout" ||
+      (st.status === "skipped" &&
+        (st.firstError ?? "").startsWith(INTERRUPTED_SKIP));
     const doneBefore = steps
       .slice(0, at)
       .every(
-        (st) =>
-          st.status === "ok" ||
-          (st.status === "skipped" &&
-            (st.firstError ?? "").startsWith("--start-at")),
+        (x) =>
+          x.status === "ok" ||
+          (x.status === "skipped" &&
+            (x.firstError ?? "").startsWith("--start-at")),
       );
     // The newest run of this manifest decides: an older failure at the same
     // step does not license a resume past a newer, different failure.
-    return failedHere && doneBefore ? rec.session : null;
+    return stoppedHere && doneBefore ? rec.session : null;
   }
   return null;
 };
@@ -501,7 +578,7 @@ export const realPublishDeps = (
   log: (l: string) => void,
 ): PublishDeps => ({
   readManifest: () => readPending(),
-  clearManifest: (session) => void clearPending(session),
+  clearManifest: (session, published) => settlePending(session, published),
   proxyUp: () => portOpen(5434),
   head: () => headSha(),
   containsCommit: (sha) => isAncestorOfHead(sha),
@@ -511,6 +588,14 @@ export const realPublishDeps = (
   staged: (paths) => stagedUnder(paths),
   lock: acquireLock,
   findResumable: (stepId, digest) => findResumableIn(stepId, digest),
+  interrupted: isInterrupted,
+  listRuns: () =>
+    fs.existsSync(RUNS_DIR)
+      ? fs
+          .readdirSync(RUNS_DIR, { withFileTypes: true })
+          .filter((d) => d.isDirectory())
+          .map((d) => d.name)
+      : [],
   finalize: (rec) =>
     finalizeRun(rec, {
       perfRun: PERF_RUN,
@@ -518,7 +603,9 @@ export const realPublishDeps = (
       extras: (unitId, step) => ({
         stateLeft: [
           "state/upload/pending.json is left on disk — the publish is NOT complete.",
-          `Steps after ${step.id} in this publish were not run.`,
+          unitId === "verify"
+            ? `Everything was published; ${step.id} could not finish checking it, so the manifest was kept. Resuming re-runs only the verification.`
+            : `Steps after ${step.id} in this publish were not run.`,
           ...(unitId === "cloud"
             ? [
                 "Every :cloud loader is idempotent: re-running this one after the fix is safe.",

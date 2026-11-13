@@ -25,7 +25,14 @@ export const renderPlan = (pl: Plan): string => {
       );
     if (!e.stampable)
       lines.push(
-        `  marker NOT stamped this run — deferred: ${e.deferred.join(", ")}`,
+        `  marker NOT stamped this run — ${[
+          e.deferred.length ? `deferred: ${e.deferred.join(", ")}` : "",
+          e.scopeSkipped.length
+            ? `unscoped: ${e.scopeSkipped.map((s) => s.id).join(", ")}`
+            : "",
+        ]
+          .filter(Boolean)
+          .join("; ")}`,
       );
     for (const s of e.steps)
       lines.push(

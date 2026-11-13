@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import net from "node:net";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
@@ -9,6 +10,9 @@ import {
   evaluate,
   parseCfTrace,
   pendingManifestFact,
+  pgAnswers,
+  pricesDrive,
+  processStart,
   readLock,
   renderDoctor,
   type Facts,
@@ -160,10 +164,38 @@ describe("readLock", () => {
     expect(readLock(f)?.alive).toBe(false);
   });
 
-  it("treats an unreadable lock as stale rather than throwing", () => {
+  it("treats an old unreadable lock as stale rather than throwing", () => {
     const f = path.join(tmp(), "lock");
     fs.writeFileSync(f, "{oops");
-    expect(readLock(f)).toMatchObject({ alive: false });
+    expect(readLock(f, Date.now() + 60_000)).toMatchObject({ alive: false });
+  });
+
+  it("treats a FRESH empty or unparseable lock as live — a writer mid-write", () => {
+    const f = path.join(tmp(), "lock");
+    fs.writeFileSync(f, "");
+    expect(readLock(f)).toMatchObject({ alive: true });
+  });
+
+  it("calls a reused pid stale when its start time does not match", () => {
+    const f = path.join(tmp(), "lock");
+    fs.writeFileSync(
+      f,
+      JSON.stringify({
+        pid: process.pid,
+        session: "s",
+        procStart: "Thu Jan  1 00:00:00 1970",
+      }),
+    );
+    expect(readLock(f)?.alive).toBe(false);
+    fs.writeFileSync(
+      f,
+      JSON.stringify({
+        pid: process.pid,
+        session: "s",
+        procStart: processStart(process.pid),
+      }),
+    );
+    expect(readLock(f)?.alive).toBe(true);
   });
 });
 
@@ -276,5 +308,56 @@ describe("preflight", () => {
         (x) => x.split(":")[0],
       ),
     ).toEqual(["proxy"]);
+  });
+});
+
+describe("pgAnswers", () => {
+  it("names a closed port plainly", async () => {
+    const srv = net.createServer();
+    await new Promise<void>((r) => srv.listen(0, "127.0.0.1", r));
+    const port = (srv.address() as net.AddressInfo).port;
+    await new Promise<void>((r) => srv.close(() => r()));
+    expect(await pgAnswers(port, 1000)).toMatchObject({
+      ok: false,
+      error: expect.stringMatching(/nothing listens/),
+    });
+  });
+
+  it("fails an open port that does not answer SELECT 1 (a proxy with no backend)", async () => {
+    const srv = net.createServer((sock) => sock.destroy());
+    await new Promise<void>((r) => srv.listen(0, "127.0.0.1", r));
+    const port = (srv.address() as net.AddressInfo).port;
+    try {
+      const r = await pgAnswers(port, 1000);
+      expect(r.ok).toBe(false);
+      expect(r.error).toMatch(/SELECT 1 failed/);
+    } finally {
+      await new Promise<void>((r) => srv.close(() => r()));
+    }
+  });
+});
+
+describe("pricesDrive", () => {
+  const tmp = (): string =>
+    fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "pipeline-prices-")));
+
+  it("refuses a plain local directory, even a non-empty one", () => {
+    const d = tmp();
+    fs.writeFileSync(path.join(d, "x.zip"), "");
+    expect(pricesDrive(d)).toMatchObject({
+      mounted: false,
+      problem: expect.stringMatching(/not onto an external volume/),
+    });
+  });
+
+  it("refuses a symlink that resolves off /Volumes, and a missing one", () => {
+    const d = tmp();
+    const link = path.join(tmp(), "prices");
+    fs.symlinkSync(d, link);
+    expect(pricesDrive(link).mounted).toBe(false);
+    expect(pricesDrive(path.join(d, "nope"))).toMatchObject({
+      mounted: false,
+      problem: "missing",
+    });
   });
 });

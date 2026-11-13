@@ -750,3 +750,71 @@ describe("loadState", () => {
     fs.rmSync(root, { recursive: true });
   });
 });
+
+describe("review fixes, round 2", () => {
+  const at = "2026-11-01T00:00:00Z";
+
+  it("#1 a scope-skipped step makes the entry non-stampable even though another step runs", () => {
+    const h = H({
+      id: "h",
+      sources: ["s"],
+      steps: [
+        ingest("scoped", "pnpm run scoped", { args: () => null }),
+        derive("load", "pnpm run load"),
+      ],
+    });
+    const e = plan(inputs([h], { s: w(at) }, {})).entries[0];
+    expect(e).toMatchObject({ status: "run", stampable: false });
+    expect(e.scopeSkipped.map((x) => x.id)).toEqual(["scoped"]);
+  });
+
+  it("#4 plans needs-operator — not run — when every moved source is arm-deferred", () => {
+    const h = H({
+      id: "h",
+      sources: ["auto", "human"],
+      steps: [
+        ingest("b", "pnpm run b", { on: ["human"] }),
+        derive("reload", "pnpm run reload"),
+      ],
+      operator: [
+        { id: "u", on: ["human"], instruction: "paste it", blocks: "arm" },
+      ],
+      publish: { cloud: ["pnpm run db:load:pg:cloud"] },
+    });
+    const p = plan(inputs([h], { human: w(at) }, {}));
+    expect(p.entries[0]).toMatchObject({
+      status: "needs-operator",
+      why: "paste it",
+      armDeferredOnly: true,
+      stampable: false,
+    });
+    expect(p.entries[0].steps.every((s) => s.status === "skip")).toBe(true);
+    expect(p.cloud).toEqual([]);
+    // Another moved source keeps it running — still not stampable.
+    const both = plan(inputs([h], { human: w(at), auto: w(at) }, {}));
+    expect(both.entries[0]).toMatchObject({ status: "run", stampable: false });
+  });
+
+  it("#5 holds a dependent only when the predecessor will not produce its output", () => {
+    const deferredPre = H({
+      id: "pre",
+      sources: ["human"],
+      operator: [{ id: "u", on: ["human"], instruction: "x", blocks: "arm" }],
+    });
+    const dep = H({ id: "dep", sources: ["s"], after: ["pre"] });
+    const p1 = plan(inputs([deferredPre, dep], { human: w(at), s: w(at) }, {}));
+    expect(p1.entries.map((e) => [e.handler, e.status])).toEqual([
+      ["pre", "needs-operator"],
+      ["dep", "run"],
+    ]);
+
+    // A skill-runner predecessor is delegated: the runner holds the
+    // dependent, so the plan must say so too.
+    const skillPre = H({ id: "pre", sources: ["p"], runner: "skill" });
+    const p2 = plan(inputs([skillPre, dep], { p: w(at), s: w(at) }, {}));
+    expect(p2.entries.find((e) => e.handler === "dep")).toMatchObject({
+      status: "blocked",
+      why: "runs after pre, which is delegated to an agent",
+    });
+  });
+});

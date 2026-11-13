@@ -8,7 +8,7 @@ import { SECTORS_LOCAL } from "./handlers/sectors_local";
 import { markerOf, type Handler } from "./types";
 
 export * from "./types";
-export { CLOUD_ORDER, cloudRank, cloudSlot, orderCloud } from "./cloud_order";
+export { CLOUD_ORDER, cloudSlot, orderCloud } from "./cloud_order";
 
 export const HANDLERS: readonly Handler[] = [
   ...PARLIAMENT_PEOPLE,
@@ -25,10 +25,6 @@ export const UNROUTED: Readonly<Record<string, string>> = {};
 
 export const handlerById = (id: string): Handler | undefined =>
   HANDLERS.find((h) => h.id === id);
-
-/** Every handler a source queues — fan-out is legal (indicators_az feeds two). */
-export const handlersForSource = (sourceId: string): Handler[] =>
-  HANDLERS.filter((h) => h.sources.includes(sourceId));
 
 /** Handlers that share a marker file. Legal only when they also share a skill:
  *  two unrelated handlers stamping one marker would mask each other's debt. */

@@ -451,9 +451,10 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | step | phase | command | only on |
 | --- | --- | --- | --- |
 | `tr:daily-refresh` | ingest | `pnpm run tr:daily-refresh` | — |
+| `db:load:company-founded:pg` | verify | `pnpm run db:load:company-founded:pg` | — |
 
 **Publish:**
-- cloud (global order applies): `pnpm run db:load:tr:pg:cloud`, `pnpm run db:load:cr-nkid:pg:cloud`, `pnpm run db:refresh:risk:cloud`, `pnpm run db:load:persons-browse:pg:cloud`, `pnpm run db:load:person-search:pg:cloud`, `pnpm run db:load:graph:pg:cloud`, `pnpm run db:load:tr-company-place:pg:cloud`
+- cloud (global order applies): `pnpm run db:load:tr:pg:cloud`, `pnpm run db:load:cr-nkid:pg:cloud`, `pnpm run db:load:company-founded:pg:cloud`, `pnpm run db:refresh:risk:cloud`, `pnpm run db:load:persons-browse:pg:cloud`, `pnpm run db:load:person-search:pg:cloud`, `pnpm run db:load:graph:pg:cloud`, `pnpm run db:load:tr-company-place:pg:cloud`
 
 ### `update-administration`
 
@@ -726,13 +727,19 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `funds:ingest-projects` | ingest | `pnpm run funds:ingest-projects` | `isun_eu_funds_projects` |
 | `build_geo_pins` | derive | `pnpm exec tsx scripts/funds/build_geo_pins.ts` | `isun_eu_funds`, `isun_eu_funds_projects` |
 | `db:load:funds:pg` | derive | `pnpm run db:load:funds:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
+| `db:load:grant-links:pg` | derive | `pnpm run db:load:grant-links:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
 | `db:load:funds-fit:pg` | derive | `pnpm run db:load:funds-fit:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
 | `funds:parity` | verify | `pnpm exec tsx scripts/db/gen_funds/parity.ts --full` | `isun_eu_funds`, `isun_eu_funds_projects` |
 | `funds:ingest-interreg` | ingest | `pnpm run funds:ingest-interreg` | `keep_eu_interreg` |
+| `db:load:place-dim:pg` | derive | `pnpm run db:load:place-dim:pg` | `keep_eu_interreg` |
 | `db:load:interreg:pg` | derive | `pnpm run db:load:interreg:pg` | `keep_eu_interreg` |
-| `db:load:graph:pg` | derive | `pnpm run db:load:graph:pg` | `keep_eu_interreg` |
 | `funds:clean-delivery` | ingest | `pnpm run funds:clean-delivery --fetch` | `isun_clean_delivery` |
 | `db:load:clean-delivery:pg` | derive | `pnpm run db:load:clean-delivery:pg` | `isun_clean_delivery` |
+| `db:load:persons-browse:pg` | derive | `pnpm run db:load:persons-browse:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
+| `db:load:person-search:pg` | derive | `pnpm run db:load:person-search:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
+| `db:load:graph:pg` | derive | `pnpm run db:load:graph:pg` | — |
+| `db:load:agri-hub-stats:pg` | derive | `pnpm run db:load:agri-hub-stats:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
+| `db:load:tr-company-place:pg` | derive | `pnpm run db:load:tr-company-place:pg` | — |
 
 **Operator steps:**
 - `interreg-crawl` (blocks arm, only on `keep_eu_interreg`): Probe with `pnpm run funds:crawl-interreg --index-only --max-pages 1`; if healthy run `pnpm run funds:crawl-interreg --full` (~2 h), then ack — the ingest and loads run on the next pipeline run.
@@ -1040,7 +1047,11 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 | step | phase | command | only on |
 | --- | --- | --- | --- |
+| `db:load:place-dim:pg` | derive | `pnpm run db:load:place-dim:pg` | — |
+| `db:load:judicial-bodies:pg` | derive | `pnpm run db:load:judicial-bodies:pg` | — |
 | `db:load:declarations:pg` | derive | `pnpm run db:load:declarations:pg` | — |
+| `db:load:employer-links:pg` | derive | `pnpm run db:load:employer-links:pg` | — |
+| `db:load:tr-name-fold-people:pg` | derive | `pnpm run db:load:tr-name-fold-people:pg` | — |
 | `db:resolve:persons` | derive | `pnpm run db:resolve:persons --no-stamp` | — |
 | `db:load:declarations:pg --resolve` | derive | `pnpm run db:load:declarations:pg --resolve` | — |
 | `db:load:company-politicians:pg` | derive | `pnpm run db:load:company-politicians:pg` | — |
@@ -1060,6 +1071,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 **Publish:**
 - cloud (global order applies): `pnpm run db:load:place-dim:pg:cloud`, `pnpm run db:load:judicial-bodies:pg:cloud`, `pnpm run db:load:tr-name-fold-people:pg:cloud`, `pnpm run db:load:declarations:pg:cloud`, `pnpm run db:resolve:persons:cloud`, `pnpm run db:load:declarations:pg:cloud --resolve`, `pnpm run db:load:company-politicians:pg:cloud`, `pnpm run db:load:employer-links:pg:cloud`, `pnpm run db:load:official-candidate-links:pg:cloud`, `pnpm run db:load:person-elections:pg:cloud`, `pnpm run db:load:council:pg:cloud`, `pnpm run db:load:persons-browse:pg:cloud`, `pnpm run db:load:person-search:pg:cloud`, `pnpm run db:load:graph:pg:cloud`, `pnpm run db:load:agri-hub-stats:pg:cloud`, `pnpm run db:load:tr-company-place:pg:cloud`, `pnpm run person:slugs:cloud`, `pnpm run data:local-person-refresh:cloud`
+- cloud, only on `ivss_declarations`, `vss_court_statistics`: `pnpm run db:load:magistrates:pg:cloud`
 
 ### `update-polls`
 
@@ -1143,6 +1155,9 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 | step | phase | command | only on |
 | --- | --- | --- | --- |
+| `debarred` | ingest | `pnpm exec tsx scripts/procurement/debarred.ts` | `aop_debarred` |
+| `db:load:pg:debarred` | derive | `pnpm run db:load:pg` | `aop_debarred` |
+| `db:load:annexes:pg:debarred` | derive | `pnpm run db:load:annexes:pg` | `aop_debarred` |
 | `procurement:ingest-legacy` | ingest | `pnpm run procurement:ingest-legacy --discover` | `egov_procurement` |
 | `ingest_eop` | ingest | `pnpm exec tsx scripts/procurement/ingest_eop.ts --self-heal --apply` | `eop_procurement` |
 | `procurement:ingest` | ingest | `pnpm run procurement:ingest` | `egov_procurement`, `eop_procurement` |
@@ -1157,7 +1172,6 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `contract_index` | derive | `pnpm exec tsx scripts/procurement/contract_index.ts` | `egov_procurement`, `eop_procurement` |
 | `rebuild_derived` | derive | `pnpm exec tsx scripts/procurement/rebuild_derived.ts` | `egov_procurement`, `eop_procurement` |
 | `db:refresh` | derive | `pnpm run db:refresh` | `egov_procurement`, `eop_procurement` |
-| `debarred` | ingest | `pnpm exec tsx scripts/procurement/debarred.ts` | `aop_debarred` |
 | `cprs:ingest` | ingest | `pnpm run cprs:ingest --apply --refresh` | `cprs_register` |
 | `db:load:cprs:pg` | derive | `pnpm run db:load:cprs:pg` | `cprs_register` |
 | `ted:ingest` | ingest | `pnpm run ted:ingest --apply` | `ted_bg` |
@@ -1175,11 +1189,11 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 **Publish:**
 - bucket: `procurement/roads.json`, `procurement/derived/mp_party.json`, `procurement/derived/hub_stats.json`, `procurement/derived/sector_stats.json`
-- cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run db:load:pg:cloud`
+- cloud, only on `egov_procurement`, `eop_procurement`, `aop_debarred`: `pnpm run db:load:pg:cloud`
 - cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run db:load:tenders:pg:cloud`
 - cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run db:load:awarder-seats:pg:cloud`
 - cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run proc:verify-seats:cloud`
-- cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run db:load:annexes:pg:cloud`
+- cloud, only on `egov_procurement`, `eop_procurement`, `aop_debarred`: `pnpm run db:load:annexes:pg:cloud`
 - cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run db:load:nzok-hospital-map:pg:cloud`
 - cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run db:load:water-operator-map:pg:cloud`
 - cloud, only on `egov_procurement`, `eop_procurement`: `pnpm run db:load:mvr-directorate-map:pg:cloud`
@@ -1232,8 +1246,9 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Marker:** `state/ingest/update-rollcall.json`
 - **Sources:** `parliament_votes`
 - **Needs:** `pg-local`, `egress:non-bg`
+- **After:** `parliament-scrape`
 - **Changelog:** orchestrator
-- **Gates:** `rollcall-sessions`
+- **Gates:** `rollcall-sessions`, `rollcall-announced-sessions-loaded`
 
 | step | phase | command | only on |
 | --- | --- | --- | --- |

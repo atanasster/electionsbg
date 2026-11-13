@@ -78,6 +78,27 @@ export const updateHealth = (
   );
 };
 
+/** The streaks one report row carries. A blocked or off-cadence source was
+ *  NOT probed this run, so its error streak neither grew nor ended — it is
+ *  still standing, and the row must still say so. Dropping it made a source
+ *  failing for a week vanish from the report on the day it happened to be
+ *  egress-blocked. */
+export const reportStreaks = (
+  status: string,
+  h: SourceHealth | undefined,
+): { consecutiveErrors?: number; consecutiveBlocked?: number } => {
+  if (!h) return {};
+  const errors = h.consecutiveErrors > 0 ? h.consecutiveErrors : undefined;
+  if (status === "error") return { consecutiveErrors: errors };
+  if (status === "blocked")
+    return {
+      consecutiveErrors: errors,
+      consecutiveBlocked: h.consecutiveBlocked,
+    };
+  if (status === "skipped") return { consecutiveErrors: errors };
+  return {};
+};
+
 /** Why this source's streak is a standing problem (>= STANDING_FAILURE_RUNS
  *  in a row), or null. */
 export const standingProblem = (h: SourceHealth | undefined): string | null => {

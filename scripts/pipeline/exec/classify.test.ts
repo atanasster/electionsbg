@@ -117,13 +117,13 @@ describe("classify", () => {
       ).toBe(false);
   });
 
-  it("does not hold the publish for a missing manual input", () => {
+  it("does not retry a missing manual input", () => {
     expect(
       classify({
         exitCode: 1,
         timedOut: false,
         tail: "ENOENT: no such file or directory, open 'raw_data/x/y.xlsx'",
-      }).holdsPublish,
+      }).retryable,
     ).toBe(false);
   });
 
@@ -188,5 +188,38 @@ describe("upstream 5xx in the phrasings the fetchers use", () => {
     expect(
       classify({ exitCode: 1, timedOut: false, tail: "loaded 500 rows" }).class,
     ).not.toBe("upstream-down");
+  });
+});
+
+describe("numbers that are counts, not codes", () => {
+  it.each<[string, FailureClass]>([
+    ["loaded 53400 rows into contracts", "unknown"],
+    ["wrote 53100 shards", "unknown"],
+    ["scanned 57014 tuples", "unknown"],
+    ["fetched status 503 of 2000 pages", "unknown"],
+    ["the API returned 512 rows", "unknown"],
+    ["returned 500 rows for 2024", "unknown"],
+    // ...while the real codes, in their context, still classify.
+    ["error: could not write (SQLSTATE 53400)", "disk"],
+    ["DatabaseError { code: '53100' }", "disk"],
+    ['{"code":"57014","message":"x"}', "statement-timeout"],
+    ["HTTP 503 from upstream", "upstream-down"],
+    ["Error: fetch returned 502: Bad Gateway", "upstream-down"],
+  ])("%s → %s", (line, expected) => {
+    expect(cls(line)).toBe(expected);
+  });
+});
+
+describe("a vitest failure outranks a later harmless line", () => {
+  it("stays test-failed when a cleanup line follows the summary", () => {
+    const tail = [
+      " FAIL  |node| scripts/db/tests/x.data.test.ts > y",
+      "AssertionError: expected 1 to be 2",
+      " Test Files  1 failed | 10 passed (11)",
+      "skipping cleanup: dir missing",
+    ].join("\n");
+    const c = classify({ exitCode: 1, timedOut: false, tail });
+    expect(c.class).toBe("test-failed");
+    expect(c.evidence).toMatch(/Test Files {2}1 failed|FAIL/);
   });
 });

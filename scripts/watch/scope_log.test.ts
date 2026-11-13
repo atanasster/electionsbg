@@ -110,3 +110,52 @@ describe("scopeSince", () => {
     expect(scopeSince(meta, "other", "2026-11-03T00:00:00Z")).toBeNull();
   });
 });
+
+describe("a scope() that threw (SCOPE_UNKNOWN)", () => {
+  it("makes scopeSince unknown for any window that includes the run", async () => {
+    const { SCOPE_UNKNOWN } = await import("./scope_log");
+    let meta = carryScopeLog(null, fp(), { o: ["A"] }, "2026-11-01T00:00:00Z");
+    // The run whose scope() threw: what moved there is NOT in the log.
+    meta = carryScopeLog(
+      state(meta),
+      fp(),
+      SCOPE_UNKNOWN,
+      "2026-11-03T00:00:00Z",
+    );
+    meta = carryScopeLog(
+      state(meta),
+      fp(),
+      { o: ["B"] },
+      "2026-11-05T00:00:00Z",
+    );
+    // A consumer behind the unknown run must run in full, not on {A, B}.
+    expect(scopeSince(meta, "o", "2026-10-31T00:00:00Z")).toBeNull();
+    expect(scopeSince(meta, "o", "2026-11-02T00:00:00Z")).toBeNull();
+    // One past it is complete again.
+    expect(scopeSince(meta, "o", "2026-11-04T00:00:00Z")).toEqual(["B"]);
+  });
+
+  it("records the reset even for a source with no log yet", async () => {
+    const { SCOPE_UNKNOWN } = await import("./scope_log");
+    const meta = carryScopeLog(
+      null,
+      fp(),
+      SCOPE_UNKNOWN,
+      "2026-11-03T00:00:00Z",
+    );
+    expect(meta).toMatchObject({ scopeLogSince: "2026-11-03T00:00:00Z" });
+    expect(scopeSince(meta, "o", "2026-11-01T00:00:00Z")).toBeNull();
+  });
+
+  it("does not let pruning move completeness back past the reset", async () => {
+    const { SCOPE_UNKNOWN } = await import("./scope_log");
+    let meta: Record<string, unknown> | undefined;
+    const day = (i: number) =>
+      new Date(Date.UTC(2026, 0, 1) + i * 86_400_000).toISOString();
+    for (let i = 0; i < MAX_SCOPE_ENTRIES; i++)
+      meta = carryScopeLog(state(meta), fp(), { o: [`c${i}`] }, day(i));
+    meta = carryScopeLog(state(meta), fp(), SCOPE_UNKNOWN, day(100));
+    meta = carryScopeLog(state(meta), fp(), { o: ["late"] }, day(101));
+    expect(meta).toMatchObject({ scopeLogSince: day(100) });
+  });
+});

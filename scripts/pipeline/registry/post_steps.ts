@@ -197,9 +197,6 @@ export const POST_STEPS: readonly PostStep[] = [
   },
 ];
 
-export const postStepById = (id: string): PostStep | undefined =>
-  POST_STEPS.find((p) => p.id === id);
-
 /** The post-steps an ingest run executes, in POST_STEPS order. */
 export const selectPostSteps = (
   followUps: readonly string[],

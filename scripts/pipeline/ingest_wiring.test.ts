@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   dataDirsTouchedIn,
   outputSignatureIn,
+  readLogCapped,
   writeManifestSafely,
 } from "./ingest_wiring";
 
@@ -104,5 +105,15 @@ describe("knownAdvice", () => {
       knownAdvice(h, { failure: { evidence: "HTTP 403 from data.egov.bg" } }),
     ).toEqual(["Known failure for this handler: re-run later"]);
     expect(knownAdvice(undefined, { firstError: "x" })).toEqual([]);
+  });
+});
+
+describe("readLogCapped", () => {
+  it("returns a whole small log, the TAIL of a log past the cap, null for none", () => {
+    const f = path.join(tmp("log-"), "step.log");
+    fs.writeFileSync(f, "head\n3 unmatched\nend\n");
+    expect(readLogCapped(f)).toBe("head\n3 unmatched\nend\n");
+    expect(readLogCapped(f, 4)).toBe("end\n");
+    expect(readLogCapped(f + ".missing")).toBeNull();
   });
 });

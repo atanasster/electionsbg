@@ -17,7 +17,7 @@ import {
 import { SOURCES } from "../../watch/sources";
 import { CLOUD_ORDER, cloudSlot } from "./cloud_order";
 import { HANDLERS, UNROUTED, markerOwners } from "./index";
-import { makeGateCtx, runGates } from "./gates";
+import { makeGateCtx, runGates, type Gate, type GateCtx } from "./gates";
 import { POST_STEPS } from "./post_steps";
 import type { CloudSpec, Handler, RunCtx } from "./types";
 
@@ -373,23 +373,153 @@ describe("post-steps and gates", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
+  /** Gates whose verdict depends on the WATCHER having moved ahead of the
+   *  committed data, so "passes on disk" is legitimately false between a
+   *  watcher run and the ingest it queues. Their fail/pass logic is covered by
+   *  gates.test.ts against crafted watcher state. */
+  const WATCHER_RELATIVE: Record<string, string> = {
+    "rollcall-announced-sessions-loaded":
+      "fails by design while the watcher has announced a session the next ingest has not loaded yet",
+  };
+
+  /** One line each outputLacks gate must reject — keyed by gate id, so a new
+   *  outputLacks gate fails the test below until it is given one. */
+  const OUTPUT_LACKS_EXAMPLES: Record<string, string> = {
+    "indicators-all-matched": "matched 260 of 265, 5 unmatched",
+    "social-curated-current": "  ✗ ASP curated figure differs",
+    "kzk-gates-armed": "[skip] kzk gate DISARMED: no baseline",
+    "culture-eik-linking": "producer→EIK linking SKIPPED (no Postgres)",
+  };
+
+  const allGates = (): { handler: string; gate: Gate }[] => [
+    ...HANDLERS.flatMap((h) =>
+      (h.gates ?? []).map((gate) => ({ handler: h.id, gate })),
+    ),
+  ];
+
   it("passes every declared gate against the data on disk", () => {
     // A gate that fails on the data we already publish is mis-specified — it
-    // would fail every future run. This proves only that each gate reads a
-    // real file and observes a value; whether it CAN fail is gates.test.ts's
-    // job (each helper has a failing case) and the reviewer's (a gate over a
-    // constant the script copies into its output can never fail).
+    // would fail every future run. The tests below prove each one CAN fail.
     const ctx = makeGateCtx("");
     const results = HANDLERS.flatMap((h) =>
-      runGates(h.gates ?? [], new Set(h.sources), ctx).map((r) => ({
-        handler: h.id,
-        ...r,
-      })),
+      runGates(
+        (h.gates ?? []).filter((g) => !WATCHER_RELATIVE[g.id]),
+        new Set(h.sources),
+        ctx,
+      ).map((r) => ({ handler: h.id, ...r })),
     );
     expect(results.length).toBeGreaterThan(0);
     expect(results.filter((r) => !r.ok)).toEqual([]);
   });
+
+  it("knows how every gate was built", () => {
+    const untyped = allGates()
+      .filter(({ gate }) => !gate.kind)
+      .map(({ handler, gate }) => `${handler} › ${gate.id}`);
+    expect(untyped).toEqual([]);
+  });
+
+  it("fails every file-reading gate when nothing can be read", () => {
+    // makeGateCtx("") made every outputLacks gate pass and every baseline-less
+    // noShrink pass — the old test could not tell a live gate from a dead one.
+    const nothing: GateCtx = {
+      output: "",
+      readJson: (f) => {
+        throw new Error(`ENOENT ${f}`);
+      },
+      baselineJson: () => undefined,
+    };
+    const passed = allGates()
+      .filter(({ gate }) => gate.kind !== "outputLacks")
+      .filter(({ gate }) => gate.check(nothing).ok)
+      .map(({ handler, gate }) => `${handler} › ${gate.id}`);
+    expect(passed).toEqual([]);
+  });
+
+  it("fails every outputLacks gate on its marker, and passes without it", () => {
+    const gates = allGates().filter(({ gate }) => gate.kind === "outputLacks");
+    expect(gates.length).toBeGreaterThan(0);
+    for (const { handler, gate } of gates) {
+      const line = OUTPUT_LACKS_EXAMPLES[gate.id];
+      expect(line, `${handler} › ${gate.id} has no example line`).toBeTruthy();
+      expect(gate.marker?.test(line), `${gate.id}: example misses`).toBe(true);
+      const ctx = makeGateCtx;
+      expect(gate.check(ctx(`ok\n${line}\ndone`)).ok, gate.id).toBe(false);
+      expect(gate.check(ctx("ok\ndone")).ok, gate.id).toBe(true);
+    }
+    // A stale example is a gate that was renamed or removed.
+    const ids = new Set(gates.map(({ gate }) => gate.id));
+    expect(
+      Object.keys(OUTPUT_LACKS_EXAMPLES).filter((k) => !ids.has(k)),
+    ).toEqual([]);
+  });
+
+  it("fails every noShrink gate against a larger baseline", () => {
+    const gates = allGates().filter(({ gate }) => gate.kind === "noShrink");
+    expect(gates.length).toBeGreaterThan(0);
+    for (const { handler, gate } of gates) {
+      const file = gate.baseline!;
+      const real = makeGateCtx("").readJson(file);
+      const measure = gate.measure!;
+      const bigger = grow(real, measure);
+      expect(
+        bigger,
+        `${handler} › ${gate.id}: no collection to grow`,
+      ).toBeDefined();
+      const ctx = (base: unknown): GateCtx => ({
+        output: "",
+        readJson: () => real,
+        baselineJson: () => base,
+      });
+      expect(gate.check(ctx(bigger)).ok, `${gate.id} vs bigger`).toBe(false);
+      expect(gate.check(ctx(real)).ok, `${gate.id} vs itself`).toBe(true);
+    }
+  });
 });
+
+/** A copy of `j` with ONE collection (≤3 levels deep) doubled such that
+ *  `measure` grows — the baseline a shrink guard must refuse. */
+const grow = (
+  j: unknown,
+  measure: (j: unknown) => number,
+): unknown | undefined => {
+  const before = measure(j);
+  const paths: string[][] = [];
+  const walk = (v: unknown, p: string[]): void => {
+    if (p.length > 3 || !v || typeof v !== "object") return;
+    paths.push(p);
+    if (!Array.isArray(v))
+      for (const k of Object.keys(v as object))
+        walk((v as Record<string, unknown>)[k], [...p, k]);
+  };
+  walk(j, []);
+  for (const p of paths) {
+    const copy = structuredClone(j) as Record<string, unknown>;
+    const parent = p
+      .slice(0, -1)
+      .reduce<
+        Record<string, unknown>
+      >((o, k) => o[k] as Record<string, unknown>, copy);
+    const key = p[p.length - 1];
+    const target = (key === undefined ? copy : parent[key]) as unknown;
+    const doubled = Array.isArray(target)
+      ? [...target, ...target]
+      : Object.fromEntries(
+          Object.entries(target as object).flatMap(([k, v]) => [
+            [k, v],
+            [`${k}__dup`, v],
+          ]),
+        );
+    if (key === undefined) continue; // never double the root
+    parent[key] = doubled;
+    try {
+      if (measure(copy) > before) return copy;
+    } catch {
+      // the selector no longer reads this shape — try the next path
+    }
+  }
+  return undefined;
+};
 
 describe("selectPostSteps", () => {
   it("keeps POST_STEPS order, adds follow-ups, and honours skipWhen", async () => {
@@ -465,5 +595,113 @@ describe("human-only arms", () => {
         .map((a) => `${h.id} › ${a.id}`),
     );
     expect(orphaned).toEqual([]);
+  });
+});
+
+describe("review fixes (2026-11-13)", () => {
+  const h = (id: string): Handler => {
+    const found = HANDLERS.find((x) => x.id === id);
+    if (!found) throw new Error(`no handler ${id}`);
+    return found;
+  };
+  const stepIds = (id: string): string[] => h(id).steps.map((s) => s.id);
+  const cloudOn = (id: string, run: string): readonly string[] | "always" => {
+    for (const c of h(id).publish?.cloud ?? []) {
+      const spec: CloudSpec = typeof c === "string" ? { run: c } : c;
+      if (spec.run === run) return spec.on ?? "always";
+    }
+    throw new Error(`${id} does not publish ${run}`);
+  };
+  const before = (list: readonly string[], a: string, b: string): void => {
+    expect(list).toContain(a);
+    expect(list).toContain(b);
+    expect(list.indexOf(a), `${a} must precede ${b}`).toBeLessThan(
+      list.indexOf(b),
+    );
+  };
+
+  it("tr-daily-refresh publishes the CR founding dates, after TR and before the risk rebuild", () => {
+    expect(
+      cloudOn("tr-daily-refresh", "pnpm run db:load:company-founded:pg:cloud"),
+    ).toBe("always");
+    before(
+      CLOUD_ORDER,
+      "db:load:tr:pg:cloud",
+      "db:load:company-founded:pg:cloud",
+    );
+    before(
+      CLOUD_ORDER,
+      "db:load:company-founded:pg:cloud",
+      "db:refresh:risk:cloud",
+    );
+  });
+
+  it("runs update-rollcall after parliament-scrape (it reads the MP roster)", () => {
+    expect(h("update-rollcall").after).toContain("parliament-scrape");
+  });
+
+  it("gates update-rollcall on the sessions the watcher announced", () => {
+    expect(h("update-rollcall").gates?.map((g) => g.id)).toContain(
+      "rollcall-announced-sessions-loaded",
+    );
+  });
+
+  it("publishes the magistrate roster with update-persons when the judiciary sources move", () => {
+    expect(
+      cloudOn("update-persons", "pnpm run db:load:magistrates:pg:cloud"),
+    ).toEqual(["ivss_declarations", "vss_court_statistics"]);
+    before(
+      CLOUD_ORDER,
+      "db:load:magistrates:pg:cloud",
+      "db:load:judicial-bodies:pg:cloud",
+    );
+    before(
+      CLOUD_ORDER,
+      "db:load:judicial-bodies:pg:cloud",
+      "db:resolve:persons:cloud",
+    );
+  });
+
+  it("runs the local twins of update-persons' cloud dimensions before the resolver", () => {
+    const ids = stepIds("update-persons");
+    before(ids, "db:load:place-dim:pg", "db:resolve:persons");
+    before(ids, "db:load:judicial-bodies:pg", "db:resolve:persons");
+    before(ids, "db:load:declarations:pg", "db:load:employer-links:pg");
+    before(ids, "db:load:tr-name-fold-people:pg", "db:resolve:persons");
+  });
+
+  it("runs update-funds' money-basis reloads locally too, in CLAUDE.md order", () => {
+    const ids = stepIds("update-funds");
+    before(ids, "db:load:interreg:pg", "db:load:graph:pg");
+    before(ids, "db:load:persons-browse:pg", "db:load:person-search:pg");
+    before(ids, "db:load:persons-browse:pg", "db:load:graph:pg");
+    before(ids, "db:load:graph:pg", "db:load:tr-company-place:pg");
+    // graph and tr-company-place run on every arm, as their cloud twins do.
+    const step = (id: string) =>
+      h("update-funds").steps.find((s) => s.id === id)!;
+    expect(step("db:load:graph:pg").on).toBeUndefined();
+    expect(step("db:load:tr-company-place:pg").on).toBeUndefined();
+  });
+
+  it("loads and publishes debarred.json when only aop_debarred moved", () => {
+    const steps = h("update-procurement").steps;
+    const ids = steps.map((s) => s.id);
+    before(ids, "debarred", "db:load:pg:debarred");
+    before(ids, "debarred", "db:refresh");
+    expect(steps.find((s) => s.id === "db:load:pg:debarred")?.on).toEqual([
+      "aop_debarred",
+    ]);
+    for (const run of [
+      "pnpm run db:load:pg:cloud",
+      "pnpm run db:load:annexes:pg:cloud",
+    ])
+      expect(cloudOn("update-procurement", run)).toContain("aop_debarred");
+  });
+
+  it("declares pdftotext for the NATO table parse", () => {
+    const s = h("update-defense").steps.find(
+      (x) => x.id === "defense:write_nato",
+    );
+    expect(s?.needs).toContain("bin:pdftotext");
   });
 });

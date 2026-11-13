@@ -30,6 +30,7 @@
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { sha256 } from "../fingerprint";
+import { readState } from "../state";
 import { NAREDBA_PARSERS } from "../../local_taxes/parsers";
 
 type PerSourceFp = {
@@ -68,6 +69,17 @@ const asArray = (v: PerSourceFp | PerSourceFp[] | undefined): PerSourceFp[] => {
   if (!v) return [];
   return Array.isArray(v) ? v : [v];
 };
+
+/** A probe whose request failed (status 0) observed nothing: carry the
+ *  previous observation of the SAME url forward, so one network error neither
+ *  moves the hash nor scopes a re-parse of that município. */
+export const carryFailedProbe = (
+  curr: PerSourceFp,
+  prev: readonly PerSourceFp[],
+): PerSourceFp =>
+  (curr.status ?? 0) === 0
+    ? (prev.find((p) => p.url === curr.url && (p.status ?? 0) !== 0) ?? curr)
+    : curr;
 
 const fpKey = (v: PerSourceFp): string =>
   `${v.url}#${v.status ?? 0}:${v.length ?? ""}:${v.lastModified ?? ""}`;
@@ -108,11 +120,16 @@ export const municipalNaredba: WatchSource = {
 
   async fingerprint(): Promise<Fingerprint> {
     const perObshtina: Record<string, PerSourceFp[]> = {};
+    const prevMap =
+      (readState("municipal_naredba")?.meta?.perObshtina as
+        | Record<string, PerSourceFp | PerSourceFp[]>
+        | undefined) ?? {};
     for (const parser of NAREDBA_PARSERS) {
       const urls = [parser.url, ...(parser.secondaryUrls ?? [])];
+      const prev = asArray(prevMap[parser.obshtina]);
       const fps: PerSourceFp[] = [];
       for (const u of urls) {
-        fps.push(await headProbe(u));
+        fps.push(carryFailedProbe(await headProbe(u), prev));
       }
       perObshtina[parser.obshtina] = fps;
     }

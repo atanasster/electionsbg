@@ -37,6 +37,13 @@ export interface Gate {
   /** Evaluate only when one of these sources moved. Omitted = always. */
   on?: readonly string[];
   check: (ctx: GateCtx) => GateResult;
+  /** Which helper built it — lets the coverage test prove each gate can FAIL
+   *  (a gate that passes on an empty context proves nothing). */
+  kind?: "jsonNumber" | "noShrink" | "outputLacks" | "watcher";
+  /** noShrink: the selector, so a test can build a larger baseline. */
+  measure?: (j: unknown) => number;
+  /** outputLacks: the line pattern the gate rejects. */
+  marker?: RegExp;
 }
 
 /** A selector that throws (a field the file no longer has) is an observation. */
@@ -79,6 +86,7 @@ export const jsonNumber = (
 ): Gate => ({
   id,
   on,
+  kind: "jsonNumber",
   check: (ctx) => {
     const expected = `${file}: ${describeRange(range)}`;
     const j = safely(() => ctx.readJson(file));
@@ -108,6 +116,8 @@ export const noShrink = (
   id,
   on,
   baseline: file,
+  kind: "noShrink",
+  measure: select,
   check: (ctx) => {
     const expected = `${file}: no more than ${maxDropPct}% below its pre-run copy`;
     const now = safely(() => select(ctx.readJson(file)));
@@ -150,6 +160,8 @@ export const outputLacks = (
 ): Gate => ({
   id,
   on,
+  kind: "outputLacks",
+  marker: re,
   check: (ctx) => {
     const hit = ctx.output.split("\n").find((l) => re.test(l));
     return {
@@ -247,6 +259,7 @@ export const len = (v: unknown): number => {
 export const noiYearsLoaded = (on?: readonly string[]): Gate => ({
   id: "noi-published-years-loaded",
   on,
+  kind: "watcher",
   check: (ctx) => {
     const expected =
       "every year state/watch/nssi_b1.json sees as published is a fiscalYear in data/budget/noi/funds.json";
@@ -291,6 +304,60 @@ export const noiYearsLoaded = (on?: readonly string[]): Gate => ({
       observed: missing.length
         ? `published but not loaded: ${missing.join(", ")}`
         : `published ${published.join(", ") || "none"}; all loaded`,
+    };
+  },
+});
+
+/** Every roll-call session the parliament_votes watcher announced in its last
+ *  walk (`meta.newSinceLast` entries with `hasRollcall`) has a session file in
+ *  data/parliament/votes/sessions/. The sessions-count noShrink passes a run
+ *  that ingested nothing; this is the half that notices.
+ *
+ *  `newSinceLast` covers only the watcher's LATEST walk, so a session found on
+ *  an earlier day is not re-checked here — the gate can under-check, never
+ *  invent a failure. */
+export const rollcallSessionsLoaded = (
+  on?: readonly string[],
+  sessionsDir = "data/parliament/votes/sessions",
+): Gate => ({
+  id: "rollcall-announced-sessions-loaded",
+  on,
+  kind: "watcher",
+  check: (ctx) => {
+    const expected = `every roll-call session in state/watch/parliament_votes.json meta.newSinceLast has ${sessionsDir}/<date>.json`;
+    const w = safely(() =>
+      at(ctx.readJson("state/watch/parliament_votes.json"), "meta"),
+    );
+    if (w.error)
+      return {
+        ok: false,
+        expected,
+        observed: `cannot read watcher state: ${w.error}`,
+      };
+    const list = (w.value as { newSinceLast?: unknown }).newSinceLast;
+    const announced = [
+      ...new Set(
+        (Array.isArray(list) ? list : [])
+          .filter(
+            (s): s is { date: string; hasRollcall: boolean } =>
+              !!s &&
+              typeof s === "object" &&
+              (s as { hasRollcall?: unknown }).hasRollcall === true &&
+              typeof (s as { date?: unknown }).date === "string",
+          )
+          .map((s) => s.date.slice(0, 10)),
+      ),
+    ].sort();
+    const missing = announced.filter((d) => {
+      const r = safely(() => ctx.readJson(`${sessionsDir}/${d}.json`));
+      return !!r.error;
+    });
+    return {
+      ok: missing.length === 0,
+      expected,
+      observed: missing.length
+        ? `announced but not loaded: ${missing.join(", ")}`
+        : `announced ${announced.join(", ") || "none"}; all loaded`,
     };
   },
 });

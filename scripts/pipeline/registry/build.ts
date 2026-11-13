@@ -34,9 +34,12 @@ export const pnpm = (script: string, ...args: string[]): string =>
  *  null when that cannot be known COMPLETELY: the handler never ran, the
  *  source logs no scope, or the marker predates what the log still holds.
  *
- *  Null skips the step with "no scope", which surfaces as a needs-agent item:
- *  a partial scope would run, succeed, advance the marker and lose the
- *  change it left out — the one outcome worse than not running. */
+ *  Null skips the step with "no scope": the entry becomes non-stampable
+ *  (planner.ts `scopeSkipped`), the runner settles it partial and names the
+ *  step in a "scope-missing" needs-agent item (or in the runbook item, for a
+ *  skill-runner handler), so the change re-queues. A partial scope would
+ *  run, succeed, advance the marker and lose the change it left out — the
+ *  one outcome worse than not running. */
 export const scopeList = (
   ctx: RunCtx,
   sourceId: string,

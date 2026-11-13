@@ -19,6 +19,9 @@ import {
   type UploadManifest,
   generatedPathsTouched,
   parseNameOnly,
+  settlePending,
+  updatePending,
+  withPendingLock,
 } from "./upload-manifest";
 
 const dirs: string[] = [];
@@ -207,5 +210,103 @@ describe("parseNameOnly + merge", () => {
       ],
     });
     expect(m.paths).toEqual(["roads/derived/hub_stats.json", "myarea"]);
+  });
+});
+
+describe("settlePending — clear only what the publish shipped", () => {
+  const files = () => {
+    const d = tmp();
+    return {
+      pending: path.join(d, "pending.json"),
+      history: path.join(d, "history.jsonl"),
+    };
+  };
+  const history = (f: string) =>
+    fs
+      .readFileSync(f, "utf8")
+      .trim()
+      .split("\n")
+      .map((l) => JSON.parse(l));
+
+  it("clears an unchanged manifest into history", () => {
+    const f = files();
+    writePending(manifest(), f.pending);
+    expect(settlePending("P", manifest(), f)).toEqual({ status: "cleared" });
+    expect(fs.existsSync(f.pending)).toBe(false);
+    expect(history(f.history)[0]).toMatchObject({ publishSession: "P" });
+  });
+
+  it("keeps work merged in DURING the publish (same ingest commit)", () => {
+    const f = files();
+    const published = manifest({ commit: "c1" });
+    writePending(
+      mergeManifest(published, {
+        session: "S2",
+        paths: ["funds"],
+        cloudCommands: ["pnpm run db:load:funds-fit:pg:cloud"],
+      }),
+      f.pending,
+    );
+    const r = settlePending("P", published, f);
+    expect(r.status).toBe("partial");
+    const left = readPending(f.pending)!;
+    expect(left.paths).toEqual(["funds"]);
+    expect(left.cloudCommands).toEqual(["pnpm run db:load:funds-fit:pg:cloud"]);
+    expect(history(f.history)[0]).toMatchObject({
+      partial: true,
+      paths: ["myarea"],
+    });
+  });
+
+  it("keeps EVERYTHING when a newer ingest commit landed — a re-touched path is not distinguishable", () => {
+    const f = files();
+    const published = manifest({ commit: "c1" });
+    writePending(
+      mergeManifest(published, {
+        session: "S2",
+        commit: "c2",
+        paths: ["funds"],
+      }),
+      f.pending,
+    );
+    const r = settlePending("P", published, f);
+    expect(r.status).toBe("partial");
+    expect(readPending(f.pending)!.paths).toEqual(["myarea", "funds"]);
+  });
+
+  it("does nothing when the manifest is already gone", () => {
+    const f = files();
+    expect(settlePending("P", manifest(), f)).toEqual({ status: "absent" });
+    expect(fs.existsSync(f.history)).toBe(false);
+  });
+});
+
+describe("manifest writes", () => {
+  it("writes atomically — no temp file left behind", () => {
+    const d = tmp();
+    const f = path.join(d, "pending.json");
+    writePending(manifest(), f);
+    expect(fs.readdirSync(d)).toEqual(["pending.json"]);
+  });
+
+  it("updatePending merges under the mutex and refuses to merge over a corrupt file", () => {
+    const d = tmp();
+    const f = path.join(d, "pending.json");
+    writePending(manifest(), f);
+    expect(updatePending({ session: "S2", paths: ["funds"] }, f).paths).toEqual(
+      ["myarea", "funds"],
+    );
+    expect(fs.existsSync(`${f}.lock`)).toBe(false);
+    fs.writeFileSync(f, "{not json");
+    expect(() => updatePending({ session: "S3" }, f)).toThrow(/does not parse/);
+  });
+
+  it("takes over a mutex left by a dead process, and times out on a live one", () => {
+    const d = tmp();
+    const f = path.join(d, "pending.json");
+    fs.writeFileSync(`${f}.lock`, "999999999"); // no such pid
+    expect(withPendingLock(() => 7, f)).toBe(7);
+    fs.writeFileSync(`${f}.lock`, String(process.ppid)); // alive
+    expect(() => withPendingLock(() => 7, f, 60)).toThrow(/held by pid/);
   });
 });

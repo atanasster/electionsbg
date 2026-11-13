@@ -57,6 +57,68 @@ describe("commitPaths", () => {
   });
 });
 
+describe("commitPaths under races and failures", () => {
+  /** Put a `git` wrapper first on PATH for the duration of `fn`. */
+  const withGitWrapper = <T>(script: string, fn: () => T): T => {
+    const real = execFileSync("which", ["git"], { encoding: "utf8" }).trim();
+    const bin = fs.mkdtempSync(path.join(os.tmpdir(), "pipeline-gitbin-"));
+    fs.writeFileSync(
+      path.join(bin, "git"),
+      `#!/bin/bash\nREAL=${JSON.stringify(real)}\nMARK=${JSON.stringify(path.join(bin, "mark"))}\n${script}\nexec "$REAL" "$@"\n`,
+      { mode: 0o755 },
+    );
+    const before = process.env.PATH;
+    process.env.PATH = `${bin}${path.delimiter}${before ?? ""}`;
+    try {
+      return fn();
+    } finally {
+      process.env.PATH = before;
+    }
+  };
+
+  it("reports `nothing` when the auto-committer committed the files first", () => {
+    const dir = repo();
+    fs.writeFileSync(path.join(dir, "state/upload/pending.json"), '{"a":1}\n');
+    // On our `add`, someone else commits everything first.
+    const r = withGitWrapper(
+      `if [ "$2" = "add" ] && [ ! -f "$MARK" ]; then touch "$MARK"; "$REAL" add -A; "$REAL" commit -q -m auto; fi`,
+      () => commitPaths("x", ["state/upload"], dir),
+    );
+    expect(r).toEqual({ status: "nothing" });
+    expect(g(dir, "log", "-1", "--format=%s")).toBe("auto");
+  });
+
+  it("unstages exactly what it staged when the commit fails, and says why", () => {
+    const dir = repo();
+    fs.writeFileSync(path.join(dir, "state/upload/new.json"), "{}\n");
+    fs.writeFileSync(path.join(dir, "state/upload/pending.json"), "[]\n");
+    g(dir, "add", "state/upload/pending.json"); // someone else's staged work
+    const hook = path.join(dir, ".git/hooks/pre-commit");
+    fs.writeFileSync(hook, "#!/bin/sh\necho hook-says-no\nexit 1\n", {
+      mode: 0o755,
+    });
+    const r = commitPaths("x", ["state/upload"], dir);
+    expect(r.status).toBe("failed");
+    expect(r.status === "failed" && r.error).toMatch(/hook-says-no/);
+    // Ours is unstaged again; the other session's stays staged.
+    expect(stagedUnder(["state/upload"], dir)).toEqual([
+      "state/upload/pending.json",
+    ]);
+  });
+
+  it("commits more files than fit in argv (ARG_MAX)", () => {
+    const dir = repo();
+    const sub = path.join(dir, "state/upload/many");
+    fs.mkdirSync(sub);
+    const pad = "x".repeat(70);
+    for (let i = 0; i < 16_000; i++)
+      fs.writeFileSync(path.join(sub, `${pad}-${i}.json`), "");
+    const r = commitPaths("many", ["state/upload"], dir);
+    expect(r.status).toBe("committed");
+    expect(r.status === "committed" && r.files.length).toBe(16_000);
+  }, 60_000);
+});
+
 describe("parsePorcelainZ", () => {
   it("skips a rename's source field", () => {
     expect(parsePorcelainZ("R  new.json\0old.json\0 M a.json\0")).toEqual([

@@ -210,3 +210,34 @@ describe("noiYearsLoaded", () => {
     expect(r.ok).toBe(true);
   });
 });
+
+describe("rollcallSessionsLoaded", () => {
+  const W = "state/watch/parliament_votes.json";
+  const S = "data/parliament/votes/sessions";
+  const watcher = (newSinceLast: unknown) => ({
+    [W]: { meta: { maxId: 2, newSinceLast } },
+  });
+
+  it("fails when an announced roll-call session has no file", async () => {
+    const { rollcallSessionsLoaded } = await import("./gates");
+    const g = rollcallSessionsLoaded();
+    const announced = [
+      { id: 1, date: "2026-11-11", hasRollcall: true },
+      { id: 2, date: "2026-11-12", hasRollcall: false },
+    ];
+    expect(g.check(ctxOf(watcher(announced)))).toMatchObject({
+      ok: false,
+      observed: "announced but not loaded: 2026-11-11",
+    });
+    expect(
+      g.check(ctxOf({ ...watcher(announced), [`${S}/2026-11-11.json`]: {} })),
+    ).toMatchObject({ ok: true });
+  });
+
+  it("passes when nothing was announced, and fails on unreadable watcher state", async () => {
+    const { rollcallSessionsLoaded } = await import("./gates");
+    const g = rollcallSessionsLoaded();
+    expect(g.check(ctxOf(watcher([])))).toMatchObject({ ok: true });
+    expect(g.check(ctxOf({}))).toMatchObject({ ok: false });
+  });
+});

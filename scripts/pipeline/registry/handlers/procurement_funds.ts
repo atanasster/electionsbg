@@ -15,6 +15,7 @@ import type { Handler } from "../types";
 
 const PROC_MAIN = ["egov_procurement", "eop_procurement"] as const;
 const FUNDS_MAIN = ["isun_eu_funds", "isun_eu_funds_projects"] as const;
+const PROC_MAIN_OR_DEBARRED = [...PROC_MAIN, "aop_debarred"] as const;
 
 // kzk_appeals runs only the intake-side gates: kzk_decisions.data.test.ts
 // asserts the MERITS register's newest act is loaded, which only the
@@ -45,6 +46,22 @@ export const PROCUREMENT_FUNDS: Handler[] = [
     ],
     needs: ["pg-local"],
     steps: [
+      // debarred.json is read ONLY by load_pg.ts (→ the `debarred` table), so
+      // it must land before db:refresh's db:load:pg, and an aop_debarred-only
+      // flip needs a load of its own (below) or it publishes nothing.
+      ingest("debarred", tsx("scripts/procurement/debarred.ts"), {
+        on: ["aop_debarred"],
+      }),
+      // When the main corpus ALSO moved, db:refresh reloads again later — a
+      // redundant local load, accepted: a step has no "unless X flipped"
+      // condition, and an args() returning null would mark the entry
+      // scope-failed (unstampable) rather than skip it.
+      derive("db:load:pg:debarred", pnpm("db:load:pg"), {
+        on: ["aop_debarred"],
+      }),
+      derive("db:load:annexes:pg:debarred", pnpm("db:load:annexes:pg"), {
+        on: ["aop_debarred"],
+      }),
       ingest(
         "procurement:ingest-legacy",
         pnpm("procurement:ingest-legacy", "--discover"),
@@ -108,9 +125,6 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       }),
       // The sub-registers. Each of these ingests is DRY-RUN by default or
       // cache-wins: without the flag it exits 0 having done nothing.
-      ingest("debarred", tsx("scripts/procurement/debarred.ts"), {
-        on: ["aop_debarred"],
-      }),
       ingest("cprs:ingest", pnpm("cprs:ingest", "--apply", "--refresh"), {
         on: ["cprs_register"],
         timeoutMin: 60,
@@ -157,11 +171,12 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         "procurement/derived/sector_stats.json",
       ],
       cloud: [
-        { run: "pnpm run db:load:pg:cloud", on: PROC_MAIN },
+        { run: "pnpm run db:load:pg:cloud", on: PROC_MAIN_OR_DEBARRED },
         { run: "pnpm run db:load:tenders:pg:cloud", on: PROC_MAIN },
         { run: "pnpm run db:load:awarder-seats:pg:cloud", on: PROC_MAIN },
         { run: "pnpm run proc:verify-seats:cloud", on: PROC_MAIN },
-        { run: "pnpm run db:load:annexes:pg:cloud", on: PROC_MAIN },
+        // Mandatory after every contracts load (CLAUDE.md, annexes note).
+        { run: "pnpm run db:load:annexes:pg:cloud", on: PROC_MAIN_OR_DEBARRED },
         { run: "pnpm run db:load:nzok-hospital-map:pg:cloud", on: PROC_MAIN },
         { run: "pnpm run db:load:water-operator-map:pg:cloud", on: PROC_MAIN },
         { run: "pnpm run db:load:mvr-directorate-map:pg:cloud", on: PROC_MAIN },
@@ -374,6 +389,9 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         on: FUNDS_MAIN,
       }),
       derive("db:load:funds:pg", pnpm("db:load:funds:pg"), { on: FUNDS_MAIN }),
+      derive("db:load:grant-links:pg", pnpm("db:load:grant-links:pg"), {
+        on: FUNDS_MAIN,
+      }),
       derive("db:load:funds-fit:pg", pnpm("db:load:funds-fit:pg"), {
         on: FUNDS_MAIN,
       }),
@@ -383,12 +401,10 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       ingest("funds:ingest-interreg", pnpm("funds:ingest-interreg"), {
         on: ["keep_eu_interreg"],
       }),
-      derive("db:load:interreg:pg", pnpm("db:load:interreg:pg"), {
+      derive("db:load:place-dim:pg", pnpm("db:load:place-dim:pg"), {
         on: ["keep_eu_interreg"],
       }),
-      // 127's Interreg arm is built by the graph loader; re-run it so the
-      // corpus contributes money in the same pass (CLAUDE.md, the cycle note).
-      derive("db:load:graph:pg", pnpm("db:load:graph:pg"), {
+      derive("db:load:interreg:pg", pnpm("db:load:interreg:pg"), {
         on: ["keep_eu_interreg"],
       }),
       ingest("funds:clean-delivery", pnpm("funds:clean-delivery", "--fetch"), {
@@ -397,6 +413,25 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       derive("db:load:clean-delivery:pg", pnpm("db:load:clean-delivery:pg"), {
         on: ["isun_clean_delivery"],
       }),
+      // The local twins of the publish set below, in CLAUDE.md order
+      // (persons-browse → person-search → graph → agri-hub-stats →
+      // tr-company-place): without them local keeps the previous money basis
+      // and graph.data.test.ts fails while cloud is current. graph is also
+      // 127's only applier, so it re-runs after an Interreg load.
+      derive("db:load:persons-browse:pg", pnpm("db:load:persons-browse:pg"), {
+        on: FUNDS_MAIN,
+      }),
+      derive("db:load:person-search:pg", pnpm("db:load:person-search:pg"), {
+        on: FUNDS_MAIN,
+      }),
+      derive("db:load:graph:pg", pnpm("db:load:graph:pg")),
+      derive("db:load:agri-hub-stats:pg", pnpm("db:load:agri-hub-stats:pg"), {
+        on: FUNDS_MAIN,
+      }),
+      derive(
+        "db:load:tr-company-place:pg",
+        pnpm("db:load:tr-company-place:pg"),
+      ),
     ],
     operator: [
       {

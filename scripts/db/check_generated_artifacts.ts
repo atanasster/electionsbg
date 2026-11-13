@@ -29,11 +29,17 @@
 //
 //   pnpm exec tsx scripts/db/check_generated_artifacts.ts
 //   pnpm exec tsx scripts/db/check_generated_artifacts.ts --quiet   # only the verdict
+//
+// Exit: 0 every artifact matches · 1 FOUND an unpublished artifact (the finding
+// callers gate on with `--ok-exit 1`) · 2 COULD NOT CHECK — a crash, or an
+// artifact whose bucket copy was unreachable. A crash used to exit 1 too, so a
+// publish read "the network was down" as "a finding was reported" and cleared
+// its manifest over a check that never compared anything.
 
 import { createHash } from "node:crypto";
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   REFRESH_GENERATORS,
   UPLOAD_PUBLISHED_ARTIFACTS,
@@ -50,9 +56,12 @@ const BUCKET = BUCKET_URL;
 
 const md5 = (b: Buffer | string) => createHash("md5").update(b).digest("hex");
 
-type Verdict = "ok" | "stale" | "missing" | "unbuilt" | "unreachable";
+export type Verdict = "ok" | "stale" | "missing" | "unbuilt" | "unreachable";
 
-interface Row {
+export const CHECK_FOUND = 1;
+export const CHECK_CRASHED = 2;
+
+export interface Row {
   gen: string;
   bucketPath: string;
   verdict: Verdict;
@@ -159,29 +168,48 @@ const main = async () => {
   const needsPublish = rows.filter(
     (r) => r.verdict === "stale" || r.verdict === "missing",
   );
-  if (!needsPublish.length) {
+  const unreachable = rows.filter((r) => r.verdict === "unreachable");
+  const code = exitCodeFor(rows);
+  if (code === 0) {
     console.log(
       `\nAll ${rows.length} committed bucket-served artifacts match the bucket.`,
     );
     return 0;
   }
-  console.log(
-    `\n${needsPublish.length} artifact(s) not published. Publish them with:\n`,
-  );
-  console.log(
-    `  pnpm run bucket:sync:paths ${needsPublish.map((r) => r.bucketPath).join(" ")}\n`,
-  );
+  if (needsPublish.length) {
+    console.log(
+      `\n${needsPublish.length} artifact(s) not published. Publish them with:\n`,
+    );
+    console.log(
+      `  pnpm run bucket:sync:paths ${needsPublish.map((r) => r.bucketPath).join(" ")}\n`,
+    );
+  }
   // Deliberately NOT run for the operator. The bucket is production, and this
   // repo's standing rule is that an orchestrator emits the publish command
   // rather than executing it (process-watch-report, "What this skill does NOT
   // do"). The defect here was never that the command was hard to run.
-  return 1;
+  if (unreachable.length)
+    console.log(
+      `\n${unreachable.length} artifact(s) could not be compared — the bucket was unreachable for them${needsPublish.length ? "" : "; nothing was verified"}.`,
+    );
+  return code;
 };
 
-main().then(
-  (code) => process.exit(code),
-  (e) => {
-    console.error(e);
-    process.exit(1);
-  },
-);
+/** A finding (1) outranks "could not check" (2): when something IS stale the
+ *  operator has a command to run either way. With no finding, any unreachable
+ *  artifact means the check did not do its job, which is not a clean pass. */
+export const exitCodeFor = (rows: readonly Pick<Row, "verdict">[]): number =>
+  rows.some((r) => r.verdict === "stale" || r.verdict === "missing")
+    ? CHECK_FOUND
+    : rows.some((r) => r.verdict === "unreachable")
+      ? CHECK_CRASHED
+      : 0;
+
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href)
+  main().then(
+    (code) => process.exit(code),
+    (e) => {
+      console.error(e);
+      process.exit(CHECK_CRASHED);
+    },
+  );

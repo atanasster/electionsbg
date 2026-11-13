@@ -120,12 +120,24 @@ export const pinnedEnv = (
   return env;
 };
 
+/** A tail line longer than this keeps its head and its end. */
+const MAX_TAIL_LINE = 2000;
+/** A pending (newline-less) line longer than this is flushed as a line: a
+ *  step printing one huge line, or a `\r`-only progress bar with no `\n`
+ *  ever, must not grow the runner's memory without bound. */
+export const MAX_PENDING_LINE = 64 * 1024;
+
+export const capLine = (line: string, max = MAX_TAIL_LINE): string =>
+  line.length <= max
+    ? line
+    : `${line.slice(0, max / 2)} …[${line.length - max} chars]… ${line.slice(-max / 2)}`;
+
 /** Keep the last N complete lines without holding all of them. */
-class Tail {
+export class Tail {
   private lines: string[] = [];
   constructor(private readonly max: number) {}
   push(line: string): void {
-    this.lines.push(line);
+    this.lines.push(capLine(line));
     if (this.lines.length > this.max) this.lines.shift();
   }
   text(): string {
@@ -139,14 +151,31 @@ class Tail {
 export class LineSplitter {
   private readonly decoder = new StringDecoder("utf8");
   private partial = "";
-  constructor(private readonly onLine: (line: string) => void) {}
+  constructor(
+    private readonly onLine: (line: string) => void,
+    private readonly maxPending: number = MAX_PENDING_LINE,
+  ) {}
   write(buf: Buffer): void {
-    const parts = (this.partial + this.decoder.write(buf)).split("\n");
-    this.partial = parts.pop() ?? "";
+    let text = this.partial + this.decoder.write(buf);
+    // A trailing `\r` may be the first half of a `\r\n` split across chunks.
+    let held = "";
+    if (text.endsWith("\r")) {
+      held = "\r";
+      text = text.slice(0, -1);
+    }
+    // `\r` ends a line too: a progress bar redraws with it and never prints
+    // a `\n`.
+    const parts = text.split(/\r\n|\r|\n/);
+    this.partial = (parts.pop() ?? "") + held;
     for (const p of parts) this.onLine(p);
+    // Stream an over-long pending line out as it grows, never hold it all.
+    while (this.partial.length > this.maxPending) {
+      this.onLine(this.partial.slice(0, this.maxPending));
+      this.partial = this.partial.slice(this.maxPending);
+    }
   }
   end(): void {
-    const rest = this.partial + this.decoder.end();
+    const rest = (this.partial + this.decoder.end()).replace(/\r$/, "");
     this.partial = "";
     if (rest) this.onLine(rest);
   }
@@ -162,7 +191,61 @@ export class LineSplitter {
 
 const liveGroups = new Set<number>();
 let interrupted: NodeJS.Signals | null = null;
+/** When the first signal arrived (ms since epoch). */
+let interruptedAt: number | null = null;
 let signalsInstalled = false;
+
+/** Is any process of the group still there? EPERM: it is, we may not signal. */
+const groupAlive = (pgid: number): boolean => {
+  try {
+    process.kill(-pgid, 0);
+    return true;
+  } catch (e) {
+    return (e as NodeJS.ErrnoException).code === "EPERM";
+  }
+};
+
+/** Make sure a step's process group is gone: SIGTERM, then SIGKILL after
+ *  KILL_GRACE_MS. The group stays in `liveGroups` (so a second Ctrl-C still
+ *  kills it) until it is verified dead, and the timer is NOT unref'd until
+ *  then — a backgrounded grandchild must not outlive its step just because
+ *  the runner had nothing else to wait for. Resolves when the group is dead
+ *  or SIGKILL has been sent. */
+export const reapGroup = (
+  pgid: number,
+  graceMs: number = KILL_GRACE_MS,
+): Promise<void> =>
+  new Promise((resolve) => {
+    const done = (): void => {
+      liveGroups.delete(pgid);
+      resolve();
+    };
+    if (!groupAlive(pgid)) return done();
+    try {
+      process.kill(-pgid, "SIGTERM");
+    } catch {
+      // Raced to death.
+    }
+    const deadline = Date.now() + graceMs;
+    const tick = (): void => {
+      if (!groupAlive(pgid)) return done();
+      if (Date.now() < deadline) {
+        setTimeout(tick, 100);
+        return;
+      }
+      try {
+        process.kill(-pgid, "SIGKILL");
+      } catch {
+        // Gone.
+      }
+      // SIGKILL cannot be caught; one short look to drop it from the set.
+      setTimeout(() => {
+        if (!groupAlive(pgid)) liveGroups.delete(pgid);
+        resolve();
+      }, 100).unref();
+    };
+    setTimeout(tick, 100);
+  });
 
 export const isInterrupted = (): NodeJS.Signals | null => interrupted;
 
@@ -192,6 +275,7 @@ const installSignalForwarding = (): void => {
         process.exit(130);
       }
       interrupted = sig;
+      interruptedAt = Date.now();
       process.stderr.write(
         `\npipeline: ${sig} — stopping ${liveGroups.size} running step(s); send it again to exit at once\n`,
       );
@@ -204,12 +288,32 @@ const installSignalForwarding = (): void => {
     });
 };
 
+const interruptedFailure = (sig: NodeJS.Signals): Classification => ({
+  class: "interrupted",
+  retryable: true,
+  hint: `The runner received ${sig} and stopped this step — re-run when ready.`,
+});
+
 export const runStep = async (
   spec: StepSpec,
   ctx: RunContext,
   chainOf?: string,
 ): Promise<StepOutcome> => {
   perfDirOf(ctx); // refuse BEFORE spawning anything, not after
+  // After the first Ctrl-C no NEW step starts, whatever loop is calling.
+  if (interrupted) {
+    const skipped = recordSkip(
+      spec,
+      `runner interrupted (${interrupted}) before this step started`,
+      ctx,
+    );
+    return {
+      ...skipped,
+      status: "error",
+      failure: interruptedFailure(interrupted),
+      chainOf,
+    };
+  }
   const seq = ctx.nextSeq();
   fs.mkdirSync(ctx.logDir, { recursive: true });
   const base = `${String(seq).padStart(3, "0")}-${slug(spec.id)}`;
@@ -243,6 +347,9 @@ export const runStep = async (
     medianMs: ctx.medianMs?.(spec.id),
   });
   let timedOut = false;
+  /** When the shell exited — to tell a step that finished before (or just
+   *  as) the signal arrived from one the signal stopped. */
+  let exitedAt: number | null = null;
   installSignalForwarding();
 
   const { code, signal } = await new Promise<{
@@ -276,11 +383,22 @@ export const runStep = async (
       }
     };
     let settled = false;
+    let killTimer: NodeJS.Timeout | undefined;
+    let reaping = false;
+    const reap = (): void => {
+      if (reaping || !child.pid) return;
+      reaping = true;
+      void reapGroup(child.pid);
+    };
     const finish = (c: number | null, s: string | null): void => {
       if (settled) return;
       settled = true;
+      exitedAt ??= Date.now();
       clearTimeout(timer);
-      if (child.pid) liveGroups.delete(child.pid);
+      clearTimeout(killTimer);
+      // Anything left in the group (a backgrounded grandchild) is killed;
+      // the group leaves liveGroups only once it is verified dead.
+      reap();
       out.end();
       err.end();
       resolve({ code: c, signal: s });
@@ -291,7 +409,7 @@ export const runStep = async (
         `${stamp()} # TIMEOUT after ${spec.timeoutMin} min — SIGTERM to the process group\n`,
       );
       kill("SIGTERM");
-      setTimeout(() => kill("SIGKILL"), KILL_GRACE_MS).unref();
+      killTimer = setTimeout(() => kill("SIGKILL"), KILL_GRACE_MS);
     }, spec.timeoutMin * 60_000);
     child.on("error", (e) => {
       tail.push(`spawn error: ${e.message}`);
@@ -301,6 +419,9 @@ export const runStep = async (
     // group (setsid, a daemonised helper) can hold them open for ever, so on
     // `exit` give the pipes a short grace, then stop waiting for them.
     child.on("exit", (c, s) => {
+      exitedAt = Date.now();
+      // The shell is gone; its descendants in the group are not waited for.
+      reap();
       setTimeout(() => {
         child.stdout.destroy();
         child.stderr.destroy();
@@ -312,10 +433,17 @@ export const runStep = async (
 
   const durationMs = Date.now() - startedAt.getTime();
   const okExit = new Set([0, ...(spec.okExit ?? [])]);
-  const wasInterrupted = interrupted !== null;
+  const exitOk = code !== null && okExit.has(code);
+  // Interrupted = the signal arrived while the step was running, and it did
+  // not then finish cleanly within the pipe grace — a step that exited 0
+  // before, or just as, the signal arrived keeps its real status.
+  const wasInterrupted =
+    interrupted !== null &&
+    interruptedAt !== null &&
+    !(exitOk && (exitedAt ?? Date.now()) - interruptedAt <= PIPE_GRACE_MS);
   const status: StepStatus = timedOut
     ? "timeout"
-    : !wasInterrupted && code !== null && okExit.has(code)
+    : !wasInterrupted && exitOk
       ? "ok"
       : "error";
 
@@ -324,6 +452,16 @@ export const runStep = async (
   try {
     const read = readResult(resultFile);
     result = read?.result;
+    // A step's own summary and warnings reach committed files (perf notes,
+    // report.md) too — the same redaction as the tail.
+    if (result)
+      result = {
+        ...result,
+        ...(result.summary !== undefined
+          ? { summary: redact(result.summary) }
+          : {}),
+        ...(result.warnings ? { warnings: result.warnings.map(redact) } : {}),
+      };
     if (read?.problems.length)
       resultError = `${RESULT_ENV}: ${read.problems.join("; ")}`;
   } catch (e) {
@@ -336,12 +474,7 @@ export const runStep = async (
     status === "ok"
       ? undefined
       : wasInterrupted
-        ? {
-            class: "interrupted" as const,
-            retryable: true,
-            holdsPublish: true,
-            hint: `The runner received ${interrupted} and stopped this step — re-run when ready.`,
-          }
+        ? interruptedFailure(interrupted!)
         : classify({ exitCode: code, timedOut, tail: tailText, db: spec.db });
   log.write(
     `\n# ended    ${new Date().toISOString()} · ${status} · exit ${code ?? `signal ${signal}`} · ${durationMs} ms\n`,
@@ -517,11 +650,27 @@ export const MAX_SOLO_RERUNS = 10;
  *  standing rule: re-run a red file alone before believing it). A test step
  *  that failed only on files that then pass solo counts as passed, with the
  *  files named as a warning; anything else stays failed. */
+/** The NODE_OPTIONS a test command sets inline — on the command itself, or in
+ *  the body of the `pnpm run <script>` it names (test:data sets
+ *  `--max-old-space-size=4096`; a solo re-run without it is a different
+ *  experiment, and can OOM where the suite did not). */
+export const inlineNodeOptions = (
+  run: string,
+  scripts: Record<string, string> = {},
+): string | undefined => {
+  const re = /(?:^|[\s;&|])NODE_OPTIONS=("[^"]*"|'[^']*'|\S+)/;
+  const own = run.match(re)?.[1];
+  if (own) return own;
+  const name = run.match(/^pnpm run ([^\s]+)/)?.[1];
+  return name ? scripts[name]?.match(re)?.[1] : undefined;
+};
+
 export const rerunRedTestsSolo = async (
   o: StepOutcome,
   spec: StepSpec,
   ctx: RunContext,
   soloCommand: (file: string) => string = (f) => `pnpm exec vitest run ${f}`,
+  scripts: Record<string, string> = {},
 ): Promise<StepOutcome[]> => {
   const isTest = /\btest:data\b|\bvitest run\b|\btest:unit\b/.test(spec.run);
   if (o.status !== "error" || !isTest || o.failure?.class !== "test-failed")
@@ -539,15 +688,26 @@ export const rerunRedTestsSolo = async (
   const files = redTestFiles(output);
   if (!files.length || files.length > MAX_SOLO_RERUNS) return [o];
   if (!redSetIsComplete(output, files.length)) return [o];
+  // The re-runs share what is left of the step's own budget (for a chain
+  // link, the chain's): N files must not each get the full timeout.
+  const started = Date.parse(o.startedAt);
+  const deadline =
+    (Number.isFinite(started) ? started : Date.now()) +
+    spec.timeoutMin * 60_000;
+  const nodeOptions = inlineNodeOptions(spec.run, scripts);
   const reruns: StepOutcome[] = [];
   for (const f of files) {
     if (isInterrupted()) break;
+    const leftMin = (deadline - Date.now()) / 60_000;
+    if (leftMin <= 0) break;
+    const cmd = soloCommand(f);
     reruns.push(
       await runStep(
         {
           ...spec,
           id: `${spec.id} › solo ${f}`,
-          run: soloCommand(f),
+          run: nodeOptions ? `NODE_OPTIONS=${nodeOptions} ${cmd}` : cmd,
+          timeoutMin: leftMin,
           okExit: [],
         },
         ctx,
@@ -584,7 +744,13 @@ export const runStepOrChain = async (
 ): Promise<StepOutcome[]> => {
   const links = spec.kind === "chain" ? expandChain(spec.run, scripts) : null;
   if (!links)
-    return rerunRedTestsSolo(await runStep(spec, ctx), spec, ctx, soloCommand);
+    return rerunRedTestsSolo(
+      await runStep(spec, ctx),
+      spec,
+      ctx,
+      soloCommand,
+      scripts,
+    );
   // The step's timeout is a budget for the WHOLE chain: each link gets what is
   // left of it, so an N-link chain cannot run N times its budget.
   const deadline = Date.now() + spec.timeoutMin * 60_000;
@@ -622,6 +788,7 @@ export const runStepOrChain = async (
       linkSpec,
       ctx,
       soloCommand,
+      scripts,
     );
     out.push(...got);
     if (got[0].status !== "ok") break;

@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runStep } from "./exec/executor";
+import { processStart } from "./doctor";
 import { acquireLock, LockHeldError } from "./lock";
 import { finalizeRun } from "./report/finalize";
 import { toStepRecord, type RunRecord } from "./report/record";
@@ -37,6 +38,57 @@ describe("acquireLock", () => {
     const held = acquireLock("s", f);
     expect(held.tookOver).toEqual({ pid: 2 ** 22 + 11, session: "dead" });
     held.release();
+  });
+});
+
+describe("acquireLock: races and pid reuse", () => {
+  it("treats a live pid whose start time no longer matches as stale", () => {
+    const f = path.join(tmp("lock-"), "lock");
+    // The parent is alive, but this lock was written by an earlier process
+    // that had the same pid.
+    fs.writeFileSync(
+      f,
+      JSON.stringify({
+        pid: process.ppid,
+        session: "old",
+        procStart: "Thu Jan  1 00:00:00 1970",
+      }),
+    );
+    const held = acquireLock("new", f);
+    expect(held.tookOver).toEqual({ pid: process.ppid, session: "old" });
+    expect(JSON.parse(fs.readFileSync(f, "utf8"))).toMatchObject({
+      pid: process.pid,
+      session: "new",
+    });
+    held.release();
+  });
+
+  it("does not take over a lock that is still being written", () => {
+    const f = path.join(tmp("lock-"), "lock");
+    fs.writeFileSync(f, ""); // a writer between create and write
+    expect(() => acquireLock("s", f)).toThrow(LockHeldError);
+    // Once past the grace window it is debris and is taken over.
+    const old = new Date(Date.now() - 60_000);
+    fs.utimesSync(f, old, old);
+    acquireLock("s", f).release();
+  });
+
+  it("refuses while another run is mid-takeover", () => {
+    const f = path.join(tmp("lock-"), "lock");
+    fs.writeFileSync(f, JSON.stringify({ pid: 2 ** 22 + 13, session: "dead" }));
+    fs.writeFileSync(`${f}.takeover`, "12345");
+    expect(() => acquireLock("s", f)).toThrow(LockHeldError);
+    // The stale lock was not touched by the loser.
+    expect(JSON.parse(fs.readFileSync(f, "utf8")).session).toBe("dead");
+  });
+
+  it("records its own process start time", () => {
+    const f = path.join(tmp("lock-"), "lock");
+    const held = acquireLock("s", f);
+    const body = JSON.parse(fs.readFileSync(f, "utf8"));
+    expect(body.procStart).toBe(processStart(process.pid));
+    held.release();
+    expect(fs.existsSync(f)).toBe(false);
   });
 });
 
@@ -123,6 +175,18 @@ describe("finalizeRun", () => {
     expect(written.units[0].steps[1].packet).toMatch(
       /failures\/002-second\.md$/,
     );
+
+    // Finalized again after the step was resolved: no stale packet survives.
+    rec.units[0].steps[1] = { ...rec.units[0].steps[1], status: "ok" };
+    rec.units[0].status = "ok";
+    finalizeRun(rec, {
+      perfRun: "pipeline-test",
+      perfDir: ctx.perfDir,
+      scripts: {},
+      dir,
+      extras: () => ({ stateLeft: [] }),
+    });
+    expect(fs.existsSync(path.join(dir, "failures"))).toBe(false);
   });
 
   it("writes a gate packet when every step passed but a gate refused", async () => {

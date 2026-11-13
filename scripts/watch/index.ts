@@ -21,6 +21,7 @@ import {
 } from "./health";
 import { lookupCountry } from "../pipeline/doctor";
 import { annotateStreaks, exitCode, nextState } from "./run_core";
+import { SCOPE_UNKNOWN, type RunScope } from "./scope_log";
 import { CADENCE_WINDOW_MS, dueForCheck } from "./cadence";
 import { rememberPollWatch } from "../polls/lib/capture";
 import type {
@@ -128,11 +129,14 @@ const main = async (): Promise<number> => {
       // What moved, as data, for the pipeline's scoped steps. Computed from
       // the same comparison as the describe-line; a scope() that throws must
       // not cost the source its state write.
-      let scope: Record<string, string[]> | null = null;
+      let scope: RunScope = null;
       if (changed && src.scope)
         try {
           scope = src.scope(prev, curr);
         } catch (e) {
+          // Unknown, not empty: the log restarts here so no consumer is
+          // handed a partial union (scope_log.ts, SCOPE_UNKNOWN).
+          scope = SCOPE_UNKNOWN;
           console.warn(
             `[watch] ${src.id}: scope() threw — ${e instanceof Error ? e.message : String(e)}`,
           );

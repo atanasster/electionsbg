@@ -92,6 +92,14 @@ export interface PlanEntry {
   flipped: string[];
   /** Moved sources this run cannot serve (arm blocked). */
   deferred: string[];
+  /** True when EVERY moved source is arm-deferred: nothing automated applies
+   *  until the operator acts, so the entry is needs-operator — and, having
+   *  produced nothing new, it does not hold its `after` dependents. */
+  armDeferredOnly: boolean;
+  /** Steps that SHOULD have run but could not be scoped ("no scope" /
+   *  "args() threw"). Each one is unserved work: the entry is not stampable,
+   *  and the runner names them as a needs-agent item. */
+  scopeSkipped: { id: string; why: string }[];
   /** False when the marker must NOT be stamped even if every step succeeds. */
   stampable: boolean;
   steps: PlannedStep[];
@@ -276,6 +284,10 @@ const planHandler = (
   // run can actually serve — cloud loaders included.
   const served = new Set([...flipped].filter((s) => !deferred.has(s)));
   const ctx = makeCtx(served, inp.watch, inp.now, last);
+  // Every moved source waits on an operator: an `on`-less step (a reload, a
+  // derive) would only re-process the previous vintage and — worse — a
+  // stamp-free "run" would still advertise work and publish cloud loaders.
+  const armDeferredOnly = served.size === 0;
 
   const steps: PlannedStep[] = h.steps.map((s) => {
     const base = {
@@ -297,6 +309,8 @@ const planHandler = (
           ? "arm blocked by an operator item"
           : `only on ${s.on.join(", ")}`,
       );
+    if (armDeferredOnly)
+      return skip("every moved source is deferred to an operator item");
     let args: string[] | null = [];
     try {
       args = s.args ? s.args(ctx) : [];
@@ -320,11 +334,16 @@ const planHandler = (
 
   const runnable = steps.some((s) => s.status === "run");
   // A skip that is not an `on`/arm decision means a step that SHOULD have run
-  // could not be scoped — a failure to report, not "nothing applies".
-  const scopeFailed = steps.some(
-    (s) =>
-      s.status === "skip" && /^(no scope|args\(\) threw)/.test(s.why ?? ""),
-  );
+  // could not be scoped — a failure to report, not "nothing applies". It
+  // makes the entry non-stampable even when other steps run: stamping would
+  // advance the marker past the change the skipped step never served.
+  const scopeSkipped = steps
+    .filter(
+      (s) =>
+        s.status === "skip" && /^(no scope|args\(\) threw)/.test(s.why ?? ""),
+    )
+    .map((s) => ({ id: s.id, why: s.why ?? "" }));
+  const scopeFailed = scopeSkipped.length > 0;
 
   let status: EntryStatus = "run";
   let why: string | undefined;
@@ -334,7 +353,11 @@ const planHandler = (
     // Either an item blocks the whole handler, or nothing automated applies
     // to what moved and the ingest IS the human step.
     status = "needs-operator";
-    why = (handlerBlock ?? operator[0]).instruction;
+    why = (
+      handlerBlock ??
+      operator.find((o) => o.blocks === "arm") ??
+      operator[0]
+    ).instruction;
   } else if (unmet.length) {
     status = "blocked";
     why = unmet.map((n) => `${n}: ${inp.unmet?.get(n) ?? "unmet"}`).join("; ");
@@ -364,7 +387,9 @@ const planHandler = (
     reasons,
     flipped: [...flipped],
     deferred: [...deferred],
-    stampable: deferred.size === 0,
+    armDeferredOnly: armDeferredOnly && !handlerBlock,
+    scopeSkipped,
+    stampable: deferred.size === 0 && !scopeFailed,
     steps,
     operator: operator.map((o) => ({
       id: o.id,
@@ -382,6 +407,31 @@ const planHandler = (
   };
 };
 
+/** Does a queued predecessor hold its `after` dependents in this run?
+ *
+ * `after` exists because the dependent READS the predecessor's output, so a
+ * dependent must not run (and be stamped) on a previous vintage the
+ * predecessor was about to replace: once stamped it would not re-queue when
+ * the predecessor finally ran. A predecessor therefore holds UNLESS it has
+ * produced everything it was going to produce this run:
+ *   - it ran to the end ("run", a script) — even if an operator ARM deferred
+ *     some moved source: that arm produces nothing until the operator acts,
+ *     whether or not the dependent waits;
+ *   - every moved source is arm-deferred (`armDeferredOnly`): nothing new
+ *     will exist this run, so waiting buys nothing.
+ * Everything else holds: failed, blocked (needs or its own predecessor),
+ * handler-level needs-operator, bootstrap, nothing-to-run, a step skipped for
+ * want of a scope, and a skill-runner handler — delegated to an agent, its
+ * output does not exist yet when the dependent would run.
+ *
+ * The runner applies the same rule to OUTCOMES (ingest.ts `releases`), so a
+ * plan entry is "run" exactly when the runner would start it given every
+ * predecessor succeeds. */
+export const holdsDependents = (p: PlanEntry): boolean =>
+  p.status === "run"
+    ? p.runner === "skill" || p.scopeSkipped.length > 0
+    : !(p.status === "needs-operator" && p.armDeferredOnly);
+
 export const plan = (inp: PlanInputs): Plan => {
   const warnings: string[] = [...(inp.inputErrors ?? [])];
   const entries: PlanEntry[] = [];
@@ -392,8 +442,9 @@ export const plan = (inp: PlanInputs): Plan => {
   }
 
   // A handler that runs `after` another must not run when that one is queued
-  // and not running: it would consume the predecessor's previous output and
-  // publish it as fresh. Walk in order so a hold propagates down a chain.
+  // and holds it (holdsDependents): it would consume the predecessor's
+  // previous output and publish it as fresh. Walk in order so a hold
+  // propagates down a chain.
   const ordered = orderByAfter(entries, inp.handlers);
   const byId = new Map(inp.handlers.map((h) => [h.id, h]));
   const statusOf = new Map<string, PlanEntry>();
@@ -401,10 +452,16 @@ export const plan = (inp: PlanInputs): Plan => {
     if (e.status === "run") {
       const held = (byId.get(e.handler)?.after ?? [])
         .map((a) => statusOf.get(a))
-        .find((p) => p && p.status !== "run");
+        .find((p) => p && holdsDependents(p));
       if (held) {
         e.status = "blocked";
-        e.why = `runs after ${held.handler}, which is ${held.status}`;
+        e.why = `runs after ${held.handler}, which is ${
+          held.status === "run"
+            ? held.runner === "skill"
+              ? "delegated to an agent"
+              : "missing a scope"
+            : held.status
+        }`;
       }
     }
     statusOf.set(e.handler, e);

@@ -65,10 +65,15 @@ export interface FinalizeOptions {
 const defaultReproduce = (s: StepRecord): string => s.command;
 
 /** Write packets, compute the verdict and write run.json + report.md. Returns
- *  the report path. Safe to call more than once (each call rewrites). */
+ *  the report path. Safe to call more than once (each call rewrites, the
+ *  failures/ folder included). Prunes only UNTRACKED old run folders — see
+ *  pruneRuns(). */
 export const finalizeRun = (rec: RunRecord, opt: FinalizeOptions): string => {
   const dir = opt.dir ?? runDir(rec.session);
   const failDir = path.join(dir, "failures");
+  // Rewritten from scratch on every call: a step that failed on an earlier
+  // finalize and has since been resolved must not leave its packet behind.
+  fs.rmSync(failDir, { recursive: true, force: true });
   const med = medianIndex(opt.perfRun, rec.session, opt.perfDir);
 
   const write = (

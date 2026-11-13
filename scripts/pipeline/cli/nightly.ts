@@ -27,7 +27,8 @@
 // Exit: 0 clean (or degraded: operator/agent items only) · 1 a handler or
 // post-step failed · 2 the runner itself crashed · 3 another run holds the
 // lock, or preflight refused · 4 ingest ok but the publish was held or
-// failed · 5 the watcher failed · 130 interrupted during the watcher.
+// failed · 5 the watcher failed · 130 interrupted (SIGINT/SIGTERM/SIGHUP)
+// at any stage — watcher or ingest; the report is still written.
 // Every exit writes the report EXCEPT two: refused by the lock (exit 3, the
 // holder's run is the one to read) and a second Ctrl-C (exits at once).
 
@@ -45,7 +46,7 @@ import {
 } from "../doctor";
 import { isInterrupted, runStep } from "../exec/executor";
 import { deadRuns, monitorFor } from "../exec/monitor";
-import { runIngest } from "../ingest";
+import { runIngest, stoppedRecord } from "../ingest";
 import { realIngestDeps } from "../ingest_wiring";
 import { acquireLock, LockHeldError } from "../lock";
 import { medianIndex } from "../report/finalize";
@@ -128,25 +129,15 @@ const stoppedEarly = (
    *  still written; it just stays uncommitted. */
   commit = true,
 ): never => {
-  const rec: RunRecord = {
-    schema: 1,
+  const rec = stoppedRecord({
     session,
-    kind: "ingest",
     startedAt,
-    endedAt: new Date().toISOString(),
-    git: { shaStart: deps.head(), shaEnd: deps.head() },
-    env: doctor
-      ? Object.fromEntries(
-          doctor.checks.map((c) => [c.id, { ok: c.ok, detail: c.detail }]),
-        )
-      : {},
+    sha: deps.head(),
+    doctor,
     units,
-    needsOperator: [],
-    needsAgent: [],
     findings,
-    publish: { decision: "n/a", heldBecause: [] },
     exitCode: code,
-  };
+  });
   let report: string | undefined;
   try {
     report = deps.finalize(rec);
@@ -154,12 +145,22 @@ const stoppedEarly = (
       log(
         `report left uncommitted (git is why the run stopped): ${rel(report)}`,
       );
-    else
+    else {
+      // Old committed run folders this run prunes are its deletions.
+      let pruned: string[] = [];
+      try {
+        pruned = deps.pruneTrackedRuns?.() ?? [];
+      } catch (e) {
+        log(
+          `old run folders not pruned: ${e instanceof Error ? e.message : String(e)}`,
+        );
+      }
       deps.commit(
         `watch: run report ${session} (stopped early, exit ${code})`,
-        [rel(runDir(session))],
+        [rel(runDir(session)), ...pruned],
         [],
       );
+    }
   } catch (e) {
     log(
       `✗ could not write the report: ${e instanceof Error ? e.message : String(e)}`,

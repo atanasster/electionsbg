@@ -19,6 +19,15 @@
 // promises the work will be published, so the manifest is written as soon as
 // the first handler succeeds and again after the commit — and an unexpected
 // error anywhere after that still finalizes the report and holds the publish.
+// When the commit FAILS (or --no-commit), the promise is withdrawn instead:
+// every marker this run stamped, the changelog and the manifest go back to
+// their pre-run copies, so the work re-queues rather than reading "done".
+//
+// Post-steps (registry/post_steps.ts) run after the handlers have been
+// stamped, so a failed or need-skipped post-step cannot re-queue through a
+// marker. It is recorded as OWED in state/pipeline/owed_post_steps.json and
+// re-selected by every later run until it succeeds — and it holds the
+// publish of the run that could not complete it.
 
 import type { IngestState } from "../lib/ingest-state";
 import type { UploadManifest } from "../lib/upload-manifest";
@@ -55,6 +64,11 @@ import { REPO } from "./state";
 
 export const PERF_RUN = "process-watch-report";
 export const CHANGELOG_FILE = "data/data-changes.json";
+export const PENDING_FILE = "state/upload/pending.json";
+/** Post-steps a run could not complete; every later run re-selects them. */
+export const OWED_POST_STEPS = "state/pipeline/owed_post_steps.json";
+/** Exit code for a run stopped by SIGINT/SIGTERM/SIGHUP (128 + SIGINT). */
+export const EXIT_INTERRUPTED = 130;
 export const markerPath = (marker: string): string =>
   `state/ingest/${marker}.json`;
 
@@ -77,8 +91,15 @@ export interface IngestDeps {
   ) => Promise<StepOutcome[]>;
   /** A repo file's text, or null when absent — for restore-on-failure. */
   readFile: (rel: string) => string | null;
-  /** Put a file back as it was (null = it did not exist). */
+  /** Put a file back as it was (null = it did not exist). Also how the
+   *  runner writes its own small state (the owed post-steps). */
   restoreFile: (rel: string, text: string | null) => void;
+  /** A step log's full text (repo-relative path), capped by the wiring —
+   *  what output gates read. Absent or null = fall back to the 120-line tail. */
+  readLog?: (rel: string) => string | null;
+  /** The signal the run was interrupted by, if any. Defaults to the
+   *  executor's process-wide flag; injectable for tests. */
+  isInterrupted?: () => NodeJS.Signals | null;
   stamp: (marker: string, summary: string, at: string) => void;
   appendChange: (args: {
     skill: string;
@@ -100,7 +121,6 @@ export interface IngestDeps {
     exclude: readonly string[],
   ) => CommitResult;
   head: () => string | null;
-  filesInCommit: (sha: string) => string[];
   generatedPaths: (files: readonly string[]) => string[];
   writeManifest: (
     m: Partial<UploadManifest> & { session: string },
@@ -123,7 +143,13 @@ export interface IngestDeps {
   finalize: (rec: RunRecord) => string;
   /** Run the publish; returns its exit code (and, when it got that far, the
    *  publish run's own report). */
-  publish: () => Promise<number | { exitCode: number; report?: string }>;
+  publish: (heldLock: {
+    session: string;
+  }) => Promise<number | { exitCode: number; report?: string }>;
+  /** Prune old COMMITTED run folders (finalize only prunes untracked ones)
+   *  and return their repo-relative paths: each is a deletion this run made,
+   *  so it goes in the report commit's pathspec. Absent = none pruned. */
+  pruneTrackedRuns?: () => string[];
   /** After an ABORT_CLASSES failure: is the environment STILL broken? A
    *  local Postgres that restarted mid-load is back seconds later, and
    *  aborting the night over a blip would skip every later handler for
@@ -140,7 +166,9 @@ export interface IngestOptions {
   publish?: boolean;
   /** Plan and stop. */
   dryRun?: boolean;
-  /** Do not commit (local experiments). Holds the publish. */
+  /** Do not commit (local experiments). Holds the publish, and stamps
+   *  nothing: no marker, no manifest, no changelog row, no owed post-steps —
+   *  an uncommitted run must not read as done to the next one. */
   noCommit?: boolean;
   perfDir?: string;
   /** Units and findings from before the ingest (the nightly watcher), so one
@@ -174,6 +202,7 @@ const BOOKKEEPING = [
   "state/perf/process-watch-report.jsonl",
   CHANGELOG_FILE,
   "state/pipeline/acks.json",
+  OWED_POST_STEPS,
 ];
 
 const summarize = (outs: readonly StepOutcome[]): string => {
@@ -198,10 +227,72 @@ interface Succeeded {
   entry: PlanEntry;
   handler: Handler;
   dirs: string[];
-  /** Tracked files the handler wrote inside `dirs` — committed one by one,
-   *  never the whole folder (other work may live there). */
-  dirFiles: string[];
+  /** Every file the handler wrote THIS run — under its outputs and inside
+   *  `dirs`. Committed one by one, never a whole folder: stale leftovers and
+   *  other sessions' edits may live there. */
+  files: string[];
 }
+
+/** A run record for a run that stopped before (or instead of) running any
+ *  handler — the planning failure here, and every early stop in
+ *  pipeline:nightly. */
+export const stoppedRecord = (a: {
+  session: string;
+  startedAt: string;
+  sha: string | null;
+  doctor?: DoctorResult | null;
+  units: UnitRecord[];
+  findings: string[];
+  exitCode: number;
+}): RunRecord => ({
+  schema: 1,
+  session: a.session,
+  kind: "ingest",
+  startedAt: a.startedAt,
+  endedAt: new Date().toISOString(),
+  git: { shaStart: a.sha, shaEnd: a.sha },
+  env: a.doctor
+    ? Object.fromEntries(
+        a.doctor.checks.map((c) => [c.id, { ok: c.ok, detail: c.detail }]),
+      )
+    : {},
+  units: a.units,
+  needsOperator: [],
+  needsAgent: [],
+  findings: a.findings,
+  publish: { decision: "n/a", heldBecause: [] },
+  exitCode: a.exitCode,
+});
+
+/** The owed post-step ids on disk (a corrupt file reads as none, reported). */
+const readOwed = (deps: IngestDeps, findings: string[]): string[] => {
+  const text = deps.readFile(OWED_POST_STEPS);
+  if (text === null) return [];
+  try {
+    const v = JSON.parse(text) as unknown;
+    if (Array.isArray(v) && v.every((x) => typeof x === "string")) return v;
+    throw new Error("not a list of post-step ids");
+  } catch (e) {
+    findings.push(
+      `${OWED_POST_STEPS} does not parse (${e instanceof Error ? e.message : String(e)}); treated as owing nothing — check it by hand`,
+    );
+    return [];
+  }
+};
+
+/** The needs-agent item for steps the planner could not scope: the entry is
+ *  left unstamped, so the change re-queues — but it re-queues for ever
+ *  unless someone runs the step with the scope the watcher could not give. */
+const scopeItem = (h: Handler, entry: PlanEntry) => ({
+  unit: h.id,
+  id: "scope-missing",
+  instruction: `Could not scope ${entry.scopeSkipped
+    .map((s) => `${s.id} (${s.why})`)
+    .join(
+      "; ",
+    )} for ${entry.flipped.join(", ")}. Run it with the scope the runbook names, then stamp state/ingest/${entry.marker}.json — until then the change re-queues every run.`,
+  doc: `.claude/skills/${h.skill ?? h.id}/SKILL.md`,
+});
 
 const safeHead = (deps: IngestDeps): string | null => {
   try {
@@ -216,6 +307,7 @@ export const runIngest = async (
   opt: IngestOptions = {},
 ): Promise<IngestOutcome> => {
   const session = opt.session ?? newSessionId();
+  const interruptedBy = deps.isInterrupted ?? isInterrupted;
   let doctor: DoctorResult;
   let thePlan: Plan;
   try {
@@ -248,14 +340,10 @@ export const runIngest = async (
       warnings: [],
     };
     if (opt.dryRun) throw e;
-    const rec: RunRecord = {
-      schema: 1,
+    const rec = stoppedRecord({
       session,
-      kind: "ingest",
       startedAt: new Date().toISOString(),
-      endedAt: new Date().toISOString(),
-      git: { shaStart: safeHead(deps) },
-      env: {},
+      sha: safeHead(deps),
       units: [
         ...(opt.preamble?.units ?? []),
         {
@@ -266,15 +354,12 @@ export const runIngest = async (
           gates: [],
         },
       ],
-      needsOperator: [],
-      needsAgent: [],
       findings: [
         ...(opt.preamble?.findings ?? []),
         `runner error before any handler ran: ${msg.split("\n").slice(0, 6).join(" | ")}`,
       ],
-      publish: { decision: "n/a", heldBecause: [] },
       exitCode: 2,
-    };
+    });
     let report: string | undefined;
     try {
       report = deps.finalize(rec);
@@ -287,6 +372,9 @@ export const runIngest = async (
   }
   if (opt.dryRun) return { exitCode: 0, plan: thePlan };
 
+  // Held to the very end — through the publish and the final report commit.
+  // acquireLock is re-entrant within one process, so the publish runner's
+  // own acquisition is a no-op rather than a window another run could take.
   const lock = deps.lock(session);
   const byId = new Map(deps.handlers.map((h) => [h.id, h]));
   const rec: RunRecord = {
@@ -335,13 +423,30 @@ export const runIngest = async (
   const succeeded: Succeeded[] = [];
   /** handler id → its unit's final status in THIS run. */
   const outcome = new Map<string, UnitRecord["status"]>();
+  /** Queued handlers that do NOT hold their `after` dependents — the
+   *  runtime twin of planner.ts holdsDependents. */
+  const releases = new Set<string>();
+  const queued = new Set(thePlan.entries.map((e) => e.handler));
   const heldBecause: string[] = [];
   /** Files a failed handler wrote; never committed by this run. */
   const leftovers = new Set<string>();
+  /** Markers this run wrote (or let a self-stamping script write), with
+   *  their pre-run text — put back if the work never gets committed. */
+  const stampedThisRun: {
+    unit: UnitRecord;
+    file: string;
+    before: string | null;
+  }[] = [];
+  const changelogAtStart = deps.readFile(CHANGELOG_FILE);
+  const pendingAtStart = deps.readFile(PENDING_FILE);
+  let manifestWritten = false;
 
+  /** The run's written files, as generated-artifact bucket paths. */
+  const generated = (files: readonly string[]): string[] =>
+    files.length ? deps.generatedPaths(files) : [];
   const manifestFor = (
     commit?: string,
-    posts: PostStep[] = [],
+    posts: { post: PostStep; files: string[] }[] = [],
   ): Partial<UploadManifest> & { session: string } => ({
     session,
     commit,
@@ -349,24 +454,48 @@ export const runIngest = async (
     paths: [
       ...new Set([
         ...succeeded.flatMap((s) => [...s.entry.paths, ...s.dirs]),
-        ...posts.flatMap((p) => p.publish?.paths ?? []),
-        ...(commit ? deps.generatedPaths(deps.filesInCommit(commit)) : []),
+        ...posts.flatMap((p) => p.post.publish?.paths ?? []),
+        // From what THIS run wrote — never from HEAD, which may hold another
+        // session's (or the auto-committer's) unrelated commit.
+        ...generated([
+          ...succeeded.flatMap((s) => s.files),
+          ...posts.flatMap((p) => p.files),
+        ]),
       ]),
     ],
     cloudCommands: orderCloud([
       ...succeeded.flatMap((s) => s.entry.cloud),
-      ...posts.flatMap((p) => p.publish?.cloud ?? []),
+      ...posts.flatMap((p) => p.post.publish?.cloud ?? []),
     ]),
   });
   const writeManifest = (
     m: Partial<UploadManifest> & { session: string },
   ): void => {
+    // An uncommitted run promises nothing to the publisher.
+    if (opt.noCommit) return;
     if (!m.paths?.length && !m.cloudCommands?.length) return;
     const w = deps.writeManifest(m);
     if (!w.ok) {
       heldBecause.push(`upload manifest not written: ${w.error}`);
       rec.findings.push(`upload manifest not written: ${w.error}`);
+    } else manifestWritten = true;
+  };
+  /** Withdraw this run's promises: the work did not reach git, so nothing
+   *  may read as done — markers, changelog rows and the manifest go back to
+   *  their pre-run copies and the handlers re-queue. */
+  const unstampAll = (why: string): void => {
+    for (const s of stampedThisRun) {
+      deps.restoreFile(s.file, s.before);
+      s.unit.stamped = false;
     }
+    if (stampedThisRun.length)
+      rec.findings.push(
+        `${why}: restored ${stampedThisRun.length} marker(s) this run stamped (${stampedThisRun.map((s) => s.unit.id).join(", ")}) — they re-queue next run`,
+      );
+    stampedThisRun.length = 0;
+    if (deps.readFile(CHANGELOG_FILE) !== changelogAtStart)
+      deps.restoreFile(CHANGELOG_FILE, changelogAtStart);
+    if (manifestWritten) deps.restoreFile(PENDING_FILE, pendingAtStart);
   };
 
   const finish = (): string => {
@@ -374,6 +503,9 @@ export const runIngest = async (
     rec.git.shaEnd = deps.head();
     return deps.finalize(rec);
   };
+  /** Full step output for gates — the whole log, not the 120-line tail. */
+  const stepText = (o: StepOutcome): string =>
+    (o.log ? deps.readLog?.(o.log) : null) ?? o.tail;
 
   try {
     try {
@@ -402,17 +534,26 @@ export const runIngest = async (
             dropDir: o.dropDir,
           });
 
-        if (isInterrupted()) {
-          settle("skipped", "runner interrupted");
+        const intr = interruptedBy();
+        if (intr) {
+          settle("skipped", `runner interrupted (${intr})`);
           continue;
         }
-        if (aborted && entry.status === "run") {
+        if (
+          aborted &&
+          (entry.status === "run" || entry.status === "bootstrap")
+        ) {
           settle("skipped", `run aborted: ${aborted}`);
-          heldBecause.push(`${h.id}: not run — ${aborted}`);
+          if (entry.status === "run")
+            heldBecause.push(`${h.id}: not run — ${aborted}`);
           continue;
         }
         if (entry.status === "bootstrap") {
-          if (entry.bootstrapAction === "seed") {
+          if (entry.bootstrapAction === "seed" && opt.noCommit) {
+            settle("skipped", "bootstrap: not seeded under --no-commit");
+          } else if (entry.bootstrapAction === "seed") {
+            const file = markerPath(entry.marker);
+            stampedThisRun.push({ unit, file, before: deps.readFile(file) });
             deps.stamp(
               entry.marker,
               "bootstrap: marker seeded, no run",
@@ -435,21 +576,27 @@ export const runIngest = async (
             entry.status === "nothing-to-run" ? "skipped" : entry.status,
             entry.why,
           );
-          if (entry.status === "nothing-to-run")
+          if (entry.status === "needs-operator" && entry.armDeferredOnly)
+            releases.add(h.id);
+          if (entry.status === "nothing-to-run") {
             rec.findings.push(`${h.id}: ${entry.why}`);
+            if (entry.scopeSkipped.length)
+              rec.needsAgent.push(scopeItem(h, entry));
+          }
           continue;
         }
-        // A prerequisite queued in this run must have COMPLETED — failed,
-        // blocked, partial and delegated-to-agent all mean its output is the
+        // A prerequisite queued in this run must have produced what it was
+        // going to produce (planner.ts holdsDependents): failed, blocked,
+        // scope-skipped and delegated-to-agent all leave its output at the
         // previous vintage, and a stamped dependent would not re-queue when
         // the prerequisite finally runs.
         const notDone = (h.after ?? []).find(
-          (a) => outcome.has(a) && outcome.get(a) !== "ok",
+          (a) => queued.has(a) && !releases.has(a),
         );
         if (notDone) {
           settle(
             "blocked",
-            `runs after ${notDone}, which did not complete in this run (${outcome.get(notDone)})`,
+            `runs after ${notDone}, which did not complete in this run (${outcome.get(notDone) ?? "not run"})`,
           );
           continue;
         }
@@ -458,13 +605,18 @@ export const runIngest = async (
             "skipped",
             `delegated to the ${h.skill ?? h.id} runbook (not yet a script)`,
           );
+          const unscoped = entry.scopeSkipped.length
+            ? ` Steps the planner could NOT scope — run them too, with the scope the runbook names: ${entry.scopeSkipped
+                .map((s) => `${s.id} (${s.why})`)
+                .join("; ")}.`
+            : "";
           rec.needsAgent.push({
             unit: h.id,
             id: "run-runbook",
             instruction: `Run ${h.skill ?? h.id} for ${entry.flipped.join(", ")}. Planned steps: ${entry.steps
               .filter((s) => s.status === "run")
               .map((s) => s.run)
-              .join(" → ")}`,
+              .join(" → ")}.${unscoped}`,
             doc: `.claude/skills/${h.skill ?? h.id}/SKILL.md`,
           });
           continue;
@@ -497,7 +649,7 @@ export const runIngest = async (
             kind: ps.kind,
           };
           const missing = def ? unmet(stepNeeds(h, def)) : [];
-          if (broke || missing.length || isInterrupted()) {
+          if (broke || missing.length || interruptedBy()) {
             if (missing.length && !broke) needsSkipped.push(ps.id);
             outs.push(
               recordSkip(
@@ -541,15 +693,14 @@ export const runIngest = async (
         unit.filesChanged = wrote;
 
         if (!broke) {
-          const output = outs.map((o) => o.tail).join("\n");
           unit.gates = runGates(
             h.gates ?? [],
             new Set(entry.flipped),
-            deps.gateCtx(output, baselines),
+            deps.gateCtx(outs.map(stepText).join("\n"), baselines),
           );
         }
         const gateFailed = unit.gates.some((g) => !g.ok);
-        const interrupted = isInterrupted();
+        const interrupted = interruptedBy();
         if (broke || gateFailed || interrupted) {
           settle(
             "failed",
@@ -579,21 +730,47 @@ export const runIngest = async (
         }
 
         unit.summary = summarize(outs);
-        const partialWhy = !entry.stampable
-          ? `${entry.deferred.join(", ")} deferred to an operator item`
-          : needsSkipped.length
-            ? `step(s) ${needsSkipped.join(", ")} skipped for an unmet need`
-            : null;
-        if (partialWhy) {
-          settle("partial", `marker not stamped: ${partialWhy}`);
+        const partial = [
+          ...(entry.deferred.length
+            ? [`${entry.deferred.join(", ")} deferred to an operator item`]
+            : []),
+          ...(entry.scopeSkipped.length
+            ? [
+                `step(s) ${entry.scopeSkipped.map((x) => x.id).join(", ")} could not be scoped`,
+              ]
+            : []),
+          ...(needsSkipped.length
+            ? [`step(s) ${needsSkipped.join(", ")} skipped for an unmet need`]
+            : []),
+        ];
+        if (entry.scopeSkipped.length) {
+          rec.findings.push(
+            `${h.id}: ${entry.scopeSkipped.map((x) => `${x.id} not run — ${x.why}`).join("; ")}; marker left unstamped so the change re-queues`,
+          );
+          rec.needsAgent.push(scopeItem(h, entry));
+        }
+        if (partial.length || opt.noCommit) {
+          settle(
+            partial.length ? "partial" : "ok",
+            partial.length
+              ? `marker not stamped: ${partial.join("; ")}`
+              : undefined,
+          );
           unit.stamped = false;
           if (h.stamp === "self") deps.restoreFile(markerFile, markerBefore);
+          if (opt.noCommit && !partial.length)
+            unit.why = "marker not stamped: --no-commit";
         } else {
           if (h.stamp !== "self")
             deps.stamp(entry.marker, unit.summary, startedAt);
+          stampedThisRun.push({ unit, file: markerFile, before: markerBefore });
           unit.stamped = true;
           settle("ok");
         }
+        // Only an operator ARM leaves a handler's output complete for its
+        // dependents (planner.ts holdsDependents).
+        if (!entry.scopeSkipped.length && !needsSkipped.length)
+          releases.add(h.id);
         const dirs = h.publish?.dirsMatching
           ? deps.dataDirsTouched(h.publish.dirsMatching, startedMs)
           : [];
@@ -604,8 +781,12 @@ export const runIngest = async (
               startedMs,
             )
           : [];
-        unit.filesChanged = [...wrote, ...dirFiles];
-        if (h.changelog === "orchestrator" && unit.filesChanged.length)
+        unit.filesChanged = [...new Set([...wrote, ...dirFiles])];
+        if (
+          h.changelog === "orchestrator" &&
+          unit.filesChanged.length &&
+          !opt.noCommit
+        )
           deps.appendChange({
             skill: h.skill ?? h.id,
             summary: unit.summary,
@@ -614,7 +795,7 @@ export const runIngest = async (
               .join("; "),
           });
         for (const a of entry.agent) rec.needsAgent.push({ unit: h.id, ...a });
-        succeeded.push({ entry, handler: h, dirs, dirFiles });
+        succeeded.push({ entry, handler: h, dirs, files: unit.filesChanged });
         deps.log(
           `✓ ${h.id}: ${unit.status}${unit.stamped ? " (marker stamped)" : ""} — ${unit.summary}`,
         );
@@ -623,15 +804,34 @@ export const runIngest = async (
         writeManifest(manifestFor());
       }
 
-      // ---- post-steps
-      const posts: PostStep[] = succeeded.length
-        ? selectPostSteps(
-            succeeded.flatMap((s) => s.entry.followUps),
-            new Set(succeeded.flatMap((s) => s.entry.flipped)),
-            deps.postSteps,
-          )
-        : [];
-      const postOk: PostStep[] = [];
+      // ---- post-steps: those this run's handlers trigger, plus every one an
+      // earlier run owes.
+      const owedBefore = readOwed(deps, rec.findings);
+      const known = new Set(deps.postSteps.map((p) => p.id));
+      for (const id of owedBefore.filter((x) => !known.has(x)))
+        rec.findings.push(
+          `owed post-step ${id} is no longer registered — dropped from ${OWED_POST_STEPS}`,
+        );
+      const triggered = new Set(
+        succeeded.length
+          ? selectPostSteps(
+              succeeded.flatMap((s) => s.entry.followUps),
+              new Set(succeeded.flatMap((s) => s.entry.flipped)),
+              deps.postSteps,
+            ).map((p) => p.id)
+          : [],
+      );
+      const posts = deps.postSteps.filter(
+        (p) => triggered.has(p.id) || owedBefore.includes(p.id),
+      );
+      const carried = posts.filter(
+        (p) => !triggered.has(p.id) && owedBefore.includes(p.id),
+      );
+      if (carried.length)
+        rec.findings.push(
+          `post-step(s) owed by an earlier run, re-run now: ${carried.map((p) => p.id).join(", ")}`,
+        );
+      const postOk: { post: PostStep; files: string[] }[] = [];
       if (posts.length && !aborted)
         deps.log(`── post-steps: ${posts.map((p) => p.id).join(", ")}`);
       for (const p of posts) {
@@ -653,6 +853,7 @@ export const runIngest = async (
         };
         rec.units.push(unit);
         let broke: string | null = null;
+        const unmetSkipped: string[] = [];
         const headBefore = deps.head();
         const before = deps.outputSignature(p.outputs ?? [], headBefore);
         for (const s of p.steps) {
@@ -665,7 +866,7 @@ export const runIngest = async (
             db: "local",
           };
           const missing = unmet([...(p.needs ?? []), ...(s.needs ?? [])]);
-          if (broke || missing.length || isInterrupted()) {
+          if (broke || missing.length || interruptedBy()) {
             unit.steps.push(
               toStepRecord(
                 recordSkip(
@@ -679,7 +880,12 @@ export const runIngest = async (
                 ),
               ),
             );
-            if (missing.length && !broke) unit.status = "skipped";
+            if (!broke) {
+              unit.status = "skipped";
+              unmetSkipped.push(
+                missing.length ? missing.join(", ") : "interrupted",
+              );
+            }
             continue;
           }
           for (const o of await deps.run(spec, ctx)) {
@@ -691,36 +897,63 @@ export const runIngest = async (
               );
           }
         }
+        const files = changedBetween(
+          before,
+          deps.outputSignature(p.outputs ?? [], headBefore),
+        );
+        unit.filesChanged = files;
         if (broke) {
           unit.status = "failed";
           unit.why = `${broke} failed`;
           heldBecause.push(`post-step ${p.id}: ${broke} failed`);
-          for (const f of changedBetween(
-            before,
-            deps.outputSignature(p.outputs ?? [], headBefore),
-          ))
-            leftovers.add(f);
-        } else if (unit.status === "ok") postOk.push(p);
+          for (const f of files) leftovers.add(f);
+        } else if (unit.status === "skipped") {
+          // Its handlers are already stamped: without the hold and the owed
+          // record, the derived artifact would publish stale and never be
+          // rebuilt.
+          unit.why = `not run: ${[...new Set(unmetSkipped)].join("; ")} — owed to the next run`;
+          heldBecause.push(`post-step ${p.id}: ${unit.why}`);
+        } else postOk.push({ post: p, files });
       }
+      const okIds = new Set(postOk.map((p) => p.post.id));
+      const owedAfter = [
+        ...new Set([...owedBefore, ...posts.map((p) => p.id)]),
+      ].filter((id) => known.has(id) && !okIds.has(id));
+      if (
+        !opt.noCommit &&
+        JSON.stringify(owedAfter) !==
+          JSON.stringify(owedBefore.filter((id) => known.has(id)))
+      )
+        deps.restoreFile(
+          OWED_POST_STEPS,
+          owedAfter.length ? JSON.stringify(owedAfter, null, 2) + "\n" : null,
+        );
+      if (owedAfter.length)
+        rec.findings.push(
+          `post-step(s) owed to the next run: ${owedAfter.join(", ")} (${OWED_POST_STEPS})`,
+        );
 
-      // ---- commit
+      // ---- commit: exactly the files this run wrote, plus its bookkeeping —
+      // never a whole outputs folder (stale leftovers and other sessions'
+      // edits under it are not this run's to commit).
       deps.log("── commit");
       const runFolder = path.relative(REPO, runDir(session));
-      const commitPathspec = [
+      const written = [
         ...new Set([
-          ...succeeded.flatMap((s) => [
-            ...(s.handler.outputs ?? []),
-            ...s.dirFiles,
-          ]),
-          ...postOk.flatMap((p) => p.outputs ?? []),
-          ...BOOKKEEPING,
-          runFolder,
+          ...succeeded.flatMap((s) => s.files),
+          ...postOk.flatMap((p) => p.files),
         ]),
+      ];
+      const commitPathspec = [
+        ...new Set([...written, ...BOOKKEEPING, runFolder]),
       ];
       let commitSha: string | undefined;
       if (opt.noCommit) {
-        rec.findings.push("--no-commit: nothing committed");
-        if (succeeded.length)
+        rec.findings.push(
+          "--no-commit: nothing committed, no marker stamped, no manifest written",
+        );
+        unstampAll("--no-commit");
+        if (succeeded.length || postOk.length)
           heldBecause.push("--no-commit: the ingest was not committed");
       } else {
         const staged = deps.staged(commitPathspec);
@@ -744,14 +977,25 @@ export const runIngest = async (
         if (c.status === "failed") {
           heldBecause.push(`commit failed: ${c.error}`);
           rec.findings.push(`commit failed: ${c.error}`);
+          unstampAll("commit failed");
         } else if (c.status === "committed") commitSha = c.sha;
-        // Nothing to commit can mean the auto-committer already committed
-        // this run's files: HEAD then holds them, so it is the commit to name.
-        else if (succeeded.length) commitSha = deps.head() ?? undefined;
+        else if (written.length) {
+          // Nothing to commit: either the auto-committer already committed
+          // this run's files, or they were never there. HEAD is the commit
+          // to name ONLY when it provably holds every one of them.
+          const head = deps.head();
+          if (head && deps.outputSignature(written, head).size === 0)
+            commitSha = head;
+          else
+            rec.findings.push(
+              "commit reported nothing to commit, but HEAD does not hold this run's files — the manifest names no commit; check git before publishing",
+            );
+        }
       }
 
       // ---- manifest, now with the commit and the post-steps' work
-      if (succeeded.length) writeManifest(manifestFor(commitSha, postOk));
+      if (succeeded.length || postOk.length)
+        writeManifest(manifestFor(commitSha, postOk));
     } catch (e) {
       // Markers may already be stamped: the report and a held publish are the
       // only way the next reader learns this run did not finish.
@@ -769,68 +1013,55 @@ export const runIngest = async (
       });
     }
 
-    const interrupted = isInterrupted();
+    const interrupted = interruptedBy();
     if (interrupted) heldBecause.push(`interrupted by ${interrupted}`);
-    const publishable = succeeded.some(
-      (s) => s.entry.paths.length || s.entry.cloud.length || s.dirs.length,
-    );
-    rec.publish = !succeeded.length
-      ? { decision: "n/a", heldBecause: [] }
-      : heldBecause.length
-        ? { decision: "held", heldBecause }
-        : publishable ||
-            rec.units.some((u) => u.id.startsWith("post:") && u.status === "ok")
-          ? { decision: "go", heldBecause: [] }
-          : { decision: "n/a", heldBecause: [] };
+    const didWork =
+      succeeded.length > 0 ||
+      rec.units.some((u) => u.id.startsWith("post:") && u.status === "ok");
+    const publishable =
+      succeeded.some(
+        (s) => s.entry.paths.length || s.entry.cloud.length || s.dirs.length,
+      ) || rec.units.some((u) => u.id.startsWith("post:") && u.status === "ok");
+    rec.publish = heldBecause.length
+      ? { decision: "held", heldBecause }
+      : didWork && publishable
+        ? { decision: "go", heldBecause: [] }
+        : { decision: "n/a", heldBecause: [] };
     const anyFailed = rec.units.some((u) => u.status === "failed");
-    rec.exitCode = anyFailed ? 1 : rec.publish.decision === "held" ? 4 : 0;
+    rec.exitCode = interrupted
+      ? EXIT_INTERRUPTED
+      : anyFailed
+        ? 1
+        : rec.publish.decision === "held"
+          ? 4
+          : 0;
     let report: string | undefined;
-    try {
-      report = finish();
-    } catch (e) {
-      // A report that cannot be written (disk full, permissions) must not
-      // turn into an uncaught crash with the publish decision unknown.
-      deps.log(
-        `✗ the run report could not be written: ${e instanceof Error ? e.message : String(e)}`,
-      );
-      if (rec.exitCode === 0) rec.exitCode = 4;
-      if (rec.publish.decision === "go") {
-        rec.publish = {
-          decision: "held",
-          heldBecause: ["the run report could not be written"],
-        };
-      }
-    }
-    if (!opt.noCommit) {
-      let c: CommitResult;
+    const writeReport = (): void => {
       try {
-        c = deps.commit(
-          `watch: run report ${session}`,
-          [
-            path.relative(REPO, runDir(session)),
-            "state/upload/pending.json",
-            "state/perf/process-watch-report.jsonl",
-          ],
-          [],
-        );
+        report = finish();
       } catch (e) {
-        c = {
-          status: "failed",
-          error: e instanceof Error ? e.message : String(e),
-        };
-      }
-      if (c.status === "failed") {
-        deps.log(`report commit failed: ${c.error}`);
+        // A report that cannot be written (disk full, permissions) must not
+        // turn into an uncaught crash with the publish decision unknown.
+        deps.log(
+          `✗ the run report could not be written: ${e instanceof Error ? e.message : String(e)}`,
+        );
         if (rec.exitCode === 0) rec.exitCode = 4;
+        if (rec.publish?.decision === "go")
+          rec.publish = {
+            decision: "held",
+            heldBecause: ["the run report could not be written"],
+          };
       }
-    }
+    };
+    // Written BEFORE the publish too, so a publish that hangs or dies still
+    // leaves this run's report on disk.
+    writeReport();
     let publishExit: number | undefined;
     if (opt.publish && rec.publish.decision === "go") {
-      lock.release();
       deps.log("── publish");
       let publishReport: string | undefined;
       try {
-        const r = await deps.publish();
+        const r = await deps.publish({ session });
         if (typeof r === "number") publishExit = r;
         else {
           publishExit = r.exitCode;
@@ -852,21 +1083,42 @@ export const runIngest = async (
       deps.log(
         `${publishExit === 0 ? "✓" : "✗"} publish exited ${publishExit}${publishReport ? ` — report ${path.relative(REPO, publishReport)}` : ""}`,
       );
-      try {
-        finish();
-        if (!opt.noCommit)
-          deps.commit(
-            `watch: run report ${session} (publish exit ${publishExit})`,
-            [path.relative(REPO, runDir(session))],
-            [],
-          );
-      } catch (e) {
-        deps.log(
-          `could not record the publish result in the ingest report: ${e instanceof Error ? e.message : String(e)}`,
-        );
-      }
+      writeReport();
     } else if (opt.publish && rec.publish.decision === "held")
       deps.log(`publish held: ${heldBecause.join("; ")}`);
+    // ONE report commit, after the publish (if any), still under the lock.
+    if (!opt.noCommit) {
+      let c: CommitResult;
+      try {
+        let pruned: string[] = [];
+        try {
+          pruned = deps.pruneTrackedRuns?.() ?? [];
+        } catch (e) {
+          deps.log(
+            `old run folders not pruned: ${e instanceof Error ? e.message : String(e)}`,
+          );
+        }
+        c = deps.commit(
+          `watch: run report ${session}${publishExit !== undefined ? ` (publish exit ${publishExit})` : ""}`,
+          [
+            path.relative(REPO, runDir(session)),
+            PENDING_FILE,
+            "state/perf/process-watch-report.jsonl",
+            ...pruned,
+          ],
+          [],
+        );
+      } catch (e) {
+        c = {
+          status: "failed",
+          error: e instanceof Error ? e.message : String(e),
+        };
+      }
+      if (c.status === "failed") {
+        deps.log(`report commit failed: ${c.error}`);
+        if (rec.exitCode === 0) rec.exitCode = 4;
+      }
+    }
     const exitCode =
       rec.exitCode !== 0
         ? rec.exitCode

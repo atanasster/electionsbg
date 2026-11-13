@@ -150,8 +150,10 @@ export const SECTORS_LOCAL: Handler[] = [
     runner: "script",
     sources: ["nato_defexp", "mod_defense_report", "moe_arms_exports"],
     steps: [
+      // __write_nato.ts shells out to `pdftotext -layout`.
       ingest("defense:write_nato", tsx("scripts/defense/__write_nato.ts"), {
         on: ["nato_defexp"],
+        needs: ["bin:pdftotext"],
       }),
     ],
     operator: [

@@ -2,7 +2,6 @@
 // runner's logic is testable with fakes and this file is the only one that
 // touches the real repo, database and git.
 
-import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { pinLocalDatabase } from "../db/lib/pg";
@@ -11,11 +10,8 @@ import { appendDataChange } from "../lib/data-changes";
 import { writeIngestState } from "../lib/ingest-state";
 import {
   generatedPathsTouched,
-  mergeManifest,
-  parseNameOnly,
   PENDING,
-  readPending,
-  writePending,
+  updatePending,
 } from "../lib/upload-manifest";
 import { SOURCES } from "../watch/sources";
 import { runDoctor } from "./doctor";
@@ -29,6 +25,7 @@ import { HANDLERS, handlerById } from "./registry";
 import { makeGateCtx, snapshotBaselines } from "./registry/gates";
 import { POST_STEPS } from "./registry/post_steps";
 import { finalizeRun } from "./report/finalize";
+import { KEEP_RUNS, pruneRuns, RUNS_DIR } from "./report/record";
 import { loadState, REPO } from "./state";
 
 /** Top-level entries of `dataDir` whose name matches and that were modified
@@ -109,6 +106,30 @@ export const filesWrittenSinceIn = (
     })
     .sort();
 
+/** Output gates read the whole step log, but a runaway step must not pull
+ *  gigabytes into memory: past the cap only the LAST `cap` bytes are read
+ *  (the end of a log is where summaries and verdict lines live). Null when
+ *  the log is missing, so the caller falls back to the captured tail. */
+export const LOG_READ_CAP = 50 * 1024 * 1024;
+export const readLogCapped = (
+  file: string,
+  cap: number = LOG_READ_CAP,
+): string | null => {
+  let fd: number | null = null;
+  try {
+    const size = fs.statSync(file).size;
+    if (size <= cap) return fs.readFileSync(file, "utf8");
+    fd = fs.openSync(file, "r");
+    const buf = Buffer.alloc(cap);
+    fs.readSync(fd, buf, 0, cap, size - cap);
+    return buf.toString("utf8");
+  } catch {
+    return null;
+  } finally {
+    if (fd !== null) fs.closeSync(fd);
+  }
+};
+
 /** Merge into the pending manifest — but never over one that does not parse:
  *  `readPending()` returns null for both "absent" and "corrupt", and writing
  *  in the second case would silently drop an earlier run's unpublished work. */
@@ -116,14 +137,20 @@ export const writeManifestSafely = (
   m: Parameters<IngestDeps["writeManifest"]>[0],
   file: string = PENDING,
 ): WriteResult => {
-  const existing = readPending(file);
-  if (existing === null && fs.existsSync(file))
+  // updatePending is the mutex-guarded atomic merge shared with the
+  // publisher; it throws (never overwrites) on a manifest that does not parse.
+  try {
+    updatePending(m, file);
+    return { ok: true };
+  } catch (e) {
     return {
       ok: false,
-      error: `${path.relative(REPO, file)} exists but does not parse — fix or archive it by hand; it may hold an earlier run's unpublished work`,
+      error: (e instanceof Error ? e.message : String(e)).replace(
+        file,
+        path.relative(REPO, file),
+      ),
     };
-  writePending(mergeManifest(existing, m), file);
-  return { ok: true };
+  }
 };
 
 /** The handler's known-failure advice whose pattern matches this failure's
@@ -167,8 +194,14 @@ export const realIngestDeps = (
       fs.existsSync(abs(rel)) ? fs.readFileSync(abs(rel), "utf8") : null,
     restoreFile: (rel, text) => {
       if (text === null) fs.rmSync(abs(rel), { force: true });
-      else fs.writeFileSync(abs(rel), text);
+      else {
+        // Also the runner's own state writes (state/pipeline/…), whose
+        // folder a fresh clone may not have yet.
+        fs.mkdirSync(path.dirname(abs(rel)), { recursive: true });
+        fs.writeFileSync(abs(rel), text);
+      }
     },
+    readLog: (rel) => readLogCapped(abs(rel)),
     stamp: (m, summary, at) => void writeIngestState(m, { summary, at }),
     appendChange: (a) => void appendDataChange(a),
     outputSignature: (paths, since) => outputSignatureIn(paths, since),
@@ -176,16 +209,6 @@ export const realIngestDeps = (
     commit: (message, paths, exclude) =>
       commitPaths(message, paths, REPO, exclude),
     head: () => headSha(),
-    filesInCommit: (sha) =>
-      parseNameOnly(
-        execFileSync("git", ["show", "--name-only", "--format=", sha], {
-          cwd: REPO,
-          encoding: "utf8",
-          // A procurement ingest commits thousands of shard paths; the 1 MB
-          // default buffer would throw after the markers were stamped.
-          maxBuffer: 256 * 1024 * 1024,
-        }),
-      ),
     generatedPaths: (files) =>
       generatedPathsTouched(files, publishedArtifacts()),
     writeManifest: (m) => writeManifestSafely(m),
@@ -244,8 +267,14 @@ export const realIngestDeps = (
       await new Promise((r) => setTimeout(r, 10_000));
       return !(await portOpen(5433));
     },
-    publish: async () => {
-      const r = await runPublish(realPublishDeps(scripts, log), {});
+    pruneTrackedRuns: () =>
+      pruneRuns(KEEP_RUNS, RUNS_DIR, { tracked: true }).map((d) =>
+        path.relative(REPO, path.join(RUNS_DIR, d)),
+      ),
+    publish: async (heldLock) => {
+      // The ingest still holds the pipeline lock: the publish runs under it
+      // rather than acquiring (and later releasing) it itself.
+      const r = await runPublish(realPublishDeps(scripts, log), { heldLock });
       return { exitCode: r.exitCode, report: r.report };
     },
     log,

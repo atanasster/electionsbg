@@ -4,6 +4,10 @@
 //   pnpm run pipeline:publish                      # asks before touching production
 //   pnpm run pipeline:publish --yes                # unattended
 //   pnpm run pipeline:publish --yes --start-at "db:load:graph:pg:cloud"
+//   pnpm run pipeline:publish --yes --start-at "db:check-cloud"   # re-verify only
+//
+// --start-at takes any step id (bucket, cloud or verify) at which an earlier
+// publish of the SAME manifest failed, timed out or was interrupted.
 //
 // Exit: 0 published (or nothing pending) · 1 a step failed (manifest kept)
 //       · 2 bad arguments / not confirmed / refused · 3 blocked before anything ran.

@@ -1,6 +1,13 @@
 import type { ManualRequest, ReportEntry } from "./types";
 import { formatSofia } from "./fingerprint";
 
+/** A not-probed row (blocked / off-cadence) still carries the error streak it
+ *  had — it neither grew nor ended this run. */
+const standingErrors = (e: ReportEntry): string =>
+  (e.consecutiveErrors ?? 0) > 0
+    ? ` _(last ${e.consecutiveErrors} probe(s) failed — not probed this run)_`
+    : "";
+
 export const renderReport = (entries: ReportEntry[], runAt: string): string => {
   const today = runAt.slice(0, 10);
   const dateLabel = formatSofia(runAt);
@@ -68,7 +75,9 @@ export const renderReport = (entries: ReportEntry[], runAt: string): string => {
   if (skipped.length > 0) {
     sections.push("\n## Skipped (off-cadence)");
     for (const e of skipped) {
-      sections.push(`- ${e.source.label} (${e.source.cadence}): ${e.line}`);
+      sections.push(
+        `- ${e.source.label} (${e.source.cadence}): ${e.line}${standingErrors(e)}`,
+      );
     }
   }
 
@@ -79,7 +88,9 @@ export const renderReport = (entries: ReportEntry[], runAt: string): string => {
         (e.consecutiveBlocked ?? 0) > 1
           ? ` _(blocked ${e.consecutiveBlocked} runs in a row)_`
           : "";
-      sections.push(`- ${e.source.label}: ${e.line}${streak}`);
+      sections.push(
+        `- ${e.source.label}: ${e.line}${streak}${standingErrors(e)}`,
+      );
     }
   }
 

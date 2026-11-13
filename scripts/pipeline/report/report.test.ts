@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -84,7 +85,6 @@ describe("renderReport", () => {
     failure: {
       class: "egress",
       retryable: false,
-      holdsPublish: true,
       hint: "wrong exit country",
     },
     packet: "state/pipeline/runs/s/failures/002-rollcall_scrape.md",
@@ -219,6 +219,24 @@ describe("record files", () => {
   });
 });
 
+describe("pruneRuns leaves committed run folders alone", () => {
+  it("deletes only untracked old folders unless told otherwise", () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "pipeline-prune-"));
+    const g = (...a: string[]): void => {
+      execFileSync("git", a, { cwd: root, stdio: "ignore" });
+    };
+    g("init", "-q");
+    for (const s of ["20261101T0-a", "20261102T0-b", "20261103T0-c"])
+      writeRecord(record({ session: s }), path.join(root, s));
+    g("add", "20261101T0-a");
+    // a is committed (tracked), b is not: only b goes.
+    expect(pruneRuns(1, root)).toEqual(["20261102T0-b"]);
+    expect(fs.existsSync(path.join(root, "20261101T0-a"))).toBe(true);
+    // A caller that commits the deletions itself opts in.
+    expect(pruneRuns(1, root, { tracked: true })).toEqual(["20261101T0-a"]);
+  });
+});
+
 describe("packet", () => {
   it("excerpts the tail with 1-based line numbers and finds the error line", () => {
     const f = path.join(
@@ -324,6 +342,13 @@ describe("packet", () => {
 });
 
 describe("redaction in committed output", () => {
+  it("masks a secret in report.md wherever it came from", () => {
+    const md = renderReport(
+      record({ findings: ["loader said postgres://u:hunter2@h/db"] }),
+    );
+    expect(md).not.toMatch(/hunter2/);
+  });
+
   it("masks a secret in the log excerpt", () => {
     const f = path.join(
       fs.mkdtempSync(path.join(os.tmpdir(), "pkt-")),

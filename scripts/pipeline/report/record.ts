@@ -9,6 +9,7 @@
 // report.md and every failure packet are rendered FROM run.json and nothing
 // else, so the human-readable and machine-readable views cannot disagree.
 
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import type { StepOutcome } from "../exec/executor";
@@ -166,18 +167,49 @@ export const readRecord = (
 ): RunRecord =>
   JSON.parse(fs.readFileSync(path.join(dir, "run.json"), "utf8")) as RunRecord;
 
-/** Keep the newest `keep` run folders (session ids sort chronologically). */
+/** Run folders under `dir` that hold at least one git-TRACKED file. An
+ *  error (not a repository, git missing) reads as "none tracked". */
+export const trackedRunDirs = (dir: string): Set<string> => {
+  try {
+    const out = execFileSync("git", ["ls-files", "-z", "--", "."], {
+      cwd: dir,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+      timeout: 60_000,
+      maxBuffer: 256 * 1024 * 1024,
+    });
+    return new Set(
+      out
+        .split("\0")
+        .filter(Boolean)
+        .map((p) => p.split("/")[0]),
+    );
+  } catch {
+    return new Set();
+  }
+};
+
+/** Keep the newest `keep` run folders (session ids sort chronologically),
+ *  deleting the older ones — but by default ONLY those git does not track.
+ *  Deleting a COMMITTED run folder leaves tracked deletions in the working
+ *  tree that nothing in the run commits, and the concurrent auto-committer
+ *  then sweeps them into an unrelated commit. A caller that does commit the
+ *  deletions passes `{ tracked: true }` and adds the returned folders
+ *  (relative to `dir`) to its commit pathspec. Returns what was deleted. */
 export const pruneRuns = (
   keep: number = KEEP_RUNS,
   dir: string = RUNS_DIR,
+  opt: { tracked?: boolean } = {},
 ): string[] => {
   if (!fs.existsSync(dir)) return [];
   const all = fs
     .readdirSync(dir, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
+    .filter((d) => d.isDirectory() && !d.name.startsWith("."))
     .map((d) => d.name)
     .sort();
-  const drop = all.slice(0, Math.max(0, all.length - keep));
+  const old = all.slice(0, Math.max(0, all.length - keep));
+  const tracked = opt.tracked ? new Set<string>() : trackedRunDirs(dir);
+  const drop = old.filter((d) => !tracked.has(d));
   for (const d of drop)
     fs.rmSync(path.join(dir, d), { recursive: true, force: true });
   return drop;

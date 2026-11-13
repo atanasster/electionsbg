@@ -74,6 +74,9 @@ export const CLOUD_ORDER: readonly string[] = [
   // Commerce Registry
   "db:load:tr:pg:cloud",
   "db:load:cr-nkid:pg:cloud",
+  // ships local company_founded; refreshes the risk-indexes payload itself,
+  // and the risk-cache rebuild below must see its dates.
+  "db:load:company-founded:pg:cloud",
   "db:refresh:risk:cloud",
   "db:load:tr-name-fold-people:pg:cloud",
 
@@ -123,7 +126,7 @@ export const cloudSlot = (command: string): string | null => {
   return RANK.has(script) ? script : null;
 };
 
-export const cloudRank = (command: string): number => {
+const cloudRank = (command: string): number => {
   const slot = cloudSlot(command);
   return slot === null
     ? Number.MAX_SAFE_INTEGER

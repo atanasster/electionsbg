@@ -2,7 +2,7 @@
 // person layer.
 
 import { derive, ingest, pnpm, tsx, verify } from "../build";
-import { at, len, noShrink } from "../gates";
+import { at, len, noShrink, rollcallSessionsLoaded } from "../gates";
 import type { Handler } from "../types";
 
 export const PARLIAMENT_PEOPLE: Handler[] = [
@@ -12,6 +12,9 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     runner: "script",
     sources: ["parliament_votes"],
     needs: ["pg-local", "egress:non-bg"],
+    // rollcall:scrape reads data/parliament/index.json (the MP roster) that
+    // parliament-scrape writes (.claude/skills/update-rollcall/SKILL.md).
+    after: ["parliament-scrape"],
     steps: [
       ingest("rollcall:scrape", pnpm("rollcall:scrape"), { timeoutMin: 60 }),
       ingest("parliament:bills", pnpm("parliament:bills")),
@@ -53,6 +56,9 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         (j) => len(at(j, "sessions")),
         0,
       ),
+      // noShrink alone passes a run that ingested nothing; this one fails when
+      // a roll-call session the watcher announced has no session file.
+      rollcallSessionsLoaded(["parliament_votes"]),
     ],
     changelog: "orchestrator",
     outputs: [
@@ -237,11 +243,20 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         kind: "chain",
         timeoutMin: 120,
       }),
+      // The local half of the founding-date publish: local IS the source of
+      // truth, so this only reports what the cloud ship will carry (and any
+      // pre-provenance NULLs that must be requeued first).
+      verify("db:load:company-founded:pg", pnpm("db:load:company-founded:pg")),
     ],
     publish: {
       cloud: [
         "pnpm run db:load:tr:pg:cloud",
         "pnpm run db:load:cr-nkid:pg:cloud",
+        // tr:daily-refresh folds CR founding dates into LOCAL company_founded
+        // (db:load:cr-founding:pg); only this ships them (CLAUDE.md, CR Deeds).
+        // Precondition: 033 applied to Cloud SQL (http_status/attempts) — the
+        // loader does not apply it; it refreshes the risk-indexes payload itself.
+        "pnpm run db:load:company-founded:pg:cloud",
         "pnpm run db:load:persons-browse:pg:cloud",
         "pnpm run db:load:person-search:pg:cloud",
         "pnpm run db:load:graph:pg:cloud",
@@ -285,7 +300,16 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     // subject_ref the resolver dates officials postings from); everything
     // after the resolver re-attaches a positional person_id.
     steps: [
+      // Dimensions the resolver joins — BEFORE it (CLAUDE.md: place-dim and
+      // judicial-bodies precede db:resolve:persons). Mirrors the cloud chain.
+      derive("db:load:place-dim:pg", pnpm("db:load:place-dim:pg")),
+      derive("db:load:judicial-bodies:pg", pnpm("db:load:judicial-bodies:pg")),
       derive("db:load:declarations:pg", pnpm("db:load:declarations:pg")),
+      derive("db:load:employer-links:pg", pnpm("db:load:employer-links:pg")),
+      derive(
+        "db:load:tr-name-fold-people:pg",
+        pnpm("db:load:tr-name-fold-people:pg"),
+      ),
       // --no-stamp: the resolver would otherwise stamp the marker at step 2 of
       // the chain, so a later failure would leave it reading "done".
       derive("db:resolve:persons", pnpm("db:resolve:persons", "--no-stamp"), {
@@ -331,6 +355,13 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     publish: {
       cloud: [
         "pnpm run db:load:place-dim:pg:cloud",
+        // The roster is a prerequisite of judicial-bodies AND of the resolve
+        // (CLAUDE.md: a stale cloud `magistrate` drops retained magistrates'
+        // person rows at a 200). CLOUD_ORDER puts it before both.
+        {
+          run: "pnpm run db:load:magistrates:pg:cloud",
+          on: ["ivss_declarations", "vss_court_statistics"],
+        },
         "pnpm run db:load:judicial-bodies:pg:cloud",
         "pnpm run db:load:tr-name-fold-people:pg:cloud",
         "pnpm run db:load:declarations:pg:cloud",

@@ -9,7 +9,12 @@
 //   pnpm exec tsx scripts/upload_manifest.ts done --session <publish session id>
 //
 // `write` MERGES into any pending manifest rather than replacing it — see
-// mergeManifest's header for why that matters.
+// mergeManifest's header for why that matters. It does so under the manifest
+// mutex (withPendingLock) and writes atomically, so a publish clearing the
+// manifest at the same moment cannot drop this write. It deliberately does NOT
+// take the pipeline lock: a publish holds that for 20+ minutes, and an ingest
+// recording its work must not fail because one is running — the publish's
+// digest-checked settlePending is what keeps the late work pending.
 
 import { execFileSync } from "child_process";
 import path from "path";
@@ -19,10 +24,9 @@ import {
   generatedPathsTouched,
   HISTORY,
   parseNameOnly,
-  mergeManifest,
   PENDING,
   readPending,
-  writePending,
+  updatePending,
 } from "./lib/upload-manifest";
 import { publishedArtifacts } from "./db/refresh_coverage";
 
@@ -63,7 +67,7 @@ switch (sub) {
       filesInCommit(flag("commit")),
       publishedArtifacts(),
     );
-    const manifest = mergeManifest(readPending(), {
+    const manifest = updatePending({
       session: flag("session") ?? readPending()?.session ?? "unknown",
       commit: flag("commit"),
       skills: csv(flag("skills")),
@@ -71,7 +75,6 @@ switch (sub) {
       cloudCommands: repeated("cloud"),
       notes: flag("notes"),
     });
-    writePending(manifest);
     if (generated.length)
       console.log(
         `  + generated artifacts touched by ${flag("commit")}: ${generated.join(", ")}`,

@@ -9,8 +9,11 @@
 //   pnpm run pipeline:ingest --no-commit           # local experiment
 //
 // Exit: 0 clean or degraded (operator/agent items only) · 1 a handler or
-// post-step failed · 2 bad arguments · 3 another run holds the lock ·
-// 4 ingest ok but the publish was held or failed.
+// post-step failed · 2 bad arguments (or the runner could not plan) ·
+// 3 another run holds the lock · 4 ingest ok but the publish was held or
+// failed (a post-step skipped for an unmet need holds it too) ·
+// 130 interrupted (SIGINT/SIGTERM/SIGHUP) — the report is still written; a
+// second signal exits at once without one.
 
 import fs from "node:fs";
 import path from "node:path";

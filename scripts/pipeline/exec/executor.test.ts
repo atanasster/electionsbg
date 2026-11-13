@@ -7,6 +7,9 @@ import { LOCAL_DATABASE_URL } from "../../db/lib/pg";
 import { REPO } from "../state";
 import {
   LineSplitter,
+  MAX_PENDING_LINE,
+  Tail,
+  inlineNodeOptions,
   redSetIsComplete,
   redTestFiles,
   rerunRedTestsSolo,
@@ -256,6 +259,80 @@ describe("LineSplitter", () => {
   });
 });
 
+describe("bounded output", () => {
+  it("treats a bare \\r as a line break, also across a chunked \\r\\n", () => {
+    const lines: string[] = [];
+    const sp = new LineSplitter((l) => lines.push(l));
+    sp.write(Buffer.from("10%\r20%\rdone\r"));
+    sp.write(Buffer.from("\nnext"));
+    sp.end();
+    expect(lines).toEqual(["10%", "20%", "done", "next"]);
+  });
+
+  it("flushes a pending line past the cap instead of growing it", () => {
+    const lines: string[] = [];
+    const sp = new LineSplitter((l) => lines.push(l), 100);
+    sp.write(Buffer.from("x".repeat(250)));
+    expect(lines.map((l) => l.length)).toEqual([100, 100]);
+    sp.end();
+    expect(lines.at(-1)).toHaveLength(50);
+    expect(MAX_PENDING_LINE).toBe(64 * 1024);
+  });
+
+  it("caps a tail line's length, keeping its head and end", () => {
+    const t = new Tail(5);
+    t.push(`HEAD${"y".repeat(10_000)}END`);
+    expect(t.text().length).toBeLessThan(2100);
+    expect(t.text()).toMatch(/^HEAD.*END$/);
+  });
+
+  it("survives a huge newline-less output with a bounded tail", async () => {
+    const o = await runStep(
+      spec(`node -e "process.stdout.write('z'.repeat(300000))"`),
+      mkCtx(),
+    );
+    expect(o.status).toBe("ok");
+    expect(o.tail.length).toBeLessThan(5 * 2100);
+  });
+});
+
+describe("step result redaction", () => {
+  it("masks secrets in the step's own summary and warnings", async () => {
+    const ctx = mkCtx();
+    const o = await runStep(
+      spec(
+        `node -e "require('fs').writeFileSync(process.env.PIPELINE_RESULT_FILE, JSON.stringify({summary:'to postgres://u:p4ss@h/db', warnings:['password=hunter2']}))"`,
+      ),
+      ctx,
+    );
+    expect(o.result?.summary).toBe("to postgres://u:***@h/db");
+    expect(o.result?.warnings).toEqual(["password=***"]);
+    expect(readSteps("pipeline-test", ctx.perfDir).steps[0].notes).not.toMatch(
+      /p4ss/,
+    );
+  });
+});
+
+describe("process group cleanup", () => {
+  it("kills a backgrounded grandchild when the step exits", async () => {
+    const o = await runStep(spec(`sleep 30 & echo "bg=$!"`), mkCtx());
+    expect(o.status).toBe("ok");
+    const pid = Number(o.tail.match(/bg=(\d+)/)?.[1]);
+    expect(pid).toBeGreaterThan(0);
+    const alive = (): boolean => {
+      try {
+        process.kill(pid, 0);
+        return true;
+      } catch {
+        return false;
+      }
+    };
+    for (let i = 0; i < 30 && alive(); i++)
+      await new Promise((r) => setTimeout(r, 100));
+    expect(alive()).toBe(false);
+  });
+});
+
 describe("chain budget", () => {
   it("stops a chain whose links exhaust the step's budget", async () => {
     const ctx = mkCtx();
@@ -298,7 +375,6 @@ describe("re-run red test files solo", () => {
       failure: {
         class: "test-failed",
         retryable: false,
-        holdsPublish: true,
         hint: "",
       },
     }) as const;
@@ -355,6 +431,47 @@ describe("re-run red test files solo", () => {
     expect(
       await rerunRedTestsSolo(other, spec("pnpm run test:data"), mkCtx(), solo),
     ).toEqual([other]);
+  });
+
+  it("keeps the suite's NODE_OPTIONS for the solo re-run", async () => {
+    expect(
+      inlineNodeOptions("pnpm run test:data", {
+        "test:data":
+          "NODE_OPTIONS=--max-old-space-size=4096 vitest run scripts/db/tests",
+      }),
+    ).toBe("--max-old-space-size=4096");
+    expect(inlineNodeOptions("pnpm run prices", {})).toBeUndefined();
+    const out = await rerunRedTestsSolo(
+      {
+        ...fakeFailed(
+          " FAIL  |node| scripts/flaky.test.ts > x\n Test Files  1 failed | 9 passed (10)",
+        ),
+        startedAt: new Date().toISOString(),
+      },
+      spec("pnpm run test:data", { id: "test:data" }),
+      mkCtx(),
+      () =>
+        `node -e "process.exit(/4096/.test(process.env.NODE_OPTIONS||'')?0:1)"`,
+      { "test:data": "NODE_OPTIONS=--max-old-space-size=4096 vitest run x" },
+    );
+    expect(out.map((o) => o.status)).toEqual(["ok", "ok"]);
+  });
+
+  it("budgets the solo re-runs against what is left of the step's timeout", async () => {
+    const out = await rerunRedTestsSolo(
+      {
+        ...fakeFailed(
+          " FAIL  |node| scripts/flaky.test.ts > x\n Test Files  1 failed | 9 passed (10)",
+        ),
+        // Started two minutes ago under a one-minute budget: nothing left.
+        startedAt: new Date(Date.now() - 120_000).toISOString(),
+      },
+      spec("pnpm run test:data", { id: "test:data", timeoutMin: 1 }),
+      mkCtx(),
+      solo,
+    );
+    expect(out).toHaveLength(1);
+    expect(out[0].status).toBe("error");
   });
 
   it("gives up on a suite with too many red files — that is not flakiness", async () => {

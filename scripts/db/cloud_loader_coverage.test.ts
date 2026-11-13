@@ -226,7 +226,7 @@ describe("every :cloud loader is reachable from a skill", () => {
       "an exemption was added or removed — if you EXEMPTED a loader, say why in " +
         "CLOUD_SKILL_EXEMPTIONS and raise this number deliberately; if you WIRED " +
         "one, lower it",
-    ).toBe(6);
+    ).toBe(5);
   });
 
   it("reports the unreviewed backlog so it stays visible", () => {

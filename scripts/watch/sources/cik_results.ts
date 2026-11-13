@@ -52,7 +52,7 @@ const REGULAR_BUNDLE_URL: Record<string, string> = {
 // run time. Extend when CIK rolls a new 4-year umbrella.
 const PARTIAL_UMBRELLAS = ["chmi2024-2026"] as const;
 
-type CycleFingerprint = {
+export type CycleFingerprint = {
   cycle: string; // e.g. "mi2023" or "chmi2024-2026/2024-10-20_chastichen"
   kind: "regular" | "partial";
   bundleUrl: string; // "" for partials (HTML-only, nothing to HEAD)
@@ -67,6 +67,36 @@ type CycleFingerprint = {
   runoffTracked: boolean;
   runoffStage: number;
 };
+
+/** A HEAD that failed outright (`cikHead` → status 0) says nothing about the
+ *  bundle, so the previous observation is carried forward unchanged — folding
+ *  the 0 into the hash moved `lastChanged` and queued a scoped re-ingest on
+ *  every network hiccup. With no previous observation the 0 stays (and
+ *  `changedCycles` never counts it). Mirrors cik_presidential's guard. */
+export const carryFailedHead = (
+  curr: CycleFingerprint,
+  prev: CycleFingerprint | undefined,
+): CycleFingerprint =>
+  curr.status === 0 && prev && prev.kind === curr.kind
+    ? {
+        ...curr,
+        status: prev.status,
+        lastModified: prev.lastModified,
+        contentLength: prev.contentLength,
+      }
+    : curr;
+
+/** Partial discovery that came back EMPTY while the previous state held
+ *  partials is an index failure (a 404'd or reshaped page), not CIK deleting
+ *  every partial: carry the previous list forward, or recovery re-flags each
+ *  one as a new cycle. Returns the list to use and whether it was carried. */
+export const carryPartials = (
+  discovered: readonly string[],
+  prevPartials: readonly string[],
+): { cycles: string[]; carried: boolean } =>
+  discovered.length === 0 && prevPartials.length > 0
+    ? { cycles: [...prevPartials].sort(), carried: true }
+    : { cycles: [...discovered], carried: false };
 
 const fingerprintRegular = async (cycle: string): Promise<CycleFingerprint> => {
   const bundleUrl = REGULAR_BUNDLE_URL[cycle] ?? `${ROOT}/${cycle}/csv.zip`;
@@ -179,8 +209,11 @@ export const changedCycles = (
       continue;
     }
     // Regular bundles also flag on re-upload (Last-Modified/length change).
+    // A status 0 is a failed request on either side, never a re-upload.
     if (
       c.kind === "regular" &&
+      c.status !== 0 &&
+      p.status !== 0 &&
       (c.status !== p.status ||
         c.lastModified !== p.lastModified ||
         c.contentLength !== p.contentLength)
@@ -210,24 +243,37 @@ export const cikResults: WatchSource = {
 
   async fingerprint(): Promise<Fingerprint> {
     const fps: CycleFingerprint[] = [];
+    const prevCycles =
+      (readState(SOURCE_ID)?.meta as unknown as CikResultsMeta | undefined)
+        ?.cycles ?? [];
+    const prevByCycle = new Map(prevCycles.map((c) => [c.cycle, c] as const));
     // Regular cycles: HEAD the bundle. Serialised on purpose — Cloudflare
     // rate-limits concurrent requests more aggressively than sequential ones.
     for (const cycle of Object.keys(REGULAR_BUNDLE_URL)) {
-      fps.push(await fingerprintRegular(cycle));
+      fps.push(
+        carryFailedHead(
+          await fingerprintRegular(cycle),
+          prevByCycle.get(cycle),
+        ),
+      );
     }
     // Partial cycles: existence-based (HTML-only, no bundle to HEAD). A new
     // date folder appearing in the umbrella index is the round-1 signal; the
     // runoff is then caught by the date-driven re-ingest stages (resolveRunoff).
     // We consult the previous state to grandfather already-tracked partials and
     // to keep each cycle's runoff stage monotonic.
-    const prevByCycle = new Map(
-      (
-        (readState(SOURCE_ID)?.meta as unknown as CikResultsMeta | undefined)
-          ?.cycles ?? []
-      ).map((c) => [c.cycle, c] as const),
-    );
+    let carriedPartials = 0;
     for (const umbrella of PARTIAL_UMBRELLAS) {
-      for (const cycle of await discoverPartials(umbrella)) {
+      const { cycles, carried } = carryPartials(
+        await discoverPartials(umbrella),
+        prevCycles
+          .filter(
+            (c) => c.kind === "partial" && c.cycle.startsWith(`${umbrella}/`),
+          )
+          .map((c) => c.cycle),
+      );
+      if (carried) carriedPartials += cycles.length;
+      for (const cycle of cycles) {
         fps.push({
           cycle,
           kind: "partial",
@@ -253,7 +299,11 @@ export const cikResults: WatchSource = {
     const regular = fps.filter((f) => f.kind === "regular");
     const partials = fps.filter((f) => f.kind === "partial");
     const reachable = regular.filter((f) => f.status === 200).length;
-    const detail = `${reachable}/${regular.length} regular bundle(s) reachable · ${partials.length} partial cycle(s) tracked`;
+    const detail =
+      `${reachable}/${regular.length} regular bundle(s) reachable · ${partials.length} partial cycle(s) tracked` +
+      (carriedPartials
+        ? ` · partial discovery returned nothing — ${carriedPartials} carried forward`
+        : "");
     const meta: CikResultsMeta = {
       cycles: fps,
       discoveredAt: new Date().toISOString(),

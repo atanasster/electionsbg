@@ -10,6 +10,7 @@
 
 import { formatDuration } from "../../perf/perf_log";
 import type { RunRecord, StepRecord } from "./record";
+import { redact } from "./redact";
 
 export const flat = (v: unknown): string =>
   String(v ?? "")
@@ -224,5 +225,7 @@ export const renderReport = (rec: RunRecord): string => {
   next.push(`pnpm run pipeline:report --session ${rec.session}`);
   out.push(fenced(next.join("\n"), "bash"));
 
-  return out.join("\n") + "\n";
+  // report.md is committed: a secret in a finding, a gate value or a
+  // summary written before redaction existed must not ride into git.
+  return redact(out.join("\n") + "\n");
 };
