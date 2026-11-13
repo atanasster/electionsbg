@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-11-08T23:41:32.583Z",
+  "lastSuccessfulIngest": "2026-11-13T00:57:13.487Z",
   "skill": "update-procurement",
-  "summary": "ЦАИС ЕОП self-heal +113 rows, tenders 242,008, annex fold, db:refresh green (2406 tests)"
+  "summary": "ЦАИС ЕОП self-heal + OCDS rebuild: contracts 398,216→398,630, totalEur €95.36bn→€95.54bn; tenders refreshed; annex fold + reconcile; TED 224,377 notices (2026: 25,739). db:refresh 85/86 links green; test:data 1 fail = person_identity_stability 5.9 baseline (136,997 vs 136,490 ±500 — genuine growth from tier-V/bridge-B, needs deliberate re-baseline)"
 }

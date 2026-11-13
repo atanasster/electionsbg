@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-08T23:01:18.181Z",
-  "lastIngest": "2026-11-08T23:01:18.181Z",
+  "generatedAt": "2026-11-13T00:27:15.754Z",
+  "lastIngest": "2026-11-13T00:27:15.754Z",
   "years": [
     "2011",
     "2012",
@@ -213,12 +213,12 @@
     "2026-11"
   ],
   "totals": {
-    "contracts": 398216,
+    "contracts": 398630,
     "awards": 0,
-    "amendments": 7794,
-    "contractorCount": 28230,
-    "awarderCount": 4432,
-    "totalEur": 95361030658.02,
+    "amendments": 7918,
+    "contractorCount": 28247,
+    "awarderCount": 4434,
+    "totalEur": 95539686456.68,
     "totalOther": {
       "USD": 42997648.77,
       "CHF": 3904889.77,
@@ -229,6 +229,36 @@
     }
   },
   "periods": [
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-11",
+      "periodEnd": "2026-11-11"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-10",
+      "periodEnd": "2026-11-10"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-09",
+      "periodEnd": "2026-11-09"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-08",
+      "periodEnd": "2026-11-08"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-07",
+      "periodEnd": "2026-11-07"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-06",
+      "periodEnd": "2026-11-06"
+    },
     {
       "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
       "periodStart": "2026-11-05",
@@ -1026,18 +1056,18 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-11-08T23:01:18.180Z",
+    "generatedAt": "2026-11-13T00:27:15.752Z",
     "mpCount": 108,
     "contractorCount": 108,
     "pairCount": 120,
-    "totalPerPairEur": 2727427853.49,
+    "totalPerPairEur": 2730274140.48,
     "totalOtherPerPair": {}
   },
   "officialsCrossReference": {
-    "generatedAt": "2026-11-08T23:01:03.886Z",
+    "generatedAt": "2026-11-13T00:27:05.994Z",
     "officialCount": 815,
     "contractorCount": 456,
     "pairCount": 888,
-    "totalPerCompanyEur": 6690004569.17
+    "totalPerCompanyEur": 6693892338.3
   }
 }
