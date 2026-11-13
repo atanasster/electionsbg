@@ -71,6 +71,37 @@
     },
     {
       "schemaVersion": 1,
+      "id": "debt:domestic_auction:BG-2026-11-09-218",
+      "kind": "debt_auction",
+      "category": "budget_debt",
+      "occurredAt": "2026-11-09T00:00:00.000Z",
+      "firstSeenAt": "2026-11-09T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "bnb_auctions",
+        "labelKey": "home_source_bnb"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators/fiscal",
+      "factKey": "home_fact_debt_auction_yield",
+      "factArgs": {
+        "millions": 100,
+        "currency": "EUR",
+        "years": 10,
+        "yieldPct": "4.64"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6681071245942142,
+      "actionability": 0.2
+    },
+    {
+      "schemaVersion": 1,
       "id": "parliament:sitting:2026-11-06",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -129,38 +160,6 @@
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1164",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot49-r1164",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Информация за текущото изпълнение на общинските проекти, финансирани със средства от ЕС и държавния бюджет, Вх.№ 3016/14",
-        "council": "VTR01",
-        "number": "1164"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.54,
       "actionability": 0.3
     },
     {
@@ -350,6 +349,38 @@
       "verification": "automatic",
       "materiality": 0.69575,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:VTR01-2026-prot49-r1164",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-11-05T00:00:00.000Z",
+      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "VTR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/VTR01-2026-prot49-r1164",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Информация за текущото изпълнение на общинските проекти, финансирани със средства от ЕС и държавния бюджет, Вх.№ 3016/14",
+        "council": "VTR01",
+        "number": "1164"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.54,
+      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -749,7 +780,7 @@
     },
     "debt": {
       "available": true,
-      "asOf": "2026-09-28",
+      "asOf": "2026-11-09",
       "staleAfterDays": 75,
       "stale": false
     },
