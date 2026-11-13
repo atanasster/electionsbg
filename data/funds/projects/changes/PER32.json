@@ -1,92 +1,158 @@
 {
   "obshtina": "PER32",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-1034",
-      "title": "Подобряване на производствения капацитет на \"Алфа проджект мениджмънт\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 101965.73,
-      "totalEur": 101965.73,
-      "paidEur": 76474.33,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Алфа проджект мениджмънт ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1966",
-      "title": "Подобряване на енергийната ефективност в Бау Център ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 71322.23,
-      "totalEur": 70941.83,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "БАУ Център ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2575",
-      "title": "ПОДОБРЯВАНЕ НА КОНКУРЕНТОСПОСОБНОСТТА НА “АДВЕНЧЪР ФИЛМС” ЕООД, ЧРЕЗ ЗАКУПУВАНЕ НА НОВА СНИМАЧНА ТЕХНИКА ЗА КИНО И ВИДЕО ЗАСНЕМАНЕ, КОМПЮТЪРНИ СИСТЕМИ ЗА ВИДЕО-МОНТАЖ, ЗВУКОЗАПИСНА ТЕХНИКА И ОСВЕТЛЕНИЕ, С ЦЕЛ МОДЕРНИЗАЦИЯ И ТЕХНОЛОГИЧНО ОБНОВЛЕНИЕ НА ПРОИЗВОДСТВЕНИТЕ ПРОЦЕСИ И ПРЕДЛАГАНИТЕ ОТ ПРЕДПРИЯТИЕТО УСЛУГИ.",
+      "contractNumber": "BG-RRP-4.023-1034",
+      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Перник, кв. \"Изток\" ул. ,,Юрий Гагарин\" бл.39",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 61574.87,
-      "totalEur": 61562,
-      "paidEur": 46171.5,
+      "prevTotalEur": 1719663.29,
+      "totalEur": 1641213.71,
+      "paidEur": 1636929.08,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Адвенчър филмс ЕООД",
-      "detectedAt": "2026-11-07"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Перник",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-2253",
-      "title": "„Подкрепата за енергийно ефективно оборудване и използване на енергия от възобновяеми източници за предприятие НЕТ МАГ ЕООД“",
+      "contractNumber": "BG-RRP-4.023-1704",
+      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Перник, ЖК. „ИЗТОК“, УЛ. „БЛАГОЙ ГЕБРЕВ“, бл.64, вх. А, Б,В, Г и Д.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1507499.69,
+      "totalEur": 1504435.39,
+      "paidEur": 1500713.19,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Перник",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0269",
+      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в \"АВТОТРЕЙД 99\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 56819.57,
-      "totalEur": 56819.57,
-      "paidEur": 28835.18,
+      "prevTotalEur": 426212.91,
+      "totalEur": 426212.91,
+      "paidEur": 212076.2,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Автотрейд 99 ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0233",
+      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в \"МЕТАЛСНАБ ПЕРНИК\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 426212.91,
+      "totalEur": 426212.91,
+      "paidEur": 213097.76,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Металснаб перник ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0972",
+      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Перник, ул. \"Върбица\", бл. 11, вх. А и Б",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 330390.48,
+      "totalEur": 330390.46,
+      "paidEur": 329302.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Перник",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2288",
+      "title": "Енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Перник ул. \"Кракра\" бл. 52",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 315873.38,
+      "totalEur": 315784.35,
+      "paidEur": 310787.32,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Перник",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0268",
+      "title": "Нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия във фирма \"Автотрейд 99\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 214742.59,
+      "totalEur": 214742.59,
+      "paidEur": 106732.17,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Автотрейд 99 ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0967",
+      "title": "Енергийна ефективност в МИКРОПАК ООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 74037.62,
+      "totalEur": 74037.62,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "НЕТ МАГ ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Микропак ООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0722",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"Европа - Р\" ЕООД",
+      "contractNumber": "BG05SFPR001-1.010-0030",
+      "title": "Заедно срещу насилието - училище на уважението",
       "type": "modified",
       "changedFields": [
-        "paidEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 41831.4,
-      "totalEur": 41831.4,
-      "paidEur": 27190.41,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Европа - Р\" ЕООД",
-      "detectedAt": "2026-11-07"
+      "prevTotalEur": 68633.45,
+      "totalEur": 68633.45,
+      "paidEur": 23003.09,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Х-ТО Основно училище \"Алеко Константинов\"",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

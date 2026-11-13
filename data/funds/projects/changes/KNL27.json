@@ -1,40 +1,22 @@
 {
   "obshtina": "KNL27",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
       "contractNumber": "BG16FFPR003-4.001-0326",
       "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда в град Кочериново, ул. \"Жельо Демиревски\" №17",
       "type": "modified",
       "changedFields": [
-        "status"
+        "paidEur"
       ],
       "prevTotalEur": 785738.66,
       "totalEur": 785738.66,
-      "paidEur": 275008.53,
+      "paidEur": 282000.44,
       "status": "В изпълнение (временно спрян)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Кочериново",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1291",
-      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище „САМООБРАЗОВАНИЕ - 1914 Г.“, село Стоб",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 11857.12,
-      "paidEur": 11857.12,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище „Самообразование - 1914\"",
-      "detectedAt": "2026-11-07"
+      "detectedAt": "2026-11-13"
     }
   ]
 }

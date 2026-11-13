@@ -1,104 +1,40 @@
 {
   "obshtina": "PDV17",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0184",
-      "title": "\"Превенция и предотвратяване на тормоза и насилието и намаляване агресията в училищата в ОУ ,,Васил Левски\", село Рогош\".",
-      "type": "new",
-      "totalEur": 68751.99,
+      "contractNumber": "BG16RFPR001-2.004-0590",
+      "title": "Повишаване на енергийна ефективност на НЮ ФУУДС ЕНД ДРИНКС ООД чрез използване на енергия от възобновяеми източници",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 107782.84,
+      "totalEur": 107782.84,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "ОУ ,, Васил Левски ,, село Рогош",
-      "detectedAt": "2026-11-07"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "НЮ Фуудс ЕНД дринкс ООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0992",
-      "title": "Подобряване на производствения капацитет в семейното предприятие КОДИМИТ ЕООД",
+      "contractNumber": "BG16RFPR001-1.001-0043",
+      "title": "Разработване на безлактозна, безглутенова храна в \"МЛО ИНТЕРНЕШЪНЪЛ\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 76008.64,
-      "totalEur": 76005.63,
-      "paidEur": 57004.24,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Кодимит ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0313",
-      "title": "Не на агресията!",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 67951.86,
-      "totalEur": 67951.86,
-      "paidEur": 13590.37,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище \"Христо Смирненски\"",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1322",
-      "title": "Подобряване на енергийната ефективност в Амек Тойс ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 72486.52,
-      "totalEur": 62601.99,
+      "prevTotalEur": 243773.74,
+      "totalEur": 0,
       "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Амек тойс ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-1681",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 28830.72,
-      "totalEur": 28830.72,
-      "paidEur": 20181.51,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Макул -в ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR002-1.005-0099",
-      "title": "Повишаване на иновационния капацитет и конкурентоспособността на Боди-Бюти ЕООД чрез предоставяне на иновативни услуги",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 15042.21,
-      "totalEur": 15042.21,
-      "paidEur": 15042.21,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR002",
-      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
-      "beneficiaryName": "Боди - бюти ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "МЛО Интернешънъл ЕООД",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

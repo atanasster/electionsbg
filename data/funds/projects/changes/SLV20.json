@@ -1,279 +1,76 @@
 {
   "obshtina": "SLV20",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.033-0056",
-      "title": "Комбиниран проект за изграждане на локално съоръжение за съхранение на ел. енергия (ЛСС) с инсталирана мощност 25 MW и минимален капацитет от 50 MWh заедно с нова мощност от ФвЕЦ с номинална генерираща мощност от 50 MW, находящи се в ПИ с идентификатори 67338.88.8, 67338.90.15, 67338.240.15, 67338.240.17, 68338.240.16, 65303.15.11 в землището на гр. Сливен, община Сливен, област Сливен",
+      "contractNumber": "BG16FFPR003-4.001-0008",
+      "title": "Енергийно обновяване на блок 5, кв. \"Дружба\", гр. Сливен",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 13249999.86,
-      "totalEur": 13249999.86,
-      "paidEur": 6115364.29,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "КЕИ Сливен ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0165",
-      "title": "Топъл обяд в община Сливен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 3437895.39,
-      "totalEur": 3437895.39,
-      "paidEur": 2558531.28,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0963",
-      "title": "Енергийно обновяване на блок 7, вх. В, Г, Д, Е, кв. \"Сини камъни\", гр. Сливен.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 2617535.33,
-      "totalEur": 2610776.51,
-      "paidEur": 2610776.51,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.014-0026",
-      "title": "\"Реализиране на енергийно обновяване на сгради на Държавна агенция \"Архиви\" (ДАА), с адреси: гр. Стара Загора, ул. „Генерал Гурко” №81“; гр. Сливен, бул. „Хаджи Димитър” № 41“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1553212.76,
-      "totalEur": 1553212.76,
-      "paidEur": 543624.47,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Държавна агенция \"Архиви\"",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG14MFPR001-2.001-0023",
-      "title": "Производство на замразено месо и черен дроб от рапани",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1062348.96,
-      "totalEur": 1051347.14,
-      "paidEur": 525673.57,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "Делта - РАП ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0346",
-      "title": "Енергийно обновяване на блок 26, кв. Дружба, гр. Сливен.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1047722.1,
-      "totalEur": 1037370.4,
-      "paidEur": 1037370.39,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0245",
-      "title": "Енергийно обновяване на блок 3, ул. \"Владислав Очков\", гр. Сливен.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 799848.51,
-      "totalEur": 798048.52,
-      "paidEur": 798048.52,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0712",
-      "title": "Енергийно обновяване на блок 2, кв. Младост, гр. Сливен",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 695346.53,
-      "totalEur": 692686.87,
-      "paidEur": 633369.09,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16FFPR003-4.001-0010",
-      "title": "Енергийно обновяване на блок 85, кв. \"Стоян Заимов\", гр. Сливен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 492448.14,
-      "totalEur": 492448.14,
-      "paidEur": 172356.85,
+      "prevTotalEur": 1097284.55,
+      "totalEur": 1097284.55,
+      "paidEur": 384049.59,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Сливен",
-      "detectedAt": "2026-11-07"
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0073",
-      "title": "Изграждане на локална система за съхранение (ЛСС) на електрическа енергия с мощност 472 kW",
+      "contractNumber": "BG05SFPR001-1.002-0022",
+      "title": "\"Заедно за успеха на всяко дете\" Партньорски проект за превенция на отпадане и подкрепа на деца в риск",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 264870,
-      "totalEur": 264870,
-      "paidEur": 122098.16,
+      "prevTotalEur": 199132.28,
+      "totalEur": 199132.28,
+      "paidEur": 119478.92,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Олминс ООД",
-      "detectedAt": "2026-11-07"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Регионално управление на образованието - Сливен",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0265",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия в „АРИС ФЪРНИЧЪР ГРУП АД",
+      "contractNumber": "BG05SFPR001-3.005-0017",
+      "title": "Дуалната система на обучение в Професионална гимназия по текстил и облекло „Добри Желязков“ – пряк път към успешна кариера",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 226231.83,
-      "totalEur": 226231.83,
-      "paidEur": 112876.07,
+      "prevTotalEur": 169527.61,
+      "totalEur": 169527.61,
+      "paidEur": 61961.47,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Арис фърничър груп АД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.012-0319",
-      "title": "Устойчива заетост за хора в неравностойно положение в предприятието \"Про фасилити мениджмънт\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 198855.79,
-      "totalEur": 198855.79,
-      "paidEur": 89195.54,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "\"ПРО Фасилити мениджмънт\" ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0833",
-      "title": "Подобряване на производствения капацитет на \"ДРАГОЛОВИ\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 154461.28,
-      "totalEur": 154461.28,
-      "paidEur": 76693.78,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Драголови ООД",
-      "detectedAt": "2026-11-07"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по текстил и облекло \"Добри Желязков\"",
+      "detectedAt": "2026-11-13"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-2309",
       "title": "Адаптиране на работна среда в \"Е.Миролио\" ЕАД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 144485.36,
-      "totalEur": 144485.36,
+      "totalEur": 142919.92,
       "paidEur": 114335.94,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Е.МИРОЛИО ЕАД",
-      "detectedAt": "2026-11-07"
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0711",
-      "title": "Повишаване на енергийна ефективност на ВИГ-100 EООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 136114.7,
-      "totalEur": 136114.7,
-      "paidEur": 51124.68,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ВИГ-100 ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0706",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Аффект ООД.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 92853.88,
-      "totalEur": 92853.88,
-      "paidEur": 46426.94,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Аффект ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0807",
-      "title": "Повишаване на конкурентоспособността и производствения капацитет в АНГРАФ ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-0372",
+      "title": "Повишаване капацитета и подобряване на проектантските услуги на \"Капитал-Строителство \" ЕООД, гр. Сливен чрез внедряване на дълготрайни материални и нематериални активи.",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -281,49 +78,32 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 60690.35,
-      "totalEur": 45914.01,
-      "paidEur": 34435.51,
+      "prevTotalEur": 29234.42,
+      "totalEur": 28704.3,
+      "paidEur": 21528.23,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Анграф ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "\"Капитал - строителство\" ЕООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-1495",
-      "title": "Подобряване на енергийната ефективност на АТОН ДД ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 41831.4,
-      "totalEur": 41831.4,
-      "paidEur": 20915.7,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Атон ДД ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0913",
-      "title": "Подобряване производствения капацитет на \"АВРАМОВИ 2016\" ООД",
+      "contractNumber": "BG16RFPR001-1.012-0431",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 28762.21,
-      "totalEur": 20581.53,
-      "paidEur": 15436.16,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 31665.84,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Аврамови 2016 ООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Бизнес консулт р ЕООД",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

@@ -1,24 +1,70 @@
 {
   "obshtina": "LOV34",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.004-2308",
-      "title": "Адаптиране на работната среда във фирма ЕН БИ ПИ ГРУП ООД.",
+      "contractNumber": "BG16FFPR003-2.006-0153",
+      "title": "Заедно за интегрирано териториално развитие на териториите по поречието на река \"Осъм\" и нейните притоци",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 27822.58,
-      "totalEur": 6771.52,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 9961454.94,
+      "totalEur": 9961454.94,
+      "paidEur": 3499189.09,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Троян",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0113",
+      "title": "Иновативни здравно-социални услуги в община Троян",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 441789.75,
+      "totalEur": 441789.75,
+      "paidEur": 307866.22,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ЕН БИ ПИ Груп ООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Община Троян",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.003-0114",
+      "title": "Бъдеще за децата в община Троян",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 150792.25,
+      "totalEur": 150792.25,
+      "paidEur": 91070.86,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Троян",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0785",
+      "title": "Внедряване на енергийно ефективни решения за нуждите на Механа \"Горски Кът\" с. Орешак, община Троян",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 72507.75,
+      "totalEur": 72507.75,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "КРАСИ777-2008 ЕООД",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-12T23:18:40.333Z",
+  "generatedAt": "2026-11-13T06:23:09.717Z",
   "nodes": [
     {
       "id": "src:water",
@@ -247,7 +247,7 @@
       "url": "https://register.cacbg.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-connections",
         "update-officials",
@@ -259,7 +259,7 @@
           "label": "Сметна палата party financing",
           "url": "https://www.bulnao.government.bg/bg/kontrol-partii/",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "financing_reports",
@@ -479,7 +479,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-12T22:41:17.036Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -494,7 +494,7 @@
           "label": "data.egov.bg АОП (Агенция по обществени поръчки)",
           "url": "https://data.egov.bg/data?org%5B0%5D=502&page=1",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "egov_commerce",
@@ -677,7 +677,7 @@
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-kzk-appeals"
       ],
@@ -687,14 +687,14 @@
           "label": "КЗК procurement-appeals register (жалби по ЗОП)",
           "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "kzk_decisions",
           "label": "КЗК decisions register (решения и определения по ЗОП)",
           "url": "https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         }
       ],
       "issue": {
@@ -734,7 +734,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-funds"
       ],
@@ -744,14 +744,14 @@
           "label": "ИСУН EU funds (beneficiaries)",
           "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "isun_eu_funds_projects",
           "label": "ИСУН EU funds (projects)",
           "url": "https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         }
       ],
       "issue": {
@@ -1210,7 +1210,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-12T22:41:17.036Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1222,7 +1222,7 @@
           "label": "Общински капиталови програми (per-municipality capital lists)",
           "url": "https://www.sofia.bg/",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "council_minutes",
@@ -1639,7 +1639,7 @@
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [],
       "sources": [
         {
@@ -1654,7 +1654,7 @@
           "label": "Фискален съвет — publications",
           "url": "https://www.fiscal-council.bg/bg/publikacii",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "api_road_charges",
@@ -1737,7 +1737,7 @@
       "url": "https://www.bnb.bg/Statistics/StExternalSector/index.htm",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-10-20T21:44:25.284Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-macro"
       ],
@@ -1747,7 +1747,7 @@
           "label": "BNB domestic ДЦК auctions",
           "url": "https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm",
           "cadence": "weekly",
-          "freshness": "2026-10-04T21:40:50.076Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "bnb_fdi",
@@ -2159,7 +2159,7 @@
       "url": "https://iisda.government.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-09-27T22:44:29.896Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-administration"
       ],
@@ -2169,7 +2169,7 @@
           "label": "Административен регистър — услуги (IISDA)",
           "url": "https://iisda.government.bg/adm_services/services/from_all_administrations",
           "cadence": "weekly",
-          "freshness": "2026-09-27T22:44:29.896Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "eurostat_egov",
@@ -2279,7 +2279,7 @@
       "url": "https://adfi.minfin.bg/bg/34",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-procurement"
       ],
@@ -2289,7 +2289,7 @@
           "label": "АДФИ — доклади от финансови инспекции (adfi.minfin.bg)",
           "url": "https://adfi.minfin.bg/bg/34",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         }
       ],
       "issue": {
@@ -2328,7 +2328,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-11-12T16:05:51.317Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-procurement"
       ],
@@ -2338,7 +2338,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-11-12T16:05:51.317Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         }
       ],
       "issue": {
@@ -2377,7 +2377,7 @@
       "url": "https://register.ksb.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-procurement"
       ],
@@ -2387,7 +2387,7 @@
           "label": "ЦПРС — регистър на строителя (register.ksb.bg)",
           "url": "https://register.ksb.bg/listFirms.php",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         }
       ],
       "issue": {
@@ -2475,7 +2475,7 @@
       "url": "https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-funds"
       ],
@@ -2485,7 +2485,7 @@
           "label": "ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg)",
           "url": "https://2020.eufunds.bg/bg/0/0/ExecutedContracts?ShowRes=True",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         }
       ],
       "issue": {
@@ -2524,7 +2524,7 @@
       "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-07T02:33:21.652Z",
+      "freshness": "2026-11-13T06:13:56.246Z",
       "skills": [
         "update-culture"
       ],
@@ -2541,7 +2541,7 @@
           "label": "НФК news feed (grant results, ncf.bg)",
           "url": "https://ncf.bg/bg/novini",
           "cadence": "weekly",
-          "freshness": "2026-11-07T02:33:21.652Z"
+          "freshness": "2026-11-13T06:13:56.246Z"
         },
         {
           "id": "nfc_commissions",
@@ -7442,15 +7442,15 @@
         {
           "node": "ds:connections",
           "text": {
-            "bg": "Този ЕИК е ключът към Търговския регистър — 18 864 изпълнителя се намират там като фирми със собственици и управители.",
-            "en": "That company number is the key into the Commerce Registry — 18,864 contractors are found there as companies with owners and directors."
+            "bg": "Този ЕИК е ключът към Търговския регистър — 18 874 изпълнителя се намират там като фирми със собственици и управители.",
+            "en": "That company number is the key into the Commerce Registry — 18,874 contractors are found there as companies with owners and directors."
           }
         },
         {
           "node": "ds:funds",
           "text": {
-            "bg": "Същият ключ показва кой получава и европейски средства: 40 294 фирми се появяват и в двата масива.",
-            "en": "The same key shows who also receives EU money: 40,294 companies appear in both corpora."
+            "bg": "Същият ключ показва кой получава и европейски средства: 40 300 фирми се появяват и в двата масива.",
+            "en": "The same key shows who also receives EU money: 40,300 companies appear in both corpora."
           }
         },
         {
@@ -7463,8 +7463,8 @@
         {
           "node": "ds:officials",
           "text": {
-            "bg": "А през лицата се затваря кръгът: 5 614 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-            "en": "And people close the circle: 5,614 officials who file asset declarations also hold a role in the company registry."
+            "bg": "А през лицата се затваря кръгът: 5 612 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,612 officials who file asset declarations also hold a role in the company registry."
           }
         }
       ]
@@ -7606,7 +7606,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18864,
+      "overlap": 18874,
       "query": "contractors-in-the-registry"
     },
     {
@@ -7619,7 +7619,7 @@
         "bg": "кой е получил и обществени поръчки, и европейски средства",
         "en": "who received both public contracts and EU funds"
       },
-      "overlap": 5731,
+      "overlap": 5732,
       "query": "both-contracts-and-eu-funds"
     },
     {
@@ -7632,7 +7632,7 @@
         "bg": "бенефициентите по еврофондове като фирми в регистъра",
         "en": "EU-funds beneficiaries as registered companies"
       },
-      "overlap": 40294
+      "overlap": 40300
     },
     {
       "id": "agri|procurement|eik",
@@ -7727,7 +7727,7 @@
         "bg": "какво се е случило с кандидатствалите по същата процедура преди",
         "en": "what happened to everyone who applied to this same procedure before"
       },
-      "overlap": 29
+      "overlap": 31
     },
     {
       "id": "funds|opencalls|programme",
@@ -7767,7 +7767,7 @@
         "bg": "в кое населено място е седалището на възложителя",
         "en": "which settlement a contracting authority is seated in"
       },
-      "overlap": 910
+      "overlap": 909
     },
     {
       "id": "connections|geo|ekatte",
@@ -7795,7 +7795,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5614,
+      "overlap": 5612,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7808,7 +7808,7 @@
         "bg": "кой кандидат после заема публична длъжност",
         "en": "which candidates later hold public office"
       },
-      "overlap": 3203
+      "overlap": 3202
     },
     {
       "id": "connections|elections|person_id",
@@ -7820,7 +7820,7 @@
         "bg": "кой кандидат участва и във фирми",
         "en": "which candidates also hold company roles"
       },
-      "overlap": 7366
+      "overlap": 7360
     }
   ]
 }

@@ -1,24 +1,50 @@
 {
   "obshtina": "BLG53",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0160",
-      "title": "Изграждане на дигитален клуб в град Якоруда",
+      "contractNumber": "BG05SFPR002-2.016-0146",
+      "title": "Подкрепа за уязвими и маргинализирани общности в община Якоруда",
+      "type": "new",
+      "totalEur": 251552.24,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Якоруда",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG06AFSP001-1.001-0087",
+      "title": "Изпълнение на СВОМР на МИГ-Белица-Якоруда за периода 2023 - 2027",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 16449.12,
-      "paidEur": 16449.12,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Светлина-1907\"",
-      "detectedAt": "2026-11-07"
+      "prevTotalEur": 749988.5,
+      "totalEur": 749988.5,
+      "paidEur": 64852.21,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2023BG06AFSP001",
+      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
+      "beneficiaryName": "Местна инициативна група - Белица- Якоруда",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-3.003-0001",
+      "title": "\"Път към университета за ученици от уязвими групи\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 174628.72,
+      "totalEur": 174628.72,
+      "paidEur": 69850.88,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Фондация Българска Памет",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

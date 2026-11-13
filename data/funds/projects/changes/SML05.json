@@ -1,39 +1,22 @@
 {
   "obshtina": "SML05",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0071",
-      "title": "Топъл обяд в Община Борино.",
+      "contractNumber": "BG16FFPR002-4.007-0001",
+      "title": "\"\"Укрепване на свлачищен участък в кв.4, с.Борино, с идентификационен № SML 05.05462-01\", общ. Борино, обл. Смолян“ и \"Укрепване на свлачищен участък в кв.20, с.Борино, с идентификационен № SML 05.05462-02\", общ. Борино, обл. Смолян“\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 739182.65,
-      "totalEur": 739182.65,
-      "paidEur": 594824.46,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 494808.74,
+      "totalEur": 494808.74,
+      "paidEur": 110587.63,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
       "beneficiaryName": "Община Борино",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-1124",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 34345.52,
-      "totalEur": 34345.52,
-      "paidEur": 24041.86,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Люко 2011\" ЕООД",
-      "detectedAt": "2026-11-07"
+      "detectedAt": "2026-11-13"
     }
   ]
 }

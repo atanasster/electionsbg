@@ -1,109 +1,42 @@
 {
   "obshtina": "GAB05",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-0686",
-      "title": "Енергийна ефективност в АДТЕХ ООД",
+      "contractNumber": "BG16RFPR001-1.001-0277",
+      "title": "Разработване на иновация в АДТЕХ ООД",
       "type": "modified",
       "changedFields": [
+        "totalEur",
+        "grantEur",
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 153539.62,
-      "totalEur": 153539.62,
-      "paidEur": 51128.69,
+      "prevTotalEur": 313830.96,
+      "totalEur": 291321.15,
+      "paidEur": 174792.68,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
       "beneficiaryName": "Адтех ООД",
-      "detectedAt": "2026-11-07"
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0415",
-      "title": "Прилагане на мерки за енергийна ефективност чрез изграждане на фотоволтаична електроцентрала за търговска фирма в гр. Габрово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 69718.99,
-      "totalEur": 69718.99,
-      "paidEur": 42605.27,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Рета българия ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0684",
-      "title": "Подобряване на енергийната ефективност в ТАЙГЪР БУЛЛ ЕООД",
+      "contractNumber": "BG16RFPR001-2.004-2513",
+      "title": "Проектът предвижда изграждане на фотоволтаична електроцентрала (ФЕЦ) с инсталирана мощност 25 kW, предназначена за собствени нужди на фирма „П.С.И. Габрово“ ЕООД. Системата ще осигурява електроенергия за захранване на административна и складова сграда, като ще намали разходите за консумация от мрежата и ще допринесе за енергийна независимост и устойчивост на предприятието.",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 75511.72,
-      "totalEur": 62039.59,
+      "prevTotalEur": 34859.5,
+      "totalEur": 33883.43,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Тайгър булл ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0194",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 31669.42,
-      "totalEur": 31669.42,
-      "paidEur": 22168.59,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Елтрон сервиз ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0252",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 29397.24,
-      "totalEur": 29397.24,
-      "paidEur": 20578.07,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Актив ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR002-1.005-0092",
-      "title": "Услуги за иновации в полза на БУРЯ ТД ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 15042.21,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR002",
-      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
-      "beneficiaryName": "Буря ТД ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "П.С.И. Габрово ЕООД",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

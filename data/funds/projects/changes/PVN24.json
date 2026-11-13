@@ -1,26 +1,26 @@
 {
   "obshtina": "PVN24",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0169",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия, с инсталирана мощност от 2 МW, находящи се в ПИ 56722.34.917, ПИ 56722.34.939, м. \"Витска ялия\", гр. Плевен, община Плевен",
+      "contractNumber": "BG05SFPR002-2.012-0047",
+      "title": "Иновативни здравно – социални услуги на територията на община Плевен",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 693311.79,
-      "totalEur": 693311.79,
-      "paidEur": 340738.37,
+      "prevTotalEur": 972592.69,
+      "totalEur": 972592.69,
+      "paidEur": 767095.06,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Индустриална Зона-Плевен ООД",
-      "detectedAt": "2026-11-07"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Плевен",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-1.001-0334",
-      "title": "Разработване на иновативен безжичен пожароизвестител със синя светлина",
+      "contractNumber": "BG16RFPR001-1.001-0085",
+      "title": "Разработване на иновация в предприятието",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -28,65 +28,117 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 292209.45,
-      "totalEur": 225464.15,
-      "paidEur": 135278.47,
+      "prevTotalEur": 148417.81,
+      "totalEur": 128145.43,
+      "paidEur": 64072.72,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ДМТех ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Успех металкап ССБ ЕООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-2322",
-      "title": "Адаптирана работна среда в \"ЕЛКОМ - ВМВ\" ООД",
+      "contractNumber": "BG16RFPR001-1.004-0881",
+      "title": "Повишаване конкурентоспособността и увеличаване пазарния дял на РОНИ-ЕКСПРЕС ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 29949.58,
-      "totalEur": 58576.31,
-      "paidEur": 58576.31,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "\"Елком - ВМВ\" ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1850",
-      "title": "Инвестиция в ДМА с цел повишена ефективност на енергийните ресурси в \"Томов 69\" ЕООД",
-      "type": "modified",
-      "changedFields": [
+        "grantEur",
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 33447.37,
-      "totalEur": 33447.37,
-      "paidEur": 21740.79,
+      "prevTotalEur": 100417.73,
+      "totalEur": 100356.77,
+      "paidEur": 75267.58,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Томов 69\" ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "РОНИ-ЕКСПРЕС ЕООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0729",
+      "contractNumber": "BG16RFPR001-2.004-0251",
+      "title": "Подобряване на енергийната ефективност на КЛИМСИСТ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 78638.89,
+      "totalEur": 78638.89,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Климсист ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-2055",
+      "title": "Инвестиция в енергийна ефективност в \"Стрийт парк\" ЕООД.",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 25260.25,
+      "totalEur": 25260.25,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Стрийт парк ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0731",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 8340.7,
-      "totalEur": 8340.7,
-      "paidEur": 5838.49,
+      "prevTotalEur": 8344.28,
+      "totalEur": 8344.28,
+      "paidEur": 5841,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Счетоводна КЪЩА-ЕВГЕНИЯ Николова ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Палде корект ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0639",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 8223.11,
+      "totalEur": 8223.11,
+      "paidEur": 5756.18,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Маристан\" ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2585",
+      "title": "Подобряване на производствения капацитет на фирма \"ДИЯНА 7 ГРУП\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 82062.35,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Дияна 7 груп ЕООД",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

@@ -1,22 +1,23 @@
 {
   "obshtina": "BGS23",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0039",
-      "title": "Топъл обяд в Община Сунгурларе",
+      "contractNumber": "BG-RRP-1.024-1210",
+      "title": "Изграждане на дигитален клуб в Народно Читалище Христо Ботев - 1927г. в с. Грозден",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 1363415.01,
-      "totalEur": 1363415.01,
-      "paidEur": 1037376.55,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Сунгурларе",
-      "detectedAt": "2026-11-07"
+      "prevTotalEur": 3592.94,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище Христо Ботев - 1927 г.",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

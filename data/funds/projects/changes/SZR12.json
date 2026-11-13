@@ -1,54 +1,51 @@
 {
   "obshtina": "SZR12",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.011-0007",
-      "title": "Изграждане на ФЕЦ за собствени нужди в комбинация с локални съоръжения за съхранение в ЗЕОЛИТ УОТЪР КЪМПАНИ ЕООД",
+      "contractNumber": "BG16FFPR003-4.011-0023",
+      "title": "Изграждане на ФЕЦ за собствени нужди в комбинация с локални съоръжения за съхранение в АРКОМАТ - БЪЛГАРИЯ ЕООД",
       "type": "new",
-      "totalEur": 217076.4,
+      "totalEur": 569713.47,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Зеолит уотър къмпани ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Аркомат - българия ЕООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-1289",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"ТЕРА ГРАНД\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 74226.2,
-      "totalEur": 74226.2,
-      "paidEur": 48247.03,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Тера гранд\" ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2861",
-      "title": "Подобряване на производствения капацитет на \"ФУУДИ\" ООД",
+      "contractNumber": "BG16RFPR001-1.001-0175",
+      "title": "IIoT платформа с изкуствен интелект (AI) за мониторинг, предикативен контрол и проактивна поддръжка на мехатронни производствени системи",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 63859.33,
-      "totalEur": 63629,
-      "paidEur": 47721.76,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 247971,
+      "totalEur": 247970.96,
+      "paidEur": 40091.51,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Фууди ООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Давид холдинг АД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.006-0012",
+      "title": "Приобщаващо образование и образователна интеграция на община Казанлък",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 199109.32,
+      "totalEur": 199109.32,
+      "paidEur": 121139.9,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Казанлък",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

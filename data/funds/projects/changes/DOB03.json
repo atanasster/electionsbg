@@ -1,23 +1,34 @@
 {
   "obshtina": "DOB03",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.012-0598",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG05SFPR002-2.016-0140",
+      "title": "„Нови възможности за заетост и интеграция в община Балчик“",
+      "type": "new",
+      "totalEur": 264213.7,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Балчик",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1209",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"Шоколино\" ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 35320.04,
-      "totalEur": 35320.04,
-      "paidEur": 24724.03,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 27476.68,
+      "totalEur": 27476.68,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Екогруп",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Шоколино ООД",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

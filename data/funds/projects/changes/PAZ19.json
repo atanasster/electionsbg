@@ -1,105 +1,51 @@
 {
   "obshtina": "PAZ19",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0225",
-      "title": "Доставка и монтаж на Система за съхранение на енергия чрез батерии (ЛСС) с мощност от 400 KW към Фотоволтаична електрическа централа с мощност 800 КW",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 382957.62,
-      "totalEur": 382957.62,
-      "paidEur": 189750,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Солар - пазарджик ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.004-0041",
-      "title": "Интеркултурен ПокеМОН",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 249370.59,
-      "totalEur": 249370.59,
-      "paidEur": 199496.47,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Пазарджик",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.013-0060",
-      "title": "Изкуството да започнеш",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 199704.56,
-      "totalEur": 199704.56,
-      "paidEur": 49926.14,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Скилс мениджмънт ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-2621",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в БЕСТИЯ ПЕТ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 101252.81,
-      "totalEur": 101252.81,
-      "paidEur": 50626.41,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Бестия ПЕТ ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1339",
-      "title": "Подобряване на енергийната ефективност на \"МЕТАЛИКА\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 108572.37,
-      "totalEur": 100767.19,
+      "contractNumber": "BG16RFPR001-6.001-0019",
+      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в ПРОЕКТОМЕТАЛ ООД",
+      "type": "new",
+      "totalEur": 728950,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Металика ООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Проектометал ООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0203",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в ЮНАЙД 2013 ЕООД.",
+      "contractNumber": "BG16RFPR001-2.004-0274",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в АВТО ЛУКС ЕООД.",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 100375.18,
-      "totalEur": 100375.18,
-      "paidEur": 50187.59,
+      "prevTotalEur": 101640.12,
+      "totalEur": 101640.12,
+      "paidEur": 50820.06,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Юнайд 2013 ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Авто лукс ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.002-0013",
+      "title": "Обединени за достъп до образование за всяко дете",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 91802.65,
+      "totalEur": 91802.65,
+      "paidEur": 36721.06,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Регионално управление на образованието - Пазарджик",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

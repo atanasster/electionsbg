@@ -1,55 +1,25 @@
 {
   "obshtina": "MON24",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.033-0068",
-      "title": "Локална система за съхранение с капацитет 1,976 MWh на съществуваща ФЕЦ с номинална променливотокова мощност 2,580 MW, находяща се в ПИ с ид.44238.219.1, гр. Лом, общ. Лом, обл. Монтана",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 627610.79,
-      "totalEur": 627610.79,
-      "paidEur": 261372.4,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Енерджи дивелъпмънт 2014 ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0973",
-      "title": "Изграждане на училищна STEM среда в I ОУ ,, Никола Първанов\" гр. Лом",
+      "contractNumber": "BG16RFTA001-1.010-0055",
+      "title": "Развитие на административния капацитет на СДРУЖЕНИЕ „ШАНС ЧРЕЗ УМЕНИЯ“ за повишаване на добавената стойност на политиката на сближаване в България.",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 128965.17,
-      "totalEur": 128965.18,
-      "paidEur": 128965.16,
+      "prevTotalEur": 48717.68,
+      "totalEur": 48417.5,
+      "paidEur": 48417.5,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Първо основно училище \"Никола Първанов\"",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.013-0047",
-      "title": "Младите треньори",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 99976.09,
-      "totalEur": 99976.09,
-      "paidEur": 24994.02,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Спортен клуб \"Шампион спорт\"",
-      "detectedAt": "2026-11-07"
+      "programCode": "2021BG16RFTA001",
+      "programName": "Програма \"Техническа помощ\" 2021-2027",
+      "beneficiaryName": "Шанс чрез умения Сдружение",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

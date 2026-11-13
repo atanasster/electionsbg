@@ -1,198 +1,288 @@
 {
   "obshtina": "BGS04",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-1.001-0056",
-      "title": "Изграждане на иновативен, високотехнологичен, академичен център за интегриране на съвременни образователни и технологични инициативи, насърчаващ растежа на знанието и икономическия напредък.",
+      "contractNumber": "BG16RFPR001-6.001-0026",
+      "title": "Укрепване на промишления капацитет в областта на отбранителните способности във ВИП ПЛАСТ ООД",
+      "type": "new",
+      "totalEur": 598000,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ВИП Пласт ООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.012-0004",
+      "title": "КОМПЛЕКСНИ ПРОГРАМИ ЗА ДЕСЕГРЕГАЦИЯ НА УЧИЛИЩАТА, ПРЕВЕНЦИЯ НА ВТОРИЧНАТА СЕГРЕГАЦИЯ И ПРОТИВ ДИСКРИМИНАЦИЯТА В ОБЩИНА АЙТОС И ОБЩИНА БУРГАС",
+      "type": "new",
+      "totalEur": 383463.36,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Айтос",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0077",
+      "title": "Иновативни здравно-социални услуги в община Бургас",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 18918434.04,
-      "totalEur": 18918434.04,
-      "paidEur": 4963297.85,
+      "prevTotalEur": 1687323.21,
+      "totalEur": 1687323.21,
+      "paidEur": 1073429.46,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Община Бургас",
-      "detectedAt": "2026-11-07"
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0140",
-      "title": "Здравословна и добре приспособена работна среда за заетите в KAMKO ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 173760.05,
-      "totalEur": 166762.87,
-      "paidEur": 166762.87,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Камко ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.013-0099",
-      "title": "Насърчаване на социалната икономика, чрез осигуряване на заетост на лица от уязвими групи.",
+      "contractNumber": "BG05SFPR001-1.004-0081",
+      "title": "Винаги заедно-много по силни в науката, културата и спорта",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 165378.6,
-      "totalEur": 165378.6,
-      "paidEur": 14447.38,
+      "prevTotalEur": 207971.05,
+      "totalEur": 207971.05,
+      "paidEur": 94284.27,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Камено",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-3.005-0023",
+      "title": "Развитие на дуалната система на обучение в ПОО в ПГКПИ - Бургас",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 184047.29,
+      "totalEur": 177331.93,
+      "paidEur": 73152.97,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по компютърно програмиране и иновации",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.007-0004",
+      "title": "\"Ново начало - 2\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 139466.44,
+      "totalEur": 139466.44,
+      "paidEur": 50994.12,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Свети Климент Охридски\"",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0166",
+      "title": "Заедно сме по-добри",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 120958.06,
+      "totalEur": 120958.06,
+      "paidEur": 48383.22,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Немска езикова гимназия \"Гьоте\", Бургас",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0407",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Афродита комерс ЕООД.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 101640.12,
+      "totalEur": 101640.12,
+      "paidEur": 50820.06,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Афродита комерс ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1876",
+      "title": "Подобряване на производствения капацитет на фирма Матеус-6 ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102258.38,
+      "totalEur": 100563,
+      "paidEur": 75422.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Матеус - 6 ООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0220",
+      "title": "Заедно за толерантността",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 74481.32,
+      "totalEur": 74481.32,
+      "paidEur": 14896.26,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.012-0149",
+      "title": "\"Устойчива заетост за хора в неравностойно положение в Хитрон ЕООД\"",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 70333.14,
+      "totalEur": 70333.14,
+      "paidEur": 44315.99,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Филтри бургас ЕООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Хитрон ЕООД",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0743",
-      "title": "Изграждане на училищна STEM среда в СУ „Иван Вазов“- гр. Бургас",
+      "contractNumber": "BG16RFPR001-1.004-0752",
+      "title": "Повишаване на конкуренотоспосбността и капацитета на услугите в семейно дружество \"МУЛТИ ДЕКОР ФЪРНИЧЪР\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 68880.95,
+      "totalEur": 66581.37,
+      "paidEur": 49936.03,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Мулти декор фърничър ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2682",
+      "title": "Подобряване на производствения капацитет на АРХИТЕКТУРНО АТЕЛИЕ 13 ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 68308.6,
+      "totalEur": 66444.99,
+      "paidEur": 49833.73,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Архитектурно ателие 13 ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0056",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 13371.81,
+      "totalEur": 13371.81,
+      "paidEur": 9360.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Лайт проджект ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0964",
+      "title": "Устойчиво развитие и растеж на „ИНЖПРОЕКТ” ООД чрез подобряване на конкурентността на фирмата на пазара",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 128950.02,
-      "totalEur": 129072.85,
-      "paidEur": 128950.03,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 39210.97,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Инжпроект ООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.001-0244",
+      "title": "Разработване на продуктова иновация от \"Марсмедикъл\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 55091.7,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Марсмедикъл ЕООД",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0304",
+      "title": "\"Eнергийно обновяване на многофамилна жилищна сграда с административен адрес : гр.Бургас, ул. Александър Велики 13\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 356993.31,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Иван Вазов\"",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0328",
-      "title": "Адаптирана работна среда в Комерс Тони 91",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 128104.46,
-      "totalEur": 128104.46,
-      "paidEur": 122379.47,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Комерс тони - 91 ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1079",
-      "title": "Адаптирана работна среда в ЕТ ДАРС-91- ДИМИТЪР СЪБКОВ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 122281.12,
-      "totalEur": 112361.16,
-      "paidEur": 6659.07,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ЕТ ДАРС-91 - Димитър Събков",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2472",
-      "title": "Подкрепа за предприятиeтo от творческите индустрии \"НЮ УЕЙВ 2\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 95861.62,
-      "totalEur": 93549.37,
-      "paidEur": 70162.06,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"НЮ Уейв 2\" ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2814",
-      "title": "Подобряване на производствения капацитет в СПА Креатив ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 92646.01,
-      "totalEur": 92055.11,
-      "paidEur": 69041.49,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"СПА Креатив\" ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0062",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 37749.7,
-      "totalEur": 37749.7,
-      "paidEur": 3396,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Д и п корп\" ЕООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-1488",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 23442.73,
-      "totalEur": 23442.73,
-      "paidEur": 16409.91,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Логикус ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2492",
-      "title": "Подобряване производствения капацитет на ЛАЙТЕЛ ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 20682.22,
-      "totalEur": 19276.87,
-      "paidEur": 14457.68,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Лайтел ООД",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Община Бургас",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

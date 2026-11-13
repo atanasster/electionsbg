@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-07T02:49:24.873Z",
-  "total": 182,
-  "mpCount": 154,
-  "beneficiaryCount": 171,
-  "contractedEur": 4853360229.12,
-  "paidEur": 2259359574.24,
+  "generatedAt": "2026-11-13T06:19:12.504Z",
+  "total": 184,
+  "mpCount": 155,
+  "beneficiaryCount": 173,
+  "contractedEur": 4853425679.25,
+  "paidEur": 2259415816.34,
   "entries": [
     {
       "mpId": 4507,
@@ -119,7 +119,7 @@
         }
       ],
       "contractCount": 22,
-      "contractedEur": 46493023.95,
+      "contractedEur": 46503797.42,
       "paidEur": 0
     },
     {
@@ -260,7 +260,7 @@
       "mpId": 3427,
       "mpName": "Петко Ангелов Кущирев",
       "beneficiaryEik": "200712697",
-      "beneficiaryName": "ПАК дизайн ЕООД",
+      "beneficiaryName": "ПАК Дизайн ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -361,7 +361,7 @@
         }
       ],
       "contractCount": 3,
-      "contractedEur": 2084060.47,
+      "contractedEur": 2082495.03,
       "paidEur": 745130.33
     },
     {
@@ -2120,6 +2120,28 @@
       "paidEur": 3521.78
     },
     {
+      "mpId": 2956,
+      "mpName": "Митко Костадинов Полихронов",
+      "beneficiaryEik": "204770025",
+      "beneficiaryName": "Полихронов мотърс ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true
+        },
+        {
+          "kind": "stake",
+          "valueEur": 2556.4594059810925,
+          "shareSize": "5",
+          "declarationYear": 2020
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 30677.51,
+      "paidEur": 30677.51
+    },
+    {
       "mpId": 4800,
       "mpName": "Манол Костадинов Пейков",
       "beneficiaryEik": "200199807",
@@ -2267,6 +2289,22 @@
       "mpName": "Цветан Асенов Цветанов",
       "beneficiaryEik": "103248895",
       "beneficiaryName": "Маринери и КО ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 25564.59,
+      "paidEur": 25564.59
+    },
+    {
+      "mpId": 2175,
+      "mpName": "Кирил Стоянов Желев",
+      "beneficiaryEik": "201575575",
+      "beneficiaryName": "Методия Уеб ООД",
       "orgType": "Компания",
       "relations": [
         {

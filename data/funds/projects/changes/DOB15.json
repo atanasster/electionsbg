@@ -1,58 +1,51 @@
 {
   "obshtina": "DOB15",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.001-0097",
-      "title": "Умно обувно изделие, базирано на местоположение",
+      "contractNumber": "BG05SFPR002-2.016-0020",
+      "title": "Подкрепа за уязвими и маргинализирани общности в община Добричка",
+      "type": "new",
+      "totalEur": 109598.02,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Добричка",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0168",
+      "title": "Иновативни здравно-социални услуги в община Добричка",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 387442.87,
-      "totalEur": 387442.87,
-      "paidEur": 183341.92,
+      "prevTotalEur": 269312.92,
+      "totalEur": 269312.92,
+      "paidEur": 167929.08,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ВЕС ООД",
-      "detectedAt": "2026-11-07"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Добричка",
+      "detectedAt": "2026-11-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0753",
-      "title": "Изграждане на дигитален клуб в Народно Читалище\"Д-Р ЙОСИФ ЙОСИФОВ - 1884\" в с. Карапелит",
+      "contractNumber": "BG06RDNP001-4.012-1238",
+      "title": "Закупуване на земеделска техника и оборудване за стопанството на АГРО ПЛАМ 88 ЕООД, с цел модернизиране",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище\"Д-Р Йосиф Йосифов - 1884\"",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0517",
-      "title": "Изграждане на дигитален клуб в НЧ \"СВ.СВ.КИРИЛ И МЕТОДИЙ-1900 ГОДИНА\" в с. Фелдфебел Денково",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 14316.16,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \"СВ.СВ.КИРИЛ и МЕТОДИЙ-1900 Година\"",
-      "detectedAt": "2026-11-07"
+      "prevTotalEur": 109694.68,
+      "totalEur": 109694.71,
+      "paidEur": 54847.35,
+      "status": "Сключен",
+      "programCode": "2014BG06RDNP001",
+      "programName": "Програма за развитие на селските райони",
+      "beneficiaryName": "Агро плам 88 ЕООД",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

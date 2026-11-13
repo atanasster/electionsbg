@@ -1,10 +1,10 @@
 {
   "obshtina": "DOB12",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0700",
-      "title": "Изграждане на дигитален клуб в Народно Читалище ПРОБУДА-1941 в с. Кардам",
+      "contractNumber": "BG-RRP-1.024-0857",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"ОТЕЦ ПАИСИЙ-1897\" в с. Спасово",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -17,8 +17,44 @@
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище ПРОБУДА-1941",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Народно Читалище \"Отец ПАИСИЙ-1897\"",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1232",
+      "title": "Изграждане на дигитален клуб в Народно Читалище\"ДИМИТЪР ГАНЕВ - 2014\" в с. Присад",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.16,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище\"ДИМИТЪР Ганев - 2014\"",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0769",
+      "title": "Изграждане на дигитален клуб в Народно Читалище\"ИВАН ВАЗОВ-1946\" в гр. Генерал Тошево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.91,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище\"ИВАН ВАЗОВ-1946\"",
+      "detectedAt": "2026-11-13"
     }
   ]
 }

@@ -1,39 +1,54 @@
 {
   "obshtina": "GAB35",
-  "generatedAt": "2026-11-07T02:50:08.372Z",
+  "generatedAt": "2026-11-13T06:19:56.338Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-0930",
-      "title": "Подобряване на енергийната ефективност на КА ЕМ-ВАРНА ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 79076.2,
-      "totalEur": 79076.2,
-      "paidEur": 51122.76,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "КА ЕМ-ВАРНА ООД",
-      "detectedAt": "2026-11-07"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.030-0001",
-      "title": "ПРЕДПРИЕМАЧЕСТВО В ДЕЙСТВИЕ",
+      "contractNumber": "BG05SFPR002-2.012-0043",
+      "title": "Иновативни здравно-социални услуги в община Трявна",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 60876.5,
-      "totalEur": 60876.5,
-      "paidEur": 12157.3,
+      "prevTotalEur": 175185.72,
+      "totalEur": 175185.72,
+      "paidEur": 130967.51,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Сдружение цветница",
-      "detectedAt": "2026-11-07"
+      "beneficiaryName": "Община Трявна",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0214",
+      "title": "Училище без агресия — За безопасно и спокойно учебно пространство",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 88063.79,
+      "totalEur": 88063.79,
+      "paidEur": 10000,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Петко Рачев Славейков\"",
+      "detectedAt": "2026-11-13"
+    },
+    {
+      "contractNumber": "BG16FFPR002-3.011-0017",
+      "title": "„Подобряване на състоянието на защитени видове птици Черен лешояд (А079 Aegypius monachus), Кръстат орел (А404 Aquila heliaca), Белоглав лешояд (А078 Gyps fulvus), Египетски лешояд (А077 Neophron percnopterus) чрез извършване на подхранвания в съществуваща площадка в защитена зона BG0000399 „Българка” от мрежата НАТУРА 2000.”",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 12575.22,
+      "totalEur": 12575.22,
+      "paidEur": 4768.28,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Дирекция на природен парк \"Българка\"",
+      "detectedAt": "2026-11-13"
     }
   ]
 }
