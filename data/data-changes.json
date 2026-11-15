@@ -1,6 +1,33 @@
 {
-  "updatedAt": "2026-11-13T07:18:56.991Z",
+  "updatedAt": "2026-11-15T09:27:28.088Z",
   "entries": [
+    {
+      "timestamp": "2026-11-15T09:27:28.088Z",
+      "date": "2026-11-15",
+      "skill": "update-council-minutes",
+      "summary": "3 step(s) ok",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-15T09:16:02.767Z",
+      "date": "2026-11-15",
+      "skill": "update-administration",
+      "summary": "8 step(s) ok",
+      "source": "Административен регистър — услуги (IISDA)"
+    },
+    {
+      "timestamp": "2026-11-15T09:15:03.704Z",
+      "date": "2026-11-15",
+      "skill": "update-macro",
+      "summary": "6 step(s) ok",
+      "source": "Eurostat macro (BG): 29 datasets",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-13T07:18:56.991Z",
       "date": "2026-11-13",

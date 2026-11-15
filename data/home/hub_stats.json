@@ -5,9 +5,9 @@
   "figures": [
     {
       "id": "gdp_growth",
-      "value": 2.8,
+      "value": 2.5,
       "basis": {
-        "period": "2026-Q2",
+        "period": "2026-Q3",
         "frequency": "quarterly",
         "unit": "pct",
         "adjustment": "seasonally_adjusted",
@@ -108,7 +108,7 @@
     },
     "eurostat_namq_10_gdp": {
       "available": true,
-      "asOf": "2026-Q2",
+      "asOf": "2026-Q3",
       "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
       "datasetCode": "namq_10_gdp"
     },
