@@ -1,15 +1,48 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-12T23:59:59.999Z",
+  "computedAt": "2026-11-14T23:59:59.999Z",
   "windowDays": 30,
   "events": [
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-14T00:00:00.000Z",
+      "firstSeenAt": "2026-11-14T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 64,
+        "promoEur": "0.70",
+        "regularEur": "1.95",
+        "chains": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.9142857142857143,
+      "actionability": 0.85
+    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-12T00:00:00.000Z",
-      "firstSeenAt": "2026-11-12T00:00:00.000Z",
+      "occurredAt": "2026-11-14T00:00:00.000Z",
+      "firstSeenAt": "2026-11-14T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -26,47 +59,14 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "ЗЕЛЕ",
-        "pct": 65,
+        "pct": 64,
         "promoEur": "0.29",
-        "regularEur": "0.83",
+        "regularEur": "0.81",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.9285714285714286,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:byalo-zele",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-12T00:00:00.000Z",
-      "firstSeenAt": "2026-11-12T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/byalo-zele",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "БЯЛО ЗЕЛЕ",
-        "pct": 59,
-        "promoEur": "0.39",
-        "regularEur": "0.95",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8428571428571429,
+      "materiality": 0.9142857142857143,
       "actionability": 0.85
     },
     {
@@ -122,7 +122,7 @@
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 33,
-        "sittings": 8,
+        "sittings": 6,
         "windowDays": 30
       },
       "backfill": false,
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
+      "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-12T00:00:00.000Z",
-      "firstSeenAt": "2026-11-12T00:00:00.000Z",
+      "occurredAt": "2026-11-14T00:00:00.000Z",
+      "firstSeenAt": "2026-11-14T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,27 +213,27 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/krave-maslo-d-markenbutter-250gr",
+      "route": "/product/byalo-zele",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-        "pct": 56,
-        "promoEur": "1.79",
-        "regularEur": "4.10",
-        "chains": 2
+        "title": "БЯЛО ЗЕЛЕ",
+        "pct": 57,
+        "promoEur": "0.39",
+        "regularEur": "0.90",
+        "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8,
+      "materiality": 0.8142857142857143,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-11-12",
+      "id": "prices:basket_moved:2026-11-13",
       "kind": "basket_moved",
       "category": "prices",
-      "occurredAt": "2026-11-12T00:00:00.000Z",
-      "firstSeenAt": "2026-11-12T00:00:00.000Z",
+      "occurredAt": "2026-11-13T00:00:00.000Z",
+      "firstSeenAt": "2026-11-13T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -250,12 +250,12 @@
       "factKey": "home_fact_basket_up",
       "factArgs": {
         "pct": "2.0",
-        "costEur": "16.47",
+        "costEur": "16.51",
         "days": 7
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.502,
+      "materiality": 0.50425,
       "actionability": 0.5
     },
     {
@@ -813,8 +813,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-12",
-      "observedAt": "2026-11-12",
+      "asOf": "2026-11-14",
+      "observedAt": "2026-11-14",
       "staleAfterDays": 5,
       "stale": false
     }
