@@ -1,11 +1,23 @@
 {
+  "adfi_inspections": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
   "ahu_calls": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "api_road_charges": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "asp_benefits": {
     "consecutiveErrors": 0,
     "lastOkAt": "2026-11-12T16:05:51.317Z"
+  },
+  "bnb_auctions": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "budget_law": {
     "consecutiveErrors": 0,
@@ -13,43 +25,95 @@
   },
   "cacbg_declarations": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "cacbg_local": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "cacbg_officials": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "capital_programs": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "cik_presidential": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 1
+    "consecutiveBlocked": 3
   },
   "cik_results": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 1
+    "consecutiveBlocked": 3
   },
   "council_minutes": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "cprs_register": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "customs_revenue": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "dfz_subsidies": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "dv_investment_annex": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "dv_laws": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "ec_budget_per_ms": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "ec_forecast_bg": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "ec_fts": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "ec_oil_bulletin": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "egov_budget_execution": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "egov_commerce": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "egov_municipal_execution": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "egov_procurement": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "eop_procurement": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "erik_campaign_financing": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "eurostat": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "eurostat_digital_skills": {
     "consecutiveErrors": 0,
@@ -63,135 +127,239 @@
     "consecutiveErrors": 0,
     "lastOkAt": "2026-11-12T22:41:17.036Z"
   },
+  "eurostat_tourism": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "fiscal_council_bg": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
   "git_inspections": {
     "consecutiveErrors": 0,
     "lastOkAt": "2026-11-12T16:05:51.317Z"
   },
   "grao": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "iaos_air_quality": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "iisda_doklad": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "iisda_services": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "indicators_az": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "indicators_mon_dzi": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "indicators_mon_nvo": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "indicators_nsi_pop": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "indicators_nsi_vital": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "interreg_calls": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "ipop_mrrb": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "isun_clean_delivery": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "isun_eu_funds": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "isun_eu_funds_projects": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "isun_procedures": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "keep_eu_interreg": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "kfn_pensions": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "kzk_appeals": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "kzk_decisions": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "kzp_prices": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "minfin_mreports": {
     "consecutiveErrors": 0,
     "lastOkAt": "2026-11-12T16:05:51.317Z"
   },
+  "ministry_execution_reports": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
   "mon_ri_register": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "municipal_fiscal_due": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "municipal_naredba": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "nap_annual": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "ncf_grant_results": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "nfc_commissions": {
-    "consecutiveErrors": 2,
+    "consecutiveErrors": 4,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "HTTP 520 <none>"
   },
   "nfc_film_register": {
-    "consecutiveErrors": 2,
+    "consecutiveErrors": 4,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "HTTP 520 <none>"
   },
+  "nsi_edp": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
   "nsi_landuse": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "nsi_water_stats": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "nssi_b1": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "nssi_yearbook": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "oecd_pit_params": {
-    "consecutiveErrors": 2,
+    "consecutiveErrors": 4,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata"
   },
+  "ofac_sanctions": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
   "parliament_mps": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 1
+    "consecutiveBlocked": 3
   },
   "parliament_votes": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 1
+    "consecutiveBlocked": 3
   },
   "person_link_overrides": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "policy_baseline_local": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "polls_alpha_research": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "polls_gallup": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "polls_global_metrics": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "polls_market_links": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "polls_myara": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "polls_press": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "polls_sova_harris": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "polls_trend": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   },
   "procurement_scope_windows": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "rnfl_insolvency": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "smetna_palata": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
+  },
+  "sp2023_indicative": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "ted_bg": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
+  },
+  "wiki_governments": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "wiki_polls": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-12T22:41:17.036Z"
+    "lastOkAt": "2026-11-15T08:50:14.913Z"
   }
 }

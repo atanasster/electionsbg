@@ -1,0 +1,881 @@
+{
+  "schema": 1,
+  "runAt": "2026-11-13T06:13:56.246Z",
+  "egress": "BG",
+  "sources": [
+    {
+      "id": "adfi_inspections",
+      "label": "АДФИ — доклади от финансови инспекции (adfi.minfin.bg)",
+      "status": "changed",
+      "line": "23 new financial inspection report(s)",
+      "durationMs": 682
+    },
+    {
+      "id": "aop_experts",
+      "label": "АОП — исторически списък с външни експерти по отм. чл. 232а, ал. 2 ЗОП (aop.bg)",
+      "status": "skipped",
+      "line": "92 expert(s) — register closed since 2023-01-01 · next check 2026-11-17"
+    },
+    {
+      "id": "isun_clean_delivery",
+      "label": "ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg)",
+      "status": "changed",
+      "line": "contracts=408 · beneficiaries=1412 page(s) of 25",
+      "durationMs": 13678
+    },
+    {
+      "id": "parliament_votes",
+      "label": "Parliament roll-call votes",
+      "status": "blocked",
+      "line": "needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG",
+      "consecutiveBlocked": 2
+    },
+    {
+      "id": "parliament_mps",
+      "label": "Parliament MPs (active roster)",
+      "status": "blocked",
+      "line": "needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG",
+      "consecutiveBlocked": 2
+    },
+    {
+      "id": "ofac_sanctions",
+      "label": "OFAC SDN — Bulgaria-linked designations (sanctions facet)",
+      "status": "unchanged",
+      "line": "unchanged (92 Bulgaria-linked SDN row(s))",
+      "durationMs": 12904
+    },
+    {
+      "id": "comdos_ds",
+      "label": "Комисия по досиетата (comdos.bg) — решения (ДС facet)",
+      "status": "skipped",
+      "line": "20 решение(я) on the comdos.bg archive · next check 2026-11-18"
+    },
+    {
+      "id": "regulator_rosters",
+      "label": "Регулатори / независими органи — състави (regulator facet)",
+      "status": "skipped",
+      "line": "Конституционен съд — 12 съдии, председател Павлина Панова · next check 2026-11-19"
+    },
+    {
+      "id": "person_link_overrides",
+      "label": "Курирани решения за идентичност на лица",
+      "status": "skipped",
+      "line": "2 audited person identity decision(s) · next check 2026-11-13"
+    },
+    {
+      "id": "rnfl_insolvency",
+      "label": "Регистър на физическите лица в несъстоятелност (РНФЛ)",
+      "status": "unchanged",
+      "line": "unchanged (статистика: публикувана (16775B) · дело №1: няма запис · номенклатури 4d2ef77a1a374f1e)",
+      "durationMs": 1124
+    },
+    {
+      "id": "mc_dki_register",
+      "label": "МК регистър на държавните културни институти (mc.government.bg)",
+      "status": "skipped",
+      "line": "70 държавни културни институти listed · next check 2026-11-18"
+    },
+    {
+      "id": "nfc_film_register",
+      "label": "НФЦ Единен публичен регистър (financed films, nfc.bg)",
+      "status": "error",
+      "line": "HTTP 520 <none>",
+      "error": "HTTP 520 <none>",
+      "durationMs": 3424,
+      "consecutiveErrors": 3
+    },
+    {
+      "id": "ncf_grant_results",
+      "label": "НФК news feed (grant results, ncf.bg)",
+      "status": "changed",
+      "line": "new post(s) — newest #754 (was #753); check for a new grant класиране",
+      "durationMs": 158
+    },
+    {
+      "id": "nfc_commissions",
+      "label": "НФЦ artistic-commission appointments (nfc.bg заповеди)",
+      "status": "error",
+      "line": "HTTP 520 <none>",
+      "error": "HTTP 520 <none>",
+      "durationMs": 3214,
+      "consecutiveErrors": 3
+    },
+    {
+      "id": "wiki_polls",
+      "label": "BG Wikipedia polls (cross-check only)",
+      "status": "skipped",
+      "line": "115 parliamentary + 19 presidential poll table rows · next check 2026-11-13"
+    },
+    {
+      "id": "polls_trend",
+      "label": "Polls — Тренд (rctrend.bg)",
+      "status": "skipped",
+      "line": "no new electoral publications (newest id 213033) · next check 2026-11-13"
+    },
+    {
+      "id": "polls_alpha_research",
+      "label": "Polls — Алфа Рисърч",
+      "status": "skipped",
+      "line": "no new electoral publications (newest id 1060) · next check 2026-11-13"
+    },
+    {
+      "id": "polls_market_links",
+      "label": "Polls — Маркет ЛИНКС",
+      "status": "skipped",
+      "line": "no new electoral publications (newest id 120) · next check 2026-11-13"
+    },
+    {
+      "id": "polls_sova_harris",
+      "label": "Polls — Сова Харис",
+      "status": "skipped",
+      "line": "no new electoral publications (newest id 4159) · next check 2026-11-13"
+    },
+    {
+      "id": "polls_myara",
+      "label": "Polls — Мяра",
+      "status": "skipped",
+      "line": "no new electoral publications (newest id 1946) · next check 2026-11-13"
+    },
+    {
+      "id": "polls_global_metrics",
+      "label": "Polls — Глобал Метрикс",
+      "status": "skipped",
+      "line": "no new electoral publications (newest id 658) · next check 2026-11-13"
+    },
+    {
+      "id": "polls_gallup",
+      "label": "Polls — Галъп (site + press)",
+      "status": "skipped",
+      "line": "site arm FAILED: fetch failed · press: no new press coverage · next check 2026-11-13"
+    },
+    {
+      "id": "polls_press",
+      "label": "Polls — press discovery (agencies without a site)",
+      "status": "skipped",
+      "line": "no new press coverage across any press-only agency · next check 2026-11-13"
+    },
+    {
+      "id": "wiki_governments",
+      "label": "BG Wikipedia governments list",
+      "status": "unchanged",
+      "line": "unchanged (111 cabinets · tail d9a0b0b2b6b7224f)",
+      "durationMs": 685
+    },
+    {
+      "id": "cprs_register",
+      "label": "ЦПРС — регистър на строителя (register.ksb.bg)",
+      "status": "changed",
+      "line": "18 builder(s) left the register (sample)",
+      "durationMs": 652
+    },
+    {
+      "id": "cacbg_declarations",
+      "label": "Сметна палата declarations — MPs",
+      "status": "skipped",
+      "line": "727 MP declarations in scope for 2026, hash 46cf32bda5447c0d · next check 2026-11-13"
+    },
+    {
+      "id": "cacbg_officials",
+      "label": "Сметна палата declarations — executive (officials)",
+      "status": "skipped",
+      "line": "11317 declarations in scope for 2026, hash 85857c57c626707e · next check 2026-11-13"
+    },
+    {
+      "id": "cacbg_local",
+      "label": "Сметна палата declarations — municipal (mayors & councillors)",
+      "status": "skipped",
+      "line": "6499 declarations in scope for 2026, hash 5dbbf6f1df11f716 · next check 2026-11-13"
+    },
+    {
+      "id": "smetna_palata",
+      "label": "Сметна палата party financing",
+      "status": "changed",
+      "line": "index hash ab4730c682a97639",
+      "durationMs": 245
+    },
+    {
+      "id": "financing_reports",
+      "label": "Сметна палата annual-report index",
+      "status": "skipped",
+      "line": "15 years, latest 2025 · next check 2026-11-18"
+    },
+    {
+      "id": "erik_campaign_financing",
+      "label": "ЕРИК campaign financing (Сметна палата, изборни дарения/отчети)",
+      "status": "unchanged",
+      "line": "unchanged (2026_04_19: 25 participants, 848 donors, €1,300,979 donated (hash feee721e7018dc50))",
+      "durationMs": 654
+    },
+    {
+      "id": "egov_commerce",
+      "label": "data.egov.bg Commerce Registry (Търговски регистър)",
+      "status": "skipped",
+      "line": "10 resources on page 1, hash a7872e28c204f999 · next check 2026-11-13"
+    },
+    {
+      "id": "bgpost_postcodes",
+      "label": "Български пощи — пощенски кодове (data.egov.bg)",
+      "status": "skipped",
+      "line": "5293 postcode rows, hash 3be6f2ba6308076e · next check 2026-12-04"
+    },
+    {
+      "id": "egov_procurement",
+      "label": "data.egov.bg АОП (Агенция по обществени поръчки)",
+      "status": "changed",
+      "line": "new OCDS daily resource(s), latest „Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 31.10.2026 г., съгласно стандарт OCDS\"; 1 new annual contracts dataset(s) [2025] — needs the legacy-discovery ingest, not the OCDS path",
+      "durationMs": 1992
+    },
+    {
+      "id": "eop_procurement",
+      "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
+      "status": "skipped",
+      "line": "latest published day 2026-11-11; 11/12 recent days published, hash dbde6150ee8f532f · next check 2026-11-13"
+    },
+    {
+      "id": "aop_debarred",
+      "label": "АОП debarred-suppliers register",
+      "status": "skipped",
+      "line": "3 entries on debarred register, hash 0f289ac0f9e9c51f · next check 2026-12-06"
+    },
+    {
+      "id": "kzk_appeals",
+      "label": "КЗК procurement-appeals register (жалби по ЗОП)",
+      "status": "changed",
+      "line": "+24 КЗК complaints (1178 → 1202); newest 300698812",
+      "durationMs": 3800
+    },
+    {
+      "id": "kzk_decisions",
+      "label": "КЗК decisions register (решения и определения по ЗОП)",
+      "status": "changed",
+      "line": "+15 КЗК acts (567 → 582); newest АКТ-1130-05.11.2026",
+      "durationMs": 1600
+    },
+    {
+      "id": "mon_ri_register",
+      "label": "МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo)",
+      "status": "skipped",
+      "line": "4512 institutions · next check 2026-11-13"
+    },
+    {
+      "id": "isun_eu_funds",
+      "label": "ИСУН EU funds (beneficiaries)",
+      "status": "changed",
+      "line": "53175 beneficiaries · 83168 contracts · €46,096,447,234 contracted (+6 beneficiaries, +50 contracts, +€782,527,872 contracted)",
+      "durationMs": 9936
+    },
+    {
+      "id": "isun_eu_funds_projects",
+      "label": "ИСУН EU funds (projects)",
+      "status": "changed",
+      "line": "83168 contracts · €46,096,447,234 total · €20,433,964,826 paid (+50 contracts, +€782,527,872 total, +€63,938,833 paid)",
+      "durationMs": 40937
+    },
+    {
+      "id": "keep_eu_interreg",
+      "label": "keep.eu Interreg (programme re-imports)",
+      "status": "unchanged",
+      "line": "unchanged (11/22 programmes · newest import 2027-10-28)",
+      "durationMs": 10052
+    },
+    {
+      "id": "dfz_subsidies",
+      "label": "ДФ Земеделие — изплатени субсидии",
+      "status": "unchanged",
+      "line": "unchanged (8 financial-year files)",
+      "durationMs": 476
+    },
+    {
+      "id": "interreg_calls",
+      "label": "Interreg — трансгранични покани",
+      "status": "skipped",
+      "line": "31 покани от 5 програми · недостъпни: interreg-bsb · next check 2026-11-13"
+    },
+    {
+      "id": "ahu_calls",
+      "label": "АХУ — конкурси за финансиране (хора с увреждания)",
+      "status": "skipped",
+      "line": "7 конкурса за финансиране на страницата с новини · next check 2026-11-13"
+    },
+    {
+      "id": "isun_procedures",
+      "label": "ИСУН — отворени процедури",
+      "status": "skipped",
+      "line": "48 отворени · 0 за обсъждане · next check 2026-11-13"
+    },
+    {
+      "id": "sp2023_indicative",
+      "label": "ДФЗ — индикативен график (Стратегически план)",
+      "status": "unchanged",
+      "line": "unchanged (график 2026 · 21 KB)",
+      "durationMs": 383
+    },
+    {
+      "id": "egov_budget_execution",
+      "label": "data.egov.bg бюджет (изпълнение на държавния бюджет)",
+      "status": "unchanged",
+      "line": "unchanged (10 monthly resource(s), hash 0a6d280ff24db831)",
+      "durationMs": 2041
+    },
+    {
+      "id": "egov_municipal_execution",
+      "label": "data.egov.bg общински бюджети (касово изпълнение по ЕБК)",
+      "status": "unchanged",
+      "line": "unchanged (17 muni-year execution report(s) tracked · hash c0cfd6a484341e06)",
+      "durationMs": 3289
+    },
+    {
+      "id": "ministry_execution_reports",
+      "label": "Per-ministry execution reports (програмен бюджет)",
+      "status": "unchanged",
+      "line": "unchanged (14 report(s), hash 229be231732a9226)",
+      "durationMs": 1376
+    },
+    {
+      "id": "iisda_doklad",
+      "label": "Доклад за състоянието на администрацията (IISDA)",
+      "status": "unchanged",
+      "line": "unchanged (1 report(s) 2025–2025, hash 72e9a235091a22c5)",
+      "durationMs": 192
+    },
+    {
+      "id": "iisda_services",
+      "label": "Административен регистър — услуги (IISDA)",
+      "status": "changed",
+      "line": "Услуги: 2676 total (+2) — run /update-administration to re-scrape the catalogue + reload admin_services",
+      "durationMs": 1025
+    },
+    {
+      "id": "eurostat_egov",
+      "label": "Eurostat e-government (isoc_ciegi_ac)",
+      "status": "skipped",
+      "line": "isoc_ciegi_ac updated 2026-04-17T11:00:00+0200 · next check 2026-12-07"
+    },
+    {
+      "id": "eurostat_digital_skills",
+      "label": "Eurostat digital skills (isoc_sk_dskl_i21)",
+      "status": "skipped",
+      "line": "isoc_sk_dskl_i21 updated 2026-04-17T11:00:00+0200 · next check 2026-12-11"
+    },
+    {
+      "id": "customs_revenue",
+      "label": "Агенция \"Митници\" — Митническа хроника annual reports",
+      "status": "unchanged",
+      "line": "unchanged (4 report(s) tracked · latest 2025 · hash 9fb6d66edb03d199)",
+      "durationMs": 1683
+    },
+    {
+      "id": "customs_excise_register",
+      "label": "Агенция \"Митници\" — регистър на лицензираните акцизни складодържатели",
+      "status": "skipped",
+      "line": "809 licences (357 active) · hash f8c0bc020b74b4c4 · next check 2026-12-06"
+    },
+    {
+      "id": "nap_annual",
+      "label": "НАП — Годишен отчет за дейността",
+      "status": "unchanged",
+      "line": "unchanged (1 report(s) tracked · latest 2024 · hash 516ba7f51998b8d1)",
+      "durationMs": 274
+    },
+    {
+      "id": "nssi_b1",
+      "label": "НОИ — месечни B1 отчети по фондове (ДОО, УчПФ, ГВРС)",
+      "status": "unchanged",
+      "line": "unchanged (0/6 B1 file(s) reachable · tracking 2025, 2026 × 3 funds · hash d9f966646e49e06c)",
+      "durationMs": 537
+    },
+    {
+      "id": "nssi_yearbook",
+      "label": "НОИ — статистически годишник „Пенсии“ (ZIP)",
+      "status": "unchanged",
+      "line": "unchanged (1/3 yearbook ZIP(s) published · tracking 2024, 2025, 2026 · hash 10b0cde62e2d92a5)",
+      "durationMs": 315
+    },
+    {
+      "id": "kfn_pensions",
+      "label": "КФН — частни пенсионни фондове (тримесечни данни)",
+      "status": "unchanged",
+      "line": "unchanged (3 КФН statistics period(s) listed (2024-2, 2025-2, 2026-2) · hash 574f4d54b6489a0b)",
+      "durationMs": 598
+    },
+    {
+      "id": "dv_investment_annex",
+      "label": "ДВ — Инвестиционна програма за общински проекти (Приложение III)",
+      "status": "unchanged",
+      "line": "unchanged (1 annex(es) tracked · latest 2025 · hash 8b3864d735288ebf)",
+      "durationMs": 102
+    },
+    {
+      "id": "dv_laws",
+      "label": "ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК)",
+      "status": "skipped",
+      "line": "бр. 103 от 2026-11-13 · 20 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени · неинспектирани броеве: 100 · next check 2026-11-13"
+    },
+    {
+      "id": "capital_programs",
+      "label": "Общински капиталови програми (per-municipality capital lists)",
+      "status": "changed",
+      "line": "1 capital programme(s) re-uploaded: 2025/sliven — re-fetch and re-run the matching ingest script",
+      "durationMs": 5838
+    },
+    {
+      "id": "ipop_mrrb",
+      "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
+      "status": "skipped",
+      "line": "IPOP CSV sample 32768B · hash f1c4a17eb7f09c88 · next check 2026-11-13"
+    },
+    {
+      "id": "eurostat",
+      "label": "Eurostat macro (BG): 29 datasets",
+      "status": "skipped",
+      "line": "29 datasets · latest update 2026-11-12T23:00:00+0100 · next check 2026-11-13"
+    },
+    {
+      "id": "eurostat_policy",
+      "label": "Eurostat policy-baseline (BG): consumption + tax aggregates",
+      "status": "skipped",
+      "line": "5 datasets · latest update 2026-11-05T23:00:00+0100 · next check 2026-12-04"
+    },
+    {
+      "id": "eurostat_energy_prices",
+      "label": "Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202)",
+      "status": "skipped",
+      "line": "nrg_pc_204:2026-10-19T23:00:00+0200 · nrg_pc_202:2026-10-19T11:00:00+0200 · next check 2026-12-06"
+    },
+    {
+      "id": "eurostat_tourism",
+      "label": "Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw)",
+      "status": "unchanged",
+      "line": "unchanged (tour_occ_nim:2026-11-04T23:00:00+0100 · tour_occ_ninraw:2026-10-12T23:00:00+0200)",
+      "durationMs": 468
+    },
+    {
+      "id": "eurostat_tourism_annual",
+      "label": "Eurostat tourism (BG): annual nights spent (tour_occ_ninat)",
+      "status": "skipped",
+      "line": "latest year 2025 · BG 28,816,601 nights · updated 2026-10-12T23:00:00+0200 · next check 2026-11-19"
+    },
+    {
+      "id": "ember_generation",
+      "label": "Ember Yearly Electricity Data (generation mix, CC BY 4.0)",
+      "status": "skipped",
+      "line": "Ember CSV Mon, 02 Nov 2026 14:10:55 GMT (320 bytes) · next check 2026-12-06"
+    },
+    {
+      "id": "policy_baseline_local",
+      "label": "НОИ STATB пенсии + НСИ заплати (policy-baseline)",
+      "status": "unchanged",
+      "line": "unchanged (STATB3/2026 current · next quarter not yet · НСИ wages updated 2025-11-28T11:00:00)",
+      "durationMs": 789
+    },
+    {
+      "id": "eu_tax_rates",
+      "label": "PwC tax summaries — EU comparator rates",
+      "status": "skipped",
+      "line": "VAT 27(HU)/24(EE) · CIT 9(HU) · PIT 22(EE) · 8044c4a74da0d043 · next check 2026-12-04"
+    },
+    {
+      "id": "eu_excise_rates",
+      "label": "Tax Foundation — EU excise rates (fuel + cigarettes)",
+      "status": "skipped",
+      "line": "BG fuel 363/330 €/1000L · DE cig 196 €/1000 · 9ccbe86c9fb54ffd · next check 2026-12-07"
+    },
+    {
+      "id": "eu_alcohol_excise",
+      "label": "EC TEDB — EU alcohol excise (spirits + wine)",
+      "status": "skipped",
+      "line": "BG spirits 562 · SE 4775 · IE wine 425 €/hl · f11a3384724d7009 · next check 2026-12-07"
+    },
+    {
+      "id": "oecd_pit_params",
+      "label": "OECD Tax DB — PIT thresholds/allowances/credits",
+      "status": "error",
+      "line": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata",
+      "error": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata",
+      "durationMs": 34356,
+      "consecutiveErrors": 3
+    },
+    {
+      "id": "oecd_family_leave",
+      "label": "OECD Family DB — paid parental leave (PF2.5)",
+      "status": "skipped",
+      "line": "DE total 58w · SE 55.7w · EE 82.1w (paid leave) · 8d250f2f1d0d6eae · next check 2026-12-07"
+    },
+    {
+      "id": "nato_defence",
+      "label": "NATO defence-expenditure compendium",
+      "status": "skipped",
+      "line": "compendium edition(s): 2025, 2026 · next check 2026-12-04"
+    },
+    {
+      "id": "ec_forecast_bg",
+      "label": "EC economic forecast — Bulgaria",
+      "status": "unchanged",
+      "line": "unchanged (latest edition: spring 2026)",
+      "durationMs": 279
+    },
+    {
+      "id": "nsi_edp",
+      "label": "НСИ EDP notification — deficit/debt outturn",
+      "status": "unchanged",
+      "line": "unchanged (latest GFS press release: balgariya-i-es-deficit-i-dalg-na-institucionalen-sektor-darjavno-upravlenie-prez-2025-godina-predvaritelni-danni-9533)",
+      "durationMs": 736
+    },
+    {
+      "id": "ec_vat_gap",
+      "label": "EC VAT gap report",
+      "status": "skipped",
+      "line": "latest edition: VAT Gap Report 2025 · next check 2026-12-04"
+    },
+    {
+      "id": "imf_weo_bg",
+      "label": "IMF WEO — Bulgaria vintage",
+      "status": "skipped",
+      "line": "BGR real-growth series through 2031 (latest 2.4%) · b6699bd2dc1916a1 · next check 2026-12-04"
+    },
+    {
+      "id": "fiscal_council_bg",
+      "label": "Фискален съвет — publications",
+      "status": "changed",
+      "line": "new Фискален съвет publication: stanovishte-otnosno-proekt-na-zakon-za-dyrjavnia-biudget-na-republika-bulgaria-za-2027 — if it costs a simulator lever, refresh the benchmark table in the methodology article (public/articles/2026-06-12-tax-policy-simulator-*.md), docs/budget_simulator_grounding.md and (for dividend-style costings) the calibration target in src/lib/bgBehavioral.ts",
+      "durationMs": 787
+    },
+    {
+      "id": "api_road_charges",
+      "label": "АПИ — годишни приходи от пътни такси (винетки + тол)",
+      "status": "unchanged",
+      "line": "unchanged (АПИ road-charge revenue: latest FY2025 (no revenue press release on the front page))",
+      "durationMs": 180
+    },
+    {
+      "id": "eurostat_regional",
+      "label": "Eurostat regional (BG): 5 NUTS3 datasets",
+      "status": "skipped",
+      "line": "5 datasets · latest update 2026-07-21T23:00:00+0200 · next check 2026-12-06"
+    },
+    {
+      "id": "eurostat_rail",
+      "label": "Eurostat rail (BG): жп пътници (rail_pa_total)",
+      "status": "skipped",
+      "line": "rail_pa_total · update 2026-10-29T23:00:00+0100 · next check 2026-12-10"
+    },
+    {
+      "id": "eurostat_env",
+      "label": "Eurostat environment (BG): рециклиране на отпадъци (cei_wm011)",
+      "status": "skipped",
+      "line": "cei_wm011 · update 2026-10-15T11:00:00+0200 · next check 2026-12-11"
+    },
+    {
+      "id": "nsi_regional",
+      "label": "НСИ regional open-data (BG): 4 oblast datasets",
+      "status": "skipped",
+      "line": "4 datasets · latest update 2026-10-06T11:00:00 · next check 2026-12-04"
+    },
+    {
+      "id": "ec_budget_per_ms",
+      "label": "EC EU budget per-MS spreadsheet (BG receipts/contributions)",
+      "status": "unchanged",
+      "line": "unchanged (BG receipts/contributions XLSX · years 2000-2025)",
+      "durationMs": 147
+    },
+    {
+      "id": "ec_fts",
+      "label": "EC Financial Transparency System (EU direct funds to BG NGOs)",
+      "status": "unchanged",
+      "line": "unchanged (latest FTS dataset year 2025)",
+      "durationMs": 271
+    },
+    {
+      "id": "bnb_auctions",
+      "label": "BNB domestic ДЦК auctions",
+      "status": "changed",
+      "line": "1 new auction(s) since 2026-10-04 (latest: 2026-11-09)",
+      "durationMs": 175
+    },
+    {
+      "id": "bnb_fdi",
+      "label": "BNB monthly FDI flows",
+      "status": "skipped",
+      "line": "latest 2026-08 · next check 2026-11-18"
+    },
+    {
+      "id": "minfin_mreports",
+      "label": "Minfin КФП monthly bulletins (via Wayback)",
+      "status": "skipped",
+      "line": "371 bulletins cached · latest 2025-02 · next check 2026-12-11"
+    },
+    {
+      "id": "minfin_eurobond",
+      "label": "Minfin government-debt bulletins (Eurobond signal, via Wayback)",
+      "status": "skipped",
+      "line": "137 debt bulletin(s) cached · latest 2025-02 · next check 2026-11-18"
+    },
+    {
+      "id": "minfin_program_otchet",
+      "label": "Minfin programme-budget execution reports (via Wayback)",
+      "status": "skipped",
+      "line": "27 report(s) cached · latest 2024-06 (H1) · next check 2026-11-18"
+    },
+    {
+      "id": "mfa_program_otchet",
+      "label": "МВнР programmatic execution reports (via Wayback)",
+      "status": "skipped",
+      "line": "22 report(s) cached · latest 2025-12 (annual) · next check 2026-12-07"
+    },
+    {
+      "id": "budget_law",
+      "label": "State Budget Law promulgation (minfin, via Wayback)",
+      "status": "skipped",
+      "line": "45 budget-law file(s) cached · latest FY 2025 · next check 2026-11-18"
+    },
+    {
+      "id": "indicators_az",
+      "label": "AZ (Агенция по заетостта): annual unemployment reviews",
+      "status": "skipped",
+      "line": "18 annual reviews · latest 2025 · next check 2026-11-13"
+    },
+    {
+      "id": "indicators_mon_dzi",
+      "label": "МОН: ДЗИ резултати (data.egov.bg)",
+      "status": "skipped",
+      "line": "10 resources · next check 2026-11-13"
+    },
+    {
+      "id": "indicators_mon_nvo",
+      "label": "МОН: НВО 7. клас резултати (data.egov.bg)",
+      "status": "skipped",
+      "line": "9 resources · next check 2026-11-13"
+    },
+    {
+      "id": "indicators_nsi_pop",
+      "label": "НСИ: население по общини (timeseries XLSX)",
+      "status": "skipped",
+      "line": "351945 bytes · next check 2026-11-13"
+    },
+    {
+      "id": "indicators_nsi_vital",
+      "label": "НСИ: раждания, умирания и миграция по общини (timeseries XLSX)",
+      "status": "skipped",
+      "line": "568322 bytes · next check 2026-11-13"
+    },
+    {
+      "id": "nsi_landuse",
+      "label": "НСИ: Баланс на територията (LANDUSE annex)",
+      "status": "skipped",
+      "line": "1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година · next check 2026-11-13"
+    },
+    {
+      "id": "nsi_water_stats",
+      "label": "НСИ: Население с водни услуги / воден режим (Ecology_9.8)",
+      "status": "skipped",
+      "line": "15 years · latest 2024 · next check 2026-11-13"
+    },
+    {
+      "id": "grao",
+      "label": "ГРАО: население по постоянен и настоящ адрес (по населени места)",
+      "status": "skipped",
+      "line": "2026-09-15 · 505573 bytes · next check 2026-11-13"
+    },
+    {
+      "id": "ted_bg",
+      "label": "TED — обявления за България (api.ted.europa.eu)",
+      "status": "changed",
+      "line": "104 new BG notices (25,739 this year)",
+      "durationMs": 307
+    },
+    {
+      "id": "transparency_cpi",
+      "label": "Transparency International CPI (Bulgaria)",
+      "status": "skipped",
+      "line": "2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-11-18"
+    },
+    {
+      "id": "worldbank_wgi",
+      "label": "World Bank WGI (Bulgaria, Rule of Law canary)",
+      "status": "skipped",
+      "line": "21 year(s) · latest 2025 = -0.046 (Rule of Law) · next check 2026-12-06"
+    },
+    {
+      "id": "eurobarometer",
+      "label": "Standard Eurobarometer (institutional trust)",
+      "status": "skipped",
+      "line": "latest wave: Standard Eurobarometer 104 (Autumn 2025) · next check 2026-11-18"
+    },
+    {
+      "id": "cik_results",
+      "label": "CIK local-elections results bundles",
+      "status": "blocked",
+      "line": "needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG",
+      "consecutiveBlocked": 2
+    },
+    {
+      "id": "cik_presidential",
+      "label": "ЦИК presidential-elections results bundles",
+      "status": "blocked",
+      "line": "needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG",
+      "consecutiveBlocked": 2
+    },
+    {
+      "id": "iisda_mayors",
+      "label": "iisda.government.bg — Кметове на общини",
+      "status": "skipped",
+      "line": "265 mayors registered · page-1 sample of 30 IDs · next check 2026-11-22"
+    },
+    {
+      "id": "iaos_air_quality",
+      "label": "ИАОС air quality (data.egov.bg)",
+      "status": "error",
+      "line": "The operation was aborted due to timeout",
+      "error": "The operation was aborted due to timeout",
+      "durationMs": 31501,
+      "consecutiveErrors": 1
+    },
+    {
+      "id": "ti_bg_lisi",
+      "label": "Прозрачност без граници — LISI",
+      "status": "skipped",
+      "line": "latest year on page: 2024 · next check 2026-11-22"
+    },
+    {
+      "id": "vss_court_statistics",
+      "label": "ВСС — съдебна статистика",
+      "status": "skipped",
+      "line": "34 statistics PDFs · latest year 2026 · next check 2026-12-04"
+    },
+    {
+      "id": "ivss_declarations",
+      "label": "ИВСС — декларации на магистрати",
+      "status": "skipped",
+      "line": "register years 2017-2026 (290 letter pages) · 4 ИВСС lists, 37 named · next check 2026-12-06"
+    },
+    {
+      "id": "council_minutes",
+      "label": "Council resolutions + vote tallies",
+      "status": "skipped",
+      "line": "16 município(s) wired, 869 session-link(s) total · 4 fetch error(s) · next check 2026-11-13"
+    },
+    {
+      "id": "ipi_local_taxes",
+      "label": "ИПИ — Местни данъци (265 общини)",
+      "status": "skipped",
+      "line": "5/5 indicator CSVs · latest year 2025 · next check 2026-11-22"
+    },
+    {
+      "id": "municipal_naredba",
+      "label": "Общински наредби за местни данъци",
+      "status": "unchanged",
+      "line": "unchanged (10 município(s) wired)",
+      "durationMs": 1967
+    },
+    {
+      "id": "kzp_prices",
+      "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
+      "status": "skipped",
+      "line": "latest 2026-11-12 · 14 days advertised · next check 2026-11-13"
+    },
+    {
+      "id": "ec_oil_bulletin",
+      "label": "EC Weekly Oil Bulletin: consumer fuel prices (petrol 95 & diesel)",
+      "status": "unchanged",
+      "line": "unchanged (history XLSX 906e60ca…)",
+      "durationMs": 175
+    },
+    {
+      "id": "eurostat_food_pli",
+      "label": "Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1)",
+      "status": "skipped",
+      "line": "PLI updated 2026-07-09T23:00:00+0200 · next check 2026-12-11"
+    },
+    {
+      "id": "nzok_hospital_bmp",
+      "label": "НЗОК болнични плащания по лечебни заведения — БМП/ЛП/МИ (nhif.bg)",
+      "status": "skipped",
+      "line": "newest payments: bmp 2026-09 · drugs 2026-09 · devices 2026-09 · next check 2026-12-04"
+    },
+    {
+      "id": "nzok_drug_unit_prices",
+      "label": "НЗОК Справка 5 (ПЛС2) — реимбурсирани лекарства по лечебни заведения",
+      "status": "skipped",
+      "line": "newest Справка 5: 2026-08 (74 files listed) · next check 2026-12-04"
+    },
+    {
+      "id": "mh_eeof_quarterly",
+      "label": "МЗ финансови показатели на болниците (ЕЕОФ, тримесечно)",
+      "status": "skipped",
+      "line": "newest quarter: 2025-Q3 (26 quarters listed) · next check 2026-12-04"
+    },
+    {
+      "id": "nzok_drug_quarterly",
+      "label": "НЗОК брутни разходи за лекарства по INN (nhif.bg)",
+      "status": "skipped",
+      "line": "newest drug-reimbursement file (2026): Брутни разходи за 202602 за оригинални лп.xls · next check 2026-12-04"
+    },
+    {
+      "id": "nzok_execution_b1",
+      "label": "НЗОК касово изпълнение B1 (nhif.bg)",
+      "status": "skipped",
+      "line": "newest B1 execution: 2026-08 · next check 2026-12-04"
+    },
+    {
+      "id": "nzok_activities",
+      "label": "НЗОК — брой случаи и ЗОЛ по клинични пътеки (месечно)",
+      "status": "skipped",
+      "line": "newest activity file: 2026-09 · next check 2026-12-04"
+    },
+    {
+      "id": "nzok_nrd_tariffs",
+      "label": "НЗОК — НРД цени на КП/АПр/КПр (договор + изменения)",
+      "status": "skipped",
+      "line": "6 НРД contract/era links · next check 2026-12-04"
+    },
+    {
+      "id": "nato_defexp",
+      "label": "НАТО — разходи за отбрана",
+      "status": "skipped",
+      "line": "6 def-exp PDFs · latest edition 2026 · next check 2026-12-06"
+    },
+    {
+      "id": "mod_defense_report",
+      "label": "МО — доклад за отбраната",
+      "status": "skipped",
+      "line": "10 МО PDFs · latest year 2026 · next check 2026-12-04"
+    },
+    {
+      "id": "moe_arms_exports",
+      "label": "МИ — износ на оръжие",
+      "status": "skipped",
+      "line": "54 export-report links · latest year 0 · next check 2026-12-04"
+    },
+    {
+      "id": "asp_benefits",
+      "label": "АСП — отчети и доклади",
+      "status": "skipped",
+      "line": "21 годишни отчета на АСП · next check 2026-12-11"
+    },
+    {
+      "id": "git_inspections",
+      "label": "ГИТ — доклади за дейността",
+      "status": "skipped",
+      "line": "5 годишни доклада на ГИТ · next check 2026-12-11"
+    },
+    {
+      "id": "eurostat_road_safety",
+      "label": "Eurostat road safety (BG): пътни жертви (sdg_11_40)",
+      "status": "skipped",
+      "line": "sdg_11_40 · update 2026-10-27T23:00:00+0100 · next check 2026-12-07"
+    },
+    {
+      "id": "municipal_fiscal_due",
+      "label": "Финансови показатели на общините (ЗПФ чл. 130г) — предстоящо тримесечие",
+      "status": "unchanged",
+      "line": "unchanged (up to date at 2026-Q2)",
+      "durationMs": 1
+    },
+    {
+      "id": "procurement_scope_windows",
+      "label": "Procurement scope windows (calendar / election rollover)",
+      "status": "skipped",
+      "line": "16 year window(s) 2011..2026 + 13 election window(s) (+ all) · next check 2026-11-13"
+    }
+  ]
+}
