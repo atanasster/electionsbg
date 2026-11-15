@@ -1,0 +1,226 @@
+{
+  "schema": 1,
+  "session": "20261115T224558Z-b836",
+  "kind": "ingest",
+  "startedAt": "2026-11-15T22:45:59.202Z",
+  "git": {
+    "shaStart": "ac0ae4a5eebb8e360e89269a5b6951e26e53e891",
+    "shaEnd": "ac0ae4a5eebb8e360e89269a5b6951e26e53e891"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country BG; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "egress:non-bg": {
+      "ok": false,
+      "detail": "exit IP country BG; parliament.bg, МО and ЦИК time out behind a Bulgarian exit"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 103 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "an unpublished manifest is 2 h old"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 30.0 GB free (min 10); Docker VM 28.0 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-rollcall",
+      "status": "blocked",
+      "sources": [
+        "parliament_votes"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "egress:non-bg: exit IP country BG; parliament.bg, МО and ЦИК time out behind a Bulgarian exit"
+    },
+    {
+      "id": "update-procurement",
+      "status": "skipped",
+      "sources": [
+        "egov_procurement",
+        "eop_procurement",
+        "cprs_register",
+        "ted_bg",
+        "adfi_inspections"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "delegated to the update-procurement runbook (not yet a script)"
+    },
+    {
+      "id": "update-budget",
+      "status": "needs-operator",
+      "sources": [
+        "capital_programs"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Download each changed município's capital programme and run its scripts/budget/capital_programs/<muni>.ts parser (OCR pre-step for scan sources), then scripts/budget/capital_programs/__shrink_for_tile.ts."
+    },
+    {
+      "id": "update-defense",
+      "status": "needs-operator",
+      "sources": [
+        "mod_defense_report"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "pdftotext the МО state-of-defence report and hand-edit data/defense/readiness.json."
+    },
+    {
+      "id": "update-culture",
+      "status": "needs-operator",
+      "sources": [
+        "ncf_grant_results"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts."
+    },
+    {
+      "id": "update-transparency-lisi",
+      "status": "needs-operator",
+      "sources": [
+        "ti_bg_lisi"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Read the 27 scores and the average from lisi.transparency.bg and edit the LISI_<year> array in scripts/transparency/build_lisi.ts."
+    },
+    {
+      "id": "oecd_family_leave",
+      "status": "needs-operator",
+      "sources": [
+        "oecd_family_leave"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "OECD family-leave table moved: review the simulator anchors and edit the curated constants."
+    },
+    {
+      "id": "imf_weo_bg",
+      "status": "needs-operator",
+      "sources": [
+        "imf_weo_bg"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "A new IMF WEO vintage: update the curated forecast rows."
+    },
+    {
+      "id": "fiscal_council_bg",
+      "status": "needs-operator",
+      "sources": [
+        "fiscal_council_bg"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "A new Fiscal Council opinion: check whether any simulator lever is affected."
+    }
+  ],
+  "needsOperator": [
+    {
+      "unit": "update-budget",
+      "id": "capital-programmes",
+      "instruction": "Download each changed município's capital programme and run its scripts/budget/capital_programs/<muni>.ts parser (OCR pre-step for scan sources), then scripts/budget/capital_programs/__shrink_for_tile.ts."
+    },
+    {
+      "unit": "update-defense",
+      "id": "defense-readiness-read",
+      "instruction": "pdftotext the МО state-of-defence report and hand-edit data/defense/readiness.json."
+    },
+    {
+      "unit": "update-culture",
+      "id": "ncf-grant-results-url",
+      "instruction": "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts."
+    },
+    {
+      "unit": "update-transparency-lisi",
+      "id": "lisi-scores-paste",
+      "instruction": "Read the 27 scores and the average from lisi.transparency.bg and edit the LISI_<year> array in scripts/transparency/build_lisi.ts.",
+      "url": "https://lisi.transparency.bg/"
+    },
+    {
+      "unit": "oecd_family_leave",
+      "id": "oecd_family_leave-manual",
+      "instruction": "OECD family-leave table moved: review the simulator anchors and edit the curated constants."
+    },
+    {
+      "unit": "imf_weo_bg",
+      "id": "imf_weo_bg-manual",
+      "instruction": "A new IMF WEO vintage: update the curated forecast rows."
+    },
+    {
+      "unit": "fiscal_council_bg",
+      "id": "fiscal_council_bg-manual",
+      "instruction": "A new Fiscal Council opinion: check whether any simulator lever is affected."
+    }
+  ],
+  "needsAgent": [
+    {
+      "unit": "update-procurement",
+      "id": "run-runbook",
+      "instruction": "Run update-procurement for egov_procurement, eop_procurement, cprs_register, ted_bg, adfi_inspections. Planned steps: pnpm run procurement:ingest-legacy --discover → pnpm exec tsx scripts/procurement/ingest_eop.ts --self-heal --apply → pnpm run procurement:ingest → pnpm exec tsx scripts/procurement/ingest_tenders.ts --apply → pnpm exec tsx scripts/procurement/eop_field_map.ts --apply → pnpm exec tsx scripts/procurement/by_id_shards.ts → pnpm exec tsx scripts/procurement/ingest_anexi.ts → pnpm exec tsx scripts/procurement/anexi_current_value.ts --apply → pnpm run proc:backfill-unp:apply → pnpm run proc:reconcile:apply → pnpm exec tsx scripts/procurement/rebuild_from_cache.ts → pnpm exec tsx scripts/procurement/contract_index.ts → pnpm exec tsx scripts/procurement/rebuild_derived.ts → pnpm run db:refresh → pnpm run cprs:ingest --apply --refresh → pnpm run db:load:cprs:pg → pnpm run ted:ingest --apply → pnpm run db:load:ted:pg → pnpm run adfi:ingest --apply → pnpm run db:load:adfi:pg.",
+      "doc": ".claude/skills/update-procurement/SKILL.md"
+    }
+  ],
+  "findings": [],
+  "publish": {
+    "decision": "n/a",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-15T22:45:59.314Z",
+  "verdict": "degraded"
+}
