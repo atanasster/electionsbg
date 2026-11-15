@@ -41,11 +41,11 @@
   },
   "cik_presidential": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 4
+    "consecutiveBlocked": 5
   },
   "cik_results": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 4
+    "consecutiveBlocked": 5
   },
   "council_minutes": {
     "consecutiveErrors": 0,
@@ -248,12 +248,12 @@
     "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "nfc_commissions": {
-    "consecutiveErrors": 5,
+    "consecutiveErrors": 6,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "HTTP 520 <none>"
   },
   "nfc_film_register": {
-    "consecutiveErrors": 5,
+    "consecutiveErrors": 6,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "HTTP 520 <none>"
   },
@@ -278,7 +278,7 @@
     "lastOkAt": "2026-11-13T06:13:56.246Z"
   },
   "oecd_pit_params": {
-    "consecutiveErrors": 5,
+    "consecutiveErrors": 6,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata"
   },
@@ -288,11 +288,11 @@
   },
   "parliament_mps": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 4
+    "consecutiveBlocked": 5
   },
   "parliament_votes": {
     "consecutiveErrors": 0,
-    "consecutiveBlocked": 4
+    "consecutiveBlocked": 5
   },
   "person_link_overrides": {
     "consecutiveErrors": 0,
@@ -352,7 +352,7 @@
   },
   "ted_bg": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-15T19:22:10.067Z"
+    "lastOkAt": "2026-11-15T22:44:42.652Z"
   },
   "wiki_governments": {
     "consecutiveErrors": 0,

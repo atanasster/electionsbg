@@ -1,4 +1,4 @@
-# Watch report — 2026-11-15 (15.11.2026 г., 21:22 Europe/Sofia)
+# Watch report — 2026-11-15 (16.11.2026 г., 00:44 Europe/Sofia)
 
 ## Changed
 _(no changes — all upstreams stable)_
@@ -137,15 +137,15 @@ _(no changes — all upstreams stable)_
 - Procurement scope windows (calendar / election rollover) (daily): 16 year window(s) 2011..2026 + 13 election window(s) (+ all) · next check 2026-11-16
 
 ## Blocked (wrong exit country — not probed)
-- Parliament roll-call votes: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 4 runs in a row)_
-- Parliament MPs (active roster): needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 4 runs in a row)_
-- CIK local-elections results bundles: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 4 runs in a row)_
-- ЦИК presidential-elections results bundles: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 4 runs in a row)_
+- Parliament roll-call votes: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 5 runs in a row)_
+- Parliament MPs (active roster): needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 5 runs in a row)_
+- CIK local-elections results bundles: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 5 runs in a row)_
+- ЦИК presidential-elections results bundles: needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG _(blocked 5 runs in a row)_
 
 ## Errors
-- **НФЦ Единен публичен регистър (financed films, nfc.bg)**: HTTP 520 <none> _(failing 5 runs in a row)_
-- **НФЦ artistic-commission appointments (nfc.bg заповеди)**: HTTP 520 <none> _(failing 5 runs in a row)_
-- **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata _(failing 5 runs in a row)_
+- **НФЦ Единен публичен регистър (financed films, nfc.bg)**: HTTP 520 <none> _(failing 6 runs in a row)_
+- **НФЦ artistic-commission appointments (nfc.bg заповеди)**: HTTP 520 <none> _(failing 6 runs in a row)_
+- **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata _(failing 6 runs in a row)_
 
 ---
-_Watcher run at 2026-11-15T19:22:10.067Z UTC._
+_Watcher run at 2026-11-15T22:44:42.652Z UTC._
