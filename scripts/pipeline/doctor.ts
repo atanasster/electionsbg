@@ -647,11 +647,16 @@ export const preflightBlockers = (r: DoctorResult): string[] => {
 
 /** What will make the publish half fail or hold, known before hours of
  *  ingest — reported up front, not a reason to skip the ingest. */
+// What stops a publish from completing. An OLD pending manifest does not —
+// the publish simply ships it with the new one — so only an unreadable one
+// counts; its age is reported by the check itself.
 export const publishWarnings = (r: DoctorResult): string[] =>
   r.checks
     .filter(
       (c) =>
-        !c.ok && ["proxy", "bin:gsutil", "pending-manifest"].includes(c.id),
+        !c.ok &&
+        (["proxy", "bin:gsutil"].includes(c.id) ||
+          (c.id === "pending-manifest" && !/ h old$/.test(c.detail))),
     )
     .map((c) => `${c.id}: ${c.detail}`);
 

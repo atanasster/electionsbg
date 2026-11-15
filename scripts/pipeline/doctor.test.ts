@@ -309,6 +309,15 @@ describe("preflight", () => {
       ),
     ).toEqual(["proxy"]);
   });
+
+  it("an OLD manifest does not stop a publish; an unreadable one does", () => {
+    const w = (pendingManifest: Facts["pendingManifest"]) =>
+      publishWarnings(evaluate({ ...healthy, pendingManifest }, NOW)).map(
+        (x) => x.split(":")[0],
+      );
+    expect(w({ ageH: 100 })).toEqual([]);
+    expect(w({ problem: "bad" })).toEqual(["pending-manifest"]);
+  });
 });
 
 describe("pgAnswers", () => {

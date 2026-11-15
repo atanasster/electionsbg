@@ -46,6 +46,7 @@ import {
 } from "../doctor";
 import { isInterrupted, runStep } from "../exec/executor";
 import { deadRuns, monitorFor } from "../exec/monitor";
+import { commitPaths } from "../git";
 import { runIngest, stoppedRecord } from "../ingest";
 import { realIngestDeps } from "../ingest_wiring";
 import { acquireLock, LockHeldError } from "../lock";
@@ -53,6 +54,9 @@ import { medianIndex } from "../report/finalize";
 import { logDir, runDir, type RunRecord } from "../report/record";
 import { REPO } from "../state";
 import { watcherPreamble } from "../watch_health";
+
+/** What the watcher writes; committed by nightly right after it runs. */
+const WATCHER_OUTPUTS = ["state/watch", "data-reports"];
 
 const args = process.argv.slice(2);
 const unknown = args.filter((a) => a !== "--no-publish");
@@ -260,6 +264,7 @@ const main = async (): Promise<void> => {
     );
 
   // ---- watcher
+  const findings0: string[] = [];
   m.setPhase("watch");
   const watchStarted = Date.now();
   const watch = await runStep(
@@ -288,7 +293,28 @@ const main = async (): Promise<void> => {
   }
   const pre = watcherPreamble(watch, json, watchStarted);
   for (const f of pre.findings) log(`  ${f}`);
+  // The watcher writes state/watch/* and data-reports/* and commits neither.
+  // Run on its own it was committed by the scheduled job that ran it; under
+  // nightly nobody did, so every run left ~100 dirty state files for the
+  // auto-committer to sweep into an unrelated commit. Each source writes its
+  // state only after a completed probe, so this is safe after a failed watch
+  // too; only an interrupt skips it.
+  if (!isInterrupted()) {
+    const wc = commitPaths(
+      `watch: state update ${new Date(watchStarted).toISOString().slice(0, 16)}Z`,
+      WATCHER_OUTPUTS,
+    );
+    if (wc.status === "committed")
+      log(
+        `  committed watcher state ${wc.sha.slice(0, 10)} (${wc.files.length} file(s))`,
+      );
+    else if (wc.status === "failed") {
+      log(`  ! watcher state not committed: ${wc.error}`);
+      findings0.push(`watcher state not committed: ${wc.error}`);
+    }
+  }
   const findings = [
+    ...findings0,
     ...deadFindings,
     ...pubWarn.map((w) => `publish prerequisite missing at start: ${w}`),
     ...pre.findings,
