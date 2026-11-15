@@ -1,0 +1,40 @@
+{
+  "session": "20261115T192334Z-16ab",
+  "createdAt": "2026-11-15T20:36:27.547Z",
+  "commit": "a3434a6a2a",
+  "skills": [
+    "update-procurement"
+  ],
+  "paths": [
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "culture/derived/hub_stats.json",
+    "roads/derived/hub_stats.json",
+    "water/flood_maintenance.json",
+    "water/derived/hub_stats.json",
+    "transport/derived/hub_stats.json",
+    "governance/hub_stats.json",
+    "home/flyover.json",
+    "home/hub_stats.json",
+    "governance/declarations_hub_stats.json"
+  ],
+  "cloudCommands": [
+    "pnpm run db:load:pg:cloud",
+    "pnpm run db:load:tenders:pg:cloud",
+    "pnpm run db:load:awarder-seats:pg:cloud",
+    "pnpm run proc:verify-seats:cloud",
+    "pnpm run db:load:annexes:pg:cloud",
+    "pnpm run db:load:transport-project-map:pg:cloud",
+    "pnpm run db:load:water-operator-map:pg:cloud",
+    "pnpm run db:load:mvr-directorate-map:pg:cloud",
+    "pnpm run db:load:transport-facility-map:pg:cloud",
+    "pnpm run db:load:persons-browse:pg:cloud",
+    "pnpm run db:load:graph:pg:cloud",
+    "pnpm run db:load:tr-company-place:pg:cloud",
+    "pnpm run db:load:employer-links:pg:cloud",
+    "pnpm run db:load:grant-links:pg:cloud",
+    "pnpm run db:load:ted:pg:cloud",
+    "pnpm run db:load:adfi:pg:cloud"
+  ],
+  "notes": "HELD: db:refresh test:data red (person_identity_stability 137045 vs 136490 baseline; budget_municipal ipop stalled 622 vs 657) + cprs_load refused 7.7% shrink. Not stamped."
+}
