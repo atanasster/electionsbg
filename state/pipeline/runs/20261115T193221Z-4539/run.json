@@ -1,0 +1,184 @@
+{
+  "schema": 1,
+  "session": "20261115T193221Z-4539",
+  "kind": "publish",
+  "startedAt": "2026-11-15T19:32:21.294Z",
+  "git": {
+    "shaStart": "ca9828df3c4d6c8375b6fcac1549755cd89e5d0d",
+    "shaEnd": "ca9828df3c4d6c8375b6fcac1549755cd89e5d0d"
+  },
+  "env": {
+    "proxy": {
+      "ok": true,
+      "detail": "up"
+    }
+  },
+  "units": [
+    {
+      "id": "bucket",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "bucket:sync:paths:dry",
+          "command": "pnpm run bucket:sync:paths:dry data_map.json home governance/hub_stats.json home/flyover.json home/price_events.json home/feed.json",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2870,
+          "medianMs": 3281.5,
+          "log": "logs/pipeline/20261115T193221Z-4539/001-bucket_sync_paths_dry.log"
+        },
+        {
+          "seq": 2,
+          "id": "bucket:sync:paths data_map.json",
+          "command": "pnpm run bucket:sync:paths data_map.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1781,
+          "medianMs": 1545,
+          "log": "logs/pipeline/20261115T193221Z-4539/002-bucket_sync_paths_data_map.json.log"
+        },
+        {
+          "seq": 3,
+          "id": "bucket:sync:paths home",
+          "command": "pnpm run bucket:sync:paths home",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1972,
+          "medianMs": 1791,
+          "log": "logs/pipeline/20261115T193221Z-4539/003-bucket_sync_paths_home.log"
+        },
+        {
+          "seq": 4,
+          "id": "bucket:sync:paths governance/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths governance/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1712,
+          "medianMs": 1483,
+          "log": "logs/pipeline/20261115T193221Z-4539/004-bucket_sync_paths_governance_hub_stats.json.log"
+        },
+        {
+          "seq": 5,
+          "id": "bucket:sync:paths home/flyover.json",
+          "command": "pnpm run bucket:sync:paths home/flyover.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1630,
+          "medianMs": 1468,
+          "log": "logs/pipeline/20261115T193221Z-4539/005-bucket_sync_paths_home_flyover.json.log"
+        },
+        {
+          "seq": 6,
+          "id": "bucket:sync:paths home/price_events.json",
+          "command": "pnpm run bucket:sync:paths home/price_events.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1566,
+          "medianMs": 1461,
+          "log": "logs/pipeline/20261115T193221Z-4539/006-bucket_sync_paths_home_price_events.json.log"
+        },
+        {
+          "seq": 7,
+          "id": "bucket:sync:paths home/feed.json",
+          "command": "pnpm run bucket:sync:paths home/feed.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1568,
+          "medianMs": 1471,
+          "log": "logs/pipeline/20261115T193221Z-4539/007-bucket_sync_paths_home_feed.json.log"
+        },
+        {
+          "seq": 8,
+          "id": "bucket:gz",
+          "command": "pnpm run bucket:gz",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 133061,
+          "medianMs": 139744.5,
+          "log": "logs/pipeline/20261115T193221Z-4539/008-bucket_gz.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 9,
+          "id": "prices:ingest:cloud",
+          "command": "pnpm run prices:ingest:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1465146,
+          "medianMs": 1413093.5,
+          "log": "logs/pipeline/20261115T193221Z-4539/009-prices_ingest_cloud.log"
+        },
+        {
+          "seq": 10,
+          "id": "myarea:alerts:cloud",
+          "command": "pnpm run myarea:alerts:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 30287,
+          "medianMs": 28019,
+          "log": "logs/pipeline/20261115T193221Z-4539/010-myarea_alerts_cloud.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "verify",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 11,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 771,
+          "medianMs": 878,
+          "log": "logs/pipeline/20261115T193221Z-4539/011-db_check-generated.log"
+        },
+        {
+          "seq": 12,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 912,
+          "medianMs": 1161,
+          "log": "logs/pipeline/20261115T193221Z-4539/012-db_check-cloud.log"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "ran under the pipeline lock held by session 20261115T192334Z-16ab"
+  ],
+  "manifestDigest": "b2879b67ad21302f",
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-15T19:59:44.599Z",
+  "verdict": "clean"
+}
