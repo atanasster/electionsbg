@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-11-15T19:32:03.461Z",
+  "computedAt": "2026-11-15T20:29:55.165Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 95251260182,
+      "value": 95301071010,
       "basis": "contracts"
     },
     "sectors": {
@@ -50,7 +50,7 @@
     },
     "connections": {
       "kind": "count",
-      "value": 210096,
+      "value": 210251,
       "basis": "edges"
     }
   },
@@ -131,12 +131,12 @@
   "coverage": [
     {
       "id": "contracts",
-      "value": 409348,
+      "value": 409588,
       "to": "/procurement/contracts?pscope=all"
     },
     {
       "id": "tenders",
-      "value": 242289,
+      "value": 242443,
       "to": "/procurement/tenders?pscope=all"
     },
     {
