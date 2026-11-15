@@ -286,6 +286,21 @@ const gitSha = (): string => {
   }
 };
 
+/**
+ * Per-phase wall-clock lines, so a slow run says WHERE it was slow. Each call prints the time
+ * since the previous one (`  phase  copy tr_officers  312.4s`). Added 2026-11-15: the cloud
+ * load went from ~10 to 15–35 min after 2026-10-22 while the local load of the same corpus
+ * stayed at 150–375 s, and the loader printed nothing between its start and the scoped
+ * precompute refresh, so there was no way to tell the COPY from the index builds from the
+ * company_politicians rebuild.
+ */
+let phaseAt = Date.now();
+const phase = (label: string): void => {
+  const now = Date.now();
+  console.log(`  phase  ${label}  ${((now - phaseAt) / 1000).toFixed(1)}s`);
+  phaseAt = now;
+};
+
 const waitForPg = async (): Promise<void> => {
   for (let i = 0; i < 30; i++) {
     try {
@@ -452,6 +467,7 @@ export const LOAD_INDEXES: { name: string; table: string; ddl: string }[] = [
  * on that drift; this is the repair it names.
  */
 export const rebuildCompanyPoliticians = async (): Promise<number> => {
+  phaseAt = Date.now(); // also the entry point of db:load:company-politicians:pg
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.
   // eik, politician, ref, kind, role, total_eur, relations, person_id — the last is the
@@ -502,6 +518,7 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
       person_id: string | null;
       relations: unknown;
     }>(MP_ARM_SQL);
+    phase("company_politicians: mp arm query");
     for (const r of rows)
       links.push([
         r.eik,
@@ -537,6 +554,7 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
       person_id: string | null;
       relations: unknown;
     }>(OFFICIAL_ARM_SQL);
+    phase("company_politicians: official arm query");
     for (const r of rows)
       links.push([
         r.eik,
@@ -565,6 +583,7 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
       ],
       links,
     );
+  phase(`company_politicians: truncate + copy ${links.length} rows`);
 
   // Awarder K-Index (politician/NGO-board-linked-supplier share per awarder) —
   // depends on contracts + the company_politicians just loaded. The migration
@@ -593,7 +612,9 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
     await exec(readFileSync(RISK_GRADE_SQL, "utf8"));
     // 041 rebuilt the ranking matview from fresh company_politicians; repopulate
     // the per-scope serving table so the leaderboard doesn't go stale (F-007).
+    phase("040/041: K-Index + risk grade");
     await withClient((c) => rebuildRiskGradeScoped(c));
+    phase("risk grade scoped");
     // The per-scope precomputes built from the two tables this loader just replaced.
     // company_politicians is TRUNCATE+reloaded above, and it is the politician↔company link
     // set the MP-tied money on the whole procurement dashboard is computed from; tr_companies
@@ -606,6 +627,7 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
     // Guarded because a TR-only database may predate the migrations; refreshScopedPrecomputes
     // already skips a matview that does not exist, so this only has to survive the call.
     await refreshScopedPrecomputes(["company_politicians", "tr_companies"]);
+    phase("scoped precomputes");
     // Same reason, different precompute: budget_admin_procurement (157) counts
     // DISTINCT politician-linked contractors per spending unit, straight out of
     // the company_politicians this loader just replaced. Without it every
@@ -622,6 +644,7 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
     if (hasAdminProc) {
       await exec("SELECT rebuild_budget_admin_procurement()");
       await vacuumAfterReload("budget_admin_procurement");
+      phase("budget_admin_procurement");
     }
     // NGO signals (080) also need fund_projects + ngo_funding. Apply + REFRESH
     // only when both are present too — a TR-only DB (before an ИСУН / funding
@@ -649,6 +672,7 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
       // Matview is created WITH NO DATA; a plain REFRESH populates it (~2s over
       // ~31k NGOs). Not CONCURRENTLY — it may be unpopulated on the first run.
       await exec("REFRESH MATERIALIZED VIEW ngo_signals");
+      phase("ngo board links + ngo_signals");
       // Rebuild the contract-page foreign-funding disclosure feed, then refresh
       // the risk-indexes cache so /api/db/procurement-risk-indexes serves it.
       // Gate on the TARGET TABLE itself (owned by migration 033, applied by the
@@ -670,6 +694,7 @@ export const rebuildCompanyPoliticians = async (): Promise<number> => {
           await exec(
             "REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache",
           );
+        phase("ngo foreign link + risk indexes cache");
       }
     }
   }
@@ -683,12 +708,14 @@ export const loadTrPg = async (): Promise<{
   companiesNew: number;
 }> => {
   await waitForPg();
+  phaseAt = Date.now();
   await exec(readFileSync(FN_SQL, "utf8"));
   await exec(readFileSync(TR_SQL, "utf8"));
   // ingest_batches / ingest_first_seen / changelog_days — the TR load records its
   // batch below, and 007 (applied later here) reads them. Idempotent, and safe on
   // a contracts-less DB (005 defers its function-body validation).
   await exec(readFileSync(INGEST_SQL, "utf8"));
+  phase("apply 000/003/005");
 
   const tr = new DatabaseSync(TR_DB, { readOnly: true });
 
@@ -701,6 +728,7 @@ export const loadTrPg = async (): Promise<{
       "SELECT uic, name, legal_form, seat, subject_of_activity, status, funds_amount, funds_currency, last_updated, objectives, means, public_benefit, private_benefit FROM companies WHERE name IS NOT NULL AND name <> ''",
     )
     .all() as Array<Record<string, string | number | null>>;
+  phase(`read ${companies.length} companies (sqlite)`);
   // One changelog row per refresh, covering the whole TR load (companies +
   // officers + person-roles + ngo_details are one dataset from one source, and
   // the company corpus is its headline entity — its EIK is the stable key that
@@ -752,6 +780,7 @@ export const loadTrPg = async (): Promise<{
         threshold: 0,
       }),
   );
+  phase("copy tr_companies (+ changelog)");
 
   // ЮЛНЦ metadata sidecar — only rows that actually carry NGO fields.
   const ngoDetails = companies.filter(
@@ -779,6 +808,7 @@ export const loadTrPg = async (): Promise<{
         ];
     })(),
   );
+  phase(`copy ngo_details (${ngoDetails.length})`);
 
   const officers = tr
     .prepare(
@@ -791,6 +821,7 @@ export const loadTrPg = async (): Promise<{
        GROUP BY uic, name`,
     )
     .all() as Array<Record<string, string | number | null>>;
+  phase(`read ${officers.length} officers (sqlite)`);
   await replaceTable(
     "tr_officers",
     ["uic", "name", "roles", "active", "changed_at"],
@@ -799,6 +830,7 @@ export const loadTrPg = async (): Promise<{
         yield [r.uic, r.name, r.roles, r.active, r.changed_at || null];
     })(),
   );
+  phase("copy tr_officers");
 
   // Raw per-role records for the person page's history (from/to dates + share).
   const roles = tr
@@ -808,6 +840,7 @@ export const loadTrPg = async (): Promise<{
        WHERE name IS NOT NULL AND name <> ''`,
     )
     .all() as Array<Record<string, string | number | null>>;
+  phase(`read ${roles.length} person roles (sqlite)`);
   await replaceTable(
     "tr_person_roles",
     [
@@ -839,10 +872,14 @@ export const loadTrPg = async (): Promise<{
     })(),
   );
   tr.close();
+  phase("copy tr_person_roles");
 
   // One-shot index build (cheaper than incremental during load). Dropped above,
   // so these stay unconditional CREATEs — see LOAD_INDEXES for what each is for.
-  for (const { ddl } of LOAD_INDEXES) await exec(ddl);
+  for (const { name, ddl } of LOAD_INDEXES) {
+    await exec(ddl);
+    phase(`index ${name}`);
+  }
   // ANALYZE every table replaced above, not just the two the loader used to name.
   // TRUNCATE does NOT reset pg_statistic, so where the old DROP+CREATE left stats
   // genuinely absent — which the planner treats as unknown — this leaves the
@@ -850,23 +887,28 @@ export const loadTrPg = async (): Promise<{
   // largest of the four and feeds company_person_roles and owner_name_counts on
   // this same path.
   for (const t of Object.keys(TRUNCATE_SQL)) await exec(`ANALYZE ${t}`);
+  phase("analyze");
 
   // Search API + multi-table builders (idempotent; depend on the tables +
   // contracts + contract_first_seen + contractor_search).
   await exec(readFileSync(API_SQL, "utf8"));
   await exec(readFileSync(BUILDERS_SQL, "utf8"));
   await exec(readFileSync(CONN_SQL, "utf8"));
+  phase("apply 006/007/008");
 
   // Related-companies (same-owner) namesake index + fn. Matview is refreshed so
   // re-runs don't leave the owner→company counts stale.
   await exec(readFileSync(RELATED_SQL, "utf8"));
   await exec("REFRESH MATERIALIZED VIEW owner_name_counts");
+  phase("owner_name_counts");
 
   // Deduped officers relation for the server-side officers table.
   await exec(readFileSync(OFFICERS_SQL, "utf8"));
   await exec("REFRESH MATERIALIZED VIEW company_person_roles");
+  phase("company_person_roles");
   // Officer namesake counts (hub pruning for the multi-hop path finder).
   await exec("REFRESH MATERIALIZED VIEW officer_name_counts");
+  phase("officer_name_counts");
 
   // Second-degree person↔person bridges (192) — the „Проверка на връзка" block's answer
   // when two names share no company. It reads the officer_name_counts matview 008 owns and
@@ -874,6 +916,7 @@ export const loadTrPg = async (): Promise<{
   // must be applied AFTER 008 — not beside 003. Nothing else applies it: it is the reason
   // db:load:tr:pg[:cloud] carries the feature at all.
   await exec(readFileSync(BRIDGE_SQL, "utf8"));
+  phase("apply 192");
 
   // Its DUAL — companies by officer count (071), the hub filter the magistrate
   // bridge walk refuses to hop through. Pure derivation of the tr_officers this
@@ -889,6 +932,7 @@ export const loadTrPg = async (): Promise<{
   // duration on every TR load. 071 supplies the UNIQUE index that allows it, and owns
   // the object — a TR-only database may not have it at all, which the helper skips.
   await refreshMatviewConcurrently("company_officer_counts");
+  phase("company_officer_counts");
 
   // Person-page portfolio rollups (procurement / by-cabinet / inner circle) —
   // depend on tr_officers + contracts + cabinets + officer_name_counts (above).
@@ -897,6 +941,7 @@ export const loadTrPg = async (): Promise<{
   // rebuild creates them and person_procurement_breakdowns.data.test.ts passes without a
   // manual apply.
   await exec(readFileSync(PERSON_BREAKDOWNS_SQL, "utf8"));
+  phase("apply person api + breakdowns");
 
   // company_politicians + everything computed from it. Shared with the standalone
   // db:load:company-politicians:pg, which re-runs it after a person resolve.
@@ -912,6 +957,7 @@ export const loadTrPg = async (): Promise<{
   // index on (declaration_id, seq, uic) that allows it, and owns the object, so a database
   // where the declarations loader has never run is skipped rather than failed.
   await refreshMatviewConcurrently("declaration_stake_company");
+  phase("declaration_stake_company");
 
   // person_browse_table (120) — the third matview 003's CASCADE used to delete —
   // is deliberately NOT refreshed here. It folds six upstream datasets and is a
