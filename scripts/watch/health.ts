@@ -118,6 +118,27 @@ export const writeHealth = (
   fs.writeFileSync(file, JSON.stringify(ledger, null, 2) + "\n");
 };
 
+/** Does `url` answer at all within `ms`? Any HTTP status counts — a 403 from
+ *  a bot wall is still a reachable host; only a timeout or a connect/TLS
+ *  failure is the "wrong exit" signature the egress gate exists for. */
+export const reachable = async (
+  url: string,
+  fetchImpl: typeof fetch = fetch,
+  ms = 10_000,
+): Promise<boolean> => {
+  try {
+    const res = await fetchImpl(url, {
+      method: "GET",
+      redirect: "manual",
+      signal: AbortSignal.timeout(ms),
+    });
+    await res.body?.cancel().catch(() => {});
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 /** Why this source cannot be probed from `country`, or null. */
 export const egressMismatch = (
   need: WatchSource["egress"],
@@ -127,6 +148,6 @@ export const egressMismatch = (
   if (need === "bg" && country !== "BG")
     return `needs a Bulgarian exit; this run exits via ${country}`;
   if (need === "non-bg" && country === "BG")
-    return "needs a NON-Bulgarian exit (the upstream times out behind a BG VPN); this run exits via BG";
+    return "needs a NON-Bulgarian exit or a residential BG line (the upstream times out behind a BG VPN); this run exits via BG and the upstream did not answer";
   return null;
 };

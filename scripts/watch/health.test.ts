@@ -8,6 +8,7 @@ import {
   standingProblem,
   updateHealth,
   writeHealth,
+  reachable,
 } from "./health";
 import { renderJsonReport, renderReport } from "./report";
 import type { ReportEntry, WatchSource } from "./types";
@@ -142,5 +143,18 @@ describe("reports", () => {
       consecutiveErrors: 4,
       error: "timeout",
     });
+  });
+});
+
+describe("reachable — the egress gate asks the host before skipping", () => {
+  const ok = (async () => new Response("x", { status: 403 })) as typeof fetch;
+  const dead = (async () => {
+    throw new Error("connect ETIMEDOUT");
+  }) as typeof fetch;
+  it("treats ANY HTTP status as reachable (a bot-wall 403 is still a live host)", async () => {
+    expect(await reachable("https://example.test/", ok)).toBe(true);
+  });
+  it("treats a thrown fetch (timeout / TLS / connect) as unreachable", async () => {
+    expect(await reachable("https://example.test/", dead)).toBe(false);
   });
 });

@@ -238,8 +238,10 @@ export const cikResults: WatchSource = {
   label: "CIK local-elections results bundles",
   url: `${ROOT}/`,
   cadence: "daily",
-  // Behind a Bulgarian VPN exit this upstream times out; say so instead.
+  // Behind a Bulgarian VPN exit this upstream times out; say so instead —
+  // but only when the host does not answer (a BG residential line reaches it).
   egress: "non-bg",
+  egressProbe: "https://results.cik.bg/",
 
   async fingerprint(): Promise<Fingerprint> {
     const fps: CycleFingerprint[] = [];

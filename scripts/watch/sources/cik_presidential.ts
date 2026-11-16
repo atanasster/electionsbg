@@ -241,8 +241,10 @@ export const cikPresidential: WatchSource = {
   // after that, and the 2021 bundle was dated four days after election day. A cadence tuned
   // to the election would miss the whole publication window.
   cadence: "daily",
-  // Behind a Bulgarian VPN exit this upstream times out; say so instead.
+  // Behind a Bulgarian VPN exit this upstream times out; say so instead —
+  // but only when the host does not answer (a BG residential line reaches it).
   egress: "non-bg",
+  egressProbe: "https://results.cik.bg/",
   publishes: "irregular",
 
   async fingerprint(): Promise<Fingerprint> {

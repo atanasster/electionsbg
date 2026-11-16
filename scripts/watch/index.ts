@@ -15,6 +15,7 @@ import { readState, writeState } from "./state";
 import { renderJsonReport, renderReport } from "./report";
 import {
   egressMismatch,
+  reachable,
   readHealth,
   updateHealth,
   writeHealth,
@@ -98,7 +99,11 @@ const main = async (): Promise<number> => {
     // A source behind the wrong exit would just time out after 300 s and
     // read as an upstream error. Say why instead, and leave its state (and so
     // its cadence window) untouched, exactly as for an error.
-    const mismatch = egressMismatch(src.egress, country);
+    // A country mismatch is only a HINT: a residential line in the "wrong"
+    // country often reaches the host fine. Ask the host before skipping.
+    let mismatch = egressMismatch(src.egress, country);
+    if (mismatch && src.egressProbe && (await reachable(src.egressProbe)))
+      mismatch = null;
     if (mismatch) {
       entries.push({
         source: src,

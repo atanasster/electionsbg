@@ -107,6 +107,15 @@ export interface WatchSource {
    *  the runner before probing, so a source behind the wrong VPN reports
    *  `blocked` instead of timing out. */
   egress?: "bg" | "non-bg";
+  /** A cheap URL on this source's upstream. When the exit COUNTRY mismatches
+   *  `egress`, the runner GETs it with a 10 s budget and probes normally if it
+   *  answers at all (any HTTP status). Country alone cannot decide: "non-bg"
+   *  was declared because these hosts time out behind a Bulgarian DATACENTER
+   *  VPN (M247), while an ordinary Bulgarian residential line reaches them in
+   *  well under a second — measured 2026-11-16 from A1 Bulgaria, after the
+   *  country gate had skipped all five sources for 5+ runs on a machine with
+   *  no VPN at all. */
+  egressProbe?: string;
   /** Non-null when a human must fetch something before any ingest can run.
    *
    *  Evaluated on EVERY run — including runs where this source is off-cadence
