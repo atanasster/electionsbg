@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-15T09:30:19.601Z",
+  "generatedAt": "2026-11-16T23:09:12.758Z",
   "nodes": [
     {
       "id": "src:water",
@@ -135,7 +135,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-11T23:04:10.295Z",
+      "freshness": "2026-11-16T22:44:36.323Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -146,7 +146,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-11-11T23:04:10.295Z"
+          "freshness": "2026-11-16T22:44:36.323Z"
         },
         {
           "id": "parliament_mps",
@@ -479,7 +479,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-15T08:50:14.913Z",
+      "freshness": "2026-11-16T22:44:36.323Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -501,7 +501,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-11-15T08:50:14.913Z"
+          "freshness": "2026-11-16T22:44:36.323Z"
         },
         {
           "id": "egov_budget_execution",
@@ -589,7 +589,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-15T08:50:14.913Z",
+      "freshness": "2026-11-16T22:44:36.323Z",
       "skills": [
         "update-procurement"
       ],
@@ -599,7 +599,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-11-15T08:50:14.913Z"
+          "freshness": "2026-11-16T22:44:36.323Z"
         }
       ],
       "x": 28,
@@ -1449,7 +1449,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-11-15T08:50:14.913Z",
+      "freshness": "2026-11-16T22:44:36.323Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1461,7 +1461,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-11-15T08:50:14.913Z"
+          "freshness": "2026-11-16T22:44:36.323Z"
         },
         {
           "id": "eurostat_policy",
@@ -1783,7 +1783,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-15T08:50:14.913Z",
+      "freshness": "2026-11-16T22:44:36.323Z",
       "skills": [
         "update-prices"
       ],
@@ -1793,7 +1793,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-11-15T08:50:14.913Z"
+          "freshness": "2026-11-16T22:44:36.323Z"
         }
       ],
       "issue": {
@@ -2328,7 +2328,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-11-13T06:13:56.246Z",
+      "freshness": "2026-11-16T22:44:36.323Z",
       "skills": [
         "update-procurement"
       ],
@@ -2338,7 +2338,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-11-13T06:13:56.246Z"
+          "freshness": "2026-11-16T22:44:36.323Z"
         }
       ],
       "issue": {
@@ -2644,7 +2644,7 @@
       "url": "https://alpharesearch.bg/",
       "origin": "community",
       "cadence": "daily",
-      "freshness": "2026-11-05T22:55:21.631Z",
+      "freshness": "2026-11-16T22:44:36.323Z",
       "skills": [
         "update-polls"
       ],
@@ -2661,7 +2661,7 @@
           "label": "Polls — Алфа Рисърч",
           "url": "https://alpharesearch.bg",
           "cadence": "daily",
-          "freshness": "2026-11-05T22:55:21.631Z"
+          "freshness": "2026-11-16T22:44:36.323Z"
         },
         {
           "id": "polls_market_links",
@@ -7442,8 +7442,8 @@
         {
           "node": "ds:connections",
           "text": {
-            "bg": "Този ЕИК е ключът към Търговския регистър — 18 875 изпълнителя се намират там като фирми със собственици и управители.",
-            "en": "That company number is the key into the Commerce Registry — 18,875 contractors are found there as companies with owners and directors."
+            "bg": "Този ЕИК е ключът към Търговския регистър — 18 885 изпълнителя се намират там като фирми със собственици и управители.",
+            "en": "That company number is the key into the Commerce Registry — 18,885 contractors are found there as companies with owners and directors."
           }
         },
         {
@@ -7606,7 +7606,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18875,
+      "overlap": 18885,
       "query": "contractors-in-the-registry"
     },
     {
@@ -7656,7 +7656,7 @@
         "bg": "земеделските бенефициенти като фирми в регистъра",
         "en": "farm-subsidy beneficiaries as registered companies"
       },
-      "overlap": 13406
+      "overlap": 13408
     },
     {
       "id": "health|procurement|eik",
@@ -7779,7 +7779,7 @@
         "bg": "къде са регистрирани фирмите",
         "en": "where companies are registered"
       },
-      "overlap": 4084,
+      "overlap": 4085,
       "of": {
         "bg": "от фирмите с разпознато седалище",
         "en": "of the companies with a resolved seat"

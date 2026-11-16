@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-14",
+  "computedAt": "2026-11-16",
   "thresholds": {
     "basketPids": [
       1,
@@ -85,33 +85,33 @@
   ],
   "promotions": [
     {
-      "slug": "limoni",
-      "title": "ЛИМОНИ",
-      "atOrBelowSince": "2026-11-11",
-      "promoEur": 0.7,
-      "regularEur": 1.95,
-      "discountPct": 64,
-      "stores": 364,
-      "chains": 7
-    },
-    {
       "slug": "zele",
       "title": "ЗЕЛЕ",
       "atOrBelowSince": "2026-11-12",
       "promoEur": 0.29,
-      "regularEur": 0.81,
-      "discountPct": 64,
-      "stores": 183,
+      "regularEur": 0.84,
+      "discountPct": 65,
+      "stores": 184,
       "chains": 2
+    },
+    {
+      "slug": "portokali",
+      "title": "ПОРТОКАЛИ",
+      "atOrBelowSince": "2026-11-11",
+      "promoEur": 0.99,
+      "regularEur": 2.32,
+      "discountPct": 57,
+      "stores": 220,
+      "chains": 4
     },
     {
       "slug": "byalo-zele",
       "title": "БЯЛО ЗЕЛЕ",
       "atOrBelowSince": "2026-10-29",
-      "promoEur": 0.39,
-      "regularEur": 0.9,
-      "discountPct": 57,
-      "stores": 52,
+      "promoEur": 0.42,
+      "regularEur": 0.95,
+      "discountPct": 56,
+      "stores": 104,
       "chains": 4
     }
   ]

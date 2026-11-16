@@ -1,6 +1,27 @@
 {
-  "updatedAt": "2026-11-15T20:24:56.942Z",
+  "updatedAt": "2026-11-16T23:08:54.376Z",
   "entries": [
+    {
+      "timestamp": "2026-11-16T23:08:54.376Z",
+      "date": "2026-11-16",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-11-16 (+2 daily archives; 1,092,638 store rows, 167 settlements, 65 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-11-16"
+    },
+    {
+      "timestamp": "2026-11-16T23:01:42.672Z",
+      "date": "2026-11-16",
+      "skill": "update-macro",
+      "summary": "6 step(s) ok",
+      "source": "Eurostat macro (BG): 29 datasets",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-15T20:24:56.942Z",
       "date": "2026-11-15",

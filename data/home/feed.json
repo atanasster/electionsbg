@@ -1,48 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-14T23:59:59.999Z",
+  "computedAt": "2026-11-16T23:59:59.999Z",
   "windowDays": 30,
   "events": [
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-14T00:00:00.000Z",
-      "firstSeenAt": "2026-11-14T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/limoni",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "ЛИМОНИ",
-        "pct": 64,
-        "promoEur": "0.70",
-        "regularEur": "1.95",
-        "chains": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.9142857142857143,
-      "actionability": 0.85
-    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-14T00:00:00.000Z",
-      "firstSeenAt": "2026-11-14T00:00:00.000Z",
+      "occurredAt": "2026-11-16T00:00:00.000Z",
+      "firstSeenAt": "2026-11-16T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -59,14 +26,47 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "ЗЕЛЕ",
-        "pct": 64,
+        "pct": 65,
         "promoEur": "0.29",
-        "regularEur": "0.81",
+        "regularEur": "0.84",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.9142857142857143,
+      "materiality": 0.9285714285714286,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:portokali",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-16T00:00:00.000Z",
+      "firstSeenAt": "2026-11-16T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/portokali",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ПОРТОКАЛИ",
+        "pct": 57,
+        "promoEur": "0.99",
+        "regularEur": "2.32",
+        "chains": 4
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8142857142857143,
       "actionability": 0.85
     },
     {
@@ -122,12 +122,12 @@
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
         "items": 33,
-        "sittings": 6,
+        "sittings": 5,
         "windowDays": 30
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 1,
+      "materiality": 0.825,
       "actionability": 0.4
     },
     {
@@ -199,8 +199,8 @@
       "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-14T00:00:00.000Z",
-      "firstSeenAt": "2026-11-14T00:00:00.000Z",
+      "occurredAt": "2026-11-16T00:00:00.000Z",
+      "firstSeenAt": "2026-11-16T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -217,14 +217,14 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "БЯЛО ЗЕЛЕ",
-        "pct": 57,
-        "promoEur": "0.39",
-        "regularEur": "0.90",
+        "pct": 56,
+        "promoEur": "0.42",
+        "regularEur": "0.95",
         "chains": 4
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8142857142857143,
+      "materiality": 0.8,
       "actionability": 0.85
     },
     {
@@ -813,8 +813,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-14",
-      "observedAt": "2026-11-14",
+      "asOf": "2026-11-16",
+      "observedAt": "2026-11-16",
       "staleAfterDays": 5,
       "stale": false
     }
