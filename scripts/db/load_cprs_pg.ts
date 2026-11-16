@@ -58,7 +58,17 @@ const main = async (): Promise<void> => {
   const prev = Number(before?.n ?? 0);
   // A shrink is a broken crawl, not a shrinking register — builders do not
   // leave the ЦПРС en masse. Same guard the budget merges carry.
-  if (prev > 0 && rows.length < prev * 0.95)
+  // --allow-shrink is the operator override the message names; it was named and
+  // never read until 2026-11-16, when a REAL shrink (619 firms struck off, every
+  // one on zalicheni.php) could not be loaded at all. Check the struck-off list
+  // before passing it.
+  const allowShrink = process.argv.includes("--allow-shrink");
+  if (allowShrink && prev > 0 && rows.length < prev * 0.95)
+    console.warn(
+      `⚠ --allow-shrink: loading ${rows.length} licences over ${prev} (` +
+        `${(100 - (rows.length / prev) * 100).toFixed(1)}% shrink)`,
+    );
+  if (!allowShrink && prev > 0 && rows.length < prev * 0.95)
     throw new Error(
       `cprs.json has ${rows.length} licences against ${prev} already loaded ` +
         `(>5% shrink). Re-crawl before loading, or pass --allow-shrink.`,

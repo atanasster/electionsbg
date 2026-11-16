@@ -136,9 +136,10 @@ test.skipIf(skip)(
     // Tracks the МРРБ execution CSV, which is re-exported daily — `stalled`
     // moves whenever payments land (769 → 700 on the 2026-08-14 refresh, 700 →
     // 657 on the 2026-09-25 one, as more projects crossed the 5%-paid line, with
-    // munis and projects unmoved). Re-pin after an ipop ingest; a change here is
-    // the corpus moving, not the load failing.
-    assert.equal(Number(ipop.stalled), 657);
+    // munis and projects unmoved; 657 → 622 on the 2026-11-13 re-upload, same
+    // shape). Re-pin after an ipop ingest; a change here is the corpus moving, not
+    // the load failing.
+    assert.equal(Number(ipop.stalled), 622);
 
     const [cap] = await allRows<{ munis: string }>(
       "SELECT count(DISTINCT obshtina)::text munis FROM budget_muni_capital_project",

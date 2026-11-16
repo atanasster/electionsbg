@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-11-13T00:57:13.487Z",
+  "lastSuccessfulIngest": "2026-11-16T03:34:44.709Z",
   "skill": "update-procurement",
-  "summary": "ЦАИС ЕОП self-heal + OCDS rebuild: contracts 398,216→398,630, totalEur €95.36bn→€95.54bn; tenders refreshed; annex fold + reconcile; TED 224,377 notices (2026: 25,739). db:refresh 85/86 links green; test:data 1 fail = person_identity_stability 5.9 baseline (136,997 vs 136,490 ±500 — genuine growth from tier-V/bridge-B, needs deliberate re-baseline)"
+  "summary": "ЦАИС ЕОП/АОП, tenders, TED, АДФИ, ЦПРС 2026-11-15 crawl (619 firms struck off per zalicheni.php: 109,828→101,340 licences); test:data green after re-pinning person 5.9 (137,045) and ИПОП stalled (622)"
 }

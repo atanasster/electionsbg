@@ -34,7 +34,8 @@
     "pnpm run db:load:employer-links:pg:cloud",
     "pnpm run db:load:grant-links:pg:cloud",
     "pnpm run db:load:ted:pg:cloud",
-    "pnpm run db:load:adfi:pg:cloud"
+    "pnpm run db:load:adfi:pg:cloud",
+    "pnpm run db:load:cprs:pg:cloud --allow-shrink"
   ],
-  "notes": "HELD: db:refresh test:data red (person_identity_stability 137045 vs 136490 baseline; budget_municipal ipop stalled 622 vs 657) + cprs_load refused 7.7% shrink. Not stamped."
+  "notes": "Blockers resolved 2026-11-16: person 5.9 re-baselined (attributed +533 tier-V/+22 base, no merges), ИПОП stalled re-pinned 622, ЦПРС shrink verified against zalicheni.php (619/619) and loaded with --allow-shrink."
 }
