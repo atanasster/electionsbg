@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-11-16T03:34:44.709Z",
+  "lastSuccessfulIngest": "2026-11-17T00:34:39.708Z",
   "skill": "update-procurement",
-  "summary": "ЦАИС ЕОП/АОП, tenders, TED, АДФИ, ЦПРС 2026-11-15 crawl (619 firms struck off per zalicheni.php: 109,828→101,340 licences); test:data green after re-pinning person 5.9 (137,045) and ИПОП stalled (622)"
+  "summary": "self-heal EOP gap-fill + OCDS ingest + tenders/annexes/reconcile + db:refresh + TED (224,574 notices); corpus 398,871 contracts, EUR 95.58bn"
 }
