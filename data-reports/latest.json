@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "runAt": "2026-11-16T22:44:36.323Z",
+  "runAt": "2026-11-17T23:21:24.891Z",
   "egress": "BG",
   "sources": [
     {
@@ -12,8 +12,9 @@
     {
       "id": "aop_experts",
       "label": "АОП — исторически списък с външни експерти по отм. чл. 232а, ал. 2 ЗОП (aop.bg)",
-      "status": "skipped",
-      "line": "92 expert(s) — register closed since 2023-01-01 · next check 2026-11-17"
+      "status": "unchanged",
+      "line": "unchanged (92 expert(s) — register closed since 2023-01-01)",
+      "durationMs": 23034
     },
     {
       "id": "isun_clean_delivery",
@@ -24,16 +25,16 @@
     {
       "id": "parliament_votes",
       "label": "Parliament roll-call votes",
-      "status": "changed",
-      "line": "2 new roll-call session(s) since 2026-11-11 (latest: 2026-11-12, 2026-11-13)",
-      "durationMs": 108931
+      "status": "unchanged",
+      "line": "unchanged (no new sessions (max id 11197, 2026-11-13))",
+      "durationMs": 105957
     },
     {
       "id": "parliament_mps",
       "label": "Parliament MPs (active roster)",
       "status": "unchanged",
       "line": "unchanged (52-ро Народно събрание — 240 MPs)",
-      "durationMs": 309
+      "durationMs": 284
     },
     {
       "id": "ofac_sanctions",
@@ -78,8 +79,8 @@
       "status": "error",
       "line": "HTTP 520 <none>",
       "error": "HTTP 520 <none>",
-      "durationMs": 3400,
-      "consecutiveErrors": 7
+      "durationMs": 3428,
+      "consecutiveErrors": 8
     },
     {
       "id": "ncf_grant_results",
@@ -93,71 +94,71 @@
       "status": "error",
       "line": "HTTP 520 <none>",
       "error": "HTTP 520 <none>",
-      "durationMs": 3288,
-      "consecutiveErrors": 7
+      "durationMs": 3254,
+      "consecutiveErrors": 8
     },
     {
       "id": "wiki_polls",
       "label": "BG Wikipedia polls (cross-check only)",
       "status": "unchanged",
       "line": "unchanged (115 parliamentary + 19 presidential poll table rows)",
-      "durationMs": 467
+      "durationMs": 722
     },
     {
       "id": "polls_trend",
       "label": "Polls — Тренд (rctrend.bg)",
       "status": "unchanged",
       "line": "unchanged (no new electoral publications (newest id 213033))",
-      "durationMs": 2574
+      "durationMs": 2115
     },
     {
       "id": "polls_alpha_research",
       "label": "Polls — Алфа Рисърч",
-      "status": "changed",
-      "line": "+1 electoral publication(s): Спестявания на българските домакинства и избор на подфонд при втория пенсионен стълб (?)",
-      "durationMs": 445
+      "status": "unchanged",
+      "line": "unchanged (no new electoral publications (newest id 1061))",
+      "durationMs": 324
     },
     {
       "id": "polls_market_links",
       "label": "Polls — Маркет ЛИНКС",
       "status": "unchanged",
       "line": "unchanged (no new electoral publications (newest id 120))",
-      "durationMs": 535
+      "durationMs": 525
     },
     {
       "id": "polls_sova_harris",
       "label": "Polls — Сова Харис",
       "status": "unchanged",
       "line": "unchanged (no new electoral publications (newest id 4159))",
-      "durationMs": 6795
+      "durationMs": 5108
     },
     {
       "id": "polls_myara",
       "label": "Polls — Мяра",
       "status": "unchanged",
       "line": "unchanged (no new electoral publications (newest id 1946))",
-      "durationMs": 560
+      "durationMs": 457
     },
     {
       "id": "polls_global_metrics",
       "label": "Polls — Глобал Метрикс",
       "status": "unchanged",
       "line": "unchanged (no new electoral publications (newest id 658))",
-      "durationMs": 1932
+      "durationMs": 260
     },
     {
       "id": "polls_gallup",
       "label": "Polls — Галъп (site + press)",
       "status": "unchanged",
       "line": "unchanged (site arm FAILED: fetch failed · press: no new press coverage)",
-      "durationMs": 3535
+      "durationMs": 3865
     },
     {
       "id": "polls_press",
       "label": "Polls — press discovery (agencies without a site)",
       "status": "unchanged",
       "line": "unchanged (no new press coverage across any press-only agency)",
-      "durationMs": 1615
+      "durationMs": 1696
     },
     {
       "id": "wiki_governments",
@@ -176,21 +177,21 @@
       "label": "Сметна палата declarations — MPs",
       "status": "unchanged",
       "line": "unchanged (727 MP declarations in scope for 2026, hash 46cf32bda5447c0d)",
-      "durationMs": 977
+      "durationMs": 930
     },
     {
       "id": "cacbg_officials",
       "label": "Сметна палата declarations — executive (officials)",
       "status": "unchanged",
       "line": "unchanged (11317 declarations in scope for 2026, hash 85857c57c626707e)",
-      "durationMs": 317
+      "durationMs": 192
     },
     {
       "id": "cacbg_local",
       "label": "Сметна палата declarations — municipal (mayors & councillors)",
       "status": "unchanged",
       "line": "unchanged (6499 declarations in scope for 2026, hash 5dbbf6f1df11f716)",
-      "durationMs": 206
+      "durationMs": 137
     },
     {
       "id": "smetna_palata",
@@ -214,8 +215,8 @@
       "id": "egov_commerce",
       "label": "data.egov.bg Commerce Registry (Търговски регистър)",
       "status": "changed",
-      "line": "2 new resource(s) on top: fb45f46f-53a0-4ad3-a281-d093b46a25a4, 15c6de66-9a92-436b-b453-4c2615f858f2",
-      "durationMs": 935
+      "line": "1 new resource(s) on top: a4dfbfeb-a374-4aa7-ba91-b0ea840cf94a",
+      "durationMs": 963
     },
     {
       "id": "bgpost_postcodes",
@@ -233,8 +234,8 @@
       "id": "eop_procurement",
       "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
       "status": "changed",
-      "line": "1 new publication day(s) (latest 2026-11-15) — run the incremental EOP gap-fill + geo refresh in /update-procurement",
-      "durationMs": 221
+      "line": "1 new publication day(s) (latest 2026-11-16) — run the incremental EOP gap-fill + geo refresh in /update-procurement",
+      "durationMs": 151
     },
     {
       "id": "aop_debarred",
@@ -259,7 +260,7 @@
       "label": "МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo)",
       "status": "unchanged",
       "line": "unchanged (4512 institutions)",
-      "durationMs": 427
+      "durationMs": 1381
     },
     {
       "id": "isun_eu_funds",
@@ -290,21 +291,21 @@
       "label": "Interreg — трансгранични покани",
       "status": "unchanged",
       "line": "unchanged (31 покани от 5 програми · недостъпни: interreg-bsb)",
-      "durationMs": 4702
+      "durationMs": 4323
     },
     {
       "id": "ahu_calls",
       "label": "АХУ — конкурси за финансиране (хора с увреждания)",
       "status": "unchanged",
       "line": "unchanged (7 конкурса за финансиране на страницата с новини)",
-      "durationMs": 915
+      "durationMs": 832
     },
     {
       "id": "isun_procedures",
       "label": "ИСУН — отворени процедури",
       "status": "unchanged",
       "line": "unchanged (48 отворени · 0 за обсъждане)",
-      "durationMs": 832
+      "durationMs": 365
     },
     {
       "id": "sp2023_indicative",
@@ -401,7 +402,7 @@
       "label": "ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК)",
       "status": "unchanged",
       "line": "unchanged (бр. 104 от 2026-11-17 · 12 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени · неинспектирани броеве: 100)",
-      "durationMs": 719
+      "durationMs": 640
     },
     {
       "id": "capital_programs",
@@ -414,14 +415,14 @@
       "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
       "status": "unchanged",
       "line": "unchanged (IPOP CSV sample 32768B · hash f1c4a17eb7f09c88)",
-      "durationMs": 1469
+      "durationMs": 1445
     },
     {
       "id": "eurostat",
       "label": "Eurostat macro (BG): 29 datasets",
       "status": "changed",
-      "line": "new release · namq_10_gdp 2026-11-16T23:00:00+0100, sts_inpr_q 2026-11-16T11:00:00+0100",
-      "durationMs": 1724
+      "line": "new release · namq_10_a10 2026-11-17T23:00:00+0100, namq_10_gdp 2026-11-17T23:00:00+0100, sts_trtu_m 2026-11-17T11:00:00+0100",
+      "durationMs": 4972
     },
     {
       "id": "eurostat_policy",
@@ -483,8 +484,8 @@
       "status": "error",
       "line": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata",
       "error": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata",
-      "durationMs": 33991,
-      "consecutiveErrors": 7
+      "durationMs": 35163,
+      "consecutiveErrors": 8
     },
     {
       "id": "oecd_family_leave",
@@ -617,63 +618,63 @@
       "label": "AZ (Агенция по заетостта): annual unemployment reviews",
       "status": "unchanged",
       "line": "unchanged (18 annual reviews · latest 2025)",
-      "durationMs": 390
+      "durationMs": 610
     },
     {
       "id": "indicators_mon_dzi",
       "label": "МОН: ДЗИ резултати (data.egov.bg)",
       "status": "unchanged",
       "line": "unchanged (10 resources)",
-      "durationMs": 895
+      "durationMs": 1123
     },
     {
       "id": "indicators_mon_nvo",
       "label": "МОН: НВО 7. клас резултати (data.egov.bg)",
       "status": "unchanged",
       "line": "unchanged (9 resources)",
-      "durationMs": 784
+      "durationMs": 888
     },
     {
       "id": "indicators_nsi_pop",
       "label": "НСИ: население по общини (timeseries XLSX)",
       "status": "unchanged",
       "line": "unchanged (351945 bytes)",
-      "durationMs": 164
+      "durationMs": 738
     },
     {
       "id": "indicators_nsi_vital",
       "label": "НСИ: раждания, умирания и миграция по общини (timeseries XLSX)",
       "status": "unchanged",
       "line": "unchanged (568322 bytes)",
-      "durationMs": 261
+      "durationMs": 596
     },
     {
       "id": "nsi_landuse",
       "label": "НСИ: Баланс на територията (LANDUSE annex)",
       "status": "unchanged",
       "line": "unchanged (1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година)",
-      "durationMs": 202
+      "durationMs": 422
     },
     {
       "id": "nsi_water_stats",
       "label": "НСИ: Население с водни услуги / воден режим (Ecology_9.8)",
       "status": "unchanged",
       "line": "unchanged (15 years · latest 2024)",
-      "durationMs": 120
+      "durationMs": 190
     },
     {
       "id": "grao",
       "label": "ГРАО: население по постоянен и настоящ адрес (по населени места)",
       "status": "unchanged",
       "line": "unchanged (2026-09-15 · 505573 bytes)",
-      "durationMs": 317
+      "durationMs": 737
     },
     {
       "id": "ted_bg",
       "label": "TED — обявления за България (api.ted.europa.eu)",
       "status": "changed",
-      "line": "96 new BG notices (25,835 this year)",
-      "durationMs": 204
+      "line": "206 new BG notices (26,041 this year)",
+      "durationMs": 563
     },
     {
       "id": "transparency_cpi",
@@ -698,14 +699,14 @@
       "label": "CIK local-elections results bundles",
       "status": "unchanged",
       "line": "unchanged (0/2 regular bundle(s) reachable · 15 partial cycle(s) tracked)",
-      "durationMs": 1995
+      "durationMs": 2946
     },
     {
       "id": "cik_presidential",
       "label": "ЦИК presidential-elections results bundles",
       "status": "unchanged",
       "line": "unchanged (5 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle)",
-      "durationMs": 629
+      "durationMs": 2048
     },
     {
       "id": "iisda_mayors",
@@ -741,8 +742,8 @@
       "id": "council_minutes",
       "label": "Council resolutions + vote tallies",
       "status": "unchanged",
-      "line": "unchanged (16 município(s) wired, 869 session-link(s) total)",
-      "durationMs": 77381
+      "line": "unchanged (16 município(s) wired, 869 session-link(s) total · 2 fetch error(s))",
+      "durationMs": 129165
     },
     {
       "id": "ipi_local_taxes",
@@ -760,8 +761,8 @@
       "id": "kzp_prices",
       "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
       "status": "changed",
-      "line": "new daily price archive: 2026-11-16 (was 2026-11-14)",
-      "durationMs": 143
+      "line": "new daily price archive: 2026-11-17 (was 2026-11-16)",
+      "durationMs": 194
     },
     {
       "id": "ec_oil_bulletin",
@@ -864,7 +865,7 @@
       "label": "Procurement scope windows (calendar / election rollover)",
       "status": "unchanged",
       "line": "unchanged (16 year window(s) 2011..2026 + 13 election window(s) (+ all))",
-      "durationMs": 2
+      "durationMs": 1
     }
   ]
 }
