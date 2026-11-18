@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-16T23:59:59.999Z",
+  "computedAt": "2026-11-17T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:zele",
+      "id": "prices:promotion:byalo-zele",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-16T00:00:00.000Z",
-      "firstSeenAt": "2026-11-16T00:00:00.000Z",
+      "occurredAt": "2026-11-17T00:00:00.000Z",
+      "firstSeenAt": "2026-11-17T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -22,27 +22,27 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/zele",
+      "route": "/product/byalo-zele",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ЗЕЛЕ",
-        "pct": 65,
-        "promoEur": "0.29",
-        "regularEur": "0.84",
-        "chains": 2
+        "title": "БЯЛО ЗЕЛЕ",
+        "pct": 58,
+        "promoEur": "0.42",
+        "regularEur": "0.99",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.9285714285714286,
+      "materiality": 0.8285714285714286,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:portokali",
+      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-16T00:00:00.000Z",
-      "firstSeenAt": "2026-11-16T00:00:00.000Z",
+      "occurredAt": "2026-11-17T00:00:00.000Z",
+      "firstSeenAt": "2026-11-17T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -55,18 +55,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/portokali",
+      "route": "/product/krave-maslo-d-markenbutter-250gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ПОРТОКАЛИ",
-        "pct": 57,
-        "promoEur": "0.99",
-        "regularEur": "2.32",
-        "chains": 4
+        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
+        "pct": 56,
+        "promoEur": "1.79",
+        "regularEur": "4.10",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8142857142857143,
+      "materiality": 0.8,
       "actionability": 0.85
     },
     {
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:byalo-zele",
+      "id": "prices:promotion:portokali",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-16T00:00:00.000Z",
-      "firstSeenAt": "2026-11-16T00:00:00.000Z",
+      "occurredAt": "2026-11-17T00:00:00.000Z",
+      "firstSeenAt": "2026-11-17T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,13 +213,13 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/byalo-zele",
+      "route": "/product/portokali",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "БЯЛО ЗЕЛЕ",
+        "title": "ПОРТОКАЛИ",
         "pct": 56,
-        "promoEur": "0.42",
-        "regularEur": "0.95",
+        "promoEur": "0.99",
+        "regularEur": "2.26",
         "chains": 4
       },
       "backfill": false,
@@ -732,37 +732,6 @@
       "verification": "automatic",
       "materiality": 0.60725,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:basket_moved:2026-10-18",
-      "kind": "basket_moved",
-      "category": "prices",
-      "occurredAt": "2026-10-18T00:00:00.000Z",
-      "firstSeenAt": "2026-10-18T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/consumption",
-      "factKey": "home_fact_basket_up",
-      "factArgs": {
-        "pct": "2.1",
-        "costEur": "15.78",
-        "days": 7
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.5255,
-      "actionability": 0.5
     }
   ],
   "sourceCoverage": {
@@ -813,8 +782,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-16",
-      "observedAt": "2026-11-16",
+      "asOf": "2026-11-17",
+      "observedAt": "2026-11-17",
       "staleAfterDays": 5,
       "stale": false
     }

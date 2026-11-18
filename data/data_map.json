@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-18T00:00:01.551Z",
+  "generatedAt": "2026-11-18T07:47:31.084Z",
   "nodes": [
     {
       "id": "src:water",
@@ -7442,8 +7442,8 @@
         {
           "node": "ds:connections",
           "text": {
-            "bg": "Този ЕИК е ключът към Търговския регистър — 18 885 изпълнителя се намират там като фирми със собственици и управители.",
-            "en": "That company number is the key into the Commerce Registry — 18,885 contractors are found there as companies with owners and directors."
+            "bg": "Този ЕИК е ключът към Търговския регистър — 18 887 изпълнителя се намират там като фирми със собственици и управители.",
+            "en": "That company number is the key into the Commerce Registry — 18,887 contractors are found there as companies with owners and directors."
           }
         },
         {
@@ -7463,8 +7463,8 @@
         {
           "node": "ds:officials",
           "text": {
-            "bg": "А през лицата се затваря кръгът: 5 611 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-            "en": "And people close the circle: 5,611 officials who file asset declarations also hold a role in the company registry."
+            "bg": "А през лицата се затваря кръгът: 5 607 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,607 officials who file asset declarations also hold a role in the company registry."
           }
         }
       ]
@@ -7606,7 +7606,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 18885,
+      "overlap": 18887,
       "query": "contractors-in-the-registry"
     },
     {
@@ -7795,7 +7795,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5611,
+      "overlap": 5607,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7808,7 +7808,7 @@
         "bg": "кой кандидат после заема публична длъжност",
         "en": "which candidates later hold public office"
       },
-      "overlap": 3202
+      "overlap": 3199
     },
     {
       "id": "connections|elections|person_id",
@@ -7820,7 +7820,7 @@
         "bg": "кой кандидат участва и във фирми",
         "en": "which candidates also hold company roles"
       },
-      "overlap": 7359
+      "overlap": 7356
     }
   ]
 }
