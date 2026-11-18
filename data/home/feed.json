@@ -1,48 +1,15 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-17T23:59:59.999Z",
+  "computedAt": "2026-11-18T23:59:59.999Z",
   "windowDays": 30,
   "events": [
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:byalo-zele",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-17T00:00:00.000Z",
-      "firstSeenAt": "2026-11-17T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/byalo-zele",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "БЯЛО ЗЕЛЕ",
-        "pct": 58,
-        "promoEur": "0.42",
-        "regularEur": "0.99",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8285714285714286,
-      "actionability": 0.85
-    },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-17T00:00:00.000Z",
-      "firstSeenAt": "2026-11-17T00:00:00.000Z",
+      "occurredAt": "2026-11-18T00:00:00.000Z",
+      "firstSeenAt": "2026-11-18T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -61,13 +28,78 @@
         "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
         "pct": 56,
         "promoEur": "1.79",
-        "regularEur": "4.10",
+        "regularEur": "4.07",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.8,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:kiselo-mlyako-elena-2-400-gr",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-18T00:00:00.000Z",
+      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/kiselo-mlyako-elena-2-400-gr",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "КИСЕЛО МЛЯКО ЕЛЕНА 2 % 400 ГР",
+        "pct": 55,
+        "promoEur": "0.39",
+        "regularEur": "0.86",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7857142857142857,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:PDV01-2026-prot18-r422",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "PDV01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/PDV01-2026-prot18-r422",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Обявяване на недвижим имот – общинска собственост, находящ се в гр. Пловдив, представляващ поземлен имот с идентификатор",
+        "council": "PDV01",
+        "number": "422"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -132,38 +164,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1162",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "VTR01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/VTR01-2026-prot49-r1162",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Проектобюджет за 2027 година и актуализирана бюджетна прогноза на Община Велико Търново за периода 2028-2029 година на п",
-        "council": "VTR01",
-        "number": "1162"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.55,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
       "id": "funds:call_opened:isun:f31cdc01-a3f0-4ff9-ac4b-736473cb2313",
       "kind": "call_opened",
       "category": "funds",
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:portokali",
+      "id": "prices:promotion:morkovi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-17T00:00:00.000Z",
-      "firstSeenAt": "2026-11-17T00:00:00.000Z",
+      "occurredAt": "2026-11-18T00:00:00.000Z",
+      "firstSeenAt": "2026-11-18T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,19 +213,80 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/portokali",
+      "route": "/product/morkovi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ПОРТОКАЛИ",
-        "pct": 56,
-        "promoEur": "0.99",
-        "regularEur": "2.26",
-        "chains": 4
+        "title": "МОРКОВИ",
+        "pct": 55,
+        "promoEur": "0.49",
+        "regularEur": "1.09",
+        "chains": 5
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7857142857142857,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "macro:cpi_release:prc_hicp_minr:2026-10",
+      "kind": "cpi_released",
+      "category": "prices",
+      "publishedAt": "2026-11-18T10:00:00.000Z",
+      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "dateBasis": "published",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "eurostat_hicp",
+        "labelKey": "home_source_eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators",
+      "factKey": "home_fact_cpi_released",
+      "factArgs": {
+        "period": "2026-10",
+        "pct": "5.9"
       },
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.8,
-      "actionability": 0.85
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:basket_moved:2026-11-18",
+      "kind": "basket_moved",
+      "category": "prices",
+      "occurredAt": "2026-11-18T00:00:00.000Z",
+      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/consumption",
+      "factKey": "home_fact_basket_up",
+      "factArgs": {
+        "pct": "2.0",
+        "costEur": "16.08",
+        "days": 7
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4935,
+      "actionability": 0.5
     },
     {
       "schemaVersion": 1,
@@ -257,36 +318,6 @@
       "verification": "automatic",
       "materiality": 0.50425,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "macro:cpi_release:prc_hicp_minr:2026-10",
-      "kind": "cpi_released",
-      "category": "prices",
-      "publishedAt": "2026-11-04T10:00:00.000Z",
-      "firstSeenAt": "2026-11-04T00:00:00.000Z",
-      "dateBasis": "published",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "eurostat_hicp",
-        "labelKey": "home_source_eurostat",
-        "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators",
-      "factKey": "home_fact_cpi_released",
-      "factArgs": {
-        "period": "2026-10",
-        "pct": "6.0"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8,
-      "actionability": 0.3
     },
     {
       "schemaVersion": 1,
@@ -352,15 +383,15 @@
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1164",
+      "id": "council:resolution:PDV01-2026-prot18-r423",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -370,29 +401,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1164",
+      "route": "/council/resolution/PDV01-2026-prot18-r423",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Информация за текущото изпълнение на общинските проекти, финансирани със средства от ЕС и държавния бюджет, Вх.№ 3016/14",
-        "council": "VTR01",
-        "number": "1164"
+        "title": "Определяне на участник, спечелил публично оповестен конкурс за отдаване под наем на недвижим имот – публична общинска со",
+        "council": "PDV01",
+        "number": "423"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1166",
+      "id": "council:resolution:PDV01-2026-prot18-r424",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -402,29 +433,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1166",
+      "route": "/council/resolution/PDV01-2026-prot18-r424",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Информация за дейността на общинската администрация по зимната подготовка 2026/2027 година, Вх.№ 3040/14.10.2026 г.",
-        "council": "VTR01",
-        "number": "1166"
+        "title": "Участие на Община Пловдив в Шестнадесетото издание на проекта „Народните будители и Аз“ през учебната 2025/2026 година, ",
+        "council": "PDV01",
+        "number": "424"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1168",
+      "id": "council:resolution:PDV01-2026-prot18-r425",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -434,29 +465,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1168",
+      "route": "/council/resolution/PDV01-2026-prot18-r425",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Прекратяване на предоставянето и финансирането от държавния бюджет на социалната услуга \"Център за настаняване от семеен",
-        "council": "VTR01",
-        "number": "1168"
+        "title": "Подписване на Меморандум за сътрудничество между Община Пловдив и Фондация „Българо-италианска фондация „РИМ“ за срок от",
+        "council": "PDV01",
+        "number": "425"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1169",
+      "id": "council:resolution:PDV01-2026-prot18-r426",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -466,29 +497,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1169",
+      "route": "/council/resolution/PDV01-2026-prot18-r426",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Прекратяване на предоставянето и финансирането от държавния бюджет на социалната услуга \"Център за настаняване от семеен",
-        "council": "VTR01",
-        "number": "1169"
+        "title": "Удължаване на срок за усвояване на поет дългосрочен общински дълг поет за финансиране на Проект „Стадион „Локомотив“ ПО ",
+        "council": "PDV01",
+        "number": "426"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1170",
+      "id": "council:resolution:PDV01-2026-prot18-r427",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -498,29 +529,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1170",
+      "route": "/council/resolution/PDV01-2026-prot18-r427",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Създаване на социална услуга \"Център за настаняване от семеен тип за пълнолетни лица с физически увреждания\" с брой потр",
-        "council": "VTR01",
-        "number": "1170"
+        "title": "Приемане на Наредба за изменение и допълнение на Наредбата за реда за придобиване, управление и разпореждане с общинско ",
+        "council": "PDV01",
+        "number": "427"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1171",
+      "id": "council:resolution:PDV01-2026-prot18-r428",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -530,29 +561,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1171",
+      "route": "/council/resolution/PDV01-2026-prot18-r428",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Промяна на броя на потребителите на социалната услуга - делегирана от държавата дейност \"Дневен център за стари хора\" с ",
-        "council": "VTR01",
-        "number": "1171"
+        "title": "Вземане на решение за отдаване под наем, за срок от 10 (десет) години, на недвижим имот – частна общинска собственост, н",
+        "council": "PDV01",
+        "number": "428"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1172",
+      "id": "council:resolution:PDV01-2026-prot18-r429",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -562,29 +593,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1172",
+      "route": "/council/resolution/PDV01-2026-prot18-r429",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Промяна на броя на потребителите на социалната услуга \"Асистентска подкрепа\", гр. Велико Търново, ул. \"Филип Тотю\" № 18 ",
-        "council": "VTR01",
-        "number": "1172"
+        "title": "Вземане на решение за настаняване в общинско жилище от фонд „Ведомствен“ на тричленното семейство на М. Д. П. ПО ПРЕДЛОЖ",
+        "council": "PDV01",
+        "number": "429"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1173",
+      "id": "council:resolution:PDV01-2026-prot18-r430",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -594,29 +625,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1173",
+      "route": "/council/resolution/PDV01-2026-prot18-r430",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Отпускане на средства за финансово подпомагане на изследвания и процедури, свързани с лечение на безплодие на семейства ",
-        "council": "VTR01",
-        "number": "1173"
+        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, ЖР „Тракия“, бл",
+        "council": "PDV01",
+        "number": "430"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1174",
+      "id": "council:resolution:PDV01-2026-prot18-r431",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -626,29 +657,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1174",
+      "route": "/council/resolution/PDV01-2026-prot18-r431",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Придобиване в собственост на недвижим имот, с. Балван, като ликвидационен дял в натура при прекратяването и ликвидацията",
-        "council": "VTR01",
-        "number": "1174"
+        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Източен”",
+        "council": "PDV01",
+        "number": "431"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1175",
+      "id": "council:resolution:PDV01-2026-prot18-r432",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -658,29 +689,29 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1175",
+      "route": "/council/resolution/PDV01-2026-prot18-r432",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Публични търгове с явно наддаване за продажба на недвижими имоти, с. Ялово, Вх.№ 3035/14.10.2026 г.",
-        "council": "VTR01",
-        "number": "1175"
+        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Източен”",
+        "council": "PDV01",
+        "number": "432"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
       "schemaVersion": 1,
-      "id": "council:resolution:VTR01-2026-prot49-r1176",
+      "id": "council:resolution:PDV01-2026-prot18-r433",
       "kind": "council_resolution",
       "category": "local",
-      "occurredAt": "2026-11-05T00:00:00.000Z",
-      "firstSeenAt": "2026-11-05T00:00:00.000Z",
+      "occurredAt": "2026-11-12T00:00:00.000Z",
+      "firstSeenAt": "2026-11-12T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "municipality",
-        "id": "VTR01"
+        "id": "PDV01"
       },
       "source": {
         "id": "council_minutes",
@@ -690,16 +721,16 @@
         "complete": false,
         "noteKey": "home_coverage_council_partial"
       },
-      "route": "/council/resolution/VTR01-2026-prot49-r1176",
+      "route": "/council/resolution/PDV01-2026-prot18-r433",
       "factKey": "home_fact_council_resolution",
       "factArgs": {
-        "title": "Изкупуване на недвижими имоти, гр. Килифарево, Вх.№ 3034/14.10.2026 г.",
-        "council": "VTR01",
-        "number": "1176"
+        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, ЖР „Тракия“, бл",
+        "council": "PDV01",
+        "number": "433"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.54,
+      "materiality": 0.2,
       "actionability": 0.3
     },
     {
@@ -743,7 +774,7 @@
     },
     "council": {
       "available": true,
-      "asOf": "2026-11-05",
+      "asOf": "2026-11-12",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -762,8 +793,8 @@
     },
     "macro": {
       "available": true,
-      "asOf": "2026-11-04",
-      "observedAt": "2026-11-04",
+      "asOf": "2026-11-18",
+      "observedAt": "2026-11-18",
       "staleAfterDays": 60,
       "stale": false
     },
@@ -782,8 +813,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-17",
-      "observedAt": "2026-11-17",
+      "asOf": "2026-11-18",
+      "observedAt": "2026-11-18",
       "staleAfterDays": 5,
       "stale": false
     }
