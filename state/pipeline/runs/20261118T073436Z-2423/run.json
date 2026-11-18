@@ -1,0 +1,287 @@
+{
+  "schema": 1,
+  "session": "20261118T073436Z-2423",
+  "kind": "ingest",
+  "startedAt": "2026-11-18T07:34:37.443Z",
+  "git": {
+    "shaStart": "fcc42d563123570719493698f0edbcb260d6c258",
+    "shaEnd": "f07e5d9627aea43ce127ee7d1182fd41c7f12d25"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country BG; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "egress:non-bg": {
+      "ok": false,
+      "detail": "exit IP country BG; parliament.bg, МО and ЦИК time out behind a Bulgarian exit"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 44 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 37.8 GB free (min 10); Docker VM 23.0 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-prices",
+      "status": "ok",
+      "sources": [
+        "kzp_prices"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "prices",
+          "command": "pnpm run prices",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 740113,
+          "medianMs": 428947,
+          "log": "logs/pipeline/20261118T073436Z-2423/001-prices.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data-changes.json",
+        "data/prices/product_slugs.json"
+      ],
+      "summary": "1 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 2,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 25969,
+          "medianMs": 13337.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/002-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 3,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 7263,
+          "medianMs": 5517.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/003-data_map.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data_map.json"
+      ]
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 4,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 670,
+          "medianMs": 623.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/004-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 5,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 195,
+          "medianMs": 241.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/005-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 6,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 11218,
+          "medianMs": 7537.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/006-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 7,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4713,
+          "medianMs": 4235,
+          "log": "logs/pipeline/20261118T073436Z-2423/007-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 8,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1269,
+          "medianMs": 1109,
+          "log": "logs/pipeline/20261118T073436Z-2423/008-db_gen-home-feed.log"
+        },
+        {
+          "seq": 9,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 524,
+          "medianMs": 457.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/009-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/home/feed.json",
+        "data/home/flyover.json",
+        "data/home/price_events.json"
+      ]
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 10,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 1162,
+          "medianMs": 785.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/010-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 11,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1420,
+          "medianMs": 1199.5,
+          "log": "logs/pipeline/20261118T073436Z-2423/011-db_check-cloud.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261118T073436Z-2423/010-db_check-generated.log"
+  ],
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-18T08:18:28.033Z",
+  "verdict": "clean",
+  "published": {
+    "exitCode": 0,
+    "report": "state/pipeline/runs/20261118T074755Z-ec9b/report.md"
+  }
+}
