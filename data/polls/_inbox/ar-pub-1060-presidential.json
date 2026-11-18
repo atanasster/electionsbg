@@ -49,5 +49,17 @@
       "reason": "Source review required for method, question/base and English translation",
       "quote": ""
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.417Z",
+    "draftHash": "b745baf9c5af467a9635f13ae271cc75110c7ad88ce86de167eaeba62f5dfde7",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: fieldwork, respondents, questions",
+      "reader says not a poll: Exit-poll demographic profile of voters in the 01 November 2026 presidential runoff (II тур), published after the vote: \"Данни от exit poll на социологическа агенция Алфа Рисърч за демографския профил на гласувалите граждани\". No pre-election vote-intention data; the demographic charts (dem1-dem7.jpg) are not in the capture.",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
 }

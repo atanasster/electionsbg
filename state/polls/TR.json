@@ -874,5 +874,45 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "213033",
+    "url": "https://rctrend.bg/project/213033/",
+    "title": "Обществени нагласи на финала на предизборната кампания за президент и вицепрезидент",
+    "publishedAt": "2026-10-22",
+    "agencyId": "TR",
+    "pubIds": [
+      "213033"
+    ],
+    "discoveredAt": "2026-10-23T21:41:05.993Z",
+    "latestHash": "42af2fe06cc71e190ea23cf0639806cff6036e9aa51712912feb2a7bb889f238",
+    "versions": [
+      {
+        "sha256": "42af2fe06cc71e190ea23cf0639806cff6036e9aa51712912feb2a7bb889f238",
+        "capturePath": "raw_data/polls/trend/213033",
+        "capturedAt": "2026-10-24T21:53:54.266Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "tr-2026-10-20",
+            "race": "presidential",
+            "extractedAt": "2026-10-24T21:53:55.818Z",
+            "draftHash": "e2b98bb03c60805c92f073143563636fc5208e04754bcf3c4c08ff283d0bbd90",
+            "refused": [
+              "poll.cycle"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
   }
 ]

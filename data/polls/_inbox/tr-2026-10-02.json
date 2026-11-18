@@ -90,5 +90,23 @@
       "reason": "mentioned 2 times with disagreeing values (2.4, 2.7%) — refusing rather than guessing which is current",
       "quote": "Величие“ заемат пета позиция с 2,4% | Величие с 2,7% и "
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.441Z",
+    "draftHash": "7ad44935e3eea56f44a73dc83136e854657f0d5cdae7ce6909ad4f9861672f43",
+    "diffs": [
+      "extractor refused: share:БСП, share:Възраждане, share:МЕЧ, share:Величие",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ГЕРБ\" 14.2 — reader has no such answer",
+      "vote_intention r1: reader has „ГЕРБ-СДС\" 14.2 — extractor does not",
+      "vote_intention r1: reader has „Продължаваме промяната\" 7.6 — extractor does not",
+      "vote_intention r1: reader has „Демократична България\" 6.5 — extractor does not",
+      "vote_intention r1: reader has „Възраждане\" 5.7 — extractor does not",
+      "vote_intention r1: reader has „МЕЧ\" 3.8 — extractor does not",
+      "vote_intention r1: reader has „БСП\" 3.6 — extractor does not",
+      "vote_intention r1: reader has „Величие\" 2.7 — extractor does not"
+    ]
+  }
 }

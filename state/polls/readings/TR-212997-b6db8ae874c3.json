@@ -1,0 +1,97 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "TR",
+  "pubId": "212997",
+  "captureSha256": "b6db8ae874c3771a6c921154b596ae7b19d8da018c29b95a4f3c92482851da56",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-21T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "presidential",
+      "fieldworkStart": "2026-09-26",
+      "fieldworkEnd": "2026-10-02",
+      "fieldworkQuote": null,
+      "respondents": 1003,
+      "respondentsQuote": null,
+      "publishedAt": "2026-10-05",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю „лице в лице“; 1003 ефективни интервюта с респонденти на възраст 18+ г., представителна за пълнолетното население на страната; максимална стохастична грешка ±3.1%.",
+        "en": "Direct standardised face-to-face interview; 1003 completed interviews with respondents aged 18+, representative of the country's adult population; maximum sampling error ±3.1%."
+      },
+      "methodologyQuote": null,
+      "sponsor": "24 часа",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "заявилите, че ще гласуват",
+          "baseLabel": { "bg": "Заявилите, че ще гласуват", "en": "Respondents who said they will vote" },
+          "answers": [
+            { "label": "Йотова", "kind": "choice", "value": 47.8, "quote": "Кандидатпрезидентската двойка Йотова-Вълчев получава подкрепата на 47,8% от заявилите, че ще гласуват", "image": null },
+            { "label": "Гюров", "kind": "choice", "value": 24.6, "quote": "За Гюров-Кандев биха гласували 24,6%", "image": null },
+            { "label": "Костадинов", "kind": "choice", "value": 9.7, "quote": "кандидатите на „Възраждане“ Костадинов-Волгин с 9,7% от гласовете", "image": null },
+            { "label": "Василев", "kind": "choice", "value": 4.6, "quote": "Кандидатите на МЕЧ Василев-Манов се ползват с подкрепата на 4,6%", "image": null },
+            { "label": "Михайлов", "kind": "choice", "value": 2.4, "quote": "Михайлов-Матеева от „Величие“ заемат пета позиция с 2,4%", "image": null },
+            { "label": "Христанов", "kind": "choice", "value": 1.9, "quote": "Шестото място е за Христанов-Черкезова с 1,9%", "image": null }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "База: 1003 респондента",
+          "baseLabel": { "bg": "Всички респонденти", "en": "All respondents" },
+          "answers": [
+            { "label": "Със сигурност ще гласувам", "kind": "choice", "value": 38, "quote": "38% от пълнолетните български граждани, живеещи на територията на страната (малко над 2 милиона души), декларират, че със сигурност ще упражнят правото си на глас", "image": null },
+            { "label": "Колебая се дали да гласувам", "kind": "undecided", "value": 21, "quote": null, "image": "Slide4-1.png" },
+            { "label": "Няма да гласувам", "kind": "wont_vote", "value": 40, "quote": null, "image": "Slide4-1.png" },
+            { "label": "Не знам/ Не мога да преценя", "kind": "wont_say", "value": 1, "quote": null, "image": "Slide4-1.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-09-26",
+      "fieldworkEnd": "2026-10-02",
+      "fieldworkQuote": null,
+      "respondents": 1003,
+      "respondentsQuote": null,
+      "publishedAt": "2026-10-05",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю „лице в лице“; 1003 ефективни интервюта с респонденти на възраст 18+ г., представителна за пълнолетното население на страната; максимална стохастична грешка ±3.1%.",
+        "en": "Direct standardised face-to-face interview; 1003 completed interviews with respondents aged 18+, representative of the country's adult population; maximum sampling error ±3.1%."
+      },
+      "methodologyQuote": null,
+      "sponsor": "24 часа",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Сред заявилите, че ще гласуват на бъдещи парламентарни избори",
+          "baseLabel": { "bg": "Заявилите, че ще гласуват (без „Не подкрепям никого“)", "en": "Respondents who said they will vote (excluding \"I support no one\")" },
+          "answers": [
+            { "label": "Прогресивна България", "kind": "choice", "value": 40.8, "quote": "„Прогресивна България“ остава лидер, ползвайки се с подкрепата на 40,8% от гласуващите", "image": null },
+            { "label": "ГЕРБ-СДС", "kind": "choice", "value": 14.2, "quote": "Втората позиция се заема от ГЕРБ с 14,2%", "image": null },
+            { "label": "Продължаваме промяната", "kind": "choice", "value": 7.6, "quote": null, "image": "Slide6-1.png" },
+            { "label": "Демократична България", "kind": "choice", "value": 6.5, "quote": null, "image": "Slide6-1.png" },
+            { "label": "ДПС", "kind": "choice", "value": 6.2, "quote": "ДПС остава с подкрепата на 6,2%", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 5.7, "quote": "а „Възраждане“ с 5,7%", "image": null },
+            { "label": "МЕЧ", "kind": "choice", "value": 3.8, "quote": "Близо до ръба на парламентарната бариера са МЕЧ (3,8%)", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 3.6, "quote": "Близо до ръба на парламентарната бариера са МЕЧ (3,8%) и БСП (3,6%)", "image": null },
+            { "label": "Величие", "kind": "choice", "value": 2.7, "quote": "Следват ги Величие с 2,7% и Сияние с 2,2%", "image": null },
+            { "label": "Сияние", "kind": "choice", "value": 2.2, "quote": "Следват ги Величие с 2,7% и Сияние с 2,2%", "image": null },
+            { "label": "Други", "kind": "other", "value": 6.7, "quote": null, "image": "Slide6-1.png" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "TR",
+  "pubId": "213033",
+  "captureSha256": "42af2fe06cc71e190ea23cf0639806cff6036e9aa51712912feb2a7bb889f238",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-18T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "presidential",
+      "fieldworkStart": "2026-10-14",
+      "fieldworkEnd": "2026-10-20",
+      "fieldworkQuote": null,
+      "respondents": 1002,
+      "respondentsQuote": null,
+      "publishedAt": "2026-10-22",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю „лице в лице“; 1002 ефективни интервюта с респонденти на възраст 18+ г., представително за пълнолетното население на страната; максимална стохастична грешка ±3,1%.",
+        "en": "Direct standardised face-to-face interview; 1,002 completed interviews with respondents aged 18+, representative of the country's adult population; maximum sampling error ±3.1%."
+      },
+      "methodologyQuote": null,
+      "sponsor": "24 часа",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "сред заявилите, че ще гласуват на предстоящите избори",
+          "baseLabel": { "bg": "Заявилите, че ще гласуват", "en": "Respondents who say they will vote" },
+          "answers": [
+            { "label": "Илияна Йотова", "kind": "choice", "value": 45.9,
+              "quote": "Двойката Йотова-Вълчев остава лидер с 45,9% сред заявилите, че ще гласуват на предстоящите избори", "image": null },
+            { "label": "Андрей Гюров", "kind": "choice", "value": 27.8,
+              "quote": "следвана от двойката Гюров-Кандев с 27,8%", "image": null },
+            { "label": "Костадин Костадинов", "kind": "choice", "value": 10.9,
+              "quote": "Третото място остава за Костадинов-Волгин, които събират подкрепата на 10,9% от гласуващите", "image": null },
+            { "label": "Радостин Василев", "kind": "choice", "value": 3.2,
+              "quote": "Двойката Василев-Манов заема четвърта позиция с 3,2% подкрепа", "image": null },
+            { "label": "Иван Христанов", "kind": "choice", "value": 2.4,
+              "quote": "Христанов-Черкезова и Михайлов-Матеева съответно с 2,4% и 2,2% от гласуващите", "image": null },
+            { "label": "Ивелин Михайлов", "kind": "choice", "value": 2.2,
+              "quote": "Христанов-Черкезова и Михайлов-Матеева съответно с 2,4% и 2,2% от гласуващите", "image": null },
+            { "label": "Други кандидати", "kind": "other", "value": 4.5,
+              "quote": null, "image": "Slide3-2.png" },
+            { "label": "Не подкрепям никого", "kind": "none", "value": 3.1,
+              "quote": null, "image": "Slide3-2.png" }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "от всички пълнолетни български граждани, живеещи на територията на страната",
+          "baseLabel": { "bg": "Всички пълнолетни граждани", "en": "All adult citizens" },
+          "answers": [
+            { "label": "Ще гласуват", "kind": "choice", "value": 47,
+              "quote": "Декларираната избирателна активност за президентските избори остава 47% от всички пълнолетни български граждани", "image": null }
+          ]
+        }
+      ]
+    }
+  ]
+}

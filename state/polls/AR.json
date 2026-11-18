@@ -7899,5 +7899,131 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "1060",
+    "url": "https://alpharesearch.bg/post/1060-01-noemvri-2026-demografski-profil-na-glasuvalite-na-ii-tur-na-izborite-za-prezident-i-viceprezident.html",
+    "title": "01 ноември 2026: демографски профил на гласувалите на II тур на изборите за президент и вицепрезидент",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1060"
+    ],
+    "discoveredAt": "2026-11-05T22:55:21.631Z",
+    "latestHash": "6e7f059e32ad0d254255c4fda0107491aae0d112dcc2bbba3dd562ae50d57a68",
+    "versions": [
+      {
+        "sha256": "6e7f059e32ad0d254255c4fda0107491aae0d112dcc2bbba3dd562ae50d57a68",
+        "capturePath": "raw_data/polls/alpha_research/1060",
+        "capturedAt": "2026-11-05T23:44:12.182Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-1060-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-11-05T23:44:24.920Z",
+            "draftHash": "b745baf9c5af467a9635f13ae271cc75110c7ad88ce86de167eaeba62f5dfde7",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "1059",
+    "url": "https://alpharesearch.bg/post/1059-01-noemvri-2026-ii-tur-na-izbori-za-prezident-i-viceprezident-01-november-2026-ii-round-of-presidential-election.html",
+    "title": "01 ноември 2026: II Тур на Избори за президент и вицепрезидент / 01 November 2026: II Round of Presidential Election",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1059"
+    ],
+    "discoveredAt": "2026-11-05T22:55:21.631Z",
+    "latestHash": "f191967186f6add09b67ceda0d7c5993b53ce81b94c594ecdfc165d3eb14feb8",
+    "versions": [
+      {
+        "sha256": "f191967186f6add09b67ceda0d7c5993b53ce81b94c594ecdfc165d3eb14feb8",
+        "capturePath": "raw_data/polls/alpha_research/1059",
+        "capturedAt": "2026-11-05T23:44:12.314Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-pub-1059-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-11-05T23:44:24.818Z",
+            "draftHash": "4dafd3b2b723a4e47b3fd5bff07d68378c5940aa2b4d0d553f20527048962893",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
+  },
+  {
+    "pubId": "1061",
+    "url": "https://alpharesearch.bg/post/1061-spestiavania-na-bulgarskite-domakinstva-i-izbor-na-podfond-pri-vtoria-pensionen-stulb.html",
+    "title": "Спестявания на българските домакинства и избор на подфонд при втория пенсионен стълб",
+    "publishedAt": null,
+    "agencyId": "AR",
+    "pubIds": [
+      "1061"
+    ],
+    "discoveredAt": "2026-11-16T22:44:36.323Z",
+    "latestHash": "bbeb0d02d4efb8f98d9361ee94838fcceb94f31ba2ef038ced7fa0b30dbf1ad8",
+    "versions": [
+      {
+        "sha256": "bbeb0d02d4efb8f98d9361ee94838fcceb94f31ba2ef038ced7fa0b30dbf1ad8",
+        "capturePath": "raw_data/polls/alpha_research/1061",
+        "capturedAt": "2026-11-16T23:52:38.634Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ar-2026-10-30",
+            "race": "parliamentary",
+            "extractedAt": "2026-11-16T23:52:42.003Z",
+            "draftHash": "59ad28ac3d2d594e8b2eb1c41d0c50c1e9f11703005957f54ec9ac5732743645",
+            "refused": [
+              "shares"
+            ]
+          }
+        ]
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 0
+    },
+    "errors": {
+      "capture": null,
+      "extraction": null
+    },
+    "lastError": null
   }
 ]

@@ -58,5 +58,22 @@
       "reason": "no presidential cycle in the fieldwork year covers fieldwork end 2026-10-02",
       "quote": ""
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.440Z",
+    "draftHash": "a3de51ac353766ba420ce0b5b10ba05d6bb1526821cf968df3ef04ce379d85d3",
+    "diffs": [
+      "extractor refused: residual.otherNamedMinor, poll.cycle",
+      "reader finds the genre unclear",
+      "vote_intention r1: „Прогресивна България\" 40.8 — reader has no such answer",
+      "vote_intention r1: reader has „Йотова\" 47.8 — extractor does not",
+      "vote_intention r1: reader has „Гюров\" 24.6 — extractor does not",
+      "vote_intention r1: reader has „Костадинов\" 9.7 — extractor does not",
+      "vote_intention r1: reader has „Василев\" 4.6 — extractor does not",
+      "vote_intention r1: reader has „Михайлов\" 2.4 — extractor does not",
+      "vote_intention r1: reader has „Христанов\" 1.9 — extractor does not"
+    ]
+  }
 }

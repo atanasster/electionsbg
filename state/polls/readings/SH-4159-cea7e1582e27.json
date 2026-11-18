@@ -1,0 +1,117 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "SH",
+  "pubId": "4159",
+  "captureSha256": "cea7e1582e272738c7443dbca475b71db68957485dccf19a4c75008226f4aa66",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-10-21T01:45:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "presidential",
+      "fieldworkStart": "2026-09-23",
+      "fieldworkEnd": "2026-09-28",
+      "fieldworkQuote": "в периода 23–28 септември 2026 г.",
+      "respondents": 1000,
+      "respondentsQuote": "сред 1000 български граждани по метода на стандартизираното face-to-face интервю",
+      "publishedAt": "2026-10-02",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население проучване на Агенция СОВА ХАРИС; 1000 български граждани; стандартизирано face-to-face интервю в дома на респондента; максимална грешка 3,1% (за 50% дял при 95% доверително равнище).",
+        "en": "Survey representative of the adult population by SOVA HARRIS Agency; 1000 Bulgarian citizens; standardised face-to-face interview at the respondent's home; maximum error 3.1% (for a 50% share at 95% confidence level)."
+      },
+      "methodologyQuote": "Данните са от представително за пълнолетното население на страната проучване, проведено от Агенция СОВА ХАРИС в периода 23–28 септември 2026 г. сред 1000 български граждани по метода на стандартизираното face-to-face интервю в дома на респондента. Максимална грешка за 50% относителен дял при 95% доверително равнище: 3,1%.",
+      "sponsor": "вестник „Труд“",
+      "sponsorQuote": "Изследването е по поръчка на вестник „Труд“.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "decided_voters",
+          "basePhrase": "процент сред посочилите конкретна двойка",
+          "baseLabel": {
+            "bg": "Посочилите конкретна двойка",
+            "en": "Respondents who named a specific ticket"
+          },
+          "answers": [
+            {
+              "label": "Илияна Йотова",
+              "kind": "choice",
+              "value": 50.2,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            },
+            {
+              "label": "Андрей Гюров",
+              "kind": "choice",
+              "value": 23.7,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            },
+            {
+              "label": "Костадин Костадинов",
+              "kind": "choice",
+              "value": 12.7,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            },
+            {
+              "label": "Друга кандидат-президентска двойка",
+              "kind": "other",
+              "value": 13.4,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": null,
+          "baseLabel": {
+            "bg": "Всички анкетирани",
+            "en": "All respondents"
+          },
+          "answers": [
+            {
+              "label": "Ще гласувам и вече съм решил/а за кого",
+              "kind": "choice",
+              "value": 47.4,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            },
+            {
+              "label": "Ще гласувам, но още не съм решил/а за кого",
+              "kind": "choice",
+              "value": 16.9,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            },
+            {
+              "label": "Не съм решил/а дали да гласувам",
+              "kind": "undecided",
+              "value": 14.1,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            },
+            {
+              "label": "Няма да гласувам",
+              "kind": "wont_vote",
+              "value": 21.4,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            },
+            {
+              "label": "Без отговор",
+              "kind": "wont_say",
+              "value": 0.2,
+              "quote": null,
+              "image": "Publ_Trud_021026_page-0004.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

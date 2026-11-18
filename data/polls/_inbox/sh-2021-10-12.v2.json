@@ -130,5 +130,16 @@
     "share:Не подкрепям никого": "[bulletin image] publ_dirbg_141021-page-004.jpg",
     "share:Друга": "[bulletin image] publ_dirbg_141021-page-004.jpg"
   },
-  "refused": []
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.436Z",
+    "draftHash": "0256cc7708363a942b312ea9dc7e61ea2d40a3aeac948efb7d6f9bdcc49b0b5a",
+    "diffs": [
+      "re-issued publication (.vN) — a correction needs a human",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „Не подкрепям никого\" 1.7 — extractor does not"
+    ]
+  }
 }

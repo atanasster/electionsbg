@@ -110,5 +110,15 @@
     "share:БЪЛГАРСКИТЕ ПАТРИОТИ - ВМРО, ВОЛЯ и НФСБ": "[bulletin image] publ_dirbg_180621-4-scaled.jpg",
     "share:Друга партия / коалиция": "[bulletin image] publ_dirbg_180621-4-scaled.jpg"
   },
-  "refused": []
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.434Z",
+    "draftHash": "4515dc7e71f6c746f55bb1a20a4e81f72b2b0fecfcef2248d0382fb6ba794adb",
+    "diffs": [
+      "re-issued publication (.vN) — a correction needs a human",
+      "reader finds the genre unclear"
+    ]
+  }
 }

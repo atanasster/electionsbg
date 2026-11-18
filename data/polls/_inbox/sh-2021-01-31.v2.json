@@ -173,5 +173,16 @@
     "share:Не бих гласувал/а": "[bulletin image] page0004-1.jpg",
     "share:Не мога да преценя/ Не съм решил/а": "[bulletin image] page0004-1.jpg"
   },
-  "refused": []
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.432Z",
+    "draftHash": "4bd8796260d505b5260c2b7ba15df4bb2429bfb76773fbc7b09e315ade25307a",
+    "diffs": [
+      "re-issued publication (.vN) — a correction needs a human",
+      "reader finds the genre unclear",
+      "questions: extractor 1 vs reader 2"
+    ]
+  }
 }

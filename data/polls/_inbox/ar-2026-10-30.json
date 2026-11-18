@@ -1,0 +1,53 @@
+{
+  "race": "parliamentary",
+  "poll": {
+    "id": "ar-2026-10-30",
+    "agencyId": "AR",
+    "source": "https://alpharesearch.bg/post/1061-spestiavania-na-bulgarskite-domakinstva-i-izbor-na-podfond-pri-vtoria-pensionen-stulb.html",
+    "electionDate": null,
+    "respondents": 1000,
+    "genre": "unclear",
+    "fieldwork": "Oct 19-30 2026",
+    "provenance": {
+      "url": "https://alpharesearch.bg/post/1061-spestiavania-na-bulgarskite-domakinstva-i-izbor-na-podfond-pri-vtoria-pensionen-stulb.html",
+      "fetchedAt": "2026-11-16T23:52:38.634Z",
+      "sha256": "bbeb0d02d4efb8f98d9361ee94838fcceb94f31ba2ef038ced7fa0b30dbf1ad8",
+      "extractor": "AR",
+      "fieldworkStart": "2026-10-19",
+      "fieldworkEnd": "2026-10-30",
+      "basePhrase": null,
+      "quotes": {
+        "sampleSize": "сред 1000 пълнолетни",
+        "fieldwork": "в периода 19 - 30 октомври 2026 г"
+      }
+    },
+    "publicationId": "AR:1061",
+    "publishedAt": null
+  },
+  "details": [],
+  "residual": null,
+  "genre": "unclear",
+  "extractor": "AR",
+  "evidence": {
+    "sampleSize": "сред 1000 пълнолетни",
+    "fieldwork": "в периода 19 - 30 октомври 2026 г"
+  },
+  "refused": [
+    {
+      "field": "shares",
+      "reason": "text yielded only 0 share(s) and 3 chart image(s) look like a labelled table — likely a chart-only post (decision 18); the Gemini Vision fallback this needs is not yet built",
+      "quote": ""
+    }
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.412Z",
+    "draftHash": "59ad28ac3d2d594e8b2eb1c41d0c50c1e9f11703005957f54ec9ac5732743645",
+    "diffs": [
+      "extractor refused: shares",
+      "reader says not a poll: Topical survey (Alpha Research with Таралеж.бг, fieldwork 19-30 October 2026, 1000 adults) on household savings and the choice of second-pillar pension sub-fund. The article text and all four slides carry no vote-intention, party, candidate or participation question.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
+}

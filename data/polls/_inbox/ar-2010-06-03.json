@@ -114,5 +114,14 @@
     "share:Друга партия": "[chart] Public_opinion_AR_June_2010.ppt",
     "share:Няма да гласувам": "[chart] Public_opinion_AR_June_2010.ppt"
   },
-  "refused": []
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.374Z",
+    "draftHash": "e293de38b44141758981dd29e5cfe5cc9ad0f1b1d844a7ec9b0aa970187e1fa1",
+    "diffs": [
+      "reader finds the genre unclear"
+    ]
+  }
 }

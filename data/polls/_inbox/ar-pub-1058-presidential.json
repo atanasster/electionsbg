@@ -49,5 +49,17 @@
       "reason": "Source review required for method, question/base and English translation",
       "quote": ""
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-18T00:48:43.415Z",
+    "draftHash": "14b92a0c894aa07fa259349fd66e462a74dfeb13a5edbca2b1f0c7b283bf2408",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: fieldwork, respondents, questions",
+      "reader says not a poll: Election-day demographic profile of voters in the 25 October 2026 presidential first round («Данни на социологическа агенция Алфа Рисърч за демографския профил на гласувалите граждани») — a post-vote/exit-poll breakdown, not a pre-election vote-intention poll. The figures are only in five linked images (dem1–dem5.jpg) that are not in the capture; the page text states no shares.",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
 }
