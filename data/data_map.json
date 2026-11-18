@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-16T23:09:12.758Z",
+  "generatedAt": "2026-11-18T00:00:01.551Z",
   "nodes": [
     {
       "id": "src:water",
@@ -479,7 +479,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-16T22:44:36.323Z",
+      "freshness": "2026-11-17T23:21:24.891Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -501,7 +501,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-11-16T22:44:36.323Z"
+          "freshness": "2026-11-17T23:21:24.891Z"
         },
         {
           "id": "egov_budget_execution",
@@ -589,7 +589,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-16T22:44:36.323Z",
+      "freshness": "2026-11-17T23:21:24.891Z",
       "skills": [
         "update-procurement"
       ],
@@ -599,7 +599,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-11-16T22:44:36.323Z"
+          "freshness": "2026-11-17T23:21:24.891Z"
         }
       ],
       "x": 28,
@@ -1449,7 +1449,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-11-16T22:44:36.323Z",
+      "freshness": "2026-11-17T23:21:24.891Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1461,7 +1461,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-11-16T22:44:36.323Z"
+          "freshness": "2026-11-17T23:21:24.891Z"
         },
         {
           "id": "eurostat_policy",
@@ -1783,7 +1783,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-16T22:44:36.323Z",
+      "freshness": "2026-11-17T23:21:24.891Z",
       "skills": [
         "update-prices"
       ],
@@ -1793,7 +1793,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-11-16T22:44:36.323Z"
+          "freshness": "2026-11-17T23:21:24.891Z"
         }
       ],
       "issue": {
@@ -2328,7 +2328,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-11-16T22:44:36.323Z",
+      "freshness": "2026-11-17T23:21:24.891Z",
       "skills": [
         "update-procurement"
       ],
@@ -2338,7 +2338,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-11-16T22:44:36.323Z"
+          "freshness": "2026-11-17T23:21:24.891Z"
         }
       ],
       "issue": {
@@ -7463,8 +7463,8 @@
         {
           "node": "ds:officials",
           "text": {
-            "bg": "А през лицата се затваря кръгът: 5 612 деклариращи публични длъжности се водят и в регистъра на фирмите.",
-            "en": "And people close the circle: 5,612 officials who file asset declarations also hold a role in the company registry."
+            "bg": "А през лицата се затваря кръгът: 5 611 деклариращи публични длъжности се водят и в регистъра на фирмите.",
+            "en": "And people close the circle: 5,611 officials who file asset declarations also hold a role in the company registry."
           }
         }
       ]
@@ -7751,7 +7751,7 @@
         "bg": "къде в страната стъпват трансграничните проекти",
         "en": "where in the country the cross-border projects land"
       },
-      "overlap": 163,
+      "overlap": 162,
       "of": {
         "bg": "от партньорските редове с разпознато място",
         "en": "of the partner rows with a resolved place"
@@ -7767,7 +7767,7 @@
         "bg": "в кое населено място е седалището на възложителя",
         "en": "which settlement a contracting authority is seated in"
       },
-      "overlap": 909
+      "overlap": 908
     },
     {
       "id": "connections|geo|ekatte",
@@ -7795,7 +7795,7 @@
         "bg": "кой деклариращ се води и в Търговския регистър",
         "en": "which declaring officials also appear in the Commerce Registry"
       },
-      "overlap": 5612,
+      "overlap": 5611,
       "query": "officials-who-hold-company-roles"
     },
     {
@@ -7820,7 +7820,7 @@
         "bg": "кой кандидат участва и във фирми",
         "en": "which candidates also hold company roles"
       },
-      "overlap": 7360
+      "overlap": 7359
     }
   ]
 }
