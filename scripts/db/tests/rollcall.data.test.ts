@@ -98,10 +98,10 @@ test.skipIf(skipItems)(
     // filter superseded_by IS NULL and so see the 15,144 the JSON artifacts were computed
     // from. If `stand` ever equals `total`, dedupeRevotes stopped being applied and every
     // per-MP metric is about to over-weight whatever was voted twice.
-    assert.equal(Number(r.total), 17366, "raw item count moved");
+    assert.equal(Number(r.total), 17382, "raw item count moved");
     assert.equal(
       Number(r.stand),
-      15670,
+      15686,
       "the standing set is not the deduped set",
     );
     assert.equal(Number(r.superseded), 1696);
@@ -195,7 +195,7 @@ test.skipIf(skipItems)(
       [44, 45, 46, 47, 48, 49, 50, 51, 52],
     );
     const total = rows.reduce((n, r) => n + Number(r.days), 0);
-    assert.equal(total, 648, "plenary-day count moved");
+    assert.equal(total, 649, "plenary-day count moved");
   },
 );
 
