@@ -29,8 +29,10 @@ carries a source → skill table. If you need to know what a source does, read t
    db:proxy:cloud`). The VPN is the operator's to flip; never change it yourself.
 2. **Run it.** Use `pnpm run pipeline:nightly` for the whole chain (`--no-publish` stops
    after the ingest commit, leaving the manifest for `pipeline:publish`). If the watcher
-   already ran today, use `pnpm run pipeline:ingest --publish` instead. Run it in the
-   foreground with a long timeout, never in the background. It stops rather than continues
+   already ran today, use `pnpm run pipeline:ingest --publish` instead. A run takes hours,
+   longer than any foreground tool timeout, and a background shell dies with the session
+   that started it — so from an agent, launch it DETACHED (the `setsid` command below) and
+   wait on `status.json` reaching `"phase": "done"`. It stops rather than continues
    when something critical happens:
    - **preflight** (the doctor runs first): git mid-rebase/merge or off `main`, low disk
      (repo volume < 10 GB, Docker VM < 8 GB), or local Postgres down AFTER the run tried
