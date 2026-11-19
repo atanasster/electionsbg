@@ -87,5 +87,21 @@
     "sampleSize": "1003 ефективни интервюта",
     "fieldwork": "Период на провеждане: 24-30 януари 2025 г"
   },
-  "refused": []
+  "refused": [],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.481Z",
+    "draftHash": "0364946df903934f262d8e6e1f6b84cf91ee5f73954e64b106d57cd6250de945",
+    "diffs": [
+      "reader finds the genre unclear",
+      "vote_intention r1: „БСП\" extractor 80 vs reader 6.9",
+      "vote_intention r1: „ГЕРБ\" 26.6 — reader has no such answer",
+      "vote_intention r1: reader has „ГЕРБ-СДС\" 26.6 — extractor does not",
+      "vote_intention r1: reader has „ДПС – Ново начало (Делян Пеевски)\" 10.3 — extractor does not",
+      "vote_intention r1: reader has „Демокрация, права и свободи – ДПС (Ахмед Доган)\" 7.1 — extractor does not",
+      "vote_intention r1: reader has „Има такъв народ\" 5.9 — extractor does not",
+      "vote_intention r1: reader has „Синя България\" 1.2 — extractor does not"
+    ]
+  }
 }

@@ -1,0 +1,63 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "1043",
+  "captureSha256": "7de6d3abe85ce27b541d64a6db0e4eedff48c30f34a1fb7923a83bf386938d9c",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-02-23",
+      "fieldworkEnd": "2026-03-02",
+      "fieldworkQuote": "проведено в периода 23 февруари – 2 март 2026г.",
+      "respondents": 1000,
+      "respondentsQuote": "Проучването е проведено сред 1000 пълнолетни граждани от цялата страна.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално представително проучване сред 1000 пълнолетни граждани; стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; пряко стандартизирано интервю с таблети по домовете.",
+        "en": "Nationally representative survey of 1,000 adult citizens; stratified two-stage sample with quotas on the main socio-demographic characteristics; face-to-face standardised tablet interviews in respondents' homes."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": null,
+      "sponsorQuote": "Публикува се на сайта на агенцията и се реализира със собствени средства.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "сред твърдо решилите да гласуват",
+          "baseLabel": { "bg": "Твърдо решили да гласуват", "en": "Respondents firmly decided to vote" },
+          "answers": [
+            { "label": "Партия на Румен Радев", "kind": "choice", "value": 32.6, "quote": "Значителна преднина за проекта на Р. Радев, който събира 32.6% от гласуващите", "image": null },
+            { "label": "ГЕРБ", "kind": "choice", "value": 19.7, "quote": "пред ГЕРБ – с 19.7%", "image": null },
+            { "label": "ПП-ДБ", "kind": "choice", "value": 12.6, "quote": "ПП-ДБ е в отстъпление спрямо декември, но задържа третото място с 12.6%", "image": null },
+            { "label": "ДПС – Ново начало", "kind": "choice", "value": 9.6, "quote": "следвана от ДПС-ново начало (9.6%)", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 6.4, "quote": "следвана от ДПС-ново начало (9.6%) и Възраждане (6.4%)", "image": null },
+            { "label": "БСП", "kind": "choice", "value": 3.6, "quote": "Две партии са под бариерата от 4%, но близо до нея – БСП (3.6%)", "image": null },
+            { "label": "МЕЧ", "kind": "choice", "value": 3.5, "quote": "близо до нея – БСП (3.6%) и МЕЧ (3.5%)", "image": null },
+            { "label": "Величие", "kind": "choice", "value": 1.8, "quote": null, "image": "Graph02.jpg" },
+            { "label": "АПС", "kind": "choice", "value": 1.6, "quote": null, "image": "Graph02.jpg" },
+            { "label": "Синя България", "kind": "choice", "value": 1.5, "quote": null, "image": "Graph02.jpg" },
+            { "label": "ИТН", "kind": "choice", "value": 1.2, "quote": null, "image": "Graph02.jpg" },
+            { "label": "Други", "kind": "other", "value": 5.9, "quote": null, "image": "Graph02.jpg" }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            { "label": "Със сигурност ще гласува", "kind": "choice", "value": 55.1, "quote": null, "image": "Graph01.jpg" },
+            { "label": "Колебае се", "kind": "undecided", "value": 12.3, "quote": null, "image": "Graph01.jpg" },
+            { "label": "Няма да гласува", "kind": "wont_vote", "value": 32.6, "quote": null, "image": "Graph01.jpg" }
+          ]
+        }
+      ]
+    }
+  ]
+}

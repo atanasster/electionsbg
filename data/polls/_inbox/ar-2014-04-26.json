@@ -98,5 +98,16 @@
       "reason": "quote too short to be evidence (<12 chars after normalisation)",
       "quote": "ДПС 6,2% "
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.429Z",
+    "draftHash": "cfc014b8f045ee81016ba3914c2ada902e0a9d8c24eab0fa1b82e0ec50d98c4a",
+    "diffs": [
+      "extractor refused: share:ББЦ, share:БСП, share:БСП, share:ГЕРБ, share:БСП, share:ДПС",
+      "reader says not a poll: The only electoral question in this publication (fieldwork 23-26 April 2014, 1024 respondents) is vote intention for the 25 May 2014 European Parliament election (PDF slide 22: \"ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ\"; press release: \"ще зависи финалният победител на евро изборите\"). It carries no National Assembly (parliamentary) or presidential poll, so no entry fits the parliamentary/presidential race convention. For a human reviewer, the EP figures as printed on slide 22 (base appears to be all respondents, including \"Няма да гласувам\" 33,9%): ГЕРБ 17,6%; БСП 15,9%; ДПС 6,2%; България без цензура/ВМРО 4,9%; Реформаторски блок 4,5%; АБВ 4,5%; НФСБ 3,0%; Атака 2,5%; Синьо единство 0,9%; Други партии 6,1%; Няма да гласувам 33,9%. Note slide 23 prints April \"Други партии\" as 7 (Синьо единство folded in), disagreeing with slide 22's 6,1. The rest is institutional trust/approval ratings.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
 }

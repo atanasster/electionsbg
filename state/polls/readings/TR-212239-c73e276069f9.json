@@ -1,0 +1,50 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "TR",
+  "pubId": "212239",
+  "captureSha256": "c73e276069f933dfdff558b75b97a2a24a7cd6f33298aca4f8b5405690961c7e",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2025-05-12",
+      "fieldworkEnd": "2025-05-18",
+      "fieldworkQuote": null,
+      "respondents": 1001,
+      "respondentsQuote": null,
+      "publishedAt": "2025-05-21",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю „лице в лице“; 1001 ефективни интервюта с респонденти на възраст 18+ г., представителна за пълнолетното население; максимална стохастична грешка ±3,1%.",
+        "en": "Direct standardised face-to-face interview; 1,001 effective interviews with respondents aged 18+, representative of the adult population; maximum sampling error ±3.1%."
+      },
+      "methodologyQuote": null,
+      "sponsor": "24 часа",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Сред заявилите, че ще гласуват на бъдещи парламентарни избори",
+          "baseLabel": { "bg": "Заявилите, че ще гласуват", "en": "Respondents who said they will vote" },
+          "answers": [
+            { "label": "ГЕРБ-СДС", "kind": "choice", "value": 26.2, "quote": "ГЕРБ запазва първата си позиция с 26.2% от гласуващите", "image": null },
+            { "label": "Продължаваме промяната-Демократична България", "kind": "choice", "value": 13.8, "quote": "С изключително близки стойности са ПП-ДБ (13.8%)", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 13.5, "quote": "ПП-ДБ (13.8%) и Възраждане (13.5%)", "image": null },
+            { "label": "ДПС – Ново начало (Делян Пеевски)", "kind": "choice", "value": 11.6, "quote": "Лек ръст се регистрира при ДПС-Ново начало до 11.6% сред гласуващите", "image": null },
+            { "label": "БСП – Обединена левица", "kind": "choice", "value": 6.8, "quote": "БСП-ОЛ задържа нивата си от 6.8%", "image": null },
+            { "label": "Има такъв народ", "kind": "choice", "value": 6.0, "quote": "Три партии разполагат със сходна подкрепа – ИТН с 6%", "image": null },
+            { "label": "МЕЧ", "kind": "choice", "value": 5.9, "quote": "ИТН с 6%, МЕЧ – 5.9%", "image": null },
+            { "label": "Демокрация, права и свободи – ДПС (Ахмед Доган)", "kind": "choice", "value": 5.8, "quote": "при ДПС (Доган) се регистрира ерозия до 5.8% от гласуващите", "image": null },
+            { "label": "Величие", "kind": "choice", "value": 3.9, "quote": "Величие остават близо до ръба на парламентарната бариера с 3.9% подкрепа сред гласуващите", "image": null },
+            { "label": "Синя България", "kind": "choice", "value": 1.1, "quote": null, "image": "Slide6.png" },
+            { "label": "Други", "kind": "other", "value": 5.4, "quote": null, "image": "Slide6.png" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "TR",
+  "pubId": "212750",
+  "captureSha256": "9cab9cf1dd0422808e032250aad9756dd8dbcbed923b1c7d14d8e9f28daa01a8",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T07:42:12Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-04-13",
+      "fieldworkEnd": "2026-04-16",
+      "fieldworkQuote": null,
+      "respondents": 1004,
+      "respondentsQuote": null,
+      "publishedAt": "2026-04-16",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю „лице в лице“; 1004 ефективни интервюта с респонденти на възраст 18+ г., представителна за пълнолетното население; максимална стохастична грешка ± 3.1% (по слайд 2).",
+        "en": "Direct standardised face-to-face interview; 1,004 effective interviews with respondents aged 18+, representative of the adult population; maximum sampling error ±3.1% (per slide 2)."
+      },
+      "methodologyQuote": null,
+      "sponsor": "24 часа",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "сред заявилите, че ще упражнят правото си на глас",
+          "baseLabel": {
+            "bg": "Заявилите, че ще гласуват",
+            "en": "Respondents who say they will vote"
+          },
+          "answers": [
+            {
+              "label": "Прогресивна България",
+              "kind": "choice",
+              "value": 33.2,
+              "quote": "Прогресивна България остава лидер с 33,2% подкрепа",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 19.1,
+              "quote": "Втори са ГЕРБ-СДС с 19,1%",
+              "image": null
+            },
+            {
+              "label": "Продължаваме промяната-Демократична България",
+              "kind": "choice",
+              "value": 11.2,
+              "quote": "като ПП-ДБ (11,2%) запазва крехка преднина",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 10.2,
+              "quote": "крехка преднина пред ДПС (10,2%)",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 7.1,
+              "quote": "Петата позиция остава за „Възраждане“ с 7,1% сред гласуващите",
+              "image": null
+            },
+            {
+              "label": "БСП – Обединена левица",
+              "kind": "choice",
+              "value": 4.0,
+              "quote": "За БСП декларират, че ще гласуват 4%",
+              "image": null
+            },
+            {
+              "label": "Сияние",
+              "kind": "choice",
+              "value": 3.9,
+              "quote": "За „Сияние“ декларират подкрепа 3,9% от гласуващите",
+              "image": null
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 3.7,
+              "quote": "МЕЧ също остава близо до бариерата с 3,7%",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 2.1,
+              "quote": "В подредбата следват Има такъв народ (2,1%)",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 1.7,
+              "quote": "Има такъв народ (2,1%), Величие (1,7%)",
+              "image": null
+            },
+            {
+              "label": "Алианс за права и свободи – АПС",
+              "kind": "choice",
+              "value": 1.6,
+              "quote": "Алианс за права и свободи (1,6%)",
+              "image": null
+            },
+            {
+              "label": "Синя България",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": "Алианс за права и свободи (1,6%) и Синя България (1%)",
+              "image": null
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 1.2,
+              "quote": null,
+              "image": "Slide3.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

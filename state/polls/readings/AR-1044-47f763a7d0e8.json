@@ -1,0 +1,170 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "1044",
+  "captureSha256": "47f763a7d0e8d9cf8b44e5d0328a2200ee849b9d13f545c34e0717fafcd3fd2e",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T07:42:04Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-03-12",
+      "fieldworkEnd": "2026-03-20",
+      "fieldworkQuote": "Период на провеждане: 12 - 20 март 2026г.",
+      "respondents": 1000,
+      "respondentsQuote": "Обем на извадката: 1000 души.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Представително за пълнолетното население проучване; 1000 души; стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; пряко стандартизирано интервю с таблети по домовете. Статистическа грешка не е посочена.",
+        "en": "Survey representative of the adult population; 1,000 people; stratified two-stage sample with quotas on the main socio-demographic characteristics; face-to-face standardised tablet interviews in respondents' homes. Margin of error not stated."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": "бТВ",
+      "sponsorQuote": "проведено от агенция Алфа Рисърч и финансирано от бТВ",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "сред твърдо решилите да гласуват",
+          "baseLabel": {
+            "bg": "Твърдо решили да гласуват",
+            "en": "Respondents firmly decided to vote"
+          },
+          "answers": [
+            {
+              "label": "Прогресивна България",
+              "kind": "choice",
+              "value": 29.4,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 20.7,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "ПП-ДБ",
+              "kind": "choice",
+              "value": 11.5,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 9.9,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 6.8,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "БСП – Обединена левица",
+              "kind": "choice",
+              "value": 3.8,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 3.3,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "Коалиция Сияние",
+              "kind": "choice",
+              "value": 2.4,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 2.2,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "Алианс за права и свободи (АПС)",
+              "kind": "choice",
+              "value": 1.9,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "ИТН",
+              "kind": "choice",
+              "value": 1.7,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "Синя България",
+              "kind": "choice",
+              "value": 1.5,
+              "quote": null,
+              "image": "Graph02.jpg"
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 4.9,
+              "quote": null,
+              "image": "Graph02.jpg"
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "Да, със сигурност",
+              "kind": "choice",
+              "value": 54.7,
+              "quote": null,
+              "image": "Graph01.jpg"
+            },
+            {
+              "label": "По-скоро да",
+              "kind": "choice",
+              "value": 12.1,
+              "quote": null,
+              "image": "Graph01.jpg"
+            },
+            {
+              "label": "По-скоро не",
+              "kind": "choice",
+              "value": 7.9,
+              "quote": null,
+              "image": "Graph01.jpg"
+            },
+            {
+              "label": "Категорично не",
+              "kind": "choice",
+              "value": 25.3,
+              "quote": null,
+              "image": "Graph01.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "TR",
+  "pubId": "211989",
+  "captureSha256": "8c6fd68b4f710a1c260e730845d7271bdc79e981223567c16f78c79a0ce09efa",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T12:00:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2025-01-24",
+      "fieldworkEnd": "2025-01-30",
+      "fieldworkQuote": null,
+      "respondents": 1003,
+      "respondentsQuote": null,
+      "publishedAt": "2025-02-05",
+      "genre": "unclear",
+      "methodology": null,
+      "methodologyQuote": null,
+      "sponsor": "24 часа",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Сред заявилите, че ще гласуват на бъдещи парламентарни избори",
+          "baseLabel": {
+            "bg": "Заявилите, че ще гласуват",
+            "en": "Respondents who say they will vote"
+          },
+          "answers": [
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 26.6,
+              "quote": "ГЕРБ запазват лидерската си позиция с 26.6% от гласуващите",
+              "image": null
+            },
+            {
+              "label": "Продължаваме промяната - Демократична България",
+              "kind": "choice",
+              "value": 13.2,
+              "quote": "С близки позиции остават ПП-ДБ (13.2%)",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 13.0,
+              "quote": "С близки позиции остават ПП-ДБ (13.2%) и Възраждане (13%)",
+              "image": null
+            },
+            {
+              "label": "ДПС – Ново начало (Делян Пеевски)",
+              "kind": "choice",
+              "value": 10.3,
+              "quote": "На четвърта позиция се нарежда ДПС-Ново начало с 10.3%",
+              "image": null
+            },
+            {
+              "label": "Демокрация, права и свободи – ДПС (Ахмед Доган)",
+              "kind": "choice",
+              "value": 7.1,
+              "quote": null,
+              "image": "Slide7-1.png"
+            },
+            {
+              "label": "БСП – Обединена левица",
+              "kind": "choice",
+              "value": 6.9,
+              "quote": "Социалистите се ползват с подкрепата на 6.9% от гласуващите",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 5.9,
+              "quote": "а партията на Трифонов с 5.9%",
+              "image": null
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 5.6,
+              "quote": "МЕЧ, за сметка на това, бележки лек ръст до 5.6%",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 3.8,
+              "quote": "Величие запазва нива, които са близки до парламентарната бариера (3.8%)",
+              "image": null
+            },
+            {
+              "label": "Синя България",
+              "kind": "choice",
+              "value": 1.2,
+              "quote": null,
+              "image": "Slide7-1.png"
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 6.4,
+              "quote": null,
+              "image": "Slide7-1.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

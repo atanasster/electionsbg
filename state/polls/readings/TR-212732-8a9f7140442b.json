@@ -1,0 +1,145 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "TR",
+  "pubId": "212732",
+  "captureSha256": "8a9f7140442b8bba19b80f5bfbdcfdcef3e9c7190d9ecc97147b6fce609ef571",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T07:42:23+00:00",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-03-13",
+      "fieldworkEnd": "2026-03-19",
+      "fieldworkQuote": null,
+      "respondents": 1001,
+      "respondentsQuote": null,
+      "publishedAt": "2026-03-22",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю „лице в лице“; 1001 ефективни интервюта с респонденти на възраст 18+, представителна за пълнолетното население; максимална стохастична грешка ±3,1%.",
+        "en": "Direct standardised face-to-face interview; 1,001 effective interviews with respondents aged 18+, representative of the adult population; maximum sampling error ±3.1%."
+      },
+      "methodologyQuote": null,
+      "sponsor": "24 часа",
+      "sponsorQuote": null,
+      "questions": [
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "пълнолетните българи, живеещи на територията на страната",
+          "baseLabel": {
+            "bg": "Пълнолетни българи в страната",
+            "en": "Adult Bulgarians living in the country"
+          },
+          "answers": [
+            {
+              "label": "Ще гласуват",
+              "kind": "choice",
+              "value": 59.0,
+              "quote": "59% от пълнолетните българи, живеещи на територията на страната, заявяват, че ще упражнят правото си на глас",
+              "image": null
+            }
+          ]
+        },
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "заявяващите, че ще гласуват на предстоящите избори",
+          "baseLabel": {
+            "bg": "Заявилите, че ще гласуват",
+            "en": "Respondents who say they will vote"
+          },
+          "answers": [
+            {
+              "label": "Прогресивна България",
+              "kind": "choice",
+              "value": 31.1,
+              "quote": "Прогресивна България остава лидер в подредбата с 31,1% подкрепа",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 19.7,
+              "quote": "Втора са ГЕРБ с 19,7%",
+              "image": null
+            },
+            {
+              "label": "Продължаваме промяната-Демократична България",
+              "kind": "choice",
+              "value": 11.8,
+              "quote": "на трета позиция са ПП-ДБ с 11,8%",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 10.5,
+              "quote": "Плътно зад тях стои ДПС с 10,5%",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 7.9,
+              "quote": "Възраждане е на пета позиция с 7,9%",
+              "image": null
+            },
+            {
+              "label": "БСП – Обединена левица",
+              "kind": "choice",
+              "value": 4.0,
+              "quote": "БСП-ОЛ остава точно на ръба на парламентарната бариера с 4% подкрепа",
+              "image": null
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 3.2,
+              "quote": "Под черта остава МЕЧ с 3,2%",
+              "image": null
+            },
+            {
+              "label": "Сияние",
+              "kind": "choice",
+              "value": 2.9,
+              "quote": "формацията около Николай Попов „Сияние“ с 2,9%",
+              "image": null
+            },
+            {
+              "label": "Има такъв народ",
+              "kind": "choice",
+              "value": 2.6,
+              "quote": "След нея се нареждат „Има такъв народ“ (2,6%)",
+              "image": null
+            },
+            {
+              "label": "АПС",
+              "kind": "choice",
+              "value": 1.7,
+              "quote": "„Има такъв народ“ (2,6%), АПС (1,7%)",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 1.5,
+              "quote": "АПС (1,7%) и Величие (1,5%)",
+              "image": null
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 3.1,
+              "quote": null,
+              "image": "Slide3-2.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

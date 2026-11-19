@@ -138,5 +138,19 @@
       "reason": "quote too short to be evidence (<12 chars after normalisation)",
       "quote": "МЕЧ с 3,2%"
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.488Z",
+    "draftHash": "cf9ef37b44805091812ba646542841eec1b1bc34c14fff759b0e2e00328bc226",
+    "diffs": [
+      "extractor refused: share:МЕЧ",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ГЕРБ\" 19.7 — reader has no such answer",
+      "vote_intention r1: „БСП-ОЛ\" 4 — reader has no such answer",
+      "vote_intention r1: reader has „ГЕРБ-СДС\" 19.7 — extractor does not",
+      "vote_intention r1: reader has „МЕЧ\" 3.2 — extractor does not"
+    ]
+  }
 }

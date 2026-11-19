@@ -49,5 +49,17 @@
       "reason": "Source review required for method, question/base and English translation",
       "quote": ""
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.470Z",
+    "draftHash": "4958d3d71787e39bf827857ae1a1a2c0cbe26effe733ff13f28ee476ad3e0077",
+    "diffs": [
+      "provisional poll id",
+      "extractor refused: fieldwork, respondents, questions",
+      "reader says not a poll: The capture contains only the announcement page (page.html). It reports an August 2016 national electoral-attitudes survey („Резултати от национално-представително проучване на електоралните нагласи, проведено през месец август 2016 г.“) and links out to a presentation („Изтеглете презентацията“). That presentation is not in the capture, and the page states no shares, sample size, method or fieldwork dates. Its only image is a decorative thumbnail (C.png), and the file itself is not in the capture either. Nothing can be transcribed.",
+      "reader found 0 presidential poll(s) in the publication"
+    ]
+  }
 }

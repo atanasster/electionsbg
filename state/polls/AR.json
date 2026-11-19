@@ -8013,6 +8013,13 @@
               "shares"
             ]
           }
+        ],
+        "exclusions": [
+          {
+            "race": "parliamentary",
+            "reason": "Not an electoral poll: household savings and second-pillar pension sub-fund survey (no vote-intention question)",
+            "reviewedAt": "2026-11-19"
+          }
         ]
       }
     ],

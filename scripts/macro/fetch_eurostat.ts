@@ -1147,6 +1147,11 @@ const TI_CPI: MacroPoint[] = [
 // 2025 = mean of STD103 (Spring) + STD104 (Autumn) 2025; both waves read equal.
 // 2026 = STD105 (Spring 2026) only — the autumn 2026 wave is not out yet, so this
 // latest point is a single-wave reading and will be re-meaned when autumn lands.
+//   STD105 verified 2026-11-19 against the EC's own Volume A tables (sheets
+//   QA6_10 Government 0.22 / QA6_11 Parliament 0.16 / QA6_12 EU 0.52, BG column,
+//   "Tend to trust"; fieldwork 12/3–5/4/2026, BG n=1,015), linked from the EU Open
+//   Data Portal dataset "Standard Eurobarometer 105 - Spring 2026":
+//   https://webgate.ec.europa.eu/ebsm/api/public/odp/download?key=99134D6EF7DB334B8485DC4C0535E9C2
 // Granularity is approximate; treat as illustrative trend, not point-precise.
 const EB_TRUST_PARLIAMENT: MacroPoint[] = [
   { year: 2005, value: 18 },

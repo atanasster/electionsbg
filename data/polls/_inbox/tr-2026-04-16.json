@@ -138,5 +138,16 @@
       "reason": "quote too short to be evidence (<12 chars after normalisation)",
       "quote": "ДПС (10,2%)"
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.490Z",
+    "draftHash": "fe4ba4520f1edbadca7d5db23839a2cd01329a30a3fc7ffdbcaf9da029bee314",
+    "diffs": [
+      "extractor refused: share:ДПС",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „ДПС\" 10.2 — extractor does not"
+    ]
+  }
 }

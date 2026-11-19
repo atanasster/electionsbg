@@ -1,0 +1,149 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "AR",
+  "pubId": "1047",
+  "captureSha256": "76393bf6e016d5257dd2b2b7e70b9b3b92f9c538aa0f69a97c67f9536a601081",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T07:42:15Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-04-13",
+      "fieldworkEnd": "2026-04-15",
+      "fieldworkQuote": "Проучването е проведено от Алфа Рисърч в периода 13- 15 април 2026г.",
+      "respondents": 1000,
+      "respondentsQuote": "Изследването е проведено сред 1000 пълнолетни граждани от цялата страна.",
+      "publishedAt": null,
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Пряко стандартизирано интервю с таблети по домовете; стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; 1000 пълнолетни граждани от цялата страна. Стохастична грешка не е посочена.",
+        "en": "Face-to-face standardized tablet interviews at respondents' homes; stratified two-stage sample with quotas on the main socio-demographic characteristics; 1,000 adult citizens nationwide. Margin of error not stated."
+      },
+      "methodologyQuote": "Използвана е стратифицирана двустепенна извадка с квота по основните социално-демографски признаци. Информацията е събрана чрез пряко стандартизирано интервю с таблети по домовете на анкетираните лица.",
+      "sponsor": "Алфа Рисърч (собствени средства)",
+      "sponsorQuote": "Публикува се на сайта на агенцията и се реализира със собствени средства.",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "сред твърдо решилите да гласуват",
+          "baseLabel": {
+            "bg": "Твърдо решили да гласуват",
+            "en": "Respondents firmly decided to vote"
+          },
+          "answers": [
+            {
+              "label": "Прогресивна България",
+              "kind": "choice",
+              "value": 34.2,
+              "quote": "Най-висока електорална подкрепа получава Прогресивна България – 34.2% от сигурните, че ще гласуват в неделя.",
+              "image": null
+            },
+            {
+              "label": "ГЕРБ-СДС",
+              "kind": "choice",
+              "value": 19.5,
+              "quote": "Втори остават ГЕРБ-СДС с 19.5%.",
+              "image": null
+            },
+            {
+              "label": "ПП-ДБ",
+              "kind": "choice",
+              "value": 11.6,
+              "quote": "Трета позиция заемат ПП-ДБ с 11.6%.",
+              "image": null
+            },
+            {
+              "label": "ДПС",
+              "kind": "choice",
+              "value": 9.4,
+              "quote": "9.4% е заявената подкрепа към ДПС.",
+              "image": null
+            },
+            {
+              "label": "Възраждане",
+              "kind": "choice",
+              "value": 5.8,
+              "quote": "Възраждане се очертава като петата почти сигурна партия в 52-ия Парламент с подкрепа от 5.8%.",
+              "image": null
+            },
+            {
+              "label": "БСП-Обединена левица",
+              "kind": "choice",
+              "value": 4.0,
+              "quote": "БСП показа способност за мобилизация в хода на кампанията и финишира на ръба на парламентарното представителство с 4%.",
+              "image": null
+            },
+            {
+              "label": "Сияние",
+              "kind": "choice",
+              "value": 3.2,
+              "quote": "Гражданското движение „Сияние“ също придобива видимост и различимост по време на кампанията с плавен възходящ тренд (3.2%).",
+              "image": null
+            },
+            {
+              "label": "Величие",
+              "kind": "choice",
+              "value": 2.9,
+              "quote": "Още две партии гравитират около 3% - Величие (2.9%) и МЕЧ (2.8%).",
+              "image": null
+            },
+            {
+              "label": "МЕЧ",
+              "kind": "choice",
+              "value": 2.8,
+              "quote": "Още две партии гравитират около 3% - Величие (2.9%) и МЕЧ (2.8%).",
+              "image": null
+            },
+            {
+              "label": "ИТН",
+              "kind": "choice",
+              "value": 1.7,
+              "quote": "ИТН (1.7%) и АПС (1.3%) се очертават с най-ниска подкрепа от сегашните парламентарни партии.",
+              "image": null
+            },
+            {
+              "label": "АПС",
+              "kind": "choice",
+              "value": 1.3,
+              "quote": "ИТН (1.7%) и АПС (1.3%) се очертават с най-ниска подкрепа от сегашните парламентарни партии.",
+              "image": null
+            },
+            {
+              "label": "Синя България",
+              "kind": "choice",
+              "value": 1.0,
+              "quote": null,
+              "image": "Graph2.jpg"
+            },
+            {
+              "label": "Други",
+              "kind": "other",
+              "value": 2.6,
+              "quote": null,
+              "image": "Graph2.jpg"
+            }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "unknown",
+          "basePhrase": null,
+          "baseLabel": null,
+          "answers": [
+            {
+              "label": "Със сигурност ще гласува",
+              "kind": "choice",
+              "value": 60.0,
+              "quote": null,
+              "image": "Graph1.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

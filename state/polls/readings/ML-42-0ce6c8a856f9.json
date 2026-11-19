@@ -1,0 +1,10 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "42",
+  "captureSha256": "0ce6c8a856f96e457d462e59db65e6ae46ca9c096f66bae4fbc31e19217b335e",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-19T07:41:50Z",
+  "notAPoll": "The capture contains only the announcement page (page.html). It reports an August 2016 national electoral-attitudes survey („Резултати от национално-представително проучване на електоралните нагласи, проведено през месец август 2016 г.“) and links out to a presentation („Изтеглете презентацията“). That presentation is not in the capture, and the page states no shares, sample size, method or fieldwork dates. Its only image is a decorative thumbnail (C.png), and the file itself is not in the capture either. Nothing can be transcribed.",
+  "polls": []
+}

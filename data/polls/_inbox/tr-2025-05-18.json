@@ -102,5 +102,20 @@
       "reason": "quote too short to be evidence (<12 chars after normalisation)",
       "quote": "ИТН с 6%, "
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.484Z",
+    "draftHash": "b3d2ef94ccb66374ec4de539960d14bdb78420716fcfbf1766b860e1e5ebf8d3",
+    "diffs": [
+      "extractor refused: share:ИТН",
+      "reader finds the genre unclear",
+      "vote_intention r1: „ГЕРБ\" 26.2 — reader has no such answer",
+      "vote_intention r1: reader has „ГЕРБ-СДС\" 26.2 — extractor does not",
+      "vote_intention r1: reader has „Има такъв народ\" 6 — extractor does not",
+      "vote_intention r1: reader has „Демокрация, права и свободи – ДПС (Ахмед Доган)\" 5.8 — extractor does not",
+      "vote_intention r1: reader has „Синя България\" 1.1 — extractor does not"
+    ]
+  }
 }

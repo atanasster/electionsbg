@@ -93,5 +93,22 @@
       "reason": "quote too short to be evidence (<12 chars after normalisation)",
       "quote": "МЕЧ (3.5%)"
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.451Z",
+    "draftHash": "d285263870aced9d80a46ed647c9c225fc0c33f605621d5f9d3af25e50e5ebf8",
+    "diffs": [
+      "extractor refused: share:МЕЧ",
+      "reader finds the genre unclear",
+      "vote_intention r1: „Прогресивна България\" 32.6 — reader has no such answer",
+      "vote_intention r1: reader has „Партия на Румен Радев\" 32.6 — extractor does not",
+      "vote_intention r1: reader has „МЕЧ\" 3.5 — extractor does not",
+      "vote_intention r1: reader has „Величие\" 1.8 — extractor does not",
+      "vote_intention r1: reader has „АПС\" 1.6 — extractor does not",
+      "vote_intention r1: reader has „Синя България\" 1.5 — extractor does not",
+      "vote_intention r1: reader has „ИТН\" 1.2 — extractor does not"
+    ]
+  }
 }

@@ -38,5 +38,27 @@
       "reason": "text yielded only 0 share(s) and 2 chart image(s) look like a labelled table — likely a chart-only post (decision 18); the Gemini Vision fallback this needs is not yet built",
       "quote": ""
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T07:42:57.453Z",
+    "draftHash": "24f47caa46b8325558bb028af1025bab7f0a3f1c7c720f8a97800dcc510af353",
+    "diffs": [
+      "extractor refused: shares",
+      "reader finds the genre unclear",
+      "vote_intention r1: reader has „Прогресивна България\" 30.8 — extractor does not",
+      "vote_intention r1: reader has „ГЕРБ-СДС\" 21.2 — extractor does not",
+      "vote_intention r1: reader has „ПП-ДБ\" 11.1 — extractor does not",
+      "vote_intention r1: reader has „ДПС\" 9.8 — extractor does not",
+      "vote_intention r1: reader has „Възраждане\" 6.9 — extractor does not",
+      "vote_intention r1: reader has „БСП – Обединена левица\" 3.9 — extractor does not",
+      "vote_intention r1: reader has „МЕЧ\" 3 — extractor does not",
+      "vote_intention r1: reader has „Коалиция Сияние\" 2.8 — extractor does not",
+      "vote_intention r1: reader has „Величие\" 2.7 — extractor does not",
+      "vote_intention r1: reader has „Синя България\" 1.6 — extractor does not",
+      "vote_intention r1: reader has „ИТН\" 1.4 — extractor does not",
+      "vote_intention r1: reader has „Алианс за права и свободи (АПС)\" 1.2 — extractor does not"
+    ]
+  }
 }
