@@ -38,6 +38,36 @@
     },
     {
       "schemaVersion": 1,
+      "id": "parliament:sitting:2026-11-18",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-11-18T00:00:00.000Z",
+      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-11-18",
+      "factKey": "home_fact_plenary_sittings",
+      "factArgs": {
+        "items": 43,
+        "sittings": 9,
+        "windowDays": 30
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 1,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
       "id": "prices:promotion:kiselo-mlyako-elena-2-400-gr",
       "kind": "promotion_started",
       "category": "prices",
@@ -131,36 +161,6 @@
       "verification": "automatic",
       "materiality": 0.6681071245942142,
       "actionability": 0.2
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-11-06",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-11-06T00:00:00.000Z",
-      "firstSeenAt": "2026-11-06T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-11-06",
-      "factKey": "home_fact_plenary_sittings",
-      "factArgs": {
-        "items": 33,
-        "sittings": 5,
-        "windowDays": 30
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.825,
-      "actionability": 0.4
     },
     {
       "schemaVersion": 1,
@@ -807,7 +807,7 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-11-06",
+      "asOf": "2026-11-18",
       "staleAfterDays": 90,
       "stale": false
     },
