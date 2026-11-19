@@ -63,6 +63,17 @@ export interface Step {
   timeoutMin?: number;
   /** Exit codes that are a finding, not a failure. */
   okExit?: readonly number[];
+  /** Exit codes that mean "a human must act", not "the pipeline broke":
+   *  the handler settles `needs-operator` (marker unstamped, so it re-queues
+   *  until the human part is done) and the publish is NOT held. For checks
+   *  whose non-zero exit is the expected way of reporting a curated constant
+   *  that drifted — a failure there would block every publish for something
+   *  no script can fix. `detail` picks the output line quoted in the item. */
+  operatorExit?: {
+    codes: readonly number[];
+    instruction: string;
+    detail?: RegExp;
+  };
   /** `chain` expands a package.json `&&` chain one link per trace row. */
   kind?: "command" | "chain";
   /** Needs beyond the handler's own. */

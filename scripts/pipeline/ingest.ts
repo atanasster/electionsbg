@@ -644,7 +644,7 @@ export const runIngest = async (
             run: ps.run,
             phase: ps.phase,
             timeoutMin: ps.timeoutMin,
-            okExit: ps.okExit,
+            okExit: [...(ps.okExit ?? []), ...(def?.operatorExit?.codes ?? [])],
             db: "local",
             kind: ps.kind,
           };
@@ -726,6 +726,41 @@ export const runIngest = async (
             rec.findings.push(`run aborted: ${aborted}`);
             deps.log(`■ aborting the run: ${aborted}`);
           }
+          continue;
+        }
+
+        // A step that exited with one of its operatorExit codes: the check
+        // worked and found something only a human can change.
+        const opHits = outs.flatMap((o) => {
+          const op = h.steps.find((s) => s.id === o.id)?.operatorExit;
+          if (!op || o.exitCode === null || !op.codes.includes(o.exitCode))
+            return [];
+          const text = stepText(o);
+          const line =
+            (op.detail && text.split("\n").find((l) => op.detail!.test(l))) ||
+            o.firstError;
+          return [{ o, op, line: line?.trim().slice(0, 400) }];
+        });
+        if (opHits.length) {
+          unit.summary = summarize(outs);
+          settle(
+            "needs-operator",
+            `${opHits.map((x) => x.o.id).join(", ")} exited ${opHits
+              .map((x) => x.o.exitCode)
+              .join("/")}: a human edit is due (marker not stamped)`,
+          );
+          unit.stamped = false;
+          if (h.stamp === "self") deps.restoreFile(markerFile, markerBefore);
+          if (h.changelog === "self")
+            deps.restoreFile(CHANGELOG_FILE, changelogBefore);
+          for (const { o, op, line } of opHits)
+            rec.needsOperator.push({
+              unit: h.id,
+              id: o.id,
+              instruction: `${op.instruction}${line ? ` — ${line}` : ""} (log ${o.log})`,
+            });
+          for (const f of wrote) leftovers.add(f);
+          deps.log(`◆ ${h.id}: ${unit.why}`);
           continue;
         }
 

@@ -113,6 +113,9 @@ const sim = (
     commitStatus?: "failed" | "nothing";
     /** files the post-"nothing" HEAD differs on. */
     dirtyVsHead?: string[];
+    /** command → an ok outcome with this exit code and output tail (a step
+     *  whose spec counts that code as ok). */
+    exitOf?: Record<string, { code: number; tail?: string }>;
   } = {},
 ): Sim => {
   const s: Sim = {
@@ -183,6 +186,13 @@ const sim = (
               : {}),
           } as StepOutcome,
         ];
+      const ex = opts.exitOf?.[spec.run];
+      if (ex) {
+        expect(spec.okExit).toContain(ex.code);
+        return [
+          { ...okOutcome(spec, ex.code), tail: ex.tail ?? "", log: "x.log" },
+        ];
+      }
       return [{ ...okOutcome(spec), log: opts.logOf?.[spec.run] ?? "" }];
     },
     readFile: (rel) =>
@@ -367,6 +377,67 @@ describe("handlers", () => {
     await runIngest(s.deps, { perfDir: PERF_TMP, session: "s" });
     expect(s.restored).toEqual(["state/ingest/self.json"]);
     expect(stampedMarkers(s)).toEqual([]);
+  });
+
+  it("turns an operatorExit code into a needs-operator item that does not hold the publish", async () => {
+    const h = H({
+      id: "anchor",
+      stamp: "self",
+      changelog: "none",
+      outputs: [],
+      steps: [
+        ingest("check", "pnpm run anchor:check", {
+          operatorExit: {
+            codes: [1],
+            instruction: "edit the constant",
+            detail: /DRIFT/,
+          },
+        }),
+      ],
+    });
+    const ok = H({ id: "ok", publish: { paths: ["ok"] } });
+    const s = sim([h, ok], {
+      exitOf: {
+        "pnpm run anchor:check": {
+          code: 1,
+          tail: "noise\n  DRIFT live != pinned\nfooter",
+        },
+      },
+    });
+    const out = await runIngest(s.deps, {
+      perfDir: PERF_TMP,
+      session: "s",
+      publish: true,
+    });
+    expect(unitOf(s, "anchor")).toMatchObject({
+      status: "needs-operator",
+      stamped: false,
+    });
+    expect(s.restored).toContain("state/ingest/anchor.json");
+    const rec = s.finalized[s.finalized.length - 1];
+    expect(rec.needsOperator).toContainEqual(
+      expect.objectContaining({
+        unit: "anchor",
+        id: "check",
+        instruction: expect.stringContaining("DRIFT live != pinned"),
+      }),
+    );
+    expect(rec.publish?.decision).toBe("go");
+    expect([out.exitCode, s.published]).toEqual([0, 1]);
+  });
+
+  it("treats an operatorExit step's exit 0 as plain success", async () => {
+    const h = H({
+      id: "anchor",
+      steps: [
+        ingest("check", "pnpm run anchor:check", {
+          operatorExit: { codes: [1], instruction: "edit" },
+        }),
+      ],
+    });
+    const s = sim([h]);
+    await runIngest(s.deps, { perfDir: PERF_TMP, session: "s" });
+    expect(unitOf(s, "anchor")).toMatchObject({ status: "ok", stamped: true });
   });
 
   it("does not stamp a self-stamping handler again on success", async () => {

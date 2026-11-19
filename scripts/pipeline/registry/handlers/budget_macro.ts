@@ -46,6 +46,13 @@ const anchor = (source: string): Handler => ({
         source,
         "--stamp",
       ),
+      {
+        operatorExit: {
+          codes: [1],
+          instruction: `Simulator anchor ${source} moved: update the curated constant(s) the line below names, re-run the smoke tests it lists, then \`pnpm exec tsx scripts/budget/check_policy_anchors.ts --source ${source} --stamp\``,
+          detail: /\b(DRIFT|FAIL)\b/,
+        },
+      },
     ),
   ],
   changelog: "none",

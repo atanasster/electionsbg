@@ -32,7 +32,12 @@ carries a source → skill table. If you need to know what a source does, read t
    already ran today, use `pnpm run pipeline:ingest --publish` instead. A run takes hours,
    longer than any foreground tool timeout, and a background shell dies with the session
    that started it — so from an agent, launch it DETACHED (the `setsid` command below) and
-   wait on `status.json` reaching `"phase": "done"`. It stops rather than continues
+   wait with `pnpm run pipeline:wait --newer-than <launch time>` (Bash timeout 600000). It
+   returns within ~9 min: exit 0 = finished (prints the run's final line and report path),
+   **75 = still running — call it again with the `--session` it printed; never end the turn
+   on a 75**, 3 = the run was killed. Do not wait with a Monitor watch: one expires on its
+   own, and the 2026-11-19 routine ended its turn on that expiry with the run still going.
+   It stops rather than continues
    when something critical happens:
    - **preflight** (the doctor runs first): git mid-rebase/merge or off `main`, low disk
      (repo volume < 10 GB, Docker VM < 8 GB), or local Postgres down AFTER the run tried

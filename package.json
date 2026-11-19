@@ -42,6 +42,7 @@
     "pipeline:publish": "tsx ./scripts/pipeline/cli/publish.ts",
     "pipeline:ingest": "tsx ./scripts/pipeline/cli/ingest.ts",
     "pipeline:nightly": "tsx ./scripts/pipeline/cli/nightly.ts",
+    "pipeline:wait": "tsx ./scripts/pipeline/cli/wait.ts",
     "pipeline:ack": "tsx ./scripts/pipeline/cli/ack.ts",
     "pipeline:report": "tsx ./scripts/pipeline/cli/report.ts",
     "pipeline:index": "tsx ./scripts/pipeline/cli/index_doc.ts",
