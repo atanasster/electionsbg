@@ -437,7 +437,7 @@ export const SECTORS_LOCAL: Handler[] = [
     runner: "skill",
     stamp: "self",
     sources: ["cik_results"],
-    needs: ["headed", "egress:non-bg"],
+    needs: ["headed", "reach:gov-hosts"],
     steps: [
       ingest("data:local-ingest", pnpm("data"), {
         args: (ctx) => {
@@ -498,7 +498,7 @@ export const SECTORS_LOCAL: Handler[] = [
     runner: "skill",
     stamp: "self",
     sources: ["cik_presidential"],
-    needs: ["headed", "egress:non-bg"],
+    needs: ["headed", "reach:gov-hosts"],
     steps: [
       ingest("data:pvr-download", pnpm("data"), {
         args: (ctx) => {

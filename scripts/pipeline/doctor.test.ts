@@ -23,7 +23,8 @@ import { preflightBlockers, publishWarnings } from "./doctor";
 const NOW = new Date("2026-11-12T00:00:00Z");
 
 const healthy: Facts = {
-  country: "DE",
+  country: "BG",
+  govHosts: { "www.parliament.bg": true, "www.mod.bg": true },
   pgLocal: true,
   proxy: true,
   pricesTarget: "/Volumes/Storage/data-bg/raw_data/prices",
@@ -39,19 +40,28 @@ const healthy: Facts = {
 };
 
 describe("evaluate", () => {
-  it("reports exactly one egress need unmet for any known country", () => {
-    expect([...evaluate(healthy, NOW).unmet.keys()]).toEqual(["egress:bg"]);
-    const bg = evaluate({ ...healthy, country: "BG" }, NOW);
-    expect([...bg.unmet.keys()]).toEqual(["egress:non-bg"]);
+  it("a Bulgarian line whose gov hosts answer meets every need", () => {
+    expect([...evaluate(healthy, NOW).unmet.keys()]).toEqual([]);
   });
 
-  it("fails both egress needs when the country is unknown, saying why", () => {
+  it("decides reach:gov-hosts by the probe, never by the exit country", () => {
+    const de = evaluate({ ...healthy, country: "DE" }, NOW);
+    expect([...de.unmet.keys()]).toEqual(["egress:bg"]);
+    const hung = evaluate(
+      { ...healthy, govHosts: { "www.parliament.bg": false, "www.mod.bg": true } },
+      NOW,
+    );
+    expect([...hung.unmet.keys()]).toEqual(["reach:gov-hosts"]);
+    expect(hung.unmet.get("reach:gov-hosts")).toMatch(/www\.parliament\.bg/);
+    const unprobed = evaluate({ ...healthy, govHosts: undefined }, NOW);
+    expect(unprobed.unmet.has("reach:gov-hosts")).toBe(true);
+  });
+
+  it("fails egress:bg when the country is unknown, saying why", () => {
     const r = evaluate(
       { ...healthy, country: null, countryError: "timeout" },
       NOW,
     );
-    expect(r.unmet.has("egress:bg")).toBe(true);
-    expect(r.unmet.has("egress:non-bg")).toBe(true);
     expect(r.unmet.get("egress:bg")).toMatch(/unknown \(timeout\)/);
   });
 
@@ -94,7 +104,7 @@ describe("evaluate", () => {
       },
       NOW,
     );
-    expect([...r.unmet.keys()]).toEqual(["egress:bg", "proxy"]);
+    expect([...r.unmet.keys()]).toEqual(["proxy"]);
     const failing = r.checks.filter((c) => !c.ok).map((c) => c.id);
     expect(failing).toEqual(
       expect.arrayContaining([

@@ -29,6 +29,11 @@ export interface Facts {
   /** ISO-3166 alpha-2 of the exit IP, or null when the lookup failed. */
   country: string | null;
   countryError?: string;
+  /** parliament.bg / mod.bg each answered SOME HTTP response in time. A
+   *  datacenter VPN exit is what made them time out (2026-11-12), not a
+   *  Bulgarian one — a BG residential line reaches them fine — so this is
+   *  probed directly instead of inferred from the exit country. */
+  govHosts?: Record<string, boolean>;
   /** Local Postgres answers `SELECT 1` (not merely: a port is open). */
   pgLocal: boolean;
   /** Why it does not, when it does not. */
@@ -145,12 +150,19 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
     ok: f.country === BG,
     detail: `exit IP country ${where}; КЗК, АСП and ГИТ answer only a Bulgarian exit`,
   });
+  const hosts = Object.entries(f.govHosts ?? {});
+  const down = hosts.filter(([, ok]) => !ok).map(([h]) => h);
   add({
-    id: "egress:non-bg",
-    need: "egress:non-bg",
+    id: "reach:gov-hosts",
+    need: "reach:gov-hosts",
     severity: "need",
-    ok: f.country !== null && f.country !== BG,
-    detail: `exit IP country ${where}; parliament.bg, МО and ЦИК time out behind a Bulgarian exit`,
+    ok: hosts.length > 0 && down.length === 0,
+    detail:
+      hosts.length === 0
+        ? "parliament.bg / mod.bg not probed"
+        : down.length === 0
+          ? `${hosts.map(([h]) => h).join(", ")} answer (exit ${where})`
+          : `${down.join(", ")} did not answer in time (exit ${where}) — a datacenter VPN exit is the known cause`,
   });
   add({
     id: "pg-local",
@@ -584,9 +596,31 @@ const shmMb = (): number | null => {
   }
 };
 
+/** Any HTTP response within the timeout counts — a 403 from a WAF is still a
+ *  reachable host; the failure being guarded against is a hung connection. */
+export const GOV_HOSTS = ["https://www.parliament.bg/", "https://www.mod.bg/"];
+export const probeHosts = async (
+  urls: string[] = GOV_HOSTS,
+): Promise<Record<string, boolean>> => {
+  const out: Record<string, boolean> = {};
+  await Promise.all(
+    urls.map(async (u) => {
+      const host = new URL(u).host;
+      try {
+        await fetch(u, { method: "HEAD", signal: AbortSignal.timeout(10_000) });
+        out[host] = true;
+      } catch {
+        out[host] = false;
+      }
+    }),
+  );
+  return out;
+};
+
 export const gatherFacts = async (now: Date): Promise<Facts> => {
-  const [{ country, error }, local, cloud] = await Promise.all([
+  const [{ country, error }, govHosts, local, cloud] = await Promise.all([
     lookupCountry(),
+    probeHosts(),
     pgAnswers(5433),
     pgAnswers(5434),
   ]);
@@ -600,6 +634,7 @@ export const gatherFacts = async (now: Date): Promise<Facts> => {
   return {
     country,
     countryError: error,
+    govHosts,
     pgLocal,
     pgLocalError: local.error,
     proxy,

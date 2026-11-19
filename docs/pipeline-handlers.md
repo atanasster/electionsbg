@@ -401,7 +401,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Runbook:** `.claude/skills/parliament-scrape/SKILL.md`
 - **Marker:** `state/ingest/parliament-scrape.json`
 - **Sources:** `parliament_mps`
-- **Needs:** `pg-local`, `egress:non-bg`
+- **Needs:** `pg-local`, `reach:gov-hosts`
 - **Changelog:** orchestrator
 
 | step | phase | command | only on |
@@ -848,7 +848,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Runbook:** `.claude/skills/update-local-elections/SKILL.md`
 - **Marker:** `state/ingest/cik_local.json`
 - **Sources:** `cik_results`
-- **Needs:** `headed`, `egress:non-bg`
+- **Needs:** `headed`, `reach:gov-hosts`
 - **Changelog:** orchestrator
 
 | step | phase | command | only on |
@@ -1108,7 +1108,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Runbook:** `.claude/skills/update-presidential-elections/SKILL.md`
 - **Marker:** `state/ingest/update-presidential-elections.json`
 - **Sources:** `cik_presidential`
-- **Needs:** `headed`, `egress:non-bg`
+- **Needs:** `headed`, `reach:gov-hosts`
 - **Changelog:** orchestrator
 
 | step | phase | command | only on |
@@ -1245,7 +1245,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Runbook:** `.claude/skills/update-rollcall/SKILL.md`
 - **Marker:** `state/ingest/update-rollcall.json`
 - **Sources:** `parliament_votes`
-- **Needs:** `pg-local`, `egress:non-bg`
+- **Needs:** `pg-local`, `reach:gov-hosts`
 - **After:** `parliament-scrape`
 - **Changelog:** orchestrator
 - **Gates:** `rollcall-sessions`, `rollcall-announced-sessions-loaded`

@@ -12,7 +12,7 @@
 export const NEEDS = [
   "pg-local", // docker Postgres on 5433
   "egress:bg", // a Bulgarian exit IP (КЗК, АСП, ГИТ)
-  "egress:non-bg", // anything BUT a Bulgarian exit (parliament.bg, МО, ЦИК)
+  "reach:gov-hosts", // parliament.bg + mod.bg answer (a datacenter VPN exit hangs them; a BG line is fine)
   "headed", // a display for headed Playwright
   "drive:prices", // raw_data/prices symlink target mounted
   "bin:pdftotext",

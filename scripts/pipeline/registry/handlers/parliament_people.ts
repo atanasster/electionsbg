@@ -11,7 +11,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     skill: "update-rollcall",
     runner: "script",
     sources: ["parliament_votes"],
-    needs: ["pg-local", "egress:non-bg"],
+    needs: ["pg-local", "reach:gov-hosts"],
     // rollcall:scrape reads data/parliament/index.json (the MP roster) that
     // parliament-scrape writes (.claude/skills/update-rollcall/SKILL.md).
     after: ["parliament-scrape"],
@@ -72,7 +72,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     skill: "parliament-scrape",
     runner: "script",
     sources: ["parliament_mps"],
-    needs: ["pg-local", "egress:non-bg"],
+    needs: ["pg-local", "reach:gov-hosts"],
     steps: [
       ingest(
         "scrape_mps",

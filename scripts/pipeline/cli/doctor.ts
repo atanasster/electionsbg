@@ -2,7 +2,7 @@
 //
 //   pnpm run pipeline:doctor
 //   pnpm run pipeline:doctor --json
-//   pnpm run pipeline:doctor --require pg-local,egress:non-bg   # exit 3 if unmet
+//   pnpm run pipeline:doctor --require pg-local,reach:gov-hosts   # exit 3 if unmet
 //
 // Exit 0 otherwise: an unmet need is not an error on its own — the planner
 // blocks only the handlers that need it. Exit 2 on bad arguments, which are
