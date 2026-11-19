@@ -1,0 +1,383 @@
+{
+  "schema": 1,
+  "session": "20261118T233305Z-7645",
+  "kind": "publish",
+  "startedAt": "2026-11-18T23:33:05.374Z",
+  "git": {
+    "shaStart": "0307ce6249e40bc146d74d6315097bd9f2383239",
+    "shaEnd": "0307ce6249e40bc146d74d6315097bd9f2383239"
+  },
+  "env": {
+    "proxy": {
+      "ok": true,
+      "detail": "up"
+    }
+  },
+  "units": [
+    {
+      "id": "bucket",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "bucket:sync:paths:dry",
+          "command": "pnpm run bucket:sync:paths:dry macro.json macro_fdi.json macro_peers.json cofog.json debt-emissions.json debt-emissions-domestic.json administration social/poverty_impact.json data_map.json home governance/hub_stats.json home/flyover.json home/hub_stats.json home/price_events.json home/feed.json",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4167,
+          "medianMs": 3014,
+          "log": "logs/pipeline/20261118T233305Z-7645/001-bucket_sync_paths_dry.log"
+        },
+        {
+          "seq": 2,
+          "id": "bucket:sync:paths macro.json",
+          "command": "pnpm run bucket:sync:paths macro.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1712,
+          "medianMs": 1740.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/002-bucket_sync_paths_macro.json.log"
+        },
+        {
+          "seq": 3,
+          "id": "bucket:sync:paths macro_fdi.json",
+          "command": "pnpm run bucket:sync:paths macro_fdi.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1718,
+          "medianMs": 1627.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/003-bucket_sync_paths_macro_fdi.json.log"
+        },
+        {
+          "seq": 4,
+          "id": "bucket:sync:paths macro_peers.json",
+          "command": "pnpm run bucket:sync:paths macro_peers.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1762,
+          "medianMs": 1595,
+          "log": "logs/pipeline/20261118T233305Z-7645/004-bucket_sync_paths_macro_peers.json.log"
+        },
+        {
+          "seq": 5,
+          "id": "bucket:sync:paths cofog.json",
+          "command": "pnpm run bucket:sync:paths cofog.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1679,
+          "medianMs": 1768,
+          "log": "logs/pipeline/20261118T233305Z-7645/005-bucket_sync_paths_cofog.json.log"
+        },
+        {
+          "seq": 6,
+          "id": "bucket:sync:paths debt-emissions.json",
+          "command": "pnpm run bucket:sync:paths debt-emissions.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1664,
+          "medianMs": 2149,
+          "log": "logs/pipeline/20261118T233305Z-7645/006-bucket_sync_paths_debt-emissions.json.log"
+        },
+        {
+          "seq": 7,
+          "id": "bucket:sync:paths debt-emissions-domestic.json",
+          "command": "pnpm run bucket:sync:paths debt-emissions-domestic.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1557,
+          "medianMs": 1649,
+          "log": "logs/pipeline/20261118T233305Z-7645/007-bucket_sync_paths_debt-emissions-domestic.json.log"
+        },
+        {
+          "seq": 8,
+          "id": "bucket:sync:paths administration",
+          "command": "pnpm run bucket:sync:paths administration",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1874,
+          "medianMs": 1836,
+          "log": "logs/pipeline/20261118T233305Z-7645/008-bucket_sync_paths_administration.log"
+        },
+        {
+          "seq": 9,
+          "id": "bucket:sync:paths social/poverty_impact.json",
+          "command": "pnpm run bucket:sync:paths social/poverty_impact.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1608,
+          "medianMs": 1883.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/009-bucket_sync_paths_social_poverty_impact.json.log"
+        },
+        {
+          "seq": 10,
+          "id": "bucket:sync:paths data_map.json",
+          "command": "pnpm run bucket:sync:paths data_map.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1676,
+          "medianMs": 1570.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/010-bucket_sync_paths_data_map.json.log"
+        },
+        {
+          "seq": 11,
+          "id": "bucket:sync:paths home",
+          "command": "pnpm run bucket:sync:paths home",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1834,
+          "medianMs": 1812.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/011-bucket_sync_paths_home.log"
+        },
+        {
+          "seq": 12,
+          "id": "bucket:sync:paths governance/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths governance/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1552,
+          "medianMs": 1484,
+          "log": "logs/pipeline/20261118T233305Z-7645/012-bucket_sync_paths_governance_hub_stats.json.log"
+        },
+        {
+          "seq": 13,
+          "id": "bucket:sync:paths home/flyover.json",
+          "command": "pnpm run bucket:sync:paths home/flyover.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1908,
+          "medianMs": 1528,
+          "log": "logs/pipeline/20261118T233305Z-7645/013-bucket_sync_paths_home_flyover.json.log"
+        },
+        {
+          "seq": 14,
+          "id": "bucket:sync:paths home/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths home/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2037,
+          "medianMs": 1511,
+          "log": "logs/pipeline/20261118T233305Z-7645/014-bucket_sync_paths_home_hub_stats.json.log"
+        },
+        {
+          "seq": 15,
+          "id": "bucket:sync:paths home/price_events.json",
+          "command": "pnpm run bucket:sync:paths home/price_events.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1883,
+          "medianMs": 1498,
+          "log": "logs/pipeline/20261118T233305Z-7645/015-bucket_sync_paths_home_price_events.json.log"
+        },
+        {
+          "seq": 16,
+          "id": "bucket:sync:paths home/feed.json",
+          "command": "pnpm run bucket:sync:paths home/feed.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1661,
+          "medianMs": 1499,
+          "log": "logs/pipeline/20261118T233305Z-7645/016-bucket_sync_paths_home_feed.json.log"
+        },
+        {
+          "seq": 17,
+          "id": "bucket:gz",
+          "command": "pnpm run bucket:gz",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 145391,
+          "medianMs": 136390.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/017-bucket_gz.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 18,
+          "id": "db:load:tr:pg:cloud",
+          "command": "pnpm run db:load:tr:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 698594,
+          "medianMs": 792790.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/018-db_load_tr_pg_cloud.log"
+        },
+        {
+          "seq": 19,
+          "id": "db:load:cr-nkid:pg:cloud",
+          "command": "pnpm run db:load:cr-nkid:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 14087,
+          "medianMs": 10953.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/019-db_load_cr-nkid_pg_cloud.log"
+        },
+        {
+          "seq": 20,
+          "id": "db:load:company-founded:pg:cloud",
+          "command": "pnpm run db:load:company-founded:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 10904,
+          "medianMs": 10196,
+          "log": "logs/pipeline/20261118T233305Z-7645/020-db_load_company-founded_pg_cloud.log"
+        },
+        {
+          "seq": 21,
+          "id": "db:refresh:risk:cloud",
+          "command": "pnpm run db:refresh:risk:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 113289,
+          "medianMs": 112545,
+          "log": "logs/pipeline/20261118T233305Z-7645/021-db_refresh_risk_cloud.log"
+        },
+        {
+          "seq": 22,
+          "id": "db:load:council:pg:cloud",
+          "command": "pnpm run db:load:council:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 12154,
+          "medianMs": 12380,
+          "log": "logs/pipeline/20261118T233305Z-7645/022-db_load_council_pg_cloud.log"
+        },
+        {
+          "seq": 23,
+          "id": "db:load:persons-browse:pg:cloud",
+          "command": "pnpm run db:load:persons-browse:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 75559,
+          "medianMs": 78267.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/023-db_load_persons-browse_pg_cloud.log"
+        },
+        {
+          "seq": 24,
+          "id": "db:load:person-search:pg:cloud",
+          "command": "pnpm run db:load:person-search:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 87452,
+          "medianMs": 85698,
+          "log": "logs/pipeline/20261118T233305Z-7645/024-db_load_person-search_pg_cloud.log"
+        },
+        {
+          "seq": 25,
+          "id": "db:load:graph:pg:cloud",
+          "command": "pnpm run db:load:graph:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 48371,
+          "medianMs": 64695,
+          "log": "logs/pipeline/20261118T233305Z-7645/025-db_load_graph_pg_cloud.log"
+        },
+        {
+          "seq": 26,
+          "id": "db:load:tr-company-place:pg:cloud",
+          "command": "pnpm run db:load:tr-company-place:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 35755,
+          "medianMs": 40111,
+          "log": "logs/pipeline/20261118T233305Z-7645/026-db_load_tr-company-place_pg_cloud.log"
+        },
+        {
+          "seq": 27,
+          "id": "prices:ingest:cloud",
+          "command": "pnpm run prices:ingest:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1446422,
+          "medianMs": 1420766.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/027-prices_ingest_cloud.log"
+        },
+        {
+          "seq": 28,
+          "id": "myarea:alerts:cloud",
+          "command": "pnpm run myarea:alerts:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 14038,
+          "medianMs": 29153,
+          "log": "logs/pipeline/20261118T233305Z-7645/028-myarea_alerts_cloud.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "verify",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 29,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1138,
+          "medianMs": 872,
+          "log": "logs/pipeline/20261118T233305Z-7645/029-db_check-generated.log"
+        },
+        {
+          "seq": 30,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1014,
+          "medianMs": 1130.5,
+          "log": "logs/pipeline/20261118T233305Z-7645/030-db_check-cloud.log"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "ran under the pipeline lock held by session 20261118T224713Z-a15e",
+    "manifest cloud order differs from CLOUD_ORDER — reordered: manifest pnpm run db:load:tr:pg:cloud → pnpm run db:load:cr-nkid:pg:cloud → pnpm run db:load:company-founded:pg:cloud → pnpm run db:refresh:risk:cloud → pnpm run db:load:persons-browse:pg:cloud → pnpm run db:load:person-search:pg:cloud → pnpm run db:load:graph:pg:cloud → pnpm run db:load:tr-company-place:pg:cloud → pnpm run prices:ingest:cloud → pnpm run db:load:council:pg:cloud → pnpm run myarea:alerts:cloud; run as pnpm run db:load:tr:pg:cloud → pnpm run db:load:cr-nkid:pg:cloud → pnpm run db:load:company-founded:pg:cloud → pnpm run db:refresh:risk:cloud → pnpm run db:load:council:pg:cloud → pnpm run db:load:persons-browse:pg:cloud → pnpm run db:load:person-search:pg:cloud → pnpm run db:load:graph:pg:cloud → pnpm run db:load:tr-company-place:pg:cloud → pnpm run prices:ingest:cloud → pnpm run myarea:alerts:cloud"
+  ],
+  "manifestDigest": "b9ffa2220bdb1b12",
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-19T00:18:39.967Z",
+  "verdict": "clean"
+}
