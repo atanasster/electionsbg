@@ -104,6 +104,8 @@ export interface GrantDisciplineBucket {
   label: { bg: string; en: string };
   applied: number;
   funded: number;
+  /** Ranked with a proposed amount but on the reserve list („Резерва") — NOT funded. */
+  reserve?: number;
   fundedEur: number;
 }
 
@@ -112,11 +114,17 @@ export interface GrantProgram {
   year: number;
   label: { bg: string; en: string };
   url: string;
+  /** Currency the класиране was published in (2026+ sheets are in EUR). */
+  currency?: "BGN" | "EUR";
   applied: number;
+  /** Firm awards only — reserve-list rows are in `reserve`, never here. */
   funded: number;
+  reserve?: number;
   successRate: number;
   requestedEur: number;
   fundedEur: number;
+  /** Proposed amounts of the reserve list — contingent, not awarded. */
+  reserveEur?: number;
   byDiscipline: GrantDisciplineBucket[];
 }
 
@@ -127,8 +135,10 @@ export interface CultureGrantsFile {
   source: { publisher: string; url: string; description: string };
   totalApplied: number;
   totalFunded: number;
+  totalReserve?: number;
   overallSuccessRate: number;
   totalFundedEur: number;
+  totalReserveEur?: number;
   totalRequestedEur: number;
   programs: GrantProgram[];
 }

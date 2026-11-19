@@ -1,15 +1,17 @@
 {
-  "generatedAt": "2026-07-31T16:31:24.520Z",
+  "generatedAt": "2026-11-19T07:44:26.159Z",
   "source": {
     "publisher": "Национален фонд „Култура“ (НФК)",
     "url": "https://ncf.bg/bg/novini",
-    "description": "Класиране на проектите по програмите на Национален фонд „Култура“ — брой кандидатствали и финансирани проекти (успеваемост) и разпределените суми по област, от публикуваните резултати (PDF). Сумите са в лева, конвертирани в евро."
+    "description": "Класиране на проектите по програмите на Национален фонд „Култура“ — брой кандидатствали и финансирани проекти (успеваемост) и разпределените суми по област, от публикуваните резултати (PDF). Сумите от класиранията в лева са конвертирани в евро по фиксирания курс; от 2026 г. класиранията са в евро. Проектите в резерва (финансирани само при наличие на средства) не се броят за финансирани."
   },
-  "totalApplied": 406,
-  "totalFunded": 329,
-  "overallSuccessRate": 0.8103448275862069,
-  "totalFundedEur": 6483700,
-  "totalRequestedEur": 8215927,
+  "totalApplied": 559,
+  "totalFunded": 224,
+  "totalReserve": 235,
+  "overallSuccessRate": 0.4007155635062612,
+  "totalFundedEur": 3142271,
+  "totalReserveEur": 3807853,
+  "totalRequestedEur": 9335397,
   "programs": [
     {
       "code": "SGP",
@@ -19,22 +21,15 @@
         "en": "Creation & dissemination — large projects"
       },
       "url": "https://ncf.bg/web/files/richeditor/2025-rezultati/123SGP_Results_2025.pdf",
+      "currency": "BGN",
       "applied": 243,
-      "funded": 212,
-      "successRate": 0.8724279835390947,
+      "funded": 74,
+      "reserve": 138,
+      "successRate": 0.3045267489711934,
       "requestedEur": 6668235,
-      "fundedEur": 5477409,
+      "fundedEur": 2004979,
+      "reserveEur": 3472430,
       "byDiscipline": [
-        {
-          "discipline": "screen",
-          "label": {
-            "bg": "Екранни изкуства",
-            "en": "Screen arts"
-          },
-          "applied": 52,
-          "funded": 51,
-          "fundedEur": 1441245
-        },
         {
           "discipline": "music",
           "label": {
@@ -42,8 +37,9 @@
             "en": "Music"
           },
           "applied": 54,
-          "funded": 51,
-          "fundedEur": 1255027
+          "funded": 19,
+          "reserve": 32,
+          "fundedEur": 506630
         },
         {
           "discipline": "visual",
@@ -52,8 +48,20 @@
             "en": "Visual arts"
           },
           "applied": 71,
-          "funded": 53,
-          "fundedEur": 1235491
+          "funded": 17,
+          "reserve": 36,
+          "fundedEur": 437170
+        },
+        {
+          "discipline": "screen",
+          "label": {
+            "bg": "Екранни изкуства",
+            "en": "Screen arts"
+          },
+          "applied": 52,
+          "funded": 13,
+          "reserve": 38,
+          "fundedEur": 372851
         },
         {
           "discipline": "theatre",
@@ -62,18 +70,9 @@
             "en": "Theatre"
           },
           "applied": 26,
-          "funded": 24,
-          "fundedEur": 663376
-        },
-        {
-          "discipline": "dance",
-          "label": {
-            "bg": "Танц",
-            "en": "Dance"
-          },
-          "applied": 20,
-          "funded": 16,
-          "fundedEur": 450425
+          "funded": 10,
+          "reserve": 14,
+          "fundedEur": 275297
         },
         {
           "discipline": "literature",
@@ -82,8 +81,20 @@
             "en": "Literature"
           },
           "applied": 20,
-          "funded": 17,
-          "fundedEur": 431844
+          "funded": 8,
+          "reserve": 9,
+          "fundedEur": 213439
+        },
+        {
+          "discipline": "dance",
+          "label": {
+            "bg": "Танц",
+            "en": "Dance"
+          },
+          "applied": 20,
+          "funded": 7,
+          "reserve": 9,
+          "fundedEur": 199591
         }
       ]
     },
@@ -95,11 +106,14 @@
         "en": "Debuts"
       },
       "url": "https://ncf.bg/web/files/richeditor/2025-rezultati/Debuts_Results_2025.pdf",
+      "currency": "BGN",
       "applied": 163,
       "funded": 117,
+      "reserve": 0,
       "successRate": 0.7177914110429447,
       "requestedEur": 1547692,
       "fundedEur": 1006291,
+      "reserveEur": 0,
       "byDiscipline": [
         {
           "discipline": "music",
@@ -109,6 +123,7 @@
           },
           "applied": 46,
           "funded": 32,
+          "reserve": 0,
           "fundedEur": 270369
         },
         {
@@ -119,6 +134,7 @@
           },
           "applied": 37,
           "funded": 28,
+          "reserve": 0,
           "fundedEur": 252989
         },
         {
@@ -129,6 +145,7 @@
           },
           "applied": 37,
           "funded": 22,
+          "reserve": 0,
           "fundedEur": 230213
         },
         {
@@ -139,6 +156,7 @@
           },
           "applied": 30,
           "funded": 25,
+          "reserve": 0,
           "fundedEur": 167107
         },
         {
@@ -149,6 +167,7 @@
           },
           "applied": 9,
           "funded": 8,
+          "reserve": 0,
           "fundedEur": 67796
         },
         {
@@ -159,7 +178,93 @@
           },
           "applied": 4,
           "funded": 2,
+          "reserve": 0,
           "fundedEur": 17819
+        }
+      ]
+    },
+    {
+      "code": "MOB",
+      "year": 2026,
+      "label": {
+        "bg": "Мобилност 2026 — сесия 1",
+        "en": "Mobility 2026 — session 1"
+      },
+      "url": "https://ncf.bg/web/files/richeditor/rezultati_mobilnost_sesia1_2026.pdf",
+      "currency": "EUR",
+      "applied": 153,
+      "funded": 33,
+      "reserve": 97,
+      "successRate": 0.21568627450980393,
+      "requestedEur": 1119470,
+      "fundedEur": 131001,
+      "reserveEur": 335423,
+      "byDiscipline": [
+        {
+          "discipline": "dance",
+          "label": {
+            "bg": "Танц",
+            "en": "Dance"
+          },
+          "applied": 19,
+          "funded": 7,
+          "reserve": 10,
+          "fundedEur": 51612
+        },
+        {
+          "discipline": "music",
+          "label": {
+            "bg": "Музика",
+            "en": "Music"
+          },
+          "applied": 41,
+          "funded": 5,
+          "reserve": 28,
+          "fundedEur": 25411
+        },
+        {
+          "discipline": "visual",
+          "label": {
+            "bg": "Визуални изкуства",
+            "en": "Visual arts"
+          },
+          "applied": 55,
+          "funded": 9,
+          "reserve": 38,
+          "fundedEur": 21367
+        },
+        {
+          "discipline": "screen",
+          "label": {
+            "bg": "Екранни изкуства",
+            "en": "Screen arts"
+          },
+          "applied": 21,
+          "funded": 7,
+          "reserve": 14,
+          "fundedEur": 20378
+        },
+        {
+          "discipline": "literature",
+          "label": {
+            "bg": "Литература",
+            "en": "Literature"
+          },
+          "applied": 13,
+          "funded": 4,
+          "reserve": 4,
+          "fundedEur": 8533
+        },
+        {
+          "discipline": "theatre",
+          "label": {
+            "bg": "Театър",
+            "en": "Theatre"
+          },
+          "applied": 4,
+          "funded": 1,
+          "reserve": 3,
+          "fundedEur": 3700
         }
       ]
     }

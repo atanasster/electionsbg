@@ -41,6 +41,8 @@ interface CultureFilms {
 interface GrantsFile {
   totalApplied: number;
   totalFunded: number;
+  /** Reserve-list rows („Резерва") — ranked but NOT funded. */
+  totalReserve?: number;
   overallSuccessRate: number;
   totalFundedEur: number;
   totalRequestedEur: number;
@@ -244,6 +246,7 @@ export const cultureGrantSuccess = async (
       rate: fmtPct(g.overallSuccessRate, ctx.lang),
       applied: fmtInt(g.totalApplied, ctx.lang),
       funded: fmtInt(g.totalFunded, ctx.lang),
+      reserveNotFunded: fmtInt(g.totalReserve ?? 0, ctx.lang),
       totalFunded: fmtEurCompact(g.totalFundedEur, ctx.lang),
       bestField: best ? (bg ? best.label.bg : best.label.en) : "—",
       bestRate: best ? fmtPct(best.funded / best.applied, ctx.lang) : "—",

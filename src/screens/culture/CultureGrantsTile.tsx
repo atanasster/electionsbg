@@ -22,6 +22,11 @@ export const CultureGrantsTile: FC = () => {
   // surfaced as a caption note rather than its own rows.
   const rows = [...data.programs].sort((a, b) => b.successRate - a.successRate);
   const flagship = [...data.programs].sort((a, b) => b.applied - a.applied)[0];
+  const years = [...new Set(data.programs.map((p) => p.year))].sort();
+  const yearSpan =
+    years.length > 1 ? `${years[0]}–${years[years.length - 1]}` : `${years[0]}`;
+  const hasBgn = data.programs.some((p) => p.currency !== "EUR");
+  const reserve = data.totalReserve ?? 0;
   const worstDisc = flagship?.byDiscipline
     ?.filter((d) => d.applied >= 5)
     .sort((a, b) => a.funded / a.applied - b.funded / b.applied)[0];
@@ -77,8 +82,8 @@ export const CultureGrantsTile: FC = () => {
         </ul>
         <p className="mt-3 text-[11px] text-muted-foreground/80">
           {bg
-            ? `Успеваемост = финансирани ÷ кандидатствали проекти, по програма (${data.programs.length} програми за ${flagship?.year}).`
-            : `Success rate = funded ÷ applied projects, by programme (${data.programs.length} programmes, ${flagship?.year}).`}
+            ? `Успеваемост = финансирани ÷ кандидатствали проекти, по програма (${data.programs.length} програми, ${yearSpan}).`
+            : `Success rate = funded ÷ applied projects, by programme (${data.programs.length} programmes, ${yearSpan}).`}
           {worstDisc && (
             <>
               {" "}
@@ -87,9 +92,13 @@ export const CultureGrantsTile: FC = () => {
                 : `Within "${flagship.label.en}", ${worstDisc.label.en} has the lowest rate (${formatPct(worstDisc.funded / worstDisc.applied, lang)}).`}
             </>
           )}{" "}
+          {reserve > 0 &&
+            (bg
+              ? `${reserve} проекта в резерва (финансиране само при наличие на средства) не се броят за финансирани. `
+              : `${reserve} reserve-list projects (funded only if money remains) are not counted as funded. `)}
           {bg
-            ? "Обхватът са публикуваните класирания; сумите са конвертирани от лева."
-            : "Coverage is the published rankings; amounts converted from leva."}{" "}
+            ? `Обхватът са публикуваните класирания${hasBgn ? "; сумите в лева са конвертирани в евро" : ""}.`
+            : `Coverage is the published rankings${hasBgn ? "; amounts in leva converted to euro" : ""}.`}{" "}
           <a
             href={data.source.url}
             target="_blank"
