@@ -105,5 +105,16 @@
       "reason": "no sample-size pattern matched the extracted text",
       "quote": ""
     }
-  ]
+  ],
+  "aiReview": {
+    "verdict": "needs_human",
+    "model": "claude-opus-5-5",
+    "reviewedAt": "2026-11-19T23:44:46.562Z",
+    "draftHash": "50d97bd0c484842ede075daa165dce578590030b8a662db5fedd9874a438005e",
+    "diffs": [
+      "extractor refused: share:ДПС, share:БСП, share:Реформаторски блок, share:БСП, share:БСП, share:ГЕРБ, share:БСП, sampleSize",
+      "reader says not a poll: Topical public-opinion survey (Alpha Research, fieldwork 17-22 Feb 2014, 1020 respondents). Its only electoral question is vote intention for the upcoming May 2014 EUROPEAN PARLIAMENT election (PDF slide 22 'ЕЛЕКТОРАЛНИ НАГЛАСИ ЗА ЕВРОПЕЙСКИ ПАРЛАМЕНТ': ГЕРБ 16,9%, БСП 15,1%, ДПС 6,9%, АБВ 6,1%, България без цензура/ВМРО 5,5%, Реформаторски блок 5,0%, НФСБ 3,2%, Атака 2,1%, Зелените 1,0%, Синьо единство 1,0%, Други партии 3,8%, Няма да гласувам 33,4%; base not stated, appears to be all respondents). There is no National Assembly (parliamentary) or presidential race, so no poll entry is recorded; the rest is trust ratings and a referendum-attitudes survey.",
+      "reader found 0 parliamentary poll(s) in the publication"
+    ]
+  }
 }
