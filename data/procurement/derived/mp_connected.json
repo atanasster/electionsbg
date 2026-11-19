@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-18T00:50:41.678Z",
-  "total": 120,
+  "generatedAt": "2026-11-19T00:22:08.742Z",
+  "total": 121,
   "entries": [
     {
       "mpId": 3271,
@@ -1016,16 +1016,16 @@
       "mpId": 2093,
       "mpName": "Никола Джипов Николов",
       "contractorEik": "206117083",
-      "contractorName": "КЕР Токи пауър АД",
+      "contractorName": "КЕР Токи пауър ЕАД",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true
         }
       ],
-      "totalEur": 48258681.77,
+      "totalEur": 48304681.77,
       "totalOther": {},
-      "contractCount": 338,
+      "contractCount": 339,
       "awardCount": 0,
       "byYear": [
         {
@@ -1060,8 +1060,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 33,
-          "totalEur": 2916743.12,
+          "contractCount": 34,
+          "totalEur": 2962743.12,
           "totalOther": {}
         }
       ],
@@ -1443,9 +1443,9 @@
           "declarationYear": 2022
         }
       ],
-      "totalEur": 30196004.49,
+      "totalEur": 30299004.49,
       "totalOther": {},
-      "contractCount": 247,
+      "contractCount": 248,
       "awardCount": 0,
       "byYear": [
         {
@@ -1534,8 +1534,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 12,
-          "totalEur": 647794,
+          "contractCount": 13,
+          "totalEur": 750794,
           "totalOther": {}
         }
       ],
@@ -6046,6 +6046,41 @@
           "name": "Агенция за публичните предприятия и контрол",
           "contractCount": 1,
           "totalEur": 201238.35,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 1120,
+      "mpName": "Веселин Велков Давидов",
+      "contractorEik": "131140909",
+      "contractorName": "Векинженеринг ООД - София",
+      "relations": [
+        {
+          "kind": "stake",
+          "valueEur": 1533.88,
+          "shareSize": "300",
+          "declarationYear": 2019
+        }
+      ],
+      "totalEur": 200828.91,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 6,
+          "totalEur": 200828.91,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000776502",
+          "name": "Община Своге",
+          "contractCount": 6,
+          "totalEur": 200828.91,
           "totalOther": {}
         }
       ]
