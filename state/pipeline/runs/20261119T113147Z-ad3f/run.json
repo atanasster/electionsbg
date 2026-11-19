@@ -1,0 +1,378 @@
+{
+  "schema": 1,
+  "session": "20261119T113147Z-ad3f",
+  "kind": "ingest",
+  "startedAt": "2026-11-19T11:31:48.732Z",
+  "git": {
+    "shaStart": "b17db0a5aa896b43f891b03c8c07cf5b4a7940d3",
+    "shaEnd": "3f8122aa90955c85965710d1c090b0db2bfb4e3c"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country BG; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "reach:gov-hosts": {
+      "ok": true,
+      "detail": "www.parliament.bg, www.mod.bg answer (exit BG)"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 0 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 29.3 GB free (min 10); Docker VM 39.9 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-rollcall",
+      "status": "ok",
+      "sources": [
+        "parliament_votes"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "rollcall:scrape",
+          "command": "pnpm run rollcall:scrape",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 140671,
+          "medianMs": 137037,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/001-rollcall_scrape.log"
+        },
+        {
+          "seq": 2,
+          "id": "parliament:bills",
+          "command": "pnpm run parliament:bills",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 268051,
+          "medianMs": 237825,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/002-parliament_bills.log"
+        },
+        {
+          "seq": 3,
+          "id": "db:load:rollcall:pg",
+          "command": "pnpm run db:load:rollcall:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 25328,
+          "medianMs": 18101.5,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/003-db_load_rollcall_pg.log"
+        },
+        {
+          "seq": 4,
+          "id": "db:load:rollcall-derived:pg",
+          "command": "pnpm run db:load:rollcall-derived:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 142930,
+          "medianMs": 97369.5,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/004-db_load_rollcall-derived_pg.log"
+        }
+      ],
+      "gates": [
+        {
+          "id": "rollcall-sessions",
+          "ok": true,
+          "expected": "data/parliament/votes/index.json: no more than 0% below its pre-run copy",
+          "observed": "644 → 648 (+0.6%)"
+        },
+        {
+          "id": "rollcall-announced-sessions-loaded",
+          "ok": true,
+          "expected": "every roll-call session in state/watch/parliament_votes.json meta.newSinceLast has data/parliament/votes/sessions/<date>.json",
+          "observed": "announced 2026-11-18; all loaded"
+        }
+      ],
+      "filesChanged": [
+        "data/parliament/bills/ns52.json",
+        "data/parliament/votes/derived/attendance.json",
+        "data/parliament/votes/derived/cohesion.json",
+        "data/parliament/votes/derived/dissents.json",
+        "data/parliament/votes/derived/embedding.json",
+        "data/parliament/votes/derived/hub_feed/44.json",
+        "data/parliament/votes/derived/hub_feed/45.json",
+        "data/parliament/votes/derived/hub_feed/46.json",
+        "data/parliament/votes/derived/hub_feed/47.json",
+        "data/parliament/votes/derived/hub_feed/48.json",
+        "data/parliament/votes/derived/hub_feed/49.json",
+        "data/parliament/votes/derived/hub_feed/50.json",
+        "data/parliament/votes/derived/hub_feed/51.json",
+        "data/parliament/votes/derived/hub_feed/52.json",
+        "data/parliament/votes/derived/hub_stats.json",
+        "data/parliament/votes/derived/important_votes/44.json",
+        "data/parliament/votes/derived/important_votes/45.json",
+        "data/parliament/votes/derived/important_votes/46.json",
+        "data/parliament/votes/derived/important_votes/47.json",
+        "data/parliament/votes/derived/important_votes/48.json",
+        "data/parliament/votes/derived/important_votes/49.json",
+        "data/parliament/votes/derived/important_votes/50.json",
+        "data/parliament/votes/derived/important_votes/51.json",
+        "data/parliament/votes/derived/important_votes/52.json",
+        "data/parliament/votes/derived/loyalty.json",
+        "data/parliament/votes/derived/party_correlation.json",
+        "data/parliament/votes/derived/party_pair_breaks.json",
+        "data/parliament/votes/derived/search_index.json",
+        "data/parliament/votes/derived/similarity.json",
+        "data/parliament/votes/derived/similarity_headline.json",
+        "data/parliament/votes/derived/topic_index.json",
+        "data/parliament/votes/index.json",
+        "data/parliament/votes/sessions/2026-10-07.json",
+        "data/parliament/votes/sessions/2026-10-08.json",
+        "data/parliament/votes/sessions/2026-10-09.json",
+        "data/parliament/votes/sessions/2026-10-13.json",
+        "data/parliament/votes/sessions/2026-10-14.json",
+        "data/parliament/votes/sessions/2026-10-15.json",
+        "data/parliament/votes/sessions/2026-10-16.json",
+        "data/parliament/votes/sessions/2026-10-21.json",
+        "data/parliament/votes/sessions/2026-10-28.json",
+        "data/parliament/votes/sessions/2026-11-04.json",
+        "data/parliament/votes/sessions/2026-11-05.json",
+        "data/parliament/votes/sessions/2026-11-06.json",
+        "data/parliament/votes/sessions/2026-11-11.json",
+        "data/parliament/votes/sessions/2026-11-12.json",
+        "data/parliament/votes/sessions/2026-11-13.json",
+        "data/parliament/votes/sessions/2026-11-18.json"
+      ],
+      "summary": "4 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 5,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 53236,
+          "medianMs": 13337.5,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/005-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 6,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6523,
+          "medianMs": 5517.5,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/006-data_map.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 7,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 602,
+          "medianMs": 632,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/007-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 8,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 208,
+          "medianMs": 232,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/008-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 9,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 9645,
+          "medianMs": 7537.5,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/009-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 10,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6356,
+          "medianMs": 4235,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/010-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 11,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1095,
+          "medianMs": 1204,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/011-db_gen-home-feed.log"
+        },
+        {
+          "seq": 12,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 484,
+          "medianMs": 469.5,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/012-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/home/feed.json"
+      ]
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 13,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 978,
+          "medianMs": 769,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/013-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 14,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1342,
+          "medianMs": 1208.5,
+          "log": "logs/pipeline/20261119T113147Z-ad3f/014-db_check-cloud.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [
+    {
+      "unit": "update-rollcall",
+      "id": "pin-rollcall-counts",
+      "instruction": "Update the four pinned counts in scripts/db/tests/rollcall.data.test.ts from the loader output.",
+      "doc": ".claude/skills/update-rollcall/SKILL.md (Step 5c)"
+    }
+  ],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261119T113147Z-ad3f/013-db_check-generated.log"
+  ],
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-19T11:42:49.637Z",
+  "verdict": "degraded"
+}

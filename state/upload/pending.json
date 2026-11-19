@@ -1,0 +1,21 @@
+{
+  "session": "20261119T113147Z-ad3f",
+  "createdAt": "2026-11-19T11:41:26.224Z",
+  "commit": "3f8122aa90955c85965710d1c090b0db2bfb4e3c",
+  "skills": [
+    "update-rollcall"
+  ],
+  "paths": [
+    "parliament/votes",
+    "parliament/votes/derived/hub_stats.json",
+    "data_map.json",
+    "home",
+    "governance/hub_stats.json",
+    "home/feed.json"
+  ],
+  "cloudCommands": [
+    "pnpm run db:load:rollcall:pg:cloud",
+    "pnpm run db:load:rollcall-derived:pg:cloud",
+    "pnpm run myarea:alerts:cloud"
+  ]
+}
