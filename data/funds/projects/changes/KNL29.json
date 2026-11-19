@@ -1,38 +1,34 @@
 {
   "obshtina": "KNL29",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.001-0085",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Кюстендил, ул. \"Александър Стамболийски\" № 36 и 38",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 456342.35,
-      "totalEur": 456342.35,
-      "paidEur": 232611.69,
+      "contractNumber": "BG16FFPR003-4.011-0045",
+      "title": "\"Подкрепа за фотоволтаични системи и съоръжения в \"Елпром - Трафо СН\" АД\"",
+      "type": "new",
+      "totalEur": 3175679.5,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "\"Елпром - трафо СН\" АД",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16FFPR003-4.001-0055",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Кюстендил, ул. \"Априлско въстание\" №3, бл. 44, вх. А, вх. Б, вх. В",
+      "contractNumber": "BG05SFPR001-1.010-0273",
+      "title": "Сигурна среда за всяко дете: превенция и интервенция в ОУ „Иван Вазов",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 415345.9,
-      "totalEur": 415345.9,
-      "paidEur": 155671.53,
+      "prevTotalEur": 178811.15,
+      "totalEur": 178811.15,
+      "paidEur": 35762.23,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-11-13"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище „Иван Вазов“",
+      "detectedAt": "2026-11-19"
     },
     {
       "contractNumber": "BG05SFPR001-1.010-0146",
@@ -43,30 +39,46 @@
       ],
       "prevTotalEur": 176456.85,
       "totalEur": 176456.85,
-      "paidEur": 70000,
+      "paidEur": 35000,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Професионална гимназия по икономика и мениджмънт “Йордан Захариев”",
-      "detectedAt": "2026-11-13"
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0346",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG05SFPR001-2.003-0014",
+      "title": "„STEM Робо Таланти в Кюстендил“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 174884.78,
+      "totalEur": 174884.78,
+      "paidEur": 34976.96,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Кюстендил",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0730",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ХРИСТО БОТЕВ - 1948\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 32706.83,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Пакилюбон ЕООД",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 14315.97,
+      "totalEur": 10989.23,
+      "paidEur": 10989.23,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно ЧИТАЛИЩЕ\"ХРИСТО Ботев - 1948\"",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

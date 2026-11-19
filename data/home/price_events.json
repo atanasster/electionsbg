@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-18",
+  "computedAt": "2026-11-19",
   "thresholds": {
     "basketPids": [
       1,
@@ -33,14 +33,14 @@
   },
   "basketMoves": [
     {
-      "peakDay": "2026-10-18",
-      "startDay": "2026-10-18",
+      "peakDay": "2026-10-19",
+      "startDay": "2026-10-19",
       "endDay": "2026-10-19",
-      "pctChange": 2.102,
-      "costEur": 15.783,
-      "prevCostEur": 15.458,
-      "cohortCells": 1697,
-      "cohortShare": 0.9361
+      "pctChange": 1.814,
+      "costEur": 15.835,
+      "prevCostEur": 15.553,
+      "cohortCells": 1700,
+      "cohortShare": 0.9379
     },
     {
       "peakDay": "2026-10-22",
@@ -85,7 +85,7 @@
     {
       "peakDay": "2026-11-18",
       "startDay": "2026-11-18",
-      "endDay": "2026-11-18",
+      "endDay": "2026-11-19",
       "pctChange": 1.974,
       "costEur": 16.084,
       "prevCostEur": 15.773,
@@ -97,12 +97,22 @@
     {
       "slug": "krave-maslo-d-markenbutter-250gr",
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-      "atOrBelowSince": "2026-11-05",
-      "promoEur": 1.79,
+      "atOrBelowSince": "2026-11-19",
+      "promoEur": 1.59,
       "regularEur": 4.07,
-      "discountPct": 56,
+      "discountPct": 61,
       "stores": 209,
       "chains": 2
+    },
+    {
+      "slug": "kartofi",
+      "title": "КАРТОФИ",
+      "atOrBelowSince": "2026-11-19",
+      "promoEur": 0.45,
+      "regularEur": 0.99,
+      "discountPct": 55,
+      "stores": 180,
+      "chains": 3
     },
     {
       "slug": "kiselo-mlyako-elena-2-400-gr",
@@ -113,16 +123,6 @@
       "discountPct": 55,
       "stores": 48,
       "chains": 2
-    },
-    {
-      "slug": "morkovi",
-      "title": "МОРКОВИ",
-      "atOrBelowSince": "2026-10-29",
-      "promoEur": 0.49,
-      "regularEur": 1.09,
-      "discountPct": 55,
-      "stores": 261,
-      "chains": 5
     }
   ]
 }

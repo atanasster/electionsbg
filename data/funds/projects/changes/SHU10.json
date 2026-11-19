@@ -1,18 +1,22 @@
 {
   "obshtina": "SHU10",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.016-0041",
-      "title": "Подкрепа за уязвими и маргинализирани общности в община Върбица",
-      "type": "new",
-      "totalEur": 299999.98,
-      "paidEur": 0,
+      "contractNumber": "BG16FFPR003-2.006-0004",
+      "title": "Устойчива мобилност и равен достъп до качествено здравеопазване",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 101271.17,
+      "totalEur": 101271.17,
+      "paidEur": 40508.47,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Върбица",
-      "detectedAt": "2026-11-13"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Аиппмп Д-Р айджан шефкет ЕООД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

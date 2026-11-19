@@ -1,6 +1,88 @@
 {
-  "updatedAt": "2026-11-19T11:41:26.218Z",
+  "updatedAt": "2026-11-19T23:40:15.899Z",
   "entries": [
+    {
+      "timestamp": "2026-11-19T23:40:15.899Z",
+      "date": "2026-11-19",
+      "skill": "eurostat_tourism",
+      "summary": "1 step(s) ok",
+      "source": "Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw)"
+    },
+    {
+      "timestamp": "2026-11-19T23:40:12.491Z",
+      "date": "2026-11-19",
+      "skill": "update-council-minutes",
+      "summary": "3 step(s) ok",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-19T23:29:29.066Z",
+      "date": "2026-11-19",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-11-19 (+1 daily archive; 954,933 store rows, 168 settlements, 64 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-11-19"
+    },
+    {
+      "timestamp": "2026-11-19T23:22:48.349Z",
+      "date": "2026-11-19",
+      "skill": "update-financing",
+      "summary": "1 step(s) ok",
+      "source": "Сметна палата party financing",
+      "links": [
+        {
+          "to": "/financing",
+          "labelKey": "data_changes_link_financing"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-19T23:22:41.254Z",
+      "date": "2026-11-19",
+      "skill": "update-macro",
+      "summary": "6 step(s) ok",
+      "source": "Eurostat macro (BG): 29 datasets; Standard Eurobarometer (institutional trust)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-19T23:20:46.920Z",
+      "date": "2026-11-19",
+      "skill": "update-funds",
+      "summary": "14 step(s) ok",
+      "source": "ИСУН EU funds (beneficiaries); ИСУН EU funds (projects); keep.eu Interreg (programme re-imports); ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-11-19T23:16:24.452Z",
+      "date": "2026-11-19",
+      "skill": "update-kzk-appeals",
+      "summary": "5 step(s) ok",
+      "source": "КЗК decisions register (решения и определения по ЗОП)"
+    },
+    {
+      "timestamp": "2026-11-19T23:15:13.177Z",
+      "date": "2026-11-19",
+      "skill": "update-kzk-appeals",
+      "summary": "3 step(s) ok",
+      "source": "КЗК procurement-appeals register (жалби по ЗОП)"
+    },
+    {
+      "timestamp": "2026-11-19T23:00:47.043Z",
+      "date": "2026-11-19",
+      "skill": "update-rollcall",
+      "summary": "4 step(s) ok",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-19T11:41:26.218Z",
       "date": "2026-11-19",

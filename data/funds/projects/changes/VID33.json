@@ -1,0 +1,39 @@
+{
+  "obshtina": "VID33",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR001-1.004-0021",
+      "title": "МОСТ (Мотивация, Отговорност, Съпричастност, Толерантност)",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 143440.89,
+      "totalEur": 143440.89,
+      "paidEur": 114752.71,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Никола й. Вапцаров\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1861",
+      "title": "Подобряване на производствения капацитет на \"АТРЕКС\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102002.73,
+      "totalEur": 102002.73,
+      "paidEur": 76502.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Атрекс ООД",
+      "detectedAt": "2026-11-19"
+    }
+  ]
+}

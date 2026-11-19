@@ -1,6 +1,6 @@
 {
   "obshtina": "LOV19",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
       "contractNumber": "BG05SFPR001-1.010-0203",
@@ -11,12 +11,29 @@
       ],
       "prevTotalEur": 165559.59,
       "totalEur": 165559.59,
-      "paidEur": 40000,
+      "paidEur": 20000,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Обединено училище \"Неофит Рилски\"",
-      "detectedAt": "2026-11-13"
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1987",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници във \"В С - МЕТАЛ КЪМПАНИ\" АД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 97606.6,
+      "totalEur": 97606.6,
+      "paidEur": 48803.3,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "в с - Метал къмпани АД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

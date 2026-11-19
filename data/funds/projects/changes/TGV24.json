@@ -1,22 +1,40 @@
 {
   "obshtina": "TGV24",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.034-0149",
-      "title": "Изграждане и въвеждане в експлоатация на съоръжения за съхранение на електроенергия 2",
+      "contractNumber": "BG-RRP-4.020-0309",
+      "title": "УСТОЙЧИВО ЕНЕРГИЙНО ОБНОВЯВАНЕ НА СГРАДИ ЗА КУЛТУРА - НЧ \"СВЕТЛИНА - 1905\" - с.Гагово и НЧ \"ХРИСТО БОТЕВ - 1899\" с. Зараево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 621808.97,
+      "totalEur": 514721.58,
+      "paidEur": 497007.06,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Попово",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0130",
+      "title": "Топъл обяд в Община Попово",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 3065092.57,
-      "totalEur": 3065092.57,
-      "paidEur": 1530928.02,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Енерджибаланс ЕООД",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 373197.75,
+      "totalEur": 373197.75,
+      "paidEur": 301018.68,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Попово",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

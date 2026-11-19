@@ -1,22 +1,78 @@
 {
   "obshtina": "PAZ29",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0264",
-      "title": "Септември без агресия",
+      "contractNumber": "BG-RRP-1.024-0922",
+      "title": "Изграждане на дигитален клуб в село Ковачево",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 142828.31,
-      "totalEur": 142828.31,
-      "paidEur": 28565.66,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по механизация на земеделското стопанстов - гр. Септември",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 17379.83,
+      "totalEur": 15717.47,
+      "paidEur": 15717.47,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев 1928\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1285",
+      "title": "Дигитален клуб Карабунар",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14136.16,
+      "paidEur": 14136.16,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище възраждане 1926",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0962",
+      "title": "Изграждане на дигитален клуб в село Виноградец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13936.3,
+      "paidEur": 13936.3,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Д-р Петър Берон - 1928.\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0892",
+      "title": "Изграждане на дигитален клуб в село Бошуля",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13255.32,
+      "paidEur": 13255.32,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета 1929 г.\"",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

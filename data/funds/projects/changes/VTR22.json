@@ -1,18 +1,41 @@
 {
   "obshtina": "VTR22",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.016-0153",
-      "title": "Подкрепа за уязвими и маргинализирани общности в община Павликени",
-      "type": "new",
-      "totalEur": 404840.77,
-      "paidEur": 0,
+      "contractNumber": "BG16RFPR001-1.001-0060",
+      "title": "Разработване на иновативен процес за производство от \"БАЛКАНКАР-ЗАРЯ\" АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 511291.88,
+      "totalEur": 510857.16,
+      "paidEur": 255428.58,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "БАЛКАНКАР-ЗАРЯ АД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.008-0003",
+      "title": "Учим заедно, живеем заедно",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 150691.33,
+      "totalEur": 150691.33,
+      "paidEur": 50147,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Павликени",
-      "detectedAt": "2026-11-13"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Бачо киро\"",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

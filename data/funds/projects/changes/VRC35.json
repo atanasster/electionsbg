@@ -1,0 +1,56 @@
+{
+  "obshtina": "VRC35",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0235",
+      "title": "Топъл обяд в Община Хайредин",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 467014.69,
+      "totalEur": 467014.69,
+      "paidEur": 370597.8,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Хайредин",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0048",
+      "title": "\"Силата на единството\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 202507.98,
+      "totalEur": 202507.98,
+      "paidEur": 145890.68,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Хайредин",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0027",
+      "title": "Изграждане на дигитален клуб за \"НАРОДНО ЧИТАЛИЩЕ СВЕТЛИНА-1928-МАНАСТИРИЩЕ\" c.Манастирище",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 11684.66,
+      "paidEur": 11684.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народно читалище СВЕТЛИНА-1928-МАНАСТИРИЩЕ\"",
+      "detectedAt": "2026-11-19"
+    }
+  ]
+}

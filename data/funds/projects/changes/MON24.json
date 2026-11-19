@@ -1,25 +1,55 @@
 {
   "obshtina": "MON24",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16RFTA001-1.010-0055",
-      "title": "Развитие на административния капацитет на СДРУЖЕНИЕ „ШАНС ЧРЕЗ УМЕНИЯ“ за повишаване на добавената стойност на политиката на сближаване в България.",
+      "contractNumber": "BG16FFPR003-2.006-0112",
+      "title": "Комбинирани интегрирани териториални инвестиции (ИТИ) на територията на Общините Лом, Димово и Оряхово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 86108167.46,
+      "totalEur": 86108167.46,
+      "paidEur": 24034518.37,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Агенция \"Пътна инфраструктура\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-4.033-0060",
+      "title": "Локална система за съхранение с капацитет 3,44 МWh на съществуваща ФЕЦ с номинална променливотокова мощност 3,225 МW в ПИ с ид. 44238.508.217, гр. Лом, общ. Лом, обл. Монтана",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1090227.68,
+      "totalEur": 1090227.68,
+      "paidEur": 509688.47,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"ИнноваТехПро\" ЕООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0201",
+      "title": "Подобряване на производствения капацитет на \"ДИ ВЕН\" ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 48717.68,
-      "totalEur": 48417.5,
-      "paidEur": 48417.5,
+      "prevTotalEur": 240566,
+      "totalEur": 122999.44,
+      "paidEur": 76259.65,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFTA001",
-      "programName": "Програма \"Техническа помощ\" 2021-2027",
-      "beneficiaryName": "Шанс чрез умения Сдружение",
-      "detectedAt": "2026-11-13"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДИ ВЕН ООД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

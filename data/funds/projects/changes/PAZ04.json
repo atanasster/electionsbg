@@ -1,22 +1,96 @@
 {
   "obshtina": "PAZ04",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0141",
-      "title": "Иновативни здравно-социални услуги в община Белово",
+      "contractNumber": "BG-RRP-1.024-1012",
+      "title": "изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ СВ.СВ. КИРИЛ И МЕТОДИЙ-1927 - гр.Белово",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 199887.62,
-      "totalEur": 199887.62,
-      "paidEur": 134118.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Белово",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 17383.93,
+      "totalEur": 16304.57,
+      "paidEur": 16304.57,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище СВ.СВ. кирил и МЕТОДИЙ-1927 - гр.Белово",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0861",
+      "title": "Изграждане на дигитален клуб в село Дъбравите",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13381.92,
+      "paidEur": 13381.92,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Александър Пипонков-Чапай-1938\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1279",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА-1928\" С. МОМИНА КЛИСУРА",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.19,
+      "totalEur": 11502.39,
+      "paidEur": 11502.39,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ПРОСВЕТА-1928\" с. Момина клисура",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0909",
+      "title": "изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"СВ. СВ. КИРИЛ И МЕТОДИЙ-1910\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 11346.27,
+      "paidEur": 11346.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ. СВ. Кирил и МЕТОДИЙ-1910\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0860",
+      "title": "изграждане на дигитални клубове в НАРОДНО ЧИТАЛИЩЕ \"ТОДОР КАБЛЕШКОВ-1874 г.\" - с.Голямо Белово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 9957.88,
+      "paidEur": 9957.88,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Тодор КАБЛЕШКОВ-1874 г.\" - с.Голямо Белово",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

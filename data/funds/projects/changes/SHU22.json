@@ -1,40 +1,76 @@
 {
   "obshtina": "SHU22",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2832",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда, находяща се в град Нови пазар, общ. Нови пазар, обл. Шумен, ул. Хаджи Димитър № 56",
+      "contractNumber": "BG06AFSP001-1.001-0025",
+      "title": "Изпълнение на Стратегия за водено от общностите местно развитие (СВОМР) на МИГ Нови пазар - Каспичан за периода до 2027 г.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 689989.42,
+      "totalEur": 689989.42,
+      "paidEur": 24758.13,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2023BG06AFSP001",
+      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
+      "beneficiaryName": "Сдружение \"Местна инициативна група Нови пазар-Каспичан\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1105",
+      "title": "Създаване на дигитален клуб в Народно читалище \"Васил Левски-1895\" с. Енево",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 1097806.75,
-      "totalEur": 1093205.05,
-      "paidEur": 1089938.93,
+      "prevTotalEur": 14292.96,
+      "totalEur": 14200.58,
+      "paidEur": 14200.58,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Нови пазар",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Народно читалище \"Васил Левски-1895\"",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG05SFPR001-1.004-0108",
-      "title": "Мост от цветове: Съединяваме култури чрез творчество и знание",
+      "contractNumber": "BG-RRP-1.024-1103",
+      "title": "Създаване на дигитален клуб в Народно читалище НЧ „Просвета-1919“ с. Памукчии",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 210768.41,
-      "totalEur": 210768.41,
-      "paidEur": 42000,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 14034.25,
+      "totalEur": 14034.26,
+      "paidEur": 14034.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета -1919\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1113",
+      "title": "Изграждане на дигитален клуб в Народно читалище „Просвета-1924“ с. Стан",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14046.21,
+      "totalEur": 13990.59,
+      "paidEur": 13990.59,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Просвета-1924“",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

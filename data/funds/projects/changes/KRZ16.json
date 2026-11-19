@@ -1,22 +1,24 @@
 {
   "obshtina": "KRZ16",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.012-1691",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG05SFPR002-1.004-0743",
+      "title": "Здравословната и безопасна работна среда в МБАЛ - Д-р Ат. Дафовски АД за осигуряване на качествени работни места",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 23442.73,
-      "totalEur": 23442.73,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Зимс консулт ЕООД",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 76524.81,
+      "totalEur": 60058.66,
+      "paidEur": 48046.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Многопрофилна болница за активно лечение - Д-Р атанас Дафовски АД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

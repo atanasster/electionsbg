@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-18T23:59:59.999Z",
+  "computedAt": "2026-11-19T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
@@ -8,8 +8,8 @@
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-18T00:00:00.000Z",
-      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "occurredAt": "2026-11-19T00:00:00.000Z",
+      "firstSeenAt": "2026-11-19T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -26,23 +26,23 @@
       "factKey": "home_fact_promotion",
       "factArgs": {
         "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-        "pct": 56,
-        "promoEur": "1.79",
+        "pct": 61,
+        "promoEur": "1.59",
         "regularEur": "4.07",
         "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8,
+      "materiality": 0.8714285714285714,
       "actionability": 0.85
     },
     {
       "schemaVersion": 1,
-      "id": "parliament:sitting:2026-11-18",
+      "id": "parliament:sitting:2026-11-19",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-11-18T00:00:00.000Z",
-      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "occurredAt": "2026-11-19T00:00:00.000Z",
+      "firstSeenAt": "2026-11-19T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -54,11 +54,11 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-11-18",
+      "route": "/votes/2026-11-19",
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
-        "items": 43,
-        "sittings": 9,
+        "items": 16,
+        "sittings": 10,
         "windowDays": 30
       },
       "backfill": false,
@@ -68,11 +68,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:kiselo-mlyako-elena-2-400-gr",
+      "id": "prices:promotion:kartofi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-18T00:00:00.000Z",
-      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "occurredAt": "2026-11-19T00:00:00.000Z",
+      "firstSeenAt": "2026-11-19T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -85,14 +85,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/kiselo-mlyako-elena-2-400-gr",
+      "route": "/product/kartofi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "КИСЕЛО МЛЯКО ЕЛЕНА 2 % 400 ГР",
+        "title": "КАРТОФИ",
         "pct": 55,
-        "promoEur": "0.39",
-        "regularEur": "0.86",
-        "chains": 2
+        "promoEur": "0.45",
+        "regularEur": "0.99",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
@@ -196,11 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:morkovi",
+      "id": "prices:promotion:kiselo-mlyako-elena-2-400-gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-18T00:00:00.000Z",
-      "firstSeenAt": "2026-11-18T00:00:00.000Z",
+      "occurredAt": "2026-11-19T00:00:00.000Z",
+      "firstSeenAt": "2026-11-19T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,14 +213,14 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/morkovi",
+      "route": "/product/kiselo-mlyako-elena-2-400-gr",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "МОРКОВИ",
+        "title": "КИСЕЛО МЛЯКО ЕЛЕНА 2 % 400 ГР",
         "pct": 55,
-        "promoEur": "0.49",
-        "regularEur": "1.09",
-        "chains": 5
+        "promoEur": "0.39",
+        "regularEur": "0.86",
+        "chains": 2
       },
       "backfill": false,
       "verification": "automatic",
@@ -807,14 +807,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-11-18",
+      "asOf": "2026-11-19",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-18",
-      "observedAt": "2026-11-18",
+      "asOf": "2026-11-19",
+      "observedAt": "2026-11-19",
       "staleAfterDays": 5,
       "stale": false
     }

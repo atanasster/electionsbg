@@ -1,55 +1,73 @@
 {
   "obshtina": "SLS31",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-1866",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"Дръстър Инженеринг\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 50981.2,
-      "totalEur": 50981.2,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Дръстър Инженеринг ЕООД",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0284",
-      "title": "\" Единна училищна политика за безопасна училищна среда\"",
+      "contractNumber": "BG16FFPR003-2.006-0076",
+      "title": "Грижа за хората в общините Силистра и Тутракан в СЦР",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 37754.32,
-      "totalEur": 37754.32,
-      "paidEur": 7550,
+      "prevTotalEur": 8151689.9,
+      "totalEur": 8151689.9,
+      "paidEur": 4659102.22,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Силистра",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.006-0007",
+      "title": "Заедно в различията си чрез десегрегация в ОУ ”Свети Свети Кирил и Методий“ с. Нова Черна, Община Тутракан и ОбУ „Св. Климент Охридски“ с. Професор Иширково, Община Силистра",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 154205.21,
+      "totalEur": 154205.21,
+      "paidEur": 72715.48,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална земеделска гимназия \"Добруджа\"- гр. Силистра",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Основно училище \"Свети Свети Кирил и Методий\"",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-0671",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG16RFPR001-2.004-2063",
+      "title": "Подобряване на енергийната ефективност на \"Стеаринос\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 14295.21,
-      "totalEur": 14295.21,
-      "paidEur": 10006.65,
+      "prevTotalEur": 140755.63,
+      "totalEur": 140755.63,
+      "paidEur": 51122.44,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Оптика ММ 2020 ЕООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Стеаринос ЕООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0631",
+      "title": "Изграждане на Дигитален клуб в Силистра при НЧ\"Доростол -1870\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 23516.36,
+      "totalEur": 19655.36,
+      "paidEur": 19655.36,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Доростол-1870\"",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

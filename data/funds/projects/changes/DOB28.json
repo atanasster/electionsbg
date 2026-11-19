@@ -1,54 +1,42 @@
 {
   "obshtina": "DOB28",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.016-0020",
-      "title": "Подкрепа за уязвими и маргинализирани общности в община Добричка",
-      "type": "new",
-      "totalEur": 109598.02,
-      "paidEur": 0,
+      "contractNumber": "BG16FFPR003-2.006-0009",
+      "title": "Устойчива и безопасна инфраструктура на територията на област Добрич",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 28871278.68,
+      "totalEur": 28871278.68,
+      "paidEur": 10963982.04,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Добричка",
-      "detectedAt": "2026-11-13"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Агенция \"Пътна инфраструктура\"",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16FFPR003-2.006-0101",
+      "contractNumber": "BG16FFPR003-2.006-0104",
       "title": "Икономика и мобилност в интерес на хората",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 48106145.61,
-      "totalEur": 48106145.61,
-      "paidEur": 17284239.37,
+      "prevTotalEur": 763290.08,
+      "totalEur": 763290.08,
+      "paidEur": 307955.94,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Град Добрич",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Професионална гимназия по транспорт, обслужване и лека промишленост",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16FFPR003-2.006-0105",
-      "title": "Икономика и мобилност в интерес на хората",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 2217149.11,
-      "totalEur": 2217149.11,
-      "paidEur": 923662.19,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по аграрно стопанство - Добрич",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1748",
-      "title": "Инвестиции за подобряване на производствения капацитет на Вер ЕООД",
+      "contractNumber": "BG16RFPR001-1.001-0135",
+      "title": "Разработване на иновация в Добруджа кабел ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -56,32 +44,46 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 89708.72,
-      "totalEur": 89632.04,
-      "paidEur": 67224.03,
+      "prevTotalEur": 326165.87,
+      "totalEur": 227479.57,
+      "paidEur": 136487.74,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ВЕР ООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Добруджа кабел ЕООД",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-1715",
-      "title": "Дигитализация на предприятията",
+      "contractNumber": "BG05SFPR001-1.004-0087",
+      "title": "\"Заедно за успешно бъдеще\"",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 34600.65,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"А ЕМ ДЖИ\" ЕООД",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 223220.63,
+      "totalEur": 223220.63,
+      "paidEur": 76959.43,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Черноризец Храбър\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFOP002-2.040-0542",
+      "title": "Подобряване на производствения капацитет в \"КОНТИНЕНТАЛИК\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 158730.56,
+      "totalEur": 158730.56,
+      "paidEur": 138930.97,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2014BG16RFOP002",
+      "programName": "Иновации и конкурентоспособност",
+      "beneficiaryName": "Континенталик ООД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

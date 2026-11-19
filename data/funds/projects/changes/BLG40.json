@@ -1,23 +1,40 @@
 {
   "obshtina": "BLG40",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-1065",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"СЪН СИТИ\" ООД",
+      "contractNumber": "BG06AFSP001-1.001-0047",
+      "title": "Стратегия за водено от общностите местно развитие на територията на МИГ Сандански",
       "type": "modified",
       "changedFields": [
-        "paidEur",
+        "paidEur"
+      ],
+      "prevTotalEur": 749988.5,
+      "totalEur": 749988.5,
+      "paidEur": 105708.77,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2023BG06AFSP001",
+      "programName": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
+      "beneficiaryName": "Сдружение с нестопанска цел \"Местна инициативна група Сандански - МИГ Сандански\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1270",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
         "status"
       ],
-      "prevTotalEur": 78658.47,
-      "totalEur": 78658.47,
-      "paidEur": 51128,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 40355.75,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"СЪН Сити\" ООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Здравец 7410 ООД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

@@ -1,34 +1,24 @@
 {
   "obshtina": "DOB03",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.016-0140",
-      "title": "„Нови възможности за заетост и интеграция в община Балчик“",
-      "type": "new",
-      "totalEur": 264213.7,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1209",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"Шоколино\" ООД",
+      "contractNumber": "BG05SFPR001-2.003-0080",
+      "title": "Подкрепа за развитие и изява на талантите на учениците от община Балчик",
       "type": "modified",
       "changedFields": [
+        "totalEur",
+        "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 27476.68,
-      "totalEur": 27476.68,
+      "prevTotalEur": 375725.83,
+      "totalEur": 375551.11,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Шоколино ООД",
-      "detectedAt": "2026-11-13"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Балчик",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

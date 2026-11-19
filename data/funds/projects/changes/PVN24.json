@@ -1,144 +1,159 @@
 {
   "obshtina": "PVN24",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0047",
-      "title": "Иновативни здравно – социални услуги на територията на община Плевен",
+      "contractNumber": "BG16RFPR001-6.001-0138",
+      "title": "Укрепване на промишления капацитет на АЛУКОМ АД в областта на отбранителните способности",
+      "type": "new",
+      "totalEur": 2219000,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Алуком АД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-6.001-0052",
+      "title": "Подобряване на промишления капацитет на „Трактор“ ООД за производство на полево инженерно оборудване",
+      "type": "new",
+      "totalEur": 730000,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Трактор ООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-6.001-0018",
+      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в БЪЛГЕРИЪН ТЕКСТАЙЛ КЪМПАНИ ООД",
+      "type": "new",
+      "totalEur": 728880,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Бългериън текстайл къмпани ООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16FFPR003-1.001-0006",
+      "title": "Изтегляне на автомобилния поток извън ЦГЧ с цел осигуряване на по-лесен и бърз транспортен достъп до историческото ядро, интегриране на зелени мерки в открити обществени пространства за култура и туризъм",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 972592.69,
-      "totalEur": 972592.69,
-      "paidEur": 767095.06,
+      "prevTotalEur": 12645797.51,
+      "totalEur": 12645797.51,
+      "paidEur": 4678334.2,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Плевен",
-      "detectedAt": "2026-11-13"
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-1.001-0085",
-      "title": "Разработване на иновация в предприятието",
+      "contractNumber": "BG16FFPR002-2.004-0008",
+      "title": "„Надграждане на съществуваща общинска инсталация за компостиране с подобряване/модернизация на технологията за рециклиране на разделно събрани биоразградими битови отпадъци“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 4413131.19,
+      "totalEur": 4413131.19,
+      "paidEur": 176524.1,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Плевен",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0189",
+      "title": "Д.О.М. Доверие, отговорност, мотивация",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 154477.95,
+      "totalEur": 154477.95,
+      "paidEur": 30895.59,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \" Д-р Петър Берон\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-2135",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС)",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 148417.81,
-      "totalEur": 128145.43,
-      "paidEur": 64072.72,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Успех металкап ССБ ЕООД",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 128095.83,
+      "totalEur": 129101.19,
+      "paidEur": 128095.5,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Професионална гимназия по транспорт \"ПРОФ.ЦВЕТАН Лазаров\"",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0881",
-      "title": "Повишаване конкурентоспособността и увеличаване пазарния дял на РОНИ-ЕКСПРЕС ЕООД",
+      "contractNumber": "BG05SFPR001-3.005-0010",
+      "title": "Развитие на дуалната система за обучение в ПГМЕТ - Плевен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 127822.96,
+      "totalEur": 127822.96,
+      "paidEur": 84369.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по механоелектротехника - Плевен",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-2497",
+      "title": "Енергийна ефективност в \"ДСД\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 100417.73,
-      "totalEur": 100356.77,
-      "paidEur": 75267.58,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "РОНИ-ЕКСПРЕС ЕООД",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0251",
-      "title": "Подобряване на енергийната ефективност на КЛИМСИСТ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 78638.89,
-      "totalEur": 78638.89,
+      "prevTotalEur": 87865.42,
+      "totalEur": 86217.69,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Климсист ЕООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "\"ДСД\" ЕООД",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-2055",
-      "title": "Инвестиция в енергийна ефективност в \"Стрийт парк\" ЕООД.",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 25260.25,
-      "totalEur": 25260.25,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Стрийт парк ЕООД",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0731",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 8344.28,
-      "totalEur": 8344.28,
-      "paidEur": 5841,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Палде корект ЕООД",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0639",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 8223.11,
-      "totalEur": 8223.11,
-      "paidEur": 5756.18,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Маристан\" ЕООД",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2585",
-      "title": "Подобряване на производствения капацитет на фирма \"ДИЯНА 7 ГРУП\" ЕООД",
+      "contractNumber": "BG16RFPR001-2.004-2033",
+      "title": "Подобряване на енергийната ефективност на „ДАРИ КОМЕРС - НА“ ООД чрез внедряване на съвременни енергоспестяващи технологии",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 82062.35,
+      "prevTotalEur": 130832.25,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Дияна 7 груп ЕООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Дари комерс - на ООД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

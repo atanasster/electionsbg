@@ -1,22 +1,61 @@
 {
   "obshtina": "PAZ24",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0216",
-      "title": "Иновативни здравно-социални услуги в община Ракитово",
+      "contractNumber": "BG16RFPR001-1.004-2102",
+      "title": "Подкрепа за семейно предприятие ОРХАН-78 ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 178635.54,
-      "totalEur": 178635.54,
-      "paidEur": 142908.43,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Ракитово",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 73950.7,
+      "totalEur": 73761.89,
+      "paidEur": 55321.4,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ОРХАН-78 ЕООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0903",
+      "title": "\"Изграждане на дигитален клуб в с. Дорково\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 15160.78,
+      "paidEur": 15160.78,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ. СВ. Кирил и МЕТОДИЙ-1919 г.\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0920",
+      "title": "Дигитален клуб Костандово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ПРОСВЕТА-1919\" ГР. Костандово",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

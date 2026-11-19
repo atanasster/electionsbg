@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-11-13T06:19:12.905Z",
+  "generatedAt": "2026-11-19T23:16:44.435Z",
   "totals": {
     "flaggedEiks": 289,
     "mpOnly": 154,
     "officialOnly": 116,
     "both": 19,
     "debarredFlagged": 0,
-    "contractedEur": 8148929196.41,
-    "paidEur": 3412768393.99,
-    "procurementEur": 2718509534.23
+    "contractedEur": 7929648212.91,
+    "paidEur": 3414214098.99,
+    "procurementEur": 2719986254.66
   },
   "top": [
     {
@@ -16,7 +16,7 @@
       "name": "ДП Национална компания \"Железопътна инфраструктура\"",
       "orgType": "Държавна администрация",
       "contractCount": 44,
-      "contractedEur": 3198383042.87,
+      "contractedEur": 2976685690.47,
       "paidEur": 1003780415.59,
       "mps": [],
       "officials": [
@@ -100,7 +100,7 @@
       "procurementEur": 6214272.94,
       "procurementContractCount": 7,
       "debarred": false,
-      "exposureScore": 28.19
+      "exposureScore": 28.12
     },
     {
       "eik": "203740812",
@@ -888,10 +888,10 @@
           ]
         }
       ],
-      "procurementEur": 24532768.42,
-      "procurementContractCount": 126,
+      "procurementEur": 25082438.42,
+      "procurementContractCount": 127,
       "debarred": false,
-      "exposureScore": 24.04
+      "exposureScore": 24.05
     },
     {
       "eik": "832046330",
@@ -899,7 +899,7 @@
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 70515217.15,
-      "paidEur": 6108028.11,
+      "paidEur": 7458396.69,
       "mps": [],
       "officials": [
         {
@@ -1514,10 +1514,10 @@
           ]
         }
       ],
-      "procurementEur": 1856992.23,
-      "procurementContractCount": 20,
+      "procurementEur": 1902062.43,
+      "procurementContractCount": 21,
       "debarred": false,
-      "exposureScore": 22.72
+      "exposureScore": 22.73
     },
     {
       "eik": "827184123",
@@ -2041,8 +2041,8 @@
           ]
         }
       ],
-      "procurementEur": 1021107.12,
-      "procurementContractCount": 28,
+      "procurementEur": 1028469.72,
+      "procurementContractCount": 29,
       "debarred": false,
       "exposureScore": 22.69
     },
@@ -3645,6 +3645,39 @@
       "exposureScore": 19.82
     },
     {
+      "eik": "200712697",
+      "name": "ПАК Дизайн ЕООД",
+      "orgType": "Компания",
+      "contractCount": 12,
+      "contractedEur": 7025790.53,
+      "paidEur": 1904760.79,
+      "mps": [
+        {
+          "mpId": 3427,
+          "mpName": "Петко Ангелов Кущирев",
+          "relations": [
+            {
+              "kind": "manager",
+              "isCurrent": true
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true
+            },
+            {
+              "kind": "sole_owner",
+              "isCurrent": true
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 16.46
+    },
+    {
       "eik": "176968825",
       "name": "Сдружение за научноизследователска и развойна дейност",
       "orgType": "Научноизследователска организация",
@@ -3795,39 +3828,6 @@
       "exposureScore": 16.02
     },
     {
-      "eik": "200712697",
-      "name": "ПАК Дизайн ЕООД",
-      "orgType": "Компания",
-      "contractCount": 11,
-      "contractedEur": 4471490.53,
-      "paidEur": 1904760.79,
-      "mps": [
-        {
-          "mpId": 3427,
-          "mpName": "Петко Ангелов Кущирев",
-          "relations": [
-            {
-              "kind": "manager",
-              "isCurrent": true
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true
-            },
-            {
-              "kind": "sole_owner",
-              "isCurrent": true
-            }
-          ]
-        }
-      ],
-      "officials": [],
-      "procurementEur": 0,
-      "procurementContractCount": 0,
-      "debarred": false,
-      "exposureScore": 16.01
-    },
-    {
       "eik": "123079354",
       "name": "Агенция за регионално икономическо развитие -стара загора",
       "orgType": "Нестопанска организация",
@@ -3915,10 +3915,10 @@
           ]
         }
       ],
-      "procurementEur": 11386.47,
-      "procurementContractCount": 3,
+      "procurementEur": 18626.47,
+      "procurementContractCount": 4,
       "debarred": false,
-      "exposureScore": 18.66
+      "exposureScore": 18.81
     },
     {
       "eik": "000715054",
@@ -4096,10 +4096,10 @@
     "201617654",
     "201616805",
     "123535874",
+    "200712697",
     "176968825",
     "201619580",
     "126529015",
-    "200712697",
     "123079354",
     "207076329",
     "813152934",
@@ -4137,10 +4137,10 @@
     "836164433",
     "208309354",
     "177020504",
-    "111006653",
     "177151222",
     "203010795",
     "116003561",
+    "111006653",
     "131336103",
     "202918009",
     "208041435",
@@ -4206,7 +4206,6 @@
     "104054085",
     "177072084",
     "176730394",
-    "108501669",
     "205296904",
     "820174330",
     "176123191",
@@ -4215,6 +4214,7 @@
     "200167154",
     "122087578",
     "131066056",
+    "108501669",
     "830173891",
     "200765778",
     "000923169",
@@ -4249,7 +4249,6 @@
     "205919810",
     "203172982",
     "000842977",
-    "000343173",
     "177235542",
     "201817384",
     "126720807",
@@ -4263,6 +4262,7 @@
     "204124990",
     "177132923",
     "000671309",
+    "000343173",
     "112043028",
     "000083868",
     "000379408",

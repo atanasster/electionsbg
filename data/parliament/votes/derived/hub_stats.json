@@ -1,5 +1,5 @@
 {
-  "computedAt": "2026-11-19T11:33:40.264Z",
+  "computedAt": "2026-11-19T22:51:17.535Z",
   "byNs": {
     "44": {
       "lastDate": "2021-03-25",
@@ -378,11 +378,11 @@
       }
     },
     "52": {
-      "lastDate": "2026-11-18",
+      "lastDate": "2026-11-19",
       "coveredFrom": "2026-04-30",
-      "coveredTo": "2026-11-18",
+      "coveredTo": "2026-11-19",
       "coverage": "full",
-      "inRecessDays": 1,
+      "inRecessDays": 0,
       "topGroups": [
         {
           "short": "ПБ",
@@ -408,16 +408,16 @@
       "otherGroups": 1,
       "otherMembers": 12,
       "tiles": {
-        "sessions": 74,
-        "items": 1772,
-        "billsSecondReading": 59,
+        "sessions": 75,
+        "items": 1788,
+        "billsSecondReading": 61,
         "membersVoting": 270,
         "membersProjected": 255,
         "groups": 6,
-        "attendanceWeighted": 0.7063878335940532,
-        "cohesionMean": 0.9712263402331175,
+        "attendanceWeighted": 0.706043898401893,
+        "cohesionMean": 0.9711330084780122,
         "leastUnifiedGroup": "ГЕРБ - СДС",
-        "leastUnifiedValue": 0.9334571060583046
+        "leastUnifiedValue": 0.9330460361357781
       },
       "seeds": {
         "similarity": "5228",

@@ -1,5 +1,5 @@
 {
-  "computedAt": "2026-11-19T11:42:26.778Z",
+  "computedAt": "2026-11-19T23:41:14.252Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
@@ -29,13 +29,13 @@
     },
     "council": {
       "kind": "count",
-      "value": 5866,
+      "value": 5942,
       "basis": "resolutions",
       "extra": 16
     },
     "funds": {
       "kind": "eur",
-      "value": 46096447234,
+      "value": 46093798809,
       "basis": "contracted"
     },
     "municipal-finance": {
@@ -122,9 +122,9 @@
     "52": {
       "parliament": {
         "kind": "count",
-        "value": 74,
+        "value": 75,
         "basis": "sessions",
-        "extra": 1772
+        "extra": 1788
       }
     }
   },
@@ -146,7 +146,7 @@
     },
     {
       "id": "fundsProjects",
-      "value": 83168,
+      "value": 83255,
       "to": "/funds/beneficiaries"
     }
   ],

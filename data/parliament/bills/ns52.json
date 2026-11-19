@@ -1,6 +1,6 @@
 {
  "ns": "52",
- "fetchedAt": "2026-11-19T11:38:37.471Z",
+ "fetchedAt": "2026-11-19T22:56:29.057Z",
  "bills": [
   {
    "id": 166934,
@@ -3761,7 +3761,7 @@
    "dvYear": null,
    "adoptedOn": null,
    "finalTitle": null,
-   "withdrawn": false,
+   "withdrawn": true,
    "vetoDate": null,
    "unionIds": []
   },
@@ -3931,12 +3931,16 @@
    "finalTitle": null,
    "withdrawn": false,
    "vetoDate": null,
-   "unionIds": []
+   "unionIds": [
+    167534,
+    167536,
+    167636
+   ]
   },
   {
    "id": 167649,
    "sign": "52-602-01-72",
-   "title": "Законопроект за изменение и допълнение на Закона за Българската агенция по безопасност на храните.",
+   "title": "Законопроект за изменение и допълнение на Закона за Българската агенция по безопасност на храните",
    "date": "2026-11-19",
    "ns": "52",
    "dvIssue": null,

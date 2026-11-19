@@ -1,10 +1,43 @@
 {
   "obshtina": "GAB05",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.001-0277",
-      "title": "Разработване на иновация в АДТЕХ ООД",
+      "contractNumber": "BG16FFPR002-4.006-0006",
+      "title": "Брегове на съвремието - комплекс от мерки по Програма \"Околна среда\" 2021 - 2027 г.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2251951.37,
+      "totalEur": 2251951.37,
+      "paidEur": 450390.27,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Габрово",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0276",
+      "title": "Повишаване на производствения капацитет в ЙОВЕЛИНА М ООД чрез инвестиции в ново оборудване",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 199013,
+      "totalEur": 101753.73,
+      "paidEur": 76315.28,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Йовелина м ООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.001-0246",
+      "title": "Разработване на иновативен продукт от \"СИ МАТИК\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -12,31 +45,65 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 313830.96,
-      "totalEur": 291321.15,
-      "paidEur": 174792.68,
+      "prevTotalEur": 86809.18,
+      "totalEur": 79462.46,
+      "paidEur": 47677.48,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Адтех ООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "СИ Матик ЕООД",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-2513",
-      "title": "Проектът предвижда изграждане на фотоволтаична електроцентрала (ФЕЦ) с инсталирана мощност 25 kW, предназначена за собствени нужди на фирма „П.С.И. Габрово“ ЕООД. Системата ще осигурява електроенергия за захранване на административна и складова сграда, като ще намали разходите за консумация от мрежата и ще допринесе за енергийна независимост и устойчивост на предприятието.",
+      "contractNumber": "BG16RFPR001-2.004-1373",
+      "title": "Енергийна ефективност в М-ТЕКС РЕЦИКЛИРАНЕ НА ТЕКСТИЛ",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 69161.24,
+      "totalEur": 69161.24,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "М-ТЕКС Рециклиране на текстил",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-1628",
+      "title": "Прилагане на мерки за енергийна ефективност на търговска фирма в гр. Габрово",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 34859.5,
-      "totalEur": 33883.43,
+      "prevTotalEur": 56245.16,
+      "totalEur": 41831.4,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "П.С.И. Габрово ЕООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Христофор Илиев и КО ООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-4.024-0256",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда - гр. Габрово, бул. Могильов 23-25 и търговски обекти на бул. Могильов 23-25",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 835684.65,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Габрово",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

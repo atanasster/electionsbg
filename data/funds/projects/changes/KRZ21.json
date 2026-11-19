@@ -1,18 +1,22 @@
 {
   "obshtina": "KRZ21",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.016-0105",
-      "title": "\"Социална интеграция и заетост на уязвими групи в община Момчилград\"",
-      "type": "new",
-      "totalEur": 299478.28,
-      "paidEur": 0,
+      "contractNumber": "BG05SFPR001-1.008-0019",
+      "title": "Една общност за всички деца",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 170892.16,
+      "totalEur": 170892.16,
+      "paidEur": 40203.47,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Община Момчилград",
-      "detectedAt": "2026-11-13"
+      "detectedAt": "2026-11-19"
     }
   ]
 }

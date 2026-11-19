@@ -1,51 +1,407 @@
 {
   "obshtina": "PAZ19",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-6.001-0019",
-      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в ПРОЕКТОМЕТАЛ ООД",
+      "contractNumber": "BG16RFPR001-6.001-0017",
+      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в БЕЛ - ЕЛЕКТРИК ЕООД",
       "type": "new",
-      "totalEur": 728950,
+      "totalEur": 727210,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Проектометал ООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "БЕЛ - Електрик ЕООД",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16RFPR001-2.004-0274",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в АВТО ЛУКС ЕООД.",
+      "contractNumber": "BG-RRP-4.034-0101",
+      "title": "Изграждане и въвеждане в експлоатация на 20.4 мВч ССЕЕ в гр. Пазарджик",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2781656.07,
+      "totalEur": 2781656.07,
+      "paidEur": 1265801.93,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Сънгео 2\" ООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0046",
+      "title": "Топъл обяд в Община Пазарджик",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 614298.09,
+      "totalEur": 614298.09,
+      "paidEur": 456269.81,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Пазарджик",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.007-0008",
+      "title": "Образователно резюме за стабилен старт",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 382656.96,
+      "totalEur": 382656.96,
+      "paidEur": 247247.17,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по фризьорство и ресторантьорство",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.001-0427",
+      "title": "Разработване на иновация: \"Комбинирана 5-осна машина с ЦПУ за 3D принтиране и фрезоване на метал\" в Дезарт ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 169010.09,
+      "totalEur": 168963,
+      "paidEur": 101377.8,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Дезарт ЕООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0158",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"ТЕТАМАТ\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 101640.12,
-      "totalEur": 101640.12,
-      "paidEur": 50820.06,
+      "prevTotalEur": 167325.59,
+      "totalEur": 167325.59,
+      "paidEur": 51129.19,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Авто лукс ЕООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Тетамат ЕООД",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG05SFPR001-1.002-0013",
-      "title": "Обединени за достъп до образование за всяко дете",
+      "contractNumber": "BG16RFPR001-1.004-1323",
+      "title": "Подобряване на производствения капацитет на ОГИ ИНВЕСТ ЕООД чрез инвестиции в произовдствено оборудване",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 91802.65,
-      "totalEur": 91802.65,
-      "paidEur": 36721.06,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Регионално управление на образованието - Пазарджик",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 82373.28,
+      "totalEur": 82107.63,
+      "paidEur": 61580.74,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ОГИ-ИНВЕСТ ЕООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0202",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 36644.79,
+      "totalEur": 36644.79,
+      "paidEur": 25468.13,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ГОЯ 2022 ООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1785",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 27096.93,
+      "totalEur": 27096.93,
+      "paidEur": 18967.86,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Д м Ауто Сървис ЕООД",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0930",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ВИДЕЛИНА-1862\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 26556.5,
+      "totalEur": 22658.11,
+      "paidEur": 22658.11,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ВИДЕЛИНА-1862",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0817",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ „ПРОСВЕТА-1929 - С.МАЛО КОНАРЕ”",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.11,
+      "totalEur": 17186.58,
+      "paidEur": 17186.58,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ПРОСВЕТА-1929 с. Мало Конаре",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0821",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ОТЕЦ ПАИСИЙ - 1927",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.11,
+      "totalEur": 16545.73,
+      "paidEur": 16545.73,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Отец Паисий - 1927\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0934",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА-1928\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 16307.62,
+      "paidEur": 16307.62,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ПРОБУДА-1928\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0926",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ХАДЖИ НАЙДЕН ЙОВАНОВИЧ-1935\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17342.2,
+      "totalEur": 16125.99,
+      "paidEur": 16125.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Хаджи найден ЙОВАНОВИЧ-1935\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0931",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА-1930\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17342.82,
+      "totalEur": 15043.32,
+      "paidEur": 15043.32,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ПРОБУДА-1930\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0932",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА-1928\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17381.63,
+      "totalEur": 15042.09,
+      "paidEur": 15042.09,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ПРОСВЕТА-1928\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0933",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"СВ.СВ. КИРИЛ И МЕТОДИЙ - 1933 Г.\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 14272.52,
+      "paidEur": 14272.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ.СВ. кирил и Методий - 1933 г.\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0822",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ОТЕЦ ПАИСИЙ-1933 Г\"- С. ХАДЖИЕВО",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14315.35,
+      "totalEur": 14212.56,
+      "paidEur": 14212.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Отец ПАИСИЙ-1933 г\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0928",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"СЪЗНАНИЕ-1908 Г.\" с. Арилци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14315.35,
+      "totalEur": 13969.39,
+      "paidEur": 13969.39,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СЪЗНАНИЕ-1908 г.\" с. Априлци",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0825",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА-1922\"- С. ЦРЪНЧА",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14315.76,
+      "totalEur": 13231.05,
+      "paidEur": 13231.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ПРОСВЕТА-1922\"- с. Црънча",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0911",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"СВ.ПАНТЕЛЕЙМОН-1909\" С.ПАТАЛЕНИЦА",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14279.97,
+      "totalEur": 12340.77,
+      "paidEur": 12340.77,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ.ПАНТЕЛЕЙМОН-1909\" С.ПАТАЛЕНИЦА",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0850",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ НОВА МЛАДЕЖ - 1927",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14293.27,
+      "totalEur": 11981.79,
+      "paidEur": 11981.79,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Нова младеж - 1927",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0818",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ОТЕЦ ПАИСИЙ-1930 Г\" - С. ВЕЛИЧКОВО",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14315.97,
+      "totalEur": 11378.76,
+      "paidEur": 11378.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Отец ПАИСИЙ-1930 г",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-13T06:19:12.504Z",
+  "generatedAt": "2026-11-19T23:16:43.884Z",
   "total": 184,
   "mpCount": 155,
   "beneficiaryCount": 173,
-  "contractedEur": 4853425679.25,
-  "paidEur": 2259415816.34,
+  "contractedEur": 4855858514.3,
+  "paidEur": 2259511152.76,
   "entries": [
     {
       "mpId": 4507,
@@ -241,22 +241,6 @@
       "paidEur": 0
     },
     {
-      "mpId": 1582,
-      "mpName": "Ирена Георгиева Узунова",
-      "beneficiaryEik": "126529015",
-      "beneficiaryName": "«Многопрофилна болница за активно лечение - хасково\" АД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "director",
-          "isCurrent": true
-        }
-      ],
-      "contractCount": 4,
-      "contractedEur": 4552162.99,
-      "paidEur": 303664.99
-    },
-    {
       "mpId": 3427,
       "mpName": "Петко Ангелов Кущирев",
       "beneficiaryEik": "200712697",
@@ -276,9 +260,25 @@
           "isCurrent": true
         }
       ],
-      "contractCount": 11,
-      "contractedEur": 4471490.53,
+      "contractCount": 12,
+      "contractedEur": 7025790.53,
       "paidEur": 1904760.79
+    },
+    {
+      "mpId": 1582,
+      "mpName": "Ирена Георгиева Узунова",
+      "beneficiaryEik": "126529015",
+      "beneficiaryName": "«Многопрофилна болница за активно лечение - хасково\" АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 4552162.99,
+      "paidEur": 303664.99
     },
     {
       "mpId": 1504,
@@ -664,7 +664,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 758723.04,
-      "paidEur": 151744.61
+      "paidEur": 247081.03
     },
     {
       "mpId": 5225,
@@ -721,22 +721,6 @@
       "contractCount": 2,
       "contractedEur": 740802.63,
       "paidEur": 109891.45
-    },
-    {
-      "mpId": 69,
-      "mpName": "Жори Йорданов Алексиев",
-      "beneficiaryEik": "111006653",
-      "beneficiaryName": "ДИ ВЕН ООД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "partner",
-          "isCurrent": false
-        }
-      ],
-      "contractCount": 5,
-      "contractedEur": 729173.02,
-      "paidEur": 413111.37
     },
     {
       "mpId": 5079,
@@ -803,6 +787,22 @@
       "contractCount": 4,
       "contractedEur": 689681.61,
       "paidEur": 427695.66
+    },
+    {
+      "mpId": 69,
+      "mpName": "Жори Йорданов Алексиев",
+      "beneficiaryEik": "111006653",
+      "beneficiaryName": "ДИ ВЕН ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": false
+        }
+      ],
+      "contractCount": 5,
+      "contractedEur": 611606.46,
+      "paidEur": 413111.37
     },
     {
       "mpId": 2946,
@@ -1125,7 +1125,7 @@
       "mpId": 599,
       "mpName": "Милена Иванова Милотинова-Колева",
       "beneficiaryEik": "205388313",
-      "beneficiaryName": "Мпроект ЕООД",
+      "beneficiaryName": "МПроект ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -2228,26 +2228,6 @@
       "paidEur": 25480.55
     },
     {
-      "mpId": 1538,
-      "mpName": "Гинче Димитрова Караминова",
-      "beneficiaryEik": "000343173",
-      "beneficiaryName": "Народно читалище ВИДЕЛИНА-1862",
-      "orgType": "Друга",
-      "relations": [
-        {
-          "kind": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "kind": "trustee",
-          "isCurrent": true
-        }
-      ],
-      "contractCount": 1,
-      "contractedEur": 26556.5,
-      "paidEur": 19048.42
-    },
-    {
       "mpId": 2269,
       "mpName": "Ангел Георгиев Димов",
       "beneficiaryEik": "177235542",
@@ -2422,6 +2402,26 @@
       "contractCount": 1,
       "contractedEur": 22848.8,
       "paidEur": 19807.33
+    },
+    {
+      "mpId": 1538,
+      "mpName": "Гинче Димитрова Караминова",
+      "beneficiaryEik": "000343173",
+      "beneficiaryName": "Народно читалище ВИДЕЛИНА-1862",
+      "orgType": "Друга",
+      "relations": [
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "kind": "trustee",
+          "isCurrent": true
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 22658.11,
+      "paidEur": 19048.42
     },
     {
       "mpId": 3287,

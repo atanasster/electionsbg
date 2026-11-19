@@ -1,53 +1,35 @@
 {
   "obshtina": "SLV16",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-6.001-0010",
-      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в Маги мебел груп ЕООД",
+      "contractNumber": "BG16RFPR001-6.001-0029",
+      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в Агроконсулт Метал ООД",
       "type": "new",
-      "totalEur": 2555200,
+      "totalEur": 2555000,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Маги мебел груп ЕООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Агроконсулт Метал ООД",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG16FFPR003-2.006-0014",
-      "title": "Интегриран проект за икономически растеж, развитие на туризма, зелена икономика, устойчива градска мобилност и опазване на околната среда в Югоизточен регион",
+      "contractNumber": "BG16FFPR003-4.006-0049",
+      "title": "Подкрепа за производствени инвестиции в ЗММ- Нова Загора АД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 6416713.07,
-      "totalEur": 6355729.86,
-      "paidEur": 2245849.57,
+      "prevTotalEur": 1432704.27,
+      "totalEur": 1370350.61,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Нова загора",
-      "detectedAt": "2026-11-13"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0561",
-      "title": "Адаптиране на работната среда в \"Агроконсулт Метал\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 127988.64,
-      "totalEur": 127164.87,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Агроконсулт Метал ООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "ЗММ - Нова загора АД",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

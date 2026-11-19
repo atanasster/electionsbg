@@ -1,39 +1,70 @@
 {
   "obshtina": "PAZ08",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0080",
-      "title": "Иновативни здравно-социални услуги в община Велинград",
+      "contractNumber": "BG05SFPR001-3.010-0004",
+      "title": "Осъществяване на връзка на образованието с пазара на труда в сферата на туризма чрез развитие на дуалната система в ПОО",
+      "type": "new",
+      "totalEur": 227020.74,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по икономика и туризъм \"Алеко Константинов\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0024",
+      "title": "Топъл обяд в община Велинград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 330215.03,
-      "totalEur": 330215.03,
-      "paidEur": 199652.24,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "prevTotalEur": 367058.1,
+      "totalEur": 367058.1,
+      "paidEur": 341418.3,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Велинград",
-      "detectedAt": "2026-11-13"
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0138",
-      "title": "Изграждане на дигитален клуб в гр. Велинград",
+      "contractNumber": "BG-RRP-1.024-1154",
+      "title": "Изграждане на дигитален клуб в с. Пашови",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 26075.49,
-      "totalEur": 23519.03,
-      "paidEur": 23519.03,
+      "prevTotalEur": 14316.16,
+      "totalEur": 12367.19,
+      "paidEur": 12367.19,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Васил Левски-1904\"",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Народно читалище \"Пробуда - 1951 г.\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1093",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Виделина\" с. Грашево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 12320.08,
+      "totalEur": 10450.45,
+      "paidEur": 10450.45,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Виделина - 1946 г.\" с. Грашево",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

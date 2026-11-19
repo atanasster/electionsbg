@@ -1,7 +1,23 @@
 {
   "obshtina": "BLG13",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0010",
+      "title": "Топъл обяд в община Гърмен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 622287.13,
+      "totalEur": 622287.13,
+      "paidEur": 501988.66,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Гърмен",
+      "detectedAt": "2026-11-19"
+    },
     {
       "contractNumber": "BG05SFPR001-3.003-0001",
       "title": "\"Път към университета за ученици от уязвими групи\"",
@@ -11,12 +27,12 @@
       ],
       "prevTotalEur": 174628.72,
       "totalEur": 174628.72,
-      "paidEur": 69850.88,
+      "paidEur": 34925.44,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Фондация Българска Памет",
-      "detectedAt": "2026-11-13"
+      "detectedAt": "2026-11-19"
     }
   ]
 }

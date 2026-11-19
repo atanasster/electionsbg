@@ -1,23 +1,24 @@
 {
   "obshtina": "BGS23",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-1210",
-      "title": "Изграждане на дигитален клуб в Народно Читалище Христо Ботев - 1927г. в с. Грозден",
+      "contractNumber": "BG-RRP-1.015-1117",
+      "title": "Изграждане на училищна STEM среда в Средно училище „Христо Ботев“, град Сунгурларе",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 3592.94,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 176358.27,
+      "totalEur": 178394.1,
+      "paidEur": 176358.27,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище Христо Ботев - 1927 г.",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Средно училище \"Христо Ботев\"",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

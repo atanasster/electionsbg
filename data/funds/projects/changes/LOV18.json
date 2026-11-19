@@ -1,22 +1,108 @@
 {
   "obshtina": "LOV18",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-3.009-0019",
-      "title": "„Развитие на Център за високи постижения в професионалното образование и обучение в НПГВМ „Проф. д-р Димитър Димов“ – гр. Ловеч“",
+      "contractNumber": "BG16FFPR002-5.001-0009",
+      "title": "За по-чист въздух в община Ловеч, чрез подмяна на отоплителните уреди на твърдо гориво с екологични алтернативи",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1329343.81,
-      "totalEur": 1329343.81,
-      "paidEur": 265868,
+      "prevTotalEur": 13413071.74,
+      "totalEur": 13413071.74,
+      "paidEur": 960903.68,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Ловеч",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0104",
+      "title": "Близки и различни",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 225479.73,
+      "totalEur": 225479.73,
+      "paidEur": 28802.34,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Национална професионална гимназия по ветеринарна медицина \"Проф. д-р Д. Димов\" гр. Ловеч",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Сдружение \"ВИА хуманика\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1855",
+      "title": "Надграждане и обновяване на STEM център \"Наука и откривателство\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 139139.22,
+      "totalEur": 139402.22,
+      "paidEur": 139139.24,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Профилирана ПРИРОДО-МАТЕМАТИЧЕСКА гимназия - ловеч",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG16FFPR003-2.005-0023",
+      "title": "Техническа подкрепа за изпълнение на ИТИ инструмента в Община Ловеч",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 31378.45,
+      "totalEur": 23510.87,
+      "paidEur": 23510.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Ловеч",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0294",
+      "title": "Изграждане на дигитален клуб в читалище СВЕТЛИНА - 1927 г.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 14122.17,
+      "totalEur": 14106.83,
+      "paidEur": 14106.83,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина - 1927 г.",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1263",
+      "title": "Изграждане на дигитален клуб в Народно Читалище НАПРЕДЪК - 1920 г. в с. Баховица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 14134.56,
+      "totalEur": 13012.08,
+      "paidEur": 13012.08,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище Напредък - 1920 г.",
+      "detectedAt": "2026-11-19"
     }
   ]
 }

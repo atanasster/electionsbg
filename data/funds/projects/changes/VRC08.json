@@ -1,54 +1,112 @@
 {
   "obshtina": "VRC08",
-  "generatedAt": "2026-11-13T06:19:56.338Z",
+  "generatedAt": "2026-11-19T23:17:32.586Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-4.006-0005",
-      "title": "Превенция на риска от наводнения по поречието на река Скът на територията на Община Бяла Слатина",
+      "contractNumber": "BG05SFPR003-1.001-0118",
+      "title": "Топъл обяд в Община Бяла Слатина",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2151865.81,
-      "totalEur": 2151865.81,
-      "paidEur": 430373.16,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
+      "prevTotalEur": 2695694.67,
+      "totalEur": 2695694.67,
+      "paidEur": 2166381.27,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Бяла Слатина",
-      "detectedAt": "2026-11-13"
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0241",
-      "title": "Подкрепа на нови мощности за производство и съхранение на електроенергия на Солар Енерджи 2000 ЕООД",
+      "contractNumber": "BG-RRP-1.024-0335",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ НАПРЕДЪК-1898",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 492885.37,
-      "totalEur": 492885.37,
-      "paidEur": 219983.04,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 17383.93,
+      "totalEur": 16572.91,
+      "paidEur": 16572.91,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Солар енерджи 2000 ЕООД",
-      "detectedAt": "2026-11-13"
+      "beneficiaryName": "Народно читалище НАПРЕДЪК-1898",
+      "detectedAt": "2026-11-19"
     },
     {
-      "contractNumber": "BG05SFPR002-2.012-0100",
-      "title": "Иновативни здравно-социални услуги в община Бяла Слатина",
+      "contractNumber": "BG-RRP-1.024-0238",
+      "title": "изграждане на дигитален клуб за НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА - 1910 с.Галиче",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 300106.23,
-      "totalEur": 300106.23,
-      "paidEur": 202327.51,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Бяла Слатина",
-      "detectedAt": "2026-11-13"
+      "prevTotalEur": 17383.93,
+      "totalEur": 16307.41,
+      "paidEur": 16307.41,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище просвета - 1910",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1101",
+      "title": "Дигиталният свят - равен достъп за всички",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 20037.56,
+      "totalEur": 15576.29,
+      "paidEur": 15576.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Развитие-1892\"",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0446",
+      "title": "изграждане на дигитален клуб в Народни читалище Напредък 1897 - с.Попица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 13295.5,
+      "paidEur": 13295.5,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Напредък 1897 - с.Попица",
+      "detectedAt": "2026-11-19"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0031",
+      "title": "Изграждане на дигитален клуб \" НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА - 1927 - ВРАНЯК\" с.Враняк, община Бяла Слатина",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 12200.58,
+      "paidEur": 12200.58,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Народно читалище просвета - 1927 - враняк\"",
+      "detectedAt": "2026-11-19"
     }
   ]
 }
