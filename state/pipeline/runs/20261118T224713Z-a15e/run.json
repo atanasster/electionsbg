@@ -1,0 +1,767 @@
+{
+  "schema": 1,
+  "session": "20261118T224713Z-a15e",
+  "kind": "ingest",
+  "startedAt": "2026-11-18T22:47:14.911Z",
+  "git": {
+    "shaStart": "3a00edc733e127586fec619ba31f6bada6572dda",
+    "shaEnd": "8f1a35f2d6f139898818747118c0c8ca750a4a27"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country BG; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "egress:non-bg": {
+      "ok": false,
+      "detail": "exit IP country BG; parliament.bg, МО and ЦИК time out behind a Bulgarian exit"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 44 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 26.9 GB free (min 10); Docker VM 27.2 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-rollcall",
+      "status": "blocked",
+      "sources": [
+        "parliament_votes"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "egress:non-bg: exit IP country BG; parliament.bg, МО and ЦИК time out behind a Bulgarian exit"
+    },
+    {
+      "id": "update-polls",
+      "status": "skipped",
+      "sources": [
+        "polls_alpha_research"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "delegated to the update-polls runbook (not yet a script)"
+    },
+    {
+      "id": "tr-daily-refresh",
+      "status": "ok",
+      "sources": [
+        "egov_commerce"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "tr:daily-refresh › tsx ./scripts/declarations/tr/daily_refresh.ts",
+          "command": "tsx ./scripts/declarations/tr/daily_refresh.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 851607,
+          "medianMs": 452345,
+          "log": "logs/pipeline/20261118T224713Z-a15e/001-tr_daily-refresh_tsx_._scripts_declarations_tr_daily_refresh.ts.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 2,
+          "id": "tr:daily-refresh › db:pg:up",
+          "command": "pnpm run db:pg:up",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 786,
+          "medianMs": 676,
+          "log": "logs/pipeline/20261118T224713Z-a15e/002-tr_daily-refresh_db_pg_up.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 3,
+          "id": "tr:daily-refresh › db:load:tr:pg",
+          "command": "pnpm run db:load:tr:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 380077,
+          "medianMs": 172040,
+          "log": "logs/pipeline/20261118T224713Z-a15e/003-tr_daily-refresh_db_load_tr_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 4,
+          "id": "tr:daily-refresh › db:load:cr-founding:pg",
+          "command": "pnpm run db:load:cr-founding:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1123,
+          "medianMs": 612,
+          "log": "logs/pipeline/20261118T224713Z-a15e/004-tr_daily-refresh_db_load_cr-founding_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 5,
+          "id": "tr:daily-refresh › db:load:cr-nkid:pg",
+          "command": "pnpm run db:load:cr-nkid:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2399,
+          "medianMs": 562.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/005-tr_daily-refresh_db_load_cr-nkid_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 6,
+          "id": "tr:daily-refresh › db:load:graph:pg",
+          "command": "pnpm run db:load:graph:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 35104,
+          "medianMs": 18321.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/006-tr_daily-refresh_db_load_graph_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 7,
+          "id": "tr:daily-refresh › db:load:tr-company-place:pg",
+          "command": "pnpm run db:load:tr-company-place:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 29573,
+          "medianMs": 10722,
+          "log": "logs/pipeline/20261118T224713Z-a15e/007-tr_daily-refresh_db_load_tr-company-place_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 8,
+          "id": "db:load:company-founded:pg",
+          "command": "pnpm run db:load:company-founded:pg",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 954,
+          "medianMs": 542,
+          "log": "logs/pipeline/20261118T224713Z-a15e/008-db_load_company-founded_pg.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [],
+      "summary": "8 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-persons",
+      "status": "needs-operator",
+      "sources": [
+        "comdos_ds"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Verify the change at the official source and edit data/person/{sanctions,ds,regulators}.json by hand (defamation rules apply)."
+    },
+    {
+      "id": "update-procurement",
+      "status": "skipped",
+      "sources": [
+        "eop_procurement"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "delegated to the update-procurement runbook (not yet a script)"
+    },
+    {
+      "id": "update-budget",
+      "status": "needs-operator",
+      "sources": [
+        "capital_programs"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Download each changed município's capital programme and run its scripts/budget/capital_programs/<muni>.ts parser (OCR pre-step for scan sources), then scripts/budget/capital_programs/__shrink_for_tile.ts."
+    },
+    {
+      "id": "update-macro",
+      "status": "partial",
+      "sources": [
+        "eurostat",
+        "eurobarometer"
+      ],
+      "steps": [
+        {
+          "seq": 9,
+          "id": "fetch_eurostat",
+          "command": "pnpm exec tsx scripts/macro/fetch_eurostat.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 8444,
+          "medianMs": 19259,
+          "log": "logs/pipeline/20261118T224713Z-a15e/009-fetch_eurostat.log"
+        },
+        {
+          "seq": 10,
+          "id": "fetch_cofog",
+          "command": "pnpm exec tsx scripts/macro/fetch_cofog.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3481,
+          "medianMs": 3500,
+          "log": "logs/pipeline/20261118T224713Z-a15e/010-fetch_cofog.log"
+        },
+        {
+          "seq": 11,
+          "id": "fetch_eu_peers",
+          "command": "pnpm exec tsx scripts/macro/fetch_eu_peers.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6528,
+          "medianMs": 41999,
+          "log": "logs/pipeline/20261118T224713Z-a15e/011-fetch_eu_peers.log"
+        },
+        {
+          "seq": 12,
+          "id": "fetch_food_pli",
+          "command": "pnpm exec tsx scripts/macro/fetch_food_pli.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1924,
+          "medianMs": 1135,
+          "log": "logs/pipeline/20261118T224713Z-a15e/012-fetch_food_pli.log"
+        },
+        {
+          "seq": 13,
+          "id": "admin:build-context",
+          "command": "pnpm run admin:build-context",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 888,
+          "medianMs": 461.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/013-admin_build-context.log"
+        },
+        {
+          "seq": 14,
+          "id": "social:poverty_impact",
+          "command": "pnpm exec tsx scripts/social/fetch_poverty_impact.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1390,
+          "medianMs": 774.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/014-social_poverty_impact.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/administration/context.json",
+        "data/cofog.json",
+        "data/macro.json",
+        "data/macro_peers.json",
+        "data/social/poverty_impact.json"
+      ],
+      "summary": "6 step(s) ok",
+      "why": "marker not stamped: eurobarometer deferred to an operator item",
+      "stamped": false
+    },
+    {
+      "id": "update-defense",
+      "status": "needs-operator",
+      "sources": [
+        "mod_defense_report"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "pdftotext the МО state-of-defence report and hand-edit data/defense/readiness.json."
+    },
+    {
+      "id": "update-culture",
+      "status": "needs-operator",
+      "sources": [
+        "ncf_grant_results"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts."
+    },
+    {
+      "id": "update-transparency-lisi",
+      "status": "needs-operator",
+      "sources": [
+        "ti_bg_lisi"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Read the 27 scores and the average from lisi.transparency.bg and edit the LISI_<year> array in scripts/transparency/build_lisi.ts."
+    },
+    {
+      "id": "update-prices",
+      "status": "ok",
+      "sources": [
+        "kzp_prices"
+      ],
+      "steps": [
+        {
+          "seq": 15,
+          "id": "prices",
+          "command": "pnpm run prices",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 734900,
+          "medianMs": 432201.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/015-prices.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data-changes.json",
+        "data/prices/product_slugs.json"
+      ],
+      "summary": "1 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-council-minutes",
+      "status": "ok",
+      "sources": [
+        "council_minutes"
+      ],
+      "steps": [
+        {
+          "seq": 16,
+          "id": "council:scrape",
+          "command": "pnpm run council:scrape --per-councillor",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 607159,
+          "medianMs": 647512,
+          "log": "logs/pipeline/20261118T224713Z-a15e/016-council_scrape.log"
+        },
+        {
+          "seq": 17,
+          "id": "db:load:council:pg",
+          "command": "pnpm run db:load:council:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3437,
+          "medianMs": 3126,
+          "log": "logs/pipeline/20261118T224713Z-a15e/017-db_load_council_pg.log"
+        },
+        {
+          "seq": 18,
+          "id": "council:index_corpus.test",
+          "command": "pnpm exec vitest run scripts/council/lib/index_corpus.test.ts",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 10503,
+          "medianMs": 9013,
+          "log": "logs/pipeline/20261118T224713Z-a15e/018-council_index_corpus.test.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/council/GAB05/2026/GAB05-2026-prot7-r105.json",
+        "data/council/GAB05/2026/GAB05-2026-prot7-r106.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r422.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r423.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r424.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r425.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r426.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r427.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r428.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r429.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r430.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r431.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r432.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r433.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r434.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r435.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r436.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r437.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r438.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r439.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r440.json",
+        "data/council/PDV01/2026/PDV01-2026-prot18-r441.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1176.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1177.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1178.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1179.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1184.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1185.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1186.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1187.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1190.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1191.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1193.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1194.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1195.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1197.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1198.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1199.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1200.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1201.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1202.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r1203.json",
+        "data/council/PER32/2026/PER32-2026-prot11-r133.json",
+        "data/council/index.json",
+        "data/council/votes/GAB05.json",
+        "data/council/votes/PER32.json",
+        "state/ingest/council_BGS01.json",
+        "state/ingest/council_DOB28.json",
+        "state/ingest/council_GAB05.json",
+        "state/ingest/council_HKV09.json",
+        "state/ingest/council_HKV34.json",
+        "state/ingest/council_PDV01.json",
+        "state/ingest/council_PER32.json",
+        "state/ingest/council_PVN01.json",
+        "state/ingest/council_RAZ26.json",
+        "state/ingest/council_RSE01.json",
+        "state/ingest/council_SLV01.json",
+        "state/ingest/council_SOF.json",
+        "state/ingest/council_SZR01.json",
+        "state/ingest/council_SZR12.json",
+        "state/ingest/council_VAR01.json",
+        "state/ingest/council_VTR01.json"
+      ],
+      "summary": "3 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "oecd_family_leave",
+      "status": "needs-operator",
+      "sources": [
+        "oecd_family_leave"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "OECD family-leave table moved: review the simulator anchors and edit the curated constants."
+    },
+    {
+      "id": "imf_weo_bg",
+      "status": "needs-operator",
+      "sources": [
+        "imf_weo_bg"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "A new IMF WEO vintage: update the curated forecast rows."
+    },
+    {
+      "id": "fiscal_council_bg",
+      "status": "needs-operator",
+      "sources": [
+        "fiscal_council_bg"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "A new Fiscal Council opinion: check whether any simulator lever is affected."
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 19,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 25507,
+          "medianMs": 13337.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/019-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 20,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 8669,
+          "medianMs": 5517.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/020-data_map.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data_map.json"
+      ]
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 21,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 685,
+          "medianMs": 623.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/021-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 22,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 620,
+          "medianMs": 232,
+          "log": "logs/pipeline/20261118T224713Z-a15e/022-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 23,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 21176,
+          "medianMs": 7537.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/023-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 24,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 5607,
+          "medianMs": 4235,
+          "log": "logs/pipeline/20261118T224713Z-a15e/024-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 25,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1438,
+          "medianMs": 1134.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/025-db_gen-home-feed.log"
+        },
+        {
+          "seq": 26,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 537,
+          "medianMs": 457.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/026-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/home/feed.json",
+        "data/home/flyover.json",
+        "data/home/hub_stats.json",
+        "data/home/price_events.json"
+      ]
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 27,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 649,
+          "medianMs": 785.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/027-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 28,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1353,
+          "medianMs": 1199.5,
+          "log": "logs/pipeline/20261118T224713Z-a15e/028-db_check-cloud.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    }
+  ],
+  "needsOperator": [
+    {
+      "unit": "update-polls",
+      "id": "polls-accept-inbox",
+      "instruction": "Review data/polls/_inbox drafts with no built extractor and `pnpm run polls:accept <id>` the ones the evidence supports."
+    },
+    {
+      "unit": "update-persons",
+      "id": "curated-person-registers",
+      "instruction": "Verify the change at the official source and edit data/person/{sanctions,ds,regulators}.json by hand (defamation rules apply)."
+    },
+    {
+      "unit": "update-budget",
+      "id": "capital-programmes",
+      "instruction": "Download each changed município's capital programme and run its scripts/budget/capital_programs/<muni>.ts parser (OCR pre-step for scan sources), then scripts/budget/capital_programs/__shrink_for_tile.ts."
+    },
+    {
+      "unit": "update-macro",
+      "id": "eurobarometer-paste",
+      "instruction": "Read QA6 from the new Standard Eurobarometer and paste it into fetch_eurostat.ts."
+    },
+    {
+      "unit": "update-defense",
+      "id": "defense-readiness-read",
+      "instruction": "pdftotext the МО state-of-defence report and hand-edit data/defense/readiness.json."
+    },
+    {
+      "unit": "update-culture",
+      "id": "ncf-grant-results-url",
+      "instruction": "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts."
+    },
+    {
+      "unit": "update-transparency-lisi",
+      "id": "lisi-scores-paste",
+      "instruction": "Read the 27 scores and the average from lisi.transparency.bg and edit the LISI_<year> array in scripts/transparency/build_lisi.ts.",
+      "url": "https://lisi.transparency.bg/"
+    },
+    {
+      "unit": "oecd_family_leave",
+      "id": "oecd_family_leave-manual",
+      "instruction": "OECD family-leave table moved: review the simulator anchors and edit the curated constants."
+    },
+    {
+      "unit": "imf_weo_bg",
+      "id": "imf_weo_bg-manual",
+      "instruction": "A new IMF WEO vintage: update the curated forecast rows."
+    },
+    {
+      "unit": "fiscal_council_bg",
+      "id": "fiscal_council_bg-manual",
+      "instruction": "A new Fiscal Council opinion: check whether any simulator lever is affected."
+    }
+  ],
+  "needsAgent": [
+    {
+      "unit": "update-polls",
+      "id": "run-runbook",
+      "instruction": "Run update-polls for polls_alpha_research. Planned steps: pnpm exec tsx scripts/polls/backlog.ts → pnpm run polls:fetch → pnpm run polls:extract → pnpm run polls:review --prepare → pnpm run polls:crosscheck → pnpm run polls:analyze → pnpm run polls:analyze --race presidential → pnpm run polls:presidential:coverage.",
+      "doc": ".claude/skills/update-polls/SKILL.md"
+    },
+    {
+      "unit": "update-procurement",
+      "id": "run-runbook",
+      "instruction": "Run update-procurement for eop_procurement. Planned steps: pnpm exec tsx scripts/procurement/ingest_eop.ts --self-heal --apply → pnpm run procurement:ingest → pnpm exec tsx scripts/procurement/ingest_tenders.ts --apply → pnpm exec tsx scripts/procurement/eop_field_map.ts --apply → pnpm exec tsx scripts/procurement/by_id_shards.ts → pnpm exec tsx scripts/procurement/ingest_anexi.ts → pnpm exec tsx scripts/procurement/anexi_current_value.ts --apply → pnpm run proc:backfill-unp:apply → pnpm run proc:reconcile:apply → pnpm exec tsx scripts/procurement/rebuild_from_cache.ts → pnpm exec tsx scripts/procurement/contract_index.ts → pnpm exec tsx scripts/procurement/rebuild_derived.ts → pnpm run db:refresh.",
+      "doc": ".claude/skills/update-procurement/SKILL.md"
+    }
+  ],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261118T224713Z-a15e/027-db_check-generated.log"
+  ],
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-19T00:18:41.106Z",
+  "verdict": "degraded",
+  "published": {
+    "exitCode": 0,
+    "report": "state/pipeline/runs/20261118T233305Z-7645/report.md"
+  }
+}
