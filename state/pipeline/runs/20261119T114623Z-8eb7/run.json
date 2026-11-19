@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "session": "20261119T114623Z-8eb7",
+  "kind": "publish",
+  "startedAt": "2026-11-19T11:46:23.284Z",
+  "git": {
+    "shaStart": "1383c6b2f229a68e20b4d16fe206deae408df069",
+    "shaEnd": "1383c6b2f229a68e20b4d16fe206deae408df069"
+  },
+  "env": {
+    "proxy": {
+      "ok": true,
+      "detail": "up"
+    }
+  },
+  "units": [
+    {
+      "id": "bucket",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "bucket:sync:paths:dry",
+          "command": "pnpm run bucket:sync:paths:dry parliament/votes parliament/votes/derived/hub_stats.json data_map.json home governance/hub_stats.json home/feed.json",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 10635,
+          "medianMs": 3014,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/001-bucket_sync_paths_dry.log"
+        },
+        {
+          "seq": 2,
+          "id": "bucket:sync:paths parliament/votes",
+          "command": "pnpm run bucket:sync:paths parliament/votes",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3569,
+          "medianMs": 4246,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/002-bucket_sync_paths_parliament_votes.log"
+        },
+        {
+          "seq": 3,
+          "id": "bucket:sync:paths parliament/votes/derived/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths parliament/votes/derived/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2930,
+          "medianMs": 1469,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/003-bucket_sync_paths_parliament_votes_derived_hub_stats.json.log"
+        },
+        {
+          "seq": 4,
+          "id": "bucket:sync:paths data_map.json",
+          "command": "pnpm run bucket:sync:paths data_map.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3494,
+          "medianMs": 1638.5,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/004-bucket_sync_paths_data_map.json.log"
+        },
+        {
+          "seq": 5,
+          "id": "bucket:sync:paths home",
+          "command": "pnpm run bucket:sync:paths home",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3442,
+          "medianMs": 1814,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/005-bucket_sync_paths_home.log"
+        },
+        {
+          "seq": 6,
+          "id": "bucket:sync:paths governance/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths governance/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2630,
+          "medianMs": 1507,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/006-bucket_sync_paths_governance_hub_stats.json.log"
+        },
+        {
+          "seq": 7,
+          "id": "bucket:sync:paths home/feed.json",
+          "command": "pnpm run bucket:sync:paths home/feed.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1879,
+          "medianMs": 1533,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/007-bucket_sync_paths_home_feed.json.log"
+        },
+        {
+          "seq": 8,
+          "id": "bucket:gz",
+          "command": "pnpm run bucket:gz",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 192429,
+          "medianMs": 137371.5,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/008-bucket_gz.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 9,
+          "id": "db:load:rollcall:pg:cloud",
+          "command": "pnpm run db:load:rollcall:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 202356,
+          "medianMs": 181999,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/009-db_load_rollcall_pg_cloud.log"
+        },
+        {
+          "seq": 10,
+          "id": "db:load:rollcall-derived:pg:cloud",
+          "command": "pnpm run db:load:rollcall-derived:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 234420,
+          "medianMs": 217110.5,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/010-db_load_rollcall-derived_pg_cloud.log"
+        },
+        {
+          "seq": 11,
+          "id": "myarea:alerts:cloud",
+          "command": "pnpm run myarea:alerts:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 20977,
+          "medianMs": 19886,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/011-myarea_alerts_cloud.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "verify",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 12,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 910,
+          "medianMs": 879,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/012-db_check-generated.log"
+        },
+        {
+          "seq": 13,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1221,
+          "medianMs": 1109.5,
+          "log": "logs/pipeline/20261119T114623Z-8eb7/013-db_check-cloud.log"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [],
+  "manifestDigest": "562d6100ddf8e5e1",
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-19T11:57:44.300Z",
+  "verdict": "clean"
+}
