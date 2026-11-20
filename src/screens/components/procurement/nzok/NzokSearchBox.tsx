@@ -39,7 +39,6 @@ import {
 import { entityGroup } from "@/screens/components/search/entityGroups";
 import { buildEntityIndex } from "@/lib/entitySearchIndex";
 import { decodeEntities } from "@/lib/decodeEntities";
-import { companyAllTimeHref } from "@/screens/components/search/procurementSearchSource";
 import {
   useNzokDrugQuarterly,
   useNzokDrugPackIndex,
@@ -48,7 +47,8 @@ import {
   useNzokProcedureNames,
 } from "@/data/budget/useBudget";
 import { resolveProcedureName } from "@/lib/nzokProcedures";
-import { packHref, moleculeHref } from "./drugLinks";
+import { packHref } from "./drugLinks";
+import { nzokHospitalIndex, nzokMoleculeIndex } from "./nzokSearchIndexes";
 
 export const NzokSearchBox: FC = () => {
   const [armed, setArmed] = useState(false);
@@ -65,72 +65,16 @@ export const NzokSearchBox: FC = () => {
   const { data: procIndex } = useNzokProcedureIndex(armed);
   const { data: procedureNames } = useNzokProcedureNames();
 
-  // Hospitals. The facility list carries 381 rows but only 266 have an EIK, and
-  // /company/:eik is the only destination — FacilityLink already renders the
-  // other 115 as plain text for exactly that reason. They are EXCLUDED rather
-  // than offered as dead rows; the footnote says so.
-  const hospitals = useMemo(() => {
-    if (!armed || !payments) return null;
-    const byEik = new Map<
-      string,
-      { eik: string; name: string; place: string; eur: number; top: number }
-    >();
-    for (const h of payments.hospitals) {
-      if (!h.eik) continue;
-      const eur = h.cumulativeEur ?? 0;
-      const prev = byEik.get(h.eik);
-      if (!prev) {
-        byEik.set(h.eik, {
-          eik: h.eik,
-          name: decodeEntities(h.name),
-          place: h.rzokName ?? "",
-          eur,
-          top: eur,
-        });
-        continue;
-      }
-      // A company can run several ЛЗ facilities: sum the money, label with the
-      // BIGGEST facility. `top` tracks that separately — comparing against the
-      // running SUM would let the largest lose once a company has three sites,
-      // and it only looked right because the source happens to arrive sorted.
-      prev.eur += eur;
-      if (eur > prev.top) {
-        prev.top = eur;
-        prev.name = decodeEntities(h.name);
-        prev.place = h.rzokName ?? "";
-      }
-    }
-    return buildEntityIndex(
-      [...byEik.values()],
-      (h) => ({
-        id: h.eik,
-        label: h.name,
-        sub: h.place,
-        // ⚠️ ALL-TIME, because that is what this row IS. These are ranked by
-        // `cumulativeEur` — the facility's whole НЗОК reimbursement history, not a
-        // windowed figure — and a bare `/company/:eik` navigates with an empty query
-        // string, i.e. onto the selected parliament's window. The row would then order
-        // by one period and land on another.
-        href: companyAllTimeHref(h.eik),
-      }),
-      (h) => [h.name, h.place, h.eik],
-      (h) => h.eur,
-    );
-  }, [armed, payments]);
-
-  // Molecules (INN). All 610 resolve since the two-tier widening of
-  // nzok_drug_molecule_detail(); before that only 30 did.
-  const molecules = useMemo(() => {
-    if (!armed || !quarterly) return null;
-    const totalByInn = new Map<string, number>();
-    for (const t of quarterly.top) totalByInn.set(t.inn, t.totalEur);
-    return buildEntityIndex(
-      quarterly.allInns,
-      (inn) => ({ id: inn, label: inn, href: moleculeHref(inn) }),
-      (inn) => [inn],
-      (inn) => totalByInn.get(inn) ?? 0,
-    );
-  }, [armed, quarterly]);
+  // Hospitals and molecules: the shared folds (nzokSearchIndexes.ts — one
+  // row per EIK, all-time hrefs; every INN resolves).
+  const hospitals = useMemo(
+    () => (armed && payments ? nzokHospitalIndex(payments) : null),
+    [armed, payments],
+  );
+  const molecules = useMemo(
+    () => (armed && quarterly ? nzokMoleculeIndex(quarterly) : null),
+    [armed, quarterly],
+  );
 
   // Packs — trade name is what a reader actually knows ("Keytruda"), so it is
   // the label and the INN is the sub-line.

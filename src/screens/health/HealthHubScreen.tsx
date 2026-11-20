@@ -10,12 +10,22 @@
 // (db:gen-health-hub-stats). The hub is UNSCOPED; only /procurement is scoped,
 // so only its links carry `?pscope=all`.
 
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { isBg } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { useHealthHubStats } from "@/data/health/hubStats";
+import {
+  useNzokDrugQuarterly,
+  useNzokHospitalPayments,
+} from "@/data/budget/useBudget";
+import { HubSearch } from "@/ux/search/HubSearch";
+import {
+  nzokHospitalIndex,
+  nzokMoleculeIndex,
+} from "@/screens/components/procurement/nzok/nzokSearchIndexes";
+import { healthSearchSources } from "./healthSearch";
 import { HEALTH_BANDS, HEALTH_HUB_COPY } from "./healthRegistry";
 import { HEALTH_SCENES } from "./healthScenes";
 import {
@@ -46,6 +56,45 @@ export const HealthHubScreen: FC = () => {
     const e = HEALTH_HUB_COPY[k];
     return e ? (bg ? e.bg : e.en) : k;
   };
+
+  // The two НЗОК payloads the finder searches are NOT part of the hub's own
+  // load: fetched only once the reader focuses the box.
+  const [armed, setArmed] = useState(false);
+  const arm = useCallback(() => setArmed(true), []);
+  const payments = useNzokHospitalPayments(armed);
+  const quarterly = useNzokDrugQuarterly(armed);
+  const hospitals = useMemo(
+    () => (payments.data?.hospitals ? nzokHospitalIndex(payments.data) : null),
+    [payments.data],
+  );
+  const molecules = useMemo(
+    () => (quarterly.data?.allInns ? nzokMoleculeIndex(quarterly.data) : null),
+    [quarterly.data],
+  );
+  // HubSearch diffs `sources` by identity, so rebuild only when an input
+  // changes — never per render.
+  const sources = useMemo(
+    () =>
+      healthSearchSources({
+        stats,
+        hospitals,
+        hospitalsLoading: armed && payments.isPending,
+        molecules,
+        moleculesLoading: armed && quarterly.isPending,
+        lang,
+        bg,
+      }),
+    [
+      stats,
+      hospitals,
+      molecules,
+      armed,
+      payments.isPending,
+      quarterly.isPending,
+      lang,
+      bg,
+    ],
+  );
 
   const kpis = useMemo(() => healthHubKpis(stats, lang, bg), [stats, lang, bg]);
   const evidence = useMemo(
@@ -94,6 +143,25 @@ export const HealthHubScreen: FC = () => {
         kpisPending={isPending ? 4 : undefined}
         kpiNote={kpis.length || isPending ? healthKpiNote(bg) : undefined}
         evidence={evidence}
+        search={
+          <HubSearch
+            idPrefix="health-finder"
+            sources={sources}
+            onArm={arm}
+            title={{
+              bg: "Търси в здравеопазването",
+              en: "Search healthcare",
+            }}
+            placeholder={{
+              bg: "болница, лекарство, институция…",
+              en: "hospital, medicine, institution…",
+            }}
+            hint={{
+              bg: "Институциите, болниците и лекарствата се търсят в сектора; фирмите и договорите — в целия регистър. Лечебните заведения без ЕИК нямат отделна страница и не се търсят.",
+              en: "Institutions, hospitals and medicines are searched in the sector; companies and contracts across the whole register. Facilities without an EIK have no page of their own and are not searchable.",
+            }}
+          />
+        }
       />
       {/* HubHead drops the band when it has no figures; without this a failed or
           absent blob just removes the head's numbers, with nothing saying why. */}

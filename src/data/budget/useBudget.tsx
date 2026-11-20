@@ -458,9 +458,10 @@ export const useNzokExecutionHistory = () =>
 // nzok_hospital_payments corpus (/api/db, migration 045) instead of the static
 // snapshot: the table is multi-period so the tile can grow momentum/history.
 // Drives the health pack's hospital-ranking tile.
-export const useNzokHospitalPayments = () =>
+export const useNzokHospitalPayments = (enabled = true) =>
   useQuery({
     queryKey: ["nzok", "hospital-payments"] as const,
+    enabled,
     queryFn: () =>
       fetchDb<NzokHospitalPaymentsFile>("/api/db/nzok-hospital-payments"),
     staleTime: Infinity,
@@ -648,9 +649,10 @@ export const useNzokDrugSavings = () =>
 // Per-INN QUARTERLY reimbursement trend (migration 066): national curve + the top
 // molecules' quarterly series — the multi-period drug view a one-year corpus can't
 // draw. null-body until the corpus is loaded.
-export const useNzokDrugQuarterly = () =>
+export const useNzokDrugQuarterly = (enabled = true) =>
   useQuery({
     queryKey: ["nzok", "drug-quarterly"] as const,
+    enabled,
     queryFn: () =>
       fetchDb<NzokDrugQuarterlyFile>("/api/db/nzok-drug-quarterly"),
     staleTime: Infinity,
