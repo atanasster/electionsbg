@@ -27,7 +27,7 @@ describe("SectorMembersSearch — its label counts institutions too", () => {
     const { SectorMembersSearch } = await import("./SectorMembersSearch");
     render(
       <MemoryRouter>
-        <SectorMembersSearch config={SECTOR_DASHBOARDS.edu} />
+        <SectorMembersSearch config={SECTOR_DASHBOARDS.edu} bg />
       </MemoryRouter>,
     );
     expect(
