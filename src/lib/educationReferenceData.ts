@@ -394,6 +394,18 @@ export const EDU_VERIFY: ReadonlyArray<{
   { eik: "131275351", name: "Център за развитие на човешките ресурси и регионални инициативи (ЦРЧРРИ)", kind: "other" }, // prettier-ignore
 ];
 
+/** State bodies a roster member pays under a FINANCING AGREEMENT that the register
+ *  books as a contract (edu-hub-v1 A10): ИА „Програма за образование" → ФМФИ,
+ *  €13.91M, 0 tenderers, 2024-09-23 — a transfer between state bodies, not a market
+ *  purchase. Disclosed beside the headline, never netted out of it (the transport
+ *  D5 rule: the register says it is a contract, and the € did leave the body). */
+export const EDU_STATE_TRANSFER_CONTRACTORS: ReadonlyArray<{
+  eik: string;
+  name: string;
+}> = [
+  { eik: "203740812", name: "Фонд мениджър на финансови инструменти в България ЕАД" }, // prettier-ignore
+];
+
 /** ADJACENT — a real education body whose budget principal is NOT МОН (D4). Shown on
  *  /sector/edu/bodies, never summed, never denied. */
 export const EDU_ADJACENT: ReadonlyArray<{

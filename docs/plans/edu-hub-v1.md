@@ -232,18 +232,22 @@ Copy is inline `{bg,en}` in `eduRegistry.ts`, as in roads/water/transport (no co
 - Top-contracts sort `NULLS LAST` + coverage line (A9), only if the shared engine does not
   already do it.
 - Same-procurement grouping for A14 (one row with its lots). Measured in T1: the purchase is
-  FOUR lots under УНП 00165-2021-0004, not three (Кейсием €6.09M is the fourth), €68.07M in
-  total. The engine already excludes NULL amounts and sorts `NULLS LAST`, so A9 needs only the
+  FOUR lots under УНП 00165-2021-0004 on 2021-05-18 (€68.07M), and SIX with the June/July lots
+  (Кейсием's €1.46M among them), €75.40M in total — the hub folds the whole УНП (T2 review FINDING-001). The engine already excludes NULL amounts and sorts `NULLS LAST`, so A9 needs only the
   coverage line (T2/T3).
 
 ### T2: hub blob
 `scripts/db/gen_edu/hub_stats.ts` → `data/education/derived/hub_stats.json` (or
 `sector/edu/…`; check `bucket_sync_paths.isExcluded` first, skill §11 rule 2):
-- KPI 1–4 per scope, with numerator/denominator un-divided;
+- KPI 1–4 for the WHOLE corpus, with numerator/denominator un-divided. The hub is unscoped
+  (§3), so v1 ships no per-scope map; the scoped sub-pages compute their figures and their
+  same-window baseline live (`awarder-group-rollup?exMembers=1` + `national_competition`)
+  (T2 review FINDING-003);
 - `firstDate`/`lastDate`;
 - per-universe split, in-group € (A11), state-body transfers (A10);
 - school-bus figures (A13);
-- same-window national baseline via `national_competition(from,to)` (167).
+- national baseline via `national_competition(NULL,NULL)` (167), i.e. the same (whole-corpus)
+  window as the figure.
 
 Register it in `REFRESH_GENERATORS` with `bucketPath` and put it in the `db:refresh` chain after
 its last input (`fund_projects`, i.e. after `db:load:funds:pg`; budget nodes).
