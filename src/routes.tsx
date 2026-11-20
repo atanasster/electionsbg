@@ -379,6 +379,33 @@ const TransportMoneyScreen = lazy(() =>
     default: m.TransportMoneyScreen,
   })),
 );
+// The healthcare sector hub and its four sub-pages
+// (docs/plans/health-hub-v1.md T3) — literal routes ahead of sector/:id.
+const HealthHubScreen = lazy(() =>
+  import("./screens/health/HealthHubScreen").then((m) => ({
+    default: m.HealthHubScreen,
+  })),
+);
+const HealthHospitalsScreen = lazy(() =>
+  import("./screens/health/HealthHospitalsScreen").then((m) => ({
+    default: m.HealthHospitalsScreen,
+  })),
+);
+const HealthDrugsScreen = lazy(() =>
+  import("./screens/health/HealthDrugsScreen").then((m) => ({
+    default: m.HealthDrugsScreen,
+  })),
+);
+const HealthProcurementScreen = lazy(() =>
+  import("./screens/health/HealthProcurementScreen").then((m) => ({
+    default: m.HealthProcurementScreen,
+  })),
+);
+const HealthMoneyScreen = lazy(() =>
+  import("./screens/health/HealthMoneyScreen").then((m) => ({
+    default: m.HealthMoneyScreen,
+  })),
+);
 // The education-and-science sector hub and its three sub-pages
 // (docs/plans/edu-hub-v1.md T3) — literal routes ahead of sector/:id.
 const EduHubScreen = lazy(() =>
@@ -2358,6 +2385,49 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <TransportMoneyScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The healthcare hub and its four sub-pages
+              (docs/plans/health-hub-v1.md T3). They win over sector/:id, whose
+              SECTOR_DASHBOARDS.health entry is now INERT. */}
+          <Route
+            path="sector/health"
+            element={
+              <LayoutScreen>
+                <HealthHubScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/health/hospitals"
+            element={
+              <LayoutScreen>
+                <HealthHospitalsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/health/drugs"
+            element={
+              <LayoutScreen>
+                <HealthDrugsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/health/procurement"
+            element={
+              <LayoutScreen>
+                <HealthProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/health/money"
+            element={
+              <LayoutScreen>
+                <HealthMoneyScreen />
               </LayoutScreen>
             }
           />

@@ -301,6 +301,13 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       })),
     ),
   },
+  // ⚠ INERT (docs/plans/health-hub-v1.md T3) — the roads/transport/edu
+  // precedent. /sector/health is the bespoke HealthHubScreen, routed as a static
+  // literal ahead of sector/:id, so this entry no longer renders and the НЗОК
+  // pack's tiles now sit on /sector/health/{hospitals,drugs,money}. It stays
+  // COMPLETE on purpose: the sitemap slug, the prerender guard, `agency`
+  // matching sectorRegistry and the `leadEik` cross-link all read it.
+  //
   // Здравеопазване — НЗОК (pays for care) + МЗ (builds and equips it). The
   // hub HEADLINE stays НЗОК-only payout on purpose: summing МЗ's budget onto it
   // would mix bases and double-count the state transfer that part-funds НЗОК.

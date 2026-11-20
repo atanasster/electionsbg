@@ -42,6 +42,10 @@ export const ENGLISH_STATIC_PAGES = [
   "sector/edu/procurement",
   "sector/edu/bodies",
   "sector/edu/money",
+  "sector/health/hospitals",
+  "sector/health/drugs",
+  "sector/health/procurement",
+  "sector/health/money",
   "subsidies/browse",
   "subsidies/places",
   "subsidies/recipients",
@@ -264,6 +268,11 @@ export const routeDefs = (year: string): RouteDefs => [
   ...["procurement", "bodies", "money"].map((sub) => ({
     path: `sector/edu/${sub}`,
     file: `data/education/derived/hub_stats.json`,
+  })),
+  // The healthcare hub's four sub-pages (docs/plans/health-hub-v1.md T3).
+  ...["hospitals", "drugs", "procurement", "money"].map((sub) => ({
+    path: `sector/health/${sub}`,
+    file: `data/health/derived/hub_stats.json`,
   })),
   {
     path: "subsidies/browse",

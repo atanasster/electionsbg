@@ -94,6 +94,7 @@ import {
   WATER_SECTOR_EIKS,
   VIK_HOLDING_SUB_EIKS,
 } from "@/lib/vikReferenceData";
+import { HEALTH_INSTITUTION_COUNT } from "@/lib/healthReferenceData";
 import {
   EDU_INSTITUTION_COUNT,
   EDUCATION_EXTERNAL_HIGHER_SCHOOLS,
@@ -514,6 +515,66 @@ const eduFacts = (() => {
       p.nationalSingleBid - p.singleBid,
       p.nationalBidKnown - p.bidKnown,
     ),
+    grantBnBg: bn(s.euFunds.grantEur, "bg-BG"),
+    grantBnEn: bn(s.euFunds.grantEur, "en-US"),
+  };
+})();
+
+// The /sector/health prerender bodies quote figures from the committed hub blob
+// (data/health/derived/hub_stats.json, db:gen-health-hub-stats) — never literals.
+// The single-bid baseline is „every OTHER buyer" (national − sector), the pair the
+// hub's KPI uses; the framework ceilings are quoted apart, never summed (D3).
+const healthFacts = (() => {
+  const s = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/health/derived/hub_stats.json"),
+      "utf-8",
+    ),
+  ) as {
+    year: number;
+    nzok: { expenditureEur: number };
+    payments: { careEur: number; careFacilities: number };
+    medicines: { eur: number; inns: number };
+    procurement: {
+      eur: number;
+      contracts: number;
+      singleBid: number;
+      bidKnown: number;
+      nationalSingleBid: number;
+      nationalBidKnown: number;
+      frameworkCeilingEur: number;
+      firstDate: string | null;
+      lastDate: string | null;
+    };
+    euFunds: { grantEur: number };
+  };
+  const bn = (v: number, loc: string) =>
+    (v / 1e9).toLocaleString(loc, { maximumFractionDigits: 2 });
+  const pct = (n: number, d: number) =>
+    d > 0 ? `${Math.round((n / d) * 100)}%` : "";
+  const p = s.procurement;
+  return {
+    year: s.year,
+    nzokBnBg: bn(s.nzok.expenditureEur, "bg-BG"),
+    nzokBnEn: bn(s.nzok.expenditureEur, "en-US"),
+    careBnBg: bn(s.payments.careEur, "bg-BG"),
+    careBnEn: bn(s.payments.careEur, "en-US"),
+    hospitals: s.payments.careFacilities,
+    drugsBnBg: bn(s.medicines.eur, "bg-BG"),
+    drugsBnEn: bn(s.medicines.eur, "en-US"),
+    inns: s.medicines.inns,
+    procBnBg: bn(p.eur, "bg-BG"),
+    procBnEn: bn(p.eur, "en-US"),
+    contracts: p.contracts,
+    from: p.firstDate?.slice(0, 4) ?? "",
+    to: p.lastDate?.slice(0, 4) ?? "",
+    singleBidPct: pct(p.singleBid, p.bidKnown),
+    othersPct: pct(
+      p.nationalSingleBid - p.singleBid,
+      p.nationalBidKnown - p.bidKnown,
+    ),
+    frameworkBnBg: bn(p.frameworkCeilingEur, "bg-BG"),
+    frameworkBnEn: bn(p.frameworkCeilingEur, "en-US"),
     grantBnBg: bn(s.euFunds.grantEur, "bg-BG"),
     grantBnEn: bn(s.euFunds.grantEur, "en-US"),
   };
@@ -1142,28 +1203,8 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "The Ministry of Tourism is mostly an advertiser: about half of its ~€28.8M in public procurement is advertising and media by CPV — media buying, TV air-time and PR. This page summarises its tenders for the selected parliament or the full history.",
     },
   },
-  {
-    id: "health",
-    eik: "121858220",
-    bg: {
-      title: "Здравеопазване — обществените поръчки на НЗОК | Наясно",
-      description:
-        "Обществените поръчки на Националната здравноосигурителна каса (НЗОК): общо възложени, изпълнители и разбивка по договори, категории и процедури.",
-      breadcrumb: "Здравеопазване",
-      h1: "Здравеопазване — обществените поръчки на НЗОК",
-      intro:
-        "Националната здравноосигурителна каса администрира ~5,26 млрд. € за 2026 г.; обществените поръчки са ~1,5% от тях — останалото (болници, лекарства, лекари) се плаща извън ЗОП. Тази страница обобщава поръчките на касата.",
-    },
-    en: {
-      title: "Health — the NHIF's public procurement | Naiasno",
-      description:
-        "The public procurement of Bulgaria's National Health Insurance Fund (NHIF): total awarded, contractors and the breakdown by contracts, categories and procedures.",
-      breadcrumb: "Health",
-      h1: "Health — the NHIF's public procurement",
-      intro:
-        "The National Health Insurance Fund administers ~€5.26bn in 2026; public procurement is ~1.5% of it — the rest (hospitals, drugs, doctors) is paid outside the procurement law. This page summarises the fund's tenders.",
-    },
-  },
+  // `health` is a BESPOKE hub since health-hub-v1 T3 — its five pages are
+  // healthStaticPages() below, not a SECTOR_PAGES entry.
   {
     id: "energy",
     eik: "831373560",
@@ -1377,7 +1418,12 @@ const sectorBody = (c: SectorPageContent, lang: "bg" | "en"): string => {
 // have NO SECTOR_PAGES entry (the generic template would emit a second
 // `sector/<id>` route — last wins, silently). They stay in SECTOR_DASHBOARD_IDS
 // for the sitemap slug and the dashboard registry (plan B1).
-const BESPOKE_SECTOR_PAGE_IDS = new Set(["roads", "transport", "edu"]);
+const BESPOKE_SECTOR_PAGE_IDS = new Set([
+  "roads",
+  "transport",
+  "edu",
+  "health",
+]);
 
 // Fail the build if a graduated sector dashboard has no prerender copy here —
 // otherwise it would ship without prerendered HTML (crawlers never see its
@@ -1915,6 +1961,190 @@ ${up(false)}`.trim(),
 ${up(true)}`.trim(),
       },
     }),
+  ];
+};
+
+/** /sector/health and its four sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
+ *  Plan: docs/plans/health-hub-v1.md T3. Every figure comes from healthFacts (the
+ *  committed hub blob). Each <h1> equals the screen's own heading (HealthHubScreen
+ *  / HealthPageFrame titles). English heads name the bodies in English — no
+ *  Cyrillic acronyms in an /en <title> (the edu lesson). */
+const healthStaticPages = (): PrerenderRoute[] => {
+  const f = healthFacts;
+  const span = f.from && f.to ? `${f.from}–${f.to}` : "";
+  const og = "/og/sector-health.png";
+  const links = (en: boolean) => {
+    const b = `${SITE_URL}${en ? "/en" : ""}/sector/health`;
+    return en
+      ? `<ul>
+<li><a href="${b}/hospitals">The hospitals</a> — what the health fund pays each hospital, on the map, by region, by ownership and over time.</li>
+<li><a href="${b}/drugs">The medicines</a> — the reimbursed medicines by active substance and quarter, the pack prices and the medicines in hospitals.</li>
+<li><a href="${b}/procurement">Healthcare procurement</a> — what the fund, the ministry and its bodies buy, the framework agreements apart, competition and contractors.</li>
+<li><a href="${b}/money">The budget and the activity</a> — the fund's budget, the ministry's budget, the EU funds and the clinical pathways.</li>
+</ul>`
+      : `<ul>
+<li><a href="${b}/hospitals">Болниците</a> — колко плаща здравната каса на всяка болница, на картата, по области, по собственост и във времето.</li>
+<li><a href="${b}/drugs">Лекарствата</a> — реимбурсираните лекарства по активно вещество и тримесечие, цените за опаковка и лекарствата в болниците.</li>
+<li><a href="${b}/procurement">Поръчките в здравеопазването</a> — какво купуват касата, министерството и ведомствата му, рамковите споразумения отделно, конкуренцията и изпълнителите.</li>
+<li><a href="${b}/money">Бюджетът и дейността</a> — бюджетът на касата, бюджетът на министерството, еврофондовете и клиничните пътеки.</li>
+</ul>`;
+  };
+  const competitionBg = f.singleBidPct
+    ? `${f.singleBidPct} от договорите с известен брой оферти са с една оферта${f.othersPct ? ` — при ${f.othersPct} средно за всички останали възложители` : ""}.`
+    : "";
+  const competitionEn = f.singleBidPct
+    ? `${f.singleBidPct} of contracts with a known bid count drew a single bid${f.othersPct ? ` — against ${f.othersPct} for every other buyer` : ""}.`
+    : "";
+  const up = (en: boolean) =>
+    en
+      ? `<p>See also the <a href="${SITE_URL}/en/sector/health">healthcare sector</a>.</p>`
+      : `<p>Виж и <a href="${SITE_URL}/sector/health">сектор „Здравеопазване“</a>.</p>`;
+  const sub = (
+    path: string,
+    bg: { title: string; description: string; h1: string; body: string },
+    en: { title: string; description: string; h1: string; body: string },
+  ) =>
+    staticPage({
+      path,
+      ogImage: og,
+      title: `${bg.title} | Наясно`,
+      description: bg.description,
+      breadcrumbName: bg.h1,
+      bodyHtml: `
+<h1>${bg.h1}</h1>
+${bg.body}
+${up(false)}`.trim(),
+      english: {
+        title: `${en.title} | Naiasno`,
+        description: en.description,
+        breadcrumbName: en.h1,
+        bodyHtml: `
+<h1>${en.h1}</h1>
+${en.body}
+${up(true)}`.trim(),
+      },
+    });
+  return [
+    staticPage({
+      path: "sector/health",
+      ogImage: og,
+      title:
+        "Здравеопазване — болници, лекарства и поръчки на здравната каса и МЗ | Наясно",
+      description: `Къде отиват парите на здравната каса: €${f.nzokBnBg} млрд. разходи през ${f.year} г., €${f.careBnBg} млрд. за ${f.hospitals} болници, €${f.drugsBnBg} млрд. за лекарства — и обществените поръчки на НЗОК, Министерството на здравеопазването и неговите ведомства.`,
+      breadcrumbName: "Здравеопазване",
+      bodyHtml: `
+<h1>Здравеопазване</h1>
+<p>Националната здравноосигурителна каса (НЗОК) е похарчила €${f.nzokBnBg} млрд. през ${f.year} г. Почти всичко се плаща извън обществените поръчки: €${f.careBnBg} млрд. на ${f.hospitals} болници за болнична помощ и медицински изделия и €${f.drugsBnBg} млрд. за ${f.inns} реимбурсирани лекарствени вещества.</p>
+<p>Обществените поръчки на ${HEALTH_INSTITUTION_COUNT} институции — касата, Министерството на здравеопазването и ведомствата му — са €${f.procBnBg} млрд. по ${f.contracts} договора${span ? ` за ${span} г.` : ""}. ${competitionBg} Таванът на рамковите споразумения на министерството — €${f.frameworkBnBg} млрд. — е горна граница, а не похарчени пари, и не е в тази сума.</p>
+<p>Еврофондовете на същите институции — €${f.grantBnBg} млрд. безвъзмездна помощ — са друга база и не се събират с поръчките. Болниците не са в сектора: те са дружества, на които касата плаща.</p>
+<h2>Какво ще намерите тук</h2>
+${links(false)}
+<p>Виж и <a href="${SITE_URL}/awarder/121858220">страницата на НЗОК като възложител</a> и <a href="${SITE_URL}/governance/sectors">всички сектори</a>.</p>
+<p>Източник: НЗОК, АОП/ЦАИС ЕОП, ИСУН, Закон за бюджета на НЗОК.</p>`.trim(),
+      english: {
+        title:
+          "Healthcare — hospitals, medicines and procurement of the health insurance fund and the health ministry | Naiasno",
+        description: `Where the health insurance fund's money goes: €${f.nzokBnEn}bn spent in ${f.year}, €${f.careBnEn}bn to ${f.hospitals} hospitals, €${f.drugsBnEn}bn on medicines — and the public procurement of the fund, the Ministry of Health and its bodies.`,
+        breadcrumbName: "Healthcare",
+        bodyHtml: `
+<h1>Healthcare</h1>
+<p>Bulgaria's National Health Insurance Fund (НЗОК) spent €${f.nzokBnEn}bn in ${f.year}. Almost all of it is paid outside public procurement: €${f.careBnEn}bn to ${f.hospitals} hospitals for hospital care and medical devices, and €${f.drugsBnEn}bn for ${f.inns} reimbursed active substances.</p>
+<p>The public procurement of ${HEALTH_INSTITUTION_COUNT} institutions — the fund, the Ministry of Health and its bodies — is €${f.procBnEn}bn over ${f.contracts} contracts${span ? ` in ${span}` : ""}. ${competitionEn} The ceiling of the ministry's framework agreements — €${f.frameworkBnEn}bn — is an upper bound, not money spent, and is not in that sum.</p>
+<p>The same institutions' EU funds — €${f.grantBnEn}bn of grant aid — are a different basis and are never added to procurement. Hospitals are not in the sector: they are companies the fund pays.</p>
+<h2>What you'll find</h2>
+${links(true)}
+<p>See also <a href="${SITE_URL}/en/awarder/121858220">the health insurance fund as a buyer</a> and <a href="${SITE_URL}/en/governance/sectors">all sectors</a>.</p>
+<p>Source: the National Health Insurance Fund, the Public Procurement Agency (АОП/ЦАИС ЕОП), ИСУН (ISUN), the fund's budget law.</p>`.trim(),
+      },
+    }),
+    sub(
+      "sector/health/hospitals",
+      {
+        title: "Болниците — плащанията на здравната каса по болници",
+        description:
+          "Колко плаща здравната каса на всяка болница и за какво — болнична помощ, лекарства и медицински изделия, на картата, по области, по собственост и във времето.",
+        h1: "Болниците",
+        body: `<p>Плащанията на НЗОК по договорите с болниците по чл. 45 ЗЗО — извън обществените поръчки: €${f.careBnBg} млрд. на ${f.hospitals} болници през ${f.year} г. за болнична помощ и медицински изделия, плюс лекарствата, платени отделно. На картата, по области, по собственост, финансовото състояние на болниците и сигналите за проверка.</p>`,
+      },
+      {
+        title:
+          "The hospitals — the health insurance fund's payments by hospital",
+        description:
+          "How much the health insurance fund pays each hospital, and for what — hospital care, medicines and medical devices, on the map, by region, by ownership and over time.",
+        h1: "The hospitals",
+        body: `<p>The National Health Insurance Fund's payments under its contracts with hospitals — outside public procurement: €${f.careBnEn}bn to ${f.hospitals} hospitals in ${f.year} for hospital care and medical devices, plus the medicines paid apart. On the map, by region, by ownership, the hospitals' finances and the flags for review.</p>`,
+      },
+    ),
+    sub(
+      "sector/health/drugs",
+      {
+        title: "Лекарствата — реимбурсираните лекарства и цените им",
+        description:
+          "Лекарствата, които здравната каса плаща — по активно вещество и тримесечие, цените за опаковка спрямо медианата и скъпите лекарства в болниците.",
+        h1: "Лекарствата",
+        body: `<p>€${f.drugsBnBg} млрд. за ${f.inns} реимбурсирани активни вещества през ${f.year} г. — в аптеките и в болниците. По тримесечия, спестяванията, цената за опаковка спрямо медианата и лекарствата, платени на болниците. Цена над медианата е сигнал за проверка, не доказателство за надплащане.</p>`,
+      },
+      {
+        title: "The medicines — reimbursed medicines and their prices",
+        description:
+          "The medicines the health insurance fund pays for — by active substance and quarter, the pack prices against the median, and the expensive medicines in hospitals.",
+        h1: "The medicines",
+        body: `<p>€${f.drugsBnEn}bn for ${f.inns} reimbursed active substances in ${f.year} — in pharmacies and in hospitals. By quarter, the savings, the pack price against the median and the medicines paid to hospitals. A price above the median is a flag for review, not proof of overpayment.</p>`,
+      },
+    ),
+    sub(
+      "sector/health/procurement",
+      {
+        title:
+          "Поръчките в здравеопазването — рамкови споразумения, конкуренция, изпълнители",
+        description:
+          "Какво купуват здравната каса, Министерството на здравеопазването и неговите ведомства, как го възлагат и кой го печели — по години, с рамковите споразумения отделно.",
+        h1: "Поръчките в здравеопазването",
+        body: `<p>Договорите на институциите в сектора по текуща стойност след анекси — €${f.procBnBg} млрд.${span ? ` за ${span} г.` : ""}. ${competitionBg}</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Поръчките по години</strong> — без тавана на рамковите споразумения.</li>
+<li><strong>Рамковите споразумения</strong> — €${f.frameworkBnBg} млрд. таван на централните споразумения на министерството, отделно от сумите.</li>
+<li><strong>Конкуренцията</strong> — делът на договорите с една оферта, до средното за всички останали възложители в същия период.</li>
+<li><strong>Изпълнителите и най-големите договори</strong> — по ЕИК на изпълнителя.</li>
+<li><strong>Институциите</strong> — касата, министерството и ведомствата му.</li>
+</ul>`,
+      },
+      {
+        title:
+          "Healthcare procurement — framework agreements, competition, contractors",
+        description:
+          "What the health insurance fund, the Ministry of Health and its bodies buy, how they award it and who wins it — by year, with the framework agreements apart.",
+        h1: "Healthcare procurement",
+        body: `<p>The sector's institutions' contracts at current value after annexes — €${f.procBnEn}bn${span ? ` in ${span}` : ""}. ${competitionEn}</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Procurement by year</strong> — without the framework agreements' ceiling.</li>
+<li><strong>The framework agreements</strong> — the €${f.frameworkBnEn}bn ceiling of the ministry's central agreements, apart from the sums.</li>
+<li><strong>Competition</strong> — the single-bidder share, beside that of every other buyer in the same window.</li>
+<li><strong>Contractors and the largest contracts</strong> — by the contractor's company number.</li>
+<li><strong>The institutions</strong> — the fund, the ministry and its bodies.</li>
+</ul>`,
+      },
+    ),
+    sub(
+      "sector/health/money",
+      {
+        title: "Бюджетът и дейността — бюджетите на НЗОК и МЗ, еврофондове",
+        description:
+          "Бюджетът на здравната каса и на Министерството на здравеопазването, еврофондовете на институциите и дейността по клинични пътеки — всяко на своя база.",
+        h1: "Бюджетът и дейността",
+        body: `<p>Разходите на НЗОК по години (€${f.nzokBnBg} млрд. през ${f.year} г.) и бюджетът на Министерството на здравеопазването — не се събират, защото министерството превежда част от парите на касата. Еврофондовете на институциите — €${f.grantBnBg} млрд. безвъзмездна помощ — и дейността на болниците по клинични пътеки.</p>`,
+      },
+      {
+        title:
+          "The budget and the activity — the health fund's and ministry's budgets, EU funds",
+        description:
+          "The budget of the health insurance fund and of the Ministry of Health, the institutions' EU funds and the clinical-pathway activity — each on its own basis.",
+        h1: "The budget and the activity",
+        body: `<p>The National Health Insurance Fund's expenditure by year (€${f.nzokBnEn}bn in ${f.year}) and the Ministry of Health's budget — not added together, because the ministry transfers part of the money to the fund. The institutions' EU funds — €${f.grantBnEn}bn of grant aid — and the hospitals' clinical-pathway activity.</p>`,
+      },
+    ),
   ];
 };
 
@@ -2594,6 +2824,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   ...roadsStaticPages(),
   ...transportStaticPages(),
   ...eduStaticPages(),
+  ...healthStaticPages(),
   {
     path: "",
     title: GLOBAL_HOME_TITLE,

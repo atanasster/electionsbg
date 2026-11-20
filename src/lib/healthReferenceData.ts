@@ -117,6 +117,11 @@ export const MZ_EIK = "000695317";
 
 export { NZOK_EIK };
 
+/** МЗ's node in the budget tree (`useBudgetMinistryRollup`) — the ministry's own
+ *  appropriation, which /sector/health/money shows beside НЗОК's execution and
+ *  never sums with it (part of it is the transfer that funds НЗОК). */
+export const MZ_BUDGET_NODE = "admin-ministerstvo-na-zdraveopazvaneto";
+
 /** Which part of the sector a member belongs to. Groups the dashboard roster
  *  today; the hub's `?universe=` filter reads it from health-hub-v1 T3. */
 export type HealthUniverse = "nzok" | "mz" | "mz_bodies";
