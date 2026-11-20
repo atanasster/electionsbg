@@ -1,7 +1,8 @@
 # Health hub v1: `/sector/health` becomes a sector dashboard
 
-**Status: PLAN, 2026-11-20. §0 is OPEN — the operator decides D1–D5 before `/implement-plan`
-runs.** The "default proposed" column is what the tiers below assume.
+**Status: PLAN, 2026-11-20. §0 ACCEPTED by the operator 2026-11-20 — every "default proposed"
+column below is the decision.** Implement through `/implement-plan`, one tier per step; T8
+(production publish) waits for the operator.
 
 **Templates** (closest first):
 - `edu-hub-v1.md` (this folder) — the last generic `/sector/:id` page turned into a hub, shipped

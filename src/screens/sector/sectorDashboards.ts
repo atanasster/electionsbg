@@ -22,7 +22,11 @@ import { lazy, type ComponentType } from "react";
 // as sectorPacks.tsx; gated by src/entryGraph.test.ts.
 import { API_EIK } from "@/lib/roadsAwarder";
 import { ROADS_ROLLUP } from "@/lib/roadsReferenceData";
-import { NZOK_EIK, HEALTH_ENTITIES } from "@/lib/healthReferenceData";
+import {
+  NZOK_EIK,
+  HEALTH_ENTITIES,
+  HEALTH_UNIVERSE_LABEL,
+} from "@/lib/healthReferenceData";
 import {
   EDU_LEAD_EIK,
   EDU_ENTITIES,
@@ -300,8 +304,8 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // Здравеопазване — НЗОК (pays for care) + МЗ (builds and equips it). The
   // hub HEADLINE stays НЗОК-only payout on purpose: summing МЗ's budget onto it
   // would mix bases and double-count the state transfer that part-funds НЗОК.
-  // Members from the curated allowlist (healthReferenceData.ts), which carries
-  // that reasoning and the second-level anti-allowlist.
+  // Members from the curated register (healthReferenceData.ts): НЗОК, МЗ and,
+  // since 2026-11-20 (health-hub-v1 D1), МЗ's 55 second-level EIKs.
   //
   // leadEik stays НЗОК because getSectorPack keys on it, so the fund's
   // budget-bridge pack — the one that shows ЗОП is ~1.5% of the money — remains
@@ -319,7 +323,12 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
         (m) => ({ default: m.NzokSearchBox }),
       ),
     ),
-    members: HEALTH_ENTITIES.map((e) => ({ eik: e.eik, name: e.name })),
+    members: HEALTH_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: e.name,
+      group: HEALTH_UNIVERSE_LABEL[e.universe],
+      ...(e.retiredEikOf ? { aliasOf: e.retiredEikOf } : {}),
+    })),
   },
   // ⚠ INERT (2026-10-12, docs/plans/roads-hub-v1.md T4). /sector/roads is the
   // bespoke RoadsHubScreen, routed as a static literal ahead of sector/:id, so this

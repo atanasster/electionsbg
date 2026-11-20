@@ -208,14 +208,11 @@ describe.skipIf(skip)("МЗ second-level roster — corpus reconcile", () => {
     assert.deepEqual(gone, [], "roster EIKs with no contracts in the corpus");
   });
 
-  test("the family is worth what a reader would be told, and is not the sector", async () => {
-    // ⚠ The DISJOINTNESS is asserted in mzSecondLevelBodies.test.ts, not here.
-    // It is decidable from the source, so putting it in a Postgres file only
-    // means it stops running on a machine without a database — and this file's
-    // first draft carried it under the comment "asserted from the corpus side",
-    // which was simply false: it ran no query. What belongs here is the half the
-    // source cannot answer — that the money the disjointness protects the sector
-    // headline FROM is real and large.
+  test("the family is worth what a reader would be told", async () => {
+    // Membership in the sector set is asserted in mzSecondLevelBodies.test.ts
+    // (decidable from the source). What belongs here is the half the source
+    // cannot answer — that the family's procurement, in the health roll-up since
+    // health-hub-v1 D1, is real and large.
     const [row] = await allRows<{ eur: string; n: string }>(
       `SELECT round(sum(amount_eur)::numeric)::text AS eur, count(*)::text AS n
          FROM contracts

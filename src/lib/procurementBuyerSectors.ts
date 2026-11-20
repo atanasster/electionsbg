@@ -43,8 +43,8 @@ export const PROCUREMENT_BUYER_SECTORS: Record<string, ProcurementBuyerSector> =
     nzok: {
       id: "nzok",
       label: {
-        bg: "Здравеопазване (МЗ + НЗОК)",
-        en: "Health (МЗ + НЗОК)",
+        bg: "Здравеопазване (МЗ, ведомствата му и НЗОК)",
+        en: "Health (Ministry of Health, its bodies and NHIF)",
       },
       eiks: [...HEALTH_SECTOR_EIKS],
     },

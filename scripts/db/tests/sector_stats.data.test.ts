@@ -14,7 +14,7 @@
 //
 //  · HEALTH (audit 2026-07-23, widened 2026-08-16) — the one sector here whose
 //    EIK-SET and whose HEADLINE describe different things on purpose: a
-//    MULTI-member set (НЗОК + МЗ) fronted by a SINGLE-body payout headline.
+//    MULTI-member set (НЗОК + МЗ + 55 МЗ bodies) fronted by a SINGLE-body payout headline.
 //    Summing МЗ's enacted budget onto НЗОК's cash execution would mix bases AND
 //    double-count the state transfer that part-funds the fund, so the headline
 //    stays НЗОК-only. (This bullet said "a single-member PAYOUT sector" until
@@ -26,15 +26,16 @@
 //       point (the declared source of truth), and NO scope may publish a year
 //       that has no December point — the B1 feed is cumulative-YTD, and this
 //       sector has shipped a partial year as an annual figure twice;
-//     - the EIK-set copies stay equal on BOTH EIKs (HEALTH_SECTOR_EIKS ↔
+//     - the EIK-set copies stay equal (HEALTH_SECTOR_EIKS ↔
 //       dashboard members ↔ browse pack) while leadEik stays НЗОК — that last is
 //       what keeps the budget-bridge pack, rather than the generic KPI row, as
 //       the dashboard's body — and health is NOT a procurement-basis sector;
 //     - МЗ is claimed by exactly ONE sector. The whole argument for admitting a
 //       €2.84bn ministry is that it double-counted against nothing, so that is
 //       asserted rather than assumed;
-//     - the second-level МЗ family (54 ЦСМП/РЗИ/НЦОЗА bodies, €86.6m) and the
-//       234 state/university HOSPITALS (€10.6bn — НЗОК's own payees) stay OUT;
+//     - the second-level МЗ family (55 ЦСМП/РЗИ/НЦОЗА EIKs, €86.9m) is IN since
+//       2026-11-20 (health-hub-v1 D1) and every swept body must be listed, while
+//       the state/university HOSPITALS (€10.6bn — НЗОК's own payees) stay OUT;
 //     - both members are real, signature awarders in the corpus — proves neither
 //       EIK is a typo, while НЗОК's own thin ЗОП line stays far below payout.
 //
@@ -121,8 +122,10 @@ import {
   NZOK_EIK,
   MZ_EIK,
   HEALTH_SECTOR_EIKS,
+  HEALTH_EXCLUDED,
 } from "@/lib/healthReferenceData";
 import { NZOK_SUPPLIER_CONTEXT } from "@/lib/nzokBenchmarks";
+import { MZ_SECOND_LEVEL_BODIES } from "@/lib/mzSecondLevelBodies";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
 import { ROADS_SECTOR_EIKS } from "@/lib/roadsReferenceData";
@@ -300,7 +303,7 @@ const sectorSum = async (
   return Number(r?.eur ?? 0);
 };
 
-describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () => {
+describe("health sector (НЗОК + МЗ + МЗ bodies; payout headline from НЗОК)", () => {
   test.skipIf(skip)(
     "hub headline is payout, in-band, reconciles to source",
     () => {
@@ -349,12 +352,18 @@ describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () =>
   );
 
   test.skipIf(skip)(
-    "the health EIK-set copies stay in lockstep on НЗОК + МЗ",
+    "the health EIK-set copies stay in lockstep (НЗОК, МЗ, МЗ bodies)",
     () => {
       // Widened 2026-08-16 from НЗОК alone: МЗ is €2.84bn / 5,771 contracts —
       // 34× НЗОК's whole ЗОП line — and belonged to no sector at all. Pin both
       // EIKs so neither a re-narrowing nor a silent third member goes unnoticed.
-      const expected = ["121858220", "000695317"];
+      // Widened again 2026-11-20 (health-hub-v1 D1) with МЗ's 55 second-level
+      // EIKs, in roster order after the two principals.
+      const expected = [
+        "121858220",
+        "000695317",
+        ...MZ_SECOND_LEVEL_BODIES.map((b) => b.eik),
+      ];
       assert.equal(NZOK_EIK, "121858220", "NZOK_EIK constant drifted");
       assert.equal(MZ_EIK, "000695317", "MZ_EIK constant drifted");
       assert.deepEqual(
@@ -510,13 +519,12 @@ describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () =>
   });
 
   test.skipIf(skip)(
-    "the second-level МЗ family is deliberately out of the EIK-set",
+    "every swept second-level МЗ body is in the EIK-set (health-hub-v1 D1)",
     async () => {
-      // ЦСМП / РЗИ / НЦОЗА are 54 separate legal persons under МЗ (~€86.6m).
-      // Excluding them is a decision recorded in healthReferenceData.ts, not an
-      // oversight — so assert it holds rather than letting a later sweep fold
-      // them in silently. Resolved from the corpus, so it also catches a body
-      // that starts matching after a rename.
+      // ЦСМП / РЗИ / НЦОЗА are second-level units under МЗ (~€86.9m), IN the
+      // roll-up since 2026-11-20. Resolved from the corpus, so a body that starts
+      // matching after a rename, or a newly procuring one, fails here until it
+      // is added to mzSecondLevelBodies.ts.
       const rows = await allRows<{ eik: string }>(
         `select distinct awarder_eik eik from contracts
           where tag='contract'
@@ -526,17 +534,19 @@ describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () =>
       );
       const secondLevel = new Set(rows.map((r) => r.eik));
       // Measured 54. A floor of >10 would still pass after a reload that lost
-      // 43 of them, leaving the anti-leak check below measuring an almost-empty
+      // 43 of them, leaving the containment check below measuring an almost-empty
       // set — the vacuous-gate shape this file warns about elsewhere.
       assert.ok(
         secondLevel.size >= 40,
         `second-level МЗ sweep found only ${secondLevel.size} bodies (expected ~54)`,
       );
-      const leaked = HEALTH_SECTOR_EIKS.filter((e) => secondLevel.has(e));
+      const missing = [...secondLevel].filter(
+        (e) => !HEALTH_SECTOR_EIKS.includes(e),
+      );
       assert.deepEqual(
-        leaked,
+        missing,
         [],
-        `second-level МЗ bodies leaked into HEALTH_SECTOR_EIKS: ${leaked.join(", ")}`,
+        `second-level МЗ bodies missing from HEALTH_SECTOR_EIKS: ${missing.join(", ")}`,
       );
     },
   );
@@ -544,18 +554,22 @@ describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () =>
   test.skipIf(skip)(
     "the state and university hospitals stay out of the EIK-set",
     async () => {
-      // The biggest neighbour by far — 234 bodies / €10.6bn, 3.7× МЗ — and the
-      // one whose exclusion is NOT covered by the second-level argument: they
+      // The biggest neighbour by far — 234 bodies / €10.8bn (2026-11-20), 3.8× МЗ
+      // — and the one whose exclusion is NOT covered by the second-level argument: they
       // are commercial ЕАД/ООД, and МЗ holds the state's shares in them. What
       // rules them out is that НЗОК REIMBURSES them, so a set holding both the
       // payer and its payees counts the same care twice. Gated because the
       // reference file's earlier phrasing ("principal is verifiably the Minister
       // of Health") read as an invitation to add them.
+      // The ONE definition of the class (HEALTH_EXCLUDED), not a local copy.
+      const hospitalPattern = HEALTH_EXCLUDED.find(
+        (x) => x.id === "hospitals",
+      )?.namePattern;
+      assert.ok(hospitalPattern, "HEALTH_EXCLUDED lost its hospitals class");
       const rows = await allRows<{ eik: string }>(
         `select distinct awarder_eik eik from contracts
-          where tag='contract'
-            and (awarder_name ilike '%МБАЛ%' or awarder_name ilike '%болница%'
-              or awarder_name ilike '%диспансер%')`,
+          where tag='contract' and awarder_name ~* $1`,
+        [hospitalPattern],
       );
       const hospitals = new Set(rows.map((r) => r.eik));
       assert.ok(

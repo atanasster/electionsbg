@@ -2,39 +2,26 @@
 // разпоредители под Министерството на здравеопазването without being part of
 // it: the 28 ЦСМП plus the air ambulance, the 23 РЗИ, and НЦОЗА.
 //
-// ⚠⚠ THESE ARE NOT SECTOR MEMBERS, AND FOLDING THEM IN IS THE ONE THING THIS
-// FILE EXISTS TO PREVENT. `HEALTH_SECTOR_EIKS` is МЗ + НЗОК and nothing else;
-// healthReferenceData.ts's anti-allowlist names this family explicitly, and
-// `sector_stats.data.test.ts` gates the exclusion from the corpus side. What
-// this list is for is REACHABILITY: every one of these bodies already has a
-// served `/awarder/:eik` page and none of them was reachable from the sector
-// page they belong to, because /sector/health's only finder searches the НЗОК
-// corpus (payments, pathways, INNs, packs) and these bodies take no НЗОК money.
-// See docs/plans/health-mz-bodies-search-v1.md.
+// SECTOR MEMBERS SINCE 2026-11-20 (docs/plans/health-hub-v1.md D1). Until then
+// this list was reachability only, kept disjoint from the sector's EIK-set; the
+// operator then decided these budget units belong in the roll-up because their
+// principal is МЗ. `healthReferenceData.ts` spreads this list into
+// HEALTH_ENTITIES, so it is the ONE roster, and `mzSecondLevelBodies.test.ts`
+// asserts all three copies of the sector set contain every row.
 //
-// Adding an EIK here changes what a READER CAN FIND. It must never change what
-// the sector COUNTS — the hub headline is НЗОК's €4.72bn payout on a declared
-// basis, and this family's €86.9m belongs to no total on that page.
-// `mzSecondLevelBodies.test.ts` (plan T4a) asserts disjointness at all three
-// roster copies — `HEALTH_SECTOR_EIKS`, `SECTOR_DASHBOARDS.health.members` and
-// `SECTOR_BROWSE_PACKS.nzok.eiks` — so a tidy-up that folds this list into any of
-// them fails rather than quietly moving €86.9m under the sector's headline.
+// Adding an EIK here adds it to the sector's PROCUREMENT figures. It never moves
+// the hub headline, which is НЗОК's B1 cash expenditure on a declared basis.
 //
 // ---------------------------------------------------------------------------
 // Why its own module rather than an export in healthReferenceData.ts
 //
-//  · PAYLOAD. That file is imported by sectorDashboards.ts and sectorPacks.tsx,
-//    so 55 entries there would load on EVERY sector dashboard — /sector/energy
-//    paying for /sector/health's finder. Imported only by NzokSearchBox (itself
-//    lazy()), this lands in that chunk and nowhere else. Same SHAPE as
-//    lib/roadsAwarder.ts — an import-free constant module extracted so a busy
-//    module need not name a big one. ⚠ But `src/entryGraph.test.ts` guards the
-//    ENTRY chunk against the two sector registries and does NOT cover this: the
-//    failure described here happens entirely inside already-lazy chunks, so
-//    nothing fails if a later edit moves this list into healthReferenceData.ts.
-//    The rule above is the only defence.
-//  · MEANING. A 55-EIK export sitting in the file whose job is the two-EIK
-//    sector roster is an invitation to fold it in.
+//  · PAYLOAD (superseded 2026-11-20). This used to keep the 55 entries out of
+//    the sector registries' chunks. Membership now requires them there — the
+//    education roster (126 EIKs) set the precedent — so healthReferenceData.ts
+//    imports this module. It stays import-free, and `src/entryGraph.test.ts`
+//    keeps it (with the registries) out of the ENTRY chunk.
+//  · MEANING. The search keys and the family structure are specific to these
+//    bodies; healthReferenceData.ts stays the sector-level register.
 //
 // ---------------------------------------------------------------------------
 // ⚠ CURATED BY EIK — a name pattern fails in BOTH directions
@@ -79,13 +66,12 @@
 // (The per-family € are each rounded, so they sum to €86,884,069; the total is
 // the unrounded query, €86,884,070.27. The contract counts do reconcile.)
 //
-// ⚠ `healthReferenceData.ts`'s anti-allowlist quotes this same family as „54
-// bodies / 2,467 contracts / €86.6m … 28 РЗИ". That is the SWEEP's result at an
-// older corpus vintage, not this roster, and the two are different quantities:
-// the sweep misses 000053451 (see CURATED BY EIK above), only 23 of the 28
-// oblasts have РЗИ procurement (see FIVE РЗИ ARE ABSENT below), and its own
-// 28+28+1 does not sum to the 54 it prints. THIS file is the roster; that one is
-// the exclusion decision. Update it when this moves.
+// ⚠ Older copies of these figures („54 bodies / 2,467 contracts / €86.6m … 28
+// РЗИ") were the name SWEEP's result at an older vintage, not this roster: the
+// sweep misses 000053451 (see CURATED BY EIK above), only 23 of the 28 oblasts
+// have РЗИ procurement (see FIVE РЗИ ARE ABSENT below), and 28+28+1 ≠ 54. THIS
+// file is the roster; healthReferenceData.ts imports it as the `mz_bodies`
+// universe.
 //
 // Span 2011-01-05 → 2026-08-19. All 55 LAND: `institution_identity()` resolves
 // for 55/55, so no entry needs `SectorMember.noAwarderPage` (membersIndex RULE

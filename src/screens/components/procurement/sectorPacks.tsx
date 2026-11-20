@@ -321,14 +321,14 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     label: { bg: "Осигуряване (НОИ)", en: "Social security (НОИ)" },
     eiks: PROCUREMENT_BUYER_SECTORS.noi.eiks,
   },
-  // The pack id stays `nzok` even though the set is now НЗОК + МЗ: it is a URL
+  // The pack id stays `nzok` even though the set is now НЗОК + МЗ + МЗ's bodies: it is a URL
   // value (`?sector=nzok`) carried by live deep links, so renaming it would
   // break them for no reader-visible gain. The LABEL is what a reader sees.
   nzok: {
     id: "nzok",
     label: {
-      bg: "Здравеопазване (МЗ + НЗОК)",
-      en: "Health (МЗ + НЗОК)",
+      bg: "Здравеопазване (МЗ, ведомствата му и НЗОК)",
+      en: "Health (Ministry of Health, its bodies and NHIF)",
     },
     eiks: PROCUREMENT_BUYER_SECTORS.nzok.eiks,
   },

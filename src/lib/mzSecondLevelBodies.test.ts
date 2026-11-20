@@ -1,6 +1,6 @@
-// The МЗ second-level roster's PG-FREE invariants — structure, the three
-// disjointness claims that keep it out of the health sector's EIK-set, and the
-// search-key coverage the whole feature rests on.
+// The МЗ second-level roster's PG-FREE invariants — structure, its membership
+// in all three copies of the health sector's EIK-set (health-hub-v1 D1), its
+// separation from the excluded classes, and the search-key coverage.
 //
 // Split from scripts/db/tests/mz_second_level_bodies.data.test.ts on the
 // educationReferenceData.test.ts pattern: everything here is decidable from the
@@ -14,7 +14,7 @@
 import { describe, expect, it } from "vitest";
 import { SECTOR_DASHBOARDS } from "@/screens/sector/sectorDashboards";
 import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPacks";
-import { HEALTH_SECTOR_EIKS } from "./healthReferenceData";
+import { HEALTH_EXCLUDED, HEALTH_SECTOR_EIKS } from "./healthReferenceData";
 import { buildEntityIndex, searchIndex } from "./entitySearchIndex";
 import { latinSkeleton } from "./translitSearch";
 import {
@@ -214,43 +214,50 @@ describe("MZ_SECOND_LEVEL_BODIES — retired EIKs and the institution count", ()
   });
 });
 
-describe("MZ_SECOND_LEVEL_BODIES — never a sector member", () => {
-  // The roster exists so /sector/health can FIND these bodies. It must never
-  // change what that sector COUNTS: the hub headline is НЗОК's payout on a
-  // declared basis, and this family's €86.9m belongs to no total on that page.
-  // Three copies of the sector's EIK-set, so all three are asserted.
-  const overlaps = (other: readonly string[]) =>
-    EIKS.filter((e) => other.includes(e));
+describe("MZ_SECOND_LEVEL_BODIES — sector members (health-hub-v1 D1)", () => {
+  // Since 2026-11-20 every row is a member of the health sector's roll-up.
+  // Three copies of the sector's EIK-set exist, so all three are asserted —
+  // a body missing from one is counted by one surface and not another.
+  const missingFrom = (other: readonly string[]) =>
+    EIKS.filter((e) => !other.includes(e));
 
-  it("is disjoint from HEALTH_SECTOR_EIKS", () => {
-    expect(overlaps(HEALTH_SECTOR_EIKS)).toEqual([]);
+  it("is wholly inside HEALTH_SECTOR_EIKS", () => {
+    expect(missingFrom(HEALTH_SECTOR_EIKS)).toEqual([]);
   });
 
-  it("is disjoint from SECTOR_DASHBOARDS.health.members", () => {
+  it("is wholly inside SECTOR_DASHBOARDS.health.members", () => {
     expect(
-      overlaps(SECTOR_DASHBOARDS.health.members.map((m) => m.eik)),
+      missingFrom(SECTOR_DASHBOARDS.health.members.map((m) => m.eik)),
     ).toEqual([]);
   });
 
-  it("is disjoint from SECTOR_BROWSE_PACKS.nzok.eiks", () => {
-    expect(overlaps(SECTOR_BROWSE_PACKS.nzok.eiks)).toEqual([]);
+  it("is wholly inside SECTOR_BROWSE_PACKS.nzok.eiks", () => {
+    expect(missingFrom(SECTOR_BROWSE_PACKS.nzok.eiks)).toEqual([]);
+  });
+
+  it("matches none of the excluded classes (hospitals, РЗОК)", () => {
+    // The pattern is a Postgres `~*` regex; these are plain alternations, so JS
+    // with the `iu` flags reads them the same way.
+    for (const x of HEALTH_EXCLUDED) {
+      const re = new RegExp(x.namePattern, "iu");
+      const hit = MZ_SECOND_LEVEL_BODIES.filter((b) => re.test(b.name));
+      expect(
+        hit.map((b) => b.eik),
+        `roster rows match ${x.id}`,
+      ).toEqual([]);
+      // Non-vacuity: the pattern does match a name of its own class.
+      expect(
+        re.test(x.id === "hospitals" ? "УМБАЛ Св. Марина ЕАД" : "РЗОК - Варна"),
+      ).toBe(true);
+    }
   });
 
   it("still discriminates — the check is not vacuous", () => {
-    // Every assertion above passes trivially if the roster empties or the three
-    // copies stop being read, which is the shape those assertions cannot see.
-    expect(EIKS.length).toBeGreaterThan(50);
-    expect(HEALTH_SECTOR_EIKS.length).toBe(2);
-    expect(SECTOR_BROWSE_PACKS.nzok.eiks.length).toBeGreaterThan(0);
-    // The third copy needed a floor of its own: an empty `members` array
-    // satisfies its disjointness assertion above and nothing else here notices.
-    expect(SECTOR_DASHBOARDS.health.members.length).toBeGreaterThan(0);
-    // And the roster genuinely overlaps a set built the way a careless widening
-    // would build one, so "disjoint" is a property of these lists rather than of
-    // the comparison.
-    expect(overlaps([...EIKS.slice(0, 3), ...HEALTH_SECTOR_EIKS])).toHaveLength(
-      3,
-    );
+    // An empty roster is inside every set, so pin its size, and prove the
+    // comparison can fail on a set built without it.
+    expect(EIKS.length).toBe(55);
+    expect(HEALTH_SECTOR_EIKS.length).toBe(EIKS.length + 2);
+    expect(missingFrom(["121858220", "000695317"])).toHaveLength(EIKS.length);
   });
 });
 

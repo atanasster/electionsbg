@@ -101,7 +101,9 @@ describe("MEMBER_SEARCH_MIN", () => {
     // at exactly the floor when ДП РАО took it from 9 members to 10 — plus edu,
     // which joined at 126 when the 2026-08-18 audit widened it from МОН alone to
     // the whole education roster, plus agri, which joined at 66 when the
-    // 2026-08-20 audit widened it from ДФЗ alone to the МЗХ family. Social (6) is
+    // 2026-08-20 audit widened it from ДФЗ alone to the МЗХ family, plus health,
+    // which joined at 57 when health-hub-v1 D1 (2026-11-20) added МЗ's
+    // second-level bodies (it keeps its bespoke NzokSearchBox). Social (6) is
     // below it; the six remaining single-member sectors are far below.
     expect(above).toEqual(
       [
@@ -109,6 +111,7 @@ describe("MEMBER_SEARCH_MIN", () => {
         "edu",
         "energy",
         "environment",
+        "health",
         "regional",
         "security",
         "transport",

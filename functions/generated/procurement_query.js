@@ -1340,6 +1340,160 @@ var NOI_EIK = "121082521";
 // src/lib/nzokBenchmarks.ts
 var NZOK_EIK = "121858220";
 
+// src/lib/mzSecondLevelBodies.ts
+var MZ_SECOND_LEVEL_BODIES = [
+  { eik: "176094665", name: "\u041D\u0426\u041E\u0417\u0410 \u2014 \u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u0435\u043D \u0446\u0435\u043D\u0442\u044A\u0440 \u043F\u043E \u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0435\u043D\u043E \u0437\u0434\u0440\u0430\u0432\u0435 \u0438 \u0430\u043D\u0430\u043B\u0438\u0437\u0438", universe: "national" },
+  // prettier-ignore
+  { eik: "101045985", name: "\u0426\u0421\u041C\u041F \u2014 \u0411\u043B\u0430\u0433\u043E\u0435\u0432\u0433\u0440\u0430\u0434", universe: "csmp" },
+  // prettier-ignore
+  { eik: "812000140", name: "\u0426\u0421\u041C\u041F \u2014 \u0411\u0443\u0440\u0433\u0430\u0441", universe: "csmp" },
+  // prettier-ignore
+  { eik: "813147200", name: "\u0426\u0421\u041C\u041F \u2014 \u0412\u0430\u0440\u043D\u0430", universe: "csmp" },
+  // prettier-ignore
+  { eik: "814221002", name: "\u0426\u0421\u041C\u041F \u2014 \u0412\u0435\u043B\u0438\u043A\u043E \u0422\u044A\u0440\u043D\u043E\u0432\u043E", universe: "csmp" },
+  // prettier-ignore
+  { eik: "105001089", name: "\u0426\u0421\u041C\u041F \u2014 \u0412\u0438\u0434\u0438\u043D", universe: "csmp" },
+  // prettier-ignore
+  { eik: "106003602", name: "\u0426\u0421\u041C\u041F \u2014 \u0412\u0440\u0430\u0446\u0430", universe: "csmp" },
+  // prettier-ignore
+  { eik: "817073167", name: "\u0426\u0421\u041C\u041F \u2014 \u0413\u0430\u0431\u0440\u043E\u0432\u043E", universe: "csmp" },
+  // prettier-ignore
+  { eik: "834052595", name: "\u0426\u0421\u041C\u041F \u2014 \u0414\u043E\u0431\u0440\u0438\u0447", universe: "csmp" },
+  // prettier-ignore
+  { eik: "818035874", name: "\u0426\u0421\u041C\u041F \u2014 \u041A\u044A\u0440\u0434\u0436\u0430\u043B\u0438", universe: "csmp" },
+  // prettier-ignore
+  { eik: "109025529", name: "\u0426\u0421\u041C\u041F \u2014 \u041A\u044E\u0441\u0442\u0435\u043D\u0434\u0438\u043B", universe: "csmp" },
+  // prettier-ignore
+  { eik: "820183588", name: "\u0426\u0421\u041C\u041F \u2014 \u041B\u043E\u0432\u0435\u0447", universe: "csmp" },
+  // prettier-ignore
+  { eik: "821179126", name: "\u0426\u0421\u041C\u041F \u2014 \u041C\u043E\u043D\u0442\u0430\u043D\u0430", universe: "csmp" },
+  // prettier-ignore
+  { eik: "822114434", name: "\u0426\u0421\u041C\u041F \u2014 \u041F\u0430\u0437\u0430\u0440\u0434\u0436\u0438\u043A", universe: "csmp" },
+  // prettier-ignore
+  { eik: "113010839", name: "\u0426\u0421\u041C\u041F \u2014 \u041F\u0435\u0440\u043D\u0438\u043A", universe: "csmp" },
+  // prettier-ignore
+  { eik: "000411973", name: "\u0426\u0421\u041C\u041F \u2014 \u041F\u043B\u0435\u0432\u0435\u043D", universe: "csmp" },
+  // prettier-ignore
+  { eik: "825294069", name: "\u0426\u0421\u041C\u041F \u2014 \u041F\u043B\u043E\u0432\u0434\u0438\u0432", universe: "csmp" },
+  // prettier-ignore
+  { eik: "116000896", name: "\u0426\u0421\u041C\u041F \u2014 \u0420\u0430\u0437\u0433\u0440\u0430\u0434", universe: "csmp" },
+  // prettier-ignore
+  { eik: "827205133", name: "\u0426\u0421\u041C\u041F \u2014 \u0420\u0443\u0441\u0435", universe: "csmp" },
+  // prettier-ignore
+  { eik: "118001185", name: "\u0426\u0421\u041C\u041F \u2014 \u0421\u0438\u043B\u0438\u0441\u0442\u0440\u0430", universe: "csmp" },
+  // prettier-ignore
+  { eik: "119002144", name: "\u0426\u0421\u041C\u041F \u2014 \u0421\u043B\u0438\u0432\u0435\u043D", universe: "csmp" },
+  // prettier-ignore
+  { eik: "830176065", name: "\u0426\u0421\u041C\u041F \u2014 \u0421\u043C\u043E\u043B\u044F\u043D", universe: "csmp" },
+  // prettier-ignore
+  { eik: "121312221", name: "\u0426\u0421\u041C\u041F \u2014 \u0421\u043E\u0444\u0438\u0439\u0441\u043A\u0430 \u043E\u0431\u043B\u0430\u0441\u0442", universe: "csmp" },
+  // prettier-ignore
+  { eik: "121292046", name: "\u0426\u0421\u041C\u041F \u2014 \u0421\u043E\u0444\u0438\u044F-\u0433\u0440\u0430\u0434", universe: "csmp" },
+  // prettier-ignore
+  { eik: "123004119", name: "\u0426\u0421\u041C\u041F \u2014 \u0421\u0442\u0430\u0440\u0430 \u0417\u0430\u0433\u043E\u0440\u0430", universe: "csmp" },
+  // prettier-ignore
+  { eik: "835030573", name: "\u0426\u0421\u041C\u041F \u2014 \u0422\u044A\u0440\u0433\u043E\u0432\u0438\u0449\u0435", universe: "csmp" },
+  // prettier-ignore
+  { eik: "836154410", name: "\u0426\u0421\u041C\u041F \u2014 \u0425\u0430\u0441\u043A\u043E\u0432\u043E", universe: "csmp" },
+  // prettier-ignore
+  { eik: "837077874", name: "\u0426\u0421\u041C\u041F \u2014 \u0428\u0443\u043C\u0435\u043D", universe: "csmp" },
+  // prettier-ignore
+  { eik: "128019541", name: "\u0426\u0421\u041C\u041F \u2014 \u042F\u043C\u0431\u043E\u043B", universe: "csmp" },
+  // prettier-ignore
+  // The one ЦСМП that is national rather than seated in an oblast centre.
+  { eik: "180958724", name: "\u0426\u0421\u041C\u041F \u043F\u043E \u0432\u044A\u0437\u0434\u0443\u0445\u0430", universe: "csmp" },
+  // prettier-ignore
+  { eik: "176030552", name: "\u0420\u0417\u0418 \u2014 \u0411\u043B\u0430\u0433\u043E\u0435\u0432\u0433\u0440\u0430\u0434", universe: "rzi" },
+  // prettier-ignore
+  { eik: "000022349", name: "\u0420\u0418\u041E\u041A\u041E\u0417 \u2014 \u0411\u043B\u0430\u0433\u043E\u0435\u0432\u0433\u0440\u0430\u0434 (\u0434\u043E 2012)", universe: "rzi", retiredEikOf: "176030552" },
+  // prettier-ignore
+  { eik: "176032788", name: "\u0420\u0417\u0418 \u2014 \u0411\u0443\u0440\u0433\u0430\u0441", universe: "rzi" },
+  // prettier-ignore
+  { eik: "000053451", name: "\u0420\u0418\u041E\u041A\u041E\u0417 \u2014 \u0411\u0443\u0440\u0433\u0430\u0441 (\u0434\u043E 2011)", universe: "rzi", retiredEikOf: "176032788" },
+  // prettier-ignore
+  { eik: "176032507", name: "\u0420\u0417\u0418 \u2014 \u0412\u0430\u0440\u043D\u0430", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031063", name: "\u0420\u0417\u0418 \u2014 \u0412\u0435\u043B\u0438\u043A\u043E \u0422\u044A\u0440\u043D\u043E\u0432\u043E", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031615", name: "\u0420\u0417\u0418 \u2014 \u0412\u0438\u0434\u0438\u043D", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031444", name: "\u0420\u0417\u0418 \u2014 \u0412\u0440\u0430\u0446\u0430", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031095", name: "\u0420\u0417\u0418 \u2014 \u0413\u0430\u0431\u0440\u043E\u0432\u043E", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031070", name: "\u0420\u0417\u0418 \u2014 \u0414\u043E\u0431\u0440\u0438\u0447", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176030723", name: "\u0420\u0417\u0418 \u2014 \u041A\u044A\u0440\u0434\u0436\u0430\u043B\u0438", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031298", name: "\u0420\u0417\u0418 \u2014 \u041A\u044E\u0441\u0442\u0435\u043D\u0434\u0438\u043B", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176030381", name: "\u0420\u0417\u0418 \u2014 \u041B\u043E\u0432\u0435\u0447", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176030367", name: "\u0420\u0417\u0418 \u2014 \u041C\u043E\u043D\u0442\u0430\u043D\u0430", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176032140", name: "\u0420\u0417\u0418 \u2014 \u041F\u0430\u0437\u0430\u0440\u0434\u0436\u0438\u043A", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176030794", name: "\u0420\u0417\u0418 \u2014 \u041F\u0435\u0440\u043D\u0438\u043A", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176030972", name: "\u0420\u0417\u0418 \u2014 \u041F\u043B\u0435\u0432\u0435\u043D", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176030673", name: "\u0420\u0417\u0418 \u2014 \u041F\u043B\u043E\u0432\u0434\u0438\u0432", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031120", name: "\u0420\u0417\u0418 \u2014 \u0420\u0443\u0441\u0435", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031978", name: "\u0420\u0417\u0418 \u2014 \u0421\u0438\u043B\u0438\u0441\u0442\u0440\u0430", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176032028", name: "\u0420\u0417\u0418 \u2014 \u0421\u043C\u043E\u043B\u044F\u043D", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176034554", name: "\u0421\u0420\u0417\u0418 \u2014 \u0421\u0442\u043E\u043B\u0438\u0447\u043D\u0430 \u0440\u0435\u0433\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u0437\u0434\u0440\u0430\u0432\u043D\u0430 \u0438\u043D\u0441\u043F\u0435\u043A\u0446\u0438\u044F (\u0421\u043E\u0444\u0438\u044F)", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176030488", name: "\u0420\u0417\u0418 \u2014 \u0421\u0442\u0430\u0440\u0430 \u0417\u0430\u0433\u043E\u0440\u0430", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031729", name: "\u0420\u0417\u0418 \u2014 \u0422\u044A\u0440\u0433\u043E\u0432\u0438\u0449\u0435", universe: "rzi" },
+  // prettier-ignore
+  { eik: "176031316", name: "\u0420\u0417\u0418 \u2014 \u0425\u0430\u0441\u043A\u043E\u0432\u043E", universe: "rzi" }
+  // prettier-ignore
+];
+var MZ_SHARED_SEARCH_KEYS = [
+  // The search group's own heading in NzokSearchBox, so it finds its own rows.
+  // Keep the two in step: renaming the group means renaming this.
+  "\u0432\u0435\u0434\u043E\u043C\u0441\u0442\u0432\u0430 \u043D\u0430 \u041C\u0417",
+  "\u0432\u0435\u0434\u043E\u043C\u0441\u0442\u0432\u043E",
+  "\u041C\u0438\u043D\u0438\u0441\u0442\u0435\u0440\u0441\u0442\u0432\u043E \u043D\u0430 \u0437\u0434\u0440\u0430\u0432\u0435\u043E\u043F\u0430\u0437\u0432\u0430\u043D\u0435\u0442\u043E",
+  "Ministry of Health",
+  "\u041C\u0417"
+];
+var MZ_UNIVERSE_SEARCH_KEYS = {
+  csmp: [
+    ...MZ_SHARED_SEARCH_KEYS,
+    "\u0426\u0421\u041C\u041F",
+    "\u0446\u0435\u043D\u0442\u044A\u0440 \u0437\u0430 \u0441\u043F\u0435\u0448\u043D\u0430 \u043C\u0435\u0434\u0438\u0446\u0438\u043D\u0441\u043A\u0430 \u043F\u043E\u043C\u043E\u0449",
+    "\u0446\u0435\u043D\u0442\u0440\u043E\u0432\u0435 \u0437\u0430 \u0441\u043F\u0435\u0448\u043D\u0430 \u043C\u0435\u0434\u0438\u0446\u0438\u043D\u0441\u043A\u0430 \u043F\u043E\u043C\u043E\u0449",
+    "\u0441\u043F\u0435\u0448\u043D\u0430 \u043F\u043E\u043C\u043E\u0449",
+    "emergency medical care centre",
+    "emergency medical care centres"
+  ],
+  rzi: [
+    ...MZ_SHARED_SEARCH_KEYS,
+    "\u0420\u0417\u0418",
+    "\u0420\u0418\u041E\u041A\u041E\u0417",
+    "\u0440\u0435\u0433\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u0437\u0434\u0440\u0430\u0432\u043D\u0430 \u0438\u043D\u0441\u043F\u0435\u043A\u0446\u0438\u044F",
+    "\u0440\u0435\u0433\u0438\u043E\u043D\u0430\u043B\u043D\u0438 \u0437\u0434\u0440\u0430\u0432\u043D\u0438 \u0438\u043D\u0441\u043F\u0435\u043A\u0446\u0438\u0438",
+    "regional health inspectorate",
+    "regional health inspectorates"
+  ],
+  national: [
+    ...MZ_SHARED_SEARCH_KEYS,
+    "\u043D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u0435\u043D \u0446\u0435\u043D\u0442\u044A\u0440",
+    "\u043D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0438 \u0446\u0435\u043D\u0442\u0440\u043E\u0432\u0435",
+    "national centre",
+    "national centres"
+  ]
+};
+var MZ_SECOND_LEVEL_INSTITUTION_COUNT = MZ_SECOND_LEVEL_BODIES.filter(
+  (b) => !b.retiredEikOf
+).length;
+
 // src/lib/healthReferenceData.ts
 var MZ_EIK = "000695317";
 var HEALTH_ENTITIES = [
@@ -1348,19 +1502,32 @@ var HEALTH_ENTITIES = [
     name: {
       bg: "\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u043D\u0430 \u0437\u0434\u0440\u0430\u0432\u043D\u043E\u043E\u0441\u0438\u0433\u0443\u0440\u0438\u0442\u0435\u043B\u043D\u0430 \u043A\u0430\u0441\u0430",
       en: "National Health Insurance Fund"
-    }
+    },
+    universe: "nzok"
   },
   {
     eik: MZ_EIK,
     name: {
       bg: "\u041C\u0438\u043D\u0438\u0441\u0442\u0435\u0440\u0441\u0442\u0432\u043E \u043D\u0430 \u0437\u0434\u0440\u0430\u0432\u0435\u043E\u043F\u0430\u0437\u0432\u0430\u043D\u0435\u0442\u043E",
       en: "Ministry of Health"
-    }
-  }
+    },
+    universe: "mz"
+  },
+  // The second-level bodies carry no English name on purpose (the РИОСВ
+  // precedent — see mzSecondLevelBodies.ts, „Naming").
+  ...MZ_SECOND_LEVEL_BODIES.map(
+    (b) => ({
+      eik: b.eik,
+      name: { bg: b.name, en: b.name },
+      universe: "mz_bodies",
+      ...b.retiredEikOf ? { retiredEikOf: b.retiredEikOf } : {}
+    })
+  )
 ];
 var HEALTH_SECTOR_EIKS = HEALTH_ENTITIES.map(
   (e) => e.eik
 );
+var HEALTH_INSTITUTION_COUNT = 2 + MZ_SECOND_LEVEL_INSTITUTION_COUNT;
 
 // src/data/agri/constants.ts
 var AGRI_PAYER_EIK = "121100421";
@@ -2974,8 +3141,8 @@ var PROCUREMENT_BUYER_SECTORS = {
   nzok: {
     id: "nzok",
     label: {
-      bg: "\u0417\u0434\u0440\u0430\u0432\u0435\u043E\u043F\u0430\u0437\u0432\u0430\u043D\u0435 (\u041C\u0417 + \u041D\u0417\u041E\u041A)",
-      en: "Health (\u041C\u0417 + \u041D\u0417\u041E\u041A)"
+      bg: "\u0417\u0434\u0440\u0430\u0432\u0435\u043E\u043F\u0430\u0437\u0432\u0430\u043D\u0435 (\u041C\u0417, \u0432\u0435\u0434\u043E\u043C\u0441\u0442\u0432\u0430\u0442\u0430 \u043C\u0443 \u0438 \u041D\u0417\u041E\u041A)",
+      en: "Health (Ministry of Health, its bodies and NHIF)"
     },
     eiks: [...HEALTH_SECTOR_EIKS]
   },
