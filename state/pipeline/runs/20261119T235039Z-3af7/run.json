@@ -1,0 +1,599 @@
+{
+  "schema": 1,
+  "session": "20261119T235039Z-3af7",
+  "kind": "publish",
+  "startedAt": "2026-11-19T23:50:39.537Z",
+  "git": {
+    "shaStart": "58c53ea96a94d63f03a9b86c3eb0ef227ea89c85",
+    "shaEnd": "58c53ea96a94d63f03a9b86c3eb0ef227ea89c85"
+  },
+  "env": {
+    "proxy": {
+      "ok": true,
+      "detail": "up"
+    }
+  },
+  "units": [
+    {
+      "id": "bucket",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "bucket:sync:paths:dry",
+          "command": "pnpm run bucket:sync:paths:dry parliament/votes parliament/votes/derived/hub_stats.json procurement/derived/hub_stats.json macro.json macro_fdi.json macro_peers.json cofog.json debt-emissions.json debt-emissions-domestic.json administration social/poverty_impact.json financing defense tourism data_map.json home roads/derived/hub_stats.json water/derived/hub_stats.json transport/derived/hub_stats.json governance/hub_stats.json home/flyover.json home/hub_stats.json home/price_events.json home/feed.json",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 7894,
+          "medianMs": 3014,
+          "log": "logs/pipeline/20261119T235039Z-3af7/001-bucket_sync_paths_dry.log"
+        },
+        {
+          "seq": 2,
+          "id": "bucket:sync:paths parliament/votes",
+          "command": "pnpm run bucket:sync:paths parliament/votes",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2462,
+          "medianMs": 3907.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/002-bucket_sync_paths_parliament_votes.log"
+        },
+        {
+          "seq": 3,
+          "id": "bucket:sync:paths parliament/votes/derived/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths parliament/votes/derived/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1511,
+          "medianMs": 1495.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/003-bucket_sync_paths_parliament_votes_derived_hub_stats.json.log"
+        },
+        {
+          "seq": 4,
+          "id": "bucket:sync:paths procurement/derived/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths procurement/derived/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1467,
+          "medianMs": 1501.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/004-bucket_sync_paths_procurement_derived_hub_stats.json.log"
+        },
+        {
+          "seq": 5,
+          "id": "bucket:sync:paths macro.json",
+          "command": "pnpm run bucket:sync:paths macro.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1531,
+          "medianMs": 1735.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/005-bucket_sync_paths_macro.json.log"
+        },
+        {
+          "seq": 6,
+          "id": "bucket:sync:paths macro_fdi.json",
+          "command": "pnpm run bucket:sync:paths macro_fdi.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1525,
+          "medianMs": 1718,
+          "log": "logs/pipeline/20261119T235039Z-3af7/006-bucket_sync_paths_macro_fdi.json.log"
+        },
+        {
+          "seq": 7,
+          "id": "bucket:sync:paths macro_peers.json",
+          "command": "pnpm run bucket:sync:paths macro_peers.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1510,
+          "medianMs": 1595,
+          "log": "logs/pipeline/20261119T235039Z-3af7/007-bucket_sync_paths_macro_peers.json.log"
+        },
+        {
+          "seq": 8,
+          "id": "bucket:sync:paths cofog.json",
+          "command": "pnpm run bucket:sync:paths cofog.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1656,
+          "medianMs": 1723.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/008-bucket_sync_paths_cofog.json.log"
+        },
+        {
+          "seq": 9,
+          "id": "bucket:sync:paths debt-emissions.json",
+          "command": "pnpm run bucket:sync:paths debt-emissions.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1505,
+          "medianMs": 2046,
+          "log": "logs/pipeline/20261119T235039Z-3af7/009-bucket_sync_paths_debt-emissions.json.log"
+        },
+        {
+          "seq": 10,
+          "id": "bucket:sync:paths debt-emissions-domestic.json",
+          "command": "pnpm run bucket:sync:paths debt-emissions-domestic.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1528,
+          "medianMs": 1557,
+          "log": "logs/pipeline/20261119T235039Z-3af7/010-bucket_sync_paths_debt-emissions-domestic.json.log"
+        },
+        {
+          "seq": 11,
+          "id": "bucket:sync:paths administration",
+          "command": "pnpm run bucket:sync:paths administration",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1784,
+          "medianMs": 1836,
+          "log": "logs/pipeline/20261119T235039Z-3af7/011-bucket_sync_paths_administration.log"
+        },
+        {
+          "seq": 12,
+          "id": "bucket:sync:paths social/poverty_impact.json",
+          "command": "pnpm run bucket:sync:paths social/poverty_impact.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1837,
+          "medianMs": 1608,
+          "log": "logs/pipeline/20261119T235039Z-3af7/012-bucket_sync_paths_social_poverty_impact.json.log"
+        },
+        {
+          "seq": 13,
+          "id": "bucket:sync:paths financing",
+          "command": "pnpm run bucket:sync:paths financing",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1803,
+          "medianMs": 1977.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/013-bucket_sync_paths_financing.log"
+        },
+        {
+          "seq": 14,
+          "id": "bucket:sync:paths defense",
+          "command": "pnpm run bucket:sync:paths defense",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1536,
+          "log": "logs/pipeline/20261119T235039Z-3af7/014-bucket_sync_paths_defense.log"
+        },
+        {
+          "seq": 15,
+          "id": "bucket:sync:paths tourism",
+          "command": "pnpm run bucket:sync:paths tourism",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1747,
+          "medianMs": 1596,
+          "log": "logs/pipeline/20261119T235039Z-3af7/015-bucket_sync_paths_tourism.log"
+        },
+        {
+          "seq": 16,
+          "id": "bucket:sync:paths data_map.json",
+          "command": "pnpm run bucket:sync:paths data_map.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1725,
+          "medianMs": 1675.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/016-bucket_sync_paths_data_map.json.log"
+        },
+        {
+          "seq": 17,
+          "id": "bucket:sync:paths home",
+          "command": "pnpm run bucket:sync:paths home",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1741,
+          "medianMs": 1814,
+          "log": "logs/pipeline/20261119T235039Z-3af7/017-bucket_sync_paths_home.log"
+        },
+        {
+          "seq": 18,
+          "id": "bucket:sync:paths roads/derived/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths roads/derived/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1512,
+          "medianMs": 1473.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/018-bucket_sync_paths_roads_derived_hub_stats.json.log"
+        },
+        {
+          "seq": 19,
+          "id": "bucket:sync:paths water/derived/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths water/derived/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1526,
+          "medianMs": 1455,
+          "log": "logs/pipeline/20261119T235039Z-3af7/019-bucket_sync_paths_water_derived_hub_stats.json.log"
+        },
+        {
+          "seq": 20,
+          "id": "bucket:sync:paths transport/derived/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths transport/derived/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1504,
+          "medianMs": 1485,
+          "log": "logs/pipeline/20261119T235039Z-3af7/020-bucket_sync_paths_transport_derived_hub_stats.json.log"
+        },
+        {
+          "seq": 21,
+          "id": "bucket:sync:paths governance/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths governance/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1485,
+          "medianMs": 1507,
+          "log": "logs/pipeline/20261119T235039Z-3af7/021-bucket_sync_paths_governance_hub_stats.json.log"
+        },
+        {
+          "seq": 22,
+          "id": "bucket:sync:paths home/flyover.json",
+          "command": "pnpm run bucket:sync:paths home/flyover.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1478,
+          "medianMs": 1548.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/022-bucket_sync_paths_home_flyover.json.log"
+        },
+        {
+          "seq": 23,
+          "id": "bucket:sync:paths home/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths home/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1426,
+          "medianMs": 1570,
+          "log": "logs/pipeline/20261119T235039Z-3af7/023-bucket_sync_paths_home_hub_stats.json.log"
+        },
+        {
+          "seq": 24,
+          "id": "bucket:sync:paths home/price_events.json",
+          "command": "pnpm run bucket:sync:paths home/price_events.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1470,
+          "medianMs": 1499,
+          "log": "logs/pipeline/20261119T235039Z-3af7/024-bucket_sync_paths_home_price_events.json.log"
+        },
+        {
+          "seq": 25,
+          "id": "bucket:sync:paths home/feed.json",
+          "command": "pnpm run bucket:sync:paths home/feed.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1499,
+          "medianMs": 1567,
+          "log": "logs/pipeline/20261119T235039Z-3af7/025-bucket_sync_paths_home_feed.json.log"
+        },
+        {
+          "seq": 26,
+          "id": "bucket:gz",
+          "command": "pnpm run bucket:gz",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 110060,
+          "medianMs": 137371.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/026-bucket_gz.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "cloud",
+      "status": "failed",
+      "steps": [
+        {
+          "seq": 27,
+          "id": "kzk:appeals:cloud --year 2026",
+          "command": "pnpm run kzk:appeals:cloud --year 2026",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 38960,
+          "medianMs": 46153,
+          "log": "logs/pipeline/20261119T235039Z-3af7/027-kzk_appeals_cloud_--year_2026.log"
+        },
+        {
+          "seq": 28,
+          "id": "db:load:kzk-decisions:pg:cloud",
+          "command": "pnpm run db:load:kzk-decisions:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3898,
+          "medianMs": 3766,
+          "log": "logs/pipeline/20261119T235039Z-3af7/028-db_load_kzk-decisions_pg_cloud.log"
+        },
+        {
+          "seq": 29,
+          "id": "kzk:rejoin:cloud --apply",
+          "command": "pnpm run kzk:rejoin:cloud --apply",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 122931,
+          "medianMs": 126611.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/029-kzk_rejoin_cloud_--apply.log"
+        },
+        {
+          "seq": 30,
+          "id": "db:load:funds:pg:cloud --full",
+          "command": "pnpm run db:load:funds:pg:cloud --full",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 67023,
+          "medianMs": 68178,
+          "log": "logs/pipeline/20261119T235039Z-3af7/030-db_load_funds_pg_cloud_--full.log"
+        },
+        {
+          "seq": 31,
+          "id": "db:load:funds-fit:pg:cloud",
+          "command": "pnpm run db:load:funds-fit:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 5485,
+          "medianMs": 5823.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/031-db_load_funds-fit_pg_cloud.log"
+        },
+        {
+          "seq": 32,
+          "id": "db:load:clean-delivery:pg:cloud",
+          "command": "pnpm run db:load:clean-delivery:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4401,
+          "medianMs": 4809,
+          "log": "logs/pipeline/20261119T235039Z-3af7/032-db_load_clean-delivery_pg_cloud.log"
+        },
+        {
+          "seq": 33,
+          "id": "db:load:rollcall:pg:cloud",
+          "command": "pnpm run db:load:rollcall:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 183849,
+          "medianMs": 184513.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/033-db_load_rollcall_pg_cloud.log"
+        },
+        {
+          "seq": 34,
+          "id": "db:load:rollcall-derived:pg:cloud",
+          "command": "pnpm run db:load:rollcall-derived:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 217294,
+          "medianMs": 217785,
+          "log": "logs/pipeline/20261119T235039Z-3af7/034-db_load_rollcall-derived_pg_cloud.log"
+        },
+        {
+          "seq": 35,
+          "id": "db:load:tr:pg:cloud",
+          "command": "pnpm run db:load:tr:pg:cloud",
+          "phase": "publish",
+          "status": "error",
+          "exitCode": 1,
+          "durationMs": 64720,
+          "medianMs": 792790.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/035-db_load_tr_pg_cloud.log",
+          "firstError": "at emitErrorCloseNT (node:internal/streams/destroy:129:3)",
+          "failure": {
+            "class": "unknown",
+            "retryable": false,
+            "hint": "Exit 1 with no recognisable error — read the full log."
+          },
+          "packet": "state/pipeline/runs/20261119T235039Z-3af7/failures/035-db_load_tr_pg_cloud.md"
+        },
+        {
+          "seq": 36,
+          "id": "db:load:cr-nkid:pg:cloud",
+          "command": "pnpm run db:load:cr-nkid:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 37,
+          "id": "db:load:company-founded:pg:cloud",
+          "command": "pnpm run db:load:company-founded:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 38,
+          "id": "db:refresh:risk:cloud",
+          "command": "pnpm run db:refresh:risk:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 39,
+          "id": "db:load:grant-links:pg:cloud",
+          "command": "pnpm run db:load:grant-links:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 40,
+          "id": "db:load:council:pg:cloud",
+          "command": "pnpm run db:load:council:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 41,
+          "id": "db:load:persons-browse:pg:cloud",
+          "command": "pnpm run db:load:persons-browse:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 42,
+          "id": "db:load:person-search:pg:cloud",
+          "command": "pnpm run db:load:person-search:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 43,
+          "id": "db:load:graph:pg:cloud",
+          "command": "pnpm run db:load:graph:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 44,
+          "id": "db:load:agri-hub-stats:pg:cloud",
+          "command": "pnpm run db:load:agri-hub-stats:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 45,
+          "id": "db:load:tr-company-place:pg:cloud",
+          "command": "pnpm run db:load:tr-company-place:pg:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 46,
+          "id": "prices:ingest:cloud",
+          "command": "pnpm run prices:ingest:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        },
+        {
+          "seq": 47,
+          "id": "myarea:alerts:cloud",
+          "command": "pnpm run myarea:alerts:cloud",
+          "phase": "publish",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "not run: db:load:tr:pg:cloud failed earlier in this publish"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "verify",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 48,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2437,
+          "medianMs": 879,
+          "log": "logs/pipeline/20261119T235039Z-3af7/048-db_check-generated.log"
+        },
+        {
+          "seq": 49,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4900,
+          "medianMs": 1109.5,
+          "log": "logs/pipeline/20261119T235039Z-3af7/049-db_check-cloud.log"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "manifest cloud order differs from CLOUD_ORDER — reordered: manifest pnpm run db:load:rollcall:pg:cloud → pnpm run db:load:rollcall-derived:pg:cloud → pnpm run db:load:tr:pg:cloud → pnpm run db:load:cr-nkid:pg:cloud → pnpm run db:load:company-founded:pg:cloud → pnpm run db:refresh:risk:cloud → pnpm run db:load:persons-browse:pg:cloud → pnpm run db:load:person-search:pg:cloud → pnpm run db:load:graph:pg:cloud → pnpm run db:load:tr-company-place:pg:cloud → pnpm run kzk:appeals:cloud --year 2026 → pnpm run db:load:kzk-decisions:pg:cloud → pnpm run kzk:rejoin:cloud --apply → pnpm run db:load:funds:pg:cloud --full → pnpm run db:load:funds-fit:pg:cloud → pnpm run db:load:clean-delivery:pg:cloud → pnpm run db:load:grant-links:pg:cloud → pnpm run db:load:agri-hub-stats:pg:cloud → pnpm run prices:ingest:cloud → pnpm run db:load:council:pg:cloud → pnpm run myarea:alerts:cloud; run as pnpm run kzk:appeals:cloud --year 2026 → pnpm run db:load:kzk-decisions:pg:cloud → pnpm run kzk:rejoin:cloud --apply → pnpm run db:load:funds:pg:cloud --full → pnpm run db:load:funds-fit:pg:cloud → pnpm run db:load:clean-delivery:pg:cloud → pnpm run db:load:rollcall:pg:cloud → pnpm run db:load:rollcall-derived:pg:cloud → pnpm run db:load:tr:pg:cloud → pnpm run db:load:cr-nkid:pg:cloud → pnpm run db:load:company-founded:pg:cloud → pnpm run db:refresh:risk:cloud → pnpm run db:load:grant-links:pg:cloud → pnpm run db:load:council:pg:cloud → pnpm run db:load:persons-browse:pg:cloud → pnpm run db:load:person-search:pg:cloud → pnpm run db:load:graph:pg:cloud → pnpm run db:load:agri-hub-stats:pg:cloud → pnpm run db:load:tr-company-place:pg:cloud → pnpm run prices:ingest:cloud → pnpm run myarea:alerts:cloud"
+  ],
+  "manifestDigest": "3764a8aff96cd7d9",
+  "publish": {
+    "decision": "held",
+    "heldBecause": [
+      "db:load:tr:pg:cloud failed — the manifest is left pending"
+    ]
+  },
+  "exitCode": 1,
+  "endedAt": "2026-11-20T00:05:12.246Z",
+  "verdict": "failed"
+}
