@@ -1979,8 +1979,8 @@ ${links(false)}
 <p>Източник: АОП/ЦАИС ЕОП, ИСУН, Закон за държавния бюджет.</p>`.trim(),
       english: {
         title:
-          "Education and science — public procurement of МОН, the universities and БАН | Naiasno",
-        description: `Public procurement of Bulgaria's state education and science — МОН and its agencies, the state universities, the Academy of Sciences and the Agricultural Academy: €${f.eurBnEn}bn${span ? ` in ${span}` : ""}, with how much competition and the EU funds beside it.`,
+          "Education and science — public procurement of the ministry, the universities and the Academy of Sciences | Naiasno",
+        description: `Public procurement of Bulgaria's state education and science — the Ministry of Education and its agencies, the state universities, the Academy of Sciences and the Agricultural Academy: €${f.eurBnEn}bn${span ? ` in ${span}` : ""}, with how much competition and the EU funds beside it.`,
         breadcrumbName: "Education and science",
         bodyHtml: `
 <h1>Education and science</h1>
@@ -2047,9 +2047,9 @@ ${up(true)}`.trim(),
 ${up(false)}`.trim(),
       english: {
         title:
-          "The education and science institutions — МОН, universities, БАН | Naiasno",
+          "The education and science institutions — the ministry, universities, the Academy of Sciences | Naiasno",
         description:
-          "МОН and its agencies and companies, the state universities, the Academy of Sciences and the Agricultural Academy — with each institution's procurement, and apart from them the ones not counted in the totals.",
+          "The Ministry of Education and its agencies and companies, the state universities, the Academy of Sciences and the Agricultural Academy — with each institution's procurement, and apart from them the ones not counted in the totals.",
         breadcrumbName: "The education and science institutions",
         bodyHtml: `
 <h1>The education and science institutions</h1>
@@ -2072,9 +2072,9 @@ ${up(true)}`.trim(),
 ${up(false)}`.trim(),
       english: {
         title:
-          "The money outside procurement — МОН's budget, EU funds and research | Naiasno",
+          "The money outside procurement — the education budget, EU funds and research | Naiasno",
         description:
-          "МОН's budget, the institutions' EU funds and research — each on its own basis, never added to procurement.",
+          "The Ministry of Education's budget, the institutions' EU funds and research — each on its own basis, never added to procurement.",
         breadcrumbName: "The money outside procurement",
         bodyHtml: `
 <h1>The money outside procurement</h1>
