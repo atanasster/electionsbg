@@ -4,6 +4,8 @@ import {
   EDU_HUB_TITLE,
   foldRetired,
   foldRetiredFunds,
+  exMemberPair,
+  othersShare,
   parseUniverse,
   universeRows,
 } from "./eduSectorData";
@@ -71,6 +73,19 @@ describe("universeRows", () => {
   });
 });
 
+describe("othersShare", () => {
+  it("is the national pair MINUS the sector's own, never the national rate", () => {
+    // national 400/1000 = 40%; sector 90/100 = 90%; everyone else 310/900.
+    const v = othersShare({ singleBid: 400, bidKnown: 1000 }, 90, 100);
+    expect(v).toBeCloseTo(310 / 900, 10);
+    expect(v).not.toBeCloseTo(0.4, 3);
+  });
+  it("has no baseline without a national pair or with nothing left", () => {
+    expect(othersShare(null, 1, 2)).toBeNull();
+    expect(othersShare({ singleBid: 5, bidKnown: 10 }, 5, 10)).toBeNull();
+  });
+});
+
 describe("parseUniverse", () => {
   it("accepts only register universes", () => {
     expect(parseUniverse("higher_education")).toBe("higher_education");
@@ -99,5 +114,26 @@ describe("the prerendered <h1>s", () => {
       expect(pre, t.bg).toContain(`<h1>${t.bg}</h1>`);
       expect(pre, t.en).toContain(`<h1>${t.en}</h1>`);
     }
+  });
+});
+
+describe("exMemberPair", () => {
+  it("takes the ex-member pair, never the all-rows one in its place", () => {
+    expect(
+      exMemberPair({
+        singleBid: 1,
+        bidKnown: 2,
+        contracts: 3,
+        singleBidExMembers: 40,
+        bidKnownExMembers: 100,
+      }),
+    ).toEqual({ singleBid: 40, bidKnown: 100 });
+  });
+  it("is null when the server has not published the ex-member pair", () => {
+    expect(
+      exMemberPair({ singleBid: 1, bidKnown: 2, contracts: 3 }),
+    ).toBeNull();
+    expect(exMemberPair(null)).toBeNull();
+    expect(exMemberPair(undefined)).toBeNull();
   });
 });

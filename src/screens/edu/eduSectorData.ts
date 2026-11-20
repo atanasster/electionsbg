@@ -2,6 +2,7 @@
 // the screen modules so each of those exports components only (fast refresh).
 // Plan: docs/plans/edu-hub-v1.md §3.
 
+import type { NationalCompetition } from "@/data/procurement/useNationalCompetition";
 import type { EduBodyAgg, EduFundOp } from "@/data/edu/useEduSector";
 import {
   EDU_ENTITIES,
@@ -124,4 +125,35 @@ export const foldRetiredFunds = (rows: EduFundOp[]): EduFundOp[] => {
     );
   }
   return [...out.values()];
+};
+
+/** A national ex-member single-bid pair for one window. */
+export interface CompetitionPair {
+  singleBid: number;
+  bidKnown: number;
+}
+
+/** The single-bid share of EVERY OTHER buyer: the national pair minus the
+ *  sector's own, both ex-member and on the same window (skill §3). Null when
+ *  there is no national pair or nothing is left after the subtraction. */
+/** The national pair on the EX-MEMBER basis the edu rollups count on, or null
+ *  when the server has not published it — never the all-rows pair in its place. */
+export const exMemberPair = (
+  national: NationalCompetition | null | undefined,
+): CompetitionPair | null =>
+  national?.bidKnownExMembers && national.singleBidExMembers != null
+    ? {
+        singleBid: national.singleBidExMembers,
+        bidKnown: national.bidKnownExMembers,
+      }
+    : null;
+
+export const othersShare = (
+  national: CompetitionPair | null,
+  sectorSingle: number,
+  sectorKnown: number,
+): number | null => {
+  if (!national) return null;
+  const known = national.bidKnown - sectorKnown;
+  return known > 0 ? (national.singleBid - sectorSingle) / known : null;
 };

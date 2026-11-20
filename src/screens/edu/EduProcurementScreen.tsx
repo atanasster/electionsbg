@@ -61,11 +61,23 @@ import type { GroupModelPayload } from "@/lib/awarderModel";
 import { EduPageFrame } from "./EduPageFrame";
 import {
   eduPct,
+  exMemberPair,
+  othersShare,
   parseUniverse,
   universeRows,
+  type CompetitionPair,
   type UniverseRow,
 } from "./eduSectorData";
+import {
+  bandOf,
+  BAND_TEXT as SHARED_BAND_TEXT,
+  WELL_ABOVE,
+  type Band,
+} from "@/screens/transport/competitionBand";
 import { EduNote } from "./EduNote";
+
+/** Below this many bid-known contracts a group's share is not shown. */
+const MIN_BID_KNOWN = 3;
 
 const TRANSFER_EIKS = EDU_STATE_TRANSFER_CONTRACTORS.map((c) => c.eik);
 const SECTOR_SET = new Set(EDU_SECTOR_EIKS);
@@ -142,11 +154,18 @@ const SpineTile: FC<{ model: EduModel }> = ({ model }) => {
   );
 };
 
-/** #universes — the split of the sector's € and competition by group. */
-const UniversesTile: FC<{
+/** The shared band colours; neutral inherits the muted line colour here. */
+const BAND_TEXT: Record<Band, string> = { ...SHARED_BAND_TEXT, neutral: "" };
+
+/** #universes — the split of the sector's € and competition by group. Each
+ *  group's single-bid share is coloured against `others`. */
+export const UniversesTile: FC<{
   rows: UniverseRow[];
   selected: EducationUniverse | null;
-}> = ({ rows, selected }) => {
+  /** Every OTHER buyer's single-bid share on the same window and ex-member
+   *  basis (national − whole sector), or null: then nothing is coloured. */
+  others: number | null;
+}> = ({ rows, selected, others }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
@@ -187,9 +206,17 @@ const UniversesTile: FC<{
                   {eduPct(r.totalEur / total, bg)} ·{" "}
                   {formatInt(r.contractCount, lang)}{" "}
                   {bg ? "договора" : "contracts"}
-                  {r.bidKnownN >= 3
-                    ? ` · ${eduPct(r.singleBidN / r.bidKnownN, bg)} ${bg ? "с една оферта" : "single-bid"}`
-                    : ""}
+                  {r.bidKnownN >= MIN_BID_KNOWN ? (
+                    <>
+                      {" · "}
+                      <span
+                        className={`font-medium ${BAND_TEXT[bandOf(r.singleBidN / r.bidKnownN, others)]}`}
+                      >
+                        {eduPct(r.singleBidN / r.bidKnownN, bg, 1)}
+                      </span>{" "}
+                      {bg ? "с една оферта" : "single-bid"}
+                    </>
+                  ) : null}
                 </span>
               </div>
               <div className="h-1.5 rounded bg-muted">
@@ -211,8 +238,16 @@ const UniversesTile: FC<{
         ) : null}
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "Броят договори и делът с една оферта са без нулевите дялове на участниците в обединения."
-            : "Contract counts and the single-bid share exclude the €0 shares of consortium members."}
+            ? `Броят договори и делът с една оферта са без нулевите дялове на участниците в обединения. ${
+                others != null
+                  ? `Цветът на дела сравнява с ${eduPct(others, bg, 1)} за всички останали възложители в същия период: зелено — до него, жълто — до ${Math.round(WELL_ABOVE * 100)} пункта над него, червено — повече. Сигнал за проверка, не присъда.`
+                  : "Средното за останалите възложители за този период не е налично, затова делът не е оцветен."
+              }`
+            : `Contract counts and the single-bid share exclude the €0 shares of consortium members. ${
+                others != null
+                  ? `The share's colour compares with ${eduPct(others, bg, 1)} for every other buyer in the same window: green — at or below it, amber — up to ${Math.round(WELL_ABOVE * 100)} points above, red — further. A flag for review, not a verdict.`
+                  : "The rate for the other buyers in this window is unavailable, so the share is not coloured."
+              }`}
         </p>
       </CardContent>
     </Card>
@@ -225,7 +260,7 @@ const CompetitionCard: FC<{
   bodies: EduBodyAgg[];
   /** National ex-member pair for the window, or null when the server cannot
    *  state it on the ex-member basis (or the rollup did not drop members). */
-  national: { singleBid: number; bidKnown: number } | null;
+  national: CompetitionPair | null;
 }> = ({ bodies, national }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
@@ -241,11 +276,7 @@ const CompetitionCard: FC<{
           : "No contracts with a known bid count in the selected window."}
       </EduNote>
     );
-  const otherKnown = national ? national.bidKnown - known : 0;
-  const others =
-    national && otherKnown > 0
-      ? (national.singleBid - single) / otherKnown
-      : null;
+  const others = othersShare(national, single, known);
   return (
     <Card>
       {sectionTitle(Scale, bg ? "Конкуренция" : "Competition")}
@@ -578,17 +609,23 @@ export const EduProcurementScreen: FC = () => {
   // The universe split is the WHOLE sector by definition — it ignores ?universe.
   const whole = useEduRollup(EDU_SECTOR_EIKS);
   const { data: national } = useNationalCompetition();
-  // Ex-member on both sides, or no baseline at all.
-  const nationalPair =
-    rollup.exMembers &&
-    national?.bidKnownExMembers &&
-    national.singleBidExMembers != null
-      ? {
-          singleBid: national.singleBidExMembers,
-          bidKnown: national.bidKnownExMembers,
-        }
-      : null;
+  // Ex-member on both sides, or no baseline at all — ONE pair for both cards.
+  const exPair = useMemo(() => exMemberPair(national), [national]);
+  const nationalPair = rollup.exMembers ? exPair : null;
   const uniRows = useMemo(() => universeRows(whole.bodies), [whole.bodies]);
+  // Per-universe baseline: national minus the WHOLE sector — every body of the
+  // rollup, not only the ones a universe resolved — whatever ?universe says.
+  const uniOthers = useMemo(
+    () =>
+      whole.exMembers
+        ? othersShare(
+            exPair,
+            whole.bodies.reduce((a, b) => a + b.singleBidN, 0),
+            whole.bodies.reduce((a, b) => a + b.bidKnownN, 0),
+          )
+        : null,
+    [whole.exMembers, whole.bodies, exPair],
+  );
   const model = group.model;
   const failed = bg
     ? "Данните за този раздел не можаха да се заредят."
@@ -631,7 +668,11 @@ export const EduProcurementScreen: FC = () => {
         {whole.isError ? (
           <EduNote>{failed}</EduNote>
         ) : whole.isLoading ? null : (
-          <UniversesTile rows={uniRows} selected={universe} />
+          <UniversesTile
+            rows={uniRows}
+            selected={universe}
+            others={uniOthers}
+          />
         )}
       </section>
       <section id="competition" className="scroll-mt-24">

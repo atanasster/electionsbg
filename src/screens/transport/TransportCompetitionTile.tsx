@@ -22,7 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { TransportBodyAgg } from "@/data/transport/useTransportSector";
 import { transportBodyName } from "@/lib/transportReferenceData";
-import { bandOf, WELL_ABOVE, type Band } from "./competitionBand";
+import { bandOf, BAND_TEXT, WELL_ABOVE, type Band } from "./competitionBand";
 
 const MIN_BID_KNOWN = 3;
 
@@ -36,12 +36,6 @@ const BAR: Record<Band, string> = {
   above: "bg-amber-500",
   wellAbove: "bg-red-600",
   neutral: "bg-slate-500",
-};
-const TEXT: Record<Band, string> = {
-  below: "text-emerald-600 dark:text-emerald-400",
-  above: "text-amber-600 dark:text-amber-400",
-  wellAbove: "text-red-600 dark:text-red-400",
-  neutral: "text-foreground",
 };
 
 export const TransportCompetitionTile: FC<{
@@ -85,7 +79,7 @@ export const TransportCompetitionTile: FC<{
                 </AwarderLink>
                 <span className="shrink-0 tabular-nums text-muted-foreground">
                   {formatEurCompact(u.totalEur, lang)}
-                  <span className={`ml-1 font-medium ${TEXT[band]}`}>
+                  <span className={`ml-1 font-medium ${BAND_TEXT[band]}`}>
                     {pct1(s, lang)}
                   </span>
                 </span>
