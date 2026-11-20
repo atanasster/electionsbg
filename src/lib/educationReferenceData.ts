@@ -441,6 +441,9 @@ export const EDU_EXCLUDED: ReadonlyArray<{
   { eik: "175079183", name: "Български институт за стандартизация", why: "стандартизация" }, // prettier-ignore
   { eik: "130403691", name: "Институт по публична администрация", why: "обучение на държавни служители (МС)" }, // prettier-ignore
   { eik: "131198150", name: "Дипломатически институт", why: "МВнР" },
+  // Found by the T9 corpus sweep; each is claimed by another sector's set.
+  { eik: "129000273", name: "Военномедицинска академия", why: "болница към МО (отбрана)" }, // prettier-ignore
+  { eik: "000663814", name: "Национален институт по метеорология и хидрология", why: "напуснал БАН през 2019 (околна среда)" }, // prettier-ignore
 ];
 
 /** Distinct INSTITUTIONS in the roster — EIK count minus the retired-EIK rows.

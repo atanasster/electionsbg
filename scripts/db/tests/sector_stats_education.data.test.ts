@@ -147,6 +147,32 @@ describe("education sector — the hub headline is a BUDGET", () => {
     );
   });
 
+  test("every scope's edu cell names the year it shows (A15)", () => {
+    // The exact reconcile below skips without the gitignored ministries tree, so
+    // this is the half that runs everywhere. The tile renders `year` beside the
+    // figure, so the invariant is: a `y:<Y>` scope shows Y or is marked
+    // `unavailable` (the tile's dash), and a parliament window — which a budget
+    // cannot be windowed to — shows the same latest year as `all`, never the
+    // window's own year. edu-hub-v1 A15.
+    const stats = readJson<SectorStats>(STATS);
+    const latest = stats[ALL]?.edu?.year;
+    assert.ok(latest, "no year on the all-scope edu cell");
+    const wrong: string[] = [];
+    for (const [scope, row] of Object.entries(stats)) {
+      const e = row?.edu;
+      if (!e) continue;
+      const m = /^y:(\d{4})$/.exec(scope);
+      // The generator's rule: a year it has shows that year; any other scope
+      // (a missing year, a parliament window) shows the latest, and only a
+      // missing `y:<Y>` carries `unavailable`.
+      const unavailable = !!e.unavailable;
+      const want = m && !unavailable ? Number(m[1]) : latest;
+      if (e.year !== want || (unavailable && !m))
+        wrong.push(`${scope} shows ${e.year}${unavailable ? " (unavailable)" : ""}, expected ${want}`); // prettier-ignore
+    }
+    assert.deepEqual(wrong, []);
+  });
+
   test.skipIf(skipNode)(
     "EVERY scope reconciles EXACTLY to the МОН node — value, year and unavailable",
     () => {

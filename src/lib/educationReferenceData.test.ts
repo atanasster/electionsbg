@@ -113,7 +113,7 @@ describe("the anti-allowlist — both halves", () => {
     for (const p of Object.values(SECTOR_BROWSE_PACKS))
       for (const e of p.eiks) claims.set(e, [...(claims.get(e) ?? []), p.id]);
 
-    expect(EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length).toBeGreaterThanOrEqual(4);
+    expect(EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length).toBeGreaterThanOrEqual(5);
     const unowned = EDUCATION_EXTERNAL_HIGHER_SCHOOLS.filter(
       (e) => !(claims.get(e.eik) ?? []).includes(e.sector),
     ).map(

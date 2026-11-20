@@ -44,9 +44,11 @@ const eiks = [...EDU_SECTOR_EIKS];
 const EX = "consortium_role IS DISTINCT FROM 'member'";
 
 const TOLERANCE = 0.02;
+const within = (actual: number, stored: number) =>
+  Math.abs(actual - stored) <= Math.max(1, Math.abs(stored) * TOLERANCE);
 const near = (actual: number, stored: number, what: string) =>
   assert.ok(
-    Math.abs(actual - stored) <= Math.max(1, Math.abs(stored) * TOLERANCE),
+    within(actual, stored),
     `${what}: database ${actual} vs blob ${stored} — re-run pnpm run db:gen-edu-hub-stats`,
   );
 
@@ -87,6 +89,24 @@ test.skipIf(skip)(
     );
     near(n.r.singleBidExMembers, b.nationalSingleBid, "nationalSingleBid");
     near(n.r.bidKnownExMembers, b.nationalBidKnown, "nationalBidKnown");
+  },
+);
+
+test.skipIf(skip)(
+  "the baseline check DISCRIMINATES the window (KPI 3 mutation)",
+  async () => {
+    // The sector pair above is all-time, so its baseline must be all-time too
+    // (sector-dashboard §3: a baseline from another window can invert the sign).
+    // This proves the comparison would catch a baseline taken on a different
+    // window: the 2023+ national rate must fall OUTSIDE the band around the blob.
+    const [n] = await allRows<{ r: Record<string, number> }>(
+      "SELECT national_competition('2023-01-01', NULL) r",
+    );
+    const b = blob().procurement;
+    assert.ok(
+      !within(n.r.bidKnownExMembers, b.nationalBidKnown),
+      "a 2023+ baseline is indistinguishable from the all-time one — the window check is vacuous",
+    );
   },
 );
 
