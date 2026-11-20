@@ -59,8 +59,18 @@ import {
   healthEntityName,
   healthPct,
   parseUniverse,
+  MIN_BID_KNOWN,
+  universeCompetition,
   type HealthInstitutionRow,
 } from "./healthSectorData";
+import {
+  BAND_TEXT as SHARED_BAND_TEXT,
+  WELL_ABOVE,
+  type Band,
+} from "@/screens/transport/competitionBand";
+
+/** The shared band colours; neutral inherits the muted line colour here. */
+const BAND_TEXT: Record<Band, string> = { ...SHARED_BAND_TEXT, neutral: "" };
 
 const sectionTitle = (Icon: FC<{ className?: string }>, text: string) => (
   <CardHeader className="pb-2">
@@ -228,6 +238,7 @@ const CompetitionCard: FC<{
       </HealthNote>
     );
   const others = othersShare(national, single, known);
+  const groups = universeCompetition(rows, others);
   return (
     <Card>
       {sectionTitle(Scale, bg ? "Конкуренция" : "Competition")}
@@ -245,6 +256,27 @@ const CompetitionCard: FC<{
               : ` — against ${healthPct(others, bg, 1)} for every other buyer in the same window.`
             : "."}
         </p>
+        {groups.length > 1 ? (
+          <ul className="space-y-0.5 text-xs">
+            {groups.map((g) => (
+              <li key={g.universe} className="flex justify-between gap-2">
+                <span>{uniLabel(g.universe, bg)}</span>
+                <span className="tabular-nums text-muted-foreground">
+                  {g.share != null ? (
+                    <>
+                      <span className={`font-medium ${BAND_TEXT[g.band]}`}>
+                        {healthPct(g.share, bg, 1)}
+                      </span>{" "}
+                      {bg ? "с една оферта" : "single-bid"} ·{" "}
+                    </>
+                  ) : null}
+                  {formatInt(g.bidKnownN, lang)}{" "}
+                  {bg ? "с известен брой оферти" : "with a known bid count"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
         <p className="text-muted-foreground">
           {bg
             ? `Броят оферти е известен за ${healthPct(known / contracts, bg)} от ${formatInt(contracts, lang)} договора.`
@@ -255,6 +287,18 @@ const CompetitionCard: FC<{
             ? `И двете страни са без нулевите дялове на участниците в обединения; ${exFramework ? "страната на сектора е и без дяловете от рамкови споразумения" : "дяловете от рамкови споразумения са включени, защото базата данни още не ги отделя"}. Една оферта е сигнал за проверка, не доказателство — патентовани лекарства и ваксини често имат един възможен доставчик.`
             : `Both sides exclude the €0 shares of consortium members; ${exFramework ? "the sector's side also excludes framework-agreement shares" : "framework-agreement shares are included, because the database does not separate them yet"}. A single bid is a flag for review, not proof — patented medicines and vaccines often have one possible supplier.`}
         </p>
+        {groups.length > 1 ? (
+          <p className="text-[11px] text-muted-foreground/80">
+            {others != null
+              ? bg
+                ? `Цветът на дела по групи сравнява с ${healthPct(others, bg, 1)} за всички останали възложители в същия период: зелено — до него, жълто — до ${Math.round(WELL_ABOVE * 100)} пункта над него, червено — повече. `
+                : `The colour of each group's share compares with ${healthPct(others, bg, 1)} for every other buyer in the same window: green — at or below it, amber — up to ${Math.round(WELL_ABOVE * 100)} points above, red — further. `
+              : ""}
+            {bg
+              ? `Група с по-малко от ${MIN_BID_KNOWN} договора с известен брой оферти не получава дял.`
+              : `A group with fewer than ${MIN_BID_KNOWN} contracts with a known bid count gets no share.`}
+          </p>
+        ) : null}
       </CardContent>
     </Card>
   );

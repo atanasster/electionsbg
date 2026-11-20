@@ -10,6 +10,7 @@ import {
 import { HEALTH_UNIVERSE_PARAMS } from "@/lib/healthPaths";
 import type { HealthBodyAgg } from "@/data/health/useHealthSector";
 import type { HealthPaymentStream } from "@/data/health/hubStats";
+import { bandOf, type Band } from "@/screens/transport/competitionBand";
 
 /** The hub's heading — also the prerendered <h1> (scripts/prerender/routes.ts). */
 export const HEALTH_HUB_TITLE = {
@@ -122,3 +123,39 @@ export const universeRows = (
       !!r && (r.contractCount > 0 || r.frameworkEur > 0),
   );
 };
+
+/** Below this many bid-known contracts a group's share is not shown — one or two
+ *  contracts make a percentage, not a rate (the edu MIN_BID_KNOWN). */
+export const MIN_BID_KNOWN = 3;
+
+export interface UniverseCompetitionRow {
+  universe: HealthUniverse;
+  bidKnownN: number;
+  singleBidN: number;
+  contractCount: number;
+  /** null below MIN_BID_KNOWN. */
+  share: number | null;
+  band: Band;
+}
+
+/** #competition per group (T4, A7: НЗОК and МЗ are never blended). Each group's
+ *  rate is coloured against `others` — every OTHER buyer on the same window and
+ *  ex-member basis (national − the shown set) — or neutral when there is none. */
+export const universeCompetition = (
+  rows: readonly HealthInstitutionRow[],
+  others: number | null,
+): UniverseCompetitionRow[] =>
+  universeRows(rows)
+    .filter((r) => r.contractCount > 0)
+    .map((r) => {
+      const share =
+        r.bidKnownN >= MIN_BID_KNOWN ? r.singleBidN / r.bidKnownN : null;
+      return {
+        universe: r.universe,
+        bidKnownN: r.bidKnownN,
+        singleBidN: r.singleBidN,
+        contractCount: r.contractCount,
+        share,
+        band: share == null ? "neutral" : bandOf(share, others),
+      };
+    });

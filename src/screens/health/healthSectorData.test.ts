@@ -2,7 +2,12 @@
 // the retired-EIK fold and the hub's national-minus-sector baseline.
 
 import { describe, it, expect } from "vitest";
-import { foldBodies, healthPct, successorOf } from "./healthSectorData";
+import {
+  foldBodies,
+  healthPct,
+  successorOf,
+  universeCompetition,
+} from "./healthSectorData";
 import { healthHubKpis, otherBuyersPair, pct } from "./healthHubFigures";
 import type { HealthBodyAgg } from "@/data/health/useHealthSector";
 import type { HealthHubStats } from "@/data/health/hubStats";
@@ -91,5 +96,38 @@ describe("the hub's competition baseline", () => {
     );
     expect(none.at(-1)?.basis).toContain("25% single-bid");
     expect(none.at(-1)?.basis).not.toContain("against");
+  });
+});
+
+describe("universeCompetition", () => {
+  const row = (
+    eik: string,
+    universe: "nzok" | "mz" | "mz_bodies",
+    single: number,
+    known: number,
+  ) => ({
+    ...body(eik, 10, known),
+    singleBidN: single,
+    bidKnownN: known,
+    universe,
+  });
+
+  it("keeps НЗОК and МЗ apart and colours each against the others' rate", () => {
+    const out = universeCompetition(
+      [row("a", "nzok", 5, 10), row("b", "mz", 1, 10), row("c", "mz", 1, 10)],
+      0.3,
+    );
+    expect(out.map((r) => r.universe)).toEqual(["nzok", "mz"]);
+    expect(out[0]).toMatchObject({ share: 0.5, band: "wellAbove" });
+    expect(out[1]).toMatchObject({ share: 0.1, band: "below" });
+  });
+
+  it("shows no share below the bid-known floor, and no colour with no baseline", () => {
+    const out = universeCompetition(
+      [row("a", "nzok", 1, 2), row("b", "mz", 4, 10)],
+      null,
+    );
+    expect(out[0]).toMatchObject({ share: null, band: "neutral" });
+    expect(out[1]).toMatchObject({ share: 0.4, band: "neutral" });
   });
 });
