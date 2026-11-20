@@ -239,6 +239,12 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
       "the /sector/edu hub's KPI band, body rail, finder index and band figures (edu-hub-v1 T2). It reads contracts, fund_projects and national_competition() — so it must follow db:load:pg and db:load:funds:pg — and sits right after db:gen-transport-hub-stats, beside the other sector hubs. Its KPI 1 is the roster's awarder-side Σ, which awarder_group_model() over EDU_SECTOR_EIKS must reproduce",
     bucketPath: "education/derived/hub_stats.json",
   },
+  "db:gen-health-hub-stats": {
+    artifact: "data/health/derived/hub_stats.json",
+    reason:
+      "the /sector/health hub's KPI band, hospital rail, finder index and band figures (health-hub-v1 T2). It reads contracts, fund_projects, national_competition(), nzok_hospital_payments and nzok_drug_quarterly plus the committed B1 history — so it sits right after db:load:nzok-drug-quarterly:pg, the last of those loaders; placed beside the other sector hubs it would state KPIs 2 and 3 from the PREVIOUS payments/pharmacy vintage against a current KPI 1",
+    bucketPath: "health/derived/hub_stats.json",
+  },
   "db:gen-governance-hub-stats": {
     artifact: "data/governance/hub_stats.json",
     reason:

@@ -184,11 +184,16 @@ periods.
 | # | value | basis line | links to |
 | --- | --- | --- | --- |
 | 1 | **€4,72 млрд.** | „касови разходи на НЗОК за {year}, отчет B1" | `/sector/health/money#nzok-budget` |
-| 2 | **€3,13 млрд. към {n} болници** | „плащания по договори с НЗОК за {year}: болнична помощ, лекарства, изделия · {n} лечебни заведения с плащане" | `/sector/health/hospitals#payments` |
-| 3 | **€1,62 млрд. лекарства в аптеките** | „реимбурсирани лекарства, {n} INN, {year}" | `/sector/health/drugs#pharmacy` |
+| 2 | **€2,33 млрд. към {n} болници** | „плащания по договори с НЗОК за {year}: болнична помощ и изделия · {n} лечебни заведения с плащане" | `/sector/health/hospitals#payments` |
+| 3 | **€1,62 млрд. лекарства** | „всички реимбурсирани лекарства — в аптеките и в болниците, {n} INN, {year}" | `/sector/health/drugs#pharmacy` |
 | 4 | **€1,61 млрд. поръчки** | „договори на НЗОК, МЗ{ и 55 второстепенни разпоредители}, {first}–{last}, без таван на рамкови споразумения · {pct}% с една оферта при {nat}% средно" | `/sector/health/procurement?pscope=all` |
 
 - `kpiNote`: KPI 2 and KPI 3 are PARTS of KPI 1 (paid out of it). KPI 4 is a different basis.
+- ⚠️ Amended in T2 (2026-11-20): the per-INN medicines file also carries the hospital-administered
+  drugs (pembrolizumab, an infusion, is its #1 INN), i.e. the payments corpus's `drugs` stream.
+  With KPI 2 at all three streams (€3.13bn), KPI 2 + KPI 3 overshot KPI 1 by €34M. So KPI 2 is
+  hospital care + devices (`careEur`, €2.33bn), KPI 3 is "all reimbursed medicines", and the
+  generator asserts that their SUM stays below KPI 1.
   The four are never summed.
 - KPI 4 depends on D1 and D3; the figure above is €1,527.1M + €84.5M (+ €86.9M under D1).
 - Evidence rail: the top 5 hospitals by 2025 НЗОК payments → `/company/:eik`.
