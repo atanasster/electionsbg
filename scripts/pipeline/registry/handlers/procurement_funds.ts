@@ -234,6 +234,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       "water-hub-stats",
       "transport-hub-stats",
       "edu-hub-stats",
+      "health-hub-stats",
     ],
     outputs: [
       "data/procurement",
@@ -479,6 +480,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       "water-hub-stats",
       "transport-hub-stats",
       "edu-hub-stats",
+      "health-hub-stats",
     ],
     outputs: [
       "data/funds",

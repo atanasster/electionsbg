@@ -117,6 +117,17 @@ export const POST_STEPS: readonly PostStep[] = [
     outputs: ["data/education/derived/hub_stats.json"],
   },
   {
+    // The /sector/health hub blob (health-hub-v1 T7). Reads contracts,
+    // national_competition(), fund_projects, nzok_hospital_payments,
+    // nzok_drug_quarterly and the committed B1 execution history, so it
+    // follows the procurement, funds and НЗОК reloads.
+    id: "health-hub-stats",
+    when: "followUp",
+    needs: ["pg-local"],
+    steps: [derive("db:gen-health-hub-stats", pnpm("db:gen-health-hub-stats"))],
+    outputs: ["data/health/derived/hub_stats.json"],
+  },
+  {
     id: "declarations-hub-stats",
     when: "followUp",
     needs: ["pg-local"],

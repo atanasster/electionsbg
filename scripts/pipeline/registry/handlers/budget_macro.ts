@@ -627,6 +627,9 @@ export const BUDGET_MACRO: Handler[] = [
       ],
     },
     changelog: "self",
+    // The /sector/health hub blob reads nzok_hospital_payments and
+    // nzok_drug_quarterly (and the committed B1 execution history).
+    followUps: ["health-hub-stats"],
     outputs: ["data/budget/nzok", "data/data-changes.json"],
   },
 ];

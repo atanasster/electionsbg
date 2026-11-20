@@ -285,6 +285,9 @@ pnpm run db:gen-edu-hub-stats       # the /sector/edu EU-funds KPI + programme s
                                   # fund_projects on the GRANT basis (edu-hub-v1 T5) —
                                   # commit data/education/derived/hub_stats.json and
                                   # bucket:sync:paths -- education/derived/hub_stats.json
+pnpm run db:gen-health-hub-stats    # the /sector/health money page's EU-funds total + programme split
+                                  # (health-hub-v1 T5) — commit data/health/derived/hub_stats.json and
+                                  # bucket:sync:paths -- health/derived/hub_stats.json
 
 # 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
 pnpm run db:load:funds:pg:cloud --full   # the flag is REQUIRED — see the scope note

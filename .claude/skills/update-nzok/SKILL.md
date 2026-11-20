@@ -71,6 +71,20 @@ pnpm run db:load:nzok-drug-quarterly:pg
 pnpm run db:load:nzok-drug-quarterly:pg:cloud   # nothing does this automatically
 ```
 
+**Then regenerate the /sector/health hub blob** — after ANY of `--hospitals`, `--drugs`
+or `--execution`, since its KPIs 1–3 are the B1 execution (read from the committed
+`execution_history.json`), the hospital payments and the reimbursed medicines. It reads
+LOCAL Postgres, so it runs after the local loads above:
+
+```bash
+pnpm run db:gen-health-hub-stats                         # writes data/health/derived/hub_stats.json
+pnpm run bucket:sync:paths health/derived/hub_stats.json # upload it; commit the blob as well
+```
+
+It is a committed bucket blob — no `:cloud` loader carries it, so skipping the sync
+leaves the hub on the previous month at a 200 (`pnpm run db:check-generated` reports it).
+It refuses to write when KPI 2 + KPI 3 ≥ KPI 1 (health-hub-v1 A2/A3).
+
    Then rebuild the **hospital map geo crosswalk** (`nzok_hospital_geo`, migration 075) that the health-pack marker map at the top of `/awarder/121858220` is drawn from. It re-resolves one HQ point per hospital EIK from `awarder_seats` + `data/settlements.json`, so a new monthly БМП file (new/renamed facilities) means new points:
    ```bash
    pnpm run db:load:nzok-hospital-map:pg        # local — verify geolocated count
