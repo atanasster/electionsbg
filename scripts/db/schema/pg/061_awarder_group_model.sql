@@ -14,23 +14,50 @@
 -- is byte-deterministic across runs (see reference_pg_payload_determinism).
 --
 --   pnpm exec tsx scripts/db/apply_functions.ts 061_awarder_group_model.sql
+--
+-- p_ex_framework (health-hub-v1 D3, 2026-11-20) drops the joint_kind='framework'
+-- rows (087) from EVERY aggregate below. A framework row is not a contract's
+-- value: 087 tags rows where one award was split EQUALLY across the framework's
+-- parties, so each row carries ceiling/N — a share of a CEILING nobody has spent.
+-- On МЗ that is 34 rows / €1,311.3M against €1,527.1M of everything else, so
+-- summing them nearly doubles the ministry's procurement with money that never
+-- moved. Default false keeps every existing caller byte-identical. Whatever the
+-- switch, "frameworkEur"/"frameworkCount" report the window's framework rows on
+-- their OWN line — computed from the unfiltered window, so a page that excludes
+-- them can still say how much it left out, and never summed into "totalEur".
 
 SET check_function_bodies = off;
+-- Both signatures: the 3-arg one predates D3 and must not survive beside the
+-- 4-arg one, or every 1-to-3-arg call becomes ambiguous (42725) and
+-- to_regproc('awarder_group_model') returns NULL in the data-test preflight.
 DROP FUNCTION IF EXISTS awarder_group_model(text[], text, text);
+DROP FUNCTION IF EXISTS awarder_group_model(text[], text, text, boolean);
 
 CREATE OR REPLACE FUNCTION awarder_group_model(
   p_eiks text[],
   p_from text DEFAULT NULL,
-  p_to   text DEFAULT NULL
+  p_to   text DEFAULT NULL,
+  p_ex_framework boolean DEFAULT false
 )
 RETURNS jsonb LANGUAGE sql STABLE AS $$
-WITH base AS (
+WITH base_all AS (
   SELECT awarder_eik, contractor_eik, contractor_name, amount_eur, cpv,
-         procurement_method, number_of_tenderers, date, consortium_role
+         procurement_method, number_of_tenderers, date, consortium_role, joint_kind
   FROM contracts
   WHERE awarder_eik = ANY(p_eiks) AND tag = 'contract'
     AND date >= COALESCE(p_from, '')
     AND date <  COALESCE(p_to, '99999999')
+),
+base AS (
+  SELECT * FROM base_all
+  WHERE NOT COALESCE(p_ex_framework, false)
+     OR joint_kind IS DISTINCT FROM 'framework'
+),
+fw AS (
+  SELECT ROUND(COALESCE(SUM(amount_eur), 0))::double precision AS "frameworkEur",
+         (COUNT(*))::int                                        AS "frameworkCount"
+  FROM base_all
+  WHERE joint_kind = 'framework'
 ),
 head AS (
   SELECT
@@ -177,13 +204,16 @@ SELECT jsonb_build_object(
   'byCpvContractor', bycpvcon.arr,
   'byMethod',        bymethod.arr,
   'byYear',          byyear.arr,
-  'byUnit',          byunit.arr
+  'byUnit',          byunit.arr,
+  'exFramework',     COALESCE(p_ex_framework, false),
+  'frameworkEur',    fw."frameworkEur",
+  'frameworkCount',  fw."frameworkCount"
 )
-FROM head, sup, bycpv, bycpvcon, bymethod, byyear, byunit;
+FROM head, sup, bycpv, bycpvcon, bymethod, byyear, byunit, fw;
 $$;
 
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
-    GRANT EXECUTE ON FUNCTION awarder_group_model(text[], text, text) TO app_readonly;
+    GRANT EXECUTE ON FUNCTION awarder_group_model(text[], text, text, boolean) TO app_readonly;
   END IF;
 END $$;

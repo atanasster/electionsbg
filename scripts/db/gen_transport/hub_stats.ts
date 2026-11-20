@@ -105,7 +105,10 @@ const main = async () => {
   // (the gen_roads/hub_stats.ts rule).
   const [fns] = await allRows<{ ok: boolean }>(
     `SELECT to_regprocedure('national_competition(text,text)') IS NOT NULL
-        AND to_regprocedure('awarder_group_model(text[],text,text)') IS NOT NULL
+        -- to_regproc, not to_regprocedure on one signature: 061 gained a 4th
+        -- defaulted arg (health-hub-v1 D3) and a pinned 3-arg probe skipped this
+        -- generator silently once it was applied. The 3-arg call still resolves.
+        AND to_regproc('public.awarder_group_model') IS NOT NULL
         AND to_regprocedure('transport_project_map(text[],text,text)') IS NOT NULL AS ok`,
   );
   if (!fns?.ok)

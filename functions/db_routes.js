@@ -3208,27 +3208,45 @@ const DB_ROUTES = {
     // to. € is unaffected either way (member rows carry €0). Opt-in: the default
     // stays the member-inclusive basis the defense strip was sized on.
     const exMembers = s(q, "exMembers") === "1";
+    // exFramework=1 (health-hub-v1 D3) drops the joint_kind='framework' rows
+    // (087) from every count and € below. Each such row is ceiling/N — an equal
+    // split of a framework CEILING, not money spent — and on МЗ they are €1.31bn
+    // against €1,527.1M of real contracts, so summing them nearly doubles the
+    // ministry. "frameworkEur"/"frameworkN" report them per operator on their own
+    // line WHATEVER the switch, so a page that excludes them can still say what it
+    // left out. Opt-in: the default basis is unchanged for every existing caller.
+    const exFramework = s(q, "exFramework") === "1";
+    const keep = exFramework
+      ? "joint_kind IS DISTINCT FROM 'framework'"
+      : "TRUE";
     const operators = await dbRows(
       `SELECT awarder_eik AS eik,
-              count(*)::int AS "contractCount",
-              round(sum(amount_eur))::double precision AS "totalEur",
-              count(*) FILTER (WHERE number_of_tenderers IS NOT NULL)::int
+              (count(*) FILTER (WHERE ${keep}))::int AS "contractCount",
+              ${
+                exFramework
+                  ? `COALESCE(round(sum(amount_eur) FILTER (WHERE ${keep})), 0)`
+                  : "round(sum(amount_eur))"
+              }::double precision AS "totalEur",
+              count(*) FILTER (WHERE ${keep} AND number_of_tenderers IS NOT NULL)::int
                 AS "bidKnownN",
-              count(*) FILTER (WHERE number_of_tenderers = 1)::int
-                AS "singleBidN"
+              count(*) FILTER (WHERE ${keep} AND number_of_tenderers = 1)::int
+                AS "singleBidN",
+              COALESCE(round(sum(amount_eur) FILTER (WHERE joint_kind = 'framework')), 0)::double precision
+                AS "frameworkEur",
+              count(*) FILTER (WHERE joint_kind = 'framework')::int AS "frameworkN"
        FROM contracts
        WHERE awarder_eik = ANY($1) AND tag = 'contract'
          AND date >= COALESCE($2, '')
          AND date <  COALESCE($3, '99999999')
          ${exMembers ? "AND consortium_role IS DISTINCT FROM 'member'" : ""}
        GROUP BY awarder_eik
-       ORDER BY sum(amount_eur) DESC NULLS LAST, awarder_eik`,
+       ORDER BY sum(amount_eur) FILTER (WHERE ${keep}) DESC NULLS LAST, awarder_eik`,
       [eiks, from, to],
     );
     // Echo the basis: a client comparing these counts against an ex-member
     // national rate must be able to tell a function that applied the filter from
     // one deployed before it existed, which would ignore the param silently.
-    return { body: { operators, exMembers } };
+    return { body: { operators, exMembers, exFramework } };
   },
   // FULL sector-pack model over a SET of EIKs in ONE aggregate — the server-side
   // replacement for the 25+-request client fan-out (awarder-contracts × each
@@ -3243,11 +3261,27 @@ const DB_ROUTES = {
       .filter((e) => /^\d{9,13}$/.test(e))
       .slice(0, 300);
     if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
-    const rows = await dbRows("SELECT awarder_group_model($1, $2, $3) AS r", [
-      eiks,
-      orNull(q, "from"),
-      orNull(q, "to"),
-    ]);
+    // exFramework=1 → 061's p_ex_framework (health-hub-v1 D3). The 4th argument
+    // is sent ONLY when asked for, so the default call stays the 3-arg form and
+    // keeps working against a database whose 061 predates the switch; a caller
+    // that asked for it reads the payload's own "exFramework" echo, which an old
+    // function does not emit, rather than trusting the request.
+    const exFramework = s(q, "exFramework") === "1";
+    const params = [eiks, orNull(q, "from"), orNull(q, "to")];
+    const base = "SELECT awarder_group_model($1, $2, $3) AS r";
+    let rows;
+    try {
+      rows = await dbRows(
+        exFramework ? "SELECT awarder_group_model($1, $2, $3, true) AS r" : base,
+        params,
+      );
+    } catch (e) {
+      // 42883: this database's 061 predates p_ex_framework. Serve the default
+      // basis rather than a 500 — the payload then lacks the "exFramework"
+      // echo, which is exactly how the caller tells the two apart.
+      if (!exFramework || e?.code !== "42883") throw e;
+      rows = await dbRows(base, params);
+    }
     return { body: rows[0]?.r ?? null };
   },
   // Top-N contracts by € across a SET of EIKs — the award-level tile's input
@@ -3266,6 +3300,9 @@ const DB_ROUTES = {
     const limit = clampInt(q.limit, 8, 1, 50);
     const from = orNull(q, "from");
     const to = orNull(q, "to");
+    // exFramework=1 (health-hub-v1 D3) drops framework-ceiling shares (087) —
+    // a ceiling/N row would otherwise rank as one of the "biggest contracts".
+    const exFramework = s(q, "exFramework") === "1";
     const contracts = await dbRows(
       `SELECT key, date,
               contractor_eik AS "contractorEik", contractor_name AS "contractorName",
@@ -3278,6 +3315,9 @@ const DB_ROUTES = {
               -- (edu-hub-v1 A14: МОН's 2021 devices purchase is four lots).
               -- Additive: existing callers ignore it.
               unp,
+              -- 'framework' marks a ceiling share, not money spent (087) — lets
+              -- a caller that keeps them caption the row. Additive.
+              joint_kind AS "jointKind",
               number_of_tenderers AS "numberOfTenderers",
               CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded"
        FROM contracts
@@ -3285,13 +3325,14 @@ const DB_ROUTES = {
          -- Exclude €0 consortium member rows (migration 087) — the carrier row
          -- carries the joint value into this "top contracts" list.
          AND consortium_role IS DISTINCT FROM 'member'
+         ${exFramework ? "AND joint_kind IS DISTINCT FROM 'framework'" : ""}
          AND date >= COALESCE($2, '')
          AND date <  COALESCE($3, '99999999')
        ORDER BY amount_eur DESC NULLS LAST, key
        LIMIT $4`,
       [eiks, from, to, limit],
     );
-    return { body: { contracts } };
+    return { body: { contracts, exFramework } };
   },
   // EU-funds (ИСУН) rollup over a SET of EIKs. Not date-windowed: EU-funds
   // figures are programme-period lifetime totals, not a parliament slice. Two

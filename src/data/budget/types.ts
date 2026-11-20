@@ -56,6 +56,14 @@ export interface NzokExecutionFile {
   currencyOfRecord: "BGN" | "EUR";
   revenueEur: number | null;
   expenditureEur: number | null;
+  /** ЕБК section В — net transfers between budget organisations, which is how
+   *  the state budget funds most of НЗОК. revenueEur (section А) EXCLUDES it, so
+   *  revenue − expenditure is NOT a balance: render balanceEur instead
+   *  (health-hub-v1 A3). Absent on points written before 2026-11-20 and on the
+   *  hand-verified annual sidecar — absent, never 0. */
+  transfersEur?: number | null;
+  /** ЕБК section Г — the form's own budget balance (deficit negative). */
+  balanceEur?: number | null;
 }
 
 // Monthly B1 cash-execution history (2022→) — every month НЗОК publishes, so the
@@ -69,6 +77,14 @@ export interface NzokExecutionPoint {
   currencyOfRecord: "BGN" | "EUR";
   revenueEur: number | null;
   expenditureEur: number | null;
+  /** ЕБК section В — net transfers between budget organisations, which is how
+   *  the state budget funds most of НЗОК. revenueEur (section А) EXCLUDES it, so
+   *  revenue − expenditure is NOT a balance: render balanceEur instead
+   *  (health-hub-v1 A3). Absent on points written before 2026-11-20 and on the
+   *  hand-verified annual sidecar — absent, never 0. */
+  transfersEur?: number | null;
+  /** ЕБК section Г — the form's own budget balance (deficit negative). */
+  balanceEur?: number | null;
 }
 
 export interface NzokExecutionHistoryFile {

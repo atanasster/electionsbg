@@ -20,7 +20,7 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import * as xlsx from "xlsx";
 import { toEur } from "../../src/lib/currency";
 
@@ -85,14 +85,82 @@ const findAllB1 = (html: string): B1Link[] => {
 const num = (v: unknown): number =>
   typeof v === "number" && Number.isFinite(v) ? v : NaN;
 
-interface B1Point {
+// ⚠ revenueEur IS NOT THE FUND'S INCOME, and reading it as such invents a
+// deficit (health-hub-v1 A3). Section А of the ЕБК form is OWN revenue —
+// contributions and the like. The state-budget transfer that funds most of НЗОК
+// is in section В („ОБЩО ТРАНСФЕРИ И ЗАЕМИ М/У БЮДЖЕТНИ ОРГАНИЗАЦИИ"), net of
+// what the fund passes on. Measured on the 2025 annual: А − Б alone reads as a
+// ~€1.8bn hole, while the form's own balance (section Г) is −52.2M лв, ≈ −€26.7M.
+// So the series carries В and Г beside А and Б, and a balance is only ever
+// rendered from balanceEur — never derived as revenue − expenditure.
+export interface B1Point {
   year: number;
   month: number;
   asOf: string; // "YYYY-MM"
   currencyOfRecord: "BGN" | "EUR";
   revenueEur: number | null;
   expenditureEur: number | null;
+  /** Section В, net transfers between budget organisations. Absent on a point
+   *  written before this field existed (the annual sidecar), never 0 for it. */
+  transfersEur?: number | null;
+  /** Section Г, the form's own budget balance (surplus +, deficit −). */
+  balanceEur?: number | null;
 }
+
+/** ЕБК section totals from one B1 sheet's rows (col 1 = label, col 13 = the
+ *  „ОБЩО КАСОВ ОТЧЕТ" total). Values are in the sheet's currency. Exported for
+ *  the unit test — the label anchors are the whole parser. */
+export const b1SectionTotals = (
+  rows: unknown[][],
+): {
+  revenue: number | null;
+  expenditure: number | null;
+  transfers: number | null;
+  balance: number | null;
+} => {
+  let revenue: number | null = null;
+  let expenditure: number | null = null;
+  let transfers: number | null = null;
+  let balance: number | null = null;
+  for (const r of rows) {
+    if (!r) continue;
+    const name = String(r[1] ?? "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const actual = num(r[13]);
+    if (!name || !Number.isFinite(actual)) continue;
+    // First match wins for each: the section total precedes any sub-row that
+    // repeats its wording.
+    if (revenue == null && /^А\.\s*ОБЩО ПРИХОДИ/i.test(name)) revenue = actual;
+    else if (expenditure == null && /^Б\.\s*ОБЩО РАЗХОДИ/i.test(name))
+      expenditure = actual;
+    else if (transfers == null && /^В\.\s*ОБЩО ТРАНСФЕРИ/i.test(name))
+      transfers = actual;
+    else if (balance == null && /^Г\.\s*БЮДЖЕТНО САЛДО/i.test(name))
+      balance = actual;
+  }
+  return { revenue, expenditure, transfers, balance };
+};
+
+/** The form's own identity: А − Б + В = Г. It holds to the unit on all 38
+ *  cached months (2022-04 → 2026-08), so a miss means an anchor matched the
+ *  wrong row — refuse rather than publish a balance that is not the form's.
+ *  A section that is absent skips the check (nothing to contradict). */
+export const assertB1Identity = (
+  t: ReturnType<typeof b1SectionTotals>,
+  label: string,
+): void => {
+  if (
+    t.revenue != null &&
+    t.expenditure != null &&
+    t.transfers != null &&
+    t.balance != null &&
+    Math.abs(t.revenue - t.expenditure + t.transfers - t.balance) > 1
+  )
+    throw new Error(
+      `B1 ${label}: А − Б + В ≠ Г — a section anchor matched the wrong row`,
+    );
+};
 
 /** Parse one cached B1 xls into its ЕБК revenue/expenditure YTD totals. */
 const parseB1 = (cachePath: string, year: number, month: number): B1Point => {
@@ -118,21 +186,14 @@ const parseB1 = (cachePath: string, year: number, month: number): B1Point => {
   const asEur = (v: number): number =>
     currency === "EUR" ? Math.round(v) : Math.round(toEur(v, "BGN") ?? 0);
 
-  // Total cash execution lives in col 13 ("ОБЩО КАСОВ ОТЧЕТ"). Anchor on the
-  // ЕБК section totals: "А. ОБЩО ПРИХОДИ …" (revenue) and "Б. ОБЩО РАЗХОДИ …"
-  // (expenditure). Labels are stable across the monthly files.
-  let revenue: number | null = null;
-  let expenditure: number | null = null;
-  for (const r of rows) {
-    if (!r) continue;
-    const name = String(r[1] ?? "")
-      .replace(/\s+/g, " ")
-      .trim();
-    const actual = num(r[13]);
-    if (!name || !Number.isFinite(actual)) continue;
-    if (/^А\.\s*ОБЩО ПРИХОДИ/i.test(name)) revenue = asEur(actual);
-    else if (/^Б\.\s*ОБЩО РАЗХОДИ/i.test(name)) expenditure = asEur(actual);
-  }
+  // Total cash execution lives in col 13 ("ОБЩО КАСОВ ОТЧЕТ"), anchored on the
+  // ЕБК section totals — see b1SectionTotals. Labels are stable across files.
+  const t = b1SectionTotals(rows);
+  assertB1Identity(t, `${year}-${month}`);
+  const conv = (v: number | null): number | null =>
+    v == null ? null : asEur(v);
+  const revenue = conv(t.revenue);
+  const expenditure = conv(t.expenditure);
   if (expenditure == null)
     throw new Error(
       `could not find 'Б. ОБЩО РАЗХОДИ' total in the B1 for ${year}-${month}`,
@@ -145,6 +206,8 @@ const parseB1 = (cachePath: string, year: number, month: number): B1Point => {
     currencyOfRecord: currency,
     revenueEur: revenue,
     expenditureEur: expenditure,
+    transfersEur: conv(t.transfers),
+    balanceEur: conv(t.balance),
   };
 };
 
@@ -215,6 +278,8 @@ const main = async (): Promise<void> => {
     currencyOfRecord: latest.currencyOfRecord,
     revenueEur: latest.revenueEur,
     expenditureEur: latest.expenditureEur,
+    transfersEur: latest.transfersEur ?? null,
+    balanceEur: latest.balanceEur ?? null,
   };
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2));
@@ -238,7 +303,9 @@ const main = async (): Promise<void> => {
   );
 };
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

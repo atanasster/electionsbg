@@ -418,6 +418,14 @@ export interface GroupModelPayload {
     bidKnownN: number;
     singleBidN: number;
   }[];
+  /** 061's p_ex_framework echo (health-hub-v1 D3) — true only when the server
+   *  applied the switch. Absent on a database whose 061 predates it, so a caller
+   *  that asked for exFramework must read THIS, not trust its own request. */
+  exFramework?: boolean;
+  /** The window's joint_kind='framework' rows (087) on their own line — shares
+   *  of a framework CEILING, never summed into totalEur when exFramework. */
+  frameworkEur?: number;
+  frameworkCount?: number;
 }
 
 /** Reconstruct the EXACT `AwarderModel` a client-side `buildAwarderModel` would
