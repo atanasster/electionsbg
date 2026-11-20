@@ -2,7 +2,7 @@
 // (src/lib/bgFiscalProjection.ts): locks in the invariants of the debt-
 // dynamics recursion before future edits — zero-delta identity, year-1
 // interest parity, the debt recursion itself, scaled-vs-fixed delta
-// semantics, and the ПБП-2027 baseline anchors — then prints the
+// semantics, and the EC Autumn 2026 baseline anchors — then prints the
 // baseline path table for eyeballing.
 //
 // Usage:
@@ -89,16 +89,20 @@ const close = (a: number, b: number, tolEur = 1): boolean =>
   );
 }
 
-// 5) Anchors: ПБП-2027 (МФ, 15.10.2026) baseline ratios and the exported 2026 GDP.
+// 5) Anchors: EC Autumn 2026 (17.11.2026) baseline ratios and the exported 2026 GDP.
 {
   const p = projectFiscalPath(0);
   check(
-    "2026 baseline balance = ПБП −5.0%",
+    "2026 baseline balance = EC −5.0%",
     Math.abs(p.years[0].baselineBalancePctGdp - -5.0) < 0.005,
   );
   check(
-    "2027 baseline balance = ПБП −4.3%",
-    Math.abs(p.years[1].baselineBalancePctGdp - -4.3) < 0.005,
+    "2027 baseline balance = EC −4.0%",
+    Math.abs(p.years[1].baselineBalancePctGdp - -4.0) < 0.005,
+  );
+  check(
+    "2028 baseline balance = EC −4.8%",
+    Math.abs(p.years[2].baselineBalancePctGdp - -4.8) < 0.005,
   );
   check(
     "exported 2026 GDP matches the path's first year",
@@ -110,7 +114,8 @@ const close = (a: number, b: number, tolEur = 1): boolean =>
   );
 }
 
-// Baseline path table for eyeballing against ПБП-2027 Табл. 4 (2026: 31.1% / 2027: 33.3% debt).
+// Baseline path table for eyeballing against the EC Autumn 2026 debt path
+// (33.0 / 35.0 / 37.7% — ~1 pp above the model: larger 2025 base GDP + SFAs).
 {
   const p = projectFiscalPath(0);
   console.log("\nyear  gdp(bn)  balance%  debt%  interest(bn)");

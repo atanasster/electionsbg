@@ -15,15 +15,21 @@
 //    Табл. 4: deficit −4.0% of GDP / −€4.7 bn, debt 29.9% / €34.8 bn, nominal
 //    GDP €116.0 bn). It revises the April notification (−3.5%) after the Сметна
 //    палата audit of the 2025 accounts; Eurostat validates it ~22 October.
-//  - 2026–2027 baseline balance and macro: ПБП-2027 (−5.0%, −4.3%; nominal
-//    GDP +12.4% / +8.3%). This is the government's own plan under the
-//    excessive-deficit procedure the Council opened on 2026-07-10 — newer than
-//    the EC Spring 2026 forecast (−4.1%, −4.3%) it replaces here. When the EC
-//    Autumn 2026 forecast lands, the ec_forecast_bg watcher flags it (see
-//    EC_FORECAST_EDITION below) and a human decides which anchor to keep.
-//  - 2028–2030: no-policy-change extension — the primary balance holds its
-//    2027 share of GDP, the deficit then drifts with the endogenous
-//    interest bill.
+//  - 2026–2028 baseline balance and macro: the EC Autumn 2026 forecast
+//    (17.11.2026, Table "Main features of country forecast – BULGARIA"):
+//    balance −5.0 / −4.0 / −4.8% of GDP; real GDP 2.7 / 2.1 / 2.3; GDP
+//    deflator 7.6 / 4.6 / 4.2 (nominal ≈ +10.5 / +6.8 / +6.6). It replaced the
+//    МФ Draft Budgetary Plan 2027 (ПБП-2027, 15.10.2026: −5.0 / −4.3, nominal
+//    +12.4 / +8.3) — the EC edition is newer, independent of the government
+//    under the excessive-deficit procedure opened 2026-07-10, already scores
+//    the 2027 budget measures, and is the only one of the two to cover 2028.
+//    Its debt path (33.0 / 35.0 / 37.7%) runs ~1 pp above this model's: the
+//    EC's 2025 base GDP is €116.5 bn against the EDP notification's €116.0 bn
+//    used here, and the EC carries stock-flow adjustments this model sets to
+//    zero.
+//  - 2029–2030: no-policy-change extension — the primary balance holds its
+//    2028 share of GDP (the last anchored year), the deficit then drifts with
+//    the endogenous interest bill.
 //  - Interest: two-bucket model. The debt inherited from 2025 pays the
 //    implicit stock rate (~3.0% — Eurostat D41PAY interest ÷ debt) and rolls
 //    over at ~22%/yr (≈ 1/4.4y, the Eurostat residual maturity of the BG debt
@@ -56,7 +62,7 @@ export interface ProjectionYear {
   debtEur: number;
   debtPctGdp: number;
   interestEur: number;
-  /** Macro context shown in the UI (EC Spring 2026 / АСБП extension). */
+  /** Macro context shown in the UI (EC Autumn 2026 / АСБП extension). */
   realGrowthPct: number;
   hicpPct: number;
   unemploymentPct: number;
@@ -88,30 +94,33 @@ const GDP_2025_EUR = 116_018_300_000;
 const BALANCE_2025_EUR = -4_660_000_000;
 const DEBT_2025_EUR = 34_740_000_000;
 
-// Baseline general-government balance, % of GDP — ПБП-2027 Табл. 4 row 31
-// (МФ, 15.10.2026). The EC Spring 2026 forecast it replaced: −4.1 / −4.3.
-const EC_BALANCE_PCT: Record<number, number> = { 2026: -5.0, 2027: -4.3 };
+// Baseline general-government balance, % of GDP — EC Autumn 2026 forecast,
+// "General government balance" row. The ПБП-2027 path it replaced: −5.0 / −4.3
+// (no 2028); the EC Spring 2026 one before that: −4.1 / −4.3.
+const EC_BALANCE_PCT: Record<number, number> = {
+  2026: -5.0,
+  2027: -4.0,
+  2028: -4.8,
+};
 
 /** The latest EC forecast edition that has been REVIEWED against this file
  *  ("<season> <year>", lowercase — the watcher's token format). Compared
  *  against the live EC Bulgaria page by scripts/budget/check_policy_anchors.ts.
- *  Since 2026-10-15 the values above come from the МФ Draft Budgetary Plan,
- *  which is newer than this edition; leave the token alone until a NEW EC
- *  edition lands, so the watcher still fires for Autumn 2026. */
-export const EC_FORECAST_EDITION = "spring 2026";
+ *  Reviewed 2026-11-20: the balance and macro path below are this edition's. */
+export const EC_FORECAST_EDITION = "autumn 2026";
 
 // Interest-rate block (sources in the header note).
 const LEGACY_RATE = 0.03;
 const NEW_DEBT_RATE = 0.036;
 const LEGACY_ROLLOVER = 0.22; // ≈ 1/4.4y Eurostat residual maturity of the stock
 
-// Per-year macro assumptions. 2026-2027 are ПБП-2027 Табл. 3 (МФ autumn
-// macro forecast, endorsed by the Fiscal Council): nominal GDP +12.4/+8.3
-// (deflator 9.1/5.7), real 3.0/2.5, HICP 4.8/4.0, unemployment 3.4/3.4. The
-// EC Spring 2026 figures they replaced were nominal 6.8/4.9, real 2.5/2.2 —
-// the 2026 deflator revision alone lifts GDP by ~€6.5 bn, which is why debt
-// RATIOS fall while the euro path barely moves. 2028-2030 extend the АСБП
-// medium-term frame (real ~2.4, inflation ~2.5).
+// Per-year macro assumptions. 2026-2028 are the EC Autumn 2026 forecast:
+// real GDP 2.7/2.1/2.3, HICP 4.6/3.9/3.3, unemployment 3.4/3.5/3.5, nominal
+// GDP from real × deflator (7.6/4.6/4.2) = +10.5/+6.8/+6.6. The ПБП-2027
+// figures they replaced were nominal +12.4/+8.3 and real 3.0/2.5 — the lower
+// EC deflator is what lifts the debt RATIOS, since the euro deficits barely
+// move. 2029-2030 extend the АСБП medium-term frame (real ~2.4, inflation
+// ~2.5, nominal ~5.0).
 interface MacroYear {
   year: number;
   nominalGrowthPct: number;
@@ -122,24 +131,24 @@ interface MacroYear {
 const MACRO_PATH: MacroYear[] = [
   {
     year: 2026,
-    nominalGrowthPct: 12.4,
-    realGrowthPct: 3.0,
-    hicpPct: 4.8,
+    nominalGrowthPct: 10.5,
+    realGrowthPct: 2.7,
+    hicpPct: 4.6,
     unemploymentPct: 3.4,
   },
   {
     year: 2027,
-    nominalGrowthPct: 8.3,
-    realGrowthPct: 2.5,
-    hicpPct: 4.0,
-    unemploymentPct: 3.4,
+    nominalGrowthPct: 6.8,
+    realGrowthPct: 2.1,
+    hicpPct: 3.9,
+    unemploymentPct: 3.5,
   },
   {
     year: 2028,
-    nominalGrowthPct: 5.0,
-    realGrowthPct: 2.4,
-    hicpPct: 2.5,
-    unemploymentPct: 4.0,
+    nominalGrowthPct: 6.6,
+    realGrowthPct: 2.3,
+    hicpPct: 3.3,
+    unemploymentPct: 3.5,
   },
   {
     year: 2029,
@@ -216,7 +225,9 @@ export const projectFiscalPath = (
   // constant rather than discovered mid-loop, so the ratio stays finite
   // even if MACRO_PATH is ever re-anchored to a different first year.
   const gdpFirstYearEur = NOMINAL_GDP_2026_EUR;
-  let primaryRatio2027 = 0;
+  // Primary balance of the last EC-anchored year, held as a share of GDP
+  // for every later year (no policy change).
+  let lastAnchoredPrimaryRatio = 0;
 
   const base: PathState = {
     debtEur: DEBT_2025_EUR,
@@ -243,14 +254,15 @@ export const projectFiscalPath = (
     const baseInterest = interestOf(base);
     const scenInterest = interestOf(scen);
 
-    // Baseline primary balance: backed out of the EC balance forecast for
-    // 2026-2027, then held constant as a share of GDP (no policy change).
+    // Baseline primary balance: backed out of the EC balance forecast where
+    // it has a year, then held constant as a share of GDP (no policy change).
     const ecPct = EC_BALANCE_PCT[m.year];
     const basePrimaryEur =
       ecPct !== undefined
         ? (ecPct / 100) * gdpEur + baseInterest
-        : (primaryRatio2027 / 100) * gdpEur;
-    if (m.year === 2027) primaryRatio2027 = (basePrimaryEur / gdpEur) * 100;
+        : (lastAnchoredPrimaryRatio / 100) * gdpEur;
+    if (ecPct !== undefined)
+      lastAnchoredPrimaryRatio = (basePrimaryEur / gdpEur) * 100;
 
     const policyDeltaEur =
       policyDeltaYear1Eur * (gdpEur / gdpFirstYearEur) +

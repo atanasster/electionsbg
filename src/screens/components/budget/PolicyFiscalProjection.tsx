@@ -1,5 +1,5 @@
 // Multi-year balance & debt projection tile for the policy simulator: the
-// scenario's first-year delta rolled forward to 2030 over the МФ ПБП-2027
+// scenario's first-year delta rolled forward to 2030 over the EC Autumn 2026
 // baseline (engine: src/lib/bgFiscalProjection.ts). Bars = balance % of GDP,
 // lines = debt % of GDP, both paths; the −3% Maastricht line anchors the
 // EDP context. Chart idioms follow BudgetTrendTile (same palette family).
