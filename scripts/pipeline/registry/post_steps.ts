@@ -107,6 +107,16 @@ export const POST_STEPS: readonly PostStep[] = [
     outputs: ["data/transport/derived/hub_stats.json"],
   },
   {
+    // The /sector/edu hub blob (edu-hub-v1 T7). Reads contracts, fund_projects,
+    // national_competition() and agri_subsidies (the research arm's payout
+    // basis), so it follows the procurement, funds and agri reloads.
+    id: "edu-hub-stats",
+    when: "followUp",
+    needs: ["pg-local"],
+    steps: [derive("db:gen-edu-hub-stats", pnpm("db:gen-edu-hub-stats"))],
+    outputs: ["data/education/derived/hub_stats.json"],
+  },
+  {
     id: "declarations-hub-stats",
     when: "followUp",
     needs: ["pg-local"],

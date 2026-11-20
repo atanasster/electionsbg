@@ -489,6 +489,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Sources:** `dfz_subsidies`
 - **Needs:** `pg-local`
 - **Changelog:** orchestrator
+- **Follow-ups:** [`edu-hub-stats`](#post-edu-hub-stats)
 
 | step | phase | command | only on |
 | --- | --- | --- | --- |
@@ -719,7 +720,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Sources:** `isun_eu_funds`, `isun_eu_funds_projects`, `keep_eu_interreg`, `isun_clean_delivery`
 - **Needs:** `pg-local`
 - **Changelog:** orchestrator
-- **Follow-ups:** [`roads-hub-stats`](#post-roads-hub-stats), [`water-hub-stats`](#post-water-hub-stats), [`transport-hub-stats`](#post-transport-hub-stats)
+- **Follow-ups:** [`roads-hub-stats`](#post-roads-hub-stats), [`water-hub-stats`](#post-water-hub-stats), [`transport-hub-stats`](#post-transport-hub-stats), [`edu-hub-stats`](#post-edu-hub-stats)
 
 | step | phase | command | only on |
 | --- | --- | --- | --- |
@@ -1151,7 +1152,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Sources:** `egov_procurement`, `eop_procurement`, `aop_debarred`, `cprs_register`, `ted_bg`, `adfi_inspections`, `aop_experts`
 - **Needs:** `pg-local`
 - **Changelog:** orchestrator
-- **Follow-ups:** [`funds-political-links`](#post-funds-political-links), [`textbook-market`](#post-textbook-market), [`roads-hub-stats`](#post-roads-hub-stats), [`water-hub-stats`](#post-water-hub-stats), [`transport-hub-stats`](#post-transport-hub-stats)
+- **Follow-ups:** [`funds-political-links`](#post-funds-political-links), [`textbook-market`](#post-textbook-market), [`roads-hub-stats`](#post-roads-hub-stats), [`water-hub-stats`](#post-water-hub-stats), [`transport-hub-stats`](#post-transport-hub-stats), [`edu-hub-stats`](#post-edu-hub-stats)
 
 | step | phase | command | only on |
 | --- | --- | --- | --- |
@@ -1394,6 +1395,12 @@ Run after the handlers, in this order (scripts/pipeline/registry/post_steps.ts).
 - **When:** when a handler lists it as a follow-up
 - **Needs:** `pg-local`
 - step `db:gen-transport-hub-stats`: `pnpm run db:gen-transport-hub-stats`
+
+### <a id="post-edu-hub-stats"></a>`edu-hub-stats`
+
+- **When:** when a handler lists it as a follow-up
+- **Needs:** `pg-local`
+- step `db:gen-edu-hub-stats`: `pnpm run db:gen-edu-hub-stats`
 
 ### <a id="post-declarations-hub-stats"></a>`declarations-hub-stats`
 

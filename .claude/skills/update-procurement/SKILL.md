@@ -324,6 +324,7 @@ pnpm run db:gen-water-flood     # ~2 s: writes data/water/flood_maintenance.json
 pnpm run db:gen-water-hub-stats # ~1 s: writes data/water/derived/hub_stats.json — the /water hub; MUST follow gen-sector-stats AND gen-water-flood
 pnpm run db:load:transport-project-map:pg && pnpm run db:load:transport-facility-map:pg
 pnpm run db:gen-transport-hub-stats # ~1 s: writes data/transport/derived/hub_stats.json — the /sector/transport hub; MUST follow BOTH map loaders (its coverage figure reads transport_project_map()) and gen-sector-stats (KPI 1 = sector_stats all.transport)
+pnpm run db:gen-edu-hub-stats   # ~60 s: writes data/education/derived/hub_stats.json — the /sector/edu hub (contracts, national_competition(), fund_projects, agri_subsidies); sync with bucket:sync:paths education/derived/hub_stats.json; gate edu_hub_figures.data.test.ts
 ```
 
 The transport blob is the same shape: committed, bucket-served, not under `procurement/`.

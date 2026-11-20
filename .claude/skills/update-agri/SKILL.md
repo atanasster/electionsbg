@@ -58,6 +58,12 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
    pnpm run db:load:agri-hub-stats:pg:cloud
    ```
 
+   **One committed blob does read this corpus**: the /sector/edu hub's research
+   arm (edu-hub-v1 T5) sums ССА/БАН payouts from `agri_subsidies`. After a local
+   reload run `pnpm run db:gen-edu-hub-stats`, commit
+   `data/education/derived/hub_stats.json` and
+   `pnpm run bucket:sync:paths education/derived/hub_stats.json`.
+
    ⚠️ **The second command is not a refinement of the first — it publishes a different
    migration, and skipping it takes two pages DOWN rather than stale.** `agri:ingest`
    refreshes migration **162** (`agri_hub_stats_cache`) and nothing else;

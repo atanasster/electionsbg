@@ -233,6 +233,7 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       "roads-hub-stats",
       "water-hub-stats",
       "transport-hub-stats",
+      "edu-hub-stats",
     ],
     outputs: [
       "data/procurement",
@@ -473,8 +474,19 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       },
     ],
     changelog: "orchestrator",
-    followUps: ["roads-hub-stats", "water-hub-stats", "transport-hub-stats"],
-    outputs: ["data/funds", "data/roads", "data/water", "data/transport"],
+    followUps: [
+      "roads-hub-stats",
+      "water-hub-stats",
+      "transport-hub-stats",
+      "edu-hub-stats",
+    ],
+    outputs: [
+      "data/funds",
+      "data/roads",
+      "data/water",
+      "data/transport",
+      "data/education",
+    ],
   },
   {
     id: "update-open-calls",
@@ -547,7 +559,9 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       "Never promote an 18-column СЕУ-layout year into AGRI_YEAR_RESOURCES — it carries no ЕИК.",
     ],
     changelog: "orchestrator",
-    outputs: [],
+    // The /sector/edu research arm reads agri_subsidies (ССА payouts).
+    followUps: ["edu-hub-stats"],
+    outputs: ["data/education"],
   },
   {
     id: "db-load-ngo-funding",
