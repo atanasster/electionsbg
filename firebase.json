@@ -619,11 +619,11 @@
         }
       ],
       "predeploy": [
-        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run lint",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run budget:test",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run ai:test",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run ai:harness",
-        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$RESOURCE_DIR\"\"/..\" run build",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$PROJECT_DIR\" run lint",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$PROJECT_DIR\" run budget:test",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$PROJECT_DIR\" run ai:test",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$PROJECT_DIR\" run ai:harness",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || pnpm --dir \"$PROJECT_DIR\" run build",
         "node scripts/articles/package.mjs --check-production"
       ]
     }

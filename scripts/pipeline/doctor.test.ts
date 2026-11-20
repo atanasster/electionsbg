@@ -48,7 +48,10 @@ describe("evaluate", () => {
     const de = evaluate({ ...healthy, country: "DE" }, NOW);
     expect([...de.unmet.keys()]).toEqual(["egress:bg"]);
     const hung = evaluate(
-      { ...healthy, govHosts: { "www.parliament.bg": false, "www.mod.bg": true } },
+      {
+        ...healthy,
+        govHosts: { "www.parliament.bg": false, "www.mod.bg": true },
+      },
       NOW,
     );
     expect([...hung.unmet.keys()]).toEqual(["reach:gov-hosts"]);
