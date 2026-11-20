@@ -1973,6 +1973,13 @@ var EDU_ENTITIES = [
   // prettier-ignore
   { eik: "177480148", name: "\u0414\u044A\u0440\u0436\u0430\u0432\u043D\u0430 \u0430\u0433\u0435\u043D\u0446\u0438\u044F \u0437\u0430 \u043D\u0430\u0443\u0447\u043D\u0438 \u0438\u0437\u0441\u043B\u0435\u0434\u0432\u0430\u043D\u0438\u044F \u0438 \u0438\u043D\u043E\u0432\u0430\u0446\u0438\u0438 (\u0414\u0410\u041D\u0418\u0418)", universe: "agency" },
   // prettier-ignore
+  // edu-hub-v1 D2 (2026-11-20): two МОН bodies the corpus sweep found in NO sector.
+  // ЦРЧР is the national Erasmus+ agency under the minister (€9.58M / 221 contracts);
+  // НДД is the ministry's national children's palace (€2.58M / 21). Together +€12.16M.
+  { eik: "130047747", name: "\u0426\u0435\u043D\u0442\u044A\u0440 \u0437\u0430 \u0440\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u043D\u0430 \u0447\u043E\u0432\u0435\u0448\u043A\u0438\u0442\u0435 \u0440\u0435\u0441\u0443\u0440\u0441\u0438 (\u0426\u0420\u0427\u0420)", universe: "agency" },
+  // prettier-ignore
+  { eik: "000672382", name: "\u041D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u0435\u043D \u0434\u0432\u043E\u0440\u0435\u0446 \u043D\u0430 \u0434\u0435\u0446\u0430\u0442\u0430", universe: "agency" },
+  // prettier-ignore
   // Изпитната администрация. „Институт по образованието" (2024) е сливането, което
   // днес възлага отпечатването на изпитните материали за ДЗИ/НВО и Единната
   // информационна система за изпити и прием; НИОКСО и ЦОПУО са предшествениците и

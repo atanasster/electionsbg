@@ -25,6 +25,9 @@ import {
   EDU_INSTITUTION_COUNT,
   EDU_UNIVERSES,
   EDUCATION_EXTERNAL_HIGHER_SCHOOLS,
+  EDU_ADJACENT,
+  EDU_EXCLUDED,
+  EDU_VERIFY,
   educationFootnote,
   educationEntityByEik,
   educationUniverseOf,
@@ -252,5 +255,44 @@ describe("the surfaces that read the roster", () => {
       ),
     ).map((e) => `${e.eik}: ${e.name}`);
     expect(annotated).toEqual([]);
+  });
+});
+
+describe("the four lists (edu-hub-v1 §0)", () => {
+  it("never overlap: one EIK, one list", () => {
+    const lists: Array<[string, readonly { eik: string }[]]> = [
+      ["roll-up", EDU_ENTITIES],
+      ["verify", EDU_VERIFY],
+      ["adjacent", EDU_ADJACENT],
+      ["excluded", EDU_EXCLUDED],
+      ["external", EDUCATION_EXTERNAL_HIGHER_SCHOOLS],
+    ];
+    const seen = new Map<string, string>();
+    const dup: string[] = [];
+    for (const [label, xs] of lists)
+      for (const { eik } of xs) {
+        expect(eik, `${label} ${eik}`).toMatch(/^\d{9,13}$/);
+        if (seen.has(eik)) dup.push(`${eik}: ${seen.get(eik)} + ${label}`);
+        seen.set(eik, label);
+      }
+    expect(dup).toEqual([]);
+  });
+
+  it("carries the D2 additions in the roll-up and D3/D4 outside it", () => {
+    expect(educationUniverseOf("130047747")).toBe("agency"); // ЦРЧР
+    expect(educationUniverseOf("000672382")).toBe("agency"); // НДД
+    // Unverified ЦСОП/РЦПППО are SHOWN, never summed (D3).
+    const set = new Set(EDU_SECTOR_EIKS);
+    expect(EDU_VERIFY.filter((v) => set.has(v.eik))).toEqual([]);
+    expect(EDU_VERIFY.filter((v) => v.kind === "csop").length).toBe(31);
+    expect(EDU_VERIFY.filter((v) => v.kind === "rcpppo").length).toBe(4);
+  });
+
+  it("names all five externally-held state higher schools (A2)", () => {
+    expect(EDUCATION_EXTERNAL_HIGHER_SCHOOLS).toHaveLength(5);
+    expect(EDUCATION_EXTERNAL_HIGHER_SCHOOLS.map((e) => e.eik)).toContain(
+      "129011005",
+    );
+    expect(educationFootnote(true)).toContain("Други 5 държавни");
   });
 });

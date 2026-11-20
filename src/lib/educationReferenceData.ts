@@ -4,9 +4,10 @@
 //
 // WHAT THIS SET IS. Five universes: the ministry, its own agencies and state
 // companies, the state higher-education institutions whose ПРБ is МОН, and the two
-// research academies — БАН and Селскостопанската академия. 126 EIKs for 125
-// institutions (Свищов changed EIK — see `retiredEikOf`), ~€2.11bn cumulative
-// (2011-2026).
+// research academies — БАН and Селскостопанската академия. 128 EIKs for 127
+// institutions (Свищов changed EIK — see `retiredEikOf`), €2.15bn cumulative
+// (2011-2026, measured 2026-11-20; 126 EIKs / €2.137bn before edu-hub-v1 D2 added
+// ЦРЧР and НДД). Counts here are dated; the code derives every reader-facing one.
 //
 // ⚠ WHY IT EXISTS AT ALL. Until the 2026-08-18 audit the sector rolled up ONE EIK —
 // МОН's — so `/sector/edu` showed €506M against a real €2.11bn, and on its DEFAULT
@@ -28,14 +29,16 @@
 // Every row below was resolved by EIK against the procurement corpus and verified to
 // be claimed by no other sector.
 //
-// ⚠ FOUR STATE HIGHER SCHOOLS ARE DELIBERATELY ABSENT, and it is not an oversight —
+// ⚠ FIVE STATE HIGHER SCHOOLS ARE DELIBERATELY ABSENT, and it is not an oversight —
 // each is curated into the sector of its actual budget principal, which is what the
 // other sectors' allowlists mean, and `sector_stats.data.test.ts` refuses an EIK that
 // is a member of two sector dashboards. Do NOT "complete the ЗВО roster" here:
-//   * ВВМУ „Н. Й. Вапцаров" (129004492), НВУ „Васил Левски" (129009094) and Военна
-//     академия „Г. С. Раковски" (129003305) are ПРБ към МО → defenseReferenceData.ts.
+//   * ВВМУ „Н. Й. Вапцаров" (129004492), НВУ „Васил Левски" (129009094), Военна
+//     академия „Г. С. Раковски" (129003305) and ВВВУ „Г. Бенковски" (129011005, added
+//     2026-11-20 — the footnote said four for five) are ПРБ към МО →
+//     defenseReferenceData.ts.
 //   * Академия на МВР (129001232) is ПРБ към МВР → securityReferenceData.ts.
-// All four were VERIFIED present in those packs' member lists, not merely assumed to
+// All five were VERIFIED present in those packs' member lists, not merely assumed to
 // be. EDUCATION_EXTERNAL_HIGHER_SCHOOLS below is the machine-readable form of this
 // paragraph, and `educationFootnote()` below builds the awarders-tile footnote from
 // it, so the page STATES that the roster is not the whole ЗВО list rather than
@@ -131,6 +134,11 @@ export const EDU_ENTITIES: EducationEntity[] = [
   { eik: "175110821", name: "Център за образователна интеграция на децата и учениците от етническите малцинства (ЦОИДУЕМ)", universe: "agency" }, // prettier-ignore
   { eik: "175467353", name: "Фонд „Научни изследвания“", universe: "agency" }, // prettier-ignore
   { eik: "177480148", name: "Държавна агенция за научни изследвания и иновации (ДАНИИ)", universe: "agency" }, // prettier-ignore
+  // edu-hub-v1 D2 (2026-11-20): two МОН bodies the corpus sweep found in NO sector.
+  // ЦРЧР is the national Erasmus+ agency under the minister (€9.58M / 221 contracts);
+  // НДД is the ministry's national children's palace (€2.58M / 21). Together +€12.16M.
+  { eik: "130047747", name: "Център за развитие на човешките ресурси (ЦРЧР)", universe: "agency" }, // prettier-ignore
+  { eik: "000672382", name: "Национален дворец на децата", universe: "agency" }, // prettier-ignore
 
   // Изпитната администрация. „Институт по образованието" (2024) е сливането, което
   // днес възлага отпечатването на изпитните материали за ДЗИ/НВО и Единната
@@ -308,6 +316,119 @@ export const EDUCATION_EXTERNAL_HIGHER_SCHOOLS: ReadonlyArray<{
   { eik: "129004492", name: "Висше военноморско училище „Н. Й. Вапцаров“", sector: "defense" }, // prettier-ignore
   { eik: "129003305", name: "Военна академия „Г. С. Раковски“", sector: "defense" }, // prettier-ignore
   { eik: "129001232", name: "Академия на МВР", sector: "security" }, // prettier-ignore
+  // edu-hub-v1 A2 (2026-11-20): in the defense pack all along, missing here, so the
+  // footnote and the prerender intro said FOUR external higher schools for five.
+  { eik: "129011005", name: "Висше военновъздушно училище „Георги Бенковски“", sector: "defense" }, // prettier-ignore
+];
+
+// ── The other three lists (edu-hub-v1 §0, accepted 2026-11-20) ─────────────────
+// sector-dashboard §1: roll-up (EDU_ENTITIES above) / VERIFY / ADJACENT / EXCLUDED.
+// None of the three below is ever in EDU_SECTOR_EIKS. VERIFY and ADJACENT are SHOWN
+// on /sector/edu/bodies; EXCLUDED exists so a name match cannot re-admit a body.
+// Every EIK was taken from contracts.awarder_eik on 2026-11-20.
+
+/** VERIFY — an education body whose principal is genuinely unsettled. Shown, never
+ *  summed. Do not settle one by its NAME.
+ *
+ *  ⚠ D3: the ЦСОП and РЦПППО are state bodies financed through МОН under ЗПУО, but
+ *  some ЦСОП were municipalised, and the corpus carries no field that tells the two
+ *  apart. D3's rule is „each EIK verified against the МОН register of state ЦСОП;
+ *  unverified ones go to VERIFY". No such register is held in this repo, so every one
+ *  of the 35 is here: 31 ЦСОП €6.18M / 125 contracts (tag='contract', 2026-11-20), 4 РЦПППО €0.16M / 4. Moving a
+ *  verified one into the roll-up needs a `support_centres` universe (add it to
+ *  EDU_UNIVERSE_RANK and EDU_UNIVERSE_LABEL in the same change). */
+export const EDU_VERIFY: ReadonlyArray<{
+  eik: string;
+  name: string;
+  kind: "csop" | "rcpppo" | "other";
+}> = [
+  { eik: "000403275", name: "ЦСОП „Леда Милева“", kind: "csop" },
+  { eik: "000499208", name: "ЦСОП — Кубрат", kind: "csop" },
+  { eik: "000083156", name: "ЦСОП — Варна", kind: "csop" },
+  { eik: "000669518", name: "ЦСОП „Проф. Димитър Кацаров“", kind: "csop" },
+  { eik: "000893338", name: "ЦСОП „Петко Рачов Славейков“ — Харманли", kind: "csop" }, // prettier-ignore
+  { eik: "000558973", name: "ЦСОП (000558973)", kind: "csop" },
+  { eik: "000922829", name: "ЦСОП (000922829)", kind: "csop" },
+  { eik: "000282005", name: "ЦСОП „Васил Левски“ (000282005)", kind: "csop" },
+  {
+    eik: "000183199",
+    name: "ЦСОП „Д-р Петър Берон“ (000183199)",
+    kind: "csop",
+  },
+  { eik: "000044096", name: "ЦСОП — Бургас", kind: "csop" },
+  { eik: "814220854", name: "ЦСОП „Св. Теодосий Търновски“ — Велико Търново", kind: "csop" }, // prettier-ignore
+  { eik: "000342705", name: "ЦСОП — Пазарджик", kind: "csop" },
+  { eik: "000897685", name: "ЦСОП „Стефан Василев“", kind: "csop" },
+  { eik: "000803534", name: "ЦСОП — Стара Загора", kind: "csop" },
+  { eik: "000669500", name: "ЦСОП „Едуард Сеген“", kind: "csop" },
+  { eik: "000674839", name: "ЦСОП „Лозенец“", kind: "csop" },
+  { eik: "000014039", name: "ЦСОП „Рилска иглика“", kind: "csop" },
+  { eik: "000014014", name: "ЦСОП „Св. Паисий Хилендарски“", kind: "csop" },
+  { eik: "000152104", name: "ЦСОП „Д-р Петър Берон“ — Видин", kind: "csop" },
+  {
+    eik: "000842710",
+    name: "ЦСОП „Д-р Петър Берон“ (000842710)",
+    kind: "csop",
+  },
+  { eik: "000403282", name: "ЦСОП „Петко Рачев Славейков“", kind: "csop" },
+  { eik: "000342694", name: "ЦСОП — Велинград", kind: "csop" },
+  { eik: "125583946", name: "ЦСОП — Търговище", kind: "csop" },
+  { eik: "829094849", name: "ЦСОП „Д-р Власаки Шуманов“", kind: "csop" },
+  { eik: "000379109", name: "ЦСОП — Перник", kind: "csop" },
+  { eik: "000086985", name: "ЦСОП „Св. св. Кирил и Методий“", kind: "csop" },
+  { eik: "000454845", name: "ЦСОП — Пловдив", kind: "csop" },
+  {
+    eik: "126067562",
+    name: "ЦСОП „Д-р Петър Берон“ (126067562)",
+    kind: "csop",
+  },
+  { eik: "175564973", name: "ЦСОП „Проф. дпн Георги Ангушев“", kind: "csop" },
+  { eik: "000922804", name: "ЦСОП „Хела“", kind: "csop" },
+  { eik: "000016990", name: "ЦСОП „Васил Левски“ (000016990)", kind: "csop" },
+  { eik: "148052591", name: "РЦПППО — Варна", kind: "rcpppo" },
+  { eik: "118580259", name: "РЦПППО (118580259)", kind: "rcpppo" },
+  { eik: "175141707", name: "РЦПППО — София-град", kind: "rcpppo" },
+  { eik: "117671485", name: "РЦПППО (117671485)", kind: "rcpppo" },
+  // D4: €18.09M / 28 contracts; the name says human resources AND regional
+  // initiatives, and nothing we hold names its principal.
+  { eik: "131275351", name: "Център за развитие на човешките ресурси и регионални инициативи (ЦРЧРРИ)", kind: "other" }, // prettier-ignore
+];
+
+/** ADJACENT — a real education body whose budget principal is NOT МОН (D4). Shown on
+ *  /sector/edu/bodies, never summed, never denied. */
+export const EDU_ADJACENT: ReadonlyArray<{
+  eik: string;
+  name: string;
+  principal: string;
+}> = [
+  // €2.13M / 59 contracts; a state body to the Council of Ministers.
+  { eik: "130273618", name: "Национална агенция за професионално образование и обучение (НАПОО)", principal: "Министерски съвет" }, // prettier-ignore
+  // €0.04M / 1 contract.
+  { eik: "177268001", name: "Национален инспекторат по образованието", principal: "Министерски съвет" }, // prettier-ignore
+];
+
+/** EXCLUDED — matched by an education-like NAME, not an education body. Kept so the
+ *  corpus-sweep gate cannot re-admit one by name (A3). */
+export const EDU_EXCLUDED: ReadonlyArray<{
+  eik: string;
+  name: string;
+  why: string;
+}> = [
+  { eik: "201745141", name: "„Академика 2011“ ЕАД", why: "спортни зали (ММС)" },
+  {
+    eik: "131351781",
+    name: "„Академика спорт“ ЕАД",
+    why: "спортни зали (ММС)",
+  },
+  { eik: "000695146", name: "Национален статистически институт", why: "статистика" }, // prettier-ignore
+  {
+    eik: "175092070",
+    name: "Български институт по метрология",
+    why: "метрология",
+  },
+  { eik: "175079183", name: "Български институт за стандартизация", why: "стандартизация" }, // prettier-ignore
+  { eik: "130403691", name: "Институт по публична администрация", why: "обучение на държавни служители (МС)" }, // prettier-ignore
+  { eik: "131198150", name: "Дипломатически институт", why: "МВнР" },
 ];
 
 /** Distinct INSTITUTIONS in the roster — EIK count minus the retired-EIK rows.
@@ -386,8 +507,8 @@ export const educationUniverseLabel = (
   (lang === "bg" ? EDU_UNIVERSE_LABEL[u]?.bg : EDU_UNIVERSE_LABEL[u]?.en) ?? u;
 
 /** Display rank per universe: ministry first, then broadly by corpus weight with one
- *  deliberate exception. Measured 2026-08-18 — universities €1.27bn, БАН €147.3M,
- *  agencies €130.1M, ССА €54.4M. The exception is agencies BEFORE БАН despite being
+ *  deliberate exception. Measured 2026-11-20 — universities €1.295bn, БАН €152.0M,
+ *  agencies €130.4M (before D2's +€12.2M), ССА €54.1M. The exception is agencies BEFORE БАН despite being
  *  slightly smaller: they are МОН's own bodies, and a reader crossing from the hub
  *  tile (whose € is МОН's budget) expects the ministry's own structures next to it.
  *  Do not "restore" strict size order — the exception is the rule here.
