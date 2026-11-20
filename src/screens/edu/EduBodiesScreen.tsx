@@ -37,7 +37,12 @@ import {
   educationUniverseLabel,
 } from "@/lib/educationReferenceData";
 import { EduPageFrame } from "./EduPageFrame";
-import { eduPct, foldRetired, type Agg } from "./eduSectorData";
+import {
+  EXTERNAL_SECTOR_NAME,
+  eduPct,
+  foldRetired,
+  type Agg,
+} from "./eduSectorData";
 
 const ROLLUP_EIKS = [
   ...EDU_SECTOR_EIKS,
@@ -139,11 +144,6 @@ const OutsideCard: FC<{
     </CardContent>
   </Card>
 );
-
-const SECTOR_NAME: Record<string, { bg: string; en: string }> = {
-  defense: { bg: "отбрана", en: "defence" },
-  security: { bg: "сигурност", en: "security" },
-};
 
 export const EduBodiesScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -270,8 +270,8 @@ export const EduBodiesScreen: FC = () => {
             eik: e.eik,
             name: e.name,
             note: bg
-              ? `сектор ${SECTOR_NAME[e.sector].bg}`
-              : `${SECTOR_NAME[e.sector].en} sector`,
+              ? `сектор ${EXTERNAL_SECTOR_NAME[e.sector].bg}`
+              : `${EXTERNAL_SECTOR_NAME[e.sector].en} sector`,
           }))}
           byEik={byEik}
           noAgg

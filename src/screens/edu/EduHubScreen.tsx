@@ -16,6 +16,8 @@ import { isBg } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { HubHead, TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
+import { HubSearch } from "@/ux/search/HubSearch";
+import { eduSearchSources } from "./eduSearch";
 import { useEduHubStats } from "@/data/edu/hubStats";
 import { EDU_BANDS, EDU_HUB_COPY } from "./eduRegistry";
 import { EDU_SCENES } from "./eduScenes";
@@ -48,6 +50,12 @@ export const EduHubScreen: FC = () => {
     return e ? (bg ? e.bg : e.en) : k;
   };
 
+  // HubSearch diffs `sources` by identity, so rebuild only when the blob or the
+  // language changes — never per render.
+  const sources = useMemo(
+    () => eduSearchSources(stats, lang, bg),
+    [stats, lang, bg],
+  );
   const kpis = useMemo(() => eduHubKpis(stats, lang, bg), [stats, lang, bg]);
   const evidence = useMemo(
     () => eduHubEvidence(stats, lang, bg),
@@ -95,6 +103,24 @@ export const EduHubScreen: FC = () => {
         kpisPending={isPending ? 4 : undefined}
         kpiNote={kpis.length || isPending ? eduKpiNote(bg) : undefined}
         evidence={evidence}
+        search={
+          <HubSearch
+            idPrefix="edu-finder"
+            sources={sources}
+            title={{
+              bg: "Търси в образованието и науката",
+              en: "Search education and science",
+            }}
+            placeholder={{
+              bg: "университет, институт, фирма, договор…",
+              en: "university, institute, company, contract…",
+            }}
+            hint={{
+              bg: "Институциите се търсят в сектора — и тези извън сумите; фирмите и договорите — в целия регистър.",
+              en: "Institutions are searched in the sector — the ones outside the totals too; companies and contracts across the whole register.",
+            }}
+          />
+        }
       />
       {/* HubHead drops the band when it has no figures; without this a failed or
           absent blob just removes the head's numbers, with nothing saying why. */}

@@ -8,6 +8,7 @@ import {
   EDU_ENTITIES,
   EDU_UNIVERSES,
   type EducationUniverse,
+  type ExternalSectorId,
 } from "@/lib/educationReferenceData";
 import { EDU_UNIVERSE_PARAMS } from "@/lib/eduPaths";
 
@@ -197,3 +198,12 @@ export const fundProgrammeKind = (code: string): FundProgrammeKind =>
       : EEA_NORWAY_SWISS_CODES.has(code)
         ? "eeaNorwaySwiss"
         : "unknown";
+
+/** The name of the sector an external state higher school is counted in (A2). */
+export const EXTERNAL_SECTOR_NAME: Record<
+  ExternalSectorId,
+  { bg: string; en: string }
+> = {
+  defense: { bg: "отбрана", en: "defence" },
+  security: { bg: "сигурност", en: "security" },
+};
