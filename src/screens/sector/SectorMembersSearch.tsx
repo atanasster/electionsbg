@@ -17,7 +17,7 @@ import { Landmark } from "lucide-react";
 import { SectorEntitySearch } from "@/screens/components/search/SectorEntitySearch";
 import { entityGroup } from "@/screens/components/search/entityGroups";
 import type { SectorDashboardConfig } from "./sectorDashboards";
-import { buildMembersIndex } from "./membersIndex";
+import { buildMembersIndex, sectorInstitutions } from "./membersIndex";
 
 export const SectorMembersSearch: FC<{
   config: SectorDashboardConfig;
@@ -46,8 +46,8 @@ export const SectorMembersSearch: FC<{
       idPrefix={`${config.id}-members-search`}
       groups={groups}
       title={{
-        bg: `Намери структура (${config.members.length})`,
-        en: `Find a body (${config.members.length})`,
+        bg: `Намери структура (${sectorInstitutions(config.members).length})`,
+        en: `Find a body (${sectorInstitutions(config.members).length})`,
       }}
       placeholder={{
         bg: "институция, съкращение или ЕИК…",

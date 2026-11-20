@@ -231,7 +231,10 @@ Copy is inline `{bg,en}` in `eduRegistry.ts`, as in roads/water/transport (no co
 - One chip per institution (A5); institution count (A6).
 - Top-contracts sort `NULLS LAST` + coverage line (A9), only if the shared engine does not
   already do it.
-- Same-procurement grouping for A14 (one row with its three lots).
+- Same-procurement grouping for A14 (one row with its lots). Measured in T1: the purchase is
+  FOUR lots under УНП 00165-2021-0004, not three (Кейсием €6.09M is the fourth), €68.07M in
+  total. The engine already excludes NULL amounts and sorts `NULLS LAST`, so A9 needs only the
+  coverage line (T2/T3).
 
 ### T2: hub blob
 `scripts/db/gen_edu/hub_stats.ts` → `data/education/derived/hub_stats.json` (or

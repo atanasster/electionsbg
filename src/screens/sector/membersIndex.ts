@@ -29,6 +29,13 @@ import type { SectorDashboardConfig } from "./sectorDashboards";
  *  PG dimension, not a `members` array. Its finder is T5d. */
 export const MEMBER_SEARCH_MIN = 10;
 
+/** The roster as INSTITUTIONS: a retired EIK (`aliasOf`) is not one of its own.
+ *  Every count and chip list on a sector page goes through this, so the heading,
+ *  the chips and the finder label cannot disagree (edu-hub-v1 A5/A6). */
+export const sectorInstitutions = (
+  members: SectorDashboardConfig["members"],
+): SectorDashboardConfig["members"] => members.filter((m) => !m.aliasOf);
+
 /** The members of one sector as a search group. Exported so a bespoke screen
  *  (defense, culture) can reuse it without re-deriving the shape. */
 export const buildMembersIndex = (
@@ -40,7 +47,9 @@ export const buildMembersIndex = (
     // search result that dead-ends, so it is excluded here while staying in the
     // awarders tile, which reads `config.members` directly. See SectorMember's
     // `noAwarderPage` for why a member can be in that state and what retires it.
-    members.filter((m) => !m.noAwarderPage),
+    // An alias (a retired EIK) is not a row of its own — its institution is
+    // already one — but its EIK stays findable through the successor's terms.
+    sectorInstitutions(members).filter((m) => !m.noAwarderPage),
     (m) => ({
       id: m.eik,
       label: bg ? m.name.bg : m.name.en,
@@ -51,5 +60,12 @@ export const buildMembersIndex = (
     // ("(НКЖИ)", "ИА „Морска администрация“") folds for free because the folder
     // strips punctuation, but a reader may equally type the universe ("рибарство",
     // "въздухоплаване") or the EIK off a contract.
-    (m) => [m.name.bg, m.name.en, m.eik, m.group?.bg, m.group?.en],
+    (m) => [
+      m.name.bg,
+      m.name.en,
+      m.eik,
+      m.group?.bg,
+      m.group?.en,
+      ...members.filter((a) => a.aliasOf === m.eik).map((a) => a.eik),
+    ],
   );

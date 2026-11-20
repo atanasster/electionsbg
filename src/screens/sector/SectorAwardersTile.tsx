@@ -8,13 +8,16 @@ import { useSearchParams } from "react-router-dom";
 import { AwarderListSection } from "@/screens/components/procurement/AwarderListSection";
 import { useTranslation } from "react-i18next";
 import type { SectorDashboardConfig } from "./sectorDashboards";
+import { sectorInstitutions } from "./membersIndex";
 
 export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
   config,
 }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
-  const { members } = config;
+  // One chip per INSTITUTION: a retired EIK (`aliasOf`) folds into its
+  // successor's chip and out of the heading count (edu-hub-v1 A5/A6).
+  const members = sectorInstitutions(config.members);
   const single = members.length === 1;
 
   // The "whole group" link goes to the sector-filtered contracts table — the

@@ -86,6 +86,13 @@ export interface SectorMember {
    *  notice. `sector_members_land.data.test.ts` asserts the flag in BOTH
    *  directions against the corpus, so the flag retires itself. */
   noAwarderPage?: boolean;
+  /** This EIK is a RETIRED identifier of another member (the institution
+   *  changed EIK), named by that member's EIK. It stays in `members` because the
+   *  roll-up must still fold its contracts, but it renders NO chip of its own and
+   *  is not counted in the roster heading: one institution, one chip. The live
+   *  case is Стопанска академия „Д. А. Ценов" (040624317 → 000124026), which the
+   *  education roster listed twice and counted as two bodies (edu-hub-v1 A5/A6). */
+  aliasOf?: string;
 }
 
 export interface SectorDashboardConfig {
@@ -495,6 +502,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       eik: e.eik,
       name: { bg: e.name, en: e.name },
       group: EDU_UNIVERSE_LABEL[e.universe],
+      ...(e.retiredEikOf ? { aliasOf: e.retiredEikOf } : {}),
     })),
   },
   // Земеделие — the МЗХ group. `members` is the whole roster (38 EIKs) so the

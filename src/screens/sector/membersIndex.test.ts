@@ -7,7 +7,12 @@
 // 2. The threshold must select the sectors it claims to.
 
 import { describe, expect, it } from "vitest";
-import { buildMembersIndex, MEMBER_SEARCH_MIN } from "./membersIndex";
+import {
+  buildMembersIndex,
+  MEMBER_SEARCH_MIN,
+  sectorInstitutions,
+} from "./membersIndex";
+import { EDU_INSTITUTION_COUNT } from "@/lib/educationReferenceData";
 import { searchIndex } from "@/lib/entitySearchIndex";
 import { SECTOR_DASHBOARDS } from "./sectorDashboards";
 
@@ -141,5 +146,22 @@ describe("MEMBER_SEARCH_MIN", () => {
     ]) {
       for (const id of singles) expect(pick(min)).not.toContain(id);
     }
+  });
+});
+
+describe("a retired EIK is not an institution (edu-hub-v1 A5/A6)", () => {
+  const members = SECTOR_DASHBOARDS.edu.members;
+
+  it("finds Свищов by its retired EIK, landing on the successor's page", () => {
+    const idx = buildMembersIndex(members, true);
+    const hits = searchIndex(idx, "040624317");
+    expect(hits).toHaveLength(1);
+    expect(hits[0].href).toBe("/awarder/000124026");
+  });
+
+  it("offers one row per institution", () => {
+    const idx = buildMembersIndex(members, true);
+    expect(searchIndex(idx, "Ценов")).toHaveLength(1);
+    expect(sectorInstitutions(members)).toHaveLength(EDU_INSTITUTION_COUNT);
   });
 });

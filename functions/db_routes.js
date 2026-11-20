@@ -3274,6 +3274,10 @@ const DB_ROUTES = {
               -- transport hub's PSO / pass-through rule, transport-hub-v1
               -- G2/G9). Additive: the two existing callers ignore them.
               awarder_eik AS "awarderEik", cpv,
+              -- УНП lets a caller fold the lots of ONE procurement into one row
+              -- (edu-hub-v1 A14: МОН's 2021 devices purchase is four lots).
+              -- Additive: existing callers ignore it.
+              unp,
               number_of_tenderers AS "numberOfTenderers",
               CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded"
        FROM contracts
