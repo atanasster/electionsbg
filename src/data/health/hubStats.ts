@@ -26,6 +26,7 @@
 // `transfersEur` (section В). revenue − expenditure is NOT a balance; render
 // `balanceEur` (A3).
 
+import type { FundsByProgrammeRow } from "@/lib/fundProgrammes";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import type { HealthUniverse } from "@/lib/healthReferenceData";
@@ -117,6 +118,9 @@ export interface HealthHubStats {
   bodyIndex: { eik: string; eur: number }[];
   /** ИСУН, grant basis, lifetime, beneficiaries in the roster. */
   euFunds: { beneficiaries: number; projects: number; grantEur: number; paidEur: number }; // prettier-ignore
+  /** The same ИСУН € by programme — a partition of `euFunds`. Optional: a blob
+   *  minted before T5 lacks it. */
+  fundsByProgramme?: FundsByProgrammeRow[];
 }
 
 /** 404 → null: a checkout that has never run the generator renders the hub

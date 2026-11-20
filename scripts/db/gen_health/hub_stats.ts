@@ -264,6 +264,24 @@ const main = async () => {
        FROM fund_projects WHERE beneficiary_eik = ANY($1)`,
     [eiks],
   );
+  // The same € by ИСУН programme (T5) — a PARTITION of `eu`, asserted below.
+  const byProgramme = await allRows<Record<string, string | null>>(
+    `SELECT program_code code, max(program_name) name, count(*) projects,
+            count(DISTINCT beneficiary_eik) beneficiaries,
+            sum(grant_eur) grant_eur, sum(paid_eur) paid
+       FROM fund_projects WHERE beneficiary_eik = ANY($1)
+      GROUP BY 1 ORDER BY sum(grant_eur) DESC NULLS LAST, 1`,
+    [eiks],
+  );
+
+  const programmes = byProgramme.map((r) => ({
+    code: r.code ?? "",
+    name: r.name ?? "",
+    projects: num(r.projects),
+    beneficiaries: num(r.beneficiaries),
+    grantEur: round(num(r.grant_eur)),
+    paidEur: round(num(r.paid)),
+  }));
 
   const out: HealthHubStats = {
     generatedAt: new Date().toISOString().slice(0, 10),
@@ -326,7 +344,20 @@ const main = async () => {
       grantEur: round(num(eu.grant_eur)),
       paidEur: round(num(eu.paid)),
     },
+    fundsByProgramme: programmes,
   };
+
+  // The programme split only partitions the ИСУН total: a drift means the two
+  // queries read different rows.
+  const progProjects = programmes.reduce((a, r) => a + r.projects, 0);
+  const progGrant = programmes.reduce((a, r) => a + r.grantEur, 0);
+  if (
+    progProjects !== out.euFunds.projects ||
+    Math.abs(progGrant - out.euFunds.grantEur) > programmes.length
+  )
+    throw new Error(
+      `fundsByProgramme (${progProjects} / €${progGrant}) does not partition euFunds (${out.euFunds.projects} / €${out.euFunds.grantEur})`,
+    );
 
   // KPI 2 and KPI 3 are DISJOINT parts paid out of KPI 1: their SUM must stay
   // below it. Checking each alone passed while the two overlapped by €0.8bn.

@@ -12,6 +12,7 @@
 // `euFunds` is ИСУН fund_projects on the GRANT basis, lifetime — a different
 // corpus and a different basis from procurement.
 
+import type { FundsByProgrammeRow } from "@/lib/fundProgrammes";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import type { EducationUniverse } from "@/lib/educationReferenceData";
@@ -79,7 +80,7 @@ export interface EduHubStats {
   /** `euFunds` per ИСУН programme, ranked by grant (T5). The corpus also holds
    *  the national Science Fund (BNSF) and EEA/Norway/Swiss programmes: see
    *  `fundProgrammeKind`. Optional — absent from blobs before T5. */
-  fundsByProgramme?: { code: string; name: string; projects: number; beneficiaries: number; grantEur: number; paidEur: number }[]; // prettier-ignore
+  fundsByProgramme?: FundsByProgrammeRow[];
   /** БАН and ССА on three corpora, three bases, NEVER summed (T5): awarder-side
    *  procurement, ИСУН grant, ДФЗ payout. `agri*` null = agri_subsidies was not
    *  loaded where the blob was generated — „not answerable", never 0. */

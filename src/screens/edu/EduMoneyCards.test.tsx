@@ -11,7 +11,8 @@ const hub = vi.hoisted(() => ({
 }));
 vi.mock("@/data/edu/hubStats", () => ({ useEduHubStats: () => hub.value }));
 
-import { ProgrammeList, ResearchCard } from "./EduMoneyScreen";
+import { ResearchCard } from "./EduMoneyScreen";
+import { ProgrammeList } from "@/screens/components/funds/ProgrammeList";
 
 type Arm = NonNullable<EduHubStats["research"]>[number];
 const arm = (over: Partial<Arm>): Arm => ({

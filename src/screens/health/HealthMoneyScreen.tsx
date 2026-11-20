@@ -27,7 +27,9 @@ import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import { ministryEurSeries } from "@/data/budget/ministrySeries";
 // Generic over a set of EIKs (ИСУН grant basis) — nothing in it is education's.
 import { useEduFunds, type EduFundOp } from "@/data/edu/useEduSector";
-import { useHealthHubStats } from "@/data/health/hubStats";
+import { useHealthHubStats, type HealthHubStats } from "@/data/health/hubStats";
+import { ProgrammeList } from "@/screens/components/funds/ProgrammeList";
+import { tidyDots } from "@/lib/tidyDots";
 import { HEALTH_SECTOR_EIKS, MZ_BUDGET_NODE } from "@/lib/healthReferenceData";
 import { NzokActivityTile } from "@/screens/components/procurement/nzok/NzokActivityTile";
 import { NzokPathwayTreeTile } from "@/screens/components/procurement/nzok/NzokPathwayTreeTile";
@@ -101,26 +103,30 @@ const NzokBudgetCard: FC = () => {
           }))}
         />
         <p className="text-muted-foreground">
-          {bg
-            ? `През ${s.year} г. касата е изразходвала ${eur(n.expenditureEur)}.`
-            : `In ${s.year} the fund spent ${eur(n.expenditureEur)}.`}
-          {n.revenueEur != null
-            ? bg
-              ? ` Собствените ѝ приходи — главно здравноосигурителните вноски — са ${eur(n.revenueEur)}`
-              : ` Its own revenue — mainly health-insurance contributions — was ${eur(n.revenueEur)}`
-            : ""}
-          {n.revenueEur != null && n.transfersEur != null
-            ? bg
-              ? `, а трансферите от държавния бюджет — ${eur(n.transfersEur)}.`
-              : `, and the transfers from the state budget ${eur(n.transfersEur)}.`
-            : n.revenueEur != null
-              ? "."
-              : ""}
-          {n.balanceEur != null
-            ? bg
-              ? ` Салдото по отчета е ${eur(n.balanceEur)}.`
-              : ` The report's own balance is ${eur(n.balanceEur)}.`
-            : ""}
+          {tidyDots(
+            [
+              bg
+                ? `През ${s.year} г. касата е изразходвала ${eur(n.expenditureEur)}.`
+                : `In ${s.year} the fund spent ${eur(n.expenditureEur)}.`,
+              n.revenueEur != null
+                ? bg
+                  ? ` Собствените ѝ приходи — главно здравноосигурителните вноски — са ${eur(n.revenueEur)}`
+                  : ` Its own revenue — mainly health-insurance contributions — was ${eur(n.revenueEur)}`
+                : "",
+              n.revenueEur != null && n.transfersEur != null
+                ? bg
+                  ? `, а трансферите от държавния бюджет — ${eur(n.transfersEur)}.`
+                  : `, and the transfers from the state budget ${eur(n.transfersEur)}.`
+                : n.revenueEur != null
+                  ? "."
+                  : "",
+              n.balanceEur != null
+                ? bg
+                  ? ` Салдото по отчета е ${eur(n.balanceEur)}.`
+                  : ` The report's own balance is ${eur(n.balanceEur)}.`
+                : "",
+            ].join(""),
+          )}
         </p>
         <p className="text-[11px] text-muted-foreground/80">
           {bg
@@ -195,10 +201,11 @@ const foldFunds = (rows: readonly EduFundOp[]): EduFundOp[] => {
 };
 
 /** #funds — ИСУН grant aid to the roster's institutions, lifetime. */
-const FundsCard: FC<{ funds: EduFundOp[]; grantBasis: boolean }> = ({
-  funds,
-  grantBasis,
-}) => {
+const FundsCard: FC<{
+  funds: EduFundOp[];
+  grantBasis: boolean;
+  programmes: HealthHubStats["fundsByProgramme"];
+}> = ({ funds, grantBasis, programmes }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
@@ -230,7 +237,7 @@ const FundsCard: FC<{ funds: EduFundOp[]; grantBasis: boolean }> = ({
             {formatEurCompact(total, lang)}
           </span>{" "}
           {bg
-            ? `безвъзмездна помощ по ${formatInt(projects, lang)} договора в ИСУН на ${formatInt(funds.length, lang)} институции; изплатени досега ${formatEurCompact(paid, lang)}.`
+            ? `безвъзмездна помощ по ${formatInt(projects, lang)} договора в ИСУН на ${formatInt(funds.length, lang)} институции; изплатени досега ${tidyDots(`${formatEurCompact(paid, lang)}.`)}`
             : `of grant aid on ${formatInt(projects, lang)} ИСУН contracts of ${formatInt(funds.length, lang)} institutions; ${formatEurCompact(paid, lang)} paid so far.`}
         </p>
         <ul className="space-y-0.5 text-xs">
@@ -249,10 +256,18 @@ const FundsCard: FC<{ funds: EduFundOp[]; grantBasis: boolean }> = ({
             </li>
           ))}
         </ul>
+        {programmes?.length ? (
+          <div className="space-y-1">
+            <div className="text-xs font-medium text-muted-foreground">
+              {bg ? "По програми" : "By programme"}
+            </div>
+            <ProgrammeList rows={programmes} />
+          </div>
+        ) : null}
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "За целия период на ИСУН. Безвъзмездната помощ е друга база от поръчките — част от нея се харчи чрез поръчки, затова двете не се събират. Болниците не са в сектора и техните проекти не са тук."
-            : "Over the whole ИСУН period. Grant aid is a different basis from procurement — part of it is spent through procurement, so the two are never added. Hospitals are not in the sector and their projects are not here."}
+            ? `За целия период на ИСУН. Безвъзмездната помощ е друга база от поръчките — част от нея се харчи чрез поръчки, затова двете не се събират.${programmes?.length ? " Регистърът носи и програмите на ЕИП и Норвегия — отбелязани са в списъка по програми." : ""} Болниците не са в сектора и техните проекти не са тук.`
+            : `Over the whole ИСУН period. Grant aid is a different basis from procurement — part of it is spent through procurement, so the two are never added.${programmes?.length ? " The register also carries the EEA and Norway programmes — they are marked in the list by programme." : ""} Hospitals are not in the sector and their projects are not here.`}
         </p>
       </CardContent>
     </Card>
@@ -270,6 +285,7 @@ export const HealthMoneyScreen: FC = () => {
   const bg = isBg(i18n.language);
   const { funds, grantBasis, isLoading, isError } =
     useEduFunds(HEALTH_SECTOR_EIKS);
+  const { data: hub } = useHealthHubStats();
   const folded = useMemo(() => foldFunds(funds), [funds]);
   return (
     <HealthPageFrame
@@ -297,7 +313,11 @@ export const HealthMoneyScreen: FC = () => {
         ) : isLoading ? (
           <ChartGhost className="h-[200px]" />
         ) : (
-          <FundsCard funds={folded} grantBasis={grantBasis} />
+          <FundsCard
+            funds={folded}
+            grantBasis={grantBasis}
+            programmes={hub?.fundsByProgramme}
+          />
         )}
       </Section>
       <Section id="activity">

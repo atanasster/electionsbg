@@ -26,7 +26,9 @@ import { ChartGhost } from "@/ux/motion/ChartGhost";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import { ministryEurSeries } from "@/data/budget/ministrySeries";
 import { useEduFunds, type EduFundOp } from "@/data/edu/useEduSector";
-import { useEduHubStats, type EduHubStats } from "@/data/edu/hubStats";
+import { useEduHubStats } from "@/data/edu/hubStats";
+import { ProgrammeList } from "@/screens/components/funds/ProgrammeList";
+import { tidyDots } from "@/lib/tidyDots";
 import {
   EDU_BUDGET_NODE,
   EDU_SECTOR_EIKS,
@@ -35,11 +37,7 @@ import {
 } from "@/lib/educationReferenceData";
 import { EduPageFrame } from "./EduPageFrame";
 import { EduNote } from "./EduNote";
-import {
-  foldRetiredFunds,
-  fundProgrammeKind,
-  type FundProgrammeKind,
-} from "./eduSectorData";
+import { foldRetiredFunds } from "./eduSectorData";
 
 const head = (Icon: FC<{ className?: string }>, text: string) => (
   <CardHeader className="pb-2">
@@ -126,59 +124,6 @@ const FundsList: FC<{ rows: EduFundOp[]; limit: number }> = ({
 };
 
 /** #funds — ИСУН grant aid to the sector's institutions, lifetime. */
-const KIND_LABEL: Record<
-  Exclude<FundProgrammeKind, "eu">,
-  { bg: string; en: string }
-> = {
-  national: { bg: "национален фонд", en: "national fund" },
-  eeaNorwaySwiss: {
-    bg: "ЕИП / Норвегия / Швейцария",
-    en: "EEA / Norway / Swiss",
-  },
-  unknown: { bg: "друг източник", en: "other source" },
-};
-
-/** The same € by ИСУН programme, from the hub blob. */
-export const ProgrammeList: FC<{
-  rows: NonNullable<EduHubStats["fundsByProgramme"]>;
-}> = ({ rows }) => {
-  const { i18n } = useTranslation();
-  const lang = i18n.language;
-  const bg = isBg(lang);
-  const max = Math.max(...rows.map((r) => r.grantEur), 1);
-  return (
-    <ul className="space-y-1">
-      {rows.map((r) => {
-        const kind = fundProgrammeKind(r.code);
-        return (
-          <li key={r.code} className="space-y-0.5 text-xs">
-            <div className="flex justify-between gap-2">
-              <span className="min-w-0">
-                {r.name || r.code}
-                {kind !== "eu" ? (
-                  <span className="ml-1.5 text-muted-foreground">
-                    ({bg ? KIND_LABEL[kind].bg : KIND_LABEL[kind].en})
-                  </span>
-                ) : null}
-              </span>
-              <span className="shrink-0 tabular-nums text-muted-foreground">
-                {formatEurCompact(r.grantEur, lang)} ·{" "}
-                {formatInt(r.projects, lang)}
-              </span>
-            </div>
-            <div className="h-1.5 rounded bg-muted">
-              <div
-                className="h-1.5 rounded bg-primary/70"
-                style={{ width: `${(r.grantEur / max) * 100}%` }}
-              />
-            </div>
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
-
 const FundsCard: FC<{
   funds: EduFundOp[];
   grantBasis: boolean;
@@ -216,7 +161,7 @@ const FundsCard: FC<{
             {formatEurCompact(total, lang)}
           </span>{" "}
           {bg
-            ? `безвъзмездна помощ по ${formatInt(projects, lang)} договора в ИСУН на ${formatInt(funds.length, lang)} институции; изплатени досега ${formatEurCompact(paid, lang)}${formatEurCompact(paid, lang).endsWith(".") ? "" : "."}`
+            ? `безвъзмездна помощ по ${formatInt(projects, lang)} договора в ИСУН на ${formatInt(funds.length, lang)} институции; изплатени досега ${tidyDots(`${formatEurCompact(paid, lang)}.`)}`
             : `of grant aid on ${formatInt(projects, lang)} ИСУН contracts of ${formatInt(funds.length, lang)} institutions; ${formatEurCompact(paid, lang)} paid so far.`}
         </p>
         {programmes?.length ? (

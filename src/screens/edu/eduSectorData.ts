@@ -159,45 +159,10 @@ export const othersShare = (
   return known > 0 ? (national.singleBid - sectorSingle) / known : null;
 };
 
-/** What an ИСУН programme code is: the corpus is wider than the EU budget.
- *  `eu` = every `20YYBG…` programming code (2014-2020, 2021-2027, the Recovery
- *  Plan, the CAP Strategic Plan) and Digital Europe (DEP); `national` = the
- *  Science Fund (BNSF) and the National Innovation Fund (NIF); `eeaNorwaySwiss`
- *  = the EEA/Norway grants and the Swiss contribution, by explicit code;
- *  `unknown` = anything else — a new code is never assumed to be any of them.
- *  Codes measured 2026-11-20 over the whole fund_projects corpus. */
-export type FundProgrammeKind =
-  | "eu"
-  | "national"
-  | "eeaNorwaySwiss"
-  | "unknown";
-const EU_CODES = new Set(["DEP"]);
-const NATIONAL_CODES = new Set(["BNSF", "NIF"]);
-const EEA_NORWAY_SWISS_CODES = new Set([
-  "BGCULTURE",
-  "BGENERGY",
-  "BGENVIRONMENT",
-  "BGHOMEAFFAIRS",
-  "BGJUSTICE",
-  "BGLD",
-  "DF",
-  "DVET",
-  "HEALTH",
-  "MODAIRN",
-  "PEST",
-  "PROPARK",
-  "SBRP",
-  "SEC",
-  "ZOVII",
-]);
-export const fundProgrammeKind = (code: string): FundProgrammeKind =>
-  /^20\d\dBG/.test(code) || EU_CODES.has(code)
-    ? "eu"
-    : NATIONAL_CODES.has(code)
-      ? "national"
-      : EEA_NORWAY_SWISS_CODES.has(code)
-        ? "eeaNorwaySwiss"
-        : "unknown";
+export {
+  fundProgrammeKind,
+  type FundProgrammeKind,
+} from "@/lib/fundProgrammes";
 
 /** The name of the sector an external state higher school is counted in (A2). */
 export const EXTERNAL_SECTOR_NAME: Record<
