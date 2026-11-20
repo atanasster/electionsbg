@@ -2068,7 +2068,7 @@ ${up(true)}`.trim(),
       bodyHtml: `
 <h1>Парите извън поръчките</h1>
 <p>Бюджетът на Министерството на образованието и науката по години — само министерството, без субсидиите на университетите и без делегираните бюджети на училищата.</p>
-<p>Европейските средства на институциите на база безвъзмездна помощ: €${f.grantBnBg} млрд. за целия период на ИСУН, и науката — поръчките и еврофондовете на БАН и Селскостопанската академия. Всяка от тези суми е на своя база и не се събира с обществените поръчки.</p>
+<p>Европейските средства на институциите на база безвъзмездна помощ: €${f.grantBnBg} млрд. за целия период на ИСУН, и науката — поръчките, еврофондовете и плащанията от ДФ „Земеделие“ на БАН и Селскостопанската академия. Всяка от тези суми е на своя база и не се събира с обществените поръчки.</p>
 ${up(false)}`.trim(),
       english: {
         title:
@@ -2079,7 +2079,7 @@ ${up(false)}`.trim(),
         bodyHtml: `
 <h1>The money outside procurement</h1>
 <p>The budget of the Ministry of Education and Science by year — the ministry alone, without the universities' subsidies or the schools' delegated budgets.</p>
-<p>The institutions' EU funds on the grant basis: €${f.grantBnEn}bn over the whole ИСУН period, and research — the procurement and EU funds of the Academy of Sciences and the Agricultural Academy. Each of these sums is on its own basis and is never added to public procurement.</p>
+<p>The institutions' EU funds on the grant basis: €${f.grantBnEn}bn over the whole ИСУН period, and research — the procurement, EU funds and State Fund Agriculture payments of the Academy of Sciences and the Agricultural Academy. Each of these sums is on its own basis and is never added to public procurement.</p>
 ${up(true)}`.trim(),
       },
     }),

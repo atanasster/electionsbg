@@ -137,6 +137,105 @@ test.skipIf(skip)("EU funds are fund_projects on the grant basis", async () => {
   near(r.projects, f.projects, "euFunds.projects");
 });
 
+test.skipIf(skip)(
+  "the ИСУН programme split re-derives and sums to the EU-funds headline (T5)",
+  async () => {
+    const b = blob();
+    const progs = b.fundsByProgramme;
+    assert.ok(progs?.length, "fundsByProgramme missing — re-run the generator");
+    const rows = await allRows<{
+      code: string;
+      grantEur: number;
+      projects: number;
+    }>(
+      `SELECT program_code code, coalesce(sum(grant_eur), 0)::float8 "grantEur",
+              count(*)::int projects
+         FROM fund_projects WHERE beneficiary_eik = ANY($1) GROUP BY 1`,
+      [eiks],
+    );
+    const db = new Map(rows.map((r) => [r.code, r]));
+    assert.equal(progs.length, rows.length, "programme count");
+    for (const p of progs) {
+      const r = db.get(p.code);
+      assert.ok(r, `${p.code} is not in fund_projects`);
+      near(r.grantEur, p.grantEur, `fundsByProgramme[${p.code}].grantEur`);
+      assert.equal(
+        r.projects,
+        p.projects,
+        `fundsByProgramme[${p.code}].projects`,
+      );
+    }
+    // A partition of the headline, on the same basis: a drift means the split
+    // and the KPI read different rows.
+    near(
+      progs.reduce((a, p) => a + p.grantEur, 0),
+      b.euFunds.grantEur,
+      "Σ fundsByProgramme vs euFunds.grantEur",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the research arm re-derives on each of its three corpora, never summed (T5)",
+  async () => {
+    const arms = blob().research;
+    assert.ok(
+      arms?.length === 2,
+      "research arm missing — re-run the generator",
+    );
+    const [{ agri }] = await allRows<{ agri: string | null }>(
+      "SELECT to_regclass('public.agri_subsidies')::text agri",
+    );
+    for (const a of arms) {
+      const uEiks = EDU_ENTITIES.filter((e) => e.universe === a.universe).map(
+        (e) => e.eik,
+      );
+      assert.ok(uEiks.length, `${a.universe} has no roster EIKs`);
+      const [r] = await allRows<{
+        proc: number;
+        procN: number;
+        grant: number;
+        grantN: number;
+      }>(
+        `SELECT (SELECT coalesce(sum(amount_eur), 0) FROM contracts
+                  WHERE tag = 'contract' AND awarder_eik = ANY($1))::float8 proc,
+                (SELECT count(*) FROM contracts
+                  WHERE tag = 'contract' AND ${EX} AND awarder_eik = ANY($1))::int "procN",
+                (SELECT coalesce(sum(grant_eur), 0) FROM fund_projects
+                  WHERE beneficiary_eik = ANY($1))::float8 "grant",
+                (SELECT count(*) FROM fund_projects
+                  WHERE beneficiary_eik = ANY($1))::int "grantN"`,
+        [uEiks],
+      );
+      near(r.proc, a.procurementEur, `${a.universe}.procurementEur`);
+      near(
+        r.procN,
+        a.procurementContracts,
+        `${a.universe}.procurementContracts`,
+      );
+      near(r.grant, a.grantEur, `${a.universe}.grantEur`);
+      near(r.grantN, a.grantProjects, `${a.universe}.grantProjects`);
+      if (agri == null) {
+        // Not loaded here: the blob may hold a figure from a machine that had
+        // it, but nothing can be checked — say so rather than pass silently.
+        console.warn(
+          `edu research: agri_subsidies absent, ${a.universe} payout arm unchecked`,
+        );
+        continue;
+      }
+      const [g] = await allRows<{ eur: number }>(
+        `SELECT coalesce(sum(total_eur), 0)::float8 eur FROM agri_subsidies WHERE eik = ANY($1)`,
+        [uEiks],
+      );
+      assert.ok(
+        a.agriEur != null,
+        `${a.universe}.agriEur is null while agri_subsidies is loaded`,
+      );
+      near(g.eur, a.agriEur, `${a.universe}.agriEur`);
+    }
+  },
+);
+
 test("the body index covers every institution exactly once", () => {
   const institutions = EDU_ENTITIES.filter((e) => !e.retiredEikOf).map(
     (e) => e.eik,

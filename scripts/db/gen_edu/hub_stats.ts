@@ -2,7 +2,9 @@
 // /sector/edu hub's KPI band, body rail, finder index and band figures
 // (docs/plans/edu-hub-v1.md T2). The shape is EduHubStats (src/data/edu/hubStats.ts).
 //
-// Inputs are Postgres only: contracts, fund_projects, national_competition() (167).
+// Inputs are Postgres only: contracts, fund_projects, national_competition() (167),
+// and agri_subsidies (db:load:agri:pg) for the research arm's payout basis —
+// optional: absent, that arm is null rather than the blob being refused.
 // Its slot in db:refresh is right after db:gen-transport-hub-stats — well after
 // db:load:pg and db:load:funds:pg, its two loaders — beside the other sector hubs.
 //
@@ -263,6 +265,64 @@ const main = async () => {
     [eiks],
   );
 
+  // ИСУН by programme, grant basis, lifetime (T5). The corpus also carries the
+  // national Science Fund (BNSF) and the EEA/Norway/Swiss programmes — kept as
+  // their own rows, so a reader never takes them for EU money.
+  const byProgramme = await allRows<Record<string, string | null>>(
+    `SELECT program_code code, max(program_name) name, count(*) projects,
+            count(DISTINCT beneficiary_eik) beneficiaries,
+            sum(grant_eur) grant_eur, sum(paid_eur) paid
+       FROM fund_projects WHERE beneficiary_eik = ANY($1)
+      GROUP BY 1 ORDER BY sum(grant_eur) DESC NULLS LAST, 1`,
+    [eiks],
+  );
+
+  // The research arm (T5): БАН and ССА on THREE corpora, each its own basis —
+  // procurement (awarder €), ИСУН grant, ДФЗ payout. Never summed.
+  // agri_subsidies is a gitignored-input load: absent → the payout arm is null
+  // („not loaded"), never 0.
+  const agriMissing = (await missingRelations(["agri_subsidies"])).length > 0;
+  const fundsByEik = await allRows<{
+    eik: string;
+    g: string | null;
+    n: string;
+  }>(
+    `SELECT beneficiary_eik eik, sum(grant_eur) g, count(*) n
+       FROM fund_projects WHERE beneficiary_eik = ANY($1) GROUP BY 1`,
+    [eiks],
+  );
+  const agriByEik = agriMissing
+    ? null
+    : await allRows<{
+        eik: string;
+        eur: string | null;
+        n: string;
+        y0: string;
+        y1: string;
+      }>(
+        `SELECT eik, sum(total_eur) eur, count(*) n, min(year) y0, max(year) y1
+           FROM agri_subsidies WHERE eik = ANY($1) GROUP BY 1`,
+        [eiks],
+      );
+  const research = (["research_ban", "research_ssa"] as const).map((u) => {
+    const inU = (eik: string) => educationUniverseOf(eik) === u;
+    const p = universes.find((x) => x.universe === u);
+    const f = fundsByEik.filter((r) => inU(r.eik));
+    const a = agriByEik?.filter((r) => inU(r.eik)) ?? null;
+    const years = a?.flatMap((r) => [num(r.y0), num(r.y1)]) ?? [];
+    return {
+      universe: u,
+      procurementEur: p?.eur ?? 0,
+      procurementContracts: p?.contracts ?? 0,
+      grantEur: round(f.reduce((x, r) => x + num(r.g), 0)),
+      grantProjects: f.reduce((x, r) => x + num(r.n), 0),
+      agriEur: a ? round(a.reduce((x, r) => x + num(r.eur), 0)) : null,
+      agriPayments: a ? a.reduce((x, r) => x + num(r.n), 0) : null,
+      agriFirstYear: years.length ? Math.min(...years) : null,
+      agriLastYear: years.length ? Math.max(...years) : null,
+    };
+  });
+
   const out: EduHubStats = {
     generatedAt: new Date().toISOString().slice(0, 10),
     procurement: {
@@ -313,6 +373,15 @@ const main = async () => {
       grantEur: round(num(eu.grant_eur)),
       paidEur: round(num(eu.paid)),
     },
+    fundsByProgramme: byProgramme.map((r) => ({
+      code: r.code ?? "",
+      name: r.name ?? "",
+      projects: num(r.projects),
+      beneficiaries: num(r.beneficiaries),
+      grantEur: round(num(r.grant_eur)),
+      paidEur: round(num(r.paid)),
+    })),
+    research,
   };
 
   // The universe split only partitions the headline: a drift means a roster EIK

@@ -76,6 +76,24 @@ export interface EduHubStats {
   adjacentIndex: { eik: string; eur: number }[];
   /** ИСУН, grant basis, lifetime, beneficiaries in the roster. */
   euFunds: { beneficiaries: number; projects: number; grantEur: number; paidEur: number }; // prettier-ignore
+  /** `euFunds` per ИСУН programme, ranked by grant (T5). The corpus also holds
+   *  the national Science Fund (BNSF) and EEA/Norway/Swiss programmes: see
+   *  `fundProgrammeKind`. Optional — absent from blobs before T5. */
+  fundsByProgramme?: { code: string; name: string; projects: number; beneficiaries: number; grantEur: number; paidEur: number }[]; // prettier-ignore
+  /** БАН and ССА on three corpora, three bases, NEVER summed (T5): awarder-side
+   *  procurement, ИСУН grant, ДФЗ payout. `agri*` null = agri_subsidies was not
+   *  loaded where the blob was generated — „not answerable", never 0. */
+  research?: {
+    universe: "research_ban" | "research_ssa";
+    procurementEur: number;
+    procurementContracts: number;
+    grantEur: number;
+    grantProjects: number;
+    agriEur: number | null;
+    agriPayments: number | null;
+    agriFirstYear: number | null;
+    agriLastYear: number | null;
+  }[];
 }
 
 /** 404 → null: a checkout that has never run the generator renders the hub

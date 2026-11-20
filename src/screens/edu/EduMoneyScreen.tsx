@@ -1,5 +1,6 @@
 // /sector/edu/money — the money OUTSIDE public procurement: МОН's budget, the EU
-// funds of the sector's institutions on the grant basis, and the research arm.
+// funds of the sector's institutions on the grant basis (by programme and by
+// institution), and the research arm on three corpora.
 // Plan: docs/plans/edu-hub-v1.md §3 (T5 deepens each section).
 //
 // „БЕЗ ПЕРИОД" — no ScopeControl: the budget law and ИСУН lifetime figures carry
@@ -7,8 +8,10 @@
 //
 // ⚠ THREE BASES, NEVER SUMMED: the budget is МОН's own ЗДБ line (not the
 // universities' subsidies, not the schools' delegated budgets); EU funds are
-// ИСУН грант (БФП) to the same institutions; the research arm states БАН / ССА
-// procurement and EU funds side by side, each labelled.
+// ИСУН грант (БФП) to the same institutions — the register also holds the
+// Science Fund and the EEA/Norway/Swiss mechanisms, marked per programme; the
+// research arm states БАН / ССА procurement, ИСУН grant and ДФЗ payouts side by
+// side, each labelled.
 //
 // Fragment ids: #budget #funds #research, and only those.
 
@@ -23,16 +26,20 @@ import { ChartGhost } from "@/ux/motion/ChartGhost";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import { ministryEurSeries } from "@/data/budget/ministrySeries";
 import { useEduFunds, type EduFundOp } from "@/data/edu/useEduSector";
-import { useEduHubStats } from "@/data/edu/hubStats";
+import { useEduHubStats, type EduHubStats } from "@/data/edu/hubStats";
 import {
   EDU_BUDGET_NODE,
   EDU_SECTOR_EIKS,
   educationEntityByEik,
-  educationUniverseOf,
+  educationUniverseLabel,
 } from "@/lib/educationReferenceData";
 import { EduPageFrame } from "./EduPageFrame";
 import { EduNote } from "./EduNote";
-import { foldRetiredFunds } from "./eduSectorData";
+import {
+  foldRetiredFunds,
+  fundProgrammeKind,
+  type FundProgrammeKind,
+} from "./eduSectorData";
 
 const head = (Icon: FC<{ className?: string }>, text: string) => (
   <CardHeader className="pb-2">
@@ -119,6 +126,59 @@ const FundsList: FC<{ rows: EduFundOp[]; limit: number }> = ({
 };
 
 /** #funds — ИСУН grant aid to the sector's institutions, lifetime. */
+const KIND_LABEL: Record<
+  Exclude<FundProgrammeKind, "eu">,
+  { bg: string; en: string }
+> = {
+  national: { bg: "национален фонд", en: "national fund" },
+  eeaNorwaySwiss: {
+    bg: "ЕИП / Норвегия / Швейцария",
+    en: "EEA / Norway / Swiss",
+  },
+  unknown: { bg: "друг източник", en: "other source" },
+};
+
+/** The same € by ИСУН programme, from the hub blob. */
+export const ProgrammeList: FC<{
+  rows: NonNullable<EduHubStats["fundsByProgramme"]>;
+}> = ({ rows }) => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  const bg = isBg(lang);
+  const max = Math.max(...rows.map((r) => r.grantEur), 1);
+  return (
+    <ul className="space-y-1">
+      {rows.map((r) => {
+        const kind = fundProgrammeKind(r.code);
+        return (
+          <li key={r.code} className="space-y-0.5 text-xs">
+            <div className="flex justify-between gap-2">
+              <span className="min-w-0">
+                {r.name || r.code}
+                {kind !== "eu" ? (
+                  <span className="ml-1.5 text-muted-foreground">
+                    ({bg ? KIND_LABEL[kind].bg : KIND_LABEL[kind].en})
+                  </span>
+                ) : null}
+              </span>
+              <span className="shrink-0 tabular-nums text-muted-foreground">
+                {formatEurCompact(r.grantEur, lang)} ·{" "}
+                {formatInt(r.projects, lang)}
+              </span>
+            </div>
+            <div className="h-1.5 rounded bg-muted">
+              <div
+                className="h-1.5 rounded bg-primary/70"
+                style={{ width: `${(r.grantEur / max) * 100}%` }}
+              />
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
 const FundsCard: FC<{
   funds: EduFundOp[];
   grantBasis: boolean;
@@ -126,6 +186,8 @@ const FundsCard: FC<{
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
+  const { data: hub } = useEduHubStats();
+  const programmes = hub?.fundsByProgramme;
   if (!grantBasis)
     return (
       <EduNote>
@@ -154,76 +216,97 @@ const FundsCard: FC<{
             {formatEurCompact(total, lang)}
           </span>{" "}
           {bg
-            ? `безвъзмездна помощ по ${formatInt(projects, lang)} договора в ИСУН на ${formatInt(funds.length, lang)} институции; изплатени досега ${formatEurCompact(paid, lang)}.`
+            ? `безвъзмездна помощ по ${formatInt(projects, lang)} договора в ИСУН на ${formatInt(funds.length, lang)} институции; изплатени досега ${formatEurCompact(paid, lang)}${formatEurCompact(paid, lang).endsWith(".") ? "" : "."}`
             : `of grant aid on ${formatInt(projects, lang)} ИСУН contracts of ${formatInt(funds.length, lang)} institutions; ${formatEurCompact(paid, lang)} paid so far.`}
         </p>
+        {programmes?.length ? (
+          <>
+            <p className="text-xs font-medium">
+              {bg ? "По програми" : "By programme"}
+            </p>
+            <ProgrammeList rows={programmes} />
+            <p className="text-xs font-medium">
+              {bg ? "По институции" : "By institution"}
+            </p>
+          </>
+        ) : null}
         <FundsList rows={funds} limit={10} />
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "За целия период на ИСУН. Безвъзмездната помощ е друга база от поръчките — част от нея се харчи чрез поръчки, затова двете не се събират."
-            : "Over the whole ИСУН period. Grant aid is a different basis from procurement — part of it is spent through procurement, so the two are never added."}
+            ? "За целия период на ИСУН. Регистърът съдържа и Фонд „Научни изследвания“ и програмите на ЕИП, Норвегия и Швейцария — те са отбелязани в списъка по програми. Безвъзмездната помощ е друга база от поръчките — част от нея се харчи чрез поръчки, затова двете не се събират."
+            : "Over the whole ИСУН period. The register also carries the Science Fund and the EEA, Norway and Swiss programmes — they are marked in the list by programme. Grant aid is a different basis from procurement — part of it is spent through procurement, so the two are never added."}
         </p>
       </CardContent>
     </Card>
   );
 };
 
-/** #research — БАН and the Agricultural Academy, procurement and EU funds side
- *  by side, each on its own basis. */
-const ResearchCard: FC<{ funds: EduFundOp[]; grantBasis: boolean }> = ({
-  funds,
-  grantBasis,
-}) => {
+/** #research — БАН and the Agricultural Academy on three corpora, each on its
+ *  own basis and never summed: procurement (awarder €), ИСУН grant, and the
+ *  ДФ „Земеделие" payouts the institutes take as farm operators. From the hub
+ *  blob; `agriEur` null = the payout corpus was not loaded, never „none". */
+export const ResearchCard: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = isBg(lang);
-  const { data: hub } = useEduHubStats();
-  const arms = (["research_ban", "research_ssa"] as const).map((u) => {
-    const proc = hub?.universes.find((x) => x.universe === u);
-    const f = funds.filter((x) => educationUniverseOf(x.eik) === u);
-    return {
-      u,
-      label:
-        u === "research_ban"
-          ? bg
-            ? "БАН"
-            : "Academy of Sciences (БАН)"
-          : bg
-            ? "Селскостопанска академия"
-            : "Agricultural Academy",
-      procEur: proc?.eur ?? null,
-      procContracts: proc?.contracts ?? null,
-      grantEur: grantBasis ? f.reduce((a, x) => a + x.grantEur, 0) : null,
-      projects: f.reduce((a, x) => a + x.projectCount, 0),
-    };
-  });
+  const { data: hub, isLoading, isError } = useEduHubStats();
+  if (isLoading) return <ChartGhost className="h-[160px]" />;
+  if (isError)
+    return (
+      <EduNote>
+        {bg
+          ? "Данните за науката не можаха да се заредят."
+          : "The research data could not be loaded."}
+      </EduNote>
+    );
+  const arms = hub?.research;
+  if (!arms?.length)
+    return (
+      <EduNote>
+        {bg
+          ? "Данните за науката още не са публикувани."
+          : "The research figures are not published yet."}
+      </EduNote>
+    );
+  const eur = (v: number) => formatEurCompact(v, lang);
   return (
     <Card>
       {head(FlaskConical, bg ? "Науката" : "Research")}
       <CardContent className="p-3 md:p-4 space-y-2 text-sm">
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {arms.map((a) => (
-            <li key={a.u}>
-              <p className="font-medium">{a.label}</p>
-              <p className="text-xs text-muted-foreground">
-                {a.procEur != null
-                  ? bg
-                    ? `Поръчки за целия период: ${formatEurCompact(a.procEur, lang)} по ${formatInt(a.procContracts ?? 0, lang)} договора.`
-                    : `Procurement over the whole period: ${formatEurCompact(a.procEur, lang)} over ${formatInt(a.procContracts ?? 0, lang)} contracts.`
-                  : null}{" "}
-                {a.grantEur != null
-                  ? bg
-                    ? `Еврофондове: ${formatEurCompact(a.grantEur, lang)} безвъзмездна помощ по ${formatInt(a.projects, lang)} договора.`
-                    : `EU funds: ${formatEurCompact(a.grantEur, lang)} of grant aid on ${formatInt(a.projects, lang)} contracts.`
-                  : null}
+            <li key={a.universe}>
+              <p className="font-medium">
+                {educationUniverseLabel(a.universe, lang)}
               </p>
+              <ul className="mt-1 space-y-0.5 text-xs text-muted-foreground">
+                <li>
+                  {bg
+                    ? `Обществени поръчки (възложени): ${eur(a.procurementEur)} по ${formatInt(a.procurementContracts, lang)} договора`
+                    : `Public procurement (awarded): ${eur(a.procurementEur)} over ${formatInt(a.procurementContracts, lang)} contracts`}
+                </li>
+                <li>
+                  {bg
+                    ? `Безвъзмездна помощ по ИСУН: ${eur(a.grantEur)} по ${formatInt(a.grantProjects, lang)} договора`
+                    : `ИСУН grant aid: ${eur(a.grantEur)} on ${formatInt(a.grantProjects, lang)} contracts`}
+                </li>
+                <li>
+                  {a.agriEur == null
+                    ? bg
+                      ? "Плащания от ДФ „Земеделие“: не са заредени"
+                      : "State Fund Agriculture payments: not loaded"
+                    : bg
+                      ? `Плащания от ДФ „Земеделие“ (изплатени): ${eur(a.agriEur)}${a.agriFirstYear ? `, ${a.agriFirstYear}–${a.agriLastYear}` : ""}`
+                      : `State Fund Agriculture payments (paid): ${eur(a.agriEur)}${a.agriFirstYear ? `, ${a.agriFirstYear}–${a.agriLastYear}` : ""}`}
+                </li>
+              </ul>
             </li>
           ))}
         </ul>
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "Поръчките и еврофондовете са на различна база и не се събират. Националното финансиране на научни проекти (Фонд „Научни изследвания“) не е в тези данни."
-            : "Procurement and EU funds sit on different bases and are not added. National research-project funding (the Science Fund) is not in these data."}
+            ? "Три корпуса, три бази — възложена стойност, договорена помощ и изплатени субсидии — затова не се събират. Институтите на Селскостопанската академия стопанисват земя и получават земеделски субсидии като всеки стопанин. ИСУН съдържа само част от проектите на Фонд „Научни изследвания“ — останалите не са в тези данни."
+            : "Three corpora, three bases — awarded value, contracted aid and paid subsidies — so they are never added. The Agricultural Academy's institutes farm land and receive farm subsidies like any farmer. ИСУН holds only part of the Science Fund's projects — the rest are not in these data."}
         </p>
       </CardContent>
     </Card>
@@ -268,13 +351,7 @@ export const EduMoneyScreen: FC = () => {
         )}
       </section>
       <section id="research" className="scroll-mt-24">
-        {isError ? (
-          <EduNote>{failed}</EduNote>
-        ) : isLoading ? (
-          <ChartGhost className="h-[160px]" />
-        ) : (
-          <ResearchCard funds={sorted} grantBasis={grantBasis} />
-        )}
+        <ResearchCard />
       </section>
     </EduPageFrame>
   );

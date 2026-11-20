@@ -5,6 +5,7 @@ import {
   foldRetired,
   foldRetiredFunds,
   exMemberPair,
+  fundProgrammeKind,
   othersShare,
   parseUniverse,
   universeRows,
@@ -135,5 +136,24 @@ describe("exMemberPair", () => {
     ).toBeNull();
     expect(exMemberPair(null)).toBeNull();
     expect(exMemberPair(undefined)).toBeNull();
+  });
+});
+
+describe("fundProgrammeKind", () => {
+  it("files every 20YYBG code and Digital Europe as EU", () => {
+    for (const c of ["2021BG-RRP", "2014BG05M2OP001", "2015BG16RFSM001", "2023BG06AFSP001", "DEP"]) // prettier-ignore
+      expect(fundProgrammeKind(c), c).toBe("eu");
+  });
+  it("never files a non-EU programme as EU — nor an EU one as non-EU", () => {
+    expect(fundProgrammeKind("BNSF")).toBe("national");
+    expect(fundProgrammeKind("NIF")).toBe("national");
+    expect(fundProgrammeKind("DVET")).toBe("eeaNorwaySwiss");
+    expect(fundProgrammeKind("BGLD")).toBe("eeaNorwaySwiss");
+    expect(fundProgrammeKind("DEP")).not.toBe("eeaNorwaySwiss");
+    expect(fundProgrammeKind("2023BG06AFSP001")).not.toBe("eeaNorwaySwiss");
+  });
+  it("leaves a code it does not know as unknown, never a guess", () => {
+    expect(fundProgrammeKind("XYZ")).toBe("unknown");
+    expect(fundProgrammeKind("")).toBe("unknown");
   });
 });
