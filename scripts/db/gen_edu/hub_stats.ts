@@ -156,9 +156,13 @@ const main = async () => {
     [eiks],
   );
 
+  // A body contracting ITSELF is not money moving between two sector members, and
+  // awarder_group_model (061) — the windowed in-group figure on /sector/edu/procurement
+  // — drops it too, so the two sentences there count the same rows.
   const [intra] = await allRows<Record<string, string | null>>(
     `SELECT sum(amount_eur) eur, count(*) n FROM contracts
-      WHERE tag = 'contract' AND awarder_eik = ANY($1) AND contractor_eik = ANY($1) AND ${EX}`,
+      WHERE tag = 'contract' AND awarder_eik = ANY($1) AND contractor_eik = ANY($1)
+        AND contractor_eik <> awarder_eik AND ${EX}`,
     [eiks],
   );
   const [transfers] = await allRows<Record<string, string | null>>(

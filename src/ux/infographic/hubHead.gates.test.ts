@@ -221,6 +221,10 @@ const HUB_SCREENS = [
   // the same reason. Its basis names the corpus window („2011–2026").
   "src/screens/transport/TransportHubScreen.tsx",
   "src/screens/transport/transportHubFigures.ts",
+  // The education sector hub (docs/plans/edu-hub-v1.md T3) and its band module, for the
+  // same reason. Its basis names the corpus window from the hub blob.
+  "src/screens/edu/EduHubScreen.tsx",
+  "src/screens/edu/eduHubFigures.ts",
 ];
 
 /** Every `<HubHead` call site under src/screens, comment-stripped so a screen that merely

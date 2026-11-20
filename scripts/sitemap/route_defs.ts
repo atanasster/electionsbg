@@ -39,6 +39,9 @@ export const ENGLISH_STATIC_PAGES = [
   "sector/transport/procurement",
   "sector/transport/bodies",
   "sector/transport/money",
+  "sector/edu/procurement",
+  "sector/edu/bodies",
+  "sector/edu/money",
   "subsidies/browse",
   "subsidies/places",
   "subsidies/recipients",
@@ -256,6 +259,11 @@ export const routeDefs = (year: string): RouteDefs => [
   ...["network", "procurement", "bodies", "money"].map((sub) => ({
     path: `sector/transport/${sub}`,
     file: `data/transport/derived/hub_stats.json`,
+  })),
+  // The education hub's three sub-pages (docs/plans/edu-hub-v1.md T3).
+  ...["procurement", "bodies", "money"].map((sub) => ({
+    path: `sector/edu/${sub}`,
+    file: `data/education/derived/hub_stats.json`,
   })),
   {
     path: "subsidies/browse",

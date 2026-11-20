@@ -486,6 +486,14 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       },
     ],
   },
+  // ⚠ INERT (docs/plans/edu-hub-v1.md T3) — the roads/transport precedent.
+  // /sector/edu is the bespoke EduHubScreen, routed as a static literal ahead of
+  // sector/:id, so this entry no longer renders and MonPack now sits in
+  // /sector/edu/procurement#textbooks. It stays COMPLETE on purpose: the sitemap
+  // slug, the `leadEik` cross-link, and `members` feeding /sector/edu/bodies'
+  // finder and roster all read it. `packIsThematic` stays true —
+  // educationReferenceData.test.ts pins it, and it would matter again the day the
+  // literal route is removed.
   edu: {
     id: "edu",
     titleKey: "sector_edu_title",

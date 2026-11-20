@@ -468,6 +468,57 @@ const transportFacts = (() => {
   };
 })();
 
+// The /sector/edu prerender bodies quote figures from the committed hub blob
+// (data/education/derived/hub_stats.json, db:gen-edu-hub-stats) — never literals.
+// The € figures render at two decimals, as the hub's band does (eduHubFigures.ts
+// eur2). The single-bid baseline is „every OTHER buyer" (national − sector), the
+// same pair the hub's KPI uses.
+const eduFacts = (() => {
+  const s = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/education/derived/hub_stats.json"),
+      "utf-8",
+    ),
+  ) as {
+    procurement: {
+      eur: number;
+      contracts: number;
+      singleBid: number;
+      bidKnown: number;
+      nationalSingleBid: number;
+      nationalBidKnown: number;
+      firstDate: string | null;
+      lastDate: string | null;
+      institutions: number;
+    };
+    universes: { universe: string; eur: number }[];
+    euFunds: { grantEur: number };
+  };
+  const bn = (v: number, loc: string) =>
+    (v / 1e9).toLocaleString(loc, { maximumFractionDigits: 2 });
+  const pct = (n: number, d: number) =>
+    d > 0 ? `${Math.round((n / d) * 100)}%` : "";
+  const p = s.procurement;
+  const uni =
+    s.universes.find((u) => u.universe === "higher_education")?.eur ?? 0;
+  return {
+    eurBnBg: bn(p.eur, "bg-BG"),
+    eurBnEn: bn(p.eur, "en-US"),
+    institutions: p.institutions,
+    contracts: p.contracts,
+    from: p.firstDate?.slice(0, 4) ?? "",
+    to: p.lastDate?.slice(0, 4) ?? "",
+    uniPct: pct(uni, p.eur),
+    singleBidPct: pct(p.singleBid, p.bidKnown),
+    othersPct: pct(
+      p.nationalSingleBid - p.singleBid,
+      p.nationalBidKnown - p.bidKnown,
+    ),
+    grantBnBg: bn(s.euFunds.grantEur, "bg-BG"),
+    grantBnEn: bn(s.euFunds.grantEur, "en-US"),
+  };
+})();
+
 // The /culture prerender body quotes real figures from the НФЦ overview blob —
 // committed and required at build time (data/culture/overview.json).
 const cultureFacts = (() => {
@@ -1269,43 +1320,8 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "The Ministry of e-Government builds the state's information systems. This page summarises its public procurement.",
     },
   },
-  // ⚠ The copy below deliberately names the GROUP, not МОН. The 2026-08-18 audit
-  // widened this page from the ministry alone to the education roster
-  // (МОН + agencies + state universities + БАН + ССА), so „поръчките на МОН" became
-  // a specific false claim about a page that folds €1.27bn of university
-  // procurement — and this is the copy crawlers and social-preview bots read.
-  //
-  // Both counts are DERIVED from educationReferenceData, never re-typed. The same
-  // hand-written-count defect is why the /water copy below reads its operator
-  // totals from vikReferenceData: this page's prose is a fourth copy of a number
-  // the roster already owns, and the roster moves. `EDU_INSTITUTION_COUNT` is
-  // institutions rather than EIKs (they differ by the retired-EIK rows), because
-  // this sentence is a claim about how many bodies the page folds.
-  //
-  // The exclusion sentence is the prerender half of `educationFootnote()`. Without
-  // it „държавните висши училища" reads as the whole ЗВО roster, which is exactly
-  // what the reference data refuses to imply: four state higher schools are
-  // curated into МО's and МВР's sectors instead, and a reader who counts the
-  // universities here and compares them against the ЗВО list must be told why
-  // four are missing rather than left to read it as a gap in the corpus.
-  {
-    id: "edu",
-    eik: "000695114",
-    bg: {
-      title: "Образование и наука — обществените поръчки | Наясно",
-      description: `Обществените поръчки в образованието и науката: ${EDU_INSTITUTION_COUNT} институции — МОН и неговите агенции и дружества, държавните висши училища с принципал МОН, БАН и Селскостопанската академия — общо възложени, изпълнители и разбивка по договори.`,
-      breadcrumb: "Образование",
-      h1: "Образование и наука — обществените поръчки",
-      intro: `Тази страница обобщава обществените поръчки на ${EDU_INSTITUTION_COUNT} институции в образованието и науката: МОН, неговите агенции и дружества, държавните висши училища с бюджетен принципал МОН, БАН и Селскостопанската академия — по избрания парламент или за цялата история. Извън нея остават ${EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length} държавни висши училища, чийто бюджетен принципал е МО, съответно МВР — те се отчитат в „Отбрана“ и „Сигурност“.`,
-    },
-    en: {
-      title: "Education & science — public procurement | Naiasno",
-      description: `Public procurement across Bulgarian education and science: ${EDU_INSTITUTION_COUNT} institutions — the ministry (МОН) with its agencies and state companies, the state universities under МОН, БАН and the Agricultural Academy — total awarded, contractors and the breakdown by contracts.`,
-      breadcrumb: "Education",
-      h1: "Education & science — public procurement",
-      intro: `This page summarises the public procurement of ${EDU_INSTITUTION_COUNT} institutions across education and science: МОН, its agencies and state companies, the state universities whose budget principal is МОН, БАН and the Agricultural Academy — for the selected parliament or the full history. Another ${EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length} state higher schools sit outside it: their budget principal is the Ministry of Defence or the Ministry of Interior, so they are counted under Defense and Security.`,
-    },
-  },
+  // `edu` is a BESPOKE hub since edu-hub-v1 T3 — its four pages are
+  // eduStaticPages() below, not a SECTOR_PAGES entry.
   {
     id: "agri",
     eik: "121100421",
@@ -1361,7 +1377,7 @@ const sectorBody = (c: SectorPageContent, lang: "bg" | "en"): string => {
 // have NO SECTOR_PAGES entry (the generic template would emit a second
 // `sector/<id>` route — last wins, silently). They stay in SECTOR_DASHBOARD_IDS
 // for the sitemap slug and the dashboard registry (plan B1).
-const BESPOKE_SECTOR_PAGE_IDS = new Set(["roads", "transport"]);
+const BESPOKE_SECTOR_PAGE_IDS = new Set(["roads", "transport", "edu"]);
 
 // Fail the build if a graduated sector dashboard has no prerender copy here —
 // otherwise it would ship without prerendered HTML (crawlers never see its
@@ -1902,6 +1918,174 @@ ${up(true)}`.trim(),
   ];
 };
 
+/** /sector/edu and its three sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
+ *  Plan: docs/plans/edu-hub-v1.md T3. Every figure comes from eduFacts (the
+ *  committed hub blob) or the roster in educationReferenceData. Each <h1> equals
+ *  the screen's own heading (EduHubScreen / EduPageFrame titles). */
+const eduStaticPages = (): PrerenderRoute[] => {
+  const f = eduFacts;
+  const span = f.from && f.to ? `${f.from}–${f.to}` : "";
+  const ext = EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length;
+  const links = (en: boolean) => {
+    const b = `${SITE_URL}${en ? "/en" : ""}/sector/edu`;
+    return en
+      ? `<ul>
+<li><a href="${b}/procurement">Education and science procurement</a> — by year, by group of institution, competition, contractors, the largest procurements, the school buses and the textbooks.</li>
+<li><a href="${b}/bodies">The education and science institutions</a> — every institution with its procurement, and the ones not counted in the totals.</li>
+<li><a href="${b}/money">The money outside procurement</a> — МОН's budget, the EU funds and research.</li>
+</ul>`
+      : `<ul>
+<li><a href="${b}/procurement">Поръчките в образованието и науката</a> — по години, по групи институции, конкуренцията, изпълнителите, най-големите поръчки, училищните автобуси и учебниците.</li>
+<li><a href="${b}/bodies">Институциите в образованието и науката</a> — всяка институция с поръчките ѝ и тези, които не влизат в сумите.</li>
+<li><a href="${b}/money">Парите извън поръчките</a> — бюджетът на МОН, еврофондовете и науката.</li>
+</ul>`;
+  };
+  const figuresBg = [
+    f.uniPct ? `${f.uniPct} от стойността е на държавните висши училища.` : "",
+    f.singleBidPct
+      ? `${f.singleBidPct} от договорите с известен брой оферти са с една оферта${f.othersPct ? ` — при ${f.othersPct} средно за всички останали възложители` : ""}.`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const figuresEn = [
+    f.uniPct ? `${f.uniPct} of the value is the state universities'.` : "",
+    f.singleBidPct
+      ? `${f.singleBidPct} of contracts with a known bid count drew a single bid${f.othersPct ? ` — against ${f.othersPct} for every other buyer` : ""}.`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const up = (en: boolean) =>
+    en
+      ? `<p>See also the <a href="${SITE_URL}/en/sector/edu">education and science sector</a>.</p>`
+      : `<p>Виж и <a href="${SITE_URL}/sector/edu">сектор „Образование и наука“</a>.</p>`;
+  return [
+    staticPage({
+      path: "sector/edu",
+      ogImage: "/og/sector-edu.png",
+      title:
+        "Образование и наука — обществените поръчки на МОН, университетите и БАН | Наясно",
+      description: `Обществените поръчки на държавното образование и науката — МОН и неговите агенции, държавните университети, БАН и Селскостопанската академия: €${f.eurBnBg} млрд.${span ? ` за ${span} г.` : ""}, при каква конкуренция и колко еврофондове стоят до тях.`,
+      breadcrumbName: "Образование и наука",
+      bodyHtml: `
+<h1>Образование и наука</h1>
+<p>Обществените поръчки на ${f.institutions} институции в образованието и науката — МОН, неговите агенции и дружества, държавните висши училища с бюджетен принципал МОН, БАН и Селскостопанската академия: €${f.eurBnBg} млрд. по ${f.contracts} договора${span ? ` за ${span} г.` : ""}. Сумата е текущата стойност на договорите след анекси.</p>
+<p>${figuresBg}</p>
+<p>Еврофондовете на същите институции — €${f.grantBnBg} млрд. безвъзмездна помощ — са друга база и не се събират с поръчките. Общинските училища не са в сектора, а ${ext} държавни висши училища с принципал МО или МВР се отчитат в „Отбрана“ и „Сигурност“.</p>
+<h2>Какво ще намерите тук</h2>
+${links(false)}
+<p>Виж и <a href="${SITE_URL}/awarder/000695114">страницата на МОН като възложител</a>, <a href="${SITE_URL}/education">училищата и матурите</a> и <a href="${SITE_URL}/governance/sectors">всички сектори</a>.</p>
+<p>Източник: АОП/ЦАИС ЕОП, ИСУН, Закон за държавния бюджет.</p>`.trim(),
+      english: {
+        title:
+          "Education and science — public procurement of МОН, the universities and БАН | Naiasno",
+        description: `Public procurement of Bulgaria's state education and science — МОН and its agencies, the state universities, the Academy of Sciences and the Agricultural Academy: €${f.eurBnEn}bn${span ? ` in ${span}` : ""}, with how much competition and the EU funds beside it.`,
+        breadcrumbName: "Education and science",
+        bodyHtml: `
+<h1>Education and science</h1>
+<p>The public procurement of ${f.institutions} institutions in education and science — the Ministry of Education and Science (МОН), its agencies and state companies, the state universities whose budget principal is МОН, the Bulgarian Academy of Sciences (БАН) and the Agricultural Academy: €${f.eurBnEn}bn over ${f.contracts} contracts${span ? ` in ${span}` : ""}. The total is the contracts' current value after annexes.</p>
+<p>${figuresEn}</p>
+<p>The same institutions' EU funds — €${f.grantBnEn}bn of grant aid — are a different basis and are never added to procurement. Municipal schools are not in the sector, and ${ext} state higher schools under the Ministry of Defence or the Interior are counted under Defense and Security.</p>
+<h2>What you'll find</h2>
+${links(true)}
+<p>See also <a href="${SITE_URL}/en/awarder/000695114">МОН as a buyer</a>, <a href="${SITE_URL}/en/education">schools and exams</a> and <a href="${SITE_URL}/en/governance/sectors">all sectors</a>.</p>
+<p>Source: the Public Procurement Agency (АОП/ЦАИС ЕОП), ИСУН (ISUN), the State Budget Law.</p>`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/edu/procurement",
+      ogImage: "/og/sector-edu.png",
+      title:
+        "Поръчките в образованието и науката — конкуренция, изпълнители, автобуси и учебници | Наясно",
+      description:
+        "Какво купуват министерството, университетите и БАН, как го възлагат и кой го печели — по години, по групи институции, по изпълнител, с училищните автобуси и учебниците.",
+      breadcrumbName: "Поръчките в образованието и науката",
+      bodyHtml: `
+<h1>Поръчките в образованието и науката</h1>
+<p>Договорите на институциите в сектора по текуща стойност след анекси — по години и по групи институции.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>По групи институции</strong> — министерството, агенциите, университетите, БАН и Селскостопанската академия.</li>
+<li><strong>Конкуренцията</strong> — делът на договорите с една оферта, до средното за всички останали възложители в същия период.</li>
+<li><strong>Изпълнителите</strong> — концентрацията, регулираните доставки на ток и топлинна енергия и парите, които остават в сектора.</li>
+<li><strong>Най-големите поръчки</strong> — с обособените позиции на една процедура на един ред.</li>
+<li><strong>Училищните автобуси и учебниците</strong> — покупките на МОН и пазарът на учебници.</li>
+</ul>
+${up(false)}`.trim(),
+      english: {
+        title:
+          "Education and science procurement — competition, contractors, buses and textbooks | Naiasno",
+        description:
+          "What the ministry, the universities and the Academy of Sciences buy, how they award it and who wins it — by year, by group of institution and by contractor, with the school buses and the textbooks.",
+        breadcrumbName: "Education and science procurement",
+        bodyHtml: `
+<h1>Education and science procurement</h1>
+<p>The sector's institutions' contracts at current value after annexes — by year and by group of institution.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>By group of institution</strong> — the ministry, the agencies, the universities, the Academy of Sciences and the Agricultural Academy.</li>
+<li><strong>Competition</strong> — the single-bidder share, beside that of every other buyer in the same window.</li>
+<li><strong>The contractors</strong> — concentration, the regulated supplies of electricity and heat, and the money that stays inside the sector.</li>
+<li><strong>The largest procurements</strong> — with the lots of one procedure on one row.</li>
+<li><strong>The school buses and the textbooks</strong> — МОН's purchases and the textbook market.</li>
+</ul>
+${up(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/edu/bodies",
+      ogImage: "/og/sector-edu.png",
+      title:
+        "Институциите в образованието и науката — МОН, университети, БАН | Наясно",
+      description:
+        "МОН и неговите агенции и дружества, държавните висши училища, БАН и Селскостопанската академия — с поръчките на всяка институция, и отделно тези, които не се включват в сумите.",
+      breadcrumbName: "Институциите в образованието и науката",
+      bodyHtml: `
+<h1>Институциите в образованието и науката</h1>
+<p>${EDU_INSTITUTION_COUNT} институции по групи — министерството, агенциите и дружествата, държавните висши училища, БАН и Селскостопанската академия — всяка с поръчките си. Центровете за специална образователна подкрепа, чийто принципал не може да се установи, институциите под друг принципал и ${ext} държавни висши училища от други сектори са показани отделно и не влизат в сумите.</p>
+${up(false)}`.trim(),
+      english: {
+        title:
+          "The education and science institutions — МОН, universities, БАН | Naiasno",
+        description:
+          "МОН and its agencies and companies, the state universities, the Academy of Sciences and the Agricultural Academy — with each institution's procurement, and apart from them the ones not counted in the totals.",
+        breadcrumbName: "The education and science institutions",
+        bodyHtml: `
+<h1>The education and science institutions</h1>
+<p>${EDU_INSTITUTION_COUNT} institutions by group — the ministry, the agencies and companies, the state universities, the Academy of Sciences and the Agricultural Academy — each with its procurement. The special-needs centres whose principal cannot be settled, the bodies under another principal and ${ext} state higher schools from other sectors are shown apart and not counted in the totals.</p>
+${up(true)}`.trim(),
+      },
+    }),
+    staticPage({
+      path: "sector/edu/money",
+      ogImage: "/og/sector-edu.png",
+      title:
+        "Парите извън поръчките — бюджетът на МОН, еврофондове и наука | Наясно",
+      description:
+        "Бюджетът на МОН, европейските средства на институциите и науката — всяко на своя база, не се събират с поръчките.",
+      breadcrumbName: "Парите извън поръчките",
+      bodyHtml: `
+<h1>Парите извън поръчките</h1>
+<p>Бюджетът на Министерството на образованието и науката по години — само министерството, без субсидиите на университетите и без делегираните бюджети на училищата.</p>
+<p>Европейските средства на институциите на база безвъзмездна помощ: €${f.grantBnBg} млрд. за целия период на ИСУН, и науката — поръчките и еврофондовете на БАН и Селскостопанската академия. Всяка от тези суми е на своя база и не се събира с обществените поръчки.</p>
+${up(false)}`.trim(),
+      english: {
+        title:
+          "The money outside procurement — МОН's budget, EU funds and research | Naiasno",
+        description:
+          "МОН's budget, the institutions' EU funds and research — each on its own basis, never added to procurement.",
+        breadcrumbName: "The money outside procurement",
+        bodyHtml: `
+<h1>The money outside procurement</h1>
+<p>The budget of the Ministry of Education and Science by year — the ministry alone, without the universities' subsidies or the schools' delegated budgets.</p>
+<p>The institutions' EU funds on the grant basis: €${f.grantBnEn}bn over the whole ИСУН period, and research — the procurement and EU funds of the Academy of Sciences and the Agricultural Academy. Each of these sums is on its own basis and is never added to public procurement.</p>
+${up(true)}`.trim(),
+      },
+    }),
+  ];
+};
+
 const sectorStaticPages = (): PrerenderRoute[] =>
   SECTOR_PAGES.map((c) =>
     staticPage({
@@ -2409,6 +2593,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   ...sectorStaticPages(),
   ...roadsStaticPages(),
   ...transportStaticPages(),
+  ...eduStaticPages(),
   {
     path: "",
     title: GLOBAL_HOME_TITLE,

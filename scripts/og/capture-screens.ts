@@ -1441,6 +1441,22 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "sector-edu",
+    routePath: "sector/edu",
+    // The education sector hub's head (docs/plans/edu-hub-v1.md T3). All four band
+    // cells come from one blob (education/derived/hub_stats.json); the wait names the
+    // two whose destinations no other head link shares — the #universes and
+    // #competition sections of /procurement — so an absent blob times out instead of
+    // overwriting a good card. (Until T3 this card was the generic /sector/edu
+    // dashboard's.)
+    waitFor:
+      '[data-hub-head]:has([data-kpi-cell][href*="#universes"]):has([data-kpi-cell][href*="#competition"]) [data-kpi-cell]',
+    anchor: "[data-hub-head]",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "sector-transport-network",
     routePath: "sector/transport/network?pscope=all",
     // The network page's argument is the project map — frame it once the basemap

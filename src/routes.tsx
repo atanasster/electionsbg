@@ -379,6 +379,28 @@ const TransportMoneyScreen = lazy(() =>
     default: m.TransportMoneyScreen,
   })),
 );
+// The education-and-science sector hub and its three sub-pages
+// (docs/plans/edu-hub-v1.md T3) — literal routes ahead of sector/:id.
+const EduHubScreen = lazy(() =>
+  import("./screens/edu/EduHubScreen").then((m) => ({
+    default: m.EduHubScreen,
+  })),
+);
+const EduProcurementScreen = lazy(() =>
+  import("./screens/edu/EduProcurementScreen").then((m) => ({
+    default: m.EduProcurementScreen,
+  })),
+);
+const EduBodiesScreen = lazy(() =>
+  import("./screens/edu/EduBodiesScreen").then((m) => ({
+    default: m.EduBodiesScreen,
+  })),
+);
+const EduMoneyScreen = lazy(() =>
+  import("./screens/edu/EduMoneyScreen").then((m) => ({
+    default: m.EduMoneyScreen,
+  })),
+);
 const AdministrationScreen = lazy(() =>
   import("./screens/administration/AdministrationScreen").then((m) => ({
     default: m.AdministrationScreen,
@@ -2336,6 +2358,41 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <TransportMoneyScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The education-and-science hub and its three sub-pages
+              (docs/plans/edu-hub-v1.md T3). They win over sector/:id, whose
+              SECTOR_DASHBOARDS.edu entry is now INERT. */}
+          <Route
+            path="sector/edu"
+            element={
+              <LayoutScreen>
+                <EduHubScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/edu/procurement"
+            element={
+              <LayoutScreen>
+                <EduProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/edu/bodies"
+            element={
+              <LayoutScreen>
+                <EduBodiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/edu/money"
+            element={
+              <LayoutScreen>
+                <EduMoneyScreen />
               </LayoutScreen>
             }
           />

@@ -95,7 +95,7 @@ test.skipIf(skip)(
   async () => {
     const transfer = EDU_STATE_TRANSFER_CONTRACTORS.map((c) => c.eik);
     const [r] = await allRows<{ ingroup: number; transfer: number }>(
-      `SELECT coalesce(sum(amount_eur) FILTER (WHERE contractor_eik = ANY($1)), 0)::float8 ingroup,
+      `SELECT coalesce(sum(amount_eur) FILTER (WHERE contractor_eik = ANY($1) AND contractor_eik <> awarder_eik), 0)::float8 ingroup,
               coalesce(sum(amount_eur) FILTER (WHERE contractor_eik = ANY($2)), 0)::float8 transfer
          FROM contracts WHERE tag = 'contract' AND awarder_eik = ANY($1)`,
       [eiks, transfer],
