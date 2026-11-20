@@ -225,6 +225,10 @@ const HUB_SCREENS = [
   // same reason. Its basis names the corpus window from the hub blob.
   "src/screens/edu/EduHubScreen.tsx",
   "src/screens/edu/eduHubFigures.ts",
+  // The health sector hub (docs/plans/health-hub-v1.md T3) and its band module. KPIs 1–3
+  // name the blob's complete year; KPI 4 names the procurement corpus window.
+  "src/screens/health/HealthHubScreen.tsx",
+  "src/screens/health/healthHubFigures.ts",
 ];
 
 /** Every `<HubHead` call site under src/screens, comment-stripped so a screen that merely
