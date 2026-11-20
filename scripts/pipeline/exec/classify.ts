@@ -199,6 +199,23 @@ export const classify = (input: {
   // printed is usually the cause, and an earlier transient warning should not
   // decide the class. Rule order only breaks a tie on the same line.
   const lines = input.tail.split("\n").reverse();
+  // A pg socket torn down under a step pinned to Cloud SQL (`write EPIPE`,
+  // `read ECONNRESET` out of pg/lib/connection.js) is the proxy dropping the
+  // connection mid-load — 2026-11-20, db:load:tr:pg:cloud, classed `unknown`.
+  if (input.db === "cloud") {
+    const sock = lines.find((l) =>
+      /\b(?:write EPIPE|read ECONNRESET)\b/.test(l),
+    );
+    if (sock) {
+      const proxy = RULES.find((r) => r.class === "proxy-down")!;
+      return {
+        class: proxy.class,
+        retryable: proxy.retryable,
+        hint: proxy.hint,
+        evidence: sock.trim().slice(0, 300),
+      };
+    }
+  }
   for (const line of lines)
     for (const rule of RULES)
       if (rule.re.test(line)) {

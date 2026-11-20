@@ -20,6 +20,7 @@ import readline from "node:readline/promises";
 import { parseArgs } from "node:util";
 import { LockHeldError } from "../lock";
 import { realPublishDeps, runPublish } from "../publish";
+import { currentMonitor } from "../exec/monitor";
 import { REPO } from "../state";
 
 const die = (msg: string, code = 2): never => {
@@ -97,6 +98,9 @@ try {
     expectDigest,
   });
   if (out.report) console.log(`\nReport: ${path.relative(REPO, out.report)}`);
+  // Mark the live status "done": without it a waiter (pipeline:wait) sees a
+  // gone pid at phase "starting" and reports a finished publish as killed.
+  currentMonitor()?.close(`publish finished — exit ${out.exitCode}`);
   process.exit(out.exitCode);
 } catch (e) {
   if (e instanceof LockHeldError) die(e.message, 3);

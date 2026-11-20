@@ -58,6 +58,18 @@ describe("classify", () => {
     expect(cls(`noise\n${line}\nmore noise`)).toBe(expected);
   });
 
+  it("reads a pg socket EPIPE under a cloud-pinned step as the proxy dropping", () => {
+    const tail =
+      "    phase  read 1031131 companies (sqlite)  27.7s\nError: write EPIPE\n    at Client._handleErrorEvent (node_modules/pg/lib/client.js:417:10)\n  code: 'EPIPE',\n[ELIFECYCLE] Command failed with exit code 1.";
+    expect(
+      classify({ exitCode: 1, timedOut: false, tail, db: "cloud" }).class,
+    ).toBe("proxy-down");
+    // Not under a local or unpinned step: an EPIPE there is something else.
+    expect(
+      classify({ exitCode: 1, timedOut: false, tail, db: "inherit" }).class,
+    ).toBe("unknown");
+  });
+
   it("returns the matching line as evidence", () => {
     const c = classify({
       exitCode: 1,

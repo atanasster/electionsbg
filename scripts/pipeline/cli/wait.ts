@@ -144,6 +144,21 @@ const main = async (): Promise<number> => {
         );
         return 0;
       }
+      const report = path.join(
+        REPO,
+        "state/pipeline/runs",
+        session,
+        "report.md",
+      );
+      if (!alive(st.pid) && fs.existsSync(report)) {
+        // Finished and wrote its report, but never marked status "done" (a
+        // CLI that did not close its monitor) — not a killed run.
+        for (const l of lastLines(path.join(dir, "run.log"), 4)) console.log(l);
+        console.log(
+          `FINISHED ${session} (process exited without marking status done) · report ${path.relative(REPO, report)}`,
+        );
+        return 0;
+      }
       if (!alive(st.pid)) {
         console.log(
           `DEAD ${session}: pid ${st.pid} is gone at phase "${st.phase}"${st.current ? `, during ${st.current.seq} ${st.current.id}` : ""} (last update ${st.updatedAt}) — the run was killed; no report. The next nightly names it.`,

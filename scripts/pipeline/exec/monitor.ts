@@ -225,6 +225,10 @@ export const monitorFor = (session: string, dir: string): Monitor => {
   return primary;
 };
 
+/** The process monitor if one was created — for a CLI to close it on exit
+ *  without minting one (a run that never started a step has none). */
+export const currentMonitor = (): Monitor | null => primary;
+
 /** Test hook: forget the process monitor. */
 export const resetMonitorForTests = (): void => {
   primary = null;
