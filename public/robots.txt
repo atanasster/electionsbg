@@ -65,6 +65,26 @@ Allow: /
 User-agent: DiffbotBot
 Allow: /
 
+# SEO-tool crawlers: pages yes, the JSON API no, and slowly. They render each
+# page and replay every /api/db/* call behind it — measured 2026-11-20 on the db
+# function: AhrefsBot 4,110 requests / 10 min (3.4x in two days), ShapBot 2,810,
+# the latter's bursts drawing Cloud Run 429s. A crawler obeys only its most
+# specific group, so each group restates Allow: / rather than inheriting `*`.
+User-agent: AhrefsBot
+Crawl-delay: 10
+Disallow: /api/
+Allow: /
+
+User-agent: SemrushBot
+Crawl-delay: 10
+Disallow: /api/
+Allow: /
+
+User-agent: ShapBot
+Crawl-delay: 10
+Disallow: /api/
+Allow: /
+
 # ONE index, submitted once. `public/sitemap.xml` is a byte-identical back-compat
 # copy so /sitemap.xml resolves for a crawler that probes the conventional path —
 # it needs to EXIST there, not to be announced. Advertising both handed every
