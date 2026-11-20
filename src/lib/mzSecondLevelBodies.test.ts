@@ -235,7 +235,7 @@ describe("MZ_SECOND_LEVEL_BODIES — sector members (health-hub-v1 D1)", () => {
     expect(missingFrom(SECTOR_BROWSE_PACKS.nzok.eiks)).toEqual([]);
   });
 
-  it("matches none of the excluded classes (hospitals, РЗОК)", () => {
+  it("matches none of the excluded classes (hospitals, РЗОК, research)", () => {
     // The pattern is a Postgres `~*` regex; these are plain alternations, so JS
     // with the `iu` flags reads them the same way.
     for (const x of HEALTH_EXCLUDED) {
@@ -247,7 +247,14 @@ describe("MZ_SECOND_LEVEL_BODIES — sector members (health-hub-v1 D1)", () => {
       ).toEqual([]);
       // Non-vacuity: the pattern does match a name of its own class.
       expect(
-        re.test(x.id === "hospitals" ? "УМБАЛ Св. Марина ЕАД" : "РЗОК - Варна"),
+        re.test(
+          {
+            hospitals: "УМБАЛ Св. Марина ЕАД",
+            rzok: "РЗОК - Варна",
+            research:
+              'ДЗЗД "Център за трансфер на знания и здравни технологии"',
+          }[x.id],
+        ),
       ).toBe(true);
     }
   });

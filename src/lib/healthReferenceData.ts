@@ -199,23 +199,39 @@ export const HEALTH_UNIVERSE_LABEL: Record<
 export const healthUniverseOf = (eik: string): HealthUniverse | undefined =>
   HEALTH_ENTITIES.find((e) => e.eik === eik)?.universe;
 
-/** The excluded list. Unlike education's it is two CLASSES, not EIKs: the
- *  hospitals are 234 commercial companies that a name rule identifies (2026-11-20;
- *  283 by the looser name match in health-hub-v1 §1), and the
- *  РЗОК share НЗОК's own Булстат. `namePattern` is a Postgres regex (`~*`):
- *  sector_stats.data.test.ts sweeps the corpus with it, and
- *  mzSecondLevelBodies.test.ts checks no roster name matches it. */
+/** The excluded list. Unlike education's it is CLASSES, not EIKs: the
+ *  лечебни заведения are commercial companies a name rule identifies (234
+ *  hospitals on 2026-11-20; 283 by the looser name match in health-hub-v1 §1),
+ *  and the РЗОК share НЗОК's own Булстат. `namePattern` is a Postgres regex
+ *  (`~*`): health_register.data.test.ts and sector_stats.data.test.ts sweep the
+ *  corpus with it, and mzSecondLevelBodies.test.ts checks no roster name
+ *  matches it.
+ *
+ *  ⚠️ The `hospitals` class is every лечебно заведение, not only „болница":
+ *  the T9 sweep (2026-11-21) found ~40 ДКЦ and „Център за психично здраве"
+ *  ЕООД (the former dispensaries, renamed — €16M+ of procurement) outside a
+ *  pattern that read „болница|МБАЛ|УМБАЛ|СБАЛ|диспансер". Same class, same
+ *  reason: НЗОК pays them. */
 export const HEALTH_EXCLUDED: ReadonlyArray<{
-  id: "hospitals" | "rzok";
+  id: "hospitals" | "rzok" | "research";
   namePattern: string;
   reason: { bg: string; en: string };
 }> = [
   {
     id: "hospitals",
-    namePattern: "болница|МБАЛ|УМБАЛ|СБАЛ|диспансер",
+    namePattern:
+      "болница|МБАЛ|УМБАЛ|СБАЛ|диспансер|психично здраве|диагностично[- ]*консултативен|ДКЦ|медицински център|МЦСМП|лечебн",
     reason: {
-      bg: "Болниците са търговски дружества, на които НЗОК плаща. Събирането им с платеца би отчело едни и същи пари два пъти.",
-      en: "Hospitals are companies the health fund pays. Adding them to the payer would count the same money twice.",
+      bg: "Болниците и другите лечебни заведения (ДКЦ, центрове за психично здраве, медицински центрове) са търговски дружества, на които НЗОК плаща. Събирането им с платеца би отчело едни и същи пари два пъти.",
+      en: "Hospitals and other medical establishments (diagnostic centres, mental-health centres, medical centres) are companies the health fund pays. Adding them to the payer would count the same money twice.",
+    },
+  },
+  {
+    id: "research",
+    namePattern: "трансфер на знания",
+    reason: {
+      bg: "Научноизследователски консорциуми с „здравни технологии“ в името — не са здравни органи.",
+      en: "Research consortia with „health technologies“ in the name — not health bodies.",
     },
   },
   {
