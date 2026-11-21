@@ -53,6 +53,7 @@ import {
   MAX_MULTIPLE,
   UNP_RE,
   buildAnnexIndex,
+  correctPhantomDoubling,
   normContractNo,
   normEik,
   parseBgNumber,
@@ -64,6 +65,7 @@ import {
   type AnnexAcc,
   type AnnexIndex,
   type ContractBasis,
+  type PhantomCarry,
 } from "./lib/annexResolve";
 import { toEur } from "@/lib/currency";
 import type { Contract } from "./types";
@@ -237,6 +239,8 @@ interface AnnexRec {
  *  usable positive current value enters neither map), so these counts and the index agree. */
 const readAnnexRecords = (): AnnexRec[] => {
   const out: AnnexRec[] = [];
+  // Same phantom-doubling correction as indexAnnexRows, in the same order.
+  const carry: PhantomCarry = new Map();
   if (!fs.existsSync(ANEXI_CACHE_DIR)) return out;
   for (const f of fs
     .readdirSync(ANEXI_CACHE_DIR)
@@ -255,9 +259,13 @@ const readAnnexRecords = (): AnnexRec[] => {
     if (!Array.isArray(rows)) continue;
     rows.forEach((r, i) => {
       const ccy = String(r.contractCurrency ?? "").trim() || undefined;
-      const curEur = toEur(parseBgNumber(r.currentContractValue), ccy);
-      if (curEur == null || !Number.isFinite(curEur) || curEur <= 0) return;
-      const lastEur = toEur(parseBgNumber(r.lastContractValue), ccy) ?? null;
+      const rawCur = toEur(parseBgNumber(r.currentContractValue), ccy);
+      if (rawCur == null || !Number.isFinite(rawCur) || rawCur <= 0) return;
+      const rawLast =
+        toEur(parseBgNumber(r.lastContractValue), ccy) ?? undefined;
+      const fixed = correctPhantomDoubling(r, rawLast, rawCur, carry);
+      const curEur = fixed.cur;
+      const lastEur = fixed.last ?? null;
       const unp = String(r.uniqueProcurementNumber ?? "").trim();
       out.push({
         id: `${f}#${i}`,

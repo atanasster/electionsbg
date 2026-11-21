@@ -13,6 +13,8 @@ import {
   membersByConsortiumGroup,
   lookup,
   indexAnnexRows,
+  correctPhantomDoubling,
+  CONTRACT_VALUE_UNCHANGED_RE,
   CONTINUITY_TOL,
   MAX_MULTIPLE,
   type AnnexIndex,
@@ -689,5 +691,119 @@ describe("lookup is the value-only wrapper of resolveAnnexKey", () => {
       byUnpSupplier: new Map([["00123-2024-0001|222", acc()]]),
     });
     expect(lookup(idx, contract(), 0)).toBeUndefined();
+  });
+});
+
+describe("phantom doubling — an annex that doubles the value while saying it did not", () => {
+  // МЗ / Leonardo, 00080-2023-0001: the 2026-07-17 annex (notice 880347) publishes
+  // 76 769 540,87 → 153 539 081,74 EUR while its text says „Договорната цена
+  // остава непроменена". The fold published €153.5M against a real €76.77M.
+  const heli = (over: Partial<EopAnnexRecord> = {}): EopAnnexRecord => ({
+    uniqueProcurementNumber: "00080-2023-0001",
+    buyerRegistryNumber: "000695317",
+    supplierRegisterNumber: "00401990585",
+    contractNumber: "84818",
+    lotIdentifier: "LOT-0001",
+    contractCurrency: "EUR",
+    ...over,
+  });
+  const doubled = heli({
+    noticeId: 880347,
+    publicationDate: "2026-07-17T05:20:34",
+    lastContractValue: "76769540,87",
+    currentContractValue: "153539081,74",
+    contractValueDifference: "76769540,87",
+    changeDescription:
+      "Член 6. Цена 6.1. Договорната цена остава непроменена, като преструктурирането на обученията не поражда допълнителни финансови задължения.",
+  });
+
+  it("matches each of the four confirmed source wordings", () => {
+    for (const t of [
+      "Договорната цена остава непроменена",
+      "Стойността на Рамковото споразумение не се променя.",
+      "Стойността на договора остава непроменена - 62 370 без ДДС",
+      "не засяга пределната стойност на договора, която остава непроменена",
+      "Не се изменя общата стойност на договора, нито неговия предмет.",
+    ])
+      expect(CONTRACT_VALUE_UNCHANGED_RE.test(t), t).toBe(true);
+  });
+
+  it("does not match a statement about a UNIT price (the НКСБР false positive)", () => {
+    expect(
+      CONTRACT_VALUE_UNCHANGED_RE.test(
+        "Добавяне на нови обекти, без промяна в стойността на доставяната енергия",
+      ),
+    ).toBe(false);
+  });
+
+  it("resets the current value to the pre-annex value", () => {
+    const r = correctPhantomDoubling(
+      doubled,
+      76769540.87,
+      153539081.74,
+      new Map(),
+    );
+    expect(r).toEqual({ last: 76769540.87, cur: 76769540.87, corrected: true });
+  });
+
+  it("leaves an exact doubling alone when the text does not say the value is unchanged", () => {
+    // A +100% under чл. 116 ал. 1 т. 3 is the over-cap finding the risk index
+    // exists to surface; the doubling alone is not evidence of a clerical error.
+    const real = {
+      ...doubled,
+      changeDescription: "Увеличава се количеството.",
+    };
+    expect(correctPhantomDoubling(real, 100, 200, new Map())).toEqual({
+      last: 100,
+      cur: 200,
+      corrected: false,
+    });
+  });
+
+  it("leaves a non-doubling annex alone even when the text says unchanged", () => {
+    expect(correctPhantomDoubling(doubled, 100, 150, new Map()).corrected).toBe(
+      false,
+    );
+  });
+
+  it("rebases a LATER annex that carried the phantom forward (АЕЦ Козлодуй shape)", () => {
+    const carry = new Map();
+    correctPhantomDoubling(doubled, 76769540.87, 153539081.74, carry);
+    const next = heli({ changeDescription: "Увеличение с 1 000 000." });
+    expect(
+      correctPhantomDoubling(next, 153539081.74, 154539081.74, carry),
+    ).toEqual({
+      last: 76769540.87,
+      cur: 77769540.87,
+      corrected: true,
+    });
+    // …and a later one that starts from the REAL value stops the carry.
+    const fixedUp = heli({ changeDescription: "Без промени." });
+    expect(
+      correctPhantomDoubling(fixedUp, 77769540.87, 77769540.87, carry)
+        .corrected,
+    ).toBe(false);
+    expect(carry.size).toBe(0);
+  });
+
+  it("folds the helicopter chain to €76.77M end to end, and the contract resolves to it", () => {
+    const idx = index();
+    indexAnnexRows(idx, [
+      heli({
+        publicationDate: "2024-03-11T09:45:27",
+        contractCurrency: "BGN",
+        lastContractValue: "113438140,00",
+        currentContractValue: "150148171,12",
+      }),
+      doubled,
+    ]);
+    expect(idx.phantomCorrected).toBe(1);
+    const c = contract({
+      unp: "00080-2023-0001",
+      contractorEik: "00401990585",
+      awarderEik: "000695317",
+      contractId: "84818",
+    });
+    expect(lookup(idx, c, 58000000)).toBeCloseTo(76769540.87, 1);
   });
 });

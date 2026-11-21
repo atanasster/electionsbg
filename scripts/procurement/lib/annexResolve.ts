@@ -72,6 +72,83 @@ export const normContractNo = (s: string | undefined): string =>
 export const normEik = (e: string | undefined): string => canonicalEik(e) || "";
 export const UNP_RE = /^\d{5}-\d{4}-\d{4}$/;
 
+// ── PHANTOM DOUBLING ─────────────────────────────────────────────────────────
+// A buyer filing an annex in ЦАИС sometimes enters the contract value in the
+// „difference" field as well, so the feed publishes current = 2 × last to the
+// cent while the annex text says the price did not move. Measured 2026-11-21:
+// 165 records in the cache are an exact doubling; FIVE also state the contract
+// value is unchanged, and one of those five is a false positive on the obvious
+// regex (НКСБР 00120-2025-0004: „без промяна в стойността на доставяната
+// енергия" is the energy PRICE, while sites are added). The other four:
+//   • МЗ / Leonardo 00080-2023-0001 — „Договорната цена остава непроменена";
+//     the fold published €153.5M against a real €76.77M, and TED's own copy of
+//     the notice (495393-2026) states no such figure.
+//   • ЧЕЗ Разпределение 01467-2021-0005 — „Стойността на Рамковото споразумение
+//     не се променя".
+//   • 112 ОУ 03838-2021-0002 — „Стойността на договора остава непроменена -
+//     62 370 без ДДС", i.e. it restates the LAST value.
+//   • АЕЦ Козлодуй 00353-2022-0020 — „пределната стойност на договора, която
+//     остава непроменена", restating 4 666 161,24 лв; its NEXT annex then
+//     carries the doubled figure forward as its own lastContractValue.
+//
+// ⚠️ THE DOUBLING ALONE IS NOT EVIDENCE, and that is why the text is required.
+// The other 160 are mostly options and т.3 changes, and a +100% under чл. 116
+// ал. 1 т. 3 is exactly the over-cap modification the risk index exists to
+// surface (procurement-risk-v2). Dropping every exact doubling would hide real
+// findings to remove five clerical ones. The test is narrow on purpose: an
+// exact 2× AND the CONTRACT's own value or price named as unchanged.
+//
+// ⚠️ The second half is the carry-forward: once the register has the doubled
+// figure, later annexes on the same contract start from it. Those are corrected
+// by the same delta while their pre-annex value still equals the phantom, so a
+// later annex's real change survives on the corrected base.
+export const CONTRACT_VALUE_UNCHANGED_RE =
+  /(?:стойност(?:та)?|цена(?:та)?)\s+(?:на\s+)?(?:договора|рамковото\s+споразумение)[^.;]{0,30}(?:не\s+се\s+(?:променя|изменя)|остава\s+непромен)|(?:договорната|общата|пределната)\s+(?:цена|стойност)[^.;]{0,40}(?:не\s+се\s+(?:променя|изменя)|остава\s+непромен)|не\s+се\s+изменя\s+общата\s+стойност\s+на\s+договора/iu;
+
+const sameValue = (a: number, b: number): boolean =>
+  Math.abs(a - b) <= Math.max(0.02, Math.abs(b) * 1e-9);
+
+/** Per-contract phantom deltas still being carried, keyed by contractKey. */
+export type PhantomCarry = Map<string, { rawCur: number; delta: number }>;
+
+/** The correction key: one contract's annex chain (buyer + number + lot). */
+export const phantomChainKey = (r: EopAnnexRecord): string =>
+  `${normEik(r.buyerRegistryNumber)}|${normContractNo(r.contractNumber)}|${String(r.lotIdentifier ?? "").trim()}`;
+
+/**
+ * The record's (last, current) in EUR with a phantom doubling removed. Call in
+ * source order (sorted files, within-file order) with one `carry` map per pass —
+ * the carry-forward depends on it. `corrected` is true when either value moved.
+ */
+export const correctPhantomDoubling = (
+  r: EopAnnexRecord,
+  last: number | undefined,
+  cur: number,
+  carry: PhantomCarry,
+): { last: number | undefined; cur: number; corrected: boolean } => {
+  const key = phantomChainKey(r);
+  const held = carry.get(key);
+  if (held && last != null) {
+    if (sameValue(last, held.rawCur)) {
+      // The register carried the phantom forward: rebase this annex on the real
+      // value and keep carrying it from this record's own raw current value.
+      const c = cur - held.delta;
+      carry.set(key, { rawCur: cur, delta: held.delta });
+      if (c > 0) return { last: last - held.delta, cur: c, corrected: true };
+    } else {
+      carry.delete(key); // the register no longer carries it — nothing to undo
+    }
+  }
+  if (last != null && last > 0 && sameValue(cur, 2 * last)) {
+    const txt = `${r.changeDescription ?? ""} ${r.changeReasonDescription ?? ""}`;
+    if (CONTRACT_VALUE_UNCHANGED_RE.test(txt)) {
+      carry.set(key, { rawCur: cur, delta: cur - last });
+      return { last, cur: last, corrected: true };
+    }
+  }
+  return { last, cur, corrected: false };
+};
+
 // Per contract-identity annex accumulator. Values are FULL (all suppliers); our
 // contract rows hold a per-supplier SPLIT share (normalize_eop divides by
 // validSupplierCount), so both the current value AND the continuity anchor are
@@ -122,6 +199,10 @@ export interface AnnexIndex {
   // per-annex rows under each key, for the annexes TABLE loader.
   recordsByContractNo?: Map<string, AnnexRecordRow[]>;
   recordsByUnpSupplier?: Map<string, AnnexRecordRow[]>;
+  /** Phantom-doubling carry across day files (see correctPhantomDoubling). */
+  phantomCarry?: PhantomCarry;
+  /** Records whose published values were corrected as a phantom doubling. */
+  phantomCorrected?: number;
 }
 
 interface AnnexObs {
@@ -196,11 +277,14 @@ export const indexAnnexRows = (
   let records = 0;
   for (const r of rows) {
     const ccy = String(r.contractCurrency ?? "").trim() || undefined;
-    const curEurFull = toEur(parseBgNumber(r.currentContractValue), ccy);
-    if (curEurFull == null || !Number.isFinite(curEurFull) || curEurFull <= 0)
-      continue;
-    const lastEurFull =
-      toEur(parseBgNumber(r.lastContractValue), ccy) ?? undefined;
+    const rawCur = toEur(parseBgNumber(r.currentContractValue), ccy);
+    if (rawCur == null || !Number.isFinite(rawCur) || rawCur <= 0) continue;
+    const rawLast = toEur(parseBgNumber(r.lastContractValue), ccy) ?? undefined;
+    idx.phantomCarry ??= new Map();
+    const fixed = correctPhantomDoubling(r, rawLast, rawCur, idx.phantomCarry);
+    if (fixed.corrected) idx.phantomCorrected = (idx.phantomCorrected ?? 0) + 1;
+    const curEurFull = fixed.cur;
+    const lastEurFull = fixed.last;
     records++;
     const suppliers = String(r.supplierRegisterNumber ?? "")
       .split(";")
@@ -222,7 +306,12 @@ export const indexAnnexRows = (
     // The stored row carries the full published (not per-supplier) values —
     // it is the raw modification, itemised; the per-contract Δ already lives on
     // the contract row (signing vs current).
-    const diffEur = toEur(parseBgNumber(r.contractValueDifference), ccy);
+    // A corrected phantom stores the corrected Δ too — the published one is the
+    // clerical doubling, and an itemised +€76.8M annex row is the same false
+    // claim one table over.
+    const diffEur = fixed.corrected
+      ? curEurFull - (lastEurFull ?? curEurFull)
+      : toEur(parseBgNumber(r.contractValueDifference), ccy);
     const row: AnnexRecordRow | null = opts.retainRecords
       ? {
           noticeId: typeof r.noticeId === "number" ? r.noticeId : null,

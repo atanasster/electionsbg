@@ -54,7 +54,8 @@ const main = (apply: boolean): void => {
   console.log(
     `  ${days} published days, ${records} annex value-records; ` +
       `${idx.byContractNo.size.toLocaleString()} contract-no keys, ` +
-      `${idx.byUnpSupplier.size.toLocaleString()} УНП+supplier keys`,
+      `${idx.byUnpSupplier.size.toLocaleString()} УНП+supplier keys; ` +
+      `${idx.phantomCorrected ?? 0} phantom doubling(s) corrected`,
   );
   if (records === 0) {
     console.log("No annex cache — run ingest_anexi.ts --backfill first.");
