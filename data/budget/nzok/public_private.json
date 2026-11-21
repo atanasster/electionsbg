@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-21T09:12:27.363Z",
+ "generatedAt": "2026-11-21T11:06:54.451Z",
  "asOf": "2026-09-30",
  "ytdMonths": 9,
  "source": {
@@ -7,32 +7,32 @@
  },
  "ownership": {
   "state": {
-   "count": 58,
-   "nzokEur": 747752839,
-   "sharePct": 46.7
+   "count": 63,
+   "nzokEur": 749473705,
+   "sharePct": 46.8
   },
   "municipal": {
-   "count": 83,
-   "nzokEur": 190520737,
+   "count": 87,
+   "nzokEur": 191156965,
    "sharePct": 11.9
   },
   "private": {
-   "count": 117,
-   "nzokEur": 662029668,
-   "sharePct": 41.4
+   "count": 108,
+   "nzokEur": 659672574,
+   "sharePct": 41.2
   }
  },
  "privateStats": {
-  "total": 117,
-  "withShare": 72,
-  "over50": 46,
-  "over50Pct": 64,
-  "medianSharePct": 72,
-  "zeroTender": 113,
-  "over50NoTender": 45,
-  "over50NoTenderAnnualEur": 376828394,
-  "belowThreshold": 26,
-  "over50WithTender": 1
+  "total": 108,
+  "withShare": 65,
+  "over50": 44,
+  "over50Pct": 68,
+  "medianSharePct": 75,
+  "zeroTender": 108,
+  "over50NoTender": 44,
+  "over50NoTenderAnnualEur": 376435889,
+  "belowThreshold": 21,
+  "over50WithTender": 0
  },
  "hospitals": [
   {
@@ -1819,36 +1819,6 @@
    }
   },
   {
-   "eik": "200429329",
-   "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА9 758 ЕООД",
-   "nzokEur": 814134,
-   "nzokAnnualEur": 1085512,
-   "revenueEur": 561910,
-   "revenueYear": 2024,
-   "nzokShare": null,
-   "tenders3y": 0,
-   "series": {
-    "2019": {
-     "rev": 425906
-    },
-    "2020": {
-     "rev": 354837
-    },
-    "2021": {
-     "rev": 326204
-    },
-    "2022": {
-     "rev": 116063
-    },
-    "2023": {
-     "rev": 161568
-    },
-    "2024": {
-     "rev": 561910
-    }
-   }
-  },
-  {
    "eik": "147098760",
    "name": "СОБАЛ-Бургас ООД",
    "nzokEur": 756710,
@@ -2017,70 +1987,6 @@
     "2023": {
      "rev": 3907293,
      "nzokShare": 0.28
-    }
-   }
-  },
-  {
-   "eik": "112531538",
-   "name": "СБР Вита ЕООД гр.Велинград",
-   "nzokEur": 580794,
-   "nzokAnnualEur": 774392,
-   "revenueEur": 5578194,
-   "revenueYear": 2024,
-   "nzokShare": 0.13,
-   "tenders3y": 36,
-   "series": {
-    "2019": {
-     "rev": 2077379
-    },
-    "2020": {
-     "rev": 2253775
-    },
-    "2021": {
-     "rev": 3217560
-    },
-    "2022": {
-     "rev": 4132772
-    },
-    "2023": {
-     "rev": 5044406,
-     "nzokShare": 0.16
-    },
-    "2024": {
-     "rev": 5578194,
-     "nzokShare": 0.13
-    }
-   }
-  },
-  {
-   "eik": "000812172",
-   "name": "СБАЛПФЗ - Стара Загора ЕООД",
-   "nzokEur": 576795,
-   "nzokAnnualEur": 769060,
-   "revenueEur": 1155008,
-   "revenueYear": 2024,
-   "nzokShare": 0.72,
-   "tenders3y": 16,
-   "series": {
-    "2019": {
-     "rev": 429485
-    },
-    "2020": {
-     "rev": 486239
-    },
-    "2021": {
-     "rev": 1027185
-    },
-    "2022": {
-     "rev": 955605
-    },
-    "2023": {
-     "rev": 1134557,
-     "nzokShare": 0.63
-    },
-    "2024": {
-     "rev": 1155008,
-     "nzokShare": 0.72
     }
    }
   },
@@ -2311,34 +2217,6 @@
     "2023": {
      "rev": 2413809,
      "nzokShare": 0.13
-    }
-   }
-  },
-  {
-   "eik": "831142169",
-   "name": "СБАЛТОСМ - ПРОФ. Д-Р ДИМИТЪР ШОЙЛЕВ ЕАД",
-   "nzokEur": 294379,
-   "nzokAnnualEur": 392505,
-   "revenueEur": 758757,
-   "revenueYear": 2023,
-   "nzokShare": 0.71,
-   "tenders3y": 0,
-   "series": {
-    "2019": {
-     "rev": 524074
-    },
-    "2020": {
-     "rev": 540947
-    },
-    "2021": {
-     "rev": 645762
-    },
-    "2022": {
-     "rev": 672349
-    },
-    "2023": {
-     "rev": 758757,
-     "nzokShare": 0.71
     }
    }
   },
@@ -2840,34 +2718,6 @@
    }
   },
   {
-   "eik": "124140855",
-   "name": "ДКЦ 1 Добрич",
-   "nzokEur": 31873,
-   "nzokAnnualEur": 42497,
-   "revenueEur": 2312062,
-   "revenueYear": 2023,
-   "nzokShare": 0.02,
-   "tenders3y": 83,
-   "series": {
-    "2019": {
-     "rev": 1430083
-    },
-    "2020": {
-     "rev": 1478145
-    },
-    "2021": {
-     "rev": 1946999
-    },
-    "2022": {
-     "rev": 2216962
-    },
-    "2023": {
-     "rev": 2312062,
-     "nzokShare": 0.02
-    }
-   }
-  },
-  {
    "eik": "115811006",
    "name": "МЦ ВИТАМЕД ЕООД Карлово",
    "nzokEur": 30521,
@@ -2904,34 +2754,6 @@
    }
   },
   {
-   "eik": "128057410",
-   "name": "ДКЦ 1 - Ямбол ЕООД гр. Ямбол",
-   "nzokEur": 22547,
-   "nzokAnnualEur": 30063,
-   "revenueEur": 1892291,
-   "revenueYear": 2023,
-   "nzokShare": 0,
-   "tenders3y": 2,
-   "series": {
-    "2019": {
-     "rev": 1078826
-    },
-    "2020": {
-     "rev": 1158587
-    },
-    "2021": {
-     "rev": 1362082
-    },
-    "2022": {
-     "rev": 1577847
-    },
-    "2023": {
-     "rev": 1892291,
-     "nzokShare": 0
-    }
-   }
-  },
-  {
    "eik": "203218275",
    "name": "МЦ Ре Спиро ООД",
    "nzokEur": 20891,
@@ -2959,34 +2781,6 @@
    }
   },
   {
-   "eik": "109530392",
-   "name": "МЦ Д-р Никола Василиев ЕООД",
-   "nzokEur": 18084,
-   "nzokAnnualEur": 24112,
-   "revenueEur": 210652,
-   "revenueYear": 2023,
-   "nzokShare": 0.08,
-   "tenders3y": 0,
-   "series": {
-    "2019": {
-     "rev": 153388
-    },
-    "2020": {
-     "rev": 162591
-    },
-    "2021": {
-     "rev": 271496
-    },
-    "2022": {
-     "rev": 227014
-    },
-    "2023": {
-     "rev": 210652,
-     "nzokShare": 0.08
-    }
-   }
-  },
-  {
    "eik": "205436270",
    "name": "МЦ БЕТА КЛИНИК ООД",
    "nzokEur": 14536,
@@ -3004,35 +2798,6 @@
     },
     "2022": {
      "rev": 156967
-    }
-   }
-  },
-  {
-   "eik": "110530756",
-   "name": "МЦ Ловеч ЕООД",
-   "nzokEur": 13475,
-   "nzokAnnualEur": 17967,
-   "revenueEur": 461185,
-   "revenueYear": 2024,
-   "nzokShare": 0.04,
-   "tenders3y": 0,
-   "series": {
-    "2020": {
-     "rev": 231615
-    },
-    "2021": {
-     "rev": 452493
-    },
-    "2022": {
-     "rev": 375800
-    },
-    "2023": {
-     "rev": 383980,
-     "nzokShare": 0
-    },
-    "2024": {
-     "rev": 461185,
-     "nzokShare": 0.04
     }
    }
   },
@@ -3117,33 +2882,6 @@
     "2023": {
      "rev": 583895,
      "nzokShare": 0.01
-    }
-   }
-  },
-  {
-   "eik": "115343340",
-   "name": "МЦ 1- Стамболийски ЕООД",
-   "nzokEur": 5013,
-   "nzokAnnualEur": 6684,
-   "revenueEur": 408522,
-   "revenueYear": 2023,
-   "nzokShare": null,
-   "tenders3y": 0,
-   "series": {
-    "2019": {
-     "rev": 201960
-    },
-    "2020": {
-     "rev": 224968
-    },
-    "2021": {
-     "rev": 296549
-    },
-    "2022": {
-     "rev": 355348
-    },
-    "2023": {
-     "rev": 408522
     }
    }
   }

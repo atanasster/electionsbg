@@ -78,6 +78,21 @@ export const MANUAL_OWNERSHIP_BY_EIK: Record<string, Ownership> = {
   "109501412": "municipal", // МБАЛ Св. Иван Рилски ЕООД Дупница (NOT „…-2003" ООД, which is private)
   "126531685": "municipal", // МБАЛ Св. Екатерина ЕООД Димитровград — saint is COMMON, no city in payments name
   "126618510": "municipal", // СБПЛР Любимец — payments spell СБДПЛР, city-only shape
+  // Not in ЕЕОФ at all (outpatient centres, other ministries, a lung hospital
+  // that never filed). Owner read from the Commerce Registry's own CR_F_23
+  // „Едноличен собственик на капитала" — CR Deeds capture, 2026-11-21. A
+  // PARTNER that is a public body is NOT enough on its own: МБАЛ Велинград is
+  // 23% Община Велинград / 77% Булфарма, and Уни Хоспитал Панагюрище 10% Община
+  // / 90% Асарел — both stay private (majority rule).
+  "112531538": "state", // СБР Вита Велинград — ДЪРЖАВАТА чрез министъра на отбраната
+  "200429329": "state", // МБАЛ - 1 - Варна (транспортна) — Министерство на транспорта
+  "831142169": "state", // СБАЛТОСМ Шойлев — Министерство на физическото възпитание и спорта
+  "109530392": "state", // МЦ Д-р Никола Василиев — sole owner МБАЛ Никола Василиев АД (state, above)
+  "110530756": "state", // МЦ Ловеч — sole owner МБАЛ Ловеч Параскев Стоянов АД (state)
+  "000812172": "municipal", // СБАЛПФЗ Стара Загора — ОБЩИНА СТАРА ЗАГОРА
+  "115343340": "municipal", // МЦ 1 Стамболийски — ОБЩИНА СТАМБОЛИЙСКИ
+  "124140855": "municipal", // ДКЦ 1 Добрич — ОБЩИНА ГРАД ДОБРИЧ
+  "128057410": "municipal", // ДКЦ 1 Ямбол — ОБЩИНА ЯМБОЛ
 };
 
 // Facilities carrying no eik in the payment corpus. Keyed by Рег.№ ЛЗ — a
@@ -104,6 +119,8 @@ export const MANUAL_OWNERSHIP_BY_REGNO: Record<string, Ownership> = {
   "2325222010": "municipal", // СБДПЛР Костенец
   "1641221054": "municipal", // МБПЛ Стамболийски
   "0204331011": "municipal", // ЦПЗ Проф. д-р Иван Темков Бургас
+  // СБАЛПФЗ Русе — no eik in the payments; TR 117525838, sole owner ОБЩИНА РУСЕ.
+  "1827212016": "municipal",
 };
 
 // Facility-type tokens (stripped before surname matching) + the city gazetteer
