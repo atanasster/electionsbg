@@ -25,8 +25,16 @@
 //                       lists at all because they answer to another ministry (ВМА
 //                       → МО, Медицински институт → МВР).
 //
-// Anything left after the ladder is `private`. Verified split (2026-05, YTD €):
-// state 41.5% · municipal 14.9% · private 43.5% — i.e. ~44% of НЗОК hospital money
+// ⚠️ The residual is where a miss HIDES: on 2026-11-21 it held 33 register-listed
+// facilities (€98m of 2025 money) the ladder could not link — ЕЕОФ typos
+// (Василев, Панталеймон, Югозпадна), glued tokens, type-plus-town names, СБР-НК's
+// one line for 13 filials. They are now overrides below, and
+// scripts/db/tests/nzok_ownership_register.data.test.ts is the tripwire for the
+// next one (a fuzzier second reading that the classifier itself must not use).
+//
+// Anything left after the ladder is `private`. Verified split (2026-11-21, latest-period
+// cumulative €, after the register audit): state 42.1% · municipal 15.8% · private
+// 42.0% (it read 43.5% private in 2026-05 with the 33 misses) — i.e. ~42% of НЗОК hospital money
 // flows to private hospitals, the slice a state/municipal-only scope makes vanish.
 
 import { fold } from "../../db/lib/nzok_fold";
@@ -52,16 +60,56 @@ export const MANUAL_OWNERSHIP_BY_EIK: Record<string, Ownership> = {
   // State hospitals ЕЕОФ never lists — they report to another ministry, not МЗ.
   "129000273": "state", // Военномедицинска академия (ВМА) — Министерство на отбраната
   "129007218": "state", // Медицински институт – МВР
+  // ЕЕОФ-listed hospitals the name ladder misses (audited 2026-11-21 against the
+  // 2025-Q3 roster; each was residual → "private"). Comment = the ЕЕОФ spelling
+  // and why the ladder fails. TR owner confirmed where the registry carries one.
+  "109080582": "state", // „Д-р Никола Василев" АД Кюстендил — payments spell Василиев
+  "128501598": "state", // „Св. Панталеймон" АД, Ямбол — ЕЕОФ typo + saint is COMMON
+  "113513064": "state", // СБАЛББ „Свети Пантелеймон" Перник — payments drop the saint
+  "000192383": "state", // СБЛРВБ МЕЗДРА — payments abbreviate СБПЛРВБ
+  "000090154": "municipal", // СБАЛОЗ Варна — payments carry the full eponym; TR owner ОБЩИНА ВАРНА
+  "101533900": "municipal", // СБАЛО Св.Мина Благоевград — saint is COMMON, no city in payments name
+  "101522447": "municipal", // „Югозпадна болница" Сандански — ЕЕОФ typo; TR partners: 4 общини
+  "120505630": "municipal", // „Проф. д-р Константин ЧиловЕООД Мадан" — glued token; TR owner ОБЩИНА МАДАН
+  "120504642": "municipal", // „Проф. д-р Асен ШоповЕООД Златоград" — glued token
+  "116504387": "municipal", // МБАЛ Исперих — name is type + city only, no distinctive token
+  "000504032": "municipal", // МБАЛ Кубрат — same city-only shape
+  "111511773": "municipal", // МБАЛ гр. Берковица — same city-only shape
+  "109501412": "municipal", // МБАЛ Св. Иван Рилски ЕООД Дупница (NOT „…-2003" ООД, which is private)
+  "126531685": "municipal", // МБАЛ Св. Екатерина ЕООД Димитровград — saint is COMMON, no city in payments name
+  "126618510": "municipal", // СБПЛР Любимец — payments spell СБДПЛР, city-only shape
 };
 
-// State facilities carrying no eik in the payment corpus (МВР/МО rehab filials).
-// Keyed by Рег.№ ЛЗ. A null-eik row cannot ride the by-eik override above.
-export const MANUAL_OWNERSHIP_BY_REGNO: Record<string, Ownership> = {};
+// Facilities carrying no eik in the payment corpus. Keyed by Рег.№ ЛЗ — a
+// null-eik row cannot ride the by-eik override above.
+export const MANUAL_OWNERSHIP_BY_REGNO: Record<string, Ownership> = {
+  // СБР-НК ЕАД (ЕЕОФ "СБР - НК ЕАД", state) — one ЕЕОФ line, a filial per spa town.
+  "0140233007": "state", // Сандански
+  "0217233017": "state", // Поморие
+  "0428233013": "state", // Овча могила
+  "1029233006": "state", // Кюстендил
+  "1212233004": "state", // Вършец
+  "1308233008": "state", // Велинград
+  "1601233016": "state", // Нареченски бани
+  "1613232020": "state", // Баня, Карловско
+  "1637233021": "state", // Хисар
+  "2102232008": "state", // Баните
+  "2201233087": "state", // Банкя
+  "2325233017": "state", // Момин проход
+  "2424233014": "state", // Павел баня
+  // Municipal rehab / psychiatric units whose ЕЕОФ spelling differs (СБДПЛР vs
+  // СБПЛР, glued „Иван ТемковБургас", МБПЛ vs МБПЛР).
+  "2201222025": "municipal", // СБДПЛР Бухово
+  "2201222026": "municipal", // СБДПЛР „Панчарево"
+  "2325222010": "municipal", // СБДПЛР Костенец
+  "1641221054": "municipal", // МБПЛ Стамболийски
+  "0204331011": "municipal", // ЦПЗ Проф. д-р Иван Темков Бургас
+};
 
 // Facility-type tokens (stripped before surname matching) + the city gazetteer
 // (a GUARD, never a match key) + common saint/ordinal tokens (a lone shared one
 // is not identifying, so such a match must also agree on city).
-const TYPE = new Set([
+export const TYPE = new Set([
   "УМБАЛ",
   "МБАЛ",
   "СБАЛ",
@@ -127,7 +175,7 @@ const TYPE = new Set([
   "КЪМ",
 ]);
 
-const CITY = new Set([
+export const CITY = new Set([
   "СОФИЯ",
   "ПЛОВДИВ",
   "ВАРНА",
@@ -201,7 +249,7 @@ const CITY = new Set([
   "БЯЛА",
 ]);
 
-const COMMON = new Set([
+export const COMMON = new Set([
   "РИЛСКИ",
   "ГЕОРГИ",
   "АННА",

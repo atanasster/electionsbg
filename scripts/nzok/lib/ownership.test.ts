@@ -8,6 +8,7 @@
 import { test } from "vitest";
 import assert from "node:assert/strict";
 import { buildEeofOwnershipIndex, classifyOwnership } from "./ownership";
+import { looksLikeRegisterEntry, unglue } from "./ownership_gap";
 
 // A synthetic ЕЕОФ roster: two state hospitals (a distinctive-surname one and a
 // common-saint one that needs a city to disambiguate) + one municipal.
@@ -83,4 +84,63 @@ test("falls through to private (residual) when nothing matches", () => {
   );
   assert.equal(v.ownership, "private");
   assert.equal(v.method, "residual");
+});
+
+// ── The register tripwire (./ownership_gap.ts) — the shapes that hid 33 public
+// facilities in the residual on 2026-11-21.
+
+test("gap detector: tolerates a one-letter slip on a long eponym", () => {
+  assert.ok(
+    looksLikeRegisterEntry(
+      "МБАЛ Д-р Никола Василиев АД",
+      'МБАЛ "Д-р Никола Василев" АД Кюстендил',
+    ),
+  );
+});
+
+test("gap detector: ungluing the register's run-together tokens", () => {
+  assert.equal(
+    unglue("МБАЛПроф. д-р Константин ЧиловЕООД Мадан"),
+    "МБАЛ Проф. д-р Константин Чилов ЕООД Мадан",
+  );
+});
+
+test("gap detector: a type-plus-town name needs the same type", () => {
+  assert.ok(
+    looksLikeRegisterEntry("МБАЛ - Исперих ЕООД", "МБАЛ Исперих ЕООД Разград"),
+  );
+  // "Света" folds away, leaving МБАЛ + СОФИЯ against ЦПЗ + СОФИЯ — not the same body.
+  assert.ok(!looksLikeRegisterEntry("МБАЛ Света София ЕООД", "ЦПЗ-СОФИЯ ЕООД"));
+});
+
+test("gap detector: a common saint alone needs the town to agree", () => {
+  assert.ok(
+    looksLikeRegisterEntry(
+      "МБАЛ Св.Пантелеймон АД гр.Ямбол",
+      'МБАЛ "Св. Панталеймон" АД, Ямбол',
+    ),
+  );
+  assert.ok(
+    !looksLikeRegisterEntry(
+      "МБАЛ Св.Пантелеймон АД гр.Ямбол",
+      'СБАЛББ"Свети Пантелеймон" ЕООД, гр. Перник',
+    ),
+  );
+});
+
+test("classifier: the register-listed facilities the ladder misses are overridden", () => {
+  for (const [eik, want] of [
+    ["109080582", "state"], // Кюстендил
+    ["128501598", "state"], // Ямбол
+    ["000090154", "municipal"], // СБАЛОЗ Варна
+  ] as const) {
+    const v = classifyOwnership({ regNo: "x", name: "irrelevant", eik }, index);
+    assert.equal(v.ownership, want, eik);
+  }
+  // The private namesake in Дупница must stay private.
+  const priv = classifyOwnership(
+    { regNo: "x", name: "МБАЛ Св. Иван Рилски-2003 ООД", eik: "109568877" },
+    index,
+  );
+  assert.equal(priv.ownership, "private");
 });

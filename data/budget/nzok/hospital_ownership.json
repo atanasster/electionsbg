@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T23:05:12.026Z",
+  "generatedAt": "2026-11-21T09:09:41.196Z",
   "source": {
     "publisher": "Наясно (изведено)",
     "basis": "МЗ ЕЕОФ (Наредба № 5/2019) + НЗОК плащания по лечебно заведение",
@@ -39,8 +39,8 @@
       "regNo": "0103212016",
       "name": "СБАЛО Свети мина ЕООД",
       "eik": "101533900",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "0103212017",
@@ -88,15 +88,15 @@
       "regNo": "0140211003",
       "name": "МБАЛ Югозападна болница ООД",
       "eik": "101522447",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "0140233007",
       "name": "СБР-НК ЕАД, филиал Сандански",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "0201211002",
@@ -193,8 +193,8 @@
       "regNo": "0204331011",
       "name": "ЦПЗ Проф.И.Темков ЕООД",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "0204334013",
@@ -277,8 +277,8 @@
       "regNo": "0217233017",
       "name": "СБР - НК -ф.Поморие ЕАД",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "0290211001",
@@ -403,8 +403,8 @@
       "regNo": "0306212026",
       "name": "СБАЛОЗ д-р Марко Антонов Марков-Варна ЕООД",
       "eik": "000090154",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "0306212027",
@@ -429,7 +429,7 @@
     },
     {
       "regNo": "0306253028",
-      "name": "МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ, 1 022 653 ПРОДЪЛЖИТЕЛНО",
+      "name": "МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ,",
       "eik": null,
       "ownership": "private",
       "method": "residual"
@@ -557,8 +557,8 @@
       "regNo": "0428233013",
       "name": "СБР-НК ЕАД филиал Овча могила",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "0501211002",
@@ -662,8 +662,8 @@
       "regNo": "0627252021",
       "name": "СБПЛРВБ МЕЗДРА ЕООД",
       "eik": "000192383",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "0632222014",
@@ -809,15 +809,15 @@
       "regNo": "1029211001",
       "name": "МБАЛ Д-р Никола Василиев АД",
       "eik": "109080582",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1029233006",
       "name": "СБР-НК ЕАД ф. Кюстендил",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1041232010",
@@ -844,8 +844,8 @@
       "regNo": "1048211002",
       "name": "МБАЛ Св. Иван Рилски ЕООД",
       "eik": "109501412",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "1048211009",
@@ -907,15 +907,15 @@
       "regNo": "1202211002",
       "name": "МБАЛ ЕООД гр. Берковица",
       "eik": "111511773",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "1212233004",
       "name": "СБР-НК ЕАД -филиал Св.Мина гр.Вършец",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1224211003",
@@ -977,8 +977,8 @@
       "regNo": "1308233008",
       "name": "СБР-НК ЕАД филиал Велинград",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1319211001",
@@ -1061,8 +1061,8 @@
       "regNo": "1432212005",
       "name": "СБАЛББ-Перник-ЕООД",
       "eik": "113513064",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1432212011",
@@ -1229,8 +1229,8 @@
       "regNo": "1601233016",
       "name": "СБР НК ЕАД филиал Нареченски бани",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1613131004",
@@ -1250,8 +1250,8 @@
       "regNo": "1613232020",
       "name": "СБР НК ЕАД София филиал Баня;Карловско",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1622131037",
@@ -1516,8 +1516,8 @@
       "regNo": "1637233021",
       "name": "СБР НК ЕАД филиал Хисар",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "1637253040",
@@ -1537,8 +1537,8 @@
       "regNo": "1641221054",
       "name": "МБПЛР - Стамболийски ЕООД",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "1643221052",
@@ -1551,15 +1551,15 @@
       "regNo": "1714211002",
       "name": "МБАЛ - Исперих ЕООД",
       "eik": "116504387",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "1716211003",
       "name": "МБАЛ - Кубрат ЕООД",
       "eik": "000504032",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "1726131002",
@@ -1719,8 +1719,8 @@
       "regNo": "2102232008",
       "name": "СБР-НК ЕАД - филиал с. Баните",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "2109211004",
@@ -1740,15 +1740,15 @@
       "regNo": "2111211002",
       "name": "МБАЛ Проф. д-р Асен Шопов ЕООД-гр.Златоград",
       "eik": "120504642",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "2116211003",
       "name": "МБАЛ Проф. д-р Константин Чилов ЕООД-гр.Мадан",
       "eik": "120505630",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "2127232011",
@@ -2153,15 +2153,15 @@
       "regNo": "2201222025",
       "name": "СБПЛР - Бухово ООД",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "2201222026",
       "name": "СБПЛР ПАНЧАРЕВО ЕООД",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "2201222027",
@@ -2195,8 +2195,8 @@
       "regNo": "2201233087",
       "name": "СБР - НК ЕАД филиал Банкя",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "2201234021",
@@ -2250,6 +2250,13 @@
     {
       "regNo": "2201391111",
       "name": "Диализен център Дружба ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201391119",
+      "name": "ДЦ ХЕМОДИАЛ ООД",
       "eik": null,
       "ownership": "private",
       "method": "residual"
@@ -2433,15 +2440,15 @@
       "regNo": "2325222010",
       "name": "СБПЛР - Костенец ЕООД",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "2325233017",
       "name": "СБР - НК ЕАД филиал Момин проход",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "2339211009",
@@ -2496,8 +2503,8 @@
       "regNo": "2424233014",
       "name": "СБР-НК ЕАД филиал Павел Баня",
       "eik": null,
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "2431131035",
@@ -2608,15 +2615,15 @@
       "regNo": "2609211002",
       "name": "МБАЛ Света Екатерина ЕООД",
       "eik": "126531685",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "2617212008",
       "name": "СБДПЛР Любимец ЕООД",
       "eik": "126618510",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "municipal",
+      "method": "override"
     },
     {
       "regNo": "2619232019",
@@ -2748,8 +2755,8 @@
       "regNo": "2826211001",
       "name": "МБАЛ Св.Пантелеймон АД гр.Ямбол",
       "eik": "128501598",
-      "ownership": "private",
-      "method": "residual"
+      "ownership": "state",
+      "method": "override"
     },
     {
       "regNo": "2826211008",
