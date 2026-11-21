@@ -13,6 +13,7 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  deriveMonthsFromCumulative,
   diffAgainstPrevious,
   loadedCoverageRow,
   refusedCoverageRow,
@@ -467,5 +468,60 @@ describe("coverage row builders", () => {
         totalCumulativeEur: 1,
       }).republishes_period,
     ).toBeNull();
+  });
+});
+
+describe("deriveMonthsFromCumulative", () => {
+  const mk = (
+    period: string,
+    cum: number,
+    month: number,
+    reg = "0306253028",
+  ) => ({
+    stream: "bmp" as const,
+    reg_no: reg,
+    period,
+    cumulative_eur: cum,
+    month_eur: month,
+  });
+  it("fills a month the wrapped column dropped (МИ-МВР Варна)", () => {
+    const rows = [
+      mk("2026-08-01", 376_102, 48_462),
+      mk("2026-09-01", 424_564, 0),
+    ];
+    expect(deriveMonthsFromCumulative(rows)).toEqual({
+      changed: 1,
+      eur: 48_462,
+    });
+    expect(rows[1].month_eur).toBe(48_462);
+  });
+  it("replaces a month copied from the column before (bmp 2026-02)", () => {
+    const rows = [
+      mk("2026-01-01", 219_684, 219_684),
+      mk("2026-02-01", 419_974, 219_684),
+    ];
+    deriveMonthsFromCumulative(rows);
+    expect(rows[1].month_eur).toBe(200_290);
+  });
+  it("January's month is its YTD", () => {
+    const rows = [mk("2026-01-01", 57_404, 0)];
+    deriveMonthsFromCumulative(rows);
+    expect(rows[0].month_eur).toBe(57_404);
+  });
+  it("leaves a falling YTD alone — a restatement, not a month (СБАЛО Хасково drugs 2025-04)", () => {
+    const rows = [
+      mk("2025-03-01", 1_938_375, 716_157),
+      mk("2025-04-01", 603_990, 603_990),
+    ];
+    expect(deriveMonthsFromCumulative(rows).changed).toBe(0);
+    expect(rows[1].month_eur).toBe(603_990);
+  });
+  it("leaves a month alone when the previous month is missing", () => {
+    const rows = [mk("2026-03-01", 100, 10), mk("2026-05-01", 500, 0)];
+    expect(deriveMonthsFromCumulative(rows).changed).toBe(0);
+  });
+  it("does not cross a year boundary", () => {
+    const rows = [mk("2025-12-01", 900, 80), mk("2026-01-01", 70, 70)];
+    expect(deriveMonthsFromCumulative(rows).changed).toBe(0);
   });
 });

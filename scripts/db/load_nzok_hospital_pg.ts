@@ -533,6 +533,62 @@ export const republishedMonths = (
  *  the diff — it was a SQL expression and a template literal, and a drift between
  *  them reports every row as added+removed and no row as restated, i.e. exactly the
  *  silence this diff exists to break. */
+/**
+ * Re-derive a row's MONTH from the year-to-date column, which is the reconciled
+ * one. Every block subtotal checks the cumulative; nothing checks the month, and
+ * the month is the column a wrapped name breaks:
+ *
+ *   „…ПРОДЪЛЖИТЕЛНО 48⏎   424 564   ЛЕЧЕНИЕ⏎   462 И РЕХА"   (МИ-МВР Варна)
+ *
+ * is 424 564 YTD / 48 462 for the month, and was stored as 0 in eight of nine
+ * 2026 months. Worse, the bmp 2026-02 file prints TWO month columns (януари,
+ * февруари) and the January one was read as February's for 372 of 380 rows —
+ * €13.3m of month figures, each a copy of the month before, while every YTD
+ * reconciled. Measured 2026-11-21: one misread row in almost every bmp month
+ * since 2023, plus that whole month.
+ *
+ * The derived month replaces the parsed one only when it is NON-NEGATIVE: a
+ * falling YTD is a restatement, not a month (СБАЛО Хасково, drugs 2025-04,
+ * 1 938 375 → 603 990), and a real clawback is already read signed by the
+ * parser. A gap in the months leaves the parsed figure alone. Mutates `rows`.
+ */
+export const deriveMonthsFromCumulative = (
+  rows: Pick<
+    Row,
+    "stream" | "reg_no" | "period" | "cumulative_eur" | "month_eur"
+  >[],
+): { changed: number; eur: number } => {
+  const groups = new Map<string, typeof rows>();
+  for (const r of rows) {
+    const k = `${r.stream}::${r.reg_no}`;
+    (groups.get(k) ?? groups.set(k, []).get(k)!).push(r);
+  }
+  let changed = 0;
+  let eur = 0;
+  for (const g of groups.values()) {
+    g.sort((a, b) => a.period.localeCompare(b.period));
+    for (let i = 0; i < g.length; i++) {
+      const r = g[i];
+      const [y, m] = r.period.split("-").map(Number);
+      const prev = g[i - 1];
+      const prevKey =
+        m === 1 ? null : `${y}-${String(m - 1).padStart(2, "0")}-01`;
+      const derived =
+        m === 1
+          ? r.cumulative_eur
+          : prev && prev.period === prevKey
+            ? r.cumulative_eur - prev.cumulative_eur
+            : null;
+      if (derived === null || derived < 0) continue;
+      if (Math.abs(derived - r.month_eur) <= 5) continue;
+      eur += Math.abs(derived - r.month_eur);
+      r.month_eur = derived;
+      changed++;
+    }
+  }
+  return { changed, eur: Math.round(eur) };
+};
+
 export const rowKey = (r: {
   reg_no: string;
   period: string;
@@ -637,6 +693,11 @@ const main = async (): Promise<void> => {
   const { rows, monthsOk, monthsSkipped, notVerified, coverage } = collected;
   if (rows.length === 0)
     throw new Error("no НЗОК hospital-payment rows collected");
+  const rederived = deriveMonthsFromCumulative(rows);
+  if (rederived.changed)
+    console.log(
+      `  month column re-derived from the reconciled YTD on ${rederived.changed} row(s), €${rederived.eur.toLocaleString("en-US")} moved`,
+    );
 
   const N = COLS.length;
   const BATCH = 800; // 800 × 10 = 8k params (< 65535)

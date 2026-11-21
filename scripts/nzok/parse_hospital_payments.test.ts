@@ -49,6 +49,7 @@ import {
   readSubtotalLine,
   readTotalLine,
   repairGluedThousands,
+  repairOrphanedLeadingGroup,
   type PaymentStream,
 } from "./parse_hospital_payments";
 
@@ -827,4 +828,29 @@ test("an ordinal is never confused with the reg number", () => {
   );
   assert.equal(r?.ordinal, 12);
   assert.equal(r?.regNo, "1622334019");
+});
+
+// bmp 2026-10, Рег.№ 0306211013: a wrapped long name left the cumulative's
+// leading group „1" in the name; the block subtotal (РЗОК Варна 103 345 585)
+// is what proves 1 034 134. The repair is block-gated in the parser, so here we
+// pin the string transform and that a real name digit with no stranded amount
+// is left alone.
+const ORPHAN_TAIL =
+  "   МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - 1            ВАРНА   ЕООД\n" +
+  "                                         034 134         220 000";
+test("repairOrphanedLeadingGroup: moves the stranded leading group back", () => {
+  const out = repairOrphanedLeadingGroup(ORPHAN_TAIL);
+  const p = extractAmounts(out, "bmp");
+  assert.ok(p);
+  assert.equal(p.cumulative, 1_034_134);
+  assert.equal(p.month, 220_000);
+  assert.equal(p.name, "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА ЕООД");
+});
+test("repairOrphanedLeadingGroup: as printed, the row misreads (why the repair exists)", () => {
+  assert.notEqual(extractAmounts(ORPHAN_TAIL, "bmp")?.cumulative, 1_034_134);
+});
+test("repairOrphanedLeadingGroup: a real name digit with a normal amount is untouched", () => {
+  const t =
+    "   ДКЦ 1 Добрич ЕООД\n                    1 905 100         40 000";
+  assert.equal(repairOrphanedLeadingGroup(t), t);
 });

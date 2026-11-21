@@ -292,6 +292,18 @@ const GROUPED_AMOUNT = /^-?\d{1,3}(?:[ \t\u00a0]\d{3})+$/u;
  *  the block then reconciles exactly. */
 const MAX_GLUE_FRAGMENT = 4;
 
+/** An amount whose first group carries a leading zero („034 134") is never
+ *  printed that way — it is a cumulative whose leading group was left behind,
+ *  free-standing, in the name on the line above. Moves that digit run back onto
+ *  the amount. NOT safe on its own (a real name digit has the same shape); the
+ *  parser applies it only inside a block that fails to reconcile, and keeps it
+ *  only if the block then reconciles. */
+export const repairOrphanedLeadingGroup = (tail: string): string =>
+  tail.replace(
+    /([^\s\d])[ \t\u00a0]+(\d{1,3})[ \t\u00a0]+(\p{L}[^\n]*)\n([ \t\u00a0]*)(0\d{2}(?:[ \t\u00a0]\d{3})+)(?!\d)/u,
+    "$1 $3\n$4$2 $5",
+  );
+
 /** Exported for testing: this is the unit RC-1 lives in, and its four spacings
  *  are only visible at the string level — `extractAmounts` sees the repaired
  *  tail, so a test written against that cannot tell a repair from a no-op. */
@@ -933,6 +945,10 @@ export const parseHospitalPaymentsPdf = (
   /** Per block: the „№ по ред" ordinals seen, and how many rows carried none. */
   const seenOrdinals = new Map<string, Set<number>>();
   const unnumberedRows = new Map<string, number>();
+  /** The (repaired) tail each row was read from, index-aligned with `rows` —
+   *  kept so a block that fails to reconcile can be re-read (see
+   *  `repairOrphanedLeadingGroup`). */
+  const rowTails: string[] = [];
   const flush = () => {
     if (!pending) return;
     const tail = isLenient(stream)
@@ -954,6 +970,7 @@ export const parseHospitalPaymentsPdf = (
           seenOrdinals.get(pending.rzokName) ??
           seenOrdinals.set(pending.rzokName, new Set()).get(pending.rzokName)!
         ).add(pending.ordinal);
+      rowTails.push(tail);
       rows.push({
         rzokCode: pending.rzokCode,
         rzokName: pending.rzokName,
@@ -1022,6 +1039,65 @@ export const parseHospitalPaymentsPdf = (
         count: best.count,
         cumulative: asEur(best.cumulative),
       });
+  }
+
+  // ── Block-driven repair of an orphaned leading thousands group.
+  //
+  // A long name can push the cumulative onto the next physical line while
+  // `pdftotext -layout` leaves its LEADING group behind in the name:
+  //
+  //   „… ЛЕЧЕНИЕ - 1            ВАРНА   ЕООД
+  //                                034 134         220 000"
+  //
+  // is 1 034 134 / 220 000 (bmp 2026-10, Рег.№ 0306211013; the block subtotal
+  // settles it). Read as printed, „034 134" is not taken as the cumulative and the
+  // MONTH became the YTD — the block was €814,132 short and the whole month was
+  // refused. A free digit in a name is usually real („ДКЦ 1 Добрич"), so this
+  // splice is never applied on sight: only inside a block that FAILS, and kept
+  // only when the block then reconciles within tolerance.
+  const blockDiff = (name: string): number => {
+    const sub = subtotals.get(name);
+    if (!sub) return 0;
+    let cum = 0;
+    let n = 0;
+    for (const r of rows)
+      if (r.rzokName === name) {
+        cum += r.cumulativeEur;
+        n++;
+      }
+    return Math.abs(sub.cumulative - cum) > blockTolerance(n)
+      ? sub.cumulative - cum
+      : 0;
+  };
+  for (const name of subtotals.keys()) {
+    if (!blockDiff(name)) continue;
+    const candidates: { i: number; row: HospitalPaymentRow }[] = [];
+    rows.forEach((r, i) => {
+      if (r.rzokName !== name) return;
+      const spliced = repairOrphanedLeadingGroup(rowTails[i]);
+      if (spliced === rowTails[i]) return;
+      const p = extractAmounts(spliced, stream);
+      if (p)
+        candidates.push({
+          i,
+          row: {
+            ...r,
+            name: p.name,
+            cumulativeEur: asEur(p.cumulative),
+            monthEur: asEur(p.month),
+          },
+        });
+    });
+    // Try every candidate alone, then all together; keep the first that closes
+    // the block. Nothing that leaves the block open is ever kept.
+    const tries = [...candidates.map((c) => [c]), candidates];
+    for (const set of tries) {
+      if (!set.length) continue;
+      const saved = set.map((c) => rows[c.i]);
+      for (const c of set) rows[c.i] = c.row;
+      if (!blockDiff(name)) break;
+      set.forEach((c, k) => (rows[c.i] = saved[k]));
+    }
   }
 
   const perBlock = new Map<string, { cum: number; rows: number }>();
