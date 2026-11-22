@@ -26,6 +26,7 @@
 // Run: `pnpm exec tsx scripts/procurement/mon_ri_crawl.ts`  (then re-run
 // awarder_geo_map.ts + pnpm run procurement:ingest to apply).
 
+import { bgPlaywrightProxy } from "../lib/bg_egress";
 import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
 import path from "path";
@@ -86,6 +87,7 @@ const main = async (): Promise<void> => {
   const browser = await chromium.launch({
     headless: false,
     args: ["--disable-blink-features=AutomationControlled"],
+    ...bgPlaywrightProxy(),
   });
   let raw: RawInst[];
   try {

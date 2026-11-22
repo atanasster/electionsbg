@@ -21,6 +21,7 @@
 //   /documents/d/guest/soa<YY>-vk<NN>-<...>   — proposal documents
 // We only care about the first kind (per-resolution decision PDFs).
 
+import { bgPlaywrightProxy } from "../../lib/bg_egress";
 import {
   chromium,
   type Browser,
@@ -76,7 +77,10 @@ const ensureBrowser = async (): Promise<{
   page: Page;
 }> => {
   if (session) return session;
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    ...bgPlaywrightProxy(),
+  });
   const ctx = await browser.newContext({ userAgent: UA });
   const page = await ctx.newPage();
   session = { browser, ctx, page };

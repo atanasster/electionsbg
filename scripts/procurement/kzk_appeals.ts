@@ -51,6 +51,7 @@
 // Always writes data/procurement/kzk_appeals.json (merge-on-write, union by
 // complaint_no) so historical rows survive if the register drops them.
 
+import { bgPlaywrightProxy } from "../lib/bg_egress";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
@@ -961,6 +962,7 @@ const cmd = command({
       const browser: Browser = await chromium.launch({
         headless: false, // reg.cpc.bg needs a real headed browser + BG egress
         args: ["--disable-blink-features=AutomationControlled"],
+        ...bgPlaywrightProxy(),
       });
 
       const all: KzkAppeal[] = [];

@@ -12,7 +12,9 @@
 //
 // What the proxy env reaches: Node's global fetch and node:https (via
 // NODE_USE_ENV_PROXY=1, Node ≥ 22.21), curl and most CLIs (HTTPS_PROXY).
-// What it does NOT reach: Playwright/Chromium, which ignores proxy env vars.
+// Playwright/Chromium ignores proxy env vars, so each crawler's
+// `chromium.launch` spreads `bgPlaywrightProxy()` — inert unless the process
+// runs inside a proxied step (BG_EGRESS_VIA set).
 
 import net from "node:net";
 
@@ -172,6 +174,29 @@ export const bgProxyEnv = (url: string): NodeJS.ProcessEnv => ({
 
 export const viaBgProxy = (env: NodeJS.ProcessEnv = process.env): boolean =>
   Boolean(env[BG_VIA_ENV]);
+
+/** NO_PROXY in Chromium's bypass-list syntax: a leading-dot domain becomes
+ *  `*.domain`, an IPv6 literal is bracketed. */
+export const chromiumBypass = (noProxy: string = BG_NO_PROXY): string =>
+  noProxy
+    .split(",")
+    .map((h) => h.trim())
+    .filter(Boolean)
+    .map((h) => (h.startsWith(".") ? `*${h}` : h.includes(":") ? `[${h}]` : h))
+    .join(",");
+
+/** Spread into a Playwright `chromium.launch({ … })` options object. Chromium
+ *  ignores HTTPS_PROXY, so a crawler running inside a proxied step (the
+ *  executor's retry, the watcher's fallback child, `pnpm run bg -- …`) must
+ *  be told explicitly. Outside one it adds nothing. */
+export const bgPlaywrightProxy = (
+  env: NodeJS.ProcessEnv = process.env,
+): { proxy?: { server: string; bypass: string } } => {
+  const via = env[BG_VIA_ENV];
+  return via
+    ? { proxy: { server: via, bypass: chromiumBypass(env.NO_PROXY) } }
+    : {};
+};
 
 /** An HTTP status that reads as "this client/IP is refused": 403 Forbidden or
  *  451 Unavailable For Legal Reasons, in a fetcher's error context — never a

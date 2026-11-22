@@ -12,6 +12,7 @@
 // shows the name for legal entities), so the ingest recovers EIK by name-matching
 // against the 2015–2023 egov entities (see scripts/agri/ingest.ts).
 
+import { bgPlaywrightProxy } from "../lib/bg_egress";
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -102,7 +103,10 @@ export const fetchSeuYear = async (year: number): Promise<string> => {
   if (!existsSync(CACHE_DIR)) mkdirSync(CACHE_DIR, { recursive: true });
   const outFile = path.join(CACHE_DIR, `seu_${year}.csv`);
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    ...bgPlaywrightProxy(),
+  });
   try {
     const ctx = await browser.newContext({
       locale: "bg-BG",

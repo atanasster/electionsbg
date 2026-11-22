@@ -18,6 +18,7 @@
 // the URL they want, downloads it into raw_data/budget/capital_programs/
 // and runs the existing OCR + rollup pipeline.
 
+import { bgPlaywrightProxy } from "../../lib/bg_egress";
 import { chromium, Page } from "@playwright/test";
 
 interface Candidate {
@@ -164,7 +165,10 @@ const main = async () => {
   console.log(
     `[harvest] launching headless Chromium for ${targets.length} municipality candidate(s)`,
   );
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    ...bgPlaywrightProxy(),
+  });
   const context = await browser.newContext({
     userAgent:
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +

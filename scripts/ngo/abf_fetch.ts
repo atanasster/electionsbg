@@ -21,6 +21,7 @@
 //
 // See docs/plans/ngo-risk-signals-v1.md (Phase 3 / ABF).
 
+import { bgPlaywrightProxy } from "../lib/bg_egress";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -100,7 +101,10 @@ export const parseAbfHtml = (html: string): AbfProject[] => {
 
 export const fetchAbfProjects = async (): Promise<AbfProject[]> => {
   const { chromium } = await import("playwright");
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({
+    headless: false,
+    ...bgPlaywrightProxy(),
+  });
   const all: AbfProject[] = [];
   const seen = new Set<string>();
   try {

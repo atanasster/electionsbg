@@ -43,6 +43,7 @@
 // shifted rows. That is the difference between this crawler and the process that
 // produced the corpus it replaces.
 
+import { bgPlaywrightProxy } from "../lib/bg_egress";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -295,6 +296,7 @@ const openBrowser = async (): Promise<{
     headless: false, // reg.cpc.bg needs a real headed browser + BG egress
     // Parity with the sibling crawler against the same 403-happy host.
     args: ["--disable-blink-features=AutomationControlled"],
+    ...bgPlaywrightProxy(),
   });
   const ctx = await browser.newContext({ userAgent: UA, locale: "bg-BG" });
   // Route ONLY the blocked hosts. A `**/*` handler puts every request through

@@ -4897,9 +4897,15 @@ Four things about it are easy to get backwards:
 - ⚠️ **It does NOTHING from a Bulgarian exit**, on purpose: at home the mini is on the same line, so
   a retry only repeats the failure and a hung source costs its timeout twice. `bgFallbackApplies()`
   gates every call site on the exit country; `BG_EGRESS_FORCE=1` overrides it to test from home.
-- ⚠️ **Playwright/Chromium ignores proxy env vars.** The headed crawls (ЦИК, КЗК, the Sofia
-  council — 19 `chromium.launch` sites) are NOT covered; from abroad they still fail and need a
-  launch-option change, which is open work.
+- ⚠️ **Playwright/Chromium ignores proxy env vars, so every DATA crawler's launch spreads
+  `...bgPlaywrightProxy()`** (ЦИК, КЗК ×2, МОН, the Sofia council, ABF, СЕУ, the two budget
+  harvesters — nine sites). It is inert unless `BG_EGRESS_VIA` is set, i.e. only inside a
+  proxied step. A NEW crawler must add it, or it bypasses the proxy while the Node fetches
+  beside it go through. The `scripts/og` / `scripts/video` screenshot launches are
+  deliberately excluded.
+- **`pnpm run bg -- <command>` runs any one command through the proxy by hand** (e.g. a skill's
+  fetch step from abroad). Unlike the automatic paths it skips the Bulgarian-exit check, and it
+  exits 3 when no proxy answers.
 - **Never for a publish or a Cloud SQL-pinned step** — those talk to Google, and a home upload link
   would be the bottleneck. Nor for a step that hit its TIMEOUT (a retry would spend the whole budget
   again) or one already proxied (`BG_EGRESS_VIA` stops a fallback stacking on a fallback).

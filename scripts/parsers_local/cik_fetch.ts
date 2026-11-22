@@ -19,6 +19,7 @@
 // local-machine watcher (the user explicitly opted into Playwright). CI is
 // possible via xvfb but not wired up here.
 
+import { bgPlaywrightProxy } from "../lib/bg_egress";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -81,6 +82,7 @@ const initSession = async (): Promise<Session> => {
     const browser = await chromium.launch({
       headless: false,
       args: ["--disable-blink-features=AutomationControlled"],
+      ...bgPlaywrightProxy(),
     });
     const ctx = await browser.newContext({
       userAgent: UA,

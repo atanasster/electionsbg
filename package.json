@@ -311,6 +311,7 @@
     "census": "tsx ./scripts/census/build_census.ts",
     "party:bundle": "tsx ./scripts/parties/bundle_party_data.ts",
     "party:gen-retrospect": "tsx ./scripts/parties/generate_retrospect.ts",
+    "bg": "tsx ./scripts/lib/with_bg_proxy.ts",
     "watch": "tsx ./scripts/watch/index.ts",
     "rollcall:scrape": "tsx ./scripts/parliament/scrape_rollcall.ts",
     "council:discover": "tsx ./scripts/council/discover.ts",

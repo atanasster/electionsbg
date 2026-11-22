@@ -20,6 +20,7 @@
 // browser. Headless mode writes data-reports/budget-discovery-<DATE>.md
 // and exits.
 
+import { bgPlaywrightProxy } from "../lib/bg_egress";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -356,7 +357,7 @@ const cmd = command({
       process.exit(1);
     }
 
-    const browser = await chromium.launch({ headless });
+    const browser = await chromium.launch({ headless, ...bgPlaywrightProxy() });
     const ctx = await browser.newContext({
       userAgent:
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +

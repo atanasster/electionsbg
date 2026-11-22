@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   BG_NO_PROXY,
   bgFallbackApplies,
+  bgPlaywrightProxy,
   bgProxyCandidates,
   bgProxyEnv,
   bgRetryWorthy,
@@ -89,5 +90,22 @@ describe("findBgFallback", () => {
         { country: async () => "DE", probe: up },
       ),
     ).toBeNull();
+  });
+});
+
+describe("bgPlaywrightProxy", () => {
+  it("adds nothing outside a proxied step", () => {
+    expect(bgPlaywrightProxy({})).toEqual({});
+  });
+
+  it("points Chromium at the proxy, with NO_PROXY in Chromium's syntax", () => {
+    const opt = bgPlaywrightProxy(bgProxyEnv("http://mac:8118"));
+    expect(opt.proxy?.server).toBe("http://mac:8118");
+    const bypass = opt.proxy!.bypass.split(",");
+    expect(bypass).toContain("localhost");
+    expect(bypass).toContain("[::1]");
+    expect(bypass).toContain("*.googleapis.com");
+    expect(bypass).toContain("github.com");
+    expect(bypass.some((h) => h.startsWith("."))).toBe(false);
   });
 });
