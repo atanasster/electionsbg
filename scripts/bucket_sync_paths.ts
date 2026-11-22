@@ -180,6 +180,11 @@ export const isExcluded = (rel: string): string | null => {
     return "parliament/bills/ is a PG load source (db:load:rollcall:pg)";
   if (rel === "administration/eforms_requests.json")
     return "administration/eforms_requests.json is a PG load source (db:load:admin-service-requests:pg)";
+  // The comdos.bg ДС decision corpus (docs/plans/comdos-ds-ingest-v1.md) — the
+  // committed data/comdos/ is the `ds` loader's SOURCE, served from Cloud SQL; a
+  // bucket copy would put 11 MB of named persons on a path nothing reads.
+  if (rel === "comdos" || rel.startsWith("comdos/"))
+    return "comdos/ is a PG load source (db:load:ds:pg)";
   // The council corpus is PG-served (migrations 160/161) — /api/db/council-overview,
   // -muni and -resolution. Every reader moved off the bucket in council-hub-v1
   // tiers 5-7: the My-Area tile, the alerts builder and both AI tools.

@@ -134,6 +134,15 @@ describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
     expect(childExcludeRegexes("parliament")).toContain("^bills/.*");
   });
 
+  it("excludes the comdos/ ДС corpus everywhere", () => {
+    for (const k of ["bucket:sync", "bucket:sync:dry"] as const) {
+      const re = new RegExp(pkg[k].match(/-x '([^']*)'/)?.[1] as string);
+      expect(re.test("comdos/persons.jsonl"), k).toBe(true);
+    }
+    expect(isExcluded("comdos")).toBeTruthy();
+    expect(isExcluded("comdos/decisions.json")).toBeTruthy();
+  });
+
   it("excludes administration/eforms_requests.json everywhere, while sparing administration/", () => {
     for (const k of ["bucket:sync", "bucket:sync:dry"] as const) {
       const re = new RegExp(pkg[k].match(/-x '([^']*)'/)?.[1] as string);

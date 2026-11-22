@@ -63,7 +63,9 @@ politely: 4 workers was fine.
   the decision number (`2-1997` → 1997).
 
 Baseline the parser must reproduce:
-- 1,933 decisions parsed → 15,892 records → **9,689 people** (by name + DOB);
+- 1,933 decisions parsed → 16,896 records → **10,423 people** (by name + DOB) — re-measured
+  2026-11-22 by both the scratch parser and `comdos:parse`; the 15,892 / 9,689 first written
+  here came from an earlier run and is superseded;
 - 1,004 re-disclosure records;
 - 328,042 persons checked; 3,796 deceased not published.
 
@@ -80,9 +82,11 @@ Baseline the parser must reproduce:
    - `person.birth_date` is always NULL, so other tiers (candidates, councillors, mayors)
      have NO DOB to match against. Those matches are leads for review, never an attach.
 3. Deceased persons are not published by the Commission, and we must never try to recover them.
-4. Pseudonyms, recruiters and handlers are named in the source. Store them for provenance
-   but do not render recruiter/handler names: they are third parties who were not the
-   subject of the decision.
+4. Pseudonyms, recruiters and handlers are named in the source. Pseudonyms are stored;
+   recruiter, handler and case-officer names are NOT — they are third parties who were not
+   the subject of the decision. Only the recruitment YEAR is kept. The parser discards that
+   segment structurally and `comdos:parse` refuses to write if any stored row still carries
+   an officer label.
 
 ## 5. Proposed shape
 
