@@ -47,6 +47,8 @@ describe("isLinkableCompanyKey", () => {
     for (const k of [
       "ph-2475f7344022",
       "np-9906396c39ba",
+      // A РОП supplier named with no id at all (supplier_identity.ts).
+      "nm-3c1f0a9e7b22",
       "future-namespace-abc",
     ])
       expect(isLinkableCompanyKey(k), k).toBe(false);
@@ -91,6 +93,9 @@ describe("isConsortiumCarrierKey", () => {
   it("rejects the other synthetic namespaces", () => {
     expect(isConsortiumCarrierKey("ph-1a2b3c4d5e6f")).toBe(false);
     expect(isConsortiumCarrierKey("np-9f8e7d6c5b4a")).toBe(false);
+    // An `nm-` key can be a consortium NAME („ДЗЗД …") or a multi-firm LIST, but
+    // the key cannot tell which — it must not claim a carrier's member block.
+    expect(isConsortiumCarrierKey("nm-3c1f0a9e7b22")).toBe(false);
   });
 
   it("rejects plain EIKs, foreign ids and empties", () => {

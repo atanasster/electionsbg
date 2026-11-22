@@ -870,7 +870,13 @@ sense and in no other (623 rows); it is listed because omitting it under-reporte
 non-linkable money by a fifth. `scripts/procurement/supplier_identity.ts` mints the synthetic
 ones, each because the source token could not become a key: `obed-` a consortium carrier
 keyed by its member set, `ph-` (91) a **filler** registration number keyed by the supplier's
-NAME, `np-` (86) a natural person keyed by name so no ЕГН is stored.
+NAME, `np-` (86) a natural person keyed by name so no ЕГН is stored, and — since 2026-11-22 —
+`nm-` a supplier the legacy РОП register names with NO id at all (`nameOnlySupplierKey`; the
+2018 + 2020 backfills, mostly BULSTAT-only consortia and foreign firms, ~€3.7bn). The table
+above predates `nm-`. Like `ph-`/`np-` it is non-linkable and has no registry place. ⚠ A
+comma-separated supplier LIST (a multi-firm framework agreement) is keyed `nm-` too and must
+never resolve to its first member — see `isSupplierList` in `normalize_rop.ts` and
+docs/plans/procurement-2020-rop-backfill-v1.md.
 
 ⚠ **„NONE OF THEM HAS A PAGE" WAS TRUE ONCE AND HAS NOT BEEN SINCE 2026-07-06**, and this
 file asserted it until 2026-08-19. `institution_identity()` really does return NULL for all

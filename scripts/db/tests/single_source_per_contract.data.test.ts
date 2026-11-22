@@ -254,7 +254,13 @@ test.skipIf(skip)("every accepted conflict still exists", async () => {
 // on exactly the disappearance it should shout about. Measured 2026-08-04, post-reconcile.
 const IDENTITY_A_CEILINGS: Record<string, [number, number]> = {
   // pair: [floor, ceiling]. The floor is what makes a vanished feed overlap fail.
-  "aop+rop": [100, 130],
+  // Re-measured 2026-11-22 after the 2020 РОП backfill: 126 → 287. The 185 new groups
+  // all involve a 2020 РОП row, and none has an equal amount on both sides — the same
+  // framework call-off reuse as above (e.g. МЗ 00080-2019-0022 / „9": Софарма 2020 in
+  // РОП, РОШ 2021 in the АОП CSV). Only 3 share a signing date, and those ARE one
+  // contract twice — 00737-2020-0002 / 134-136, at-signing in РОП, final value in the
+  // 2021 CSV, €43,918 — left in docs/plans/procurement-2020-rop-backfill-v1.md.
+  "aop+rop": [260, 320],
   "aop+eop": [3, 10],
   "eop+ocds": [0, 5],
 };

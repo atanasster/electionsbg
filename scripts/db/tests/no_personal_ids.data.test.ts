@@ -74,13 +74,20 @@ for (const [table, column] of KEY_COLUMNS) {
       `SELECT DISTINCT ${column} AS id, contractor_name AS name FROM ${table}
         WHERE ${column} ~ '(^|\\D)[0-9]{10}(\\D|$)'`,
     );
-    const leaks = rows.filter(
-      (r) =>
-        isPersonalSupplier(r.id, r.name) ||
-        // Embedded in a compound id (legacy releaseId shape).
-        [...String(r.id).matchAll(/(?<!\d)\d{10}(?!\d)/g)].some(
-          (m) => isEgn(m[0]) && !isOrganisationName(r.name),
-        ),
+    // A synthetic key (`np-`/`ph-`/`nm-` + 12 hex) is a HASH of the published name,
+    // so a digit run inside it is coincidence, not an id: `nm-b0729022607f` carries
+    // `0729022607`, which passes the ЕГН checksum (~1 in 11 runs do). Exempted by the
+    // exact minted shape only — a source id merely prefixed with letters still counts.
+    const isNameHashKey = (id: string): boolean =>
+      /^(np|ph|nm)-[0-9a-f]{12}$/.test(id);
+    const leaks = rows.filter((r) =>
+      isNameHashKey(String(r.id))
+        ? false
+        : isPersonalSupplier(r.id, r.name) ||
+          // Embedded in a compound id (legacy releaseId shape).
+          [...String(r.id).matchAll(/(?<!\d)\d{10}(?!\d)/g)].some(
+            (m) => isEgn(m[0]) && !isOrganisationName(r.name),
+          ),
     );
     assert.equal(
       leaks.length,

@@ -26,6 +26,9 @@
 //   · `obed-` (1,626) — a consortium carrier, not one legal entity
 //   · `ph-`   (91)    — the supplier's registration number was FILLER
 //   · `np-`   (86)    — a natural person, keyed by name so no ЕГН is stored
+//   · `nm-`   (added 2026-11-22, after the measurement above) — a supplier the
+//     legacy РОП register names with NO id at all; OUT, like `ph-`/`np-`, and
+//     already excluded by the digit test below without naming it
 //
 // ⚠ „NONE OF THEM HAS A PAGE" WAS TRUE ONCE AND IS NOT TRUE NOW. This file's
 // first cut (2026-08-19) said `institution_identity()` returns NULL for all 2,085
