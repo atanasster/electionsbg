@@ -69,6 +69,7 @@ const MEASURED: Record<string, Measured> = {
   // 176's header rather than here, because a ceiling's job is to describe what is allowed
   // now, not to catalogue what used to be wrong.
   "awarder_search.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  "ds_announcement.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "contractor_search.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "contracts.title_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "person.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
@@ -338,6 +339,7 @@ const EXPECT_STALE: Record<string, boolean> = {
   // window in which the function had been fixed and the corpus had not — see 176's header
   // for what that window costs a reader. A `true` here again means somebody changed
   // `translit_bg_latin()` and has not yet rewritten the rows.
+  "ds_announcement.name_fold": false,
   "awarder_search.name_fold": false,
   "contractor_search.name_fold": false,
   "contracts.title_fold": false,

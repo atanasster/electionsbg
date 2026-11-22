@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { allRows, dbReachable } from "../lib/pg";
 import { reportSkip } from "../../lib/report_skip";
+import { assertCommitted } from "../../lib/assert_committed";
 import {
   DS_MP_JOIN_SQL,
   dsCategoryLabel,
@@ -29,6 +30,8 @@ const ROOT = path.resolve(
 );
 const MPS = path.join(ROOT, "data/parliament/index.json");
 const HOLD = path.join(ROOT, "data/person/ds.json");
+// Both inputs are COMMITTED: their absence is a broken checkout, never a skip.
+assertCommitted("data/parliament/index.json", "data/person/ds.json");
 
 // The MPs the hand-curated data/person/ds.json attached before the corpus existed
 // (решение № 14 / 04.09.2007, verified there by mpId + birth date).
@@ -44,11 +47,9 @@ const [{ n } = { n: "0" }] = haveDb
   : [{ n: "0" }];
 const skip = !haveDb
   ? "Postgres unreachable"
-  : !fs.existsSync(MPS)
-    ? "data/parliament/index.json absent"
-    : n === "0"
-      ? "ds_announcement is empty — run pnpm run db:load:ds:pg"
-      : null;
+  : n === "0"
+    ? "ds_announcement is empty — run pnpm run db:load:ds:pg"
+    : null;
 const d = skip ? describe.skip : describe;
 reportSkip(import.meta.url, skip);
 

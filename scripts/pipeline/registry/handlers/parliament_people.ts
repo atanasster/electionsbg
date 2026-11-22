@@ -310,6 +310,8 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         "db:load:tr-name-fold-people:pg",
         pnpm("db:load:tr-name-fold-people:pg"),
       ),
+      // the ДС corpus the resolver reads (docs/plans/comdos-ds-ingest-v1.md)
+      derive("db:load:ds:pg", pnpm("db:load:ds:pg")),
       // --no-stamp: the resolver would otherwise stamp the marker at step 2 of
       // the chain, so a later failure would leave it reading "done".
       derive("db:resolve:persons", pnpm("db:resolve:persons", "--no-stamp"), {
@@ -348,7 +350,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         id: "curated-person-registers",
         on: ["ofac_sanctions", "comdos_ds", "regulator_rosters"],
         instruction:
-          "Verify the change at the official source and edit data/person/{sanctions,ds,regulators}.json by hand (defamation rules apply).",
+          "Verify the change at the official source and edit data/person/{sanctions,regulators}.json by hand (defamation rules apply). For comdos_ds, re-run pnpm run comdos:crawl then comdos:parse; data/person/ds.json is only the manual hold list.",
         blocks: "arm",
       },
     ],
@@ -364,6 +366,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         },
         "pnpm run db:load:judicial-bodies:pg:cloud",
         "pnpm run db:load:tr-name-fold-people:pg:cloud",
+        { run: "pnpm run db:load:ds:pg:cloud", on: ["comdos_ds"] },
         "pnpm run db:load:declarations:pg:cloud",
         "pnpm run db:resolve:persons:cloud",
         "pnpm run db:load:declarations:pg:cloud --resolve",

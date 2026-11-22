@@ -79,6 +79,8 @@ export const CLOUD_ORDER: readonly string[] = [
   "db:load:company-founded:pg:cloud",
   "db:refresh:risk:cloud",
   "db:load:tr-name-fold-people:pg:cloud",
+  // the comdos.bg ДС corpus the resolver attaches the ДС facet from
+  "db:load:ds:pg:cloud",
 
   // the person chain: declarations phase 1 → resolve → phase 2 → dependents
   "db:load:declarations:pg:cloud",

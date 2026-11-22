@@ -1054,6 +1054,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `db:load:declarations:pg` | derive | `pnpm run db:load:declarations:pg` | — |
 | `db:load:employer-links:pg` | derive | `pnpm run db:load:employer-links:pg` | — |
 | `db:load:tr-name-fold-people:pg` | derive | `pnpm run db:load:tr-name-fold-people:pg` | — |
+| `db:load:ds:pg` | derive | `pnpm run db:load:ds:pg` | — |
 | `db:resolve:persons` | derive | `pnpm run db:resolve:persons --no-stamp` | — |
 | `db:load:declarations:pg --resolve` | derive | `pnpm run db:load:declarations:pg --resolve` | — |
 | `db:load:company-politicians:pg` | derive | `pnpm run db:load:company-politicians:pg` | — |
@@ -1069,11 +1070,12 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `test:person` | verify | `pnpm run test:person` | — |
 
 **Operator steps:**
-- `curated-person-registers` (blocks arm, only on `ofac_sanctions`, `comdos_ds`, `regulator_rosters`): Verify the change at the official source and edit data/person/{sanctions,ds,regulators}.json by hand (defamation rules apply).
+- `curated-person-registers` (blocks arm, only on `ofac_sanctions`, `comdos_ds`, `regulator_rosters`): Verify the change at the official source and edit data/person/{sanctions,regulators}.json by hand (defamation rules apply). For comdos_ds, re-run pnpm run comdos:crawl then comdos:parse; data/person/ds.json is only the manual hold list.
 
 **Publish:**
 - cloud (global order applies): `pnpm run db:load:place-dim:pg:cloud`, `pnpm run db:load:judicial-bodies:pg:cloud`, `pnpm run db:load:tr-name-fold-people:pg:cloud`, `pnpm run db:load:declarations:pg:cloud`, `pnpm run db:resolve:persons:cloud`, `pnpm run db:load:declarations:pg:cloud --resolve`, `pnpm run db:load:company-politicians:pg:cloud`, `pnpm run db:load:employer-links:pg:cloud`, `pnpm run db:load:official-candidate-links:pg:cloud`, `pnpm run db:load:person-elections:pg:cloud`, `pnpm run db:load:council:pg:cloud`, `pnpm run db:load:persons-browse:pg:cloud`, `pnpm run db:load:person-search:pg:cloud`, `pnpm run db:load:graph:pg:cloud`, `pnpm run db:load:agri-hub-stats:pg:cloud`, `pnpm run db:load:tr-company-place:pg:cloud`, `pnpm run person:slugs:cloud`, `pnpm run data:local-person-refresh:cloud`
 - cloud, only on `ivss_declarations`, `vss_court_statistics`: `pnpm run db:load:magistrates:pg:cloud`
+- cloud, only on `comdos_ds`: `pnpm run db:load:ds:pg:cloud`
 
 ### `update-polls`
 
