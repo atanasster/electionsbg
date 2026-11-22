@@ -300,6 +300,18 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     // subject_ref the resolver dates officials postings from); everything
     // after the resolver re-attaches a positional person_id.
     steps: [
+      // comdos.bg ДС corpus — automatic since 2026-11-22. `--refresh` re-reads
+      // only the archive index; a decision page and its document are immutable,
+      // so a night with N new decisions fetches 2N files. The parse refuses to
+      // write if any row still carries a recruiting/handling officer's name, and
+      // db:load:ds:pg (below) refuses to drop a decision's document — both fail
+      // the handler rather than publish. data/person/ds.json stays a HOLD list:
+      // a human edits it only to hold or release a named person.
+      ingest("comdos:crawl --refresh", pnpm("comdos:crawl", "--refresh"), {
+        on: ["comdos_ds"],
+        timeoutMin: 60,
+      }),
+      ingest("comdos:parse", pnpm("comdos:parse"), { on: ["comdos_ds"] }),
       // Dimensions the resolver joins — BEFORE it (CLAUDE.md: place-dim and
       // judicial-bodies precede db:resolve:persons). Mirrors the cloud chain.
       derive("db:load:place-dim:pg", pnpm("db:load:place-dim:pg")),
@@ -348,9 +360,11 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     operator: [
       {
         id: "curated-person-registers",
-        on: ["ofac_sanctions", "comdos_ds", "regulator_rosters"],
+        // NOT comdos_ds: that arm is automatic (the steps above). Listing it
+        // here with blocks:"arm" would skip the comdos steps every night.
+        on: ["ofac_sanctions", "regulator_rosters"],
         instruction:
-          "Verify the change at the official source and edit data/person/{sanctions,regulators}.json by hand (defamation rules apply). For comdos_ds, re-run pnpm run comdos:crawl then comdos:parse; data/person/ds.json is only the manual hold list.",
+          "Verify the change at the official source and edit data/person/{sanctions,regulators}.json by hand (defamation rules apply).",
         blocks: "arm",
       },
     ],
@@ -387,7 +401,18 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
     },
     // --no-stamp also suppresses the resolver's own data-changes row.
     changelog: "orchestrator",
+    gates: [
+      // The archive only grows (a decision is a permanent public record), so
+      // a smaller decisions.json means the crawl lost its index, not news.
+      noShrink(
+        "comdos-decisions",
+        "data/comdos/decisions.json",
+        (j) => len(j),
+        0,
+        ["comdos_ds"],
+      ),
+    ],
     followUps: ["declarations-hub-stats", "funds-political-links"],
-    outputs: ["data/person", "data/governance"],
+    outputs: ["data/person", "data/governance", "data/comdos"],
   },
 ];

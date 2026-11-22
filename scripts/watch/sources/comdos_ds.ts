@@ -5,8 +5,9 @@
 // (`pnpm run comdos:crawl`) and every decision document follows one field layout,
 // so the corpus is ingested by machine rather than curated by hand. This watcher
 // fingerprints the DecisionID set on archive PAGE 1 — new decisions are prepended
-// there — and flips when the Commission publishes one, telling the operator to
-// re-crawl (`comdos:crawl --refresh`) and re-parse (the `update-persons` skill).
+// there — and flips when the Commission publishes one. The flip queues the
+// update-persons pipeline handler, which re-crawls (`comdos:crawl --refresh`),
+// re-parses, reloads `ds_announcement` and re-resolves — no operator step.
 //
 // The ids are read with the crawler's own `parseArchivePage`, so the watcher and the
 // ingest agree on what a decision row is — in particular both drop the „>>" sidebar,

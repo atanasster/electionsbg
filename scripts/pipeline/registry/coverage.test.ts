@@ -510,7 +510,13 @@ const grow = (
             [`${k}__dup`, v],
           ]),
         );
-    if (key === undefined) continue; // never double the root
+    if (key === undefined) {
+      // Never double a root OBJECT (every key-count selector would grow on
+      // the __dup keys); a root ARRAY is a real collection — data/comdos/
+      // decisions.json is one — and doubling it is exactly a bigger corpus.
+      if (Array.isArray(doubled) && measure(doubled) > before) return doubled;
+      continue;
+    }
     parent[key] = doubled;
     try {
       if (measure(copy) > before) return copy;

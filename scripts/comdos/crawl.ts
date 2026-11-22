@@ -9,8 +9,10 @@
 //   raw_data/comdos/views/<id>.html   the decision page (D2)
 //   raw_data/comdos/docs/<id>.<ext>   the full decision (D3: .doc / .docx / .pdf)
 //
-// An operator action, not a pipeline step: ~2,000 pages plus ~2,000 documents
-// from an old PHP site. Four workers were measured to be fine; do not raise it.
+// The FIRST crawl is ~2,000 pages plus ~2,000 documents from an old PHP site —
+// four workers were measured to be fine; do not raise it. After that `--refresh`
+// is incremental and runs nightly from the update-persons pipeline handler on a
+// `comdos_ds` flip (scripts/pipeline/registry/handlers/parliament_people.ts).
 //
 // Resumability is the point. A decision page and its document are immutable once
 // published, so a file already on disk is never re-fetched. Only the ARCHIVE index

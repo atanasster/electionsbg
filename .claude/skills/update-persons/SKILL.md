@@ -130,17 +130,20 @@ The `ds` facet is no longer hand-curated. It comes from `ds_announcement` (migra
 the Commission's own decision documents crawled and parsed into the committed
 `data/comdos/` corpus (docs/plans/comdos-ds-ingest-v1.md). Each row is an OFFICIAL state
 finding of established affiliation (a публичен акт, not our claim). When the watcher flags
-`comdos_ds`, refresh the corpus BEFORE resolving:
+`comdos_ds`, the `update-persons` pipeline handler does all of this unattended (since
+2026-11-22) — the commands below are the manual equivalent, in the order it runs them:
 
 ```bash
-pnpm run comdos:crawl          # resumable; new decisions + their documents → raw_data/comdos/
+pnpm run comdos:crawl --refresh  # re-reads the archive index; fetches only new decisions + documents
 pnpm run comdos:parse          # → data/comdos/decisions.json + persons.jsonl (commit both)
 pnpm run db:load:ds:pg         # db:refresh runs this just before db:resolve:persons
 pnpm run db:resolve:persons    # + the repair chain CLAUDE.md lists
 ```
 
-Cloud side, nothing runs it automatically: `pnpm run db:load:ds:pg:cloud` BEFORE
-`db:resolve:persons:cloud`. A database without 203 attaches NOTHING and the resolver says so
+Cloud side: the handler's publish set carries `pnpm run db:load:ds:pg:cloud` on a
+`comdos_ds` flip, ordered BEFORE `db:resolve:persons:cloud` by CLOUD_ORDER. Run by hand, keep
+that order. ⚠️ Without `--refresh` the crawl never re-reads the archive index, so it finds no
+new decision and the parse rewrites the same corpus — a silent no-op. A database without 203 attaches NOTHING and the resolver says so
 (`ds_announcement absent`) — fail-closed is the only safe direction for this facet.
 
 DEFAMATION RULE (non-negotiable): `scripts/person/dsJoin.ts` attaches an announcement ONLY to
