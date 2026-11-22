@@ -23,6 +23,7 @@ import path from "path";
 import zlib from "zlib";
 import { fileURLToPath } from "url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
+import { Agent } from "undici";
 import {
   parseRopHtml,
   buildResolutionMaps,
@@ -44,6 +45,19 @@ const CACHE_DIR = path.resolve(__dirname, "../../raw_data/procurement/rop");
 
 const SEARCH_URL = "https://www.aop.bg/esearch_awards_from_to.php";
 const PAGE_SIZE = 50;
+
+// The register is SLOW at both ends, and Node's defaults fail on it before it
+// answers. Measured 2026-11-22: TCP connect 14 ms, but the TLS handshake takes
+// ~18 s and the first byte arrives at ~107 s. undici counts the handshake
+// against its 10 s CONNECT timeout, so every request died as
+// UND_ERR_CONNECT_TIMEOUT while curl succeeded — a dry run reported "0 rows"
+// with every day a shortfall. Certificate verification stays ON.
+const ropDispatcher = new Agent({
+  connect: { timeout: 60_000 },
+  headersTimeout: 240_000,
+  bodyTimeout: 240_000,
+});
+const PAGE_TIMEOUT_MS = 300_000;
 
 const sleep = (ms: number): Promise<void> =>
   new Promise((r) => setTimeout(r, ms));
@@ -90,7 +104,9 @@ const fetchPage = async (
           "User-Agent": "electionsbg.com data pipeline (procurement/rop)",
           Accept: "text/html",
         },
-        signal: AbortSignal.timeout(90_000),
+        signal: AbortSignal.timeout(PAGE_TIMEOUT_MS),
+        // @ts-expect-error: dispatcher is undici-only, not in fetch's typings
+        dispatcher: ropDispatcher,
       });
       if (!res.ok) throw new Error(`GET ${day} p${page} → ${res.status}`);
       // Same-host guard: never follow a redirect off aop.bg.
@@ -276,7 +292,18 @@ const main = async (args: {
       `contractor names ${maps.contractorByName.size.toLocaleString()}`,
   );
 
-  const years = new Set(days.map((d) => d.slice(0, 4)));
+  // The crawl walks PUBLICATION days, but each row is filed under its CONTRACT
+  // date, which routinely precedes publication by weeks — and across a year
+  // boundary (a January 2020 notice for a December 2019 contract). Dedup must
+  // therefore also see the year BEFORE each publication year, or such rows
+  // are written into the earlier year's shards unchecked against the CSV rows
+  // already there.
+  const years = new Set(
+    days.flatMap((d) => {
+      const y = Number(d.slice(0, 4));
+      return [String(y - 1), String(y)];
+    }),
+  );
   const existingKeys = loadExistingContentKeys(years);
   console.log(
     `→ ${days.length} day(s) ${args.from}…${args.to}; deduping against ` +
