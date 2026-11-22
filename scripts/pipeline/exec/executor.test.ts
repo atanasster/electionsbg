@@ -605,3 +605,72 @@ describe("solo rerun inside a chain", () => {
     expect(out.some((o) => o.tail.includes("after"))).toBe(false);
   });
 });
+
+describe("BG-proxy retry", () => {
+  // Fails unless the step runs with the BG-proxy env, the way a geo-blocked
+  // upstream fails from a foreign exit and answers through the home proxy.
+  const geoBlocked = `[ -n "$BG_EGRESS_VIA" ] && echo "via $HTTPS_PROXY" || { echo "fetch failed: HTTP 403 Forbidden"; exit 1; }`;
+
+  it("retries a geo-blocked step through the proxy and reports it ok", async () => {
+    const ctx = {
+      ...mkCtx(),
+      findBgFallback: async () => "http://bg-proxy.test:8118",
+    };
+    const out = await runStepOrChain(
+      spec(geoBlocked, { timeoutMin: 5 }),
+      ctx,
+      {},
+    );
+    expect(out.map((o) => [o.id, o.status])).toEqual([
+      ["s", "ok"],
+      ["s › via BG proxy", "ok"],
+    ]);
+    expect(out[1].tail).toContain("via http://bg-proxy.test:8118");
+    expect(out[0].result?.warnings?.join(" ")).toMatch(
+      /failed direct .* succeeded via BG proxy bg-proxy\.test:8118/,
+    );
+    const log = fs.readFileSync(path.resolve(REPO, out[1].log), "utf8");
+    expect(log).toMatch(/^# egress {3}via BG proxy bg-proxy\.test:8118$/m);
+  });
+
+  it("does not retry without a proxy, a cloud-pinned step, or a non-network failure", async () => {
+    const none = { ...mkCtx(), findBgFallback: async () => null };
+    expect(
+      await runStepOrChain(spec(geoBlocked, { timeoutMin: 5 }), none, {}),
+    ).toHaveLength(1);
+    const withProxy = {
+      ...mkCtx(),
+      findBgFallback: async () => "http://bg-proxy.test:8118",
+    };
+    expect(
+      await runStepOrChain(
+        spec(geoBlocked, { db: "cloud", timeoutMin: 5 }),
+        withProxy,
+        {},
+      ),
+    ).toHaveLength(1);
+    expect(
+      await runStepOrChain(
+        spec(`echo "TypeError: x is not a function"; exit 1`, {
+          timeoutMin: 5,
+        }),
+        withProxy,
+        {},
+      ),
+    ).toHaveLength(1);
+  });
+
+  it("keeps the direct failure when the proxied retry also fails", async () => {
+    const ctx = {
+      ...mkCtx(),
+      findBgFallback: async () => "http://bg-proxy.test:8118",
+    };
+    const out = await runStepOrChain(
+      spec(`echo "connect ETIMEDOUT 1.2.3.4:443"; exit 1`, { timeoutMin: 5 }),
+      ctx,
+      {},
+    );
+    expect(out.map((o) => o.status)).toEqual(["error", "error"]);
+    expect(out[0].failure?.class).toBe("egress");
+  });
+});

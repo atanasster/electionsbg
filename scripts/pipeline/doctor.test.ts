@@ -60,6 +60,41 @@ describe("evaluate", () => {
     expect(unprobed.unmet.has("reach:gov-hosts")).toBe(true);
   });
 
+  it("meets the BG needs through the home proxy, and says which ones", () => {
+    const abroad = evaluate(
+      {
+        ...healthy,
+        country: "DE",
+        govHosts: { "www.parliament.bg": false, "www.mod.bg": true },
+        bgProxy: "http://mac:8118",
+        govHostsViaProxy: { "www.parliament.bg": true, "www.mod.bg": true },
+      },
+      NOW,
+    );
+    expect([...abroad.unmet.keys()]).toEqual([]);
+    expect([...(abroad.viaBgProxy ?? [])].sort()).toEqual([
+      "egress:bg",
+      "reach:gov-hosts",
+    ]);
+    expect(abroad.bgProxy).toBe("http://mac:8118");
+    const c = abroad.checks.find((x) => x.id === "egress:bg");
+    expect(c?.detail).toMatch(/through the BG proxy mac:8118/);
+    // Hosts that fail through the proxy too stay unmet.
+    const both = evaluate(
+      {
+        ...healthy,
+        country: "DE",
+        govHosts: { "www.parliament.bg": false, "www.mod.bg": true },
+        bgProxy: "http://mac:8118",
+        govHostsViaProxy: { "www.parliament.bg": false, "www.mod.bg": true },
+      },
+      NOW,
+    );
+    expect([...both.unmet.keys()]).toEqual(["reach:gov-hosts"]);
+    expect(evaluate(healthy, NOW).viaBgProxy?.size).toBe(0);
+    expect(evaluate(healthy, NOW).bgProxy).toBeNull();
+  });
+
   it("fails egress:bg when the country is unknown, saying why", () => {
     const r = evaluate(
       { ...healthy, country: null, countryError: "timeout" },

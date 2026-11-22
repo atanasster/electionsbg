@@ -4863,6 +4863,51 @@ to 67145792 bytes`. **Since 2026-08-25 `docker-compose.yml` sets `shm_size: 1gb`
   aborting a `db:refresh` chain over. On Cloud SQL, which serves traffic continuously, expect
   this to fire occasionally; re-run the VACUUM above when it does.
 
+### Bulgarian egress via the Mac mini — the fallback when a fetch fails from abroad
+
+Several upstreams answer only a Bulgarian exit (КЗК, АСП, ГИТ, data.egov.bg; parliament.bg and
+mod.bg hang behind a datacenter VPN), and **commercial BG VPNs are blocked too**. When the operator
+travels, the fallback is a **Mac mini at home on an A1 residential line in Sofia**, running
+**tinyproxy on port 8118**. It accepts only localhost, the home LAN (`192.168.86.0/24`) and the
+Tailscale tailnet, runs as the boot daemon `/Library/LaunchDaemons/bg.naiasno.tinyproxy.plist` (as
+user `brook`), and logs connections to `~brook/Library/Logs/tinyproxy.log`. The mini is `mac` on
+the tailnet (`100.81.96.42`) and `Brooks-Mac-mini.local` on the LAN; SSH is `ssh brook@mac`.
+
+`scripts/lib/bg_egress.ts` is the one definition. It tries `http://mac:8118`, then
+`http://Brooks-Mac-mini.local:8118` (override with `BG_EGRESS_PROXY=<url,url>`, or `off`), and
+routes a CHILD process through it with `HTTPS_PROXY` + `NODE_USE_ENV_PROXY=1` (Node ≥ 22.21) and a
+`NO_PROXY` exempting localhost, Google Cloud, GitHub and model APIs.
+
+Three call sites use it, all automatically:
+
+- **`pnpm run watch`** — a source that errors gets ONE re-fingerprint through the proxy, in a child
+  (`scripts/watch/fingerprint_one.ts`), and a source whose `egress: "bg"` mismatches the exit is
+  fetched through it instead of reported `blocked`. The report line ends `· via BG proxy mac:8118`.
+- **`pipeline:doctor`** — `egress:bg` and `reach:gov-hosts` count as MET when the proxy answers
+  (gov hosts are re-probed through it with curl), and `DoctorResult.viaBgProxy` names the needs met
+  that way.
+- **The pipeline executor** — a step needing one of those needs runs with `StepSpec.bgProxy` set
+  from the start (its log header says `# egress via BG proxy …`); any other ingest step that fails
+  as `egress` / `waf-blocked` / `upstream-down`, or with a 403/451, is retried once through the
+  proxy on what is left of its budget. The success carries the warning „failed direct …; succeeded
+  via BG proxy".
+
+Four things about it are easy to get backwards:
+
+- ⚠️ **It does NOTHING from a Bulgarian exit**, on purpose: at home the mini is on the same line, so
+  a retry only repeats the failure and a hung source costs its timeout twice. `bgFallbackApplies()`
+  gates every call site on the exit country; `BG_EGRESS_FORCE=1` overrides it to test from home.
+- ⚠️ **Playwright/Chromium ignores proxy env vars.** The headed crawls (ЦИК, КЗК, the Sofia
+  council — 19 `chromium.launch` sites) are NOT covered; from abroad they still fail and need a
+  launch-option change, which is open work.
+- **Never for a publish or a Cloud SQL-pinned step** — those talk to Google, and a home upload link
+  would be the bottleneck. Nor for a step that hit its TIMEOUT (a retry would spend the whole budget
+  again) or one already proxied (`BG_EGRESS_VIA` stops a fallback stacking on a fallback).
+- **The mini must be up and on Tailscale.** If the proxy does not answer, every path degrades to
+  today's behaviour (blocked / error) and the doctor's detail says „no BG proxy answered". Check
+  with `nc -z mac 8118`; on the mini, `sudo launchctl kickstart -k system/bg.naiasno.tinyproxy`.
+  Under Vitest the executor never probes the real proxy — tests inject `ctx.findBgFallback`.
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`pnpm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`pnpm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`pnpm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).

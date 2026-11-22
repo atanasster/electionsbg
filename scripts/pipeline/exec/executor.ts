@@ -16,6 +16,12 @@ import { appendStep, type PerfStatus } from "../../perf/perf_log";
 import { LOCAL_DATABASE_URL } from "../../db/lib/pg";
 import { redact } from "../report/redact";
 import { REPO } from "../state";
+import {
+  bgProxyEnv,
+  bgRetryWorthy,
+  findBgFallback,
+  proxyLabel,
+} from "../../lib/bg_egress";
 import { classify, firstErrorLine, type Classification } from "./classify";
 import { monitorFor } from "./monitor";
 import { readResult, RESULT_ENV, type StepResult } from "./result";
@@ -35,6 +41,10 @@ export interface StepSpec {
   /** Exit codes that count as success (a verifier's finding). */
   okExit?: readonly number[];
   db: DbPin;
+  /** Route the step through this BG-egress proxy from the start — set when
+   *  the doctor could meet one of its needs only through the proxy
+   *  (scripts/lib/bg_egress.ts). */
+  bgProxy?: string;
 }
 
 export interface RunContext {
@@ -54,6 +64,9 @@ export interface RunContext {
   /** A step's usual duration (median of earlier ok runs), for the live
    *  monitor's "usually Ns" and its over-2× warning. */
   medianMs?: (stepId: string) => number | undefined;
+  /** The BG-egress proxy a failed step may be retried through, or null.
+   *  Defaults to findBgFallback(); tests inject one. */
+  findBgFallback?: () => Promise<string | null>;
 }
 
 /** Where a step's perf row goes. Under a test runner the real trace is off
@@ -319,7 +332,14 @@ export const runStep = async (
   const base = `${String(seq).padStart(3, "0")}-${slug(spec.id)}`;
   const logFile = path.join(ctx.logDir, `${base}.log`);
   const resultFile = path.join(ctx.logDir, `${base}.result.json`);
-  const env = pinnedEnv({ ...process.env, ...ctx.env }, spec.db);
+  const env = pinnedEnv(
+    {
+      ...process.env,
+      ...ctx.env,
+      ...(spec.bgProxy ? bgProxyEnv(spec.bgProxy) : {}),
+    },
+    spec.db,
+  );
   env[RESULT_ENV] = resultFile;
 
   const log = fs.createWriteStream(logFile);
@@ -330,6 +350,9 @@ export const runStep = async (
       `# cwd      ${REPO}`,
       `# db pin   ${spec.db}${spec.db === "local" ? ` (${LOCAL_DATABASE_URL.replace(/:[^:@/]+@/, ":***@")})` : ""}`,
       `# timeout  ${spec.timeoutMin} min`,
+      ...(spec.bgProxy
+        ? [`# egress   via BG proxy ${proxyLabel(spec.bgProxy)}`]
+        : []),
       `# started  ${new Date().toISOString()}`,
       "",
     ].join("\n") + "\n",
@@ -734,6 +757,69 @@ export const rerunRedTestsSolo = async (
   return [o, ...reruns];
 };
 
+/** One retry through the home BG-egress proxy for a step whose failure a
+ *  different exit IP can plausibly fix (scripts/lib/bg_egress.ts). Never for
+ *  a publish step or a Cloud SQL-pinned one — those talk to Google, not to a
+ *  geo-blocked upstream — nor for a step already proxied or killed by its
+ *  timeout (a retry would spend the whole budget again). The retry shares
+ *  what is left of the step's own budget, like the solo test re-runs. */
+export const retryViaBgProxy = async (
+  o: StepOutcome,
+  spec: StepSpec,
+  ctx: RunContext,
+): Promise<StepOutcome[]> => {
+  if (
+    o.status !== "error" ||
+    spec.bgProxy ||
+    spec.db === "cloud" ||
+    spec.phase === "publish" ||
+    isInterrupted() ||
+    o.failure?.class === "interrupted" ||
+    !bgRetryWorthy(o.failure?.class, o.tail)
+  )
+    return [o];
+  // Under a test runner the real lookup is off: a failing test step must not
+  // probe the network (Cloudflare, the tailnet) — tests inject the proxy.
+  const find =
+    ctx.findBgFallback ??
+    (process.env.VITEST ? async () => null : () => findBgFallback());
+  const proxy = await find();
+  if (!proxy) return [o];
+  const started = Date.parse(o.startedAt);
+  const leftMin =
+    ((Number.isFinite(started) ? started : Date.now()) +
+      spec.timeoutMin * 60_000 -
+      Date.now()) /
+    60_000;
+  if (leftMin <= 1) return [o];
+  const retry = await runStep(
+    {
+      ...spec,
+      id: `${spec.id} › via BG proxy`,
+      timeoutMin: leftMin,
+      bgProxy: proxy,
+    },
+    ctx,
+    o.chainOf,
+  );
+  if (retry.status !== "ok") return [o, retry];
+  return [
+    {
+      ...o,
+      status: "ok",
+      failure: undefined,
+      result: {
+        ...retry.result,
+        warnings: [
+          ...(retry.result?.warnings ?? []),
+          `failed direct (${o.failure?.class ?? "unknown"}: ${o.firstError ?? "no output"}); succeeded via BG proxy ${proxyLabel(proxy)}`,
+        ],
+      },
+    },
+    retry,
+  ];
+};
+
 /** Run a step; a `chain` step runs link by link, stopping at the first
  *  failure exactly as `&&` would, one log and one perf row per link. */
 export const runStepOrChain = async (
@@ -743,14 +829,16 @@ export const runStepOrChain = async (
   soloCommand?: (file: string) => string,
 ): Promise<StepOutcome[]> => {
   const links = spec.kind === "chain" ? expandChain(spec.run, scripts) : null;
-  if (!links)
-    return rerunRedTestsSolo(
+  if (!links) {
+    const [first, ...rest] = await retryViaBgProxy(
       await runStep(spec, ctx),
       spec,
       ctx,
-      soloCommand,
-      scripts,
     );
+    return rest.length
+      ? [first, ...rest]
+      : rerunRedTestsSolo(first, spec, ctx, soloCommand, scripts);
+  }
   // The step's timeout is a budget for the WHOLE chain: each link gets what is
   // left of it, so an N-link chain cannot run N times its budget.
   const deadline = Date.now() + spec.timeoutMin * 60_000;
@@ -783,13 +871,14 @@ export const runStepOrChain = async (
       break;
     }
     const linkSpec = { ...spec, id, run: link, timeoutMin: leftMin };
-    const got = await rerunRedTestsSolo(
+    const [first, ...retried] = await retryViaBgProxy(
       await runStep(linkSpec, ctx, spec.id),
       linkSpec,
       ctx,
-      soloCommand,
-      scripts,
     );
+    const got = retried.length
+      ? [first, ...retried]
+      : await rerunRedTestsSolo(first, linkSpec, ctx, soloCommand, scripts);
     out.push(...got);
     if (got[0].status !== "ok") break;
   }

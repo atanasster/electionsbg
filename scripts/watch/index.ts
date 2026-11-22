@@ -25,6 +25,8 @@ import { annotateStreaks, exitCode, nextState } from "./run_core";
 import { SCOPE_UNKNOWN, type RunScope } from "./scope_log";
 import { CADENCE_WINDOW_MS, dueForCheck } from "./cadence";
 import { rememberPollWatch } from "../polls/lib/capture";
+import { bgFallbackApplies, findBgProxy, proxyLabel } from "../lib/bg_egress";
+import { fingerprintViaBgProxy } from "./bg_fallback";
 import type {
   Fingerprint,
   ManualRequest,
@@ -104,32 +106,16 @@ const main = async (): Promise<number> => {
     let mismatch = egressMismatch(src.egress, country);
     if (mismatch && src.egressProbe && (await reachable(src.egressProbe)))
       mismatch = null;
-    if (mismatch) {
-      entries.push({
-        source: src,
-        status: "blocked",
-        line: mismatch,
-        manual: askManual(src, prev, null),
-      });
-      continue;
-    }
 
-    const t0 = Date.now();
-    try {
-      const fingerprintP = src.fingerprint();
-      const timeoutP = new Promise<never>((_, reject) =>
-        setTimeout(
-          () => reject(new Error(`source timed out after 300s`)),
-          300_000,
-        ),
-      );
-      const curr = await Promise.race([fingerprintP, timeoutP]);
+    // Record a completed fingerprint — direct, or through the BG proxy.
+    const record = (curr: Fingerprint, t0: number, via?: string): void => {
       rememberPollWatch(src.id, curr.meta, runAt);
       const changed = !prev || prev.fingerprint !== curr.value;
       const status = !prev ? "first-run" : changed ? "changed" : "unchanged";
-      const line = changed
+      const base = changed
         ? (src.describe?.(prev, curr) ?? curr.detail)
         : `unchanged (${curr.detail})`;
+      const line = via ? `${base} · via BG proxy ${proxyLabel(via)}` : base;
 
       // What moved, as data, for the pipeline's scoped steps. Computed from
       // the same comparison as the describe-line; a scope() that throws must
@@ -156,8 +142,60 @@ const main = async (): Promise<number> => {
         manual: askManual(src, prev, curr),
         durationMs: Date.now() - t0,
       });
+    };
+
+    if (mismatch) {
+      // A source that needs a Bulgarian exit, on a run that exits elsewhere:
+      // fetch it through the home BG proxy instead of skipping it. A
+      // "non-bg" mismatch is not retried — the proxy is a BG exit too.
+      const proxy =
+        src.egress === "bg" && bgFallbackApplies(country)
+          ? await findBgProxy()
+          : null;
+      if (proxy) {
+        const t0 = Date.now();
+        try {
+          record(await fingerprintViaBgProxy(src.id, proxy), t0, proxy);
+          continue;
+        } catch (e) {
+          mismatch = `${mismatch}; ${e instanceof Error ? e.message : String(e)}`;
+        }
+      }
+      entries.push({
+        source: src,
+        status: "blocked",
+        line: mismatch,
+        manual: askManual(src, prev, null),
+      });
+      continue;
+    }
+
+    const t0 = Date.now();
+    try {
+      const fingerprintP = src.fingerprint();
+      const timeoutP = new Promise<never>((_, reject) =>
+        setTimeout(
+          () => reject(new Error(`source timed out after 300s`)),
+          300_000,
+        ),
+      );
+      record(await Promise.race([fingerprintP, timeoutP]), t0);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e);
+      let msg = e instanceof Error ? e.message : String(e);
+      // Any direct failure gets ONE retry through the home BG proxy: a
+      // geo-block, a WAF that refuses foreign IPs and a hung connect all
+      // read differently per source, so the watcher does not try to tell
+      // them apart — the proxy either answers or it does not.
+      const proxy = bgFallbackApplies(country) ? await findBgProxy() : null;
+      if (proxy) {
+        const t1 = Date.now();
+        try {
+          record(await fingerprintViaBgProxy(src.id, proxy), t1, proxy);
+          continue;
+        } catch (e2) {
+          msg = `${msg} (retried: ${e2 instanceof Error ? e2.message : String(e2)})`;
+        }
+      }
       entries.push({
         source: src,
         status: "error",

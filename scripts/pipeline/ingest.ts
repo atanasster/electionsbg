@@ -413,6 +413,12 @@ export const runIngest = async (
   };
   const unmet = (needs: readonly Need[]): Need[] =>
     needs.filter((n) => doctor.unmet.has(n));
+  /** The BG proxy a step must run through, when the doctor met one of its
+   *  needs only that way (scripts/lib/bg_egress.ts). */
+  const proxyFor = (needs: readonly Need[]): { bgProxy?: string } =>
+    doctor.bgProxy && needs.some((n) => doctor.viaBgProxy?.has(n))
+      ? { bgProxy: doctor.bgProxy }
+      : {};
   /** Set when a step failed for an environment reason (ABORT_CLASSES): every
    *  later handler and post-step is skipped with this as the reason. */
   let aborted: string | null = null;
@@ -647,6 +653,7 @@ export const runIngest = async (
             okExit: [...(ps.okExit ?? []), ...(def?.operatorExit?.codes ?? [])],
             db: "local",
             kind: ps.kind,
+            ...(def ? proxyFor(stepNeeds(h, def)) : {}),
           };
           const missing = def ? unmet(stepNeeds(h, def)) : [];
           if (broke || missing.length || interruptedBy()) {
@@ -899,6 +906,7 @@ export const runIngest = async (
             timeoutMin: s.timeoutMin ?? 30,
             okExit: s.okExit,
             db: "local",
+            ...proxyFor([...(p.needs ?? []), ...(s.needs ?? [])]),
           };
           const missing = unmet([...(p.needs ?? []), ...(s.needs ?? [])]);
           if (broke || missing.length || interruptedBy()) {

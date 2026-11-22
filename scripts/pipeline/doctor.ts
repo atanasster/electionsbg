@@ -22,6 +22,7 @@ import {
   type UploadManifest,
 } from "../lib/upload-manifest";
 import { PIPELINE_STATE_DIR, REPO } from "./state";
+import { bgFallbackApplies, findBgProxy, proxyLabel } from "../lib/bg_egress";
 
 export const LOCK_FILE = path.join(PIPELINE_STATE_DIR, "lock");
 
@@ -34,6 +35,11 @@ export interface Facts {
    *  Bulgarian one — a BG residential line reaches them fine — so this is
    *  probed directly instead of inferred from the exit country. */
   govHosts?: Record<string, boolean>;
+  /** The home BG-egress proxy (scripts/lib/bg_egress.ts) when it answers and
+   *  falling back to it applies (this run does not already exit via BG). */
+  bgProxy?: string | null;
+  /** govHosts probed THROUGH bgProxy — only when a direct probe failed. */
+  govHostsViaProxy?: Record<string, boolean>;
   /** Local Postgres answers `SELECT 1` (not merely: a port is open). */
   pgLocal: boolean;
   /** Why it does not, when it does not. */
@@ -124,6 +130,10 @@ export interface DoctorResult {
   checks: Check[];
   /** need → why it is unmet. The planner's `unmet` input. */
   unmet: Map<Need, string>;
+  /** Needs met ONLY through the BG-egress proxy: a step needing one of these
+   *  must run with `bgProxy` set, or it would fail from this exit. */
+  viaBgProxy?: Set<Need>;
+  bgProxy?: string | null;
 }
 
 /** Exit IPs this pipeline is happy with: the registry's two egress needs are
@@ -143,26 +153,40 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
   };
 
   const where = f.country ?? `unknown (${f.countryError ?? "lookup failed"})`;
+  const viaBgProxy = new Set<Need>();
+  const proxyName = f.bgProxy ? proxyLabel(f.bgProxy) : null;
+  const bgDirect = f.country === BG;
+  if (!bgDirect && f.bgProxy) viaBgProxy.add("egress:bg");
   add({
     id: "egress:bg",
     need: "egress:bg",
     severity: "need",
-    ok: f.country === BG,
-    detail: `exit IP country ${where}; КЗК, АСП and ГИТ answer only a Bulgarian exit`,
+    ok: bgDirect || Boolean(f.bgProxy),
+    detail:
+      !bgDirect && proxyName
+        ? `exit IP country ${where} — met through the BG proxy ${proxyName}; КЗК, АСП and ГИТ answer only a Bulgarian exit`
+        : `exit IP country ${where}; КЗК, АСП and ГИТ answer only a Bulgarian exit${bgDirect ? "" : ' — and no BG proxy answered (CLAUDE.md, "Bulgarian egress via the Mac mini")'}`,
   });
   const hosts = Object.entries(f.govHosts ?? {});
   const down = hosts.filter(([, ok]) => !ok).map(([h]) => h);
+  const viaHosts = Object.entries(f.govHostsViaProxy ?? {});
+  const viaOk =
+    Boolean(proxyName) && viaHosts.length > 0 && viaHosts.every(([, ok]) => ok);
+  const directOk = hosts.length > 0 && down.length === 0;
+  if (!directOk && viaOk) viaBgProxy.add("reach:gov-hosts");
   add({
     id: "reach:gov-hosts",
     need: "reach:gov-hosts",
     severity: "need",
-    ok: hosts.length > 0 && down.length === 0,
+    ok: directOk || viaOk,
     detail:
       hosts.length === 0
         ? "parliament.bg / mod.bg not probed"
-        : down.length === 0
+        : directOk
           ? `${hosts.map(([h]) => h).join(", ")} answer (exit ${where})`
-          : `${down.join(", ")} did not answer in time (exit ${where}) — a datacenter VPN exit is the known cause`,
+          : viaOk
+            ? `${down.join(", ")} did not answer from exit ${where}, but do through the BG proxy ${proxyName}`
+            : `${down.join(", ")} did not answer in time (exit ${where}) — a datacenter VPN exit is the known cause`,
   });
   add({
     id: "pg-local",
@@ -299,7 +323,13 @@ export const evaluate = (f: Facts, now: Date): DoctorResult => {
 
   const unmet = new Map<Need, string>();
   for (const c of checks) if (c.need && !c.ok) unmet.set(c.need, c.detail);
-  return { checkedAt: now.toISOString(), checks, unmet };
+  return {
+    checkedAt: now.toISOString(),
+    checks,
+    unmet,
+    viaBgProxy,
+    bgProxy: viaBgProxy.size ? (f.bgProxy ?? null) : null,
+  };
 };
 
 // ---------------------------------------------------------------- gathering
@@ -617,6 +647,43 @@ export const probeHosts = async (
   return out;
 };
 
+/** The gov hosts probed through a proxy with curl (Node's fetch cannot be
+ *  re-pointed at a proxy mid-process). Any HTTP answer counts, as above. */
+export const probeHostsViaProxy = (
+  proxy: string,
+  urls: string[] = GOV_HOSTS,
+): Record<string, boolean> =>
+  Object.fromEntries(
+    urls.map((u) => {
+      try {
+        const code = execFileSync(
+          "curl",
+          [
+            "-s",
+            "-o",
+            "/dev/null",
+            "-I",
+            "-x",
+            proxy,
+            "--max-time",
+            "15",
+            "-w",
+            "%{http_code}",
+            u,
+          ],
+          {
+            encoding: "utf8",
+            stdio: ["ignore", "pipe", "ignore"],
+            timeout: 20_000,
+          },
+        ).trim();
+        return [new URL(u).host, /^[1-5]\d\d$/.test(code)];
+      } catch {
+        return [new URL(u).host, false];
+      }
+    }),
+  );
+
 export const gatherFacts = async (now: Date): Promise<Facts> => {
   const [{ country, error }, govHosts, local, cloud] = await Promise.all([
     lookupCountry(),
@@ -624,6 +691,11 @@ export const gatherFacts = async (now: Date): Promise<Facts> => {
     pgAnswers(5433),
     pgAnswers(5434),
   ]);
+  const bgProxy = bgFallbackApplies(country) ? await findBgProxy() : null;
+  const govHostsViaProxy =
+    bgProxy && Object.values(govHosts).some((ok) => !ok)
+      ? probeHostsViaProxy(bgProxy)
+      : undefined;
   const pgLocal = local.ok;
   const proxy = cloud.ok;
   const prices = pricesDrive(path.join(REPO, "raw_data/prices"));
@@ -635,6 +707,8 @@ export const gatherFacts = async (now: Date): Promise<Facts> => {
     country,
     countryError: error,
     govHosts,
+    bgProxy,
+    govHostsViaProxy,
     pgLocal,
     pgLocalError: local.error,
     proxy,
