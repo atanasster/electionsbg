@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-22T12:02:14.813Z",
-  "total": 891,
-  "officialCount": 817,
+  "generatedAt": "2026-11-22T17:33:33.657Z",
+  "total": 909,
+  "officialCount": 833,
   "entries": [
     {
       "slug": "daniel-stanimirov-mihalev-b6f569",
@@ -1764,9 +1764,9 @@
       "role": "academic",
       "contractorEik": "200852966",
       "contractorName": "Бент ОЙЛ АД",
-      "totalEur": 648497048.78,
+      "totalEur": 652831530.21,
       "totalOther": {},
-      "contractCount": 966,
+      "contractCount": 967,
       "awardCount": 0,
       "relations": [
         {
@@ -1871,8 +1871,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 31,
-          "totalEur": 67317594.09,
+          "contractCount": 32,
+          "totalEur": 71652075.52,
           "totalOther": {}
         }
       ],
@@ -1880,8 +1880,8 @@
         {
           "eik": "831913661",
           "name": "Държавна агенция \"Държавен резерв и военновременни запаси\"",
-          "contractCount": 42,
-          "totalEur": 248965483.69,
+          "contractCount": 43,
+          "totalEur": 253299965.12,
           "totalOther": {}
         },
         {
@@ -6374,9 +6374,9 @@
       "role": "medical_center",
       "contractorEik": "205251243",
       "contractorName": "Света Марина фарма ЕООД",
-      "totalEur": 153542404.77,
+      "totalEur": 153556853.94,
       "totalOther": {},
-      "contractCount": 76,
+      "contractCount": 79,
       "awardCount": 0,
       "relations": [
         {
@@ -6417,8 +6417,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 25,
-          "totalEur": 280399.82,
+          "contractCount": 28,
+          "totalEur": 294848.99,
           "totalOther": {}
         }
       ],
@@ -6426,8 +6426,8 @@
         {
           "eik": "103562052",
           "name": "Университетска многопрофилна болница за активно лечение \"Света Марина ЕАД",
-          "contractCount": 69,
-          "totalEur": 153273976.52,
+          "contractCount": 72,
+          "totalEur": 153288425.69,
           "totalOther": {}
         },
         {
@@ -17756,9 +17756,9 @@
       "role": "hospital_head",
       "contractorEik": "175040885",
       "contractorName": "Ридаком ЕООД",
-      "totalEur": 23360495.7,
+      "totalEur": 23387332.64,
       "totalOther": {},
-      "contractCount": 1501,
+      "contractCount": 1502,
       "awardCount": 0,
       "relations": [
         {
@@ -17854,13 +17854,13 @@
         {
           "year": "2025",
           "contractCount": 196,
-          "totalEur": 3481757.72,
+          "totalEur": 3507994.66,
           "totalOther": {}
         },
         {
           "year": "2026",
-          "contractCount": 92,
-          "totalEur": 1758696.17,
+          "contractCount": 93,
+          "totalEur": 1759296.17,
           "totalOther": {}
         }
       ],
@@ -17882,8 +17882,8 @@
         {
           "eik": "000662721",
           "name": "Национален центьр по заразни и паразитни болести",
-          "contractCount": 98,
-          "totalEur": 1191138.9,
+          "contractCount": 99,
+          "totalEur": 1191738.9,
           "totalOther": {}
         },
         {
@@ -27436,6 +27436,76 @@
       ]
     },
     {
+      "slug": "meglena-vasileva-madzharova-571029",
+      "name": "Меглена Василева Маджарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "201355554",
+      "contractorName": "Южен поток България АД - София",
+      "totalEur": 6716235.56,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 6716235.56,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "175203478",
+          "name": "\"Булгартрансгаз\" ЕАД",
+          "contractCount": 1,
+          "totalEur": 6716235.56,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "zhaklen-iosif-koen-5d4bea",
+      "name": "Жаклен Йосиф Коен",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "201355554",
+      "contractorName": "Южен поток България АД - София",
+      "totalEur": 6716235.56,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 6716235.56,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "175203478",
+          "name": "\"Булгартрансгаз\" ЕАД",
+          "contractCount": 1,
+          "totalEur": 6716235.56,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "donka-vasileva-hristova-61aa6d",
       "name": "Донка Василева Христова",
       "tier": "executive",
@@ -36191,6 +36261,360 @@
       ]
     },
     {
+      "slug": "anastasiya-dimitrova-mircheva-nikolova-d52fab",
+      "name": "Анастасия Димитрова Мирчева-Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "asen-nikolaev-nenchev-1aa83d",
+      "name": "Асен Николаев Ненчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "hristiyan-plamenov-sultanov-a86ade",
+      "name": "Християн Пламенов Султанов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "ivailo-stefanov-knev-2c82bb",
+      "name": "Ивайло Стефанов Кънев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "ivan-atanasov-stoenchev-4f4c4f",
+      "name": "Иван Атанасов Стоенчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        },
+        {
+          "role": "representative",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "ivan-delev-angelov-377fe7",
+      "name": "Иван Делев Ангелов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "lchezar-ivanov-chotov-c6b333",
+      "name": "Лъчезар Иванов Чотов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "nikola-rumenov-stoyanov-328b01",
+      "name": "Никола Руменов Стоянов",
+      "tier": "executive",
+      "role": "cabinet",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "stela-lyubcheva-kostova-5fc974",
+      "name": "Стела Любчева Костова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "venelin-stefanov-georgiev-086555",
+      "name": "Венелин Стефанов Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "129007111",
+      "contractorName": "Вазовски машиностроителни заводи ЕАД",
+      "totalEur": 2169400,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "director",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната /МО/",
+          "contractCount": 1,
+          "totalEur": 2169400,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "ivanka-dimitrova-aleksandrova-2b9e1c",
       "name": "Иванка Димитрова Александрова",
       "tier": "executive",
@@ -37768,10 +38192,10 @@
       "tier": "executive",
       "role": "state_enterprise",
       "contractorEik": "200666335",
-      "contractorName": "Меди Вижън ЕООД",
-      "totalEur": 1742832.87,
+      "contractorName": "Меди Вижън ООД",
+      "totalEur": 1789832.87,
       "totalOther": {},
-      "contractCount": 32,
+      "contractCount": 33,
       "awardCount": 0,
       "relations": [
         {
@@ -37800,8 +38224,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 10,
-          "totalEur": 760758.78,
+          "contractCount": 11,
+          "totalEur": 807758.78,
           "totalOther": {}
         }
       ],
@@ -37814,17 +38238,17 @@
           "totalOther": {}
         },
         {
+          "eik": "200105779",
+          "name": "Специализирана болница за активно лечение на хематологични заболявания ЕАД",
+          "contractCount": 6,
+          "totalEur": 309874.65,
+          "totalOther": {}
+        },
+        {
           "eik": "000715054",
           "name": "Университетска многопрофилна болница за активно лечение \"СВ. Иван Рилски\" ЕАД",
           "contractCount": 3,
           "totalEur": 270839.68,
-          "totalOther": {}
-        },
-        {
-          "eik": "200105779",
-          "name": "Специализирана болница за активно лечение на хематологични заболявания ЕАД",
-          "contractCount": 5,
-          "totalEur": 262874.65,
           "totalOther": {}
         },
         {
@@ -43707,6 +44131,58 @@
       ]
     },
     {
+      "slug": "tatyana-ivanova-evtimova-c6962f",
+      "name": "Татяна Иванова Евтимова",
+      "tier": "public_sector",
+      "role": "medical_center",
+      "contractorEik": "207544241",
+      "contractorName": "Инвестмънт проджект мениджмънт ООД",
+      "totalEur": 824458.5,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        },
+        {
+          "role": "partner",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 3,
+          "totalEur": 166588.37,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 5,
+          "totalEur": 657870.13,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000696327",
+          "name": "Район \"Възраждане\"",
+          "contractCount": 6,
+          "totalEur": 640514.14,
+          "totalOther": {}
+        },
+        {
+          "eik": "000675026",
+          "name": "81 Средно училище \"Виктор ЮГО\"",
+          "contractCount": 2,
+          "totalEur": 183944.36,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "alosha-makov-dakov-e407be",
       "name": "Альоша Маков Даков",
       "tier": "executive",
@@ -44375,9 +44851,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -44440,8 +44916,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -44490,9 +44966,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -44551,8 +45027,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -44601,9 +45077,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -44662,8 +45138,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -44712,9 +45188,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -44773,8 +45249,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -44823,9 +45299,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -44888,8 +45364,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -44938,9 +45414,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -45003,8 +45479,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -45053,9 +45529,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -45114,8 +45590,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -45164,9 +45640,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -45229,8 +45705,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -45279,9 +45755,9 @@
       "role": "state_enterprise",
       "contractorEik": "204219357",
       "contractorName": "Водоснабдяване и канализация добрич АД",
-      "totalEur": 721084.3,
+      "totalEur": 722814.73,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 16,
       "awardCount": 0,
       "relations": [
         {
@@ -45340,8 +45816,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 30678,
+          "contractCount": 2,
+          "totalEur": 32408.43,
           "totalOther": {}
         }
       ],
@@ -49447,58 +49923,6 @@
           "name": "Община Дулово",
           "contractCount": 2,
           "totalEur": 370686.62,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "tatyana-ivanova-evtimova-c6962f",
-      "name": "Татяна Иванова Евтимова",
-      "tier": "public_sector",
-      "role": "medical_center",
-      "contractorEik": "207544241",
-      "contractorName": "Инвестмънт проджект мениджмънт ООД",
-      "totalEur": 368742.5,
-      "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        },
-        {
-          "role": "partner",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2025",
-          "contractCount": 3,
-          "totalEur": 166588.37,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 2,
-          "totalEur": 202154.13,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000696327",
-          "name": "Район \"Възраждане\"",
-          "contractCount": 3,
-          "totalEur": 184798.14,
-          "totalOther": {}
-        },
-        {
-          "eik": "000675026",
-          "name": "81 Средно училище \"Виктор ЮГО\"",
-          "contractCount": 2,
-          "totalEur": 183944.36,
           "totalOther": {}
         }
       ]
@@ -56165,6 +56589,66 @@
       ]
     },
     {
+      "slug": "galinka-ivanova-pavlova-95b8fc",
+      "name": "Галинка Иванова Павлова",
+      "tier": "public_sector",
+      "role": "medical_center",
+      "contractorEik": "813152934",
+      "contractorName": "Диагностично - консултативен център V варна - света Екатерина ЕООД",
+      "totalEur": 166626.47,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 2939.93,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 4223.27,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 4223.27,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 3,
+          "totalEur": 155240,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000093442",
+          "name": "Община Варна",
+          "contractCount": 2,
+          "totalEur": 148000,
+          "totalOther": {}
+        },
+        {
+          "eik": "121858220",
+          "name": "Районна здравноосигурителна каса - варна",
+          "contractCount": 4,
+          "totalEur": 18626.47,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "gancho-koichev-penchev-2c2dc4",
       "name": "Ганчо Койчев Пенчев",
       "tier": "executive",
@@ -60058,6 +60542,146 @@
           "name": "ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО ЕЛЕКТРОТЕХНИКА И ЕЛЕКТРОНИКА \"АПОСТОЛ АРНАУДОВ",
           "contractCount": 1,
           "totalEur": 21372,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "filip-nachkov-bozhkov-648c54",
+      "name": "Филип Начков Божков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "113036246",
+      "contractorName": "Дезинфекция ЕООД - Перник",
+      "totalEur": 71580.86,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000386751",
+          "name": "Община Перник",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "inna-petrova-stoilova-30b25c",
+      "name": "Инна Петрова Стоилова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "113036246",
+      "contractorName": "Дезинфекция ЕООД - Перник",
+      "totalEur": 71580.86,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000386751",
+          "name": "Община Перник",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "lyudmila-stefanova-katsarska-d5a6b1",
+      "name": "Людмила Стефанова Кацарска",
+      "tier": "public_sector",
+      "role": "medical_center",
+      "contractorEik": "113036246",
+      "contractorName": "Дезинфекция ЕООД - Перник",
+      "totalEur": 71580.86,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000386751",
+          "name": "Община Перник",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "milena-lozanova-milanova-dobrinova-bf5353",
+      "name": "Милена Лозанова Миланова-Добринова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "113036246",
+      "contractorName": "Дезинфекция ЕООД - Перник",
+      "totalEur": 71580.86,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 71580.86,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000386751",
+          "name": "Община Перник",
+          "contractCount": 1,
+          "totalEur": 71580.86,
           "totalOther": {}
         }
       ]
@@ -64699,59 +65323,6 @@
       ]
     },
     {
-      "slug": "galinka-ivanova-pavlova-95b8fc",
-      "name": "Галинка Иванова Павлова",
-      "tier": "public_sector",
-      "role": "medical_center",
-      "contractorEik": "813152934",
-      "contractorName": "Диагностично - консултативен център V варна - света Екатерина ЕООД",
-      "totalEur": 18626.47,
-      "totalOther": {},
-      "contractCount": 4,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "manager",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2023",
-          "contractCount": 1,
-          "totalEur": 2939.93,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 1,
-          "totalEur": 4223.27,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 1,
-          "totalEur": 4223.27,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 7240,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "121858220",
-          "name": "Районна здравноосигурителна каса - варна",
-          "contractCount": 4,
-          "totalEur": 18626.47,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
       "slug": "milka-doncheva-hristova-845d7e",
       "name": "Милка Дончева Христова",
       "tier": "municipal",
@@ -67219,6 +67790,45 @@
       ]
     },
     {
+      "slug": "tsanko-ivanchev-tsonev-237e4e",
+      "name": "Цанко Иванчев Цонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "contractorEik": "200653131",
+      "contractorName": "Павтрейд ЕООД",
+      "totalEur": 5112.92,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "manager",
+          "confidence": "high"
+        },
+        {
+          "role": "sole_owner",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 5112.92,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "129009767",
+          "name": "Областна дирекция /ОД/ на Министерство на вътрешните работи /МВР/ - Велико Търново- /Правоприемник на Областна дирекция - Полиция - Велико Търново/",
+          "contractCount": 1,
+          "totalEur": 5112.92,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "pavlin-pavlov-petrov-35aa62",
       "name": "Павлин Павлов Петров",
       "tier": "executive",
@@ -67802,6 +68412,51 @@
           "name": "Община Златоград",
           "contractCount": 5,
           "totalEur": 3456.18,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "marin-kostadinov-katrandzhiev-818a68",
+      "name": "Марин Костадинов Катранджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "contractorEik": "101747006",
+      "contractorName": "Перивол ЕООД - Разлог",
+      "totalEur": 3419.98,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "partner",
+          "confidence": "high"
+        },
+        {
+          "role": "sole_owner",
+          "confidence": "high"
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 82604.32
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 3419.98,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000024948",
+          "name": "Община Разлог",
+          "contractCount": 1,
+          "totalEur": 3419.98,
           "totalOther": {}
         }
       ]
