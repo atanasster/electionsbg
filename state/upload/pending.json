@@ -1,7 +1,7 @@
 {
-  "session": "20261122T161415Z-2564",
+  "session": "20261122T195851Z-aedf",
   "createdAt": "2026-11-22T16:22:49.550Z",
-  "commit": "56a3d0ca3416939d9fa027eb8b3b68e5d60de966",
+  "commit": "103a56a83f25d040fcb9b236e09c8c09cc3822af",
   "skills": [
     "update-rollcall",
     "tr-daily-refresh",
@@ -10,7 +10,8 @@
     "update-macro",
     "update-administration",
     "update-prices",
-    "update-council-minutes"
+    "update-council-minutes",
+    "update-persons"
   ],
   "paths": [
     "parliament/votes",
@@ -29,7 +30,13 @@
     "home/flyover.json",
     "home/hub_stats.json",
     "home/price_events.json",
-    "home/feed.json"
+    "home/feed.json",
+    "roads/derived/hub_stats.json",
+    "water/flood_maintenance.json",
+    "water/derived/hub_stats.json",
+    "transport/derived/hub_stats.json",
+    "health/derived/hub_stats.json",
+    "governance/declarations_hub_stats.json"
   ],
   "cloudCommands": [
     "pnpm run db:load:rollcall:pg:cloud",
@@ -52,6 +59,19 @@
     "pnpm run db:load:admin-service-requests:pg:cloud",
     "pnpm run prices:ingest:cloud",
     "pnpm run db:load:council:pg:cloud",
-    "pnpm run myarea:alerts:cloud"
+    "pnpm run myarea:alerts:cloud",
+    "pnpm run db:load:place-dim:pg:cloud",
+    "pnpm run db:load:judicial-bodies:pg:cloud",
+    "pnpm run db:load:tr-name-fold-people:pg:cloud",
+    "pnpm run db:load:ds:pg:cloud",
+    "pnpm run db:load:declarations:pg:cloud",
+    "pnpm run db:resolve:persons:cloud",
+    "pnpm run db:load:declarations:pg:cloud --resolve",
+    "pnpm run db:load:company-politicians:pg:cloud",
+    "pnpm run db:load:employer-links:pg:cloud",
+    "pnpm run db:load:official-candidate-links:pg:cloud",
+    "pnpm run db:load:person-elections:pg:cloud",
+    "pnpm run person:slugs:cloud",
+    "pnpm run data:local-person-refresh:cloud"
   ]
 }
