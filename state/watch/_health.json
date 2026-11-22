@@ -175,6 +175,10 @@
     "consecutiveErrors": 0,
     "lastOkAt": "2026-11-19T22:40:52.850Z"
   },
+  "iisda_mayors": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-22T22:43:44.729Z"
+  },
   "iisda_services": {
     "consecutiveErrors": 0,
     "lastOkAt": "2026-11-19T22:40:52.850Z"
@@ -202,6 +206,10 @@
   "interreg_calls": {
     "consecutiveErrors": 0,
     "lastOkAt": "2026-11-22T16:08:31.179Z"
+  },
+  "ipi_local_taxes": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-22T22:43:44.729Z"
   },
   "ipop_mrrb": {
     "consecutiveErrors": 0,
@@ -256,7 +264,7 @@
     "lastOkAt": "2026-11-12T16:05:51.317Z"
   },
   "minfin_program_otchet": {
-    "consecutiveErrors": 4,
+    "consecutiveErrors": 5,
     "firstFailedAt": "2026-11-18T22:40:43.753Z",
     "lastError": "The operation was aborted due to timeout"
   },
@@ -285,12 +293,12 @@
     "lastOkAt": "2026-11-19T22:40:52.850Z"
   },
   "nfc_commissions": {
-    "consecutiveErrors": 12,
+    "consecutiveErrors": 13,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "HTTP 520 <none>"
   },
   "nfc_film_register": {
-    "consecutiveErrors": 12,
+    "consecutiveErrors": 13,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "HTTP 520 <none>"
   },
@@ -315,7 +323,7 @@
     "lastOkAt": "2026-11-19T22:40:52.850Z"
   },
   "oecd_pit_params": {
-    "consecutiveErrors": 12,
+    "consecutiveErrors": 13,
     "firstFailedAt": "2026-11-12T16:05:51.317Z",
     "lastError": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata"
   },
@@ -393,7 +401,11 @@
   },
   "ted_bg": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-22T19:50:22.394Z"
+    "lastOkAt": "2026-11-22T22:43:44.729Z"
+  },
+  "ti_bg_lisi": {
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-22T22:43:44.729Z"
   },
   "transparency_cpi": {
     "consecutiveErrors": 0,

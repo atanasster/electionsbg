@@ -1,10 +1,12 @@
-# Watch report — 2026-11-22 (22.11.2026 г., 21:50 Europe/Sofia)
+# Watch report — 2026-11-22 (23.11.2026 г., 00:43 Europe/Sofia)
 
 ## Changed
-- **Комисия по досиетата (comdos.bg) — решения (ДС facet)**: latest DecisionID 2201 on the comdos.bg archive — re-crawl and re-parse (update-persons: comdos:crawl --refresh)
+- **Прозрачност без граници — LISI**: latest year on page: 2024
 
 ## Unchanged
 - TED — обявления за България (api.ted.europa.eu): unchanged (26,289 BG notices published this year)
+- iisda.government.bg — Кметове на общини: unchanged (265 mayors registered · page-1 sample of 30 IDs)
+- ИПИ — Местни данъци (265 общини): unchanged (5/5 indicator CSVs · latest year 2025)
 
 ## Skipped (off-cadence)
 - АДФИ — доклади от финансови инспекции (adfi.minfin.bg) (weekly): 2,229 inspection reports listed · next check 2026-11-25
@@ -13,6 +15,7 @@
 - Parliament roll-call votes (daily): 1 new session(s), 1 with roll-call CSV (latest id 11200, 2026-11-20) · next check 2026-11-23
 - Parliament MPs (active roster) (daily): 52-ро Народно събрание — 240 MPs · next check 2026-11-23
 - OFAC SDN — Bulgaria-linked designations (sanctions facet) (weekly): 92 Bulgaria-linked SDN row(s) · next check 2026-11-28
+- Комисия по досиетата (comdos.bg) — решения (ДС facet) (daily): latest DecisionID 2201 on the comdos.bg archive · next check 2026-11-23
 - Регулатори / независими органи — състави (regulator facet) (monthly): Конституционен съд — 12 съдии, председател Павлина Панова · next check 2026-12-18
 - Курирани решения за идентичност на лица (daily): 2 audited person identity decision(s) · next check 2026-11-23
 - Регистър на физическите лица в несъстоятелност (РНФЛ) (weekly): статистика: публикувана (16775B) · дело №1: няма запис · номенклатури 4d2ef77a1a374f1e · next check 2026-11-25
@@ -111,13 +114,10 @@
 - Standard Eurobarometer (institutional trust) (monthly): latest wave: Standard Eurobarometer 105 (Spring 2026) · next check 2026-12-17
 - CIK local-elections results bundles (daily): 0/2 regular bundle(s) reachable · 15 partial cycle(s) tracked · next check 2026-11-23
 - ЦИК presidential-elections results bundles (daily): 5 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle · next check 2026-11-23
-- iisda.government.bg — Кметове на общини (monthly): 265 mayors registered · page-1 sample of 30 IDs · next check 2026-11-22
 - ИАОС air quality (data.egov.bg) (weekly): 6 total resources · PM10 6 res · next check 2026-11-28
-- Прозрачност без граници — LISI (monthly): latest year on page: 2024 · next check 2026-11-22
 - ВСС — съдебна статистика (monthly): 34 statistics PDFs · latest year 2026 · next check 2026-12-04
 - ИВСС — декларации на магистрати (monthly): register years 2017-2026 (290 letter pages) · 4 ИВСС lists, 37 named · next check 2026-12-06
 - Council resolutions + vote tallies (daily): 16 município(s) wired, 921 session-link(s) total · 1 fetch error(s) · next check 2026-11-23
-- ИПИ — Местни данъци (265 общини) (monthly): 5/5 indicator CSVs · latest year 2025 · next check 2026-11-22
 - Общински наредби за местни данъци (weekly): 10 município(s) wired · next check 2026-11-25
 - КЗП Колко струва (retail prices, kolkostruva.bg) (daily): latest 2026-11-21 · 14 days advertised · next check 2026-11-23
 - EC Weekly Oil Bulletin: consumer fuel prices (petrol 95 & diesel) (weekly): history XLSX 906e60ca… · next check 2026-11-25
@@ -139,10 +139,10 @@
 - Procurement scope windows (calendar / election rollover) (daily): 16 year window(s) 2011..2026 + 13 election window(s) (+ all) · next check 2026-11-23
 
 ## Errors
-- **НФЦ Единен публичен регистър (financed films, nfc.bg)**: HTTP 520 <none> _(failing 12 runs in a row)_
-- **НФЦ artistic-commission appointments (nfc.bg заповеди)**: HTTP 520 <none> _(failing 12 runs in a row)_
-- **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata _(failing 12 runs in a row)_
-- **Minfin programme-budget execution reports (via Wayback)**: The operation was aborted due to timeout _(failing 4 runs in a row)_
+- **НФЦ Единен публичен регистър (financed films, nfc.bg)**: HTTP 520 <none> _(failing 13 runs in a row)_
+- **НФЦ artistic-commission appointments (nfc.bg заповеди)**: HTTP 520 <none> _(failing 13 runs in a row)_
+- **OECD Tax DB — PIT thresholds/allowances/credits**: OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata _(failing 13 runs in a row)_
+- **Minfin programme-budget execution reports (via Wayback)**: The operation was aborted due to timeout _(failing 5 runs in a row)_
 
 ---
-_Watcher run at 2026-11-22T19:50:22.394Z UTC._
+_Watcher run at 2026-11-22T22:43:44.729Z UTC._

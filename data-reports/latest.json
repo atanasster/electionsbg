@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "runAt": "2026-11-22T19:50:22.394Z",
+  "runAt": "2026-11-22T22:43:44.729Z",
   "egress": "BG",
   "sources": [
     {
@@ -42,9 +42,8 @@
     {
       "id": "comdos_ds",
       "label": "Комисия по досиетата (comdos.bg) — решения (ДС facet)",
-      "status": "changed",
-      "line": "latest DecisionID 2201 on the comdos.bg archive — re-crawl and re-parse (update-persons: comdos:crawl --refresh)",
-      "durationMs": 350
+      "status": "skipped",
+      "line": "latest DecisionID 2201 on the comdos.bg archive · next check 2026-11-23"
     },
     {
       "id": "regulator_rosters",
@@ -76,8 +75,8 @@
       "status": "error",
       "line": "HTTP 520 <none>",
       "error": "HTTP 520 <none>",
-      "durationMs": 3613,
-      "consecutiveErrors": 12
+      "durationMs": 3383,
+      "consecutiveErrors": 13
     },
     {
       "id": "ncf_grant_results",
@@ -91,8 +90,8 @@
       "status": "error",
       "line": "HTTP 520 <none>",
       "error": "HTTP 520 <none>",
-      "durationMs": 3594,
-      "consecutiveErrors": 12
+      "durationMs": 3445,
+      "consecutiveErrors": 13
     },
     {
       "id": "wiki_polls",
@@ -460,8 +459,8 @@
       "status": "error",
       "line": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata",
       "error": "OECD SDMX unreachable after 6 tries: https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all?startPeriod=2025&format=jsondata",
-      "durationMs": 34731,
-      "consecutiveErrors": 12
+      "durationMs": 34455,
+      "consecutiveErrors": 13
     },
     {
       "id": "oecd_family_leave",
@@ -577,8 +576,8 @@
       "status": "error",
       "line": "The operation was aborted due to timeout",
       "error": "The operation was aborted due to timeout",
-      "durationMs": 33014,
-      "consecutiveErrors": 4
+      "durationMs": 32509,
+      "consecutiveErrors": 5
     },
     {
       "id": "mfa_program_otchet",
@@ -645,7 +644,7 @@
       "label": "TED — обявления за България (api.ted.europa.eu)",
       "status": "unchanged",
       "line": "unchanged (26,289 BG notices published this year)",
-      "durationMs": 456
+      "durationMs": 344
     },
     {
       "id": "transparency_cpi",
@@ -680,8 +679,9 @@
     {
       "id": "iisda_mayors",
       "label": "iisda.government.bg — Кметове на общини",
-      "status": "skipped",
-      "line": "265 mayors registered · page-1 sample of 30 IDs · next check 2026-11-22"
+      "status": "unchanged",
+      "line": "unchanged (265 mayors registered · page-1 sample of 30 IDs)",
+      "durationMs": 399
     },
     {
       "id": "iaos_air_quality",
@@ -692,8 +692,9 @@
     {
       "id": "ti_bg_lisi",
       "label": "Прозрачност без граници — LISI",
-      "status": "skipped",
-      "line": "latest year on page: 2024 · next check 2026-11-22"
+      "status": "changed",
+      "line": "latest year on page: 2024",
+      "durationMs": 286
     },
     {
       "id": "vss_court_statistics",
@@ -716,8 +717,9 @@
     {
       "id": "ipi_local_taxes",
       "label": "ИПИ — Местни данъци (265 общини)",
-      "status": "skipped",
-      "line": "5/5 indicator CSVs · latest year 2025 · next check 2026-11-22"
+      "status": "unchanged",
+      "line": "unchanged (5/5 indicator CSVs · latest year 2025)",
+      "durationMs": 479
     },
     {
       "id": "municipal_naredba",
