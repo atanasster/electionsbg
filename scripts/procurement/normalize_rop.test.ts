@@ -1,5 +1,11 @@
+import fs from "fs";
+import os from "os";
+import path from "path";
 import { describe, expect, it } from "vitest";
 import {
+  buildResolutionMaps,
+  ropContentKeys,
+  ropSupplierAgnosticKeys,
   buildTrNameMap,
   contractorLookupKeys,
   isSupplierList,
@@ -186,5 +192,102 @@ describe("avoidExistingKeys", () => {
     expect(avoidExistingKeys(again, taken, (r) => r.d).unresolved).toEqual(
       again,
     );
+  });
+});
+
+describe("ropContentKeys", () => {
+  const base = {
+    key: "k",
+    ocid: "o",
+    releaseId: "aop-legacy-2019-1",
+    tag: "contract" as const,
+    date: "2019-12-20",
+    unp: "00165-2018-0009",
+    awarderEik: "000695114",
+    awarderName: "МОН",
+    contractorEik: "103008874",
+    contractorName: "Джеми ООД",
+    amount: 3396600,
+    currency: "BGN",
+    amountEur: 1736649,
+    title: "",
+    bundleUuid: "rop-register",
+    sourceUrl: "x",
+  };
+  const shared = (a: string[], b: string[]) => a.filter((k) => b.includes(k));
+
+  it("does NOT match a repeat purchase at the same price (other number, other date)", () => {
+    const first = { ...base, contractId: "Д01-328", dateSigned: "2019-12-18" };
+    const later = { ...base, contractId: "Д01-136", dateSigned: "2022-06-30" };
+    expect(shared(ropContentKeys(first), ropContentKeys(later))).toEqual([]);
+    expect(
+      shared(ropSupplierAgnosticKeys(first), ropSupplierAgnosticKeys(later)),
+    ).toEqual([]);
+  });
+
+  it("matches the same contract across feeds even at a different value", () => {
+    const rop = {
+      ...base,
+      contractId: "134",
+      dateSigned: "2020-02-12",
+      amountEur: 7556,
+    };
+    const csv = { ...rop, releaseId: "aop-legacy-2021-9", amountEur: 8325 };
+    expect(
+      shared(ropContentKeys(rop), ropContentKeys(csv)).length,
+    ).toBeGreaterThan(0);
+  });
+});
+
+describe("buildResolutionMaps", () => {
+  it("learns supplier names only from the OTHER feeds, never from РОП rows", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "rop-maps-"));
+    fs.mkdirSync(path.join(dir, "2020"));
+    const row = (releaseId: string, name: string, eik: string) => ({
+      releaseId,
+      awarderEik: "000695114",
+      awarderName: "МОН",
+      contractorEik: eik,
+      contractorName: name,
+    });
+    fs.writeFileSync(
+      path.join(dir, "2020", "2020-01.json"),
+      JSON.stringify([
+        row("aop-legacy-2020-1", "Павтрейд ЕООД", "175000003"),
+        // A list once credited to its first member must not teach the map.
+        row("rop-00080-2019-0022-1", "Алта ЕООД,Булгермед ООД", "175000004"),
+      ]),
+    );
+    const m = buildResolutionMaps(dir);
+    expect(m.contractorByName.get("павтрейд еоод")).toBe("175000003");
+    fs.rmSync(dir, { recursive: true });
+    expect([...m.contractorByName.values()]).not.toContain("175000004");
+  });
+
+  it("refuses a name no single EIK dominates, keeps one with typo noise", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "rop-maps-"));
+    fs.mkdirSync(path.join(dir, "2020"));
+    const row = (name: string, eik: string) => ({
+      releaseId: "aop-legacy-2020-1",
+      awarderEik: "000695114",
+      awarderName: "МОН",
+      contractorEik: eik,
+      contractorName: name,
+    });
+    fs.writeFileSync(
+      path.join(dir, "2020", "2020-01.json"),
+      JSON.stringify([
+        // Two companies, one key once the city is stripped.
+        ...Array(6).fill(row("Симекс ЕООД - Кърджали", "108023144")),
+        ...Array(4).fill(row("Симекс ЕООД - Криводол", "106577999")),
+        // One real EIK plus a single typo'd one.
+        ...Array(19).fill(row("Ему АД", "835013079")),
+        row("Ему АД", "104053275"),
+      ]),
+    );
+    const m = buildResolutionMaps(dir);
+    expect(m.contractorByName.has("симекс еоод")).toBe(false);
+    expect(m.contractorByName.get("ему ад")).toBe("835013079");
+    fs.rmSync(dir, { recursive: true });
   });
 });

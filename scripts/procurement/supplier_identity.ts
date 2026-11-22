@@ -123,8 +123,20 @@ export const isEgn = (raw: string | undefined): boolean => {
 // Residual, knowingly left alone: ids that are 10 digits, FAIL the checksum, and sit
 // beside a personal name. They are not confirmed personal numbers — an invalid checksum
 // means a placeholder, a typo, or a foreign id, and we cannot tell which. Defect D-3.
+//
+// ⚠ BULGARIAN legal forms (ЕООД, ООД, ЕАД, АД, ЕТ, ДЗЗД, КД, СД) are deliberately NOT
+// in this list. They used to be, written `\bООД\b` — and JS `\b` is ASCII-only, so it
+// never matches beside a Cyrillic letter and those alternatives never fired. Leaving
+// them out is now the decision rather than the accident, for a reason specific to
+// Bulgaria: a Bulgarian company's own id is a 9- or 13-digit ЕИК, never 10 digits. A
+// checksum-valid 10-digit id beside „… ООД" is therefore most likely the owner's or
+// manager's ЕГН typed into the supplier field — the exact disclosure this guards
+// against — and an ЕТ IS a natural person by law. A foreign form (Kft, GmbH) is
+// different: a 10-digit foreign registry id is ordinary there. Measured 2026-11-22:
+// one served row (ВАШУТВИЛ-ГЕП ООД, np-d08e85e47ae4) would have flipped to publishing
+// its raw id had the Bulgarian forms been made to fire.
 const LEGAL_FORM =
-  /(\bЕООД\b|\bООД\b|\bЕАД\b|\bАД\b|\bЕТ\b|\bДЗЗД\b|\bКД\b|\bСД\b|сдружение|фондация|кооперация|община|министерство|университет|болница|\bLTD\b|\bGMBH\b|\bS\.?P\.?A\b|\bSRL\b|\bS\.?A\b|\bKFT\b|\bD\.?O\.?O\b|\bSP\.? ?Z\b|\bINC\b|\bN\.?V\b|\bB\.?V\b|\bA\.?S\b|\bLLC\b|\bPLC\b|\bS\.?R\.?O\b|\bZOO\b|\bOY\b|\bAB\b|\bAS\b)/iu;
+  /(сдружение|фондация|кооперация|община|министерство|университет|болница|\bLTD\b|\bGMBH\b|\bS\.?P\.?A\b|\bSRL\b|\bS\.?A\b|\bKFT\b|\bD\.?O\.?O\b|\bSP\.? ?Z\b|\bINC\b|\bN\.?V\b|\bB\.?V\b|\bA\.?S\b|\bLLC\b|\bPLC\b|\bS\.?R\.?O\b|\bZOO\b|\bOY\b|\bAB\b|\bAS\b)/iu;
 
 /**
  * True when the name declares a legal form, i.e. the supplier is an organisation.

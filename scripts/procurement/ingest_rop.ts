@@ -31,6 +31,8 @@ import {
   buildTrNameMap,
   normalizeRopRows,
   ropKeyDiscriminator,
+  ropContentKeys,
+  ropSupplierAgnosticKeys,
   type RopRow,
   type ResolutionMaps,
 } from "./normalize_rop";
@@ -228,50 +230,41 @@ const writeMonthShards = (
   return { newFiles, modifiedFiles };
 };
 
-// ---- cross-source content dedup (mirrors ingest_eop.ts) --------------------
-
-const normContractNo = (s: string | undefined): string =>
-  (s ?? "").toLocaleLowerCase("bg").replace(/[\s".,\-_/№#]/g, "");
-
-const contentKeys = (r: Contract): string[] => {
-  const keys: string[] = [];
-  const amt = r.amountEur != null ? String(Math.round(r.amountEur)) : "";
-  if (r.unp && r.contractorEik)
-    keys.push(`u:${r.unp}:${r.contractorEik}:${amt}`);
-  const cn = normContractNo(r.contractId);
-  if (cn && r.awarderEik && r.contractorEik)
-    keys.push(
-      `c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned ?? ""}`,
-    );
-  if (r.awarderEik && r.contractorEik && (r.dateSigned || amt !== ""))
-    keys.push(
-      `f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned ?? ""}:${amt}`,
-    );
-  return keys;
-};
-
-// A NAME-KEYED (`nm-`) row cannot match an existing row on any key above —
-// every one of them embeds the contractor id, and the same contract already in
-// the corpus carries a REAL EIK (or an `obed-` carrier). So for those rows only,
-// dedup also on keys that omit the supplier. Not applied to resolved rows: two
-// lots of one procedure won by different firms at the same amount are distinct.
-const supplierAgnosticKeys = (r: Contract): string[] => {
-  const keys: string[] = [];
-  const amt = r.amountEur != null ? String(Math.round(r.amountEur)) : "";
-  if (!amt) return keys;
-  if (r.unp) keys.push(`ua:${r.unp}:${amt}`);
-  if (r.awarderEik && r.dateSigned)
-    keys.push(`ad:${r.awarderEik}:${r.dateSigned}:${amt}`);
-  return keys;
-};
+// ---- on-disk corpus: one pass over every year ------------------------------
+//
+// Dedup reads EVERY year, not a window around the crawl. A twin of a РОП row can
+// sit years away: the annual АОП CSV dates a contract by its PUBLICATION in that
+// feed, which for 00737-2020-0002 / 134-136 was 2021-06 against a РОП notice of
+// 2020-02 — outside the old "publication year and the one before" window.
 
 const isNameKeyed = (r: Contract): boolean => r.contractorEik.startsWith("nm-");
 
-// Every contract key on disk → the rowKey that owns it, across ALL years: a
-// republished amendment can land years after the row whose key it would take.
-const loadDiskKeyOwners = (): Map<string, string> => {
-  const out = new Map<string, string>();
-  if (!fs.existsSync(CONTRACTS_DIR)) return out;
+interface DiskCorpus {
+  /** Content keys of every row that STAYS on disk (dedup target). */
+  keys: Set<string>;
+  /** key → rowKey for every row that stays (key-collision guard). */
+  keyOwners: Map<string, string>;
+}
+
+// `replaced(r)` marks rows this run will delete (`--replace`): they are not
+// dedup targets — otherwise every re-imported row is a "duplicate" of itself.
+// A row's identity in the shard tree: its month file plus `rowKey` — the unit
+// `writeMonthShards` merges on. `rowKey` alone is NOT unique across months: an
+// amendment the РОП re-filed in 2020 shares (release, contract no., supplier)
+// with its 2018 original, and treating the two as one row let both keep a key.
+const shardRowId = (r: Contract): string =>
+  `${r.date.slice(0, 7)}|${rowKey(r)}`;
+
+// `laterRop(r)`: a РОП row published AFTER the window. Not a dedup target —
+// otherwise rebuilding 2018 would drop an original as a "duplicate" of its own
+// later re-filing. Its key stays taken, so no collision is minted.
+const readDiskCorpus = (
+  replaced: (r: Contract) => boolean,
+  laterRop: (r: Contract) => boolean,
+): DiskCorpus => {
+  const keys = new Set<string>();
+  const keyOwners = new Map<string, string>();
+  if (!fs.existsSync(CONTRACTS_DIR)) return { keys, keyOwners };
   for (const year of fs.readdirSync(CONTRACTS_DIR)) {
     if (!/^\d{4}$/.test(year)) continue;
     const dir = path.join(CONTRACTS_DIR, year);
@@ -280,30 +273,40 @@ const loadDiskKeyOwners = (): Map<string, string> => {
       const rows = JSON.parse(
         fs.readFileSync(path.join(dir, f), "utf8"),
       ) as Contract[];
-      if (Array.isArray(rows)) for (const r of rows) out.set(r.key, rowKey(r));
-    }
-  }
-  return out;
-};
-
-const loadExistingContentKeys = (years: Set<string>): Set<string> => {
-  const out = new Set<string>();
-  for (const year of years) {
-    const dir = path.join(CONTRACTS_DIR, year);
-    if (!fs.existsSync(dir)) continue;
-    for (const f of fs.readdirSync(dir)) {
-      if (!/^\d{4}-\d{2}\.json$/.test(f)) continue;
-      const rows = JSON.parse(
-        fs.readFileSync(path.join(dir, f), "utf8"),
-      ) as Contract[];
       if (!Array.isArray(rows)) continue;
       for (const r of rows) {
-        for (const k of contentKeys(r)) out.add(k);
-        for (const k of supplierAgnosticKeys(r)) out.add(k);
+        if (replaced(r)) continue;
+        keyOwners.set(r.key, shardRowId(r));
+        if (laterRop(r)) continue; // its key is taken, but it is no dedup target
+        for (const k of ropContentKeys(r)) keys.add(k);
+        for (const k of ropSupplierAgnosticKeys(r)) keys.add(k);
       }
     }
   }
-  return out;
+  return { keys, keyOwners };
+};
+
+// `--replace`: delete the window's existing РОП rows from every shard before
+// the write, so a re-run under fixed rules EVICTS what those rules now reject
+// (a twin, a list once credited to one firm) instead of leaving it beside the
+// corrected row. Keys are deterministic, so a row that survives keeps its key.
+const removeReplacedRows = (replaced: (r: Contract) => boolean): number => {
+  let removed = 0;
+  for (const year of fs.readdirSync(CONTRACTS_DIR)) {
+    if (!/^\d{4}$/.test(year)) continue;
+    const dir = path.join(CONTRACTS_DIR, year);
+    for (const f of fs.readdirSync(dir)) {
+      if (!/^\d{4}-\d{2}\.json$/.test(f)) continue;
+      const file = path.join(dir, f);
+      const rows = JSON.parse(fs.readFileSync(file, "utf8")) as Contract[];
+      if (!Array.isArray(rows)) continue;
+      const keep = rows.filter((r) => !replaced(r));
+      if (keep.length === rows.length) continue;
+      removed += rows.length - keep.length;
+      fs.writeFileSync(file, canonicalJson(keep));
+    }
+  }
+  return removed;
 };
 
 // Run `worker` over `items` with at most `concurrency` in flight. Results are
@@ -339,6 +342,7 @@ const main = async (args: {
   to: string;
   backfill: boolean;
   apply: boolean;
+  replace: boolean;
   refreshCache: boolean;
   delayMs: number;
   concurrency: number;
@@ -361,23 +365,23 @@ const main = async (args: {
       `contractor names ${maps.contractorByName.size.toLocaleString()}`,
   );
 
-  // The crawl walks PUBLICATION days, but each row is filed under its CONTRACT
-  // date, which routinely precedes publication by weeks — and across a year
-  // boundary (a January 2020 notice for a December 2019 contract). Dedup must
-  // therefore also see the year BEFORE each publication year, or such rows
-  // are written into the earlier year's shards unchecked against the CSV rows
-  // already there.
-  const years = new Set(
-    days.flatMap((d) => {
-      const y = Number(d.slice(0, 4));
-      return [String(y - 1), String(y)];
-    }),
+  // `--replace` re-derives the window's РОП rows from scratch. A РОП row is
+  // dated by its publication day (normalizeRopRows), so "this window's rows" is
+  // exactly the rop- rows whose `date` falls inside it.
+  const replaced = (r: Contract): boolean =>
+    args.replace &&
+    r.releaseId.startsWith("rop-") &&
+    r.date >= args.from &&
+    r.date <= args.to;
+  const disk = readDiskCorpus(
+    replaced,
+    (r) => r.releaseId.startsWith("rop-") && r.date > args.to,
   );
-  const existingKeys = loadExistingContentKeys(years);
+  const existingKeys = disk.keys;
   console.log(
     `→ ${days.length} day(s) ${args.from}…${args.to}; deduping against ` +
-      `${existingKeys.size.toLocaleString()} content key(s) from ` +
-      `${[...years].sort().join(", ")} on disk`,
+      `${existingKeys.size.toLocaleString()} content key(s) across every year on disk` +
+      (args.replace ? " (this window's РОП rows excluded — --replace)" : ""),
   );
 
   const kept: Contract[] = [];
@@ -437,15 +441,15 @@ const main = async (args: {
     agg.contractorNameKeyed += stats.contractorNameKeyed;
     for (const r of contracts) {
       const keys = isNameKeyed(r)
-        ? [...contentKeys(r), ...supplierAgnosticKeys(r)]
-        : contentKeys(r);
+        ? [...ropContentKeys(r), ...ropSupplierAgnosticKeys(r)]
+        : ropContentKeys(r);
       if (keys.some((k) => existingKeys.has(k))) {
         agg.droppedDuplicate++;
         continue;
       }
       // Register the supplier-agnostic keys for EVERY kept row, so a later
       // name-keyed republication of a contract kept here is caught too.
-      for (const k of [...contentKeys(r), ...supplierAgnosticKeys(r)])
+      for (const k of [...ropContentKeys(r), ...ropSupplierAgnosticKeys(r)])
         existingKeys.add(k);
       kept.push(r);
     }
@@ -462,10 +466,10 @@ const main = async (args: {
   if (rekeyed > 0) console.log(`→ disambiguated ${rekeyed} colliding key(s)`);
 
   // …and against keys an EARLIER run already wrote (any year). A disk row with
-  // the same rowKey is this row being re-written in place, not a collision.
-  const keptRowKeys = new Set(kept.map(rowKey));
+  // the same shard identity is this row being re-written in place.
+  const keptRowKeys = new Set(kept.map(shardRowId));
   const taken = new Set<string>();
-  for (const [key, owner] of loadDiskKeyOwners())
+  for (const [key, owner] of disk.keyOwners)
     if (!keptRowKeys.has(owner)) taken.add(key);
   const { rekeyed: rekeyedDisk, unresolved } = avoidExistingKeys(
     kept,
@@ -530,6 +534,19 @@ const main = async (args: {
     console.log(`✓ dry run — pass --apply to write month-shards`);
     return;
   }
+  if (args.replace) {
+    // A failed day re-imports NOTHING for that day, so replacing would delete
+    // its existing rows and put nothing back. Refuse rather than lose data.
+    if (shortfallDays.length > 0)
+      throw new Error(
+        `--replace refused: ${shortfallDays.length} day(s) failed to fetch — ` +
+          `re-run until every day is cached, then replace`,
+      );
+    const removed = removeReplacedRows(replaced);
+    console.log(
+      `→ --replace: removed ${removed.toLocaleString()} existing РОП row(s) in ${args.from}…${args.to}`,
+    );
+  }
   if (kept.length === 0) {
     console.log(`✓ nothing new to write`);
     return;
@@ -566,6 +583,14 @@ const cli = command({
       description: "Write month-shards (default is a dry run).",
       defaultValue: () => false,
     }),
+    replace: flag({
+      type: optional(boolean),
+      long: "replace",
+      description:
+        "Re-derive the window: delete its existing РОП rows, then write the fresh set. " +
+        "Refuses if any day failed to fetch.",
+      defaultValue: () => false,
+    }),
     refreshCache: flag({
       type: optional(boolean),
       long: "refresh-cache",
@@ -589,6 +614,7 @@ const cli = command({
     main({
       from: args.from,
       to: args.to,
+      replace: args.replace ?? false,
       backfill: !!args.backfill,
       apply: !!args.apply,
       refreshCache: !!args.refreshCache,

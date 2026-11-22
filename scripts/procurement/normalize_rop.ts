@@ -159,20 +159,34 @@ export const contractorLookupKeys = (raw: string): string[] => {
 // Pick the most frequent EIK per key (mode) from a key→(eik→count) tally, so a
 // rare cross-year EIK change (buyer re-registration, name reuse) resolves to the
 // dominant identity rather than flapping.
+//
+// `minShare` makes the pick REFUSE when no EIK dominates. Used for contractor
+// names: `normOrgName` drops the city suffix, so „Симекс ЕООД - Кърджали" and
+// „Симекс ЕООД гр. Криводол" — two different companies — share one key, and a
+// bare majority vote names one of them for the other's contract. Measured
+// 2026-11-22: 2,705 РОП rows (€380M) resolved through a name with >1 EIK; most
+// are typo noise (Фьоникс Фарма 3,608 : 1) and stay resolved, but 682 had no
+// EIK holding 90% (Фармнет АД 85 : 137, ГБС - Пловдив across five EIKs). Those
+// now fall through to the registry tier and then to a name key.
+export const CONTRACTOR_NAME_MIN_SHARE = 0.9;
+
 const modeOf = (
   tally: Map<string, Map<string, number>>,
+  minShare = 0,
 ): Map<string, string> => {
   const out = new Map<string, string>();
   for (const [key, eiks] of tally) {
     let best = "";
     let bestN = -1;
+    let total = 0;
     for (const [eik, n] of eiks) {
+      total += n;
       if (n > bestN) {
         bestN = n;
         best = eik;
       }
     }
-    if (best) out.set(key, best);
+    if (best && bestN >= minShare * total) out.set(key, best);
   }
   return out;
 };
@@ -212,6 +226,12 @@ export const buildResolutionMaps = (contractsDir: string): ResolutionMaps => {
         ) as Contract[];
         if (!Array.isArray(arr)) continue;
         for (const r of arr) {
+          // Learn only from the OTHER feeds. A РОП row's supplier EIK was itself
+          // derived by this module, so learning from it is circular — and it is
+          // how a since-fixed mistake persists: a supplier LIST once resolved to
+          // its first member taught the map that the list's full name IS that
+          // firm, which would undo the fix on every re-run.
+          if (r.releaseId?.startsWith("rop-")) continue;
           if (r.awarderEik && isValidEik(r.awarderEik)) {
             if (r.unp && UNP_RE.test(r.unp))
               bump(awarderPfx, unpPrefix(r.unp), r.awarderEik);
@@ -236,7 +256,7 @@ export const buildResolutionMaps = (contractsDir: string): ResolutionMaps => {
   return {
     awarderByPrefix: modeOf(awarderPfx),
     awarderByName: modeOf(awarderNm),
-    contractorByName: modeOf(contractorNm),
+    contractorByName: modeOf(contractorNm, CONTRACTOR_NAME_MIN_SHARE),
   };
 };
 
@@ -512,3 +532,47 @@ export const normalizeRopRows = (
 // latter two).
 export const ropKeyDiscriminator = (r: Contract): string =>
   `${r.contractId ?? ""}:${r.amountEur ?? r.amount ?? ""}:${r.date}`;
+
+// ---- content keys for cross-source dedup -----------------------------------
+//
+// One contract can reach the corpus through several feeds (and the РОП itself
+// re-publishes a row on later days). These keys say "this is the same contract".
+// Every one of them is a SIGNING-DATE or CONTRACT-NUMBER identity: a key of
+// УНП + supplier + amount alone (the shape this used before 2026-11-22) also
+// matches DISTINCT repeat purchases at one price under one framework — МОН's
+// buses from Джеми ООД, Д01-328 (2019) vs Д01-136 (2022) — and dropped 44 such
+// 2020 contracts (€6.5M) as "already in corpus".
+
+export const normContractNo = (s: string | undefined): string =>
+  (s ?? "").toLocaleLowerCase("bg").replace(/[\s".,\-_/№#]/g, "");
+
+const roundedEur = (r: Contract): string =>
+  r.amountEur != null ? String(Math.round(r.amountEur)) : "";
+
+export const ropContentKeys = (r: Contract): string[] => {
+  const keys: string[] = [];
+  const amt = roundedEur(r);
+  const cn = normContractNo(r.contractId);
+  if (r.unp && r.contractorEik && cn)
+    keys.push(`u:${r.unp}:${r.contractorEik}:${cn}:${amt}`);
+  if (cn && r.awarderEik && r.contractorEik && r.dateSigned)
+    keys.push(`c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned}`);
+  if (r.awarderEik && r.contractorEik && r.dateSigned && amt !== "")
+    keys.push(`f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned}:${amt}`);
+  return keys;
+};
+
+// A NAME-KEYED (`nm-`) row cannot match an existing row on any key above — each
+// embeds the supplier id, and the same contract already in the corpus carries a
+// REAL EIK (or an `obed-` carrier). For those rows only, dedup also on keys that
+// omit the supplier. Same rule as above: an identity, never a bare price.
+export const ropSupplierAgnosticKeys = (r: Contract): string[] => {
+  const keys: string[] = [];
+  const amt = roundedEur(r);
+  if (!amt) return keys;
+  const cn = normContractNo(r.contractId);
+  if (r.unp && cn) keys.push(`ua:${r.unp}:${cn}:${amt}`);
+  if (r.awarderEik && r.dateSigned)
+    keys.push(`ad:${r.awarderEik}:${r.dateSigned}:${amt}`);
+  return keys;
+};

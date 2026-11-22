@@ -1,5 +1,8 @@
 {
-  "title": { "bg": "Магистрала „Хемус“", "en": "Hemus motorway" },
+  "title": {
+    "bg": "Магистрала „Хемус“",
+    "en": "Hemus motorway"
+  },
   "thesis": {
     "bg": "Как се строи най-дългата българска магистрала — предимно чрез вътрешни възлагания на държавното дружество „Автомагистрали“ ЕАД, без открита процедура, и къде спира публичната следа на парите.",
     "en": "How Bulgaria's longest motorway is built — largely through in-house awards to the state company Avtomagistrali EAD without an open tender, and where the public money trail stops."
@@ -20,6 +23,9 @@
       "buyerName": "Национална компания „Стратегически инфраструктурни проекти“"
     }
   ],
+  "excludes": {
+    "contractKeys": ["cf1bfc88975c"]
+  },
   "inhouseAwarderEiks": ["831646048"],
   "knownSubcontractors": [
     {

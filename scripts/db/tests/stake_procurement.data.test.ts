@@ -820,6 +820,16 @@ test.skipIf(skip)(
       [eiks],
     );
 
+    // `round()` on a double precision sum is Postgres's rint — ties go to EVEN — while
+    // Math.round sends .5 up. EIK 201222671 sums to exactly €1,038,708.50 (2026-11-22),
+    // and the two rules then disagree by a euro. Mirror the server's rule.
+    const pgRound = (x: number): number => {
+      const f = Math.floor(x);
+      const d = x - f;
+      if (d !== 0.5) return Math.round(x);
+      return f % 2 === 0 ? f : f + 1;
+    };
+
     for (const s of served) {
       const mine = raw.filter(
         (r) =>
@@ -827,12 +837,12 @@ test.skipIf(skip)(
           r.tag === "contract" &&
           r.consortium_role !== "member",
       );
-      const expTotal = Math.round(
+      const expTotal = pgRound(
         mine.reduce((a, r) => a + (r.amount_eur ?? 0), 0),
       );
       const lo = Number(s.first_year);
       const hi = Number(s.last_year);
-      const expWhile = Math.round(
+      const expWhile = pgRound(
         mine
           .filter((r) => {
             const y = r.yr && /^\d{4}$/.test(r.yr) ? Number(r.yr) : null;

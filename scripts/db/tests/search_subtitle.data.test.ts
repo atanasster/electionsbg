@@ -172,7 +172,9 @@ test.skipIf(skip)(
     const sub = entitySubtitle(row, true);
     assert.notEqual(sub, row.eik, "the mis-keyed row rendered no correction");
     assert.match(sub, /в договорите/);
-    assert.match(sub, /Техника/);
+    // Case-insensitive: the corpus's most frequent spelling of this supplier moved from
+    // „… ТЕХНИКА" to „Бит и техника ООД - Варна" when the РОП years were loaded.
+    assert.match(sub, /техника/i);
     // ⚠️ „в договорите", not „в регистъра": 27% of the rows that render this subtitle name
     // an EIK with no `tr_companies` entry at all (64.6% on the awarder side).
     assert.ok(

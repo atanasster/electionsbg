@@ -17,5 +17,9 @@
       "buyerName": "Агенция „Пътна инфраструктура“"
     }
   ],
+  "excludes": {
+    "contractKeys": ["cf1bfc88975c"],
+    "tenderUnps": ["00044-2019-0009"]
+  },
   "verifiedAt": "2026-07-22"
 }

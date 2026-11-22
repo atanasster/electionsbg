@@ -119,6 +119,10 @@ describe("classifySupplierId", () => {
     ).toBe(false);
     // …but the same id beside a personal name still is one.
     expect(isPersonalSupplier("0109065346", "Иван Петров Георгиев")).toBe(true);
+    // A Bulgarian form does NOT exempt: a BG company's own id is never 10 digits, so a
+    // checksum-valid one beside it is most likely its owner's ЕГН. And ЕТ is a person.
+    expect(isPersonalSupplier("0109065346", "Някаква фирма ООД")).toBe(true);
+    expect(isPersonalSupplier("0109065346", "ЕТ Иван Петров")).toBe(true);
   });
 
   test("clean BG EIKs still resolve as bg", () => {

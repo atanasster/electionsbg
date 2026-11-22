@@ -1,6 +1,7 @@
 # Procurement 2020 РОП backfill — v1
 
-Status: **crawl running (dry run, cache only)**, nothing applied. Opened 2026-11-22 from a
+Status: **applied locally (2018 + 2020 rebuilt with `--replace`), cloud publish
+pending.** Opened 2026-11-22 from a
 reader report: ПСИТ БЪЛГАРИЯ ООД (030116772) has no МОН contract for УНП
 `00165-2019-0017` (open procedure published 2019-10-21, estimate 3,200,000 BGN /
 €1,636,134 — the НВО/ДЗИ electronic-marking service it won again in 2023 and 2026).
@@ -156,15 +157,63 @@ cross-source twins (€3.7M, four of them leftovers of the 2018 load).
   groups are framework number reuse, none equal-amount); `no_personal_ids` now exempts
   the minted name-hash shape (`nm-b0729022607f` contains a checksum-valid digit run).
 
+## Rebuild with `--replace` (2026-11-22, second pass)
+
+Both years were re-derived from the page cache with `--replace` (removes the window's
+existing РОП rows, then re-ingests), so 2018 picks up every resolver fix too.
+
+- **Content-key dedup tightened.** The loose `u:` key dropped genuine repeat purchases;
+  dedup now uses `ropContentKeys` (УНП + supplier + contract no. + amount, awarder +
+  supplier + contract no. + signing date, awarder + supplier + date + amount) across
+  ALL years, plus supplier-agnostic keys for `nm-` rows. The 3 Лего Трейд duplicates
+  (00737-2020-0002 / 134-136, €43,918) are now dropped.
+- **Ambiguous corpus names are refused, not voted on.** `normOrgName` strips the city,
+  so „Симекс ЕООД" maps to two different companies (Криводол, Кърджали). The contractor
+  name map took the majority EIK; it now resolves only when one EIK holds ≥90% of the
+  name's matches (`CONTRACTOR_NAME_MIN_SHARE`), otherwise it falls through to the
+  registry tier and then to an `nm-` key. Measured: 2,705 rows (€380M) used a name with
+  more than one EIK; 682 had no EIK at 90%.
+- **`isOrganisationName` was left as is, on purpose.** Its Cyrillic forms never fired
+  (`\b` is ASCII-only), but making them fire would be the wrong fix: a Bulgarian
+  company's own id is never 10 digits, so a checksum-valid 10-digit id beside „ООД" is
+  most likely the owner's ЕГН. The dead alternatives were removed and the reason written
+  beside the regex. Only one served row was affected (ВАШУТВИЛ-ГЕП ООД, `np-`).
+- **Result:** 2018 21,621 РОП rows, 2020 19,322; 0 duplicate keys corpus-wide.
+- ⚠ **URL movement.** Against the pre-replace shards, 2018 keeps 21,085 of 21,602 keys.
+  Of the 517 that move (€124M), 481 are suppliers now name-keyed instead of guessed,
+  34 are rows the tighter dedup drops, 1 changed EIK and 1 re-keyed. 2018 has been
+  live since 2026-07-11, so those ~517 `/procurement/contract/:key` URLs will answer
+  404 after the cloud publish (the key embeds the supplier, so the move is inherent).
+  2020 moves 290 keys, but none of 2020 is published yet.
+
+### What the full `test:data` run turned up after the rebuild
+
+- **The annex fold has to run after a `--replace`.** The replaced rows come back at
+  their signing value, so `anexi_current_value --apply` belongs between the ingest and
+  the УНП backfill (1 row: Стройконсулт, 01379-2017-0012).
+- **The excise register over-stated two operators by the supplier-list misattribution.**
+  The July 2018 load credited „Брентаг, Индустриалкомплект, …" lists entirely to
+  Брентаг (130948282, €3.27M). The committed `data/customs/excise_register.json` was
+  re-enriched from Postgres with the generator's own query instead of re-fetching the
+  register, so only the procurement columns moved (26 operators).
+- **Three road dossiers took in 2020 rows through their place-name seeds.** Excluded:
+  the regional winter-maintenance framework 00044-2019-0009 from Русе–Велико Търново;
+  the archaeology framework AGREEMENT `cf1bfc88975c` (€20.45M ceiling, whose call-offs
+  are already members) from Русе–ВТ and Хемус; and the ten-lot design framework
+  00044-2019-0077 from Западна дъга, where only lot 4 is the project and no row says
+  which lot it is.
+- **Two tests were too strict, not wrong data.** `stake_procurement` compared a
+  Postgres `round()` of a double (ties to even) with `Math.round` on a sum of exactly
+  €1,038,708.50; `search_subtitle` matched „Техника" case-sensitively after the
+  corpus's most frequent spelling became „Бит и техника ООД - Варна".
+- Retired three `single_source_per_contract` allowlist entries: the 2018 РОП side of
+  those aop/rop pairs is now deduped away.
+- **Not caused here:** `sector_stats_tourism` — advertising is 40% of МТ's corpus
+  against the „около половината" caption. 2020 adds €0.64M with no CPV (<1 point);
+  the share was ~41% before this work.
+
 ## Still open
 
-- **3 true duplicates**, 00737-2020-0002 / 134-136 (Лего Трейд): at-signing in РОП
-  (€43,918), final value in the 2021 АОП CSV. The reconcile refuses unequal amounts.
-- **`isOrganisationName` never matches a Cyrillic legal form** — its `LEGAL_FORM`
-  regex uses `\b`, which is ASCII-only in JS, so „Павтрейд ЕООД" → false. The ЕГН
-  classifier's organisation exclusion has therefore never worked for Bulgarian names:
-  a checksum-valid 10-digit id beside „… ЕООД" is keyed `np-` as a person. Fixing it
-  re-keys existing rows, so it needs its own measured change.
 - **Cloud publish not run**: `db:load:pg:cloud` → `db:load:annexes:pg:cloud` →
   `db:load:graph:pg:cloud` → `db:load:tr-company-place:pg:cloud` →
   `db:load:persons-browse:pg:cloud` → `db:load:person-search:pg:cloud`, then

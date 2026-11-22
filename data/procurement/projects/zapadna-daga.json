@@ -9,8 +9,15 @@
   },
   "authority": "Агенция „Пътна инфраструктура“",
   "search": [
-    { "terms": "западна дъга", "distinctive": ["дъга"], "buyerEik": ["000695089"] }
+    {
+      "terms": "западна дъга",
+      "distinctive": ["дъга"],
+      "buyerEik": ["000695089"]
+    }
   ],
+  "excludes": {
+    "tenderUnps": ["00044-2019-0077"]
+  },
   "includes": {
     "contractKeys": [
       "cacaba171f71",

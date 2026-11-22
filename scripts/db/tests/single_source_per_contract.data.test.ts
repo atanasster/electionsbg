@@ -139,18 +139,10 @@ const ACCEPTED_CONFLICTS = new Map<string, string>([
     // side on a partial match is exactly the shape that destroyed rows before.
     "same supplier set and totals to €1.19, but only 1 of aop:317's 2 rows is matched",
   ],
-  [
-    "00994-2016-0001/102227154/63911/2018-01-10",
-    "aop:2 (2 rows) vs rop:2 (1 row) — aop holds two call-offs under one number",
-  ],
-  [
-    "00994-2016-0001/121578346/25565/2018-01-11",
-    "supplier sets differ: aop:3 (2 suppliers) vs rop:3 (1)",
-  ],
-  [
-    "00640-2015-0014/121814067/6607/2017-06-08",
-    "supplier sets differ: aop:80-09-73 (2 suppliers) vs rop:80-09-73 (1)",
-  ],
+  // (00994-2016-0001 ×2 and 00640-2015-0014 — „aop vs rop, supplier sets / row counts
+  // differ" — retired 2026-11-22: the РОП re-ingest now dedups on contract-level content
+  // keys across every year (`ropContentKeys`), so the rop side is no longer written and
+  // each group is single-source.)
 ]);
 
 // The allowlist key is the FULL group key, not a prefix of it. Keyed on (unp, eik) alone, one
