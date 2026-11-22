@@ -193,6 +193,33 @@ export const placeholderSupplierKey = (name: string | undefined): string => {
 };
 
 /**
+ * The stable key for a supplier the source names WITHOUT ANY ID: `nm-` + 12 hex of
+ * sha256 over the normalised name. Returns "" when there is no usable name.
+ *
+ * WHERE IT COMES FROM. The legacy РОП awards register (normalize_rop.ts) publishes
+ * the supplier as a NAME only. Rows whose name we could not resolve to an EIK used to
+ * be dropped, and they were not a random sample: they were the LARGEST contracts —
+ * unregistered-in-TR consortia (ДЗЗД, registered in BULSTAT) and foreign firms.
+ * Measured 2026-11-22: €2.05bn (35.3%) of the 2020 register and €1.11bn (25.7%) of
+ * 2018, e.g. ДЗЗД ЩРАБАГ ДЖИ ПИ РЕЙЛ 2017 for НКЖИ at €230.8M.
+ *
+ * A SEPARATE PREFIX FROM `ph-` AND `np-` ON PURPOSE. `ph-` says "the buyer typed a
+ * FILLER registration number", `np-` says "a natural person, established from a valid
+ * ЕГН". Here nothing was typed and nothing established — the source simply has no id
+ * column. Same lossy-in-the-safe-direction trade as the other two: no location or
+ * legal-form stripping, so one supplier spelled two ways fragments (understates a
+ * total) rather than two strangers merging. Like `ph-`/`np-` it is not linkable
+ * (`isLinkableCompanyKey`) and has no Commerce Registry place.
+ */
+export const nameOnlySupplierKey = (name: string | undefined): string => {
+  const norm = normaliseOrgName(name ?? "")
+    .toLocaleLowerCase("bg")
+    .replace(/\s+/g, " ")
+    .trim();
+  return norm ? `nm-${hashKey(norm)}` : "";
+};
+
+/**
  * Classify one `supplierRegisterNumber` token, given the aligned `supplierName`.
  *
  * ORDER MATTERS. The personal-id test runs BEFORE the BG-EIK test, because an ЕГН

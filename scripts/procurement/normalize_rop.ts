@@ -23,7 +23,7 @@ import fs from "fs";
 import path from "path";
 import { load } from "cheerio";
 import { isValidEik } from "./eik";
-import { isEgn } from "./supplier_identity";
+import { isEgn, nameOnlySupplierKey } from "./supplier_identity";
 import { isUnp } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import { parseBgNumber } from "./normalize_eop";
@@ -108,6 +108,8 @@ export interface ResolutionMaps {
   awarderByPrefix: Map<string, string>;
   awarderByName: Map<string, string>;
   contractorByName: Map<string, string>;
+  /** Optional Tier-2 registry lookup (see `resolveViaTr`); absent = tier off. */
+  trByName?: Map<string, TrNameEntry>;
 }
 
 // The 5-digit АОП buyer register number that prefixes every УНП of that buyer.
@@ -128,13 +130,26 @@ export const normOrgName = (raw: string): string =>
     .replace(/\s+/g, " ")
     .trim();
 
-// A row's contractor cell can concatenate consortium members with commas
-// ("Bul-Mark OOD - Varna,DZZD Energetika,..."). When the whole string doesn't
-// resolve, matching the first member often does. Returns the normalised keys to
-// try in order (full string first, then the first comma-segment).
+// A comma in the contractor cell means one of two very different things: a
+// single firm with its seat after the comma ("Лабтех ЕООД, гр. Пловдив"), or a
+// LIST of separate suppliers — a framework agreement awarded to several firms
+// ("Алта Фармасютикълс ЕООД - София,Булгермед ВЕ ООД - София,…"). A list is
+// recognised by two or more comma-segments each declaring a legal form.
+const SEGMENT_FORM =
+  /(^|[^\p{L}])(еоод|оод|еад|ад|адсиц|ет|кд|кда|сд|дззд|gmbh|ltd|s\.?a\.?)(?![\p{L}\p{N}])/iu;
+export const isSupplierList = (raw: string): boolean =>
+  raw.split(",").filter((seg) => SEGMENT_FORM.test(seg)).length >= 2;
+
+// Returns the normalised keys to try in order: the full string, then — ONLY for
+// a single firm — its first comma-segment. A LIST must never resolve to its
+// first member: that credited the whole of МЗ's 2020 oncology-drug framework
+// (595M лв, 13 wholesalers, УНП 00080-2019-0022) to Алта Фармасютикълс alone —
+// €639.5M across 59 such rows in 2020. A list falls through to the name-keyed
+// `nm-` tier instead, which attributes the money to no individual firm.
 export const contractorLookupKeys = (raw: string): string[] => {
   const full = normOrgName(raw);
   const keys = [full];
+  if (isSupplierList(raw)) return keys;
   const firstSeg = raw.split(",")[0];
   const seg = normOrgName(firstSeg);
   if (seg && seg !== full) keys.push(seg);
@@ -225,6 +240,114 @@ export const buildResolutionMaps = (contractsDir: string): ResolutionMaps => {
   };
 };
 
+// ---- Tier 2: unique Commerce Registry name match ----------------------------
+//
+// The corpus map above only knows suppliers that appear ELSEWHERE in our data
+// with an EIK. This tier asks the Търговски регистър instead, and is built to
+// refuse rather than guess:
+//   - the name must fold to exactly ONE registry company (`uics.size === 1`);
+//   - the РОП name must carry a legal-form token and it must AGREE with the
+//     registry's legal form — "Павтрейд ЕООД" may match an EOOD, never an AD;
+//   - consortium names are never looked up (see `isConsortiumName`): a ДЗЗД is
+//     registered in BULSTAT, not TR, so a TR hit on its stripped name ("Кресна
+//     2016") is a DIFFERENT entity that happens to share the words.
+// Measured 2026-11-22 over the 2,927 rows the corpus map could not resolve:
+// ~€85M (2020) and ~€62M (2018) — small beside the consortia, which is why the
+// name-keyed `nm-` fallback below carries most of the fix.
+
+const LEGAL_FORM_TOKEN = "(еоод|оод|еад|ад|адсиц|ет|кд|кда|сд|дззд)";
+const LEADING_FORM = new RegExp(`^${LEGAL_FORM_TOKEN}\\s+`, "iu");
+const TRAILING_FORM = new RegExp(`\\s+${LEGAL_FORM_TOKEN}$`, "iu");
+
+// A name folded for the registry lookup: the РОП normaliser, then quotes and
+// punctuation out, then ONE leading or trailing legal-form token stripped (TR
+// stores the form in its own column, the РОП glues it onto the name).
+export const trLookupName = (raw: string): string =>
+  normOrgName(raw)
+    .replace(/[„“”"'`.,]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(LEADING_FORM, "")
+    .replace(TRAILING_FORM, "")
+    .trim();
+
+// The legal form a РОП name declares, canonicalised; undefined when it declares
+// none (then the tier refuses — an undeclared form cannot be checked).
+export const ropLegalForm = (raw: string): string | undefined => {
+  const n = normOrgName(raw)
+    .replace(/[„“”"'`.,]/g, " ")
+    .trim();
+  const m = n.match(LEADING_FORM) ?? n.match(TRAILING_FORM);
+  return m ? m[1].toLocaleUpperCase("bg") : undefined;
+};
+
+// TR's legal_form column mixes ASCII codes and spelled-out Bulgarian forms.
+const TR_FORM: Record<string, string> = {
+  EOOD: "ЕООД",
+  "Еднолично дружество с ограничена отговорност": "ЕООД",
+  OOD: "ООД",
+  "Дружество с ограничена отговорност": "ООД",
+  AD: "АД",
+  "Акционерно дружество": "АД",
+  EAD: "ЕАД",
+  "Еднолично акционерно дружество": "ЕАД",
+  ET: "ЕТ",
+  "Едноличен търговец": "ЕТ",
+  KD: "КД",
+  "Командитно дружество": "КД",
+  KDA: "КДА",
+  SD: "СД",
+};
+
+export const isConsortiumName = (raw: string): boolean =>
+  /(^|[^\p{L}])(дззд|обединение|консорциум)(?![\p{L}\p{N}])/iu.test(raw) ||
+  raw.includes(",");
+
+export interface TrNameEntry {
+  uics: Set<string>;
+  forms: Set<string>;
+}
+
+// Fold every registry company name. `rows` is (uic, name, legal_form) — the
+// caller reads raw_data/tr/state.sqlite, so this stays a pure function.
+export const buildTrNameMap = (
+  rows: Iterable<{
+    uic: string;
+    name: string | null;
+    legal_form: string | null;
+  }>,
+): Map<string, TrNameEntry> => {
+  const out = new Map<string, TrNameEntry>();
+  for (const r of rows) {
+    if (!r.name || !isValidEik(r.uic)) continue;
+    const k = trLookupName(r.name);
+    if (k.length < 3) continue;
+    let e = out.get(k);
+    if (!e) {
+      e = { uics: new Set(), forms: new Set() };
+      out.set(k, e);
+    }
+    e.uics.add(r.uic);
+    const f = r.legal_form ? TR_FORM[r.legal_form] : undefined;
+    if (f) e.forms.add(f);
+  }
+  return out;
+};
+
+// The EIK for a РОП supplier name, or "" when the tier must refuse.
+export const resolveViaTr = (
+  raw: string,
+  trByName: Map<string, TrNameEntry> | undefined,
+): string => {
+  if (!trByName || isConsortiumName(raw)) return "";
+  const form = ropLegalForm(raw);
+  if (!form) return "";
+  const e = trByName.get(trLookupName(raw));
+  if (!e || e.uics.size !== 1) return "";
+  if (e.forms.size !== 1 || !e.forms.has(form)) return "";
+  return [...e.uics][0];
+};
+
 // ---- normalization ----------------------------------------------------------
 
 export interface RopNormalizeStats {
@@ -234,6 +357,10 @@ export interface RopNormalizeStats {
   droppedNoContractorEik: number;
   droppedNoAmount: number;
   droppedSelfDeal: number;
+  /** Supplier resolved by the unique Commerce Registry name match (Tier 2). */
+  contractorViaTr: number;
+  /** Supplier keyed by name (`nm-`) because no tier could resolve it. */
+  contractorNameKeyed: number;
 }
 
 const emptyStats = (): RopNormalizeStats => ({
@@ -243,6 +370,8 @@ const emptyStats = (): RopNormalizeStats => ({
   droppedNoContractorEik: 0,
   droppedNoAmount: 0,
   droppedSelfDeal: 0,
+  contractorViaTr: 0,
+  contractorNameKeyed: 0,
 });
 
 const contractKey = (
@@ -290,7 +419,21 @@ export const normalizeRopRows = (
         break;
       }
     }
+    // Tier 2: a unique, legal-form-consistent Commerce Registry name match.
+    let viaTr = false;
     if (!isValidEik(contractorEik)) {
+      contractorEik = resolveViaTr(row.contractorName, maps.trByName);
+      viaTr = isValidEik(contractorEik);
+    }
+    // Tier 3: no id anywhere — key the supplier by its NAME (`nm-`) rather than
+    // drop the row. Dropping was not neutral: the unresolved rows are the largest
+    // contracts (consortia, foreign firms), 35% of the 2020 register's money.
+    let nameKeyed = false;
+    if (!isValidEik(contractorEik)) {
+      contractorEik = nameOnlySupplierKey(row.contractorName);
+      nameKeyed = contractorEik !== "";
+    }
+    if (!contractorEik) {
       stats.droppedNoContractorEik++;
       continue;
     }
@@ -330,6 +473,8 @@ export const normalizeRopRows = (
     const releaseId = `rop-${row.unp}-${row.contractNumber || "x"}`;
     const currency = row.currency || "BGN";
 
+    if (viaTr) stats.contractorViaTr++;
+    if (nameKeyed) stats.contractorNameKeyed++;
     out.push({
       key: contractKey(releaseId, row.contractNumber, contractorEik, tag),
       ocid,

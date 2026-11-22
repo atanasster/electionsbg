@@ -19,6 +19,7 @@
 
 import "../lib/egov_tls"; // TEMPORARY data.egov.bg expired-cert bypass
 import fs from "fs";
+import { DatabaseSync } from "node:sqlite";
 import path from "path";
 import zlib from "zlib";
 import { fileURLToPath } from "url";
@@ -27,6 +28,7 @@ import { Agent } from "undici";
 import {
   parseRopHtml,
   buildResolutionMaps,
+  buildTrNameMap,
   normalizeRopRows,
   ropKeyDiscriminator,
   type RopRow,
@@ -42,6 +44,31 @@ const __dirname = path.dirname(__filename);
 const PROCUREMENT_DIR = path.resolve(__dirname, "../../data/procurement");
 const CONTRACTS_DIR = path.join(PROCUREMENT_DIR, "contracts");
 const CACHE_DIR = path.resolve(__dirname, "../../raw_data/procurement/rop");
+const TR_SQLITE = path.resolve(__dirname, "../../raw_data/tr/state.sqlite");
+
+// Tier-2 registry names (see normalize_rop.ts `resolveViaTr`). The TR mirror is
+// gitignored host state; without it the tier is off and those suppliers fall
+// through to the name-keyed `nm-` tier — a WEAKER key, so say so loudly.
+const loadTrNameMap = (): ReturnType<typeof buildTrNameMap> | undefined => {
+  if (!fs.existsSync(TR_SQLITE)) {
+    console.warn(
+      `  ⚠ ${TR_SQLITE} absent — Commerce Registry tier OFF; unresolved suppliers will be name-keyed`,
+    );
+    return undefined;
+  }
+  const db = new DatabaseSync(TR_SQLITE, { readOnly: true });
+  try {
+    return buildTrNameMap(
+      db.prepare("SELECT uic, name, legal_form FROM companies").all() as Array<{
+        uic: string;
+        name: string | null;
+        legal_form: string | null;
+      }>,
+    );
+  } finally {
+    db.close();
+  }
+};
 
 const SEARCH_URL = "https://www.aop.bg/esearch_awards_from_to.php";
 const PAGE_SIZE = 50;
@@ -223,6 +250,23 @@ const contentKeys = (r: Contract): string[] => {
   return keys;
 };
 
+// A NAME-KEYED (`nm-`) row cannot match an existing row on any key above —
+// every one of them embeds the contractor id, and the same contract already in
+// the corpus carries a REAL EIK (or an `obed-` carrier). So for those rows only,
+// dedup also on keys that omit the supplier. Not applied to resolved rows: two
+// lots of one procedure won by different firms at the same amount are distinct.
+const supplierAgnosticKeys = (r: Contract): string[] => {
+  const keys: string[] = [];
+  const amt = r.amountEur != null ? String(Math.round(r.amountEur)) : "";
+  if (!amt) return keys;
+  if (r.unp) keys.push(`ua:${r.unp}:${amt}`);
+  if (r.awarderEik && r.dateSigned)
+    keys.push(`ad:${r.awarderEik}:${r.dateSigned}:${amt}`);
+  return keys;
+};
+
+const isNameKeyed = (r: Contract): boolean => r.contractorEik.startsWith("nm-");
+
 const loadExistingContentKeys = (years: Set<string>): Set<string> => {
   const out = new Set<string>();
   for (const year of years) {
@@ -234,7 +278,10 @@ const loadExistingContentKeys = (years: Set<string>): Set<string> => {
         fs.readFileSync(path.join(dir, f), "utf8"),
       ) as Contract[];
       if (!Array.isArray(rows)) continue;
-      for (const r of rows) for (const k of contentKeys(r)) out.add(k);
+      for (const r of rows) {
+        for (const k of contentKeys(r)) out.add(k);
+        for (const k of supplierAgnosticKeys(r)) out.add(k);
+      }
     }
   }
   return out;
@@ -285,7 +332,10 @@ const main = async (args: {
   }
 
   console.log(`→ building EIK-resolution maps from the on-disk corpus`);
-  const maps: ResolutionMaps = buildResolutionMaps(CONTRACTS_DIR);
+  const maps: ResolutionMaps = {
+    ...buildResolutionMaps(CONTRACTS_DIR),
+    trByName: loadTrNameMap(),
+  };
   console.log(
     `  awarder prefixes ${maps.awarderByPrefix.size.toLocaleString()}, ` +
       `awarder names ${maps.awarderByName.size.toLocaleString()}, ` +
@@ -321,6 +371,8 @@ const main = async (args: {
     droppedNoAmount: 0,
     droppedSelfDeal: 0,
     droppedDuplicate: 0,
+    contractorViaTr: 0,
+    contractorNameKeyed: 0,
   };
   const shortfallDays: string[] = [];
 
@@ -362,13 +414,20 @@ const main = async (args: {
     agg.droppedNoContractorEik += stats.droppedNoContractorEik;
     agg.droppedNoAmount += stats.droppedNoAmount;
     agg.droppedSelfDeal += stats.droppedSelfDeal;
+    agg.contractorViaTr += stats.contractorViaTr;
+    agg.contractorNameKeyed += stats.contractorNameKeyed;
     for (const r of contracts) {
-      const keys = contentKeys(r);
+      const keys = isNameKeyed(r)
+        ? [...contentKeys(r), ...supplierAgnosticKeys(r)]
+        : contentKeys(r);
       if (keys.some((k) => existingKeys.has(k))) {
         agg.droppedDuplicate++;
         continue;
       }
-      for (const k of keys) existingKeys.add(k);
+      // Register the supplier-agnostic keys for EVERY kept row, so a later
+      // name-keyed republication of a contract kept here is caught too.
+      for (const k of [...contentKeys(r), ...supplierAgnosticKeys(r)])
+        existingKeys.add(k);
       kept.push(r);
     }
   });
@@ -403,11 +462,16 @@ const main = async (args: {
       `self-deal ${agg.droppedSelfDeal.toLocaleString()}`,
   );
   const resolvable =
-    agg.rowsSeen - agg.droppedNoAwarderEik - agg.droppedNoContractorEik;
+    agg.rowsSeen -
+    agg.droppedNoAwarderEik -
+    agg.droppedNoContractorEik -
+    agg.contractorNameKeyed;
   if (agg.rowsSeen > 0)
     console.log(
       `  EIK-resolved ${resolvable.toLocaleString()}/${agg.rowsSeen.toLocaleString()} ` +
-        `(${((100 * resolvable) / agg.rowsSeen).toFixed(1)}%)`,
+        `(${((100 * resolvable) / agg.rowsSeen).toFixed(1)}%); ` +
+        `${agg.contractorViaTr.toLocaleString()} via the Commerce Registry, ` +
+        `${agg.contractorNameKeyed.toLocaleString()} supplier(s) name-keyed (nm-)`,
     );
   console.log(
     `→ cross-source dedup: kept ${kept.length.toLocaleString()} NEW row(s); ` +
