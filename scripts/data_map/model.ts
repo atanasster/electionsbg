@@ -2008,6 +2008,8 @@ export const DATASETS: DatasetDef[] = [
       "person_alias",
       "person_search",
       "person_browse_table",
+      "ds_decision",
+      "ds_announcement",
       "graph_edge",
       "graph_company_node",
       "graph_person_node",
