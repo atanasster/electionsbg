@@ -3043,7 +3043,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li>Резултати от <strong>Централната избирателна комисия (ЦИК)</strong> — протоколи на СИК и национално резюме.</li>
 <li>Финансиране на кампаниите от <strong>Сметната палата</strong> — приходи, разходи, дарители.</li>
-<li>Социологически проучвания, събрани от българската Уикипедия и сайтовете на агенциите.</li>
+<li>Социологически проучвания — от публикациите на самите агенции, с Уикипедия само за кръстосана проверка.</li>
 <li>Данни за народните представители — <a href="https://www.parliament.bg" rel="nofollow noopener">parliament.bg</a>.</li>
 </ul>
 <h2>Методология</h2>
@@ -3062,7 +3062,7 @@ ${accumulationGapHtml("bg")}`.trim(),
 <ul>
 <li>Results from the <strong>Central Electoral Commission (CEC/ЦИК)</strong> — section-level protocols and national summaries.</li>
 <li>Campaign financing from the <strong>National Audit Office</strong> — income, expenses, donors.</li>
-<li>Polling data from Bulgarian Wikipedia and pollster websites.</li>
+<li>Polling data from each pollster's own publications, with Wikipedia used only as a cross-check.</li>
 <li>Member-of-parliament profiles — <a href="https://www.parliament.bg" rel="nofollow noopener">parliament.bg</a>.</li>
 </ul>
 <h2>Methodology</h2>

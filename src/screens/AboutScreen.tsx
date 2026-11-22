@@ -221,10 +221,10 @@ export const AboutScreen = () => {
                   <Anchor
                     target="_blank"
                     rel="noreferrer"
-                    href="https://smartbear.com"
+                    href="https://nannertech.com"
                     className={linkClass}
                   >
-                    AutomatedQA.
+                    Nanner Tech.
                   </Anchor>
                 </>
               }
