@@ -3048,7 +3048,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <h2>Методология</h2>
 <p>Всеки вот е обработен с един и същ pipeline — парсинг на сурови CSV/ZIP файлове, агрегиране на ниво секция → населено място → община → област → държава, плюс набор от независими доклади за отклонения (повторно преброяване, машинно срещу хартиено гласуване, прекомерна концентрация на гласове, изпратени допълнителни избиратели и т.н.).</p>
-<p>Кодът е отворен и възпроизводим — приветстваме предложения и поправки.</p>
+<p>Кодът е отворен и възпроизводим — <a href="https://github.com/atanasster/electionsbg" rel="noopener">в GitHub</a>; приветстваме предложения и поправки.</p>
 ${accumulationGapHtml("bg")}`.trim(),
     english: {
       title: "About | Naiasno",
@@ -3067,7 +3067,7 @@ ${accumulationGapHtml("bg")}`.trim(),
 </ul>
 <h2>Methodology</h2>
 <p>Every vote is processed through the same pipeline — parsing raw CSV/ZIP files, aggregating from section → settlement → municipality → region → country, plus a battery of independent anomaly reports (recount, machine vs. paper voting, vote concentration, additional voters, and more).</p>
-<p>The code is open and reproducible — contributions and corrections welcome.</p>
+<p>The code is open and reproducible — <a href="https://github.com/atanasster/electionsbg" rel="noopener">on GitHub</a>; contributions and corrections welcome.</p>
 ${accumulationGapHtml("en")}`.trim(),
     },
   }),

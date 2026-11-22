@@ -200,6 +200,16 @@ export const AboutScreen = () => {
           <p className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground">
             {t("project_about")}
           </p>
+          <p className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground">
+            <Anchor
+              target="_blank"
+              rel="noreferrer"
+              href="https://github.com/atanasster/electionsbg"
+              className={linkClass}
+            >
+              {t("about_github_link")}
+            </Anchor>
+          </p>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             <ProfileCard
               name={t("martin_stoyanov")}
@@ -225,7 +235,17 @@ export const AboutScreen = () => {
                     className={linkClass}
                   >
                     Nanner Tech.
+                  </Anchor>{" "}
+                  {t("atanas_tavi_pre")}{" "}
+                  <Anchor
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://github.com/atanasster/tavi"
+                    className={linkClass}
+                  >
+                    Tavi
                   </Anchor>
+                  {t("atanas_tavi_post")}
                 </>
               }
               experienceLabel={t("experience")}
