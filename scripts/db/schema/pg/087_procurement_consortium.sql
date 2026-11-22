@@ -72,6 +72,52 @@ CREATE OR REPLACE FUNCTION consortium_carrier_name(p_names text[])
   END
 $$;
 
+-- A SUPPLIER LIST in one row — the legacy РОП register files a multi-winner award
+-- as ONE row naming every winner („Алта Фармасютикълс ЕООД - София,Булгермед ВЕ ООД
+-- - София,…") with ONE combined value. The ingest keys it `nm-` (it never resolves
+-- to its first member), but the framework tag below in (1)–(2) only fires on a
+-- procedure SPLIT into one row per supplier, so a list row slipped through as an
+-- ordinary contract and its whole ceiling counted as spend. Measured 2026-11-22:
+-- 130 rows / €717M, of which МЗ's 2020 central-medicines framework (УНП
+-- 00080-2019-0022) is €553M in two rows whose real call-offs are already in the
+-- corpus — the /sector/health procurement headline went €1.62bn → €2.30bn on it.
+--
+-- ⚠ This is the SQL twin of `isSupplierList` in scripts/procurement/normalize_rop.ts
+-- (a route cannot import TS). `supplier_list_framework.data.test.ts` runs both over
+-- every `nm-` name in the corpus and fails on any disagreement — keep them in step.
+-- `[^[:alpha:]]` / `[^[:alnum:]]` are the Unicode-aware stand-ins for JS's
+-- `[^\p{L}]` / `(?![\p{L}\p{N}])`; a `\m`/`\y` boundary would not be.
+CREATE OR REPLACE FUNCTION is_supplier_list(p_name text)
+  RETURNS boolean LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
+  SELECT COALESCE((
+    SELECT count(*) >= 2
+      FROM unnest(string_to_array(p_name, ',')) AS seg
+     WHERE seg ~* '(^|[^[:alpha:]])(еоод|оод|еад|ад|адсиц|ет|кд|кда|сд|дззд|gmbh|ltd|s\.?a\.?)($|[^[:alpha:][:digit:]])'
+  ), false)
+$$;
+
+-- Tag every `nm-` supplier-list contract row as a framework: several independent
+-- winners sharing one value, which is exactly what joint_kind='framework' means for
+-- the split shape. consortium_size = the number of firms the list names. Idempotent
+-- and valid on ANY state of the table (it touches only untagged `nm-` rows, which
+-- the consortium transform never creates or zeroes), so it can be run standalone on
+-- a served database as well as from rebuild_consortium().
+CREATE OR REPLACE FUNCTION tag_supplier_list_frameworks() RETURNS integer
+LANGUAGE plpgsql AS $$
+DECLARE n integer;
+BEGIN
+  UPDATE contracts c
+     SET joint_kind = 'framework',
+         consortium_size = LEAST(32767, array_length(string_to_array(c.contractor_name, ','), 1))
+   WHERE c.contractor_eik LIKE 'nm-%'
+     AND c.tag = 'contract'
+     AND c.joint_kind IS NULL
+     AND is_supplier_list(c.contractor_name);
+  GET DIAGNOSTICS n = ROW_COUNT;
+  RETURN n;
+END;
+$$;
+
 CREATE OR REPLACE FUNCTION rebuild_consortium() RETURNS void
 LANGUAGE plpgsql AS $$
 BEGIN
@@ -221,6 +267,9 @@ BEGIN
     ORDER BY c.contractor_eik
     LIMIT 1
   ) r ON true;
+
+  -- (7) Supplier-list rows (one row naming every winner) — see the function above.
+  PERFORM tag_supplier_list_frameworks();
 END;
 $$;
 

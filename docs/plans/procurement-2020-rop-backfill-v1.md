@@ -212,6 +212,18 @@ existing РОП rows, then re-ingests), so 2018 picks up every resolver fix too.
   against the „около половината" caption. 2020 adds €0.64M with no CPV (<1 point);
   the share was ~41% before this work.
 
+### Supplier-list rows are frameworks (published 2026-11-22)
+
+A РОП row that names every winner with one combined value was counted as spend: the
+framework tag in 087 only fires on a procedure split into one row per supplier. 130 rows
+/ €717M; МЗ's 2020 central-medicines framework (УНП 00080-2019-0022) alone is €553M in two
+rows, and took the /sector/health procurement headline €1.62bn → €2.30bn. 087 now has
+`is_supplier_list()` (the SQL twin of `isSupplierList`, pinned by
+`supplier_list_framework.data.test.ts` over every comma-bearing name) and
+`tag_supplier_list_frameworks()`, called from `rebuild_consortium()` and safe to run
+standalone. Applied to local and Cloud SQL; health procurement is €1.75bn with a €1.86bn
+framework ceiling; procurement scopes refreshed on both.
+
 ## Still open
 
 - **Cloud publish not run**: `db:load:pg:cloud` → `db:load:annexes:pg:cloud` →
