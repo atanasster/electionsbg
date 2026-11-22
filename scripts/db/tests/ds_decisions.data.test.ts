@@ -95,10 +95,12 @@ d("ds_decision / ds_announcement (203)", () => {
       "SELECT count(*)::text n FROM pg_roles WHERE rolname = 'app_readonly'",
     );
     if (role.n === "0") return; // nothing to grant to on a virgin volume
-    const [r] = await allRows<{ ok: boolean }>(
-      "SELECT has_table_privilege('app_readonly', 'ds_announcement', 'SELECT') ok",
+    // ds_decision too: the чл. 28 decisions are titled with a person's name
+    const rows = await allRows<{ t: string; ok: boolean }>(
+      `SELECT t, has_table_privilege('app_readonly', t, 'SELECT') ok
+         FROM unnest(ARRAY['ds_decision', 'ds_announcement']) t`,
     );
-    expect(r.ok).toBe(false);
+    expect(rows.filter((r) => r.ok).map((r) => r.t)).toEqual([]);
   });
 
   it("never reads a decision with no document as „announced nobody“", async () => {

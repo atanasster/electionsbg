@@ -85,24 +85,24 @@ CREATE INDEX IF NOT EXISTS idx_ds_announcement_fold
   ON ds_announcement (name_fold, birth_date);
 
 -- Role-guarded (117/130 shape): roles are CLUSTER-wide, so a virgin pgdata volume
--- has no app_readonly and a bare GRANT would 42704 and roll this whole file back.
+-- has no app_readonly and a bare REVOKE would 42704 and roll this whole file back.
 --
--- ⚠️ `ds_announcement` is deliberately NOT granted. The serving role reads it only
--- through aggregate functions, so no `/api/db` route can be written that lists the
--- named rows — a per-person surface goes through the person layer and rule 2.
--- `roles_readonly.sql` re-grants SELECT ON ALL TABLES on every run, so it carries
--- the matching REVOKE; this one covers a database where 203 lands after it.
+-- ⚠️ NEITHER TABLE is readable by the serving role. `ds_announcement` names
+-- people; `ds_decision.title` does too — the чл. 28 decisions are titled with the
+-- person they concern („чл. 28 за <three names>"). The serving role reads COUNTS only,
+-- through the SECURITY DEFINER aggregates in 204, so no `/api/db` route can be
+-- written that lists named rows — a per-person surface goes through the person layer
+-- and rule 2. `roles_readonly.sql` re-grants SELECT ON ALL TABLES on every run, so it
+-- carries the matching REVOKE; this one covers a database where 203 lands after it.
 --
--- ⚠️ A FUTURE SERVING FUNCTION over ds_announcement must be SECURITY DEFINER and
+-- ⚠️ A FUTURE SERVING FUNCTION over these tables must be SECURITY DEFINER and
 -- return AGGREGATES ONLY. New functions get EXECUTE for app_readonly through the
 -- default privileges, so a function returning names would publish them.
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
-    GRANT SELECT ON ds_decision TO app_readonly;
-    -- a schema-wide default privilege would otherwise grant it anyway
-    REVOKE ALL ON ds_announcement FROM app_readonly;
+    REVOKE ALL ON ds_decision, ds_announcement FROM app_readonly;
   ELSE
-    RAISE WARNING 'app_readonly absent — 203 granted nothing. Run db:pg:bootstrap.';
+    RAISE WARNING 'app_readonly absent — 203 revoked nothing. Run db:pg:bootstrap.';
   END IF;
 END $$;

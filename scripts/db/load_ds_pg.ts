@@ -85,9 +85,14 @@ const count = async (c: PoolClient, sql: string): Promise<number> =>
   Number((await c.query<{ n: string }>(sql)).rows[0].n);
 
 const main = async (): Promise<void> => {
-  // 203's GENERATED name_fold calls translit_bg_latin, which 000 defines — a
+  // 204 is the aggregate serving layer over 203. 203's GENERATED name_fold calls
+  // translit_bg_latin, which 000 defines — a
   // generated expression is resolved at CREATE time.
-  for (const f of ["000_search_fns.sql", "203_ds_decisions.sql"])
+  for (const f of [
+    "000_search_fns.sql",
+    "203_ds_decisions.sql",
+    "204_ds_overview.sql",
+  ])
     await exec(fs.readFileSync(path.join(SCHEMA_DIR, f), "utf8"));
 
   if (!fs.existsSync(DECISIONS) || !fs.existsSync(PERSONS)) {
