@@ -26,7 +26,10 @@ export const comdosDs: WatchSource = {
   id: "comdos_ds",
   label: "Комисия по досиетата (comdos.bg) — решения (ДС facet)",
   url: ARCHIVE,
-  cadence: "monthly",
+  // daily (was monthly until 2026-11-22): one archive page per probe, and a
+  // flip now runs the whole crawl → parse → resolve chain unattended, so a
+  // monthly probe would hold a published decision back for up to a month.
+  cadence: "daily",
   async fingerprint(): Promise<Fingerprint> {
     let html: string;
     try {
