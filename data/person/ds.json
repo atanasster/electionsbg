@@ -1,20 +1,4 @@
 {
-  "_comment": "MANUAL HOLD list for the ДС facet. The affiliations themselves are no longer hand-curated: scripts/person/resolve_persons.ts attaches an MP from ds_announcement (migration 203, the Commission's own decision documents, db:load:ds:pg) only on an exact folded-name AND birth-date match that names exactly one MP. A name listed here is NEVER attached, however that join resolves, until a human removes it. The notes record why each was held when the register was transcribed from Wikisource; ⚠️ the Commission's own documents (decision № 14 and later decisions) print birth dates that DO match these MPs, so each hold awaits a human decision rather than evidence.",
-  "held": [
-    {
-      "name": "Красимир Дончев Каракачанов",
-      "note": "Установеното от Решение №14 лице е родено 11.11.1937 г. — РАЗЛИЧНО от съименника, настоящ депутат (ВМРО, роден 1965). Не се свързва публично.",
-      "source": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА"
-    },
-    {
-      "name": "Лютви Ахмед Местан",
-      "note": "Установеното от Решение №14 лице е родено 31.07.1956 г. — не съвпада с рождената дата на депутата съименник в нашите данни (24.12.1960). Изисква ръчно уточняване — не се свързва публично.",
-      "source": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА"
-    },
-    {
-      "name": "Кемал Еюп Адил",
-      "note": "Решение №14 не посочва рождена дата за това лице — без надеждна разграничаваща стойност не се свързва публично.",
-      "source": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА"
-    }
-  ]
+  "_comment": "MANUAL HOLD list for the ДС facet. The affiliations themselves are not hand-curated: scripts/person/resolve_persons.ts attaches an MP from ds_announcement (migration 203, the Commission's own decision documents, db:load:ds:pg) only on an exact folded-name AND birth-date match that names exactly one MP. A name listed here is NEVER attached, however that join resolves, until a human removes it. Empty since 2026-11-22: the three earlier holds (Каракачанов, Местан, Адил) came from the Wikisource transcription of decision № 14, whose birth dates did not match; the Commission's own documents print dates that DO match each MP, and the owner released them.",
+  "held": []
 }

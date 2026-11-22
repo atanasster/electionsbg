@@ -5,7 +5,8 @@
 //
 // Three things are worth protecting:
 //   - the join still reproduces every MP the old hand-curated register attached;
-//   - a name on the manual hold list never attaches, however the join resolves;
+//   - a name on the manual hold list never attaches, however the join resolves
+//     (proved on a probe name too, since the committed list may be empty);
 //   - the birth date DISCRIMINATES — with it shifted by one day nobody attaches,
 //     so the gate cannot pass on a name-only join.
 
@@ -83,14 +84,19 @@ d("ДС MP join (dsJoin.ts)", () => {
   });
 
   it("never attaches a name on the manual hold list", async () => {
-    expect(held.length).toBeGreaterThan(0);
+    const unheld = (await run((s) => s, [])).map((r) => r.name);
+    // The committed list may legitimately be empty, so prove the mechanism on a
+    // name the join DOES attach: holding it must remove it and nothing else.
+    const probe = unheld[0];
+    expect(probe).toBeDefined();
+    const withProbe = (await run((s) => s, [probe])).map((r) => r.name);
+    expect(withProbe).not.toContain(probe);
+    expect(withProbe.length).toBe(unheld.length - 1);
+    // …and the committed holds hold. Each one must still match without the hold,
+    // so a hold that has gone stale (the person no longer matches at all) is
+    // noticed rather than kept as dead weight.
     const rows = await run((s) => s, held);
     expect(rows.filter((r) => held.includes(r.name))).toEqual([]);
-    // …and the hold is what stops them: without it at least one would attach,
-    // so the assertion above is not vacuous.
-    // Every one of them, so a hold that has gone stale (the person no longer
-    // matches at all) is noticed rather than kept as dead weight.
-    const unheld = (await run((s) => s, [])).map((r) => r.name);
     expect(held.filter((h) => !unheld.includes(h))).toEqual([]);
   });
 

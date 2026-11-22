@@ -150,10 +150,12 @@ lead, never a role. `ds_mp_join.data.test.ts` runs the same query, including a m
 check that a one-day birth-date shift attaches nobody.
 
 `data/person/ds.json` is now only the MANUAL HOLD list: a name there is never attached,
-however the join resolves. To hold or release a person, edit `held` and re-resolve. ⚠️ The
-three current holds were made when the register was transcribed from Wikisource, whose
-decision № 14 text gave birth dates that did not match the MPs; the Commission's own
-documents give dates that DO match. Releasing them is a human decision, not a data fix.
+however the join resolves. To hold or release a person, edit `held` and re-resolve. The
+list is EMPTY since 2026-11-22: the three earlier holds (Каракачанов, Местан, Адил) came from
+the Wikisource transcription of decision № 14, whose birth dates did not match the MPs; the
+Commission's own documents print dates that DO match, and the owner released them. Holding
+or releasing someone is a human decision, not a data fix — the gate never requires the list
+to be non-empty.
 
 Never store or render a recruiting / handling officer's name (plan §4 rule 4): the parser
 discards that field and `comdos:parse` refuses to write if any row still carries one.

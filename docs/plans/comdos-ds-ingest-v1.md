@@ -99,7 +99,8 @@ Baseline the parser must reproduce:
 - Migration `ds_decision` / `ds_announcement` + `db:load:ds:pg` (stage-merge, upsert-only:
   a decision is a permanent public record). Re-disclosures keep their prior-decision link.
 - Resolver: replace `ds.json`'s hand list with `ds_announcement` ⨝ `mp_profile` on
-  (fold(name), birth_date). Keep the 3 held entries' manual hold list. The
+  (fold(name), birth_date). Keep the 3 held entries' manual hold list
+  (released 2026-11-22 — the Commission's own documents match each MP's birth date). The
   `update-persons` skill gains a step.
 - Aggregate serving function for a `/data/ds` page: checks, announced, hit rate by sector
   and by election, category mix, recruitment years. No per-person listing beyond what the
