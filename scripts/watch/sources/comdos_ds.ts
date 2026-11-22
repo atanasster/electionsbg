@@ -1,32 +1,25 @@
-// ДС / COMDOS — the Комисия по досиетата (comdos.bg) решения list (the `ds` facet on the
-// person layer, plan §5 T1). The Commission publishes официални решения establishing the
-// affiliation of Bulgarian citizens to State Security / БНА intelligence to public office.
+// ДС / COMDOS — the Комисия по досиетата (comdos.bg) decision archive behind the
+// `ds` facet on the person layer. See docs/plans/comdos-ds-ingest-v1.md.
 //
-// There is NO bulk export / API — comdos.bg exposes only a per-person search FORM and a
-// per-organisation решения archive, and the person-relevant решения (МП/magistrate/media
-// verdicts) are historical (e.g. решение № 14 / 04.09.2007). So, like transparency_cpi,
-// data/person/ds.json is a HAND-CURATED register and this watcher is a lightweight
-// best-effort fingerprint of the решения archive page — it flips when the Commission
-// publishes new решения, telling the operator WHEN to look and re-review the curated
-// register (the `update-persons` skill). Every attach is hand-verified per person because
-// naming the WRONG same-named person a State Security collaborator is a serious accusation
-// (see the skill's defamation rule).
+// The Commission has no bulk export, but its decision archive is crawlable
+// (`pnpm run comdos:crawl`) and every decision document follows one field layout,
+// so the corpus is ingested by machine rather than curated by hand. This watcher
+// fingerprints the DecisionID set on archive PAGE 1 — new decisions are prepended
+// there — and flips when the Commission publishes one, telling the operator to
+// re-crawl (`comdos:crawl --refresh`) and re-parse (the `update-persons` skill).
 //
-// Best-effort: the archive is HTML that may be Cloudflare-walled / JS-rendered from some
-// egress. A fetch failure degrades to a stable sentinel fingerprint (no false "changed"),
-// so the source stays quiet rather than flapping — the register is manual regardless.
+// The ids are read with the crawler's own `parseArchivePage`, so the watcher and the
+// ingest agree on what a decision row is — in particular both drop the „>>" sidebar,
+// which repeats page-1 rows and would otherwise double-count.
+//
+// Best-effort: a fetch failure degrades to a stable sentinel fingerprint (no false
+// "changed"), so the source stays quiet rather than flapping.
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";
+import { archivePageUrl, parseArchivePage } from "../../comdos/sources";
 
-// The решения archive (latest решения, numbered N-MMM with a date). Cyrillic path,
-// URL-encoded.
-const ARCHIVE =
-  "https://comdos.bg/%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE/%D0%90%D1%80%D1%85%D0%B8%D0%B2_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F";
-
-// Decision references look like "3-135", "2-1600" etc. Fingerprint the SET of решение ids
-// on the archive page — robust to reordering, flips on any new решение.
-const DECISION_RE = /\b\d-\d{2,4}\b/g;
+const ARCHIVE = archivePageUrl(1);
 
 export const comdosDs: WatchSource = {
   id: "comdos_ds",
@@ -38,33 +31,36 @@ export const comdosDs: WatchSource = {
     try {
       html = (await fetchText(ARCHIVE)) ?? "";
     } catch {
-      // Unreachable from this egress (Cloudflare / geo) — stay quiet, the register is
-      // manually curated anyway. A stable sentinel avoids false "changed" flips.
       return {
-        value: "manual",
-        detail: "comdos.bg unreachable — data/person/ds.json curated manually",
+        value: "unreachable",
+        detail: "comdos.bg unreachable from this egress",
         meta: { count: 0 },
       };
     }
-    const ids = [...new Set(html.match(DECISION_RE) ?? [])].sort();
+    const ids = parseArchivePage(html)
+      .map((r) => r.decisionId)
+      .sort((a, b) => a - b);
     if (ids.length === 0) {
       return {
-        value: "manual",
-        detail: "no решения parsed — data/person/ds.json curated manually",
+        value: "unreachable",
+        detail: "no решения parsed from the comdos.bg archive page",
         meta: { count: 0 },
       };
     }
+    const latest = ids[ids.length - 1];
     return {
-      value: `${ids.length}:${sha256Short(ids.join(","))}`,
-      detail: `${ids.length} решение(я) on the comdos.bg archive`,
-      meta: { count: ids.length },
+      value: `${latest}:${sha256Short(ids.join(","))}`,
+      detail: `latest DecisionID ${latest} on the comdos.bg archive`,
+      meta: { count: ids.length, latest },
     };
   },
   describe(prev: WatchState | null, curr: Fingerprint): string {
-    const before = (prev?.meta?.count as number | undefined) ?? null;
-    const now = (curr.meta?.count as number | undefined) ?? null;
-    if (before != null && now != null && before !== now)
-      return `comdos.bg решения ${before} → ${now} — review data/person/ds.json (update-persons)`;
-    return `${curr.detail} — review data/person/ds.json (update-persons)`;
+    const before = (prev?.meta?.latest as number | undefined) ?? null;
+    const now = (curr.meta?.latest as number | undefined) ?? null;
+    const what =
+      before != null && now != null && before !== now
+        ? `comdos.bg latest decision ${before} → ${now}`
+        : curr.detail;
+    return `${what} — re-crawl and re-parse (update-persons: comdos:crawl --refresh)`;
   },
 };

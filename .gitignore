@@ -96,6 +96,10 @@ functions/.secret.local
 # Re-fetch with `pnpm exec tsx scripts/declarations/tr/cli.ts --bulk` (or `--incremental`).
 /raw_data/tr/
 
+# Комисия по досиетата decision archive (pages + .doc/.pdf decisions, ~2k each).
+# Re-fetch with `pnpm run comdos:crawl`; the parsed corpus under data/comdos/ is committed.
+/raw_data/comdos/
+
 # Per-MP declaration XML cache from register.cacbg.bg. Re-fetched on demand by
 # `pnpm run data --declarations`. The processed JSON outputs under
 # public/parliament/declarations/ are committed; this raw cache is not.
