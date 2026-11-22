@@ -1,84 +1,54 @@
 {
   "obshtina": "KNL29",
-  "generatedAt": "2026-11-19T23:17:32.586Z",
+  "generatedAt": "2026-11-22T16:38:43.906Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.011-0045",
-      "title": "\"Подкрепа за фотоволтаични системи и съоръжения в \"Елпром - Трафо СН\" АД\"",
-      "type": "new",
-      "totalEur": 3175679.5,
-      "paidEur": 0,
+      "contractNumber": "BG16FFPR003-4.005-0003",
+      "title": "\"Високотехнологичен индустриален парк Кюстендил - основен инструмент и стимул за повишаване на икономическия растеж в региона\".",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 10478845.09,
+      "totalEur": 10478845.09,
+      "paidEur": 4028007.09,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "\"Елпром - трафо СН\" АД",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0273",
-      "title": "Сигурна среда за всяко дете: превенция и интервенция в ОУ „Иван Вазов",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 178811.15,
-      "totalEur": 178811.15,
-      "paidEur": 35762.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище „Иван Вазов“",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0146",
-      "title": "Превенция и предотвратяване на тормоза и насилието и намаляване агресията в ПГИМ “Йордан Захариев”",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 176456.85,
-      "totalEur": 176456.85,
-      "paidEur": 35000,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по икономика и мениджмънт “Йордан Захариев”",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG05SFPR001-2.003-0014",
-      "title": "„STEM Робо Таланти в Кюстендил“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 174884.78,
-      "totalEur": 174884.78,
-      "paidEur": 34976.96,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-11-19"
+      "detectedAt": "2026-11-22"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0730",
-      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ХРИСТО БОТЕВ - 1948\"",
+      "contractNumber": "BG16FFPR003-4.001-0059",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Кюстендил, ул. \"Гороцветна\" № 50-52, бл. 9, вх. А и Б",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 14315.97,
-      "totalEur": 10989.23,
-      "paidEur": 10989.23,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно ЧИТАЛИЩЕ\"ХРИСТО Ботев - 1948\"",
-      "detectedAt": "2026-11-19"
+      "prevTotalEur": 492756.29,
+      "totalEur": 492756.29,
+      "paidEur": 375163.81,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Кюстендил",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0050",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда, гр. Кюстендил, ул. Гладстон 10",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 227584.42,
+      "totalEur": 227584.42,
+      "paidEur": 124388.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Кюстендил",
+      "detectedAt": "2026-11-22"
     }
   ]
 }

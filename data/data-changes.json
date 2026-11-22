@@ -1,6 +1,68 @@
 {
-  "updatedAt": "2026-11-21T09:49:22.777Z",
+  "updatedAt": "2026-11-22T17:27:25.475Z",
   "entries": [
+    {
+      "timestamp": "2026-11-22T17:27:25.475Z",
+      "date": "2026-11-22",
+      "skill": "update-council-minutes",
+      "summary": "3 step(s) ok",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-22T17:16:06.098Z",
+      "date": "2026-11-22",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-11-21 (+2 daily archives; 1,096,621 store rows, 168 settlements, 63 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-11-21"
+    },
+    {
+      "timestamp": "2026-11-22T16:51:03.362Z",
+      "date": "2026-11-22",
+      "skill": "update-administration",
+      "summary": "8 step(s) ok",
+      "source": "Административен регистър — услуги (IISDA)"
+    },
+    {
+      "timestamp": "2026-11-22T16:50:06.748Z",
+      "date": "2026-11-22",
+      "skill": "update-macro",
+      "summary": "6 step(s) ok",
+      "source": "Eurostat macro (BG): 29 datasets",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-22T16:49:44.679Z",
+      "date": "2026-11-22",
+      "skill": "update-open-calls",
+      "summary": "4 step(s) ok",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-11-22T16:47:47.246Z",
+      "date": "2026-11-22",
+      "skill": "update-funds",
+      "summary": "14 step(s) ok",
+      "source": "ИСУН EU funds (beneficiaries); ИСУН EU funds (projects); keep.eu Interreg (programme re-imports); ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-11-22T16:22:49.535Z",
+      "date": "2026-11-22",
+      "skill": "update-rollcall",
+      "summary": "4 step(s) ok",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-21T09:49:22.777Z",
       "date": "2026-11-21",

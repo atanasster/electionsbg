@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-19T23:17:54.475Z",
+  "generatedAt": "2026-11-22T16:39:31.977Z",
   "totalContracts": 3795,
   "contracts": [
     {
@@ -1366,7 +1366,7 @@
       "totalEur": 71856331.58,
       "grantEur": 71856331.58,
       "ownCofinanceEur": 0,
-      "paidEur": 44533252.21,
+      "paidEur": 51735971.81,
       "durationMonths": 60,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -1464,7 +1464,7 @@
       "totalEur": 62800000,
       "grantEur": 62800000,
       "ownCofinanceEur": 0,
-      "paidEur": 25890214.48,
+      "paidEur": 28127847.53,
       "durationMonths": 48,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -4413,7 +4413,7 @@
       "totalEur": 13361391.48,
       "grantEur": 13361391.48,
       "ownCofinanceEur": 0,
-      "paidEur": 1029278.58,
+      "paidEur": 1242814.88,
       "durationMonths": 48,
       "status": "Сключен",
       "location": {
@@ -9811,7 +9811,7 @@
       "totalEur": 3034547.58,
       "grantEur": 2124183.38,
       "ownCofinanceEur": 910364.2,
-      "paidEur": 2151996,
+      "paidEur": 2124183.39,
       "durationMonths": 33,
       "status": "Приключен (към датата на приключване)",
       "location": {
@@ -12286,7 +12286,7 @@
       "totalEur": 1772399.32,
       "grantEur": 1772399.32,
       "ownCofinanceEur": 0,
-      "paidEur": 613823.74,
+      "paidEur": 690504.28,
       "durationMonths": 36,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -13981,7 +13981,7 @@
       "totalEur": 1199663.73,
       "grantEur": 1199663.73,
       "ownCofinanceEur": 0,
-      "paidEur": 447757.7,
+      "paidEur": 513831.39,
       "durationMonths": 48,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -21479,7 +21479,7 @@
       "totalEur": 399993.88,
       "grantEur": 399993.88,
       "ownCofinanceEur": 0,
-      "paidEur": 140199.27,
+      "paidEur": 140655.69,
       "durationMonths": 36,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -21922,7 +21922,7 @@
       "totalEur": 374191.69,
       "grantEur": 374191.69,
       "ownCofinanceEur": 0,
-      "paidEur": 283617.55,
+      "paidEur": 299353.35,
       "durationMonths": 24,
       "status": "В изпълнение (от дата на стартиране)",
       "location": {
@@ -45680,32 +45680,6 @@
       }
     },
     {
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryEik": "120552936",
-      "beneficiaryName": "Форест - БУЛ ЕООД",
-      "orgType": "Компания",
-      "orgKind": "Еднолично дружество с ограничена отговорност ЕООД",
-      "orgForm": "Частно правна",
-      "hqAddress": "България, гр.Смолян, 4700, ул. Пейо К. Яворов, номер 12",
-      "locationRaw": "Южен централен (BG42)",
-      "contractNumber": "BG05SFPR002-1.004-1599",
-      "title": "Адаптиране на работната среда чрез инвестиции във ФОРЕСТ - БУЛ ЕООД",
-      "totalEur": 70548.74,
-      "grantEur": 70548.74,
-      "ownCofinanceEur": 0,
-      "paidEur": 0,
-      "durationMonths": 17,
-      "status": "В изпълнение (от дата на стартиране)",
-      "location": {
-        "kind": "region",
-        "raw": "Южен централен (BG42)",
-        "nutsCodes": [
-          "BG42"
-        ]
-      }
-    },
-    {
       "programCode": "2014BG05FMOP001",
       "programName": "Oперативна програма за храни и/или основно материално подпомагане",
       "beneficiaryEik": "000696327",
@@ -50255,6 +50229,32 @@
       "location": {
         "kind": "national",
         "raw": "България"
+      }
+    },
+    {
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryEik": "120552936",
+      "beneficiaryName": "Форест - БУЛ ЕООД",
+      "orgType": "Компания",
+      "orgKind": "Еднолично дружество с ограничена отговорност ЕООД",
+      "orgForm": "Частно правна",
+      "hqAddress": "България, гр.Смолян, 4700, ул. Пейо К. Яворов, номер 12",
+      "locationRaw": "Южен централен (BG42)",
+      "contractNumber": "BG05SFPR002-1.004-1599",
+      "title": "Адаптиране на работната среда чрез инвестиции във ФОРЕСТ - БУЛ ЕООД",
+      "totalEur": 46765.2,
+      "grantEur": 46765.2,
+      "ownCofinanceEur": 0,
+      "paidEur": 0,
+      "durationMonths": 17,
+      "status": "Приключен (към датата на приключване)",
+      "location": {
+        "kind": "region",
+        "raw": "Южен централен (BG42)",
+        "nutsCodes": [
+          "BG42"
+        ]
       }
     },
     {
@@ -62641,12 +62641,12 @@
       "locationRaw": "с.Мусомища",
       "contractNumber": "BG-RRP-1.024-0565",
       "title": "Изграждане на дигитален клуб в Народно читалище \"Никола Йонков Вапцаров - 1927\" с. Мосомище, община Гоце Делчев",
-      "totalEur": 17383.92,
-      "grantEur": 17383.92,
+      "totalEur": 17383.55,
+      "grantEur": 17383.55,
       "ownCofinanceEur": 0,
       "paidEur": 17383.55,
       "durationMonths": 8,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "location": {
         "kind": "unresolved",
         "raw": "с.Мусомища"

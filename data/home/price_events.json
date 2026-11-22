@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-19",
+  "computedAt": "2026-11-21",
   "thresholds": {
     "basketPids": [
       1,
@@ -32,16 +32,6 @@
     "promoMaxEvents": 3
   },
   "basketMoves": [
-    {
-      "peakDay": "2026-10-19",
-      "startDay": "2026-10-19",
-      "endDay": "2026-10-19",
-      "pctChange": 1.814,
-      "costEur": 15.835,
-      "prevCostEur": 15.553,
-      "cohortCells": 1700,
-      "cohortShare": 0.9379
-    },
     {
       "peakDay": "2026-10-22",
       "startDay": "2026-10-22",
@@ -95,33 +85,33 @@
   ],
   "promotions": [
     {
+      "slug": "portokali",
+      "title": "ПОРТОКАЛИ",
+      "atOrBelowSince": "2026-11-14",
+      "promoEur": 0.79,
+      "regularEur": 2.16,
+      "discountPct": 63,
+      "stores": 414,
+      "chains": 5
+    },
+    {
       "slug": "krave-maslo-d-markenbutter-250gr",
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
       "atOrBelowSince": "2026-11-19",
       "promoEur": 1.59,
       "regularEur": 4.07,
       "discountPct": 61,
-      "stores": 209,
+      "stores": 215,
       "chains": 2
     },
     {
-      "slug": "kartofi",
-      "title": "КАРТОФИ",
-      "atOrBelowSince": "2026-11-19",
-      "promoEur": 0.45,
-      "regularEur": 0.99,
-      "discountPct": 55,
-      "stores": 180,
-      "chains": 3
-    },
-    {
-      "slug": "kiselo-mlyako-elena-2-400-gr",
-      "title": "КИСЕЛО МЛЯКО ЕЛЕНА 2 % 400 ГР",
-      "atOrBelowSince": "2026-11-14",
-      "promoEur": 0.39,
-      "regularEur": 0.86,
-      "discountPct": 55,
-      "stores": 48,
+      "slug": "500g-pasirani-domati-the-chefs",
+      "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
+      "atOrBelowSince": "2026-10-29",
+      "promoEur": 0.72,
+      "regularEur": 1.73,
+      "discountPct": 58,
+      "stores": 4,
       "chains": 2
     }
   ]

@@ -1,22 +1,24 @@
 {
   "obshtina": "BLG02",
-  "generatedAt": "2026-11-19T23:17:32.586Z",
+  "generatedAt": "2026-11-22T16:38:43.906Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-3.003-0001",
-      "title": "\"Път към университета за ученици от уязвими групи\"",
+      "contractNumber": "BG-RRP-1.024-0062",
+      "title": "Дигитален клуб Народно Читалище \"ИСКРА - 2011\" с. Горно Краище",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 174628.72,
-      "totalEur": 174628.72,
-      "paidEur": 34925.44,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Фондация Българска Памет",
-      "detectedAt": "2026-11-19"
+      "prevTotalEur": 14314.13,
+      "totalEur": 14305.34,
+      "paidEur": 14305.35,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Искра - 2011\" с. Горно Краище",
+      "detectedAt": "2026-11-22"
     }
   ]
 }

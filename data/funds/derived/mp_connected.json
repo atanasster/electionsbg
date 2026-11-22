@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-19T23:16:43.884Z",
+  "generatedAt": "2026-11-22T16:37:50.990Z",
   "total": 184,
   "mpCount": 155,
   "beneficiaryCount": 173,
-  "contractedEur": 4855858514.3,
+  "contractedEur": 4856063648.3,
   "paidEur": 2259511152.76,
   "entries": [
     {
@@ -846,6 +846,22 @@
       "paidEur": 118869.95
     },
     {
+      "mpId": 4372,
+      "mpName": "Радослав Красенов Василев",
+      "beneficiaryEik": "123139451",
+      "beneficiaryName": "Тева - ТМ ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": false
+        }
+      ],
+      "contractCount": 5,
+      "contractedEur": 564194.7,
+      "paidEur": 217810.12
+    },
+    {
       "mpId": 2863,
       "mpName": "Пенчо Пламенов Милков",
       "beneficiaryEik": "208041435",
@@ -937,22 +953,6 @@
       "contractCount": 4,
       "contractedEur": 432668.55,
       "paidEur": 209318.75
-    },
-    {
-      "mpId": 4372,
-      "mpName": "Радослав Красенов Василев",
-      "beneficiaryEik": "123139451",
-      "beneficiaryName": "Тева - ТМ ООД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "partner",
-          "isCurrent": false
-        }
-      ],
-      "contractCount": 4,
-      "contractedEur": 359060.7,
-      "paidEur": 217810.12
     },
     {
       "mpId": 1618,

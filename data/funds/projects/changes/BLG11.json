@@ -1,22 +1,24 @@
 {
   "obshtina": "BLG11",
-  "generatedAt": "2026-11-19T23:17:32.586Z",
+  "generatedAt": "2026-11-22T16:38:43.906Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0142",
-      "title": "Топъл обяд в община Гоце Делчев",
+      "contractNumber": "BG-RRP-1.024-0751",
+      "title": "Създаване на дигитален клуб в читалище \"Просвета - 1865\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1727104.83,
-      "totalEur": 1727104.83,
-      "paidEur": 1390182.85,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Гоце Делчев",
-      "detectedAt": "2026-11-19"
+      "prevTotalEur": 17594.68,
+      "totalEur": 17594.64,
+      "paidEur": 17594.64,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Просвета-1865“",
+      "detectedAt": "2026-11-22"
     }
   ]
 }

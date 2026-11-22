@@ -1,39 +1,150 @@
 {
   "obshtina": "BLG33",
-  "generatedAt": "2026-11-19T23:17:32.586Z",
+  "generatedAt": "2026-11-22T16:38:43.906Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-2.005-0021",
-      "title": "Техническа подкрепа на община Петрич за изпълнение на ИТИ инструмента",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 31938.67,
-      "totalEur": 31938.67,
-      "paidEur": 31938.67,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Петрич",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1298",
-      "title": "Подобряване на енергийната ефективност на фирма ОГИ КОМ ТРЕЙД ООД",
+      "contractNumber": "BG-RRP-1.024-0841",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"БРАТЯ МИЛАДИНОВИ - 1914\" в гр. Петрич",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 69719,
-      "totalEur": 25098.84,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ОГИ КОМ Трейд ООД",
-      "detectedAt": "2026-11-19"
+      "prevTotalEur": 23519.43,
+      "totalEur": 20914.31,
+      "paidEur": 20914.31,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Братя миладинови - 1914\"",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0780",
+      "title": "Изграждане на мрежа от дигитални клубове в Народно читалище Гоце Делчев - 1939, с. Ключ, община Петрич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14283.22,
+      "paidEur": 14283.22,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Гоце Делчев - 1939, с. Ключ",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0770",
+      "title": "Изграждане на мрежа от дигитални клубове в Народно читалище \"Антон Попов - 1948\", с. Яворница, община Петрич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14184.18,
+      "paidEur": 14184.18,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Нарадно читалище \"Антон Попов - 1948\"",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0788",
+      "title": "Изграждане на мрежа от дигитални клубове в НАРОДНО ЧИТАЛИЩЕ \"АНТОН ПОПОВ-1952\", с. Скрът, община Петрич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14096.25,
+      "paidEur": 14096.25,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Антон ПОПОВ-1952\"",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0451",
+      "title": "„Дигитален клуб в НЧ „Просвета – 1937“ – образование и умения за всички възрасти“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14111.66,
+      "totalEur": 14059.55,
+      "paidEur": 14059.55,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Просвета – 1937“, с. Марикостиново",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0839",
+      "title": "Изграждане на мрежа от дигитални клубове в Народно читалище \"Антон Попов - 1926\", с. Самуилово, общ. Петрич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14039.82,
+      "paidEur": 14039.82,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Антон Попов - 1926\"",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0845",
+      "title": "Изграждане на дигитален клуб в Народно Читалище ЯНЕ САНДАНСКИ - 1946 в с. Генерал Тодоров",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 13856.1,
+      "paidEur": 13856.1,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ЯНЕ Сандански - 1946",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0849",
+      "title": "Изграждане на мрежа от дигитални клубове в Народно читалище Просвета - 1940, с. Рупите, общ. Петрич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 13286.55,
+      "totalEur": 13068.05,
+      "paidEur": 13068.05,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Просвета - 1940, с. Рупите",
+      "detectedAt": "2026-11-22"
     }
   ]
 }

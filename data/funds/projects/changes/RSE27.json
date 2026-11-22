@@ -1,146 +1,58 @@
 {
   "obshtina": "RSE27",
-  "generatedAt": "2026-11-19T23:17:32.586Z",
+  "generatedAt": "2026-11-22T16:38:43.906Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-6.001-0002",
-      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в Миланов - Г ЕООД",
-      "type": "new",
-      "totalEur": 2300700,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Миланов - Г ЕООД",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG16RFPR001-6.001-0012",
-      "title": "Укрепване на промишления капацитет в областта на отбранителните способности в МЕТАЛПЛАСТ ИНЖЕНЕРИНГ ЕООД",
-      "type": "new",
-      "totalEur": 730040,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Металпласт инженеринг ЕООД",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG16FFPR002-5.001-0001",
-      "title": "Подобряване качеството на атмосферния въздух в община Русе",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 18795245.71,
-      "totalEur": 18795245.71,
-      "paidEur": 4246056.56,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Русе",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG06RDNP001-4.012-1699",
-      "title": "Модернизация на земеделското стопанство на Милен Танов",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 281087.81,
-      "totalEur": 281087.82,
-      "paidEur": 140543.92,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "Милен",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG05SFPR001-3.005-0004",
-      "title": "Развитие на дуалната система на обучение в професионално образование и обучение в Професионална гимназия по транспорт",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 178912.99,
-      "totalEur": 178912.99,
-      "paidEur": 73088.73,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по транспорт",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0099",
-      "title": "Stop & Talk: Стратегии срещу агресията (STaaS) в \"Дойче шуле\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 177587.9,
-      "totalEur": 177587.9,
-      "paidEur": 35517.58,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище с преподаване на Немски език \"Фридрих шилер\"",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0232",
-      "title": "Повишаване на производствения капацитет на ЕМ ПИ МЕТАЛ АРТ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 158200,
-      "totalEur": 80886.38,
-      "paidEur": 60664.78,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕМ ПИ Метал АРТ ЕООД",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-1155",
-      "title": "Създаване на адаптирана работна среда за посрещане на новите климатични предизвикателства и променящите се модели в БОРИСОВ ТРАНСПОРТ СЕРВИЗ ООД",
+      "contractNumber": "BG05SFPR002-1.004-0993",
+      "title": "Гарантиране здравето и безопасността на заетите в ГОРАИНВЕСТ АД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 44555.18,
-      "totalEur": 43904.84,
+      "prevTotalEur": 99186.7,
+      "totalEur": 97510.56,
+      "paidEur": 97510.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Гораинвест АД",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0100",
+      "title": "Повишаване на енергийната ефективност на \"Авинера\" ЕООД чрез доставка и монтаж на енергоспестяващо оборудване",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 90006.1,
+      "totalEur": 90006.1,
+      "paidEur": 21269.28,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Авинера ЕООД",
+      "detectedAt": "2026-11-22"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1806",
+      "title": "Адаптирне на работната среда в ЮТА АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 48368.46,
+      "totalEur": 40948.89,
       "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Борисов транспорт сервиз ООД",
-      "detectedAt": "2026-11-19"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-2313",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 29341.5,
-      "totalEur": 29341.5,
-      "paidEur": 3521.78,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Хепи Клевър Кидс ООД",
-      "detectedAt": "2026-11-19"
+      "beneficiaryName": "ЮТА АД",
+      "detectedAt": "2026-11-22"
     }
   ]
 }
