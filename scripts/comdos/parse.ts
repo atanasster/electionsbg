@@ -48,7 +48,9 @@ export type DsPersonRow = DsPerson & {
   seq: number;
 };
 
-const OFFICER_LABEL =
+/** A recruiter / handler / case-officer label. Exported so the data gate checks
+ *  the database with the SAME definition the write guard uses. */
+export const OFFICER_LABEL =
   /(?:Вербувал|Ръководил)\p{L}* (?:го|я) служител|Оперативн\p{L}* работни(?:к|ци)/u;
 
 const toText = (docFile: string, id: string): string => {

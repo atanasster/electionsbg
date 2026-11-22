@@ -311,6 +311,10 @@ const RELOADED: ReadonlyArray<{
   { table: "council_muni_code", loader: "db:load:council:pg" },
   { table: "council_resolution", loader: "db:load:council:pg" },
   { table: "council_vote", loader: "db:load:council:pg" },
+  // The comdos.bg ДС corpus — upsert-only, every row rewritten (last_seen_at), so
+  // compacted after each load for the council reason above.
+  { table: "ds_decision", loader: "db:load:ds:pg" },
+  { table: "ds_announcement", loader: "db:load:ds:pg" },
   // The ИВСС magistrate family — TRUNCATE … CASCADE + three COPYs in one transaction,
   // the canonical map-losing shape. The loader had no vacuum call at all until
   // 2026-08-24, and because this gate is one-directional (it reads call sites and

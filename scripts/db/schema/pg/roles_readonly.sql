@@ -31,6 +31,18 @@ GRANT USAGE ON SCHEMA public TO app_readonly;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO app_readonly;
 GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO app_readonly;
 
+-- …except the named ДС announcements (203, docs/plans/comdos-ds-ingest-v1.md §4):
+-- the serving role reads them only through aggregate functions. The blanket GRANT
+-- above would otherwise hand them back on every run of this file — locally at the
+-- start of every db:refresh, on Cloud SQL whenever it is run by hand.
+DO $$
+BEGIN
+  IF to_regclass('public.ds_announcement') IS NOT NULL THEN
+    REVOKE ALL ON ds_announcement FROM app_readonly;
+  END IF;
+END
+$$;
+
 -- Future objects created by the loader role (postgres) — survives drop+recreate.
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
   GRANT SELECT ON TABLES TO app_readonly;
