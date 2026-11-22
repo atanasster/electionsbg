@@ -1,6 +1,6 @@
 ---
 name: update-persons
-description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the `candidate_person`/`person_election_stats` electoral tables + the serving fns in 082/084/085) that powers the `/person/{slug}` profile page, the merged `/candidate/:id` electoral block, and the `personProfile`/`personConnections`/`person_elections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), the curated identity-adjudication registry (data/person/link_overrides.json), OFAC/EU sanctions register (data/person/sanctions.json), ДС/COMDOS affiliation register (data/person/ds.json, Комисия по досиетата), and регулатори / независими органи register (data/person/regulators.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts` (+ `scripts/db/load_person_elections_pg.ts` for the per-election stats). Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `person_link_overrides`, `ofac_sanctions`, `comdos_ds`, or `regulator_rosters`), when the user asks to refresh person profiles / свързани лица / sanctions / ДС досиета / регулатори, to add a verified identity decision, sanctions designee, ДС affiliation, or regulator seat, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
+description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the `candidate_person`/`person_election_stats` electoral tables + the serving fns in 082/084/085) that powers the `/person/{slug}` profile page, the merged `/candidate/:id` electoral block, and the `personProfile`/`personConnections`/`person_elections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), the curated identity-adjudication registry (data/person/link_overrides.json), OFAC/EU sanctions register (data/person/sanctions.json), ДС/COMDOS findings (ds_announcement, migration 203 — the Комисия по досиетата decision corpus, with a manual hold list in data/person/ds.json), and регулатори / независими органи register (data/person/regulators.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts` (+ `scripts/db/load_person_elections_pg.ts` for the per-election stats). Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `person_link_overrides`, `ofac_sanctions`, `comdos_ds`, or `regulator_rosters`), when the user asks to refresh person profiles / свързани лица / sanctions / ДС досиета / регулатори, to add a verified identity decision, sanctions designee, ДС affiliation, or regulator seat, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
 allowed-tools:
   - Read
   - Bash
@@ -124,32 +124,40 @@ So when refreshing: do not hand-add a member the register already carries; do
 add or correct a `seat` where the distinction matters. The accuracy rule below
 still governs the curated file.
 
-## The ДС/COMDOS register (data/person/ds.json) — manually curated
+## The ДС/COMDOS facet — derived from the Commission's decisions, plus a manual hold list
 
-`comdos_ds` (comdos.bg — Комисия по досиетата) has NO bulk export or API — only a
-per-person search FORM and a per-organisation решения archive — so, exactly like the
-sanctions register, `data/person/ds.json` is HAND-CURATED from the published решения
-(the primary text of the political решения, e.g. решение № 14 / 04.09.2007, is mirrored on
-Wikisource). Each entry is an OFFICIAL state finding of established affiliation to State
-Security / БНА intelligence (a публичен акт, not our claim).
+The `ds` facet is no longer hand-curated. It comes from `ds_announcement` (migration 203),
+the Commission's own decision documents crawled and parsed into the committed
+`data/comdos/` corpus (docs/plans/comdos-ds-ingest-v1.md). Each row is an OFFICIAL state
+finding of established affiliation (a публичен акт, not our claim). When the watcher flags
+`comdos_ds`, refresh the corpus BEFORE resolving:
 
-DEFAMATION RULE (non-negotiable, identical to sanctions): an entry attaches ONLY via a
-stable disambiguator — the parliament `mpId` (→ Tier-0 gold merge) — AND is verified by an
-**exact birth-date match** against the решение. This double gate is what defeats the
-namesake trap: e.g. решение № 14 names a "Красимир Дончев Каракачанов" born **1937**
-(щатен служител), who is a DIFFERENT person from the current ВМРО MP of the same name born
-**1965**; a бирth-date mismatch → the entry stays `resolved:false` (documented, HELD, never
-attached). To add an affiliation:
+```bash
+pnpm run comdos:crawl          # resumable; new decisions + their documents → raw_data/comdos/
+pnpm run comdos:parse          # → data/comdos/decisions.json + persons.jsonl (commit both)
+pnpm run db:load:ds:pg         # db:refresh runs this just before db:resolve:persons
+pnpm run db:resolve:persons    # + the repair chain CLAUDE.md lists
+```
 
-1. Find the решение naming the person on comdos.bg (Проверени лица) / the published решения;
-   record the решение № + date + collaborator category (агент/сътрудник/…) + псевдоним.
-2. Find the MP: `psql … -c "SELECT id, name, birthDate FROM …"` (or grep
-   `data/parliament/index.json`) and CONFIRM the решение's birth date matches the MP's.
-   - Match → add `"mpId": <id>`, `"birthDate": "<YYYY-MM-DD>"`, `"resolved": true`.
-   - Mismatch / no birth date in the решение / not an MP → add with `"resolved": false` and
-     a `note`; it is HELD (the resolver logs `held N name-ambiguous ДС affiliation(s)`).
-3. `pnpm run db:resolve:persons` and confirm the profile shows the amber "Досие ДС" tile
-   (e.g. `/person/mp-902` for Ahmed Dogan → агент „Сергей", реш. № 14/2007-09-04).
+Cloud side, nothing runs it automatically: `pnpm run db:load:ds:pg:cloud` BEFORE
+`db:resolve:persons:cloud`. A database without 203 attaches NOTHING and the resolver says so
+(`ds_announcement absent`) — fail-closed is the only safe direction for this facet.
+
+DEFAMATION RULE (non-negotiable): `scripts/person/dsJoin.ts` attaches an announcement ONLY to
+a parliament MP (the Tier-0 gold key) whose folded name AND exact birth date both match the
+decision, and only when that pair names exactly ONE MP. Everyone else in the corpus is a
+lead, never a role. `ds_mp_join.data.test.ts` runs the same query, including a mutation
+check that a one-day birth-date shift attaches nobody.
+
+`data/person/ds.json` is now only the MANUAL HOLD list: a name there is never attached,
+however the join resolves. To hold or release a person, edit `held` and re-resolve. ⚠️ The
+three current holds were made when the register was transcribed from Wikisource, whose
+decision № 14 text gave birth dates that did not match the MPs; the Commission's own
+documents give dates that DO match. Releasing them is a human decision, not a data fix.
+
+Never store or render a recruiting / handling officer's name (plan §4 rule 4): the parser
+discards that field and `comdos:parse` refuses to write if any row still carries one.
+
 ## The regulators register (data/person/regulators.json) — manually curated
 
 `regulator_rosters` has no unified feed — each independent body publishes its own roster —

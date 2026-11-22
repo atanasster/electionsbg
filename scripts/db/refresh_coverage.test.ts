@@ -87,6 +87,11 @@ test("db:refresh exists and still chains pnpm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:resolve:persons",
+    before: "db:load:ds:pg",
+    why: "the ДС facet joins ds_announcement (203); before it loads the resolver attaches nobody",
+  },
+  {
     after: "db:gen-health-hub-stats",
     before: "db:load:nzok-drug-quarterly:pg",
     why: "KPI 3 (pharmacy) and the shared year read nzok_drug_quarterly (health-hub-v1 T2)",

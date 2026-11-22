@@ -54,6 +54,14 @@ import { clusterBlock, type Mention } from "./cluster";
 import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "./bridgeB";
 import { TIER_V_SERVED_IDENTITIES_SQL } from "./tierV";
 import { PERSON_GUID_SQL_PATTERN } from "../officials/slug_identity";
+import { decisionViewUrl } from "../comdos/sources";
+import {
+  DS_MP_JOIN_SQL,
+  dsCategoryLabel,
+  dsMpParams,
+  type DsMpMatch,
+  type RosterMp,
+} from "./dsJoin";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { loadOverrideRegistry, mergeOverrideRows } from "./overrideRegistry";
 import { chooseStableSlug } from "./slugLock";
@@ -1043,63 +1051,82 @@ async function collect(): Promise<Raw[]> {
       );
   }
 
-  // ДС / COMDOS (data/person/ds.json) — OFFICIAL findings of the Комисия по досиетата
-  // (comdos.bg) naming public-office holders established affiliated to State Security /
-  // БНА intelligence (public record, §5 T1 `ds` facet). These are government verdicts,
-  // not our claim. SAME defamation posture as sanctions: comdos.bg has no bulk feed, so
-  // the register is HAND-CURATED from the published решения, and an entry attaches ONLY
-  // via the parliament MP id (Tier-0 gold key) AND with an exact birth-date match against
-  // the решение — a name-ambiguous namesake (`resolved:false`, no mpId; e.g. a решение-14
-  // person whose birth date differs from the current same-named MP) is documented in the
-  // file but NOT emitted, so no ambiguous public accusation is minted.
-  const dsPath = path.join(REPO_ROOT, "data/person/ds.json");
-  if (fs.existsSync(dsPath)) {
-    const dx = JSON.parse(fs.readFileSync(dsPath, "utf8")) as {
-      affiliations: {
-        name: string;
-        mpId?: number;
-        resolved?: boolean;
-        decisionNo: string;
-        decisionDate: string;
-        category?: string;
-        pseudonyms?: string[];
-        bodyContext: string;
-        url: string;
-      }[];
-    };
-    let heldDs = 0;
-    for (const d of dx.affiliations) {
-      // Strictest gate: attach a State-Security finding ONLY via the mpId gold key, and
-      // never if the entry is explicitly held (resolved:false).
-      if (d.mpId == null || d.resolved === false) {
-        heldDs++;
-        continue;
-      }
+  // ДС / COMDOS — OFFICIAL findings of the Комисия по досиетата (comdos.bg), the
+  // §5 T1 `ds` facet. Government verdicts, not our claim — but wrongly naming someone a
+  // State Security collaborator is a severe accusation, so the gate is the strictest in
+  // this resolver (docs/plans/comdos-ds-ingest-v1.md §4 rule 2): an announcement attaches
+  // ONLY to a parliament MP (the Tier-0 gold key) whose folded name AND EXACT birth date
+  // both match the Commission's own document, and only when that (name, birth date) pair
+  // names exactly ONE MP. Everyone else in the corpus stays a lead, never a role.
+  //
+  // The announcements come from `ds_announcement` (migration 203, db:load:ds:pg, which
+  // db:refresh runs just before this step). MPs come from index.json rather than
+  // mp_profile, for the reason given at the MP block above: that table loads after us.
+  // A database without 203 attaches NOTHING and says so — failing closed is the only
+  // safe direction for this facet.
+  //
+  // data/person/ds.json is now only the MANUAL HOLD list: names never attached however
+  // the join resolves, until a human clears them.
+  // A missing or malformed hold file must not read as „hold nobody": that would
+  // release every held person at once. Fail closed — the resolve stops.
+  const dsHoldPath = path.join(REPO_ROOT, "data/person/ds.json");
+  const dsHold = fs.existsSync(dsHoldPath)
+    ? (JSON.parse(fs.readFileSync(dsHoldPath, "utf8")) as {
+        held?: { name: string }[];
+      })
+    : null;
+  if (!Array.isArray(dsHold?.held))
+    throw new Error(
+      `${dsHoldPath} is missing or has no "held" array — refusing to resolve the ДС facet without its hold list`,
+    );
+  const dsHeld = dsHold.held.map((h) => h.name);
+  const [dsTable] = await allRows<{ present: boolean }>(
+    `SELECT to_regclass('ds_announcement') IS NOT NULL AS present`,
+  );
+  if (!dsTable.present)
+    console.warn(
+      "  ⚠️ ds_announcement absent — no ДС affiliation attached. Run db:load:ds:pg first.",
+    );
+  else if (fs.existsSync(mpPath)) {
+    const mps = (
+      JSON.parse(fs.readFileSync(mpPath, "utf8")) as { mps: RosterMp[] }
+    ).mps;
+    const dsRows = await allRows<DsMpMatch>(
+      DS_MP_JOIN_SQL,
+      dsMpParams(mps, dsHeld),
+    );
+    for (const d of dsRows)
       add(
         d.name,
         {
-          id: `ds:mp:${d.mpId}`,
+          id: `ds:mp:${d.mp_id}`,
           source: "ds",
-          ref: `mp:${d.mpId}`,
+          ref: `mp:${d.mp_id}`,
           role: "ds_affiliation",
         },
         {
-          hardId: `mp:${d.mpId}`,
+          hardId: `mp:${d.mp_id}`,
           sourceRow: {
-            decisionNo: d.decisionNo,
-            decisionDate: d.decisionDate,
-            bodyContext: d.bodyContext,
-            category: d.category ?? null,
-            pseudonyms: d.pseudonyms ?? [],
-            url: d.url,
+            decisionNo: d.number,
+            decisionDate: d.decision_date,
+            // the office the decision announced them in; the title only when the
+            // decision printed none
+            bodyContext: d.office || d.title,
+            category: dsCategoryLabel(d.quality_raw),
+            pseudonyms: (d.pseudonyms ?? "")
+              .split(/[,;]/)
+              .map((x) => x.trim())
+              .filter(Boolean),
+            url: decisionViewUrl(d.decision_id),
           },
         },
       );
-    }
-    if (heldDs)
-      console.log(
-        `  held ${heldDs} name-ambiguous ДС affiliation(s) for manual disambiguation`,
-      );
+    console.log(
+      `  ДС: ${dsRows.length} MP(s) attached via exact name + birth date` +
+        (dsHeld.length
+          ? `; ${dsHeld.length} name(s) on the manual hold list`
+          : ""),
+    );
   }
 
   // Regulators (data/person/regulators.json) — curated ROSTERS of the independent /
