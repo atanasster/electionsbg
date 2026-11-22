@@ -313,6 +313,23 @@ const parseBlock = (block: string, section: DsSection): DsPerson => {
   };
 };
 
+/**
+ * „Проверени са M лица", summed over EVERY occurrence in the text.
+ *
+ * Most decisions state it once, in the header. Six (media and NGO sweeps, e.g.
+ * one per newspaper publisher) check several bodies in one decision and repeat
+ * the phrase per body with no overall „общо" line — reading only the first
+ * dropped 1,536 checks across those six (310: 3 instead of 631). Measured over
+ * all 1,933 texts: those six are the ONLY ones with more than one occurrence,
+ * so summing changes no single-block decision.
+ */
+const checkedCount = (t: string): number | null => {
+  const ms = [...t.matchAll(/[Пп]роверени\s+(?:са\s+)?([\d ]{1,9})\s*лица/g)]
+    .map((m) => digits(m[1]))
+    .filter((n): n is number => n !== null);
+  return ms.length ? ms.reduce((a, b) => a + b, 0) : null;
+};
+
 /** One decision's full text → its header counts and announced persons. */
 export const parseDecisionText = (raw: string): DsDecisionText => {
   const t = cleanDecisionText(raw);
@@ -337,9 +354,7 @@ export const parseDecisionText = (raw: string): DsDecisionText => {
 
   return {
     total: digits(head.match(/общо\s+([\d ]{1,9})\s*лица/)?.[1]),
-    checked: digits(
-      head.match(/[Пп]роверени\s+(?:са\s+)?([\d ]{1,9})\s*лица/)?.[1],
-    ),
+    checked: checkedCount(t),
     deceased,
     persons,
   };

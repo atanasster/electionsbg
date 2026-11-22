@@ -36,6 +36,20 @@ describe("parseDecisionText", () => {
     expect(d.deceased).toBe(3);
   });
 
+  it("sums „Проверени са“ across a multi-body decision instead of keeping the first", () => {
+    const multi = parseDecisionText(`РЕШЕНИЕ № 2-1
+„ПРИМЕР МЕДИЯ“ ЕАД – вестник „Пример“ Проверени са 11 лица. Комисията не установи принадлежност.
+„ДРУГ ИЗДАТЕЛ“ АД – вестник „Друг“ Проверени са 42 лица. Комисията не установи принадлежност.
+„ТРЕТИ“ ООД – вестник „Трети“ Проверени са 1 205 лица.
+Председател: Някой Председателски
+`);
+    expect(multi.checked).toBe(1258);
+  });
+
+  it("leaves checked null when no count is stated", () => {
+    expect(parseDecisionText("РЕШЕНИЕ № 1\nНяма брой.").checked).toBeNull();
+  });
+
   it("cuts the signature block, so nothing after „Председател:“ is a person", () => {
     expect(d.persons.map((p) => p.name)).toEqual([
       "Иван Петров Тестов",
