@@ -34,7 +34,7 @@ import {
   type RopRow,
   type ResolutionMaps,
 } from "./normalize_rop";
-import { disambiguateContractKeys } from "./contract_key";
+import { avoidExistingKeys, disambiguateContractKeys } from "./contract_key";
 import { canonicalJson, findHugeContracts, validateContract } from "./validate";
 import type { Contract } from "./types";
 
@@ -267,6 +267,25 @@ const supplierAgnosticKeys = (r: Contract): string[] => {
 
 const isNameKeyed = (r: Contract): boolean => r.contractorEik.startsWith("nm-");
 
+// Every contract key on disk → the rowKey that owns it, across ALL years: a
+// republished amendment can land years after the row whose key it would take.
+const loadDiskKeyOwners = (): Map<string, string> => {
+  const out = new Map<string, string>();
+  if (!fs.existsSync(CONTRACTS_DIR)) return out;
+  for (const year of fs.readdirSync(CONTRACTS_DIR)) {
+    if (!/^\d{4}$/.test(year)) continue;
+    const dir = path.join(CONTRACTS_DIR, year);
+    for (const f of fs.readdirSync(dir)) {
+      if (!/^\d{4}-\d{2}\.json$/.test(f)) continue;
+      const rows = JSON.parse(
+        fs.readFileSync(path.join(dir, f), "utf8"),
+      ) as Contract[];
+      if (Array.isArray(rows)) for (const r of rows) out.set(r.key, rowKey(r));
+    }
+  }
+  return out;
+};
+
 const loadExistingContentKeys = (years: Set<string>): Set<string> => {
   const out = new Set<string>();
   for (const year of years) {
@@ -441,6 +460,29 @@ const main = async (args: {
     ropKeyDiscriminator(kept[i]),
   );
   if (rekeyed > 0) console.log(`→ disambiguated ${rekeyed} colliding key(s)`);
+
+  // …and against keys an EARLIER run already wrote (any year). A disk row with
+  // the same rowKey is this row being re-written in place, not a collision.
+  const keptRowKeys = new Set(kept.map(rowKey));
+  const taken = new Set<string>();
+  for (const [key, owner] of loadDiskKeyOwners())
+    if (!keptRowKeys.has(owner)) taken.add(key);
+  const { rekeyed: rekeyedDisk, unresolved } = avoidExistingKeys(
+    kept,
+    taken,
+    ropKeyDiscriminator,
+  );
+  if (rekeyedDisk > 0)
+    console.log(
+      `→ re-keyed ${rekeyedDisk} row(s) whose key an earlier run already holds`,
+    );
+  if (unresolved.length > 0) {
+    const drop = new Set(unresolved);
+    kept.splice(0, kept.length, ...kept.filter((r) => !drop.has(r)));
+    console.log(
+      `  ⚠ dropped ${unresolved.length} row(s) indistinguishable from an on-disk row`,
+    );
+  }
 
   kept.forEach(validateContract);
   const huge = findHugeContracts(kept);

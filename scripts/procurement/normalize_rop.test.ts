@@ -12,6 +12,7 @@ import {
   type RopRow,
 } from "./normalize_rop";
 import { nameOnlySupplierKey } from "./supplier_identity";
+import { avoidExistingKeys } from "./contract_key";
 
 const TR = buildTrNameMap([
   { uic: "203849571", name: "ПАВТРЕЙД", legal_form: "EOOD" },
@@ -160,5 +161,30 @@ describe("multi-supplier lists", () => {
       "x",
     );
     expect(contracts[0].contractorEik).toBe("175000002");
+  });
+});
+
+describe("avoidExistingKeys", () => {
+  it("re-keys only the newcomer, so an existing /contract/:key URL never moves", () => {
+    const rows = [
+      { key: "aaa", d: "x" },
+      { key: "bbb", d: "y" },
+    ];
+    const taken = new Set(["aaa"]);
+    const { rekeyed, unresolved } = avoidExistingKeys(rows, taken, (r) => r.d);
+    expect(rekeyed).toBe(1);
+    expect(unresolved).toHaveLength(0);
+    expect(rows[0].key).not.toBe("aaa");
+    expect(rows[1].key).toBe("bbb");
+    expect(taken.has("aaa") && taken.has(rows[0].key)).toBe(true);
+  });
+  it("returns a row its discriminator cannot separate", () => {
+    const first = [{ key: "aaa", d: "x" }];
+    const taken = new Set(["aaa"]);
+    avoidExistingKeys(first, taken, (r) => r.d);
+    const again = [{ key: "aaa", d: "x" }];
+    expect(avoidExistingKeys(again, taken, (r) => r.d).unresolved).toEqual(
+      again,
+    );
   });
 });

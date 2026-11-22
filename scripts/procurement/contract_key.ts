@@ -105,6 +105,39 @@ export const disambiguateContractKeys = (
   return changed;
 };
 
+// Re-key NEW rows whose key is already taken ON DISK. `disambiguateContractKeys`
+// only sees one run's rows, so an amendment republished in a later run — the
+// РОП re-files „анекс към …" years later with the same (УНП, contract number,
+// supplier) — mints the bare key a row from an earlier run already holds, and
+// the Postgres load then aborts on `contracts_stage_pkey` (10 such pairs between
+// the 2018 and 2020 РОП backfills). The EXISTING row keeps its key, so a
+// published /contract/:key URL never moves; the newcomer takes the same
+// `hashKey(key::disc)` form the in-run pass uses. A row whose discriminator
+// cannot separate it (still taken) is returned for the caller to drop.
+export const avoidExistingKeys = <T extends { key: string }>(
+  rows: T[],
+  taken: Set<string>,
+  disc: (row: T) => string,
+): { rekeyed: number; unresolved: T[] } => {
+  let rekeyed = 0;
+  const unresolved: T[] = [];
+  for (const r of rows) {
+    if (!taken.has(r.key)) {
+      taken.add(r.key);
+      continue;
+    }
+    const next = hashKey(`${r.key}::${disc(r)}`);
+    if (taken.has(next)) {
+      unresolved.push(r);
+      continue;
+    }
+    r.key = next;
+    taken.add(next);
+    rekeyed++;
+  }
+  return { rekeyed, unresolved };
+};
+
 // Discriminator for legacy-CSV rows (and the offline re-derive over them). The
 // legacy base string is `legacy::${dataset}::${documentId}::${eik}`, which omits
 // the per-contract id — so lots sharing a document number collide. contractId is
