@@ -1,0 +1,1400 @@
+{
+  "schema": 1,
+  "session": "20261122T161415Z-2564",
+  "kind": "ingest",
+  "startedAt": "2026-11-22T16:14:15.841Z",
+  "git": {
+    "shaStart": "90bd4d8c11dcc62c1365500de16dd3d80f9b45bd",
+    "shaEnd": "56a3d0ca3416939d9fa027eb8b3b68e5d60de966"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country BG; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "reach:gov-hosts": {
+      "ok": true,
+      "detail": "www.parliament.bg, www.mod.bg answer (exit BG)"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 23 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 49.2 GB free (min 10); Docker VM 43.4 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-rollcall",
+      "status": "ok",
+      "sources": [
+        "parliament_votes"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "rollcall:scrape",
+          "command": "pnpm run rollcall:scrape",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 147504,
+          "medianMs": 137848,
+          "log": "logs/pipeline/20261122T161415Z-2564/001-rollcall_scrape.log"
+        },
+        {
+          "seq": 2,
+          "id": "parliament:bills",
+          "command": "pnpm run parliament:bills",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 258591,
+          "medianMs": 244431,
+          "log": "logs/pipeline/20261122T161415Z-2564/002-parliament_bills.log"
+        },
+        {
+          "seq": 3,
+          "id": "db:load:rollcall:pg",
+          "command": "pnpm run db:load:rollcall:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 16566,
+          "medianMs": 18101.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/003-db_load_rollcall_pg.log"
+        },
+        {
+          "seq": 4,
+          "id": "db:load:rollcall-derived:pg",
+          "command": "pnpm run db:load:rollcall-derived:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 90372,
+          "medianMs": 99904,
+          "log": "logs/pipeline/20261122T161415Z-2564/004-db_load_rollcall-derived_pg.log"
+        }
+      ],
+      "gates": [
+        {
+          "id": "rollcall-sessions",
+          "ok": true,
+          "expected": "data/parliament/votes/index.json: no more than 0% below its pre-run copy",
+          "observed": "649 → 650 (+0.2%)"
+        },
+        {
+          "id": "rollcall-announced-sessions-loaded",
+          "ok": true,
+          "expected": "every roll-call session in state/watch/parliament_votes.json meta.newSinceLast has data/parliament/votes/sessions/<date>.json",
+          "observed": "announced 2026-11-20; all loaded"
+        }
+      ],
+      "filesChanged": [
+        "data/parliament/votes/derived/attendance.json",
+        "data/parliament/votes/derived/cohesion.json",
+        "data/parliament/votes/derived/dissents.json",
+        "data/parliament/votes/derived/embedding.json",
+        "data/parliament/votes/derived/hub_feed/44.json",
+        "data/parliament/votes/derived/hub_feed/45.json",
+        "data/parliament/votes/derived/hub_feed/46.json",
+        "data/parliament/votes/derived/hub_feed/47.json",
+        "data/parliament/votes/derived/hub_feed/48.json",
+        "data/parliament/votes/derived/hub_feed/49.json",
+        "data/parliament/votes/derived/hub_feed/50.json",
+        "data/parliament/votes/derived/hub_feed/51.json",
+        "data/parliament/votes/derived/hub_feed/52.json",
+        "data/parliament/votes/derived/hub_stats.json",
+        "data/parliament/votes/derived/important_votes/44.json",
+        "data/parliament/votes/derived/important_votes/45.json",
+        "data/parliament/votes/derived/important_votes/46.json",
+        "data/parliament/votes/derived/important_votes/47.json",
+        "data/parliament/votes/derived/important_votes/48.json",
+        "data/parliament/votes/derived/important_votes/49.json",
+        "data/parliament/votes/derived/important_votes/50.json",
+        "data/parliament/votes/derived/important_votes/51.json",
+        "data/parliament/votes/derived/important_votes/52.json",
+        "data/parliament/votes/derived/loyalty.json",
+        "data/parliament/votes/derived/party_correlation.json",
+        "data/parliament/votes/derived/party_pair_breaks.json",
+        "data/parliament/votes/derived/search_index.json",
+        "data/parliament/votes/derived/similarity.json",
+        "data/parliament/votes/derived/similarity_headline.json",
+        "data/parliament/votes/derived/topic_index.json",
+        "data/parliament/votes/index.json",
+        "data/parliament/votes/sessions/2026-10-07.json",
+        "data/parliament/votes/sessions/2026-10-08.json",
+        "data/parliament/votes/sessions/2026-10-09.json",
+        "data/parliament/votes/sessions/2026-10-13.json",
+        "data/parliament/votes/sessions/2026-10-14.json",
+        "data/parliament/votes/sessions/2026-10-15.json",
+        "data/parliament/votes/sessions/2026-10-16.json",
+        "data/parliament/votes/sessions/2026-10-21.json",
+        "data/parliament/votes/sessions/2026-10-28.json",
+        "data/parliament/votes/sessions/2026-11-04.json",
+        "data/parliament/votes/sessions/2026-11-05.json",
+        "data/parliament/votes/sessions/2026-11-06.json",
+        "data/parliament/votes/sessions/2026-11-11.json",
+        "data/parliament/votes/sessions/2026-11-12.json",
+        "data/parliament/votes/sessions/2026-11-13.json",
+        "data/parliament/votes/sessions/2026-11-18.json",
+        "data/parliament/votes/sessions/2026-11-19.json",
+        "data/parliament/votes/sessions/2026-11-20.json"
+      ],
+      "summary": "4 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "tr-daily-refresh",
+      "status": "ok",
+      "sources": [
+        "egov_commerce"
+      ],
+      "steps": [
+        {
+          "seq": 5,
+          "id": "tr:daily-refresh › tsx ./scripts/declarations/tr/daily_refresh.ts",
+          "command": "tsx ./scripts/declarations/tr/daily_refresh.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 531496,
+          "medianMs": 459605,
+          "log": "logs/pipeline/20261122T161415Z-2564/005-tr_daily-refresh_tsx_._scripts_declarations_tr_daily_refresh.ts.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 6,
+          "id": "tr:daily-refresh › db:pg:up",
+          "command": "pnpm run db:pg:up",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 560,
+          "medianMs": 676,
+          "log": "logs/pipeline/20261122T161415Z-2564/006-tr_daily-refresh_db_pg_up.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 7,
+          "id": "tr:daily-refresh › db:load:tr:pg",
+          "command": "pnpm run db:load:tr:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 279853,
+          "medianMs": 188981,
+          "log": "logs/pipeline/20261122T161415Z-2564/007-tr_daily-refresh_db_load_tr_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 8,
+          "id": "tr:daily-refresh › db:load:cr-founding:pg",
+          "command": "pnpm run db:load:cr-founding:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 15059,
+          "medianMs": 654,
+          "log": "logs/pipeline/20261122T161415Z-2564/008-tr_daily-refresh_db_load_cr-founding_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 9,
+          "id": "tr:daily-refresh › db:load:cr-nkid:pg",
+          "command": "pnpm run db:load:cr-nkid:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 26935,
+          "medianMs": 807,
+          "log": "logs/pipeline/20261122T161415Z-2564/009-tr_daily-refresh_db_load_cr-nkid_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 10,
+          "id": "tr:daily-refresh › db:load:graph:pg",
+          "command": "pnpm run db:load:graph:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 22280,
+          "medianMs": 24173,
+          "log": "logs/pipeline/20261122T161415Z-2564/010-tr_daily-refresh_db_load_graph_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 11,
+          "id": "tr:daily-refresh › db:load:tr-company-place:pg",
+          "command": "pnpm run db:load:tr-company-place:pg",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 10119,
+          "medianMs": 10999,
+          "log": "logs/pipeline/20261122T161415Z-2564/011-tr_daily-refresh_db_load_tr-company-place_pg.log",
+          "chainOf": "tr:daily-refresh"
+        },
+        {
+          "seq": 12,
+          "id": "db:load:company-founded:pg",
+          "command": "pnpm run db:load:company-founded:pg",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 493,
+          "medianMs": 613,
+          "log": "logs/pipeline/20261122T161415Z-2564/012-db_load_company-founded_pg.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [],
+      "summary": "8 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-procurement",
+      "status": "skipped",
+      "sources": [
+        "eop_procurement",
+        "ted_bg"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "delegated to the update-procurement runbook (not yet a script)"
+    },
+    {
+      "id": "update-funds",
+      "status": "partial",
+      "sources": [
+        "isun_eu_funds",
+        "isun_eu_funds_projects",
+        "keep_eu_interreg",
+        "isun_clean_delivery"
+      ],
+      "steps": [
+        {
+          "seq": 13,
+          "id": "funds:ingest",
+          "command": "pnpm run funds:ingest",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 15017,
+          "medianMs": 19008,
+          "log": "logs/pipeline/20261122T161415Z-2564/013-funds_ingest.log"
+        },
+        {
+          "seq": 14,
+          "id": "funds:ingest-projects",
+          "command": "pnpm run funds:ingest-projects",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 111273,
+          "medianMs": 73716.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/014-funds_ingest-projects.log"
+        },
+        {
+          "seq": 15,
+          "id": "build_geo_pins",
+          "command": "pnpm exec tsx scripts/funds/build_geo_pins.ts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3851,
+          "medianMs": 1179,
+          "log": "logs/pipeline/20261122T161415Z-2564/015-build_geo_pins.log"
+        },
+        {
+          "seq": 16,
+          "id": "db:load:funds:pg",
+          "command": "pnpm run db:load:funds:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 79910,
+          "medianMs": 34172.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/016-db_load_funds_pg.log"
+        },
+        {
+          "seq": 17,
+          "id": "db:load:grant-links:pg",
+          "command": "pnpm run db:load:grant-links:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2435,
+          "medianMs": 1162,
+          "log": "logs/pipeline/20261122T161415Z-2564/017-db_load_grant-links_pg.log"
+        },
+        {
+          "seq": 18,
+          "id": "db:load:funds-fit:pg",
+          "command": "pnpm run db:load:funds-fit:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2560,
+          "medianMs": 1486.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/018-db_load_funds-fit_pg.log"
+        },
+        {
+          "seq": 19,
+          "id": "funds:parity",
+          "command": "pnpm exec tsx scripts/db/gen_funds/parity.ts --full",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 254331,
+          "medianMs": 65380.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/019-funds_parity.log"
+        },
+        {
+          "seq": 20,
+          "id": "funds:clean-delivery",
+          "command": "pnpm run funds:clean-delivery --fetch",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 21899,
+          "medianMs": 13475,
+          "log": "logs/pipeline/20261122T161415Z-2564/020-funds_clean-delivery.log"
+        },
+        {
+          "seq": 21,
+          "id": "db:load:clean-delivery:pg",
+          "command": "pnpm run db:load:clean-delivery:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2525,
+          "medianMs": 1252,
+          "log": "logs/pipeline/20261122T161415Z-2564/021-db_load_clean-delivery_pg.log"
+        },
+        {
+          "seq": 22,
+          "id": "db:load:persons-browse:pg",
+          "command": "pnpm run db:load:persons-browse:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 28758,
+          "medianMs": 14513,
+          "log": "logs/pipeline/20261122T161415Z-2564/022-db_load_persons-browse_pg.log"
+        },
+        {
+          "seq": 23,
+          "id": "db:load:person-search:pg",
+          "command": "pnpm run db:load:person-search:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 34537,
+          "medianMs": 19524.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/023-db_load_person-search_pg.log"
+        },
+        {
+          "seq": 24,
+          "id": "db:load:graph:pg",
+          "command": "pnpm run db:load:graph:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 20226,
+          "medianMs": 17580.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/024-db_load_graph_pg.log"
+        },
+        {
+          "seq": 25,
+          "id": "db:load:agri-hub-stats:pg",
+          "command": "pnpm run db:load:agri-hub-stats:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 24302,
+          "medianMs": 17460.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/025-db_load_agri-hub-stats_pg.log"
+        },
+        {
+          "seq": 26,
+          "id": "db:load:tr-company-place:pg",
+          "command": "pnpm run db:load:tr-company-place:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 8776,
+          "medianMs": 9916.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/026-db_load_tr-company-place_pg.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/funds/beneficiaries/0.json",
+        "data/funds/beneficiaries/1.json",
+        "data/funds/beneficiaries/2.json",
+        "data/funds/beneficiaries/3.json",
+        "data/funds/beneficiaries/4.json",
+        "data/funds/beneficiaries/5.json",
+        "data/funds/beneficiaries/6.json",
+        "data/funds/beneficiaries/7.json",
+        "data/funds/beneficiaries/8.json",
+        "data/funds/beneficiaries/9.json",
+        "data/funds/beneficiaries/_x.json",
+        "data/funds/clean_delivery.json",
+        "data/funds/derived/absorption.json",
+        "data/funds/derived/integrity.json",
+        "data/funds/derived/mp_connected.json",
+        "data/funds/derived/political_links.json",
+        "data/funds/derived/sankey.json",
+        "data/funds/index.json",
+        "data/funds/projects/changes/BGS01.json",
+        "data/funds/projects/changes/BGS04.json",
+        "data/funds/projects/changes/BGS06.json",
+        "data/funds/projects/changes/BGS08.json",
+        "data/funds/projects/changes/BGS09.json",
+        "data/funds/projects/changes/BGS12.json",
+        "data/funds/projects/changes/BGS15.json",
+        "data/funds/projects/changes/BGS17.json",
+        "data/funds/projects/changes/BGS18.json",
+        "data/funds/projects/changes/BGS21.json",
+        "data/funds/projects/changes/BGS23.json",
+        "data/funds/projects/changes/BLG01.json",
+        "data/funds/projects/changes/BLG02.json",
+        "data/funds/projects/changes/BLG03.json",
+        "data/funds/projects/changes/BLG11.json",
+        "data/funds/projects/changes/BLG13.json",
+        "data/funds/projects/changes/BLG28.json",
+        "data/funds/projects/changes/BLG33.json",
+        "data/funds/projects/changes/BLG37.json",
+        "data/funds/projects/changes/BLG40.json",
+        "data/funds/projects/changes/BLG42.json",
+        "data/funds/projects/changes/BLG44.json",
+        "data/funds/projects/changes/BLG49.json",
+        "data/funds/projects/changes/BLG52.json",
+        "data/funds/projects/changes/BLG53.json",
+        "data/funds/projects/changes/DOB03.json",
+        "data/funds/projects/changes/DOB27.json",
+        "data/funds/projects/changes/DOB28.json",
+        "data/funds/projects/changes/GAB05.json",
+        "data/funds/projects/changes/GAB12.json",
+        "data/funds/projects/changes/GAB29.json",
+        "data/funds/projects/changes/GAB35.json",
+        "data/funds/projects/changes/HKV09.json",
+        "data/funds/projects/changes/HKV11.json",
+        "data/funds/projects/changes/HKV19.json",
+        "data/funds/projects/changes/HKV28.json",
+        "data/funds/projects/changes/HKV29.json",
+        "data/funds/projects/changes/HKV32.json",
+        "data/funds/projects/changes/HKV33.json",
+        "data/funds/projects/changes/HKV34.json",
+        "data/funds/projects/changes/JAM03.json",
+        "data/funds/projects/changes/JAM07.json",
+        "data/funds/projects/changes/JAM25.json",
+        "data/funds/projects/changes/JAM26.json",
+        "data/funds/projects/changes/KNL04.json",
+        "data/funds/projects/changes/KNL29.json",
+        "data/funds/projects/changes/KNL41.json",
+        "data/funds/projects/changes/KNL48.json",
+        "data/funds/projects/changes/KRZ02.json",
+        "data/funds/projects/changes/KRZ08.json",
+        "data/funds/projects/changes/KRZ14.json",
+        "data/funds/projects/changes/KRZ15.json",
+        "data/funds/projects/changes/KRZ16.json",
+        "data/funds/projects/changes/KRZ21.json",
+        "data/funds/projects/changes/LOV02.json",
+        "data/funds/projects/changes/LOV17.json",
+        "data/funds/projects/changes/LOV18.json",
+        "data/funds/projects/changes/LOV19.json",
+        "data/funds/projects/changes/LOV34.json",
+        "data/funds/projects/changes/LOV36.json",
+        "data/funds/projects/changes/LOV38.json",
+        "data/funds/projects/changes/MON02.json",
+        "data/funds/projects/changes/MON07.json",
+        "data/funds/projects/changes/MON24.json",
+        "data/funds/projects/changes/MON29.json",
+        "data/funds/projects/changes/MON36.json",
+        "data/funds/projects/changes/PAZ04.json",
+        "data/funds/projects/changes/PAZ06.json",
+        "data/funds/projects/changes/PAZ08.json",
+        "data/funds/projects/changes/PAZ19.json",
+        "data/funds/projects/changes/PAZ20.json",
+        "data/funds/projects/changes/PAZ21.json",
+        "data/funds/projects/changes/PAZ24.json",
+        "data/funds/projects/changes/PAZ29.json",
+        "data/funds/projects/changes/PAZ32.json",
+        "data/funds/projects/changes/PDV01.json",
+        "data/funds/projects/changes/PDV07.json",
+        "data/funds/projects/changes/PDV13.json",
+        "data/funds/projects/changes/PDV17.json",
+        "data/funds/projects/changes/PDV22.json",
+        "data/funds/projects/changes/PDV23.json",
+        "data/funds/projects/changes/PDV25.json",
+        "data/funds/projects/changes/PDV26.json",
+        "data/funds/projects/changes/PDV28.json",
+        "data/funds/projects/changes/PDV33.json",
+        "data/funds/projects/changes/PDV40.json",
+        "data/funds/projects/changes/PDV41.json",
+        "data/funds/projects/changes/PDV42.json",
+        "data/funds/projects/changes/PDV43.json",
+        "data/funds/projects/changes/PER08.json",
+        "data/funds/projects/changes/PER32.json",
+        "data/funds/projects/changes/PER51.json",
+        "data/funds/projects/changes/PVN03.json",
+        "data/funds/projects/changes/PVN08.json",
+        "data/funds/projects/changes/PVN16.json",
+        "data/funds/projects/changes/PVN23.json",
+        "data/funds/projects/changes/PVN24.json",
+        "data/funds/projects/changes/PVN27.json",
+        "data/funds/projects/changes/PVN37.json",
+        "data/funds/projects/changes/PVN39.json",
+        "data/funds/projects/changes/RAZ14.json",
+        "data/funds/projects/changes/RAZ16.json",
+        "data/funds/projects/changes/RAZ17.json",
+        "data/funds/projects/changes/RAZ26.json",
+        "data/funds/projects/changes/RSE13.json",
+        "data/funds/projects/changes/RSE27.json",
+        "data/funds/projects/changes/RSE33.json",
+        "data/funds/projects/changes/S22.json",
+        "data/funds/projects/changes/S2317.json",
+        "data/funds/projects/changes/S2323.json",
+        "data/funds/projects/changes/S2524.json",
+        "data/funds/projects/changes/SFO06.json",
+        "data/funds/projects/changes/SFO07.json",
+        "data/funds/projects/changes/SFO16.json",
+        "data/funds/projects/changes/SFO17.json",
+        "data/funds/projects/changes/SFO18.json",
+        "data/funds/projects/changes/SFO20.json",
+        "data/funds/projects/changes/SFO25.json",
+        "data/funds/projects/changes/SFO26.json",
+        "data/funds/projects/changes/SFO34.json",
+        "data/funds/projects/changes/SFO39.json",
+        "data/funds/projects/changes/SFO43.json",
+        "data/funds/projects/changes/SFO45.json",
+        "data/funds/projects/changes/SFO55.json",
+        "data/funds/projects/changes/SHU10.json",
+        "data/funds/projects/changes/SHU19.json",
+        "data/funds/projects/changes/SHU22.json",
+        "data/funds/projects/changes/SHU23.json",
+        "data/funds/projects/changes/SHU25.json",
+        "data/funds/projects/changes/SHU30.json",
+        "data/funds/projects/changes/SLS07.json",
+        "data/funds/projects/changes/SLS10.json",
+        "data/funds/projects/changes/SLS15.json",
+        "data/funds/projects/changes/SLS31.json",
+        "data/funds/projects/changes/SLS34.json",
+        "data/funds/projects/changes/SLV11.json",
+        "data/funds/projects/changes/SLV16.json",
+        "data/funds/projects/changes/SLV20.json",
+        "data/funds/projects/changes/SLV24.json",
+        "data/funds/projects/changes/SML09.json",
+        "data/funds/projects/changes/SML10.json",
+        "data/funds/projects/changes/SML11.json",
+        "data/funds/projects/changes/SML16.json",
+        "data/funds/projects/changes/SML27.json",
+        "data/funds/projects/changes/SML38.json",
+        "data/funds/projects/changes/SZR07.json",
+        "data/funds/projects/changes/SZR12.json",
+        "data/funds/projects/changes/SZR22.json",
+        "data/funds/projects/changes/SZR23.json",
+        "data/funds/projects/changes/SZR27.json",
+        "data/funds/projects/changes/SZR31.json",
+        "data/funds/projects/changes/SZR37.json",
+        "data/funds/projects/changes/SZR38.json",
+        "data/funds/projects/changes/TGV22.json",
+        "data/funds/projects/changes/TGV23.json",
+        "data/funds/projects/changes/TGV24.json",
+        "data/funds/projects/changes/TGV35.json",
+        "data/funds/projects/changes/VAR01.json",
+        "data/funds/projects/changes/VAR04.json",
+        "data/funds/projects/changes/VAR05.json",
+        "data/funds/projects/changes/VAR06.json",
+        "data/funds/projects/changes/VAR08.json",
+        "data/funds/projects/changes/VAR09.json",
+        "data/funds/projects/changes/VAR16.json",
+        "data/funds/projects/changes/VAR26.json",
+        "data/funds/projects/changes/VID01.json",
+        "data/funds/projects/changes/VID09.json",
+        "data/funds/projects/changes/VID16.json",
+        "data/funds/projects/changes/VID33.json",
+        "data/funds/projects/changes/VID37.json",
+        "data/funds/projects/changes/VRC05.json",
+        "data/funds/projects/changes/VRC08.json",
+        "data/funds/projects/changes/VRC10.json",
+        "data/funds/projects/changes/VRC20.json",
+        "data/funds/projects/changes/VRC21.json",
+        "data/funds/projects/changes/VRC27.json",
+        "data/funds/projects/changes/VRC28.json",
+        "data/funds/projects/changes/VRC31.json",
+        "data/funds/projects/changes/VRC35.json",
+        "data/funds/projects/changes/VTR04.json",
+        "data/funds/projects/changes/VTR06.json",
+        "data/funds/projects/changes/VTR20.json",
+        "data/funds/projects/changes/VTR22.json",
+        "data/funds/projects/changes/VTR28.json",
+        "data/funds/projects/changes/VTR32.json",
+        "data/funds/projects/changes/index.json",
+        "data/funds/projects/index.json",
+        "data/funds/projects/multi_location.json",
+        "data/funds/projects/muni-map.json",
+        "data/funds/taxonomy.json"
+      ],
+      "summary": "14 step(s) ok",
+      "why": "marker not stamped: keep_eu_interreg deferred to an operator item",
+      "stamped": false
+    },
+    {
+      "id": "update-open-calls",
+      "status": "ok",
+      "sources": [
+        "isun_procedures"
+      ],
+      "steps": [
+        {
+          "seq": 27,
+          "id": "opencalls:isun",
+          "command": "pnpm run opencalls:isun",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 58805,
+          "medianMs": 69021,
+          "log": "logs/pipeline/20261122T161415Z-2564/027-opencalls_isun.log"
+        },
+        {
+          "seq": 28,
+          "id": "opencalls:az",
+          "command": "pnpm run opencalls:az",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 20635,
+          "medianMs": 18821.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/028-opencalls_az.log"
+        },
+        {
+          "seq": 29,
+          "id": "db:load:open-calls:pg",
+          "command": "pnpm run db:load:open-calls:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 692,
+          "medianMs": 592.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/029-db_load_open-calls_pg.log"
+        },
+        {
+          "seq": 30,
+          "id": "open_calls.data.test",
+          "command": "pnpm exec vitest run scripts/db/tests/open_calls.data.test.ts",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 37165,
+          "medianMs": 18328,
+          "log": "logs/pipeline/20261122T161415Z-2564/030-open_calls.data.test.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/opencalls/az.json",
+        "data/opencalls/isun.json"
+      ],
+      "summary": "4 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-macro",
+      "status": "ok",
+      "sources": [
+        "eurostat"
+      ],
+      "steps": [
+        {
+          "seq": 31,
+          "id": "fetch_eurostat",
+          "command": "pnpm exec tsx scripts/macro/fetch_eurostat.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 8249,
+          "medianMs": 19259,
+          "log": "logs/pipeline/20261122T161415Z-2564/031-fetch_eurostat.log"
+        },
+        {
+          "seq": 32,
+          "id": "fetch_cofog",
+          "command": "pnpm exec tsx scripts/macro/fetch_cofog.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1898,
+          "medianMs": 3278,
+          "log": "logs/pipeline/20261122T161415Z-2564/032-fetch_cofog.log"
+        },
+        {
+          "seq": 33,
+          "id": "fetch_eu_peers",
+          "command": "pnpm exec tsx scripts/macro/fetch_eu_peers.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 8547,
+          "medianMs": 28975,
+          "log": "logs/pipeline/20261122T161415Z-2564/033-fetch_eu_peers.log"
+        },
+        {
+          "seq": 34,
+          "id": "fetch_food_pli",
+          "command": "pnpm exec tsx scripts/macro/fetch_food_pli.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1741,
+          "medianMs": 1174,
+          "log": "logs/pipeline/20261122T161415Z-2564/034-fetch_food_pli.log"
+        },
+        {
+          "seq": 35,
+          "id": "admin:build-context",
+          "command": "pnpm run admin:build-context",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 587,
+          "medianMs": 476.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/035-admin_build-context.log"
+        },
+        {
+          "seq": 36,
+          "id": "social:poverty_impact",
+          "command": "pnpm exec tsx scripts/social/fetch_poverty_impact.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 818,
+          "medianMs": 774.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/036-social_poverty_impact.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/administration/context.json",
+        "data/cofog.json",
+        "data/macro.json",
+        "data/macro_peers.json",
+        "data/social/poverty_impact.json"
+      ],
+      "summary": "6 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-administration",
+      "status": "ok",
+      "sources": [
+        "iisda_services"
+      ],
+      "steps": [
+        {
+          "seq": 37,
+          "id": "admin:fetch_egov",
+          "command": "pnpm exec tsx scripts/administration/fetch_egov.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1808,
+          "medianMs": 2895,
+          "log": "logs/pipeline/20261122T161415Z-2564/037-admin_fetch_egov.log"
+        },
+        {
+          "seq": 38,
+          "id": "admin:fetch_digital_skills",
+          "command": "pnpm exec tsx scripts/administration/fetch_digital_skills.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1502,
+          "medianMs": 2403,
+          "log": "logs/pipeline/20261122T161415Z-2564/038-admin_fetch_digital_skills.log"
+        },
+        {
+          "seq": 39,
+          "id": "admin:fetch_services",
+          "command": "pnpm exec tsx scripts/administration/fetch_services.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 46163,
+          "medianMs": 46446,
+          "log": "logs/pipeline/20261122T161415Z-2564/039-admin_fetch_services.log"
+        },
+        {
+          "seq": 40,
+          "id": "admin:parse_service_quality",
+          "command": "pnpm exec tsx scripts/administration/parse_service_quality.ts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 898,
+          "medianMs": 906,
+          "log": "logs/pipeline/20261122T161415Z-2564/040-admin_parse_service_quality.log"
+        },
+        {
+          "seq": 41,
+          "id": "admin:build-context",
+          "command": "pnpm run admin:build-context",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 459,
+          "medianMs": 476.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/041-admin_build-context.log"
+        },
+        {
+          "seq": 42,
+          "id": "db:load:admin-services:pg",
+          "command": "pnpm run db:load:admin-services:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 623,
+          "medianMs": 633.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/042-db_load_admin-services_pg.log"
+        },
+        {
+          "seq": 43,
+          "id": "admin:eforms",
+          "command": "pnpm run admin:eforms",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4257,
+          "medianMs": 4348,
+          "log": "logs/pipeline/20261122T161415Z-2564/043-admin_eforms.log"
+        },
+        {
+          "seq": 44,
+          "id": "db:load:admin-service-requests:pg",
+          "command": "pnpm run db:load:admin-service-requests:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 771,
+          "medianMs": 524,
+          "log": "logs/pipeline/20261122T161415Z-2564/044-db_load_admin-service-requests_pg.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/administration/context.json",
+        "data/administration/digital_skills.json",
+        "data/administration/egov.json",
+        "data/administration/service_quality.json",
+        "data/administration/services_catalog.json",
+        "data/administration/services_overview.json"
+      ],
+      "summary": "8 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-noi",
+      "status": "needs-operator",
+      "sources": [
+        "nssi_yearbook"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Fetch the new Yearbook_Pensions ZIP / locate the КФН statistics ZIP URL, run the matching scripts/budget/{noi,kfn}/__write_*.ts, then `pnpm run pipeline:ack update-noi noi-yearbook-and-kfn`."
+    },
+    {
+      "id": "update-culture",
+      "status": "needs-operator",
+      "sources": [
+        "ncf_grant_results"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts."
+    },
+    {
+      "id": "update-prices",
+      "status": "ok",
+      "sources": [
+        "kzp_prices"
+      ],
+      "steps": [
+        {
+          "seq": 45,
+          "id": "prices",
+          "command": "pnpm run prices",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1502963,
+          "medianMs": 458925.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/045-prices.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data-changes.json",
+        "data/prices/product_slugs.json"
+      ],
+      "summary": "1 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-council-minutes",
+      "status": "ok",
+      "sources": [
+        "council_minutes"
+      ],
+      "steps": [
+        {
+          "seq": 46,
+          "id": "council:scrape",
+          "command": "pnpm run council:scrape --per-councillor",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 649295,
+          "medianMs": 637680.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/046-council_scrape.log"
+        },
+        {
+          "seq": 47,
+          "id": "db:load:council:pg",
+          "command": "pnpm run db:load:council:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2805,
+          "medianMs": 3126,
+          "log": "logs/pipeline/20261122T161415Z-2564/047-db_load_council_pg.log"
+        },
+        {
+          "seq": 48,
+          "id": "council:index_corpus.test",
+          "command": "pnpm exec vitest run scripts/council/lib/index_corpus.test.ts",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 26531,
+          "medianMs": 10132,
+          "log": "logs/pipeline/20261122T161415Z-2564/048-council_index_corpus.test.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/council/index.json",
+        "state/ingest/council_BGS01.json",
+        "state/ingest/council_DOB28.json",
+        "state/ingest/council_GAB05.json",
+        "state/ingest/council_HKV09.json",
+        "state/ingest/council_HKV34.json",
+        "state/ingest/council_PDV01.json",
+        "state/ingest/council_PER32.json",
+        "state/ingest/council_PVN01.json",
+        "state/ingest/council_RAZ26.json",
+        "state/ingest/council_RSE01.json",
+        "state/ingest/council_SLV01.json",
+        "state/ingest/council_SOF.json",
+        "state/ingest/council_SZR01.json",
+        "state/ingest/council_SZR12.json",
+        "state/ingest/council_VAR01.json",
+        "state/ingest/council_VTR01.json"
+      ],
+      "summary": "3 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "fiscal_council_bg",
+      "status": "needs-operator",
+      "sources": [
+        "fiscal_council_bg"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "A new Fiscal Council opinion: check whether any simulator lever is affected."
+    },
+    {
+      "id": "post:roads-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 49,
+          "id": "db:gen-roads-hub-stats",
+          "command": "pnpm run db:gen-roads-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 11741,
+          "medianMs": 1267.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/049-db_gen-roads-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:water-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 50,
+          "id": "db:gen-water-flood",
+          "command": "pnpm run db:gen-water-flood",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6226,
+          "medianMs": 5224,
+          "log": "logs/pipeline/20261122T161415Z-2564/050-db_gen-water-flood.log"
+        },
+        {
+          "seq": 51,
+          "id": "db:gen-water-hub-stats",
+          "command": "pnpm run db:gen-water-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1610,
+          "medianMs": 1209.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/051-db_gen-water-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:transport-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 52,
+          "id": "db:gen-transport-hub-stats",
+          "command": "pnpm run db:gen-transport-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1561,
+          "medianMs": 1140,
+          "log": "logs/pipeline/20261122T161415Z-2564/052-db_gen-transport-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:edu-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 53,
+          "id": "db:gen-edu-hub-stats",
+          "command": "pnpm run db:gen-edu-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2532,
+          "log": "logs/pipeline/20261122T161415Z-2564/053-db_gen-edu-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/education/derived/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:health-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 54,
+          "id": "db:gen-health-hub-stats",
+          "command": "pnpm run db:gen-health-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2404,
+          "log": "logs/pipeline/20261122T161415Z-2564/054-db_gen-health-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 55,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 13923,
+          "medianMs": 13337.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/055-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "failed",
+      "steps": [
+        {
+          "seq": 56,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "error",
+          "exitCode": 1,
+          "durationMs": 1779,
+          "medianMs": 5928,
+          "log": "logs/pipeline/20261122T161415Z-2564/056-data_map.log",
+          "firstError": "Add each to the owning DatasetDef's tables[] in model.ts — or, if it is scratch, ingest plumbing or an operator override, to UNCLAIMED with the reason. A whole corpus with no node is a MISSING DATASET, not an UNCLAIMED entry.",
+          "failure": {
+            "class": "unknown",
+            "retryable": false,
+            "hint": "Exit 1 with no recognisable error — read the full log."
+          },
+          "packet": "state/pipeline/runs/20261122T161415Z-2564/failures/056-data_map.md"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [],
+      "why": "data:map failed"
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 57,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 749,
+          "medianMs": 642.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/057-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 58,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 596,
+          "medianMs": 222.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/058-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 59,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 11076,
+          "medianMs": 8670.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/059-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 60,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4301,
+          "medianMs": 4235,
+          "log": "logs/pipeline/20261122T161415Z-2564/060-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 61,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1303,
+          "medianMs": 1134.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/061-db_gen-home-feed.log"
+        },
+        {
+          "seq": 62,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 509,
+          "medianMs": 485.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/062-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/home/feed.json",
+        "data/home/flyover.json",
+        "data/home/hub_stats.json",
+        "data/home/price_events.json"
+      ]
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 63,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 852,
+          "medianMs": 785.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/063-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 64,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 1652,
+          "medianMs": 1216.5,
+          "log": "logs/pipeline/20261122T161415Z-2564/064-db_check-cloud.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    }
+  ],
+  "needsOperator": [
+    {
+      "unit": "update-funds",
+      "id": "interreg-crawl",
+      "instruction": "Probe with `pnpm run funds:crawl-interreg --index-only --max-pages 1`; if healthy run `pnpm run funds:crawl-interreg --full` (~2 h), then ack — the ingest and loads run on the next pipeline run."
+    },
+    {
+      "unit": "update-noi",
+      "id": "noi-yearbook-and-kfn",
+      "instruction": "Fetch the new Yearbook_Pensions ZIP / locate the КФН statistics ZIP URL, run the matching scripts/budget/{noi,kfn}/__write_*.ts, then `pnpm run pipeline:ack update-noi noi-yearbook-and-kfn`."
+    },
+    {
+      "unit": "update-culture",
+      "id": "ncf-grant-results-url",
+      "instruction": "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts."
+    },
+    {
+      "unit": "fiscal_council_bg",
+      "id": "fiscal_council_bg-manual",
+      "instruction": "A new Fiscal Council opinion: check whether any simulator lever is affected."
+    }
+  ],
+  "needsAgent": [
+    {
+      "unit": "update-rollcall",
+      "id": "pin-rollcall-counts",
+      "instruction": "Update the four pinned counts in scripts/db/tests/rollcall.data.test.ts from the loader output.",
+      "doc": ".claude/skills/update-rollcall/SKILL.md (Step 5c)"
+    },
+    {
+      "unit": "update-procurement",
+      "id": "run-runbook",
+      "instruction": "Run update-procurement for eop_procurement, ted_bg. Planned steps: pnpm exec tsx scripts/procurement/ingest_eop.ts --self-heal --apply → pnpm run procurement:ingest → pnpm exec tsx scripts/procurement/ingest_tenders.ts --apply → pnpm exec tsx scripts/procurement/eop_field_map.ts --apply → pnpm exec tsx scripts/procurement/by_id_shards.ts → pnpm exec tsx scripts/procurement/ingest_anexi.ts → pnpm exec tsx scripts/procurement/anexi_current_value.ts --apply → pnpm run proc:backfill-unp:apply → pnpm run proc:reconcile:apply → pnpm exec tsx scripts/procurement/rebuild_from_cache.ts → pnpm exec tsx scripts/procurement/contract_index.ts → pnpm exec tsx scripts/procurement/rebuild_derived.ts → pnpm run db:refresh → pnpm run ted:ingest --apply → pnpm run db:load:ted:pg.",
+      "doc": ".claude/skills/update-procurement/SKILL.md"
+    }
+  ],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261122T161415Z-2564/063-db_check-generated.log",
+    "db:check-cloud exited 1: it found something — read logs/pipeline/20261122T161415Z-2564/064-db_check-cloud.log",
+    "post-step(s) owed to the next run: data-map (state/pipeline/owed_post_steps.json)"
+  ],
+  "publish": {
+    "decision": "held",
+    "heldBecause": [
+      "post-step data-map: data:map failed"
+    ]
+  },
+  "exitCode": 1,
+  "endedAt": "2026-11-22T17:28:34.345Z",
+  "verdict": "failed"
+}
