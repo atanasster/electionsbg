@@ -107,6 +107,13 @@ export type Corroborants = {
    * (`official_muni`). NULL for every other mention. See `sameMayoralty`.
    */
   mayoralty?: string | null;
+  /**
+   * The comparable OBLAST of this mention's typed place (`oblastKeyFor`, oblastKey.ts) —
+   * the one grain at which a МИР candidacy and a council term can be compared. NULL when
+   * the place cannot be compared, and the national↔local tier then ignores the mention.
+   * See `unionNationalLocal`.
+   */
+  oblastKey?: string | null;
 };
 
 export type Mention = {
@@ -608,6 +615,112 @@ const patronymicConflict = (a: Mention, b: Mention): boolean =>
   !!b.patronymicFold &&
   a.patronymicFold !== b.patronymicFold;
 
+// The NATIONAL ↔ LOCAL rule: a person who stood for or sat in parliament in an oblast, and
+// a person who held a local office in an община of that same oblast, for the same party,
+// under the same full three-part name, are one person — when nobody else on the fold
+// competes for that (party, oblast). docs/plans/person-national-local-merge-v1.md.
+//
+// Why it was needed. `weakBoth` already accepts party AND place as evidence, but compares
+// the place as a string, and the two sides fill it at different grains — the МИР on a
+// candidacy, the община on a council term — so it could never fire across them. Measured
+// 2026-11-23: ~430 such pairs, Йорданка Фандъкова (Sofia mayor, then MP) and Джипо Джипов
+// (Разград councillor, then MP) among them. The second is how it was found: two `person`
+// rows on his fold made Bridge B refuse his Commerce-Registry companies.
+//
+// Why it is a SEPARATE PASS over components and not a pairwise Tier-1 corroborant. The
+// guard is "uncontested", and that is a fact about the block, not the pair — the same
+// reason `sameLocalSeat` computes its contested set over the whole block. Here it is also a
+// fact about COMPONENTS rather than mentions: a re-elected councillor is two local mentions
+// of one person, and a candidate who stood three times is three candidacy mentions, so
+// counting mentions would call every career contested. So it runs AFTER Tiers 0–2, on the
+// components they produced, and asks per (party, oblast) key: is it claimed by exactly one
+// national component and exactly one local-only component?
+//
+// The guards, each closing a specific way of being wrong:
+//  • `nameShapeOk` with the mass-name cap — 3-part, unambiguous, equal patronymic, at most
+//    12 companies on the fold. No opt-out: no seat here is exclusive.
+//  • the LOCAL side must be local-ONLY (no mp/candidate mention in its component). A local
+//    component that already carries a candidacy was joined by the tiers above, and its
+//    national evidence belongs to them.
+//  • a key claimed by two national components or two local components is CONTESTED and
+//    joins nothing — we cannot say which of the two is the other side's person.
+//  • each component may take at most ONE partner through this tier. Two different keys
+//    would otherwise let one MP absorb councillors of two parties, or one councillor two
+//    MPs, by chaining — the transitive-closure hazard `sameLocalSeat` documents.
+//
+// ⚠️ The REGISTRY uniqueness check (`registerPeople`, Bridge B's `people_n`) is deliberately
+// NOT required. It counts the Commerce Registry's population, which says nothing about
+// local politics, and refused 136 of 430 pairs whose sampled review found no sign of two
+// people. Decided 2026-11-23, plan §4.4 and §8.
+const NATIONAL_SOURCES: ReadonlySet<string> = new Set(["mp", CANDIDACY_SOURCE]);
+const LOCAL_SOURCE = "local";
+const NATIONAL_LOCAL_NAMESAKE_CAP = MASS_COLLISION_CAP;
+
+const unionNationalLocal = (
+  mentions: Mention[],
+  find: (x: number) => number,
+  union: (a: number, b: number) => void,
+): void => {
+  const root = mentions.map((_, i) => find(i));
+  const national = new Set<number>();
+  const local = new Set<number>();
+  mentions.forEach((m, i) => {
+    if (NATIONAL_SOURCES.has(m.source)) national.add(root[i]);
+    if (m.source === LOCAL_SOURCE) local.add(root[i]);
+  });
+  for (const r of national) local.delete(r); // local-ONLY components
+
+  // key → the components claiming it on each side, and one eligible mention per component.
+  type Side = Map<number, number | null>; // root → representative mention index (null = none eligible)
+  const keys = new Map<string, { nat: Side; loc: Side }>();
+  mentions.forEach((m, i) => {
+    const { party, oblastKey } = m.corroborants;
+    if (!party || !oblastKey) return;
+    const r = root[i];
+    const side = NATIONAL_SOURCES.has(m.source)
+      ? "nat"
+      : m.source === LOCAL_SOURCE && local.has(r)
+        ? "loc"
+        : null;
+    if (!side) return;
+    const k = `${party}\t${oblastKey}`;
+    const entry =
+      keys.get(k) ?? keys.set(k, { nat: new Map(), loc: new Map() }).get(k)!;
+    const eligible =
+      m.nameParts === 3 &&
+      !m.ambiguous &&
+      !!m.patronymicFold &&
+      m.namesakeRisk <= NATIONAL_LOCAL_NAMESAKE_CAP;
+    const prev = entry[side].get(r);
+    entry[side].set(r, prev ?? (eligible ? i : null));
+  });
+
+  const edges: [number, number][] = [];
+  for (const { nat, loc } of keys.values()) {
+    if (nat.size !== 1 || loc.size !== 1) continue; // contested or one-sided
+    const ni = [...nat.values()][0];
+    const li = [...loc.values()][0];
+    if (ni == null || li == null) continue;
+    edges.push([ni, li]);
+  }
+  // At most one partner per component, on either side.
+  const partners = new Map<number, Set<number>>();
+  const note = (a: number, b: number) =>
+    (partners.get(a) ?? partners.set(a, new Set()).get(a)!).add(b);
+  for (const [ni, li] of edges) {
+    note(root[ni], root[li]);
+    note(root[li], root[ni]);
+  }
+  for (const [ni, li] of edges) {
+    if (partners.get(root[ni])!.size !== 1) continue;
+    if (partners.get(root[li])!.size !== 1) continue;
+    const [a, b] = [mentions[ni], mentions[li]];
+    if (patronymicConflict(a, b)) continue;
+    if (!nameShapeOk(a, b, NATIONAL_LOCAL_NAMESAKE_CAP)) continue;
+    union(ni, li);
+  }
+};
+
 /**
  * Decide merges + review-candidates for one block of same-fold mentions.
  *
@@ -621,7 +734,12 @@ const patronymicConflict = (a: Mention, b: Mention): boolean =>
  * @param mentions - mentions sharing one (givenFold, familyFold) block key
  * @returns safe merges and ambiguous review candidates (never both for the same pair)
  */
-export function clusterBlock(mentions: Mention[]): ClusterResult {
+export function clusterBlock(
+  mentions: Mention[],
+  /** `nationalLocal: false` turns Tier 2c off — ONLY for `measure_national_local.ts`, which
+   *  diffs the resolver's output with and without it. The resolver never passes it. */
+  opts: { nationalLocal?: boolean } = {},
+): ClusterResult {
   const n = mentions.length;
   const parent = Array.from({ length: n }, (_, i) => i);
   const find = (x: number): number =>
@@ -768,6 +886,10 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
     if (!anchored) continue;
     for (let j = 1; j < idxs.length; j++) union(idxs[0], idxs[j]);
   }
+
+  // Tier 2c — national ↔ local, over the components Tiers 0–2 produced. See
+  // `unionNationalLocal` for why it is a component pass and why it runs last.
+  if (opts.nationalLocal !== false) unionNationalLocal(mentions, find, union);
 
   // Collect components.
   const comps = new Map<number, number[]>();

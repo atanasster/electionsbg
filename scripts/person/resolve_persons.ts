@@ -37,6 +37,7 @@
 //   pnpm exec tsx scripts/person/resolve_persons.ts --no-stamp
 //   pnpm run db:resolve:persons --no-stamp
 
+import { oblastKeyFor } from "./oblastKey";
 import fs, { globSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -263,7 +264,7 @@ export const mpRoleRowsFor = (ref: string): MpRoleRow[] => {
   });
 };
 
-type Raw = {
+export type Raw = {
   id: string;
   source: string;
   ref: string;
@@ -1552,7 +1553,7 @@ async function foldAndScore(raw: Raw[]): Promise<{
   return { fold, namesake, registerPeople, mpPeople };
 }
 
-type M = Mention & { raw: Raw; nameFold: string };
+export type M = Mention & { raw: Raw; nameFold: string };
 
 // The person-layer schema files, applied (idempotent CREATE … IF NOT EXISTS) before every
 // resolve so `db:refresh` / a fresh clone can rebuild from an empty DB — nothing else wires
@@ -1637,39 +1638,22 @@ const INGEST_SKILL = "update-persons";
 // hatch for a scratch run.
 const skipStamp = process.argv.includes("--no-stamp");
 
-async function main(): Promise<void> {
-  console.log(
-    "resolving persons (magistrate + officials + MPs + candidates + donors + local + tr-bridge)…",
-  );
-  for (const f of SCHEMA_FILES)
-    await exec(fs.readFileSync(path.join(SCHEMA_DIR, f), "utf8"));
+/**
+ * Every mention the resolver clusters, grouped into the (given, family) blocks
+ * `clusterBlock` decides. READ-ONLY: it applies no schema and writes nothing, so
+ * `measure_national_local.ts` can run the real mention-building path against a live
+ * database without touching it — a second copy of this construction is exactly the
+ * drift a dry run exists to rule out.
+ */
+export async function buildMentionBlocks(): Promise<{
+  raw: Raw[];
+  mentions: M[];
+  blocks: Map<string, M[]>;
+  regKeyed: number;
+  aliased: number;
+}> {
   const raw = await collect();
   const { fold, namesake, registerPeople, mpPeople } = await foldAndScore(raw);
-
-  // §6 privacy gate: a person is public only if some source they hold defaults public
-  // (person_source.public_default). All current sources are public, but tr/donor/ngo
-  // (public_default=false) must NOT mint a public page for a private individual.
-  const publicDefault = new Map(
-    (
-      await allRows<{ key: string; public_default: boolean }>(
-        `SELECT key, public_default FROM person_source`,
-      )
-    ).map((r) => [r.key, r.public_default]),
-  );
-
-  // Human adjudication (plan §3 tier 4) — the audited person_link_override rows, applied as
-  // the LAST tier below so a hand-decided merge/split always wins over the automatic result.
-  // The schema is already applied above (SCHEMA_FILES), so the ref columns exist.
-  const dbOverrides = await allRows<OverrideRow>(
-    `SELECT override_id, kind, fold_a, fold_b, ref_a, ref_b FROM person_link_override`,
-  );
-  const committedOverrides = loadOverrideRegistry();
-  const overrides = parseOverrides(
-    mergeOverrideRows(committedOverrides, dbOverrides),
-  );
-  console.log(
-    `person overrides: ${committedOverrides.length} committed + ${dbOverrides.length} DB hotfix(es)`,
-  );
 
   // GOLD-KEY ALIASING. A mention can carry TWO independent gold keys — the parliament MP
   // id and the Сметна палата register person id — and when both sit on the SAME mention
@@ -1747,6 +1731,13 @@ async function main(): Promise<void> {
         r.placeCode
           ? `mayor\t${r.placeCode}`
           : null,
+      // `unionNationalLocal` (cluster.ts): the oblast at the one grain a МИР and an община
+      // compare at. Only the three sources that rule reads carry it, so no other source can
+      // inherit a licence nobody argued for it.
+      oblastKey:
+        r.source === "mp" || r.source === "candidate" || r.source === "local"
+          ? oblastKeyFor(r.placeKind, r.placeCode)
+          : null,
     },
     raw: r,
   }));
@@ -1758,6 +1749,41 @@ async function main(): Promise<void> {
     const arr = blocks.get(k) ?? blocks.set(k, []).get(k)!;
     arr.push(m);
   }
+  return { raw, mentions, blocks, regKeyed, aliased };
+}
+
+async function main(): Promise<void> {
+  console.log(
+    "resolving persons (magistrate + officials + MPs + candidates + donors + local + tr-bridge)…",
+  );
+  for (const f of SCHEMA_FILES)
+    await exec(fs.readFileSync(path.join(SCHEMA_DIR, f), "utf8"));
+  const { mentions, blocks, regKeyed, aliased } = await buildMentionBlocks();
+
+  // §6 privacy gate: a person is public only if some source they hold defaults public
+  // (person_source.public_default). All current sources are public, but tr/donor/ngo
+  // (public_default=false) must NOT mint a public page for a private individual.
+  const publicDefault = new Map(
+    (
+      await allRows<{ key: string; public_default: boolean }>(
+        `SELECT key, public_default FROM person_source`,
+      )
+    ).map((r) => [r.key, r.public_default]),
+  );
+
+  // Human adjudication (plan §3 tier 4) — the audited person_link_override rows, applied as
+  // the LAST tier below so a hand-decided merge/split always wins over the automatic result.
+  // The schema is already applied above (SCHEMA_FILES), so the ref columns exist.
+  const dbOverrides = await allRows<OverrideRow>(
+    `SELECT override_id, kind, fold_a, fold_b, ref_a, ref_b FROM person_link_override`,
+  );
+  const committedOverrides = loadOverrideRegistry();
+  const overrides = parseOverrides(
+    mergeOverrideRows(committedOverrides, dbOverrides),
+  );
+  console.log(
+    `person overrides: ${committedOverrides.length} committed + ${dbOverrides.length} DB hotfix(es)`,
+  );
 
   type Group = { ids: string[]; confidence: "exact_id" | "high" | "manual" };
   const groups: Group[] = [];

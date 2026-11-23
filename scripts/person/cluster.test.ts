@@ -1348,3 +1348,164 @@ describe("clusterBlock", () => {
     });
   });
 });
+
+// Tier 2c — national ↔ local (docs/plans/person-national-local-merge-v1.md).
+describe("clusterBlock — national ↔ local", () => {
+  const full = (over: Partial<Mention>): Mention =>
+    base({
+      givenFold: "dzhipo",
+      familyFold: "dzhipov",
+      patronymicFold: "nikolov",
+      nameParts: 3,
+      namesakeRisk: 3,
+      ...over,
+    });
+  const mp = (party: string, oblastKey: string, over: Partial<Mention> = {}) =>
+    full({
+      id: `mp:${party}:${oblastKey}`,
+      source: "mp",
+      hardId: "mp:5202",
+      corroborants: { party, oblastKey, place: "Разград" },
+      ...over,
+    });
+  const cand = (id: string, party: string, oblastKey: string) =>
+    full({
+      id,
+      source: "candidate",
+      hardId: "mp:5202",
+      corroborants: { party, oblastKey, place: "Разград" },
+    });
+  const council = (id: string, party: string, oblastKey: string) =>
+    full({
+      id,
+      source: "local",
+      corroborants: {
+        party,
+        oblastKey,
+        place: "община Разград",
+        localSeat: null,
+      },
+    });
+  const groupOf = (r: ReturnType<typeof clusterBlock>, id: string) =>
+    r.merges.find((g) => g.memberIds.includes(id))?.memberIds ?? [id];
+
+  it("joins an MP and a re-elected councillor of the same party and oblast (the Джипов case)", () => {
+    // the two council terms share party + община, so Tier 1 already makes them ONE local
+    // component; the national↔local tier then joins it to the MP's component.
+    const r = clusterBlock([
+      mp("p_72", "RAZ"),
+      cand("c24", "p_6", "RAZ"),
+      council("l19", "p_6", "RAZ"),
+      council("l23", "p_6", "RAZ"),
+    ]);
+    expect(new Set(groupOf(r, "l23"))).toEqual(
+      new Set(["mp:p_72:RAZ", "c24", "l19", "l23"]),
+    );
+  });
+
+  it("does not join across oblasts — Sofia city is not Sofia province", () => {
+    const r = clusterBlock([
+      mp("gerb", "SFO"),
+      council("l", "gerb", "SOFIA_CITY"),
+    ]);
+    expect(r.merges).toHaveLength(0);
+  });
+
+  it("does not join across parties", () => {
+    const r = clusterBlock([mp("bsp", "RAZ"), council("l", "gerb", "RAZ")]);
+    expect(r.merges).toHaveLength(0);
+  });
+
+  it("refuses a key two local people claim", () => {
+    // two councillors in two DIFFERENT obshtini of one oblast, so no other tier joins them
+    const r = clusterBlock([
+      mp("p_6", "RAZ"),
+      {
+        ...council("a", "p_6", "RAZ"),
+        corroborants: { party: "p_6", oblastKey: "RAZ", place: "Исперих" },
+      },
+      {
+        ...council("b", "p_6", "RAZ"),
+        corroborants: { party: "p_6", oblastKey: "RAZ", place: "Кубрат" },
+      },
+    ]);
+    expect(r.merges).toHaveLength(0);
+  });
+
+  it("refuses a key two national people claim", () => {
+    const r = clusterBlock([
+      mp("p_6", "RAZ", {
+        id: "mp:1",
+        hardId: "mp:1",
+        corroborants: { party: "p_6", oblastKey: "RAZ", place: "a" },
+      }),
+      mp("p_6", "RAZ", {
+        id: "mp:2",
+        hardId: "mp:2",
+        corroborants: { party: "p_6", oblastKey: "RAZ", place: "b" },
+      }),
+      council("l", "p_6", "RAZ"),
+    ]);
+    expect(groupOf(r, "l")).toEqual(["l"]);
+  });
+
+  it("gives a component at most one partner — no chaining through two keys", () => {
+    // one councillor component matching two DIFFERENT national people on two keys
+    const r = clusterBlock([
+      mp("p_6", "RAZ", { id: "mp:1", hardId: "mp:1" }),
+      mp("bsp", "VAR", { id: "mp:2", hardId: "mp:2" }),
+      {
+        ...council("l1", "p_6", "RAZ"),
+        corroborants: {
+          party: "p_6",
+          oblastKey: "RAZ",
+          localSeat: "s\tRAZ26",
+          localCycle: "2019",
+        },
+      },
+      {
+        ...council("l2", "bsp", "VAR"),
+        corroborants: {
+          party: "bsp",
+          oblastKey: "VAR",
+          localSeat: "s\tRAZ26",
+          localCycle: "2023",
+        },
+      },
+    ]);
+    expect(groupOf(r, "l1")).not.toContain("mp:1");
+    expect(groupOf(r, "l1")).not.toContain("mp:2");
+  });
+
+  it("refuses a mass name, a two-part name and a conflicting patronymic", () => {
+    expect(
+      clusterBlock([
+        mp("p_6", "RAZ", { namesakeRisk: 13 }),
+        council("l", "p_6", "RAZ"),
+      ]).merges,
+    ).toHaveLength(0);
+    expect(
+      clusterBlock([
+        mp("p_6", "RAZ"),
+        { ...council("l", "p_6", "RAZ"), nameParts: 2, patronymicFold: null },
+      ]).merges,
+    ).toHaveLength(0);
+    expect(
+      clusterBlock([
+        mp("p_6", "RAZ"),
+        { ...council("l", "p_6", "RAZ"), patronymicFold: "ivanov" },
+      ]).merges,
+    ).toHaveLength(0);
+  });
+
+  it("ignores a mention with no comparable oblast", () => {
+    const r = clusterBlock([
+      mp("p_6", "RAZ"),
+      {
+        ...council("l", "p_6", "RAZ"),
+        corroborants: { party: "p_6", oblastKey: null },
+      },
+    ]);
+    expect(r.merges).toHaveLength(0);
+  });
+});
