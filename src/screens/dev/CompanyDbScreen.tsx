@@ -96,6 +96,7 @@ import {
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
 import { CompanyInterregTile } from "../components/procurement/CompanyInterregTile";
+import { CompanyFilingsTile } from "../components/procurement/CompanyFilingsTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { CompanyPoliticalLinks } from "../components/CompanyPoliticalLinks";
 import {
@@ -1985,6 +1986,11 @@ export const CompanyDbScreen: FC = () => {
               </CardContent>
             </Card>
           )}
+
+          {/* The registry documents the company announced (ГФО, доклад, декларация,
+              устав …), each linking to the registry PDF. Self-hides when nothing is
+              indexed — an empty list there is „not indexed", never „filed nothing". */}
+          {company && <CompanyFilingsTile eik={eik} />}
 
           {related && related.length > 0 && (
             <CompanyRelatedTile data={related} />

@@ -42,7 +42,22 @@ const MIGRATIONS = ["005_ingest_tracking.sql", "205_tr_announced_act.sql"].map(
   (f) => path.join(__dirname, "schema/pg", f),
 );
 const DAILY_DIR = path.resolve(__dirname, "../../raw_data/tr/daily");
-const CR_MARKER = `${CR_DEEDS_DB}.acts`;
+// The "store unchanged" marker is PER TARGET DATABASE: one shared file let a local run
+// mark the store as done and the next :cloud run skip the whole CR pass (in_cr = 0 on
+// Cloud SQL, measured 2026-11-23). Keyed by host:port/db, never by credentials.
+const crMarkerFor = (url: string | undefined): string => {
+  let key = "default";
+  try {
+    if (url) {
+      const u = new URL(url);
+      key = `${u.hostname}_${u.port || "5432"}_${u.pathname.replace(/^\//, "")}`;
+    }
+  } catch {
+    /* unparseable URL → shared key */
+  }
+  return `${CR_DEEDS_DB}.acts.${key.replace(/[^A-Za-z0-9_.-]/g, "_")}`;
+};
+const CR_MARKER = crMarkerFor(process.env.DATABASE_URL);
 const SOURCE = "tr_announced_act";
 const FILES_PER_TX = 25;
 

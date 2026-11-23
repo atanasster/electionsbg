@@ -72,11 +72,50 @@ CREATE TABLE IF NOT EXISTS tr_announced_act_feed_file (
   scanned_at timestamptz NOT NULL DEFAULT now()
 );
 
+-- One company's announced acts → the „Обявени документи" tile on /company/:eik
+-- (/api/db/company-filings). Grouped by the CLIENT; this returns the flat list plus
+-- the coverage window every reading of an absence depends on. ⚠️ An act missing here is
+-- NOT evidence the company did not file: the feed index ends at the 2026-10-12 cutover
+-- (feedGfoTo) and after it only companies with a CR capture are known.
+-- Index: idx_tr_announced_act_uic. Capped at 1,000 acts (the largest filer holds ~600).
+CREATE OR REPLACE FUNCTION company_announced_acts(p_uic text)
+RETURNS jsonb LANGUAGE sql STABLE PARALLEL SAFE AS $f$
+  SELECT jsonb_build_object(
+    'acts', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+               'actId', a.act_id,
+               'kind', a.act_mode_text,
+               'family', CASE
+                 WHEN a.field_ident = '10019B' OR a.act_mode = 2  THEN 'gfo'
+                 WHEN a.field_ident = '1001BH' OR a.act_mode = 60 THEN 'report'
+                 WHEN a.field_ident = '1001BI' OR a.act_mode = 61 THEN 'declaration'
+                 ELSE 'other' END,
+               'fiscalYear', a.fiscal_year,
+               'description', a.description,
+               'announcedOn', to_char(a.announced_at AT TIME ZONE 'Europe/Sofia', 'YYYY-MM-DD'),
+               'firstSeenFeedDay', a.first_seen_feed_day,
+               'erased', a.erased_personal_data)
+             ORDER BY a.fiscal_year DESC NULLS LAST,
+                      COALESCE(a.announced_at::date, a.first_seen_feed_day) DESC NULLS LAST,
+                      a.act_id)
+        FROM (SELECT * FROM tr_announced_act WHERE uic = p_uic
+               ORDER BY fiscal_year DESC NULLS LAST, announced_at DESC NULLS LAST
+               LIMIT 1000) a), '[]'::jsonb),
+    'inCr', EXISTS (SELECT 1 FROM tr_announced_act WHERE uic = p_uic AND in_cr),
+    'coverage', (SELECT jsonb_build_object(
+                    'feedFrom', min(day), 'feedTo', max(day),
+                    -- the last day the feed still listed ГФО in bulk (a straggler or two
+                    -- after the cutover must not move it)
+                    'feedGfoTo', max(day) FILTER (WHERE gfo_acts > 100))
+                  FROM tr_announced_act_feed_file));
+$f$;
+
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON tr_announced_act, tr_act_mode, tr_announced_act_feed_file
       TO app_readonly;
+    GRANT EXECUTE ON FUNCTION company_announced_acts(text) TO app_readonly;
   ELSE
     RAISE WARNING 'app_readonly absent — 205 granted nothing. Run db:pg:bootstrap.';
   END IF;

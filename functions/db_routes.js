@@ -5340,6 +5340,27 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? empty };
   },
+  // One company's announced acts — ГФО, доклад за дейността, чл. 38 декларация, устав …
+  // — the „Обявени документи" tile on /company/:eik (205, docs/plans/tr-gfo-ingest-v1.md).
+  // `coverage` is load-bearing: the feed stopped listing ГФО on 2026-10-12, so an empty
+  // year after `feedGfoTo` means „not indexed", never „not filed". Degrades a missing 205
+  // to an empty list, which the tile hides rather than rendering as „nothing filed".
+  "company-filings": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    const empty = { acts: [], inCr: false, coverage: null };
+    if (!/^(\d{9}|\d{13})$/.test(eik))
+      return { status: 400, body: { error: "missing or malformed eik" } };
+    const rows = await dbRows("SELECT company_announced_acts($1) AS r", [
+      eik,
+    ]).catch(
+      missingMigrationLogged(
+        "company-filings",
+        empty,
+        "db:load:tr-announced-acts:pg:cloud (applies 205)",
+      ),
+    );
+    return { body: rows[0]?.r ?? empty };
+  },
   // The national Interreg picture for the /funds hub (138).
   //
   // Live over the fact tables, NOT via fund_payloads: an interreg-* kind written
