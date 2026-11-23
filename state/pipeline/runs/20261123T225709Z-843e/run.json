@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "session": "20261123T225709Z-843e",
+  "kind": "publish",
+  "startedAt": "2026-11-23T22:57:09.475Z",
+  "git": {
+    "shaStart": "6922cce15d87b00d43b46ea5b488b5e061d245ad",
+    "shaEnd": "6922cce15d87b00d43b46ea5b488b5e061d245ad"
+  },
+  "env": {
+    "proxy": {
+      "ok": true,
+      "detail": "up"
+    }
+  },
+  "units": [
+    {
+      "id": "bucket",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "bucket:sync:paths:dry",
+          "command": "pnpm run bucket:sync:paths:dry data_map.json home governance/hub_stats.json home/flyover.json home/price_events.json home/feed.json",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2349,
+          "medianMs": 4173,
+          "log": "logs/pipeline/20261123T225709Z-843e/001-bucket_sync_paths_dry.log"
+        },
+        {
+          "seq": 2,
+          "id": "bucket:sync:paths data_map.json",
+          "command": "pnpm run bucket:sync:paths data_map.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1647,
+          "medianMs": 1753,
+          "log": "logs/pipeline/20261123T225709Z-843e/002-bucket_sync_paths_data_map.json.log"
+        },
+        {
+          "seq": 3,
+          "id": "bucket:sync:paths home",
+          "command": "pnpm run bucket:sync:paths home",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1796,
+          "medianMs": 1802,
+          "log": "logs/pipeline/20261123T225709Z-843e/003-bucket_sync_paths_home.log"
+        },
+        {
+          "seq": 4,
+          "id": "bucket:sync:paths governance/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths governance/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1435,
+          "medianMs": 1509,
+          "log": "logs/pipeline/20261123T225709Z-843e/004-bucket_sync_paths_governance_hub_stats.json.log"
+        },
+        {
+          "seq": 5,
+          "id": "bucket:sync:paths home/flyover.json",
+          "command": "pnpm run bucket:sync:paths home/flyover.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1427,
+          "medianMs": 1532,
+          "log": "logs/pipeline/20261123T225709Z-843e/005-bucket_sync_paths_home_flyover.json.log"
+        },
+        {
+          "seq": 6,
+          "id": "bucket:sync:paths home/price_events.json",
+          "command": "pnpm run bucket:sync:paths home/price_events.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1464,
+          "medianMs": 1497,
+          "log": "logs/pipeline/20261123T225709Z-843e/006-bucket_sync_paths_home_price_events.json.log"
+        },
+        {
+          "seq": 7,
+          "id": "bucket:sync:paths home/feed.json",
+          "command": "pnpm run bucket:sync:paths home/feed.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1450,
+          "medianMs": 1519,
+          "log": "logs/pipeline/20261123T225709Z-843e/007-bucket_sync_paths_home_feed.json.log"
+        },
+        {
+          "seq": 8,
+          "id": "bucket:gz",
+          "command": "pnpm run bucket:gz",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 97743,
+          "medianMs": 134936,
+          "log": "logs/pipeline/20261123T225709Z-843e/008-bucket_gz.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 9,
+          "id": "db:load:open-calls:pg:cloud",
+          "command": "pnpm run db:load:open-calls:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2299,
+          "medianMs": 2312.5,
+          "log": "logs/pipeline/20261123T225709Z-843e/009-db_load_open-calls_pg_cloud.log"
+        },
+        {
+          "seq": 10,
+          "id": "prices:ingest:cloud",
+          "command": "pnpm run prices:ingest:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1431732,
+          "medianMs": 1455784,
+          "log": "logs/pipeline/20261123T225709Z-843e/010-prices_ingest_cloud.log"
+        },
+        {
+          "seq": 11,
+          "id": "myarea:alerts:cloud",
+          "command": "pnpm run myarea:alerts:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 14109,
+          "medianMs": 19886,
+          "log": "logs/pipeline/20261123T225709Z-843e/011-myarea_alerts_cloud.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "verify",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 12,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 863,
+          "medianMs": 932.5,
+          "log": "logs/pipeline/20261123T225709Z-843e/012-db_check-generated.log"
+        },
+        {
+          "seq": 13,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 983,
+          "medianMs": 1187,
+          "log": "logs/pipeline/20261123T225709Z-843e/013-db_check-cloud.log"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "ran under the pipeline lock held by session 20261123T224804Z-8290"
+  ],
+  "manifestDigest": "1e9bdd703b5d0c26",
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-23T23:23:08.794Z",
+  "verdict": "clean"
+}
