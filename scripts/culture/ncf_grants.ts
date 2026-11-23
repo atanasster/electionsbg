@@ -447,6 +447,18 @@ const main = async () => {
     totalRequestedEur: eur(totRequestedEur),
     programs,
   };
+  // A re-run over unchanged results must not move the file: only
+  // `generatedAt` would differ, and the pipeline reads any diff under data/
+  // as a data change worth a public changelog row.
+  const withoutStamp = (o: object): string =>
+    JSON.stringify({ ...o, generatedAt: null });
+  if (
+    fs.existsSync(OUT) &&
+    withoutStamp(JSON.parse(fs.readFileSync(OUT, "utf8"))) === withoutStamp(out)
+  ) {
+    console.log(`\n→ data/culture/grants.json unchanged — not rewritten`);
+    return;
+  }
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n");
   console.log(
