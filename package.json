@@ -286,6 +286,7 @@
     "data:decorate-local-persons": "tsx ./scripts/parsers_local/decorate_local_person_links.ts",
     "culture:dki": "tsx scripts/culture/dki/ingest.ts",
     "culture:ncf-grants": "tsx scripts/culture/ncf_grants.ts",
+    "fiscal-council:triage": "tsx scripts/budget/fiscal_council/triage.ts",
     "data:local-person-refresh": "pnpm run data:decorate-local-persons && pnpm run data --local-rollups --local-place-trends --local-chmi-history",
     "data:local-person-refresh:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm run data:decorate-local-persons && pnpm run data --local-rollups --local-place-trends --local-chmi-history",
     "data:nzok": "tsx ./scripts/nzok/ingest.ts",

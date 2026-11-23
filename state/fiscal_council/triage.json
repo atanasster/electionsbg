@@ -1,0 +1,213 @@
+{
+  "d-r-simeon-diankov-danykyt-vyrhu-bankovite-svryhpechalbi-e-rabotesht-instrument-dobre-priet-v-es": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "doklad-za-publichnite-razhodi-vyv-vryzka-s-ekspertnite-reshenia-za-uvrejdane": {
+    "verdict": "none",
+    "triagedAt": "2026-11-23T02:39:46.318Z",
+    "source": "https://www.fiscal-council.bg/uploads/dokladi/%D0%A0%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0%20%D0%B7%D0%B0%20%D0%A2%D0%95%D0%9B%D0%9A.pdf",
+    "model": "gemini-3.7-flash",
+    "measures": [
+      {
+        "summary": "Total disability-related public spending across four main programs is projected to increase to 4.48 billion euros (3.44% of GDP) in 2026.",
+        "quote": "Сборът на четирите основни пера (преди консолидация) расте от 1,60 млрд. евро през 2021 г. до 3,80 млрд. евро през 2025 г. и се оценява на 4,48 млрд. евро за 2026 г. (3,44 % от БВП).",
+        "lever": null,
+        "affects": false,
+        "reason": "This is an aggregate historical and forecast expenditure figure for disability-related schemes rather than a costing or parameter change for a simulator lever."
+      },
+      {
+        "summary": "Statutory indexation rules such as the Swiss rule for pensions and minimum wage links for personal assistance are identified as primary spending growth drivers.",
+        "quote": "Основни двигатели са автоматичните индексации (швейцарско правило за пенсиите, линия на бедност за месечната подкрепа, обвързване на часовата ставка за лична помощ с минималната работна заплата), нарастването на броя получатели и по-високите средни плащания.",
+        "lever": "scorePensionIndexation",
+        "affects": false,
+        "reason": "The report only comments descriptively on existing indexation mechanisms driving spending rather than modeling or proposing changes to the Swiss rule or minimum wage."
+      },
+      {
+        "summary": "Disability expenditure is projected under three medium-term scenarios to reach between 5.73 and 6.75 billion euros by 2029.",
+        "quote": "При три условни сценария (ограничителен, инерционен, висок) сборът достига съответно 5,73, 6,20 и 6,75 млрд. евро през 2029 г. (3,58–4,22 % от БВП).",
+        "lever": null,
+        "affects": false,
+        "reason": "These are aggregate baseline scenario projections for disability spending rather than quantified effects of specific policy lever reforms."
+      },
+      {
+        "summary": "The Fiscal Council recommends tighter controls, transitioning to functional assessment, and introducing spending benchmarks for disability outlays.",
+        "quote": "Препоръките насочват към: изясняване на регионалните различия, засилен контрол върху решенията и реалното предоставяне на услуги, единно отчитане на разходите, оценка на съвкупния бюджетен ефект от промените, преход към функционална оценка (пилотирана), наблюдаван бюджетен ориентир и регулярна публикация на данни за запаси и потоци от решения.",
+        "lever": null,
+        "affects": false,
+        "reason": "These are broad qualitative policy recommendations without specific quantified fiscal measures or parameters corresponding to simulator levers."
+      }
+    ]
+  },
+  "dr-simeon-diankov-niama-realno-sykrashtavane-na-razhodi-v-proektobiudgeta-za-2027-godina": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "efekt-ot-poskypvane-na-petrola-vyrhu-cenite-v-bulgaria-analiz-na-liubomir-dacov": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "fiskalniat-syvet-uchastva-v-seminar-za-upravlenieto-na-publichnite-investicii": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "liubomir-dacov-bylgarinyt-e-razumen-kogato-glasuva-s-portfeila-si-daite-mu-izbor": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "liubomir-dacov-predupredi-che-dori-malko-otklonenie-v-biudget-2027-moje-da-dovede-do-neizpylnenie-na-zalojenite-celi": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "liubomir-dacov-ustoichivo-e-kogato-pravish-strukturni-reformi": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "prof-bogomil-manov-za-da-ima-efektivnost-pensionnite-fondove-triabva-da-se-boriat-za-znachitelno-po-visoka-dohodnost": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "publikuvan-e-nov-doklad-na-mrejata-na-fiskalnite-syveti-na-es-s-bylgarsko-uchastie": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "reziume-na-analiza-na-publichnite-investicionni-razhodi-v-bulgaria-2015-2024": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "stanovishte-otnosno-proekt-na-zakon-za-biudget-na-nzok-za-2027": {
+    "verdict": "lever",
+    "triagedAt": "2026-11-23T02:39:46.318Z",
+    "source": "https://www.fiscal-council.bg/uploads/stanovishta/%D0%A1%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%89%D0%B5%20%D0%BE%D1%82%D0%BD%D0%BE%D1%81%D0%BD%D0%BE%20%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BD%D0%B0%20%D0%97%D0%B0%D0%BA%D0%BE%D0%BD%20%D0%B7%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%BD%D0%B0%20%D0%9D%D0%97%D0%9E%D0%9A%20%D0%B7%D0%B0%202027.pdf",
+    "model": "gemini-3.7-flash",
+    "measures": [
+      {
+        "summary": "The statutory minimum wage is planned to increase from 620 euro in 2026 to 660 euro per month effective 1 January 2027.",
+        "quote": "увеличаване размера на минималната работна заплата съгласно чл. 244 от Кодекса на труда – от 620 евро през 2026 г. на 660 евро, считано от 01.01.2027г.",
+        "lever": "scoreMinWageFreeze",
+        "affects": true,
+        "reason": "States a concrete change to the statutory minimum wage parameter taking effect under the proposed budget."
+      },
+      {
+        "summary": "The maximum insurable income cap is planned to increase from 2,300 euro to 2,400 euro per month starting 1 January 2027.",
+        "quote": "увеличението на максималния осигурителен доход от 2 300 евро на 2 400 евро, считано от 01.01.2027 г.",
+        "lever": "scoreModCap",
+        "affects": true,
+        "reason": "States a concrete legal parameter increase for the maximum insurable income cap taking effect on 1 January 2027."
+      },
+      {
+        "summary": "A discretionary spending consolidation measure of 68.7 million euro in healthcare is planned for 2027.",
+        "quote": "Дискреционната мярка за консолидация на разходите за здравеопазване (-68,7 млн. евро през 2027 г.) не е конкретизирана, както и повечето дискреционни разходни мерки в АСБП, което създава риск от неизпълнение.",
+        "lever": "scoreSpendingChange",
+        "affects": true,
+        "reason": "Quantifies the expenditure consolidation effect of a discretionary measure for the healthcare function."
+      },
+      {
+        "summary": "The reference period for the weighted average price of pharmaceuticals is proposed to be extended from 6 to 18 months with monthly recalculation.",
+        "quote": "Средната претеглена стойност се удължава от 6 на 18 месеца и се преизчислява ежемесечно.",
+        "lever": null,
+        "affects": false,
+        "reason": "No simulator lever models reimbursement rules or reference pricing periods for pharmaceuticals."
+      }
+    ],
+    "resolvedAt": "2026-11-23T02:41:34.849Z",
+    "resolution": "Draft 2027 values (МОД 2,400 EUR, МРЗ 660 EUR) from the bills under review, not enacted law. bgTax.ts MOD_SCHEDULE/MIN_WAGE_SCHEDULE encode only promulgated ЗБДОО/decree values; add 2027 when ЗБДОО-2027 is in ДВ and the МРЗ decree is out. No costing of a lever change."
+  },
+  "stanovishte-otnosno-proekt-na-zakon-za-biudgeta-na-doo-2027": {
+    "verdict": "lever",
+    "triagedAt": "2026-11-23T02:39:46.318Z",
+    "source": "https://www.fiscal-council.bg/uploads/stanovishta/%D0%A1%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%89%D0%B5%20%D0%BE%D1%82%D0%BD%D0%BE%D1%81%D0%BD%D0%BE%20%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%20%D0%BD%D0%B0%20%D0%97%D0%B0%D0%BA%D0%BE%D0%BD%20%D0%B7%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%D0%B0%20%D0%BD%D0%B0%20%D0%94%D0%9E%D0%9E%202027.pdf",
+    "model": "gemini-3.7-flash",
+    "measures": [
+      {
+        "summary": "The maximum insurable income cap is raised to 2,400 euros in 2027.",
+        "quote": "Влияние върху средния осигурителен доход оказват нарастването на минималната работна заплата, минималния осигурителен доход за самоосигуряващи се лица до 660 евро – с 6,4%, както и повишаването на максималния осигурителен доход до 2 400 евро или с 4,3%.",
+        "lever": "scoreModCap",
+        "affects": true,
+        "reason": "It specifies an increase in the statutory maximum insurable income threshold to 2,400 euros taking effect in the 2027 draft budget."
+      },
+      {
+        "summary": "The statutory minimum wage increases to 660 euros in 2027.",
+        "quote": "Влияние върху средния осигурителен доход оказват нарастването на минималната работна заплата, минималния осигурителен доход за самоосигуряващи се лица до 660 евро – с 6,4%, както и повишаването на максималния осигурителен доход до 2 400 евро или с 4,3%.",
+        "lever": "scoreMinWageFreeze",
+        "affects": true,
+        "reason": "It reports a concrete statutory increase in the national minimum wage parameter to 660 euros."
+      },
+      {
+        "summary": "Pensions are projected to be indexed between 7.0% and 8.0% under the Swiss rule.",
+        "quote": "Пенсиите се осъвременяват от 1 юли 2027 г. по чл. 100 от КСО с процент, който се очаква да е между 7,0% и 8,0%",
+        "lever": "scorePensionIndexation",
+        "affects": false,
+        "reason": "It refers to the routine application of the current-law Swiss rule rather than changing the indexation formula itself."
+      },
+      {
+        "summary": "The maximum pension cap is to be updated by Article 100 rather than pegged to 40% of the maximum insurable income.",
+        "quote": "максималният размер на пенсиите се осъвременява по чл. 100, вместо да е обвързан с 40% от максималния осигурителен доход (§ 4)",
+        "lever": "scorePensionIndexation",
+        "affects": false,
+        "reason": "It amends the rule for indexing the maximum pension cap rather than modifying the general pension indexation formula modeled by the lever."
+      },
+      {
+        "summary": "A package of new and increased social benefits carries an additional expenditure of 48.5 million euros.",
+        "quote": "Въвеждат се нови или по-високи обезщетения (за отглеждане на дете до 2 г., при ранно връщане на работа, минимално обезщетение за безработица, помощ при смърт) с допълнителен разход от 48,5 млн. евро.",
+        "lever": null,
+        "affects": false,
+        "reason": "No simulator lever models this specific package of social benefits."
+      },
+      {
+        "summary": "The pension fund contribution for category I and II civil servants is increased by 3 percentage points.",
+        "quote": "а вноската във фонд „Пенсии“ за държавните служители от I и II категория труд се увеличава с 3 пр.п. (§ 5)",
+        "lever": "scoreSscSelfPaid",
+        "affects": false,
+        "reason": "It raises the contribution rate for certain civil service categories rather than shifting budget-paid contributions to the employee."
+      },
+      {
+        "summary": "The monthly benefit for child-rearing during the second year is planned to increase by 12.8%.",
+        "quote": "Фискалният съвет от няколко години препоръчва актуализирането на размера на обезщетението за отглеждане на дете до 2-годишна възраст и подкрепя намерението през 2027г. то да се увеличи с 12,8%.",
+        "lever": "scoreMaternityMonths",
+        "affects": false,
+        "reason": "The lever models the statutory duration of maternity benefits rather than adjustments to the monthly benefit rate."
+      },
+      {
+        "summary": "The Fiscal Council advises against compensating public-sector employees for paying their own social contributions.",
+        "quote": "Що се отнася до компенсирането на засегнатите от промяната в режима лица до запазване на нетния им доход, Фискалният съвет не счита, че такава е необходима.",
+        "lever": "scoreSscSelfPaidRetained",
+        "affects": false,
+        "reason": "This is an advisory policy recommendation by the Fiscal Council rather than a quantified costing or statutory change."
+      },
+      {
+        "summary": "Minimum and maximum daily unemployment benefit rates are increased by 41% and 11% respectively.",
+        "quote": "Планираните разходи за обезщетения за безработица се увеличават с 14,4%, а причината е в увеличените минимални дневни ставки с 41% (от 9,21 на 13 евро) и на максималните дневни ставки с 11% (от 54,78 на 60,76 евро).",
+        "lever": null,
+        "affects": false,
+        "reason": "Daily unemployment benefit thresholds are not mapped to any simulator lever."
+      }
+    ],
+    "dropped": [
+      {
+        "summary": "The minimum contributory pension is set to reach 374.62 euros from July 1, 2027.",
+        "quote": "Пенсиите се осъвременяват от 1 юли 2027 г. по чл. 100 от КСО с процент, който се очаква да е между 7,0% и 8,0%, а минималната пенсия за стаж и възраст става 374,62 евро (+7,8%).",
+        "lever": "scorePensionFloorRaise",
+        "affects": true,
+        "reason": "It establishes the new baseline minimum pension amount under the draft budget."
+      },
+      {
+        "summary": "Public-sector wages are projected to rise by 5%, contributing to social security revenue growth.",
+        "quote": "При непроменени размери на осигурителните вноски основен принос за по-високите приходи от осигуровки имат увеличението на минималния осигурителен доход с 6,4%, на максималния осигурителен праг с 4,3%, както и повишаването на заплатите в бюджетния сектор с 5%.",
+        "lever": "scoreWageIndexation",
+        "affects": false,
+        "reason": "It discusses a macroeconomic driver of revenues without detailing a reform to the public-sector wage indexation mechanism."
+      }
+    ],
+    "resolvedAt": "2026-11-23T02:41:35.249Z",
+    "resolution": "Draft 2027 values (МОД 2,400 EUR, МРЗ 660 EUR) from the bills under review, not enacted law. bgTax.ts MOD_SCHEDULE/MIN_WAGE_SCHEDULE encode only promulgated ЗБДОО/decree values; add 2027 when ЗБДОО-2027 is in ДВ and the МРЗ decree is out. No costing of a lever change."
+  },
+  "stanovishte-otnosno-proekt-na-zakon-za-dyrjavnia-biudget-na-republika-bulgaria-za-2027": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  },
+  "syvmestna-publikacia-na-fiskalnia-syvet-i-iii-ban-otnosno-srednosrochnite-fiskalno-strukturni-planove-v-es": {
+    "verdict": "pre-ledger",
+    "triagedAt": "2026-11-23T02:39:45.113Z"
+  }
+}

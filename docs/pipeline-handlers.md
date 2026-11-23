@@ -7,7 +7,7 @@ truth; a skill's runbook covers only what a script cannot do (operator and agent
 steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 `docs/plans/watch-pipeline-scripts-v1.md` for how.
 
-62 handlers: 40 script, 13 delegated to an agent, 9 operator-only.
+62 handlers: 41 script, 13 delegated to an agent, 8 operator-only.
 
 | handler | runner | sources |
 | --- | --- | --- |
@@ -24,7 +24,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | [`eurostat_rail`](#eurostat_rail) | script | `eurostat_rail` |
 | [`eurostat_road_safety`](#eurostat_road_safety) | script | `eurostat_road_safety` |
 | [`eurostat_tourism`](#eurostat_tourism) | script | `eurostat_tourism`, `eurostat_tourism_annual` |
-| [`fiscal_council_bg`](#fiscal_council_bg) | operator | `fiscal_council_bg` |
+| [`fiscal_council_bg`](#fiscal_council_bg) | script | `fiscal_council_bg` |
 | [`imf_weo_bg`](#imf_weo_bg) | operator | `imf_weo_bg` |
 | [`kzk_appeals`](#kzk_appeals) | script | `kzk_appeals` |
 | [`kzk_decisions`](#kzk_decisions) | script | `kzk_decisions` |
@@ -250,13 +250,18 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 ### `fiscal_council_bg`
 
-- **Runner:** operator — human-only — nothing runs until an operator acts and acks
+- **Runner:** script — runs unattended under `pipeline:ingest`
 - **Marker:** `state/ingest/fiscal_council_bg.json`
 - **Sources:** `fiscal_council_bg`
+- **Needs:** `gemini`, `bin:pdftotext`
 - **Changelog:** none
 
+| step | phase | command | only on |
+| --- | --- | --- | --- |
+| `fiscal-council:triage` | ingest | `pnpm run fiscal-council:triage` | — |
+
 **Operator steps:**
-- `fiscal_council_bg-manual` (blocks handler): A new Fiscal Council opinion: check whether any simulator lever is affected.
+- `fiscal_council_bg-manual` (blocks nothing, file done-check): The triage found an opinion that costs a simulator lever (or could not evidence its answer). Read state/fiscal_council/triage.json, update the simulator and docs/budget_simulator_grounding.md if warranted, then pnpm run fiscal-council:triage --resolve <slug> --note "…".
 
 ### `imf_weo_bg`
 

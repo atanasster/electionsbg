@@ -12,6 +12,10 @@ import {
 } from "../build";
 import { at, jsonNumber, len, noShrink, outputLacks } from "../gates";
 import type { Handler } from "../types";
+import {
+  ledgerClosed,
+  type Ledger,
+} from "../../../budget/fiscal_council/triage_lib";
 
 /** A source that maps to exactly one fetch script and one bucket path. */
 const single = (
@@ -42,6 +46,31 @@ const manual = (source: string, instruction: string): Handler => ({
 });
 
 export const SECTORS_LOCAL: Handler[] = [
+  {
+    id: "fiscal_council_bg",
+    runner: "script",
+    sources: ["fiscal_council_bg"],
+    needs: ["gemini", "bin:pdftotext"],
+    // A model reads each new opinion and maps its costed measures to the
+    // simulator's levers; only measures with a verbatim quote survive. It
+    // never edits the simulator — it only decides whether a human must look.
+    steps: [ingest("fiscal-council:triage", pnpm("fiscal-council:triage"))],
+    operator: [
+      {
+        id: "fiscal_council_bg-manual",
+        instruction:
+          'The triage found an opinion that costs a simulator lever (or could not evidence its answer). Read state/fiscal_council/triage.json, update the simulator and docs/budget_simulator_grounding.md if warranted, then pnpm run fiscal-council:triage --resolve <slug> --note "…".',
+        blocks: "nothing",
+        done: (ctx) =>
+          ledgerClosed(
+            readJson<Ledger>("state/fiscal_council/triage.json") ?? {},
+            ctx.meta("fiscal_council_bg")?.latest as string | undefined,
+          ),
+      },
+    ],
+    changelog: "none",
+    outputs: ["state/fiscal_council"],
+  },
   {
     id: "update-financing",
     skill: "update-financing",
@@ -697,10 +726,6 @@ export const SECTORS_LOCAL: Handler[] = [
   manual(
     "imf_weo_bg",
     "A new IMF WEO vintage: update the curated forecast rows.",
-  ),
-  manual(
-    "fiscal_council_bg",
-    "A new Fiscal Council opinion: check whether any simulator lever is affected.",
   ),
   manual(
     "api_road_charges",
