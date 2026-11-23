@@ -207,14 +207,26 @@ export const SECTORS_LOCAL: Handler[] = [
       verify("culture:dki:tests", "pnpm exec vitest run scripts/culture/dki/", {
         on: ["mc_dki_register"],
       }),
+      // Since post #755 every НФК result is on konkursi.ncf.bg, which lists the
+      // competitions with announced results, so a new results post needs no
+      // curation. The PDF-era sessions re-parse from the raw_data cache.
+      ingest("culture:ncf-grants", pnpm("culture:ncf-grants"), {
+        on: ["ncf_grant_results"],
+        needs: ["bin:pdftotext"],
+      }),
+      verify(
+        "culture:ncf-grants:tests",
+        "pnpm exec vitest run scripts/culture/ncf_konkursi.test.ts",
+        { on: ["ncf_grant_results"] },
+      ),
     ],
     operator: [
       {
         id: "ncf-grant-results-url",
         on: ["ncf_grant_results"],
         instruction:
-          "A new НФК results post. If it links a класиране PDF, add it to NCF_RESULTS and run scripts/culture/ncf_grants.ts; since post #755 results live on konkursi.ncf.bg instead, which has no ingest yet.",
-        blocks: "arm",
+          "Results on konkursi.ncf.bg are ingested automatically. Only if the post links a класиране PDF instead, add it to NCF_RESULTS in scripts/culture/ncf_grants.ts and re-run pnpm run culture:ncf-grants.",
+        blocks: "nothing",
       },
       {
         id: "nfc-commissions-transcribe",

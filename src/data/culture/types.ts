@@ -125,6 +125,10 @@ export interface GrantProgram {
   fundedEur: number;
   /** Proposed amounts of the reserve list — contingent, not awarded. */
   reserveEur?: number;
+  /** Failed the eligibility check — not in `applied`. konkursi.ncf.bg only. */
+  ineligible?: number;
+  /** Withdrawn by the applicant — not in `applied`. konkursi.ncf.bg only. */
+  withdrawn?: number;
   byDiscipline: GrantDisciplineBucket[];
 }
 

@@ -644,9 +644,11 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `culture:ingest` | ingest | `pnpm exec tsx scripts/culture/ingest.ts` | `nfc_film_register` |
 | `culture:dki` | ingest | `pnpm run culture:dki --apply` | `mc_dki_register` |
 | `culture:dki:tests` | verify | `pnpm exec vitest run scripts/culture/dki/` | `mc_dki_register` |
+| `culture:ncf-grants` | ingest | `pnpm run culture:ncf-grants` | `ncf_grant_results` |
+| `culture:ncf-grants:tests` | verify | `pnpm exec vitest run scripts/culture/ncf_konkursi.test.ts` | `ncf_grant_results` |
 
 **Operator steps:**
-- `ncf-grant-results-url` (blocks arm, only on `ncf_grant_results`): A new НФК results post. If it links a класиране PDF, add it to NCF_RESULTS and run scripts/culture/ncf_grants.ts; since post #755 results live on konkursi.ncf.bg instead, which has no ingest yet.
+- `ncf-grant-results-url` (blocks nothing, only on `ncf_grant_results`): Results on konkursi.ncf.bg are ingested automatically. Only if the post links a класиране PDF instead, add it to NCF_RESULTS in scripts/culture/ncf_grants.ts and re-run pnpm run culture:ncf-grants.
 - `nfc-commissions-transcribe` (blocks arm, only on `nfc_commissions`): Read the order PDF, hand-edit the 21 members and the mandate window, run scripts/culture/write_commissions.ts.
 - `dki-reconciliation-ruling` (blocks nothing, only on `mc_dki_register`): If the ДКИ reconciliation gate reports a difference, rule on it against the four-list allowlist.
 

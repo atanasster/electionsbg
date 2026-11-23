@@ -29,6 +29,12 @@
 // text (its входящ № up to the next one) carries the word „резерва" — the raw
 // stream keeps each становище with its row, which -layout does not. Reserve rows
 // are reported separately (reserve / reserveEur), never as funded.
+//
+// SINCE POST #755 (20.11.2026) results are published on konkursi.ncf.bg, the
+// fund's electronic system, and are ENUMERABLE — every competition with
+// announced results is ingested automatically (ncf_konkursi.ts), no curation.
+// NCF_RESULTS stays for the PDF-era sessions only; a programme appearing in both
+// fails the run rather than being counted twice.
 
 import fs from "fs";
 import path from "path";
@@ -36,6 +42,14 @@ import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 import { BGN_PER_EUR } from "../../src/lib/currency";
 import { BROWSER_UA } from "./sources";
+import {
+  checkFundingTotal,
+  fetchResultDocument,
+  konkursiRows,
+  listAnnounced,
+  programmeEn,
+  resultsUrl,
+} from "./ncf_konkursi";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -271,6 +285,19 @@ const parsePdf = (def: ResultDef, pdfPath: string): GrantRow[] =>
 
 const eur = (x: number) => Math.round(x);
 
+interface ProgramSource {
+  code: string;
+  year: number;
+  slug: string;
+  url: string;
+  bg: string;
+  en: string;
+  currency: "BGN" | "EUR";
+  rows: GrantRow[];
+  ineligible?: number;
+  withdrawn?: number;
+}
+
 const main = async () => {
   const force = process.argv.includes("--force");
   const programs = [];
@@ -281,9 +308,42 @@ const main = async () => {
     totReserveEur = 0,
     totRequestedEur = 0;
 
+  // Every programme, from either source, in ONE shape — the aggregation below
+  // does not know which source a row came from.
+  const sources: ProgramSource[] = [];
   for (const def of NCF_RESULTS) {
     const pdf = await fetchPdf(def, force);
-    const rows = parsePdf(def, pdf);
+    sources.push({
+      ...def,
+      currency: def.format === "eur-raw" ? "EUR" : "BGN",
+      rows: parsePdf(def, pdf),
+    });
+  }
+  for (const comp of await listAnnounced()) {
+    const doc = await fetchResultDocument(comp.id);
+    checkFundingTotal(comp, doc);
+    const { rows, ineligible, withdrawn } = konkursiRows(doc);
+    const code = comp.documentRegisterActivity || `K${comp.id}`;
+    if (NCF_RESULTS.some((d) => d.code === code && d.year === comp.year))
+      throw new Error(
+        `НФК ${code} ${comp.year} is both a curated PDF and a konkursi.ncf.bg competition — drop the curated entry`,
+      );
+    sources.push({
+      code,
+      year: comp.year,
+      slug: `konkursi_${comp.id}`,
+      url: resultsUrl(comp.id),
+      bg: `${comp.name.trim()} ${comp.year}`,
+      en: `${programmeEn(comp.name)} ${comp.year}`,
+      currency: "EUR",
+      rows,
+      ineligible,
+      withdrawn,
+    });
+  }
+
+  for (const def of sources) {
+    const rows = def.rows;
     if (rows.length === 0)
       throw new Error(`НФК ${def.slug}: parsed 0 rows — parser/source drift`);
     const dupes = rows.length - new Set(rows.map((r) => r.inNo)).size;
@@ -345,7 +405,7 @@ const main = async () => {
       year: def.year,
       label: { bg: def.bg, en: def.en },
       url: def.url,
-      currency: def.format === "eur-raw" ? "EUR" : "BGN",
+      currency: def.currency,
       applied,
       funded,
       reserve,
@@ -353,6 +413,10 @@ const main = async () => {
       requestedEur: eur(requestedEur),
       fundedEur: eur(fundedEur),
       reserveEur: eur(reserveEur),
+      // Not in `applied`: never evaluated (ineligible) or pulled by the
+      // applicant. Only konkursi.ncf.bg publishes these lists.
+      ...(def.ineligible != null && { ineligible: def.ineligible }),
+      ...(def.withdrawn != null && { withdrawn: def.withdrawn }),
       byDiscipline,
     });
     totApplied += applied;
@@ -372,7 +436,7 @@ const main = async () => {
       publisher: "Национален фонд „Култура“ (НФК)",
       url: "https://ncf.bg/bg/novini",
       description:
-        "Класиране на проектите по програмите на Национален фонд „Култура“ — брой кандидатствали и финансирани проекти (успеваемост) и разпределените суми по област, от публикуваните резултати (PDF). Сумите от класиранията в лева са конвертирани в евро по фиксирания курс; от 2026 г. класиранията са в евро. Проектите в резерва (финансирани само при наличие на средства) не се броят за финансирани.",
+        "Класиране на проектите по програмите на Национален фонд „Култура“ — брой кандидатствали и финансирани проекти (успеваемост) и разпределените суми по област, от публикуваните класирания (PDF) и от електронната система за кандидатстване konkursi.ncf.bg. Сумите от класиранията в лева са конвертирани в евро по фиксирания курс; от 2026 г. класиранията са в евро. Проектите в резерва (финансирани само при наличие на средства) не се броят за финансирани.",
     },
     totalApplied: totApplied,
     totalFunded: totFunded,

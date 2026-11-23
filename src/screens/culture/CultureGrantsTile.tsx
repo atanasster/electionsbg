@@ -49,7 +49,7 @@ export const CultureGrantsTile: FC = () => {
           {rows.map((p) => {
             const rate = p.successRate;
             return (
-              <li key={p.code} className="text-xs">
+              <li key={p.url} className="text-xs">
                 <div className="mb-1 flex items-baseline justify-between gap-2">
                   <span className="min-w-0 truncate font-medium">
                     {bg ? p.label.bg : p.label.en}
