@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-23T15:42:45.839Z",
+  "generatedAt": "2026-11-23T22:56:54.293Z",
   "nodes": [
     {
       "id": "src:water",
@@ -589,7 +589,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-22T16:08:31.179Z",
+      "freshness": "2026-11-23T22:43:49.995Z",
       "skills": [
         "update-procurement"
       ],
@@ -599,7 +599,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-11-22T16:08:31.179Z"
+          "freshness": "2026-11-23T22:43:49.995Z"
         }
       ],
       "x": 28,
@@ -791,7 +791,7 @@
       "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-22T16:08:31.179Z",
+      "freshness": "2026-11-23T22:43:49.995Z",
       "skills": [
         "update-open-calls"
       ],
@@ -801,7 +801,7 @@
           "label": "ИСУН — отворени процедури",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
           "cadence": "daily",
-          "freshness": "2026-11-22T16:08:31.179Z"
+          "freshness": "2026-11-23T22:43:49.995Z"
         },
         {
           "id": "sp2023_indicative",
@@ -1783,7 +1783,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-22T16:08:31.179Z",
+      "freshness": "2026-11-23T22:43:49.995Z",
       "skills": [
         "update-prices"
       ],
@@ -1793,7 +1793,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-11-22T16:08:31.179Z"
+          "freshness": "2026-11-23T22:43:49.995Z"
         }
       ],
       "issue": {
@@ -2158,43 +2158,50 @@
       "url": "https://his.bg/",
       "origin": "state",
       "cadence": "hourly",
+      "freshness": "2026-11-23T22:43:49.995Z",
       "skills": [],
       "sources": [
         {
           "id": "his_immunizations_daily",
           "label": "НЗИС — имунизации от началото на годината (his.bg)",
           "url": "https://his.bg/bg/statistical-reports/immunizations/2026",
-          "cadence": "hourly"
+          "cadence": "hourly",
+          "freshness": "2026-11-23T22:43:49.995Z"
         },
         {
           "id": "his_immunization_app",
           "label": "НЗИС — имунизации по месец, област, възраст (info-app)",
           "url": "https://his.bg/infoapps/immunization_bg/results-immunization_bg.html",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-11-23T22:43:49.995Z"
         },
         {
           "id": "ial_shortage_list",
           "label": "ИАЛ СЕСПА — лекарства с установен недостиг (чл. 217в ЗЛПХМ)",
           "url": "https://sespa.mh.government.bg/sespa/f?p=100:1:0",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-11-23T22:43:49.995Z"
         },
         {
           "id": "ncipd_flu_weekly",
           "label": "НЦЗПБ — седмична заболяемост от грип и ОРЗ (grippe.gateway.bg)",
           "url": "https://grippe.gateway.bg/table.php?offset=1",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-11-23T22:43:49.995Z"
         },
         {
           "id": "eurostat_vaccine_trade",
           "label": "Eurostat Comext — търговия с ваксини (CN 3002 41)",
           "url": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-11-23T22:43:49.995Z"
         },
         {
           "id": "eurostat_flu_coverage",
           "label": "Eurostat — обхват с грипна ваксина 65+ (hlth_ps_immu)",
           "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hlth_ps_immu?format=JSON&lang=en",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-11-23T22:43:49.995Z"
         }
       ],
       "x": 28,
@@ -2393,7 +2400,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-11-22T16:08:31.179Z",
+      "freshness": "2026-11-23T22:43:49.995Z",
       "skills": [
         "update-procurement"
       ],
@@ -2403,7 +2410,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-11-22T16:08:31.179Z"
+          "freshness": "2026-11-23T22:43:49.995Z"
         }
       ],
       "issue": {
@@ -2589,7 +2596,7 @@
       "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-11-13T06:13:56.246Z",
+      "freshness": "2026-11-23T22:43:49.995Z",
       "skills": [
         "update-culture"
       ],
@@ -2599,7 +2606,7 @@
           "label": "НФЦ Единен публичен регистър (financed films, nfc.bg)",
           "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
           "cadence": "monthly",
-          "freshness": "2026-09-08T21:39:31.890Z"
+          "freshness": "2026-11-23T22:43:49.995Z"
         },
         {
           "id": "ncf_grant_results",

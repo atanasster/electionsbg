@@ -1,48 +1,47 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-22T23:59:59.999Z",
+  "computedAt": "2026-11-23T23:59:59.999Z",
   "windowDays": 30,
   "events": [
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:portokali",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-21T00:00:00.000Z",
-      "firstSeenAt": "2026-11-21T00:00:00.000Z",
-      "dateBasis": "occurred",
+      "id": "funds:call_opened:isun:6d4f5ea2-9058-49f3-8957-af38e0ac2f59",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-11-23T15:00:00.000Z",
+      "deadlineAt": "2027-02-25T15:00:00.000Z",
+      "firstSeenAt": "2026-11-23T00:00:00.000Z",
+      "dateBasis": "effective",
       "scope": {
         "level": "national"
       },
       "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/6d4f5ea2-9058-49f3-8957-af38e0ac2f59"
       },
       "coverage": {
         "complete": false,
-        "noteKey": "home_coverage_prices_partial"
+        "noteKey": "home_coverage_calls_partial"
       },
-      "route": "/product/portokali",
-      "factKey": "home_fact_promotion",
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
       "factArgs": {
-        "title": "ПОРТОКАЛИ",
-        "pct": 63,
-        "promoEur": "0.79",
-        "regularEur": "2.16",
-        "chains": 5
+        "title": "ПОДОБРЯВАНЕ НА ДОСТЪПА ДО ТРУДОВА ЗАЕТОСТ И АКТИВИРАНЕ ЗА ВКЛЮЧВАНЕ НА ПАЗАРА НА ТРУДА НА МЛАДИТЕ ХОРА - ВОМР",
+        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.9,
-      "actionability": 0.85
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
       "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-21T00:00:00.000Z",
-      "firstSeenAt": "2026-11-21T00:00:00.000Z",
+      "occurredAt": "2026-11-23T00:00:00.000Z",
+      "firstSeenAt": "2026-11-23T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -67,6 +66,39 @@
       "backfill": false,
       "verification": "automatic",
       "materiality": 0.8714285714285714,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:500g-pasirani-domati-the-chefs",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-23T00:00:00.000Z",
+      "firstSeenAt": "2026-11-23T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/500g-pasirani-domati-the-chefs",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
+        "pct": 58,
+        "promoEur": "0.72",
+        "regularEur": "1.73",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8285714285714286,
       "actionability": 0.85
     },
     {
@@ -164,43 +196,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:f31cdc01-a3f0-4ff9-ac4b-736473cb2313",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-11-04T15:30:00.000Z",
-      "deadlineAt": "2027-05-04T20:59:00.000Z",
-      "firstSeenAt": "2026-11-04T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/f31cdc01-a3f0-4ff9-ac4b-736473cb2313"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "Изпълнение на мярка 53 от Националната рамка за приоритетни действия за Натура 2000",
-        "programme": "Програма \"Околна среда\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:500g-pasirani-domati-the-chefs",
+      "id": "prices:promotion:kartofi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-21T00:00:00.000Z",
-      "firstSeenAt": "2026-11-21T00:00:00.000Z",
+      "occurredAt": "2026-11-23T00:00:00.000Z",
+      "firstSeenAt": "2026-11-23T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -213,18 +213,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/500g-pasirani-domati-the-chefs",
+      "route": "/product/kartofi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
-        "pct": 58,
-        "promoEur": "0.72",
-        "regularEur": "1.73",
-        "chains": 2
+        "title": "КАРТОФИ",
+        "pct": 55,
+        "promoEur": "0.45",
+        "regularEur": "0.99",
+        "chains": 3
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.8285714285714286,
+      "materiality": 0.7857142857142857,
       "actionability": 0.85
     },
     {
@@ -318,6 +318,38 @@
       "verification": "automatic",
       "materiality": 0.50425,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:f31cdc01-a3f0-4ff9-ac4b-736473cb2313",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-11-04T15:30:00.000Z",
+      "deadlineAt": "2027-05-04T20:59:00.000Z",
+      "firstSeenAt": "2026-11-04T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/f31cdc01-a3f0-4ff9-ac4b-736473cb2313"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "Изпълнение на мярка 53 от Националната рамка за приоритетни действия за Натура 2000",
+        "programme": "Програма \"Околна среда\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -802,7 +834,7 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-10-21",
-      "observedAt": "2026-11-22",
+      "observedAt": "2026-11-23",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -814,8 +846,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-21",
-      "observedAt": "2026-11-21",
+      "asOf": "2026-11-23",
+      "observedAt": "2026-11-23",
       "staleAfterDays": 5,
       "stale": false
     }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-21",
+  "computedAt": "2026-11-23",
   "thresholds": {
     "basketPids": [
       1,
@@ -33,14 +33,14 @@
   },
   "basketMoves": [
     {
-      "peakDay": "2026-10-22",
-      "startDay": "2026-10-22",
+      "peakDay": "2026-10-23",
+      "startDay": "2026-10-23",
       "endDay": "2026-10-23",
-      "pctChange": 2.429,
-      "costEur": 16.172,
-      "prevCostEur": 15.789,
+      "pctChange": 1.736,
+      "costEur": 16.161,
+      "prevCostEur": 15.886,
       "cohortCells": 1720,
-      "cohortShare": 0.9472
+      "cohortShare": 0.9473
     },
     {
       "peakDay": "2026-10-29",
@@ -85,23 +85,13 @@
   ],
   "promotions": [
     {
-      "slug": "portokali",
-      "title": "ПОРТОКАЛИ",
-      "atOrBelowSince": "2026-11-14",
-      "promoEur": 0.79,
-      "regularEur": 2.16,
-      "discountPct": 63,
-      "stores": 414,
-      "chains": 5
-    },
-    {
       "slug": "krave-maslo-d-markenbutter-250gr",
       "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
       "atOrBelowSince": "2026-11-19",
       "promoEur": 1.59,
       "regularEur": 4.07,
       "discountPct": 61,
-      "stores": 215,
+      "stores": 210,
       "chains": 2
     },
     {
@@ -113,6 +103,16 @@
       "discountPct": 58,
       "stores": 4,
       "chains": 2
+    },
+    {
+      "slug": "kartofi",
+      "title": "КАРТОФИ",
+      "atOrBelowSince": "2026-11-19",
+      "promoEur": 0.45,
+      "regularEur": 0.99,
+      "discountPct": 55,
+      "stores": 181,
+      "chains": 3
     }
   ]
 }

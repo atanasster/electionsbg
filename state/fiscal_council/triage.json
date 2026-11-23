@@ -3,6 +3,35 @@
     "verdict": "pre-ledger",
     "triagedAt": "2026-11-23T02:39:45.113Z"
   },
+  "d-r-simeon-diankov-edna-treta-ot-centralnata-administracia-e-izlishna-biudgetyt-ima-seriozni-problemi": {
+    "verdict": "none",
+    "triagedAt": "2026-11-23T22:49:45.155Z",
+    "source": "https://www.fiscal-council.bg/bg/publikacii/d-r-simeon-diankov-edna-treta-ot-centralnata-administracia-e-izlishna-biudgetyt-ima-seriozni-problemi",
+    "model": "gemini-3.7-flash",
+    "measures": [
+      {
+        "summary": "Dr. Djankov supports the introduction of a temporary windfall tax on bank excess profits.",
+        "quote": "Д-р Дянков подкрепя въвеждането на данък върху свръхпечалбите на банките като работеща европейска практика, но предупреди, че мярката е временна и не може да замести дългосрочните решения за приходите.",
+        "lever": null,
+        "affects": false,
+        "reason": "This is general commentary supporting a bank windfall tax without quantifying its fiscal effect or linking to an available simulator lever."
+      },
+      {
+        "summary": "Dr. Djankov recommends cutting approximately 35,000 of the 110,000 staff positions in the central administration.",
+        "quote": "За постигане на устойчиви публични финанси той препоръча мащабна оптимизация на централната администрация, където около 35 000 от общо 110 000 щатни бройки са ненужни.",
+        "lever": "scoreAdminCut",
+        "affects": false,
+        "reason": "This is an expert policy recommendation rather than a quantified fiscal effect or a policy change enacted in the law under review."
+      },
+      {
+        "summary": "The expert highlighted a threefold increase in expenditures for expert medical committee (TELK) disability decisions in recent years.",
+        "quote": "Експертът обърна внимание и на тревожния трикратен ръст на разходите за ТЕЛК решения през последните години, изтъквайки факта, че близо 6000 служители в системата на МВР притежават такива експертни решения.",
+        "lever": null,
+        "affects": false,
+        "reason": "This is historical commentary on disability benefit expenditures and is not modeled by any simulator lever."
+      }
+    ]
+  },
   "doklad-za-publichnite-razhodi-vyv-vryzka-s-ekspertnite-reshenia-za-uvrejdane": {
     "verdict": "none",
     "triagedAt": "2026-11-23T02:39:46.318Z",
