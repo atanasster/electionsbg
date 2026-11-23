@@ -1881,8 +1881,9 @@ const DB_ROUTES = {
       dbRows(
         `SELECT complete_through AS "completeThrough",
                 oblast_code AS "oblastCode", name_bg AS "nameBg", name_en AS "nameEn",
-                n60, pop60, per1000, prev_n60 AS "prevN60",
-                prev_per1000 AS "prevPer1000", oct_n AS "octN", prev_oct_n AS "prevOctN"
+                n60::float8 AS n60, pop60::float8 AS pop60, per1000,
+                prev_n60::float8 AS "prevN60", prev_per1000 AS "prevPer1000",
+                oct_n::float8 AS "octN", prev_oct_n::float8 AS "prevOctN"
            FROM vaccines_oblast($1, $2)`,
         [season, family],
       ).catch(vaccinesMiss("oblast")),
