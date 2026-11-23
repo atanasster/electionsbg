@@ -384,6 +384,26 @@ const missingMigration = (sentinel) => (e) =>
 // That is the reasoning CLAUDE.md already records for 123/124's `psp:`/`pp:`
 // prefixes; this is the Interreg one. Once per process per label, so a crawler
 // walking 265 municipalities produces one entry, not 265.
+
+// The season a vaccines route was asked for: a four-digit year, else NULL
+// (= the latest season, chosen in SQL from the seasons the data holds).
+const vaccineSeason = (q) => {
+  const v = s(q, "season");
+  return v && /^\d{4}$/.test(v) ? Number(v) : null;
+};
+const VACCINE_OBLAST_FAMILIES = ["flu", "flu_nasal", "flu_all"];
+// A missing 206 degrades to `null`, never `[]`: an empty array is truthy and the
+// page would render "no shots recorded" at a 200. Logged once per process,
+// because that null is otherwise the only sign the loader never ran here.
+const vaccinesMiss = (label) => (e) => {
+  if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
+  logMissOnce(
+    `vax:not-built:${label}:${e.code}`,
+    `vaccines-${label}: read failed (${e.code}) — serving null. Run db:load:vaccines:pg.`,
+  );
+  return null;
+};
+
 // ── /budget route family ───────────────────────────────────────────────────
 //
 // Factored out because eleven routes share one degrade contract, and repeating
@@ -1839,6 +1859,54 @@ const DB_ROUTES = {
   // `place` RANKS, IT NEVER FILTERS (see 143): „в твоята област няма, но в страната има 340" is a
   // usable answer and „нищо подобно не е финансирано" is not, and for a resolver that exists to
   // tell someone whether to bother applying, the false negative is the expensive error.
+
+  // ── Vaccines (migration 206, db:load:vaccines:pg) ────────────────────────────
+  "vaccines-overview": async (dbRows, q) => {
+    const rows = await dbRows("SELECT vaccines_overview($1) AS r", [
+      vaccineSeason(q),
+    ]).catch(vaccinesMiss("overview"));
+    return { body: rows?.[0]?.r ?? null };
+  },
+  // Recorded flu shots per 1,000 people aged 60+ by oblast. Without a season,
+  // or for a season the data does not hold, this answers null rather than
+  // guess — never 28 oblasts at zero. Both seasons run to `completeThrough`,
+  // the last complete month of НЗИС's monthly data (§7.4); the denominator is
+  // НЗИС's own 60+ population, not the programme's 65+ (§7.2).
+  "vaccines-oblast": async (dbRows, q) => {
+    const season = vaccineSeason(q);
+    if (season === null) return { body: null };
+    const fam = s(q, "family") || "flu";
+    const family = VACCINE_OBLAST_FAMILIES.includes(fam) ? fam : "flu";
+    const [rows, asOf] = await Promise.all([
+      dbRows(
+        `SELECT complete_through AS "completeThrough",
+                oblast_code AS "oblastCode", name_bg AS "nameBg", name_en AS "nameEn",
+                n60, pop60, per1000, prev_n60 AS "prevN60",
+                prev_per1000 AS "prevPer1000", oct_n AS "octN", prev_oct_n AS "prevOctN"
+           FROM vaccines_oblast($1, $2)`,
+        [season, family],
+      ).catch(vaccinesMiss("oblast")),
+      dbRows(
+        `SELECT as_of AS "asOf" FROM vaccine_source_asof WHERE source = 'his_monthly'`,
+      ).catch(vaccinesMiss("oblast-asof")),
+    ]);
+    if (!rows?.length) return { body: null };
+    return {
+      body: {
+        season,
+        family,
+        basis: "his_monthly",
+        population: "nzis_60plus",
+        asOf: asOf?.[0]?.asOf ?? null,
+        completeThrough: rows[0].completeThrough ?? null,
+        rows: rows.map((r) =>
+          Object.fromEntries(
+            Object.entries(r).filter(([k]) => k !== "completeThrough"),
+          ),
+        ),
+      },
+    };
+  },
   // The /funds hub's ONE stat call (migration 145). Replaces four per-tile fetches totalling
   // 277 KB, of which /api/db/dual-corpus-rankings alone was 247 KB pulled to draw a preview.
   //
