@@ -2584,6 +2584,17 @@
       }
     }
   ],
+  "entityMentions": [
+    {
+      "name": "term",
+      "type": "text",
+      "required": true,
+      "description": {
+        "bg": "Име; изписванията — със запетая",
+        "en": "Name; spellings comma-separated"
+      }
+    }
+  ],
   "contractSearch": [
     {
       "name": "count",

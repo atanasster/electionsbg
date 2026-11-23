@@ -75,6 +75,15 @@
     "municipalities.json"
   ],
   "contractSearch": ["db:procurement-search", "db:table/contracts"],
+  "entityMentions": [
+    "culture/films.json",
+    "db:agri-search",
+    "db:procurement-search",
+    "db:table/companies",
+    "db:table/kzk_appeals",
+    "db:table/open_calls",
+    "db:vote-item-search"
+  ],
   "councilResolutions": ["db:council-muni"],
   "cultureCommissions": ["culture/commissions.json"],
   "cultureGrantSuccess": ["culture/grants.json"],

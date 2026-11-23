@@ -8482,6 +8482,86 @@
     "clarify": false
   },
   {
+    "id": "entityMentions",
+    "lang": "bg",
+    "text": "Покажи ми всички данни за INSAIT, ИНСАИТ",
+    "tool": "entityMentions",
+    "args": {
+      "term": "INSAIT, ИНСАИТ"
+    },
+    "title": "Всичко за „INSAIT“ в данните",
+    "rows": 17,
+    "facts": {
+      "term": "INSAIT",
+      "contracts": 7,
+      "contracts_value": "5,7 млн €",
+      "tenders": 8,
+      "companies": 2,
+      "buyers": 0,
+      "eu_funds_projects": 0,
+      "interreg_projects": 0,
+      "parliament_votes": 0,
+      "kzk_appeals": 0,
+      "farm_subsidy_recipients": 0,
+      "farm_subsidies_value": "0 €",
+      "film_subsidies": 0,
+      "funding_calls": 0,
+      "similar_names_excluded": 10,
+      "similar_names_not_included": "Инсас ООД; Инса ЕООД; Инса ОЙЛ ЕООД; ДЗЗД  Инсайт  ПРСР; Инсайд БГ ООД - Варна; Консорциум Екорис-инсайт - София",
+      "coverage_note": "Търсени: договори, поръчки, жалби до КЗК, Търговски регистър (вкл. ЮЛНЦ), ЕС фондове, Interreg, субсидии ДФЗ, субсидии НФЦ, процедури за финансиране, гласувания в парламента. Търсене по име — запис, който не споменава името, не се вижда; парите по ЕИК на всяка организация са на страницата ѝ."
+    },
+    "provenance": [
+      "db:procurement-search",
+      "db:table/companies",
+      "db:table/kzk_appeals",
+      "db:table/open_calls",
+      "db:agri-search",
+      "db:vote-item-search",
+      "culture/films.json"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "entityMentions",
+    "lang": "en",
+    "text": "Show me everything about INSAIT",
+    "tool": "entityMentions",
+    "args": {
+      "term": "INSAIT"
+    },
+    "title": "Everything on “INSAIT” in the data",
+    "rows": 17,
+    "facts": {
+      "term": "INSAIT",
+      "contracts": 7,
+      "contracts_value": "€5.7m",
+      "tenders": 8,
+      "companies": 2,
+      "buyers": 0,
+      "eu_funds_projects": 0,
+      "interreg_projects": 0,
+      "parliament_votes": 0,
+      "kzk_appeals": 0,
+      "farm_subsidy_recipients": 0,
+      "farm_subsidies_value": "€0",
+      "film_subsidies": 0,
+      "funding_calls": 0,
+      "similar_names_excluded": 10,
+      "similar_names_not_included": "Инсас ООД; Инса ЕООД; Инса ОЙЛ ЕООД; ДЗЗД  Инсайт  ПРСР; Инсайд БГ ООД - Варна; Консорциум Екорис-инсайт - София",
+      "coverage_note": "Searched: contracts, tenders, КЗК appeals, the Commerce Registry (incl. NGOs), EU funds, Interreg, ДФЗ farm subsidies, НФЦ film subsidies, funding calls, parliament votes. Name search — a record that does not name it is not found; each organisation's money by EIK is on its own page."
+    },
+    "provenance": [
+      "db:procurement-search",
+      "db:table/companies",
+      "db:table/kzk_appeals",
+      "db:table/open_calls",
+      "db:agri-search",
+      "db:vote-item-search",
+      "culture/films.json"
+    ],
+    "clarify": false
+  },
+  {
     "id": "awarderProcurement",
     "lang": "bg",
     "text": "Какви обществени поръчки възлага Министерството на отбраната?",

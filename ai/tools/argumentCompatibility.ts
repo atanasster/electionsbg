@@ -11,6 +11,7 @@ export const ARGUMENT_ALIASES: Record<string, Record<string, string>> = {
   nzokPathwayHospitals: { pathway: "procedure", name: "procedure" },
   nzokPrivateHospitals: { mode: "filter" },
   contractSearch: { eik: "company" },
+  entityMentions: { company: "term" },
   awarderProcurement: { place: "org" },
   procurementNormalcy: { contract: "key", id: "key" },
   openTenders: {

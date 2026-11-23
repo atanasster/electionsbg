@@ -104,7 +104,8 @@ describe("precision is a hard zero, because the caller consults it where the rou
   it("counts the corpus it is asserting over, so the zeros cannot go vacuous", () => {
     // Recorded 2026-09-16; 1444 → 1448 on 2026-10-13 when the two capex
     // macro starters (macro-capexExecKfp / -StateBudget) joined, both answered in
-    // both languages. Without these denominators, a shrunken corpus or a
+    // both languages; 1448 → 1454 on 2026-11-23 when entityMentions joined
+    // (two registry examples + one starter, answered in both languages). Without these denominators, a shrunken corpus or a
     // broken `callOk` would make every zero below pass while pinning nothing.
     let answered = 0,
       gaps = 0,
@@ -121,7 +122,7 @@ describe("precision is a hard zero, because the caller consults it where the rou
           if (typoMatches(c[lang], 5).length) firedOnGaps++;
         }
       }
-    expect(answered).toBe(1448);
+    expect(answered).toBe(1454);
     expect(gaps).toBe(207);
     // The property asserted is the STRONGER "never fires at all" on a question the
     // router already answers. That is what a correctly spelled question deserves:

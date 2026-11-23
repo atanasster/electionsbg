@@ -1,4 +1,5 @@
 import { rollcallContinuation } from "../../src/lib/rollcallContinuations";
+import { bareAcronym, mentionsQuery } from "./mentionsUnderstanding";
 import {
   decodeRollcallQuery,
   encodeRollcallQuery,
@@ -5505,6 +5506,9 @@ export const resolveFollowOn = (
  * Route its subject first; context can only change that tool's declared inputs.
  */
 export const route = (question: string, ctx: ToolContext): Route => {
+  // "покажи ми всички данни за X" / "къде се споменава X" — every record naming X.
+  const mention = mentionsQuery(question);
+  if (mention) return { tool: "entityMentions", args: { term: mention } };
   const rollcall = rollcallCorpus(question);
   if (rollcall)
     return { tool: "rollcallQuestion", args: { question, corpus: rollcall } };
@@ -5643,7 +5647,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
   )
     return null;
   const selected = applyProductDefaults(routeText(subject, ctx), subject);
-  if (!selected || !context.length) return selected;
+  if (!selected) {
+    // Nothing matched, but the question is a bare acronym/brand ("INSAIT"):
+    // answer with every record that names it rather than "I'm not sure".
+    const bare = !context.length ? bareAcronym(subject) : null;
+    return bare ? { tool: "entityMentions", args: { term: bare } } : null;
+  }
+  if (!context.length) return selected;
   const params = TOOLS_BY_NAME[selected.tool]?.params ?? [];
   const args: Record<string, unknown> = { ...selected.args };
   for (const line of context) {

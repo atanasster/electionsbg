@@ -38,12 +38,12 @@ import {
 // Re-pinned 2026-10-17: transport-hub-v1 moved the transportEuFunds description to the grant (БФП) basis.
 const FULL_CATALOGUE = {
   bg: {
-    bytes: 85_499,
-    sha256: "d098ce3a68fef0d557659a3985552dacf1ea41c831b524e05cd1f9fa32dec97c",
+    bytes: 85_933,
+    sha256: "c3b4545ee76f9a21bf78ca0d11d90b4227697421daaf2a6d93511c9a203ca859",
   },
   en: {
-    bytes: 56_821,
-    sha256: "fc771673fc7dfc576d0aba2f81afbeaef06b95ea85771a270ff6885b5233a178",
+    bytes: 57_087,
+    sha256: "517e6c54e7da9c4757429dfe5d9bda4b1bc36a0eef31f7647849d108bc1ac4df",
   },
 } as const;
 

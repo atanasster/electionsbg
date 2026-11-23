@@ -2558,6 +2558,22 @@
     }
   },
   {
+    "id": "entityMentions",
+    "category": "procurement",
+    "subcategory": "contracts",
+    "tool": "entityMentions",
+    "bg": "Покажи ми всички данни за INSAIT, ИНСАИТ",
+    "en": "Show me everything about INSAIT",
+    "args": {
+      "bg": {
+        "term": "INSAIT, ИНСАИТ"
+      },
+      "en": {
+        "term": "INSAIT"
+      }
+    }
+  },
+  {
     "id": "awarderProcurement",
     "category": "procurement",
     "subcategory": "contracts",

@@ -31,11 +31,13 @@ describe("Non AI shared bilingual evals (known failures are explicit)", () => {
     expect(STARTER_CASES).toHaveLength(STARTERS.length);
     // 367 → 369 on 2026-10-13: the two capex macro starters (macro-capexExecKfp,
     // macro-capexExecStateBudget), each declaring its expected `indicator` arg.
-    expect(starters).toHaveLength(369);
+    // 369 → 370 on 2026-11-23: the entityMentions starter (INSAIT).
+    expect(starters).toHaveLength(370);
     const argScored = (lang: "en" | "bg") =>
       starters.filter((c) => expectedArgs(c, lang) !== undefined).length;
-    expect(argScored("bg")).toBe(243);
-    expect(argScored("en")).toBe(244);
+    // 243/244 → 244/245 on 2026-11-23: the entityMentions starter declares `term`.
+    expect(argScored("bg")).toBe(244);
+    expect(argScored("en")).toBe(245);
     // The bank is recall-tainted, so it must never be the denominator of the
     // legacy floor.
     expect(LEGACY_GROUPS as readonly string[]).not.toContain("starter");
@@ -57,7 +59,8 @@ describe("Non AI shared bilingual evals (known failures are explicit)", () => {
     const legacy = NON_AI_CASES.filter((c) =>
       (LEGACY_GROUPS as readonly string[]).includes(c.group),
     );
-    expect(legacy).toHaveLength(474);
+    // 474 → 476 on 2026-11-23: entityMentions' two registry examples.
+    expect(legacy).toHaveLength(476);
     for (const lang of ["en", "bg"] as const)
       expect(
         legacy.filter((c) => expectedArgs(c, lang) !== undefined),

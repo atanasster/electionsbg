@@ -1,3 +1,4 @@
+import { entityMentions } from "./mentions";
 import { procurementQuery } from "./procurement";
 import { decodeProcurementQuery } from "../../src/lib/procurementQuery";
 // Governance — fiscal tools (budget, COFOG, procurement, EU funds). All read
@@ -968,6 +969,49 @@ export const cleanCompany = (raw: string): string =>
     .join(" ")
     .trim();
 
+const lev = (a: string, b: string): number => {
+  const d = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = d[0];
+    d[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const cur = d[j];
+      d[j] = Math.min(
+        d[j] + 1,
+        d[j - 1] + 1,
+        prev + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
+      prev = cur;
+    }
+  }
+  return d[b.length];
+};
+
+/** Is the search hit plausibly the company asked for? At least one query word
+ *  of ≥4 letters must equal, prefix (≥5) or be one edit from a word of the name,
+ *  compared romanized — so "Кауфланд" finds „Кауфланд България ЕООД ЕНД КО КД"
+ *  and "Sofarma Trading" finds „Софарма Трейдинг АД" (via "sofarma"), while
+ *  "INSAIT" does not become „Инсас ООД" (two edits). */
+export const nameResembles = (name: string, query: string): boolean => {
+  const w = (s: string) =>
+    translitKey(s)
+      .replace(/[^\p{L}\p{N}]+/gu, " ")
+      .split(" ")
+      .filter(Boolean);
+  const nameWords = w(name);
+  const qWords = w(query).filter((x) => x.length >= 4);
+  if (!qWords.length) return true; // nothing to judge on — keep the search's pick
+  return qWords.some((q) =>
+    nameWords.some(
+      (n) =>
+        n === q ||
+        (q.length >= 5 &&
+          (n.startsWith(q) || (q.startsWith(n) && n.length >= 5))) ||
+        lev(n, q) <= 1,
+    ),
+  );
+};
+
 export const contractSearch = async (
   args: ToolArgs,
   ctx: ToolContext,
@@ -995,9 +1039,14 @@ export const contractSearch = async (
     if (!sr.companies?.length && /\btrading\b/i.test(cleaned))
       sr = await search(cleaned.replace(/\btrading\b/gi, "treyding"));
     const hit = sr.companies?.[0];
-    if (hit) {
+    if (hit && nameResembles(hit.name, cleaned)) {
       eik = hit.eik;
       name = hit.name;
+    } else if (hit) {
+      // The trigram search always returns its nearest name, however far: for
+      // "INSAIT" that is Инсас ООД, an unrelated firm. Rather than present a
+      // stranger's contracts, answer with every record that names the term.
+      return entityMentions({ term: cleaned }, ctx);
     }
   }
 

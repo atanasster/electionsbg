@@ -1,4 +1,5 @@
 import { ROLLCALL_TOOLS } from "./rollcall";
+import { entityMentions } from "./mentions";
 import { FUNDING_TOOLS } from "./funding";
 import { PROCUREMENT_TOOLS } from "./procurement";
 import { RANKING_VALUES } from "./rankingContract";
@@ -3158,6 +3159,36 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: procurementAppeals,
+  },
+  {
+    name: "entityMentions",
+    domain: "fiscal",
+    description: {
+      bg: "Всички записи, в които се споменава име (организация, проект, институт без ЕИК) — поръчки, КЗК, фирми, фондове, субсидии, гласувания. За „всички данни за X“, „къде се споменава X“.",
+      en: "Every record naming X (organisation, project, institute with no EIK) — procurement, КЗК, companies, funds, subsidies, votes. For “all data on X”, “where is X mentioned”.",
+    },
+    params: [
+      {
+        name: "term",
+        type: "text",
+        required: true,
+        description: {
+          bg: "Име; изписванията — със запетая",
+          en: "Name; spellings comma-separated",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи ми всички данни за INSAIT, ИНСАИТ",
+        en: "Show me everything about INSAIT",
+      },
+      {
+        bg: "Къде се споменава Sofia Tech Park?",
+        en: "Where is Sofia Tech Park mentioned?",
+      },
+    ],
+    run: entityMentions,
   },
   {
     name: "contractSearch",
