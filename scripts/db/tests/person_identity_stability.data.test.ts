@@ -270,7 +270,18 @@ test.skipIf(skipIdentity)(
     // ⚠️ Do NOT read the split off `is_public_figure`: it puts the 1,283 donor-only persons
     // on the private side, so a public/private count against these numbers shows a phantom
     // 1,261-person „public" drop. 5.9b/5.9c moved too, to keep one vintage.
-    const BASELINE = 137_045;
+    //
+    // RE-BASELINED 2026-11-23 — a DROP in the controls, ATTRIBUTED, the 2026-10-03 shape
+    // again. The cause is a deliberate MERGE, 5e853ddee6 (cluster.ts `unionNationalLocal`,
+    // docs/plans/person-national-local-merge-v1.md): a councillor or mayor and an MP or
+    // candidate of the same party in the same oblast had been two people. The controls fell
+    // by design: folds 3,470 → 3,372, rows 9,768 → 9,279, review groups 3,432 → 3,340.
+    // CHECKED pair by pair rather than inherited: the resolve retired 417 slugs. 409 point at
+    // a person holding a national role and a local role on the same party + oblast key. The
+    // other 8 are `-3` → `-2` suffix renumberings inside a fold whose old `-2` holder was
+    // merged away. The total moved only +24, because ordinary TR growth absorbed the merge.
+    // 5.9b/5.9c moved too, to keep one vintage.
+    const BASELINE = 137_069;
     const TOLERANCE = 500;
     assert.ok(
       Math.abs(persons - BASELINE) <= TOLERANCE,
@@ -337,7 +348,10 @@ test.skipIf(skipIdentity)(
     // pair by pair. Not to be read as precedent for an unattributed fall.
     // RE-BASELINED 2026-11-16 with 5.9 (see its note): 3,455 → 3,470 folds, 9,731 → 9,768
     // rows — a RISE, no slug retired since the last baseline.
-    const FOLD_BASELINE = 3_470;
+    // RE-BASELINED 2026-11-23 with 5.9 (see its note): 3,470 → 3,372 folds, 9,768 → 9,279
+    // rows — a DROP, attributed to the deliberate national↔local merge (5e853ddee6) and
+    // checked slug by slug. Not precedent for an unattributed fall.
+    const FOLD_BASELINE = 3_372;
     const FOLD_TOLERANCE = 40;
     assert.ok(
       Math.abs(folds - FOLD_BASELINE) <= FOLD_TOLERANCE,
@@ -355,7 +369,7 @@ test.skipIf(skipIdentity)(
     // hold >= 3 people, so that class is a fifth of the population, not a hypothetical.
     // Tolerance is FOLD_TOLERANCE scaled by the same ratio (40/3,495 ≈ 1.14% of 9,962).
     const foldRows = Number(row.rows);
-    const FOLD_ROWS_BASELINE = 9_768;
+    const FOLD_ROWS_BASELINE = 9_279;
     const FOLD_ROWS_TOLERANCE = 120;
     assert.ok(
       Math.abs(foldRows - FOLD_ROWS_BASELINE) <= FOLD_ROWS_TOLERANCE,
@@ -394,7 +408,9 @@ test.skipIf(skipIdentity)(
     // RE-BASELINED 2026-10-03 with 5.9/5.9b on the same attribution: 3,423 → 3,387. A merged
     // mayor pair no longer raises a "might be the same person" question.
     // RE-BASELINED 2026-11-16 with 5.9/5.9b: 3,419 → 3,432 (a RISE).
-    const GROUP_BASELINE = 3_432;
+    // RE-BASELINED 2026-11-23 with 5.9/5.9b: 3,432 → 3,340, the national↔local merge. A
+    // merged councillor/MP pair no longer raises a "might be the same person" question.
+    const GROUP_BASELINE = 3_340;
     const GROUP_TOLERANCE = 40;
     assert.ok(
       Math.abs(groups - GROUP_BASELINE) <= GROUP_TOLERANCE,

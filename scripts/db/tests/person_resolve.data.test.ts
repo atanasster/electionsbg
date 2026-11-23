@@ -76,6 +76,17 @@ afterAll(async () => {
 // licence: both roles must be `mayor` on one place code, and the person may carry NO third
 // source — so the exception can never launder a merge with anything else. Measured when
 // added (2026-09-27): 101 mayors had been split this way, Sofia's among them.
+//
+// A THIRD, and it is party + PLACE at the one grain where the two sides meet: cluster.ts
+// `unionNationalLocal` (docs/plans/person-national-local-merge-v1.md). A national mention
+// (mp/candidate in a МИР) and a local term (an община) of the SAME party in the SAME oblast,
+// identical three-part name, uncontested on that key. It is re-derived here the same way:
+// the oblast key mirrors `oblastKeyFor` (Sofia city — МИР 23/24/25, SFO_CITY, the S2### районы
+// — is its own key and never `SFO`; PDV-00 is PDV), and the same MASS_COLLISION_CAP (12)
+// applies. The person may carry no source beyond mp/candidate/local except an
+// official_muni MAYOR seat that `sameMayoralty` already licenses, so this exception cannot
+// launder a merge with anything else. Measured when added (2026-11-23): 301 persons, 5 of
+// them with that mayor seat.
 test.skipIf(skip)(
   "no cross-source merge on a common name without a name-independent link",
   async () => {
@@ -111,7 +122,35 @@ test.skipIf(skip)(
             AND NOT EXISTS (
               SELECT 1 FROM person_role x
                WHERE x.person_id = p.person_id
-                 AND x.source NOT IN ('local', 'official_muni')))`,
+                 AND x.source NOT IN ('local', 'official_muni')))
+          AND NOT (
+            p.namesake_risk <= 12
+            AND EXISTS (
+              SELECT 1 FROM person_role n
+                JOIN person_role l
+                  ON l.person_id = n.person_id
+                 AND l.source = 'local' AND l.place_kind = 'obshtina'
+                 AND l.party = n.party
+               WHERE n.person_id = p.person_id
+                 AND n.source IN ('mp', 'candidate') AND n.place_kind = 'mir'
+                 AND n.party IS NOT NULL
+                 AND (CASE WHEN n.place_code IN ('S23', 'S24', 'S25') THEN 'SOFIA_CITY'
+                           WHEN n.place_code = 'PDV-00' THEN 'PDV'
+                           ELSE n.place_code END)
+                   = (CASE WHEN l.place_code = 'SFO_CITY'
+                             OR l.place_code ~ '^S2[345][0-9]{2}$' THEN 'SOFIA_CITY'
+                           ELSE substring(l.place_code from '^([A-Z]{3})[0-9]{2}$') END))
+            AND NOT EXISTS (
+              SELECT 1 FROM person_role x
+               WHERE x.person_id = p.person_id
+                 AND x.source NOT IN ('mp', 'candidate', 'local', 'official_muni'))
+            AND NOT EXISTS (
+              SELECT 1 FROM person_role o
+               WHERE o.person_id = p.person_id AND o.source = 'official_muni'
+                 AND NOT (o.role = 'mayor' AND EXISTS (
+                   SELECT 1 FROM person_role e
+                    WHERE e.person_id = p.person_id AND e.source = 'local'
+                      AND e.role = 'mayor' AND e.place_code = o.place_code))))`,
     );
     assert.equal(
       Number(r.bad),

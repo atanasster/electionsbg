@@ -222,4 +222,28 @@ SQL saw final persons). Spot-checked: Джипов, Фандъкова, Тоте
 (`mp-176`, Хасково MP) joins a БСП Велико Търново councillor through a БСП/VTR candidacy
 already in his component, register count 0 — worth a human look before step 5.
 
-Not done: step 4 (the data gate), step 5 (local resolve + repair chain), step 7 (cloud).
+## 10. Steps 4–5 done (2026-11-23, local only)
+
+**Local `db:resolve:persons`: exit 0, 417 slugs retired** into `person_slug_retired` (e.g.
+`mp-5202-2` → `mp-5202` Джипов, `mp-5249-2` → `mp-5249`). Measured after it:
+
+- Джипов is ONE active person, and Bridge B now attaches МАТ ООД (116011316) and МАТ 2020
+  ЕООД (206034748), which is the symptom that found the defect.
+- Фандъкова is one person, joined through the Sofia-city key.
+- The §3 class went **490 → 73**. What is left is what the tier refuses by design: contested
+  keys, mass names, and components that would take two partners.
+- **0** persons hold a Столична община term together with a Софийска област МИР and no Sofia-city
+  МИР. That is the wrong merge `oblastKeyFor` exists to prevent.
+- Тотев keeps a second record (`ivan-totev-t9ep8k`), and that is correct: its only role is a
+  2007 PDV22 councillor term with no party, so the tier has nothing to match on.
+
+Gate: `scripts/db/tests/person_national_local.data.test.ts` (5 tests). It skips with its own
+reason when both canaries are still split, so a corpus that predates the tier never reads as
+"the rule is enforced". It fails when only one canary is split. The residual ceiling is 150,
+against ≥400 for a layer without the tier.
+
+The repair chain (`CLAUDE.md` "A LOCAL `db:resolve:persons` is never one command") ran after
+the resolve.
+
+Not done: step 7 (cloud). That means `db:resolve:persons:cloud` plus its repair chain, run
+off-peak, because 090's CASCADE window can 500 `/persons` (measured ~6½ min on 2026-10-21).
