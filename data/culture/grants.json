@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-11-19T07:44:26.159Z",
+  "generatedAt": "2026-11-23T01:44:00.751Z",
   "source": {
     "publisher": "Национален фонд „Култура“ (НФК)",
     "url": "https://ncf.bg/bg/novini",
-    "description": "Класиране на проектите по програмите на Национален фонд „Култура“ — брой кандидатствали и финансирани проекти (успеваемост) и разпределените суми по област, от публикуваните резултати (PDF). Сумите от класиранията в лева са конвертирани в евро по фиксирания курс; от 2026 г. класиранията са в евро. Проектите в резерва (финансирани само при наличие на средства) не се броят за финансирани."
+    "description": "Класиране на проектите по програмите на Национален фонд „Култура“ — брой кандидатствали и финансирани проекти (успеваемост) и разпределените суми по област, от публикуваните класирания (PDF) и от електронната система за кандидатстване konkursi.ncf.bg. Сумите от класиранията в лева са конвертирани в евро по фиксирания курс; от 2026 г. класиранията са в евро. Проектите в резерва (финансирани само при наличие на средства) не се броят за финансирани."
   },
-  "totalApplied": 559,
-  "totalFunded": 224,
-  "totalReserve": 235,
-  "overallSuccessRate": 0.4007155635062612,
-  "totalFundedEur": 3142271,
-  "totalReserveEur": 3807853,
-  "totalRequestedEur": 9335397,
+  "totalApplied": 878,
+  "totalFunded": 323,
+  "totalReserve": 403,
+  "overallSuccessRate": 0.3678815489749431,
+  "totalFundedEur": 4271584,
+  "totalReserveEur": 5860277,
+  "totalRequestedEur": 13521146,
   "programs": [
     {
       "code": "SGP",
@@ -265,6 +265,189 @@
           "funded": 1,
           "reserve": 3,
           "fundedEur": 3700
+        }
+      ]
+    },
+    {
+      "code": "DEB",
+      "year": 2026,
+      "label": {
+        "bg": "Дебюти 2026",
+        "en": "Debuts 2026"
+      },
+      "url": "https://konkursi.ncf.bg/api/competitions/Results/Competitions/1/Results/Public",
+      "currency": "EUR",
+      "applied": 152,
+      "funded": 68,
+      "reserve": 69,
+      "successRate": 0.4473684210526316,
+      "requestedEur": 1535461,
+      "fundedEur": 644968,
+      "reserveEur": 636355,
+      "ineligible": 24,
+      "withdrawn": 1,
+      "byDiscipline": [
+        {
+          "discipline": "screen",
+          "label": {
+            "bg": "Екранни изкуства",
+            "en": "Screen arts"
+          },
+          "applied": 38,
+          "funded": 23,
+          "reserve": 14,
+          "fundedEur": 244176
+        },
+        {
+          "discipline": "music",
+          "label": {
+            "bg": "Музика",
+            "en": "Music"
+          },
+          "applied": 43,
+          "funded": 19,
+          "reserve": 22,
+          "fundedEur": 183861
+        },
+        {
+          "discipline": "literature",
+          "label": {
+            "bg": "Литература",
+            "en": "Literature"
+          },
+          "applied": 19,
+          "funded": 14,
+          "reserve": 5,
+          "fundedEur": 107596
+        },
+        {
+          "discipline": "visual",
+          "label": {
+            "bg": "Визуални изкуства",
+            "en": "Visual arts"
+          },
+          "applied": 27,
+          "funded": 7,
+          "reserve": 15,
+          "fundedEur": 59931
+        },
+        {
+          "discipline": "theatre",
+          "label": {
+            "bg": "Театър",
+            "en": "Theatre"
+          },
+          "applied": 10,
+          "funded": 3,
+          "reserve": 2,
+          "fundedEur": 29021
+        },
+        {
+          "discipline": "dance",
+          "label": {
+            "bg": "Танц",
+            "en": "Dance"
+          },
+          "applied": 15,
+          "funded": 2,
+          "reserve": 11,
+          "fundedEur": 20383
+        }
+      ]
+    },
+    {
+      "code": "DG",
+      "year": 2026,
+      "label": {
+        "bg": "Дигитални изкуства 2026",
+        "en": "Digital arts 2026"
+      },
+      "url": "https://konkursi.ncf.bg/api/competitions/Results/Competitions/3/Results/Public",
+      "currency": "EUR",
+      "applied": 114,
+      "funded": 11,
+      "reserve": 67,
+      "successRate": 0.09649122807017543,
+      "requestedEur": 2020781,
+      "fundedEur": 200839,
+      "reserveEur": 1099532,
+      "ineligible": 3,
+      "withdrawn": 1,
+      "byDiscipline": [
+        {
+          "discipline": "other",
+          "label": {
+            "bg": "Друго",
+            "en": "Other"
+          },
+          "applied": 114,
+          "funded": 11,
+          "reserve": 67,
+          "fundedEur": 200839
+        }
+      ]
+    },
+    {
+      "code": "KRI",
+      "year": 2026,
+      "label": {
+        "bg": "Критика 2026",
+        "en": "Criticism 2026"
+      },
+      "url": "https://konkursi.ncf.bg/api/competitions/Results/Competitions/5/Results/Public",
+      "currency": "EUR",
+      "applied": 42,
+      "funded": 11,
+      "reserve": 30,
+      "successRate": 0.2619047619047619,
+      "requestedEur": 398178,
+      "fundedEur": 105226,
+      "reserveEur": 272530,
+      "ineligible": 2,
+      "withdrawn": 0,
+      "byDiscipline": [
+        {
+          "discipline": "other",
+          "label": {
+            "bg": "Друго",
+            "en": "Other"
+          },
+          "applied": 42,
+          "funded": 11,
+          "reserve": 30,
+          "fundedEur": 105226
+        }
+      ]
+    },
+    {
+      "code": "CR",
+      "year": 2026,
+      "label": {
+        "bg": "Цирк 2026",
+        "en": "Circus 2026"
+      },
+      "url": "https://konkursi.ncf.bg/api/competitions/Results/Competitions/42/Results/Public",
+      "currency": "EUR",
+      "applied": 11,
+      "funded": 9,
+      "reserve": 2,
+      "successRate": 0.8181818181818182,
+      "requestedEur": 231328,
+      "fundedEur": 178280,
+      "reserveEur": 44008,
+      "ineligible": 0,
+      "withdrawn": 0,
+      "byDiscipline": [
+        {
+          "discipline": "other",
+          "label": {
+            "bg": "Друго",
+            "en": "Other"
+          },
+          "applied": 11,
+          "funded": 9,
+          "reserve": 2,
+          "fundedEur": 178280
         }
       ]
     }
