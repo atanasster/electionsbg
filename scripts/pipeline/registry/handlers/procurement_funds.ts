@@ -400,8 +400,20 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       verify("funds:parity", tsx("scripts/db/gen_funds/parity.ts", "--full"), {
         on: FUNDS_MAIN,
       }),
-      ingest("funds:ingest-interreg", pnpm("funds:ingest-interreg"), {
+      // Crawl keep.eu, then ingest — unattended. The crawler is resumable by
+      // design and `--auto` picks the ~2 h full walk only when the last one is
+      // over 35 days old or incomplete (crawl.ts → autoFullReason). A crawl
+      // keep.eu refuses exits 3: the ingest is skipped (corpus unchanged),
+      // the publish is NOT held, and the next run retries.
+      ingest("funds:interreg-auto", pnpm("funds:interreg-auto"), {
         on: ["keep_eu_interreg"],
+        timeoutMin: 180,
+        operatorExit: {
+          codes: [3],
+          instruction:
+            "The keep.eu crawl failed; the Interreg corpus stays on its previous vintage and the next run retries automatically. If it keeps failing, probe with `pnpm run funds:crawl-interreg --index-only --max-pages 1`.",
+          detail: /interreg-auto:|WARNING|Error/,
+        },
       }),
       derive("db:load:place-dim:pg", pnpm("db:load:place-dim:pg"), {
         on: ["keep_eu_interreg"],
@@ -434,17 +446,6 @@ export const PROCUREMENT_FUNDS: Handler[] = [
         "db:load:tr-company-place:pg",
         pnpm("db:load:tr-company-place:pg"),
       ),
-    ],
-    operator: [
-      {
-        // The crawl is rate-limited against keep.eu and operator-run (probe
-        // first with --index-only --max-pages 1); never an unattended step.
-        id: "interreg-crawl",
-        on: ["keep_eu_interreg"],
-        instruction:
-          "Probe with `pnpm run funds:crawl-interreg --index-only --max-pages 1`; if healthy run `pnpm run funds:crawl-interreg --full` (~2 h), then ack — the ingest and loads run on the next pipeline run.",
-        blocks: "arm",
-      },
     ],
     publish: {
       cloud: [

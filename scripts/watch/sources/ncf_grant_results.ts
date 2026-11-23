@@ -1,10 +1,15 @@
 // Watch НФК (Национален фонд „Култура") for new grant activity — the source
 // behind data/culture/grants.json (success rates). The результати PDFs are NOT
 // linked on the news index (they live inside individual posts / the richeditor
-// path), so we can't fingerprint them directly. Instead we track the SET of news
-// posts (each carries an incrementing id): a new results post — like any new post
-// — flips the fingerprint, and the operator adds its PDF URL to NCF_RESULTS in
-// scripts/culture/ncf_grants.ts before re-running. Maps to `update-culture`.
+// path), so we can't fingerprint them directly. Instead we track the SET of
+// RESULTS posts — those whose slug says „резултати" or „класиране". Every other
+// post (deadline extensions, schedules, staff news) used to flip this source
+// too, and each flip opened an operator item that asked for a PDF that did not
+// exist: 8 of the 9 posts after #746 were of that kind. Maps to `update-culture`.
+//
+// Since post #755 (20.11.2026) the results are no longer PDFs: each programme
+// links to konkursi.ncf.bg, the fund's electronic competition system, so a new
+// results post now needs a konkursi ingest rather than a NCF_RESULTS entry.
 
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
@@ -23,8 +28,15 @@ const postLinks = async (): Promise<string[]> => {
   const re = /href="(\/bg\/novini\/[^"]+\/\d+)"/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html))) links.add(m[1]);
-  return [...links].sort();
+  return [...links].filter(isResultsPost).sort();
 };
+
+/** A results announcement — the slug is a transliteration of its title, so
+ *  „Резултати …" / „Класиране …" appear as `rezultat…` / `klasiran…`. The
+ *  schedule post („Индикативен график за обявяване на резултатите") is excluded:
+ *  it announces dates, not results. */
+export const isResultsPost = (href: string): boolean =>
+  /rezultat|klasiran/.test(href) && !/grafik/.test(href);
 
 const newestId = (links: string[]): number =>
   links.reduce(
@@ -44,7 +56,7 @@ export const ncfGrantResults: WatchSource = {
     const latest = newestId(links);
     return {
       value,
-      detail: `${links.length} posts on the feed · newest #${latest}`,
+      detail: `${links.length} results post(s) on the feed · newest #${latest}`,
       meta: { count: links.length, latest },
     };
   },
@@ -58,7 +70,7 @@ export const ncfGrantResults: WatchSource = {
       (curr.meta as { latest?: number } | undefined)?.latest ?? 0,
     );
     return nowId > wasId
-      ? `new post(s) — newest #${nowId} (was #${wasId}); check for a new grant класиране`
-      : "the news feed changed";
+      ? `new results post(s) — newest #${nowId} (was #${wasId})`
+      : "the set of results posts changed";
   },
 };

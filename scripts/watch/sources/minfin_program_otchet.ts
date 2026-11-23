@@ -41,7 +41,14 @@ interface Report {
 }
 
 const enumerate = async (): Promise<Report[]> => {
-  const rows = await fetchJson<CdxRow[]>(`${CDX}?${PROGOTCHET_QUERY}`);
+  // The urlkey regex runs over EVERY capture under minfin.bg/upload/, so the
+  // CDX server needs ~26 s for this one query in daytime (measured
+  // 2026-11-23) — against fetchText's 30 s default, which it lost on slower
+  // nights (5 runs in a row: "The operation was aborted due to timeout").
+  // 180 s still leaves room inside the watcher's 300 s per-source cap.
+  const rows = await fetchJson<CdxRow[]>(`${CDX}?${PROGOTCHET_QUERY}`, {
+    signal: AbortSignal.timeout(180_000),
+  });
   if (!Array.isArray(rows) || rows.length < 2) return [];
   const seen = new Set<string>();
   const out: Report[] = [];

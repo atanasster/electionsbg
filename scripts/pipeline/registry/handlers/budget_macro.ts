@@ -500,20 +500,18 @@ export const BUDGET_MACRO: Handler[] = [
         tsx("scripts/budget/noi/__write_funds.ts", "--fetch"),
         { on: ["nssi_b1"] },
       ),
+      // The yearbook ZIP and the КФН quarterly archive both GET cleanly, so
+      // their fetch is a step rather than an operator item: each writer
+      // fetches only what moved and never overwrites a cache with an error page.
+      ingest(
+        "noi:write_pensions",
+        tsx("scripts/budget/noi/__write_pensions.ts", "--fetch"),
+        { on: ["nssi_yearbook"] },
+      ),
       derive("noi:pensioners-by-tp", pnpm("noi:pensioners-by-tp"), {
         on: ["nssi_yearbook"],
       }),
-    ],
-    operator: [
-      {
-        // The fetch IS this arm's ingest: until a human (or an agent) drops
-        // the files and acks, the derived step would re-run on old inputs.
-        id: "noi-yearbook-and-kfn",
-        on: ["nssi_yearbook", "kfn_pensions"],
-        instruction:
-          "Fetch the new Yearbook_Pensions ZIP / locate the КФН statistics ZIP URL, run the matching scripts/budget/{noi,kfn}/__write_*.ts, then `pnpm run pipeline:ack update-noi noi-yearbook-and-kfn`.",
-        blocks: "arm",
-      },
+      ingest("kfn:fetch", pnpm("kfn:fetch"), { on: ["kfn_pensions"] }),
     ],
     gates: [noiYearsLoaded(["nssi_b1"])],
     publish: { paths: ["budget"] },

@@ -1,7 +1,15 @@
 // Sector packs, elections, local data, prices, and the small single-command
 // sources. The purely manual sources live at the foot of this file.
 
-import { derive, ingest, pnpm, scopeList, tsx, verify } from "../build";
+import {
+  derive,
+  ingest,
+  pnpm,
+  readJson,
+  scopeList,
+  tsx,
+  verify,
+} from "../build";
 import { at, jsonNumber, len, noShrink, outputLacks } from "../gates";
 import type { Handler } from "../types";
 
@@ -205,7 +213,7 @@ export const SECTORS_LOCAL: Handler[] = [
         id: "ncf-grant-results-url",
         on: ["ncf_grant_results"],
         instruction:
-          "Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts.",
+          "A new НФК results post. If it links a класиране PDF, add it to NCF_RESULTS and run scripts/culture/ncf_grants.ts; since post #755 results live on konkursi.ncf.bg instead, which has no ingest yet.",
         blocks: "arm",
       },
       {
@@ -382,6 +390,17 @@ export const SECTORS_LOCAL: Handler[] = [
           "Read the 27 scores and the average from lisi.transparency.bg and edit the LISI_<year> array in scripts/transparency/build_lisi.ts.",
         url: "https://lisi.transparency.bg/",
         blocks: "handler",
+        // Done = the published index already holds the newest year the
+        // watcher saw. The page's markup moves without a new edition (it did
+        // on 2026-11-22, still 2024), and without this check every such move
+        // left a paste request open for scores that were already in place.
+        done: (ctx) => {
+          const upstream = Number(ctx.meta("ti_bg_lisi")?.maxYear);
+          const held = readJson<{ year?: number }>(
+            "data/municipal_transparency/index.json",
+          )?.year;
+          return Number.isFinite(upstream) && held != null && held >= upstream;
+        },
       },
     ],
     publish: { paths: ["municipal_transparency"] },

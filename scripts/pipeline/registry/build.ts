@@ -58,3 +58,16 @@ export const listDir = (dir: string): string[] => {
     return [];
   }
 };
+
+/** A repo-relative JSON file, or undefined when it is absent or unreadable —
+ *  for a done-check that compares what is already published against what a
+ *  watcher saw upstream. */
+export const readJson = <T = Record<string, unknown>>(
+  file: string,
+): T | undefined => {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(REPO, file), "utf8")) as T;
+  } catch {
+    return undefined;
+  }
+};

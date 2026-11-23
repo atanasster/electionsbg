@@ -6,12 +6,12 @@
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText } from "../fingerprint";
-import { NFC_REGISTER_PAGE, BROWSER_UA } from "../../culture/sources";
+import { NFC_REGISTER_PAGE, NFC_PAGE_UA } from "../../culture/sources";
 
 const xlsLinks = async (): Promise<string[]> => {
-  // nfc.bg's WAF 403s the default watcher bot UA — send a real-browser UA.
+  // nfc.bg's pages 520 a full browser UA — see NFC_PAGE_UA.
   const html = await fetchText(NFC_REGISTER_PAGE, {
-    headers: { "User-Agent": BROWSER_UA },
+    headers: { "User-Agent": NFC_PAGE_UA },
   });
   if (!html) return [];
   const links = new Set<string>();

@@ -22,6 +22,14 @@ export const NFC_REGISTER_PAGE =
 export const BROWSER_UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 
+/** User-Agent for nfc.bg's HTML PAGES. The rule above inverted: measured
+ *  2026-11-23, nfc.bg's Cloudflare answers every full browser UA (BROWSER_UA,
+ *  and a current Chrome string) with HTTP 520 on its pages — 13 watcher runs
+ *  in a row — while a bare "Mozilla/5.0" and even the watcher's own bot UA get
+ *  200, from Node and curl alike. The .xls/.pdf uploads still answer
+ *  BROWSER_UA, so only the page fetches use this. */
+export const NFC_PAGE_UA = "Mozilla/5.0";
+
 const BASE = "https://www.nfc.bg/wp-content/uploads/2022/07";
 
 /** year → source .xls filename (relative to BASE). */

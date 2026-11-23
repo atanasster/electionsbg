@@ -174,6 +174,15 @@ const findTable = (
   return null;
 };
 
+/** The join key between a workbook's insured table and its net-assets table.
+ *  КФН types the same fund differently in the two: the 2026 Q2 archive has
+ *  `UPF "LEV INS PENSION INSURANCE" *` in one and `…INSURANCE"*` in the other,
+ *  which split Lev Ins into two half-empty funds per pillar and tripped the
+ *  duplicate-slug guard in mergeArchive. Whitespace is the only variation
+ *  seen, so only whitespace is folded. */
+export const fundKey = (name: string): string =>
+  name.replace(/\s+/g, " ").replace(/\s+\*/g, "*").trim();
+
 /** From a "funds as rows, months as columns" table, return { fundName → value }
  *  at the latest month column. The month-header row is the one whose first cell
  *  is the pillar token and whose later cells are month numbers (12,1,2,…). */
@@ -206,7 +215,7 @@ const latestByFund = (sheet: XLSX.WorkSheet): Map<string, number> => {
     const low = name.toLowerCase();
     if (!name || low === "total" || low === "общо") continue;
     const v = rows[i][latestCol];
-    if (typeof v === "number" && Number.isFinite(v)) out.set(name, v);
+    if (typeof v === "number" && Number.isFinite(v)) out.set(fundKey(name), v);
   }
   return out;
 };

@@ -4,6 +4,7 @@
 //   pnpm run funds:crawl-interreg --full          # re-fetch every detail
 //   pnpm run funds:crawl-interreg --max-pages 200 --index-only
 //   pnpm run funds:crawl-interreg --coverage-only # keep.eu's own per-programme counts only
+//   pnpm run funds:crawl-interreg --auto          # --full when due (see autoFullReason), else incremental
 //
 // Writes only to the gitignored raw cache (raw_data/interreg/) — never to
 // data/. parse.ts and ingest.ts (T1) turn this cache into the committed corpus,
@@ -102,6 +103,30 @@ export const readManifest = (file: string = MANIFEST): Manifest | null => {
 };
 
 /**
+ * Why `--auto` must escalate to a full walk, or null when an incremental one
+ * is safe. The unattended pipeline step uses this so it never has to choose:
+ * a missing/incomplete manifest would make an incremental walk REFUSE (see
+ * deriveStopId), and a full walk older than FULL_WALK_MAX_AGE_DAYS means
+ * keep.eu's whole-programme re-imports may have revised rows an incremental
+ * walk never revisits.
+ */
+export const autoFullReason = (
+  manifest: Manifest | null,
+  opts: { cachedCount: number; now?: number },
+): string | null => {
+  if (!manifest)
+    return opts.cachedCount > 0 ? "the index manifest is missing" : null;
+  if (!manifest.complete) return "the last walk did not complete";
+  if (manifest.lastFullWalkAt === null) return "no full walk recorded";
+  const age =
+    ((opts.now ?? Date.now()) - Date.parse(manifest.lastFullWalkAt)) /
+    86_400_000;
+  return age > FULL_WALK_MAX_AGE_DAYS
+    ? `the last full walk is ${Math.round(age)} days old (> ${FULL_WALK_MAX_AGE_DAYS})`
+    : null;
+};
+
+/**
  * Where an incremental walk may stop — derived from the MANIFEST alone.
  *
  * Taking it from the detail cache instead is a data-loss bug: the stop id and
@@ -189,6 +214,7 @@ export const parseArgs = (argv: string[]) => {
   };
   return {
     full: has("--full"),
+    auto: has("--auto"),
     indexOnly: has("--index-only"),
     detailsOnly: has("--details-only"),
     coverageOnly: has("--coverage-only"),
@@ -216,8 +242,9 @@ const daysSince = (iso: string | null): number | null =>
 export const main = async (
   argv: string[] = process.argv.slice(2),
 ): Promise<void> => {
-  const { full, indexOnly, detailsOnly, coverageOnly, maxPages, concurrency } =
+  const { auto, indexOnly, detailsOnly, coverageOnly, maxPages, concurrency } =
     parseArgs(argv);
+  let { full } = parseArgs(argv);
   if (coverageOnly) {
     await writeCoverage();
     return;
@@ -225,6 +252,15 @@ export const main = async (
 
   const t0 = Date.now();
   let manifest = readManifest();
+  if (auto && !full) {
+    const why = autoFullReason(manifest, {
+      cachedCount: cachedKeepIds().length,
+    });
+    full = why !== null;
+    console.log(
+      `interreg: --auto → ${full ? `full walk (${why})` : "incremental walk"}`,
+    );
+  }
 
   if (!detailsOnly) {
     const stopAtKeepId = deriveStopId(manifest, {

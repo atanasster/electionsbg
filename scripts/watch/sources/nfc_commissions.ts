@@ -9,7 +9,7 @@
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText } from "../fingerprint";
-import { BROWSER_UA } from "../../culture/sources";
+import { NFC_PAGE_UA } from "../../culture/sources";
 
 const ZAPOVEDI =
   "https://www.nfc.bg/%D0%BD%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B8-%D0%B0%D0%BA%D1%82%D0%BE%D0%B2%D0%B5-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B8-%D0%B8-%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%82%D0%B8/%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B8/";
@@ -23,7 +23,7 @@ const isAppointment = (name: string): boolean =>
 
 const appointmentOrders = async (): Promise<string[]> => {
   const html = await fetchText(ZAPOVEDI, {
-    headers: { "User-Agent": BROWSER_UA },
+    headers: { "User-Agent": NFC_PAGE_UA },
   });
   if (!html) return [];
   const orders = new Set<string>();

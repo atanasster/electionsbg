@@ -576,6 +576,12 @@ interface SdmxSeries {
 
 /** GET SDMX-JSON with retry/backoff — the OECD public endpoint is flaky. */
 const fetchSdmxJson = async (url: string, tries = 6): Promise<unknown> => {
+  // What the last attempt actually got. The error used to say only
+  // "unreachable", which hid the cause for 13 nightly runs (2026-10 → 11)
+  // while the same request answered 200 in 90 ms from a daytime shell — each
+  // night's six attempts failed in well under a second, so it was a fast
+  // refusal (a status or a non-JSON body), never a hang.
+  let last = "no response";
   for (let i = 0; i < tries; i++) {
     try {
       // No Accept header: the URL's `format=jsondata` selects SDMX-JSON, and
@@ -585,12 +591,15 @@ const fetchSdmxJson = async (url: string, tries = 6): Promise<unknown> => {
       const r = await fetch(url, { signal: AbortSignal.timeout(60_000) });
       const t = await r.text();
       if (r.status === 200 && t.startsWith("{")) return JSON.parse(t);
-    } catch {
-      /* transient — retry */
+      last = `HTTP ${r.status}: ${t.slice(0, 120).replace(/\s+/g, " ")}`;
+    } catch (e) {
+      last = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
     }
     await new Promise((res) => setTimeout(res, 1500 * (i + 1)));
   }
-  throw new Error(`OECD SDMX unreachable after ${tries} tries: ${url}`);
+  throw new Error(
+    `OECD SDMX unreachable after ${tries} tries (last: ${last}): ${url}`,
+  );
 };
 
 export const oecdPitParams: WatchSource = {

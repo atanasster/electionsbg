@@ -646,7 +646,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `culture:dki:tests` | verify | `pnpm exec vitest run scripts/culture/dki/` | `mc_dki_register` |
 
 **Operator steps:**
-- `ncf-grant-results-url` (blocks arm, only on `ncf_grant_results`): Add the new НФК results PDF URL to NCF_RESULTS and run scripts/culture/ncf_grants.ts.
+- `ncf-grant-results-url` (blocks arm, only on `ncf_grant_results`): A new НФК results post. If it links a класиране PDF, add it to NCF_RESULTS and run scripts/culture/ncf_grants.ts; since post #755 results live on konkursi.ncf.bg instead, which has no ingest yet.
 - `nfc-commissions-transcribe` (blocks arm, only on `nfc_commissions`): Read the order PDF, hand-edit the 21 members and the mandate window, run scripts/culture/write_commissions.ts.
 - `dki-reconciliation-ruling` (blocks nothing, only on `mc_dki_register`): If the ДКИ reconciliation gate reports a difference, rule on it against the four-list allowlist.
 
@@ -731,7 +731,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `db:load:grant-links:pg` | derive | `pnpm run db:load:grant-links:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
 | `db:load:funds-fit:pg` | derive | `pnpm run db:load:funds-fit:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
 | `funds:parity` | verify | `pnpm exec tsx scripts/db/gen_funds/parity.ts --full` | `isun_eu_funds`, `isun_eu_funds_projects` |
-| `funds:ingest-interreg` | ingest | `pnpm run funds:ingest-interreg` | `keep_eu_interreg` |
+| `funds:interreg-auto` | ingest | `pnpm run funds:interreg-auto` | `keep_eu_interreg` |
 | `db:load:place-dim:pg` | derive | `pnpm run db:load:place-dim:pg` | `keep_eu_interreg` |
 | `db:load:interreg:pg` | derive | `pnpm run db:load:interreg:pg` | `keep_eu_interreg` |
 | `funds:clean-delivery` | ingest | `pnpm run funds:clean-delivery --fetch` | `isun_clean_delivery` |
@@ -741,9 +741,6 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `db:load:graph:pg` | derive | `pnpm run db:load:graph:pg` | — |
 | `db:load:agri-hub-stats:pg` | derive | `pnpm run db:load:agri-hub-stats:pg` | `isun_eu_funds`, `isun_eu_funds_projects` |
 | `db:load:tr-company-place:pg` | derive | `pnpm run db:load:tr-company-place:pg` | — |
-
-**Operator steps:**
-- `interreg-crawl` (blocks arm, only on `keep_eu_interreg`): Probe with `pnpm run funds:crawl-interreg --index-only --max-pages 1`; if healthy run `pnpm run funds:crawl-interreg --full` (~2 h), then ack — the ingest and loads run on the next pipeline run.
 
 **Publish:**
 - cloud (global order applies): `pnpm run db:load:graph:pg:cloud`, `pnpm run db:load:tr-company-place:pg:cloud`
@@ -943,10 +940,9 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | step | phase | command | only on |
 | --- | --- | --- | --- |
 | `noi:write_funds` | ingest | `pnpm exec tsx scripts/budget/noi/__write_funds.ts --fetch` | `nssi_b1` |
+| `noi:write_pensions` | ingest | `pnpm exec tsx scripts/budget/noi/__write_pensions.ts --fetch` | `nssi_yearbook` |
 | `noi:pensioners-by-tp` | derive | `pnpm run noi:pensioners-by-tp` | `nssi_yearbook` |
-
-**Operator steps:**
-- `noi-yearbook-and-kfn` (blocks arm, only on `nssi_yearbook`, `kfn_pensions`): Fetch the new Yearbook_Pensions ZIP / locate the КФН statistics ZIP URL, run the matching scripts/budget/{noi,kfn}/__write_*.ts, then `pnpm run pipeline:ack update-noi noi-yearbook-and-kfn`.
+| `kfn:fetch` | ingest | `pnpm run kfn:fetch` | `kfn_pensions` |
 
 **Publish:**
 - bucket: `budget`
@@ -1333,7 +1329,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `build_lisi` | derive | `pnpm exec tsx scripts/transparency/build_lisi.ts` | — |
 
 **Operator steps:**
-- `lisi-scores-paste` (blocks handler): Read the 27 scores and the average from lisi.transparency.bg and edit the LISI_<year> array in scripts/transparency/build_lisi.ts. URL: `https://lisi.transparency.bg/`.
+- `lisi-scores-paste` (blocks handler, file done-check): Read the 27 scores and the average from lisi.transparency.bg and edit the LISI_<year> array in scripts/transparency/build_lisi.ts. URL: `https://lisi.transparency.bg/`.
 
 **Publish:**
 - bucket: `municipal_transparency`
