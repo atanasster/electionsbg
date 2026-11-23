@@ -676,8 +676,15 @@ export const BUDGET_MACRO: Handler[] = [
         pnpm("vaccines:snapshot", "--only", "eurostat"),
         { on: ["eurostat_vaccine_trade", "eurostat_flu_coverage"] },
       ),
+      derive("db:load:vaccines:pg", pnpm("db:load:vaccines:pg")),
     ],
-    changelog: "none",
+    publish: {
+      cloud: [
+        "pnpm run db:load:place-dim:pg:cloud",
+        "pnpm run db:load:vaccines:pg:cloud",
+      ],
+    },
+    changelog: "orchestrator",
     outputs: ["data/health/vaccines"],
   },
 ];

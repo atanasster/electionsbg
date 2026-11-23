@@ -319,6 +319,14 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "attribution at a 200",
   },
   {
+    after: "db:load:vaccines:pg",
+    before: "db:load:place-dim:pg",
+    why:
+      "every НЗИС, НЦЗПБ and report-page oblast resolves to a place_dim kind='oblast' " +
+      "code, and the loader refuses a load where any of the 28 is missing — run first " +
+      "on a cold chain it aborts the refresh",
+  },
+  {
     after: "db:load:municipal-fiscal:pg",
     before: "db:load:place-dim:pg",
     why:

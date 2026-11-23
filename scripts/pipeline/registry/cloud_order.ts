@@ -48,6 +48,9 @@ export const CLOUD_ORDER: readonly string[] = [
   "db:load:budget-muni:pg:cloud",
   "db:load:budget-hub:pg:cloud",
 
+  // vaccines (place-dim first — every oblast resolves through it)
+  "db:load:vaccines:pg:cloud",
+
   // independent families
   "db:load:admin-services:pg:cloud",
   "db:load:admin-service-requests:pg:cloud",

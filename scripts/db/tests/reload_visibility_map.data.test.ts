@@ -154,6 +154,19 @@ const RELOADED: ReadonlyArray<{
   // scans — an unlisted vacuum there is one nothing verifies took.
   { table: "aop_expert", loader: "db:load:aop-experts:pg" },
   { table: "aop_expert_area", loader: "db:load:aop-experts:pg" },
+  // 206 — every vaccines table is stage-merged or upserted in one transaction.
+  { table: "his_vaccine_dim", loader: "db:load:vaccines:pg" },
+  { table: "his_immunization_month", loader: "db:load:vaccines:pg" },
+  { table: "his_immunization_daily", loader: "db:load:vaccines:pg" },
+  { table: "ial_shortage_week", loader: "db:load:vaccines:pg" },
+  { table: "flu_incidence_week", loader: "db:load:vaccines:pg" },
+  { table: "flu_virology_week", loader: "db:load:vaccines:pg" },
+  { table: "vaccine_trade_month", loader: "db:load:vaccines:pg" },
+  { table: "flu_coverage_eu", loader: "db:load:vaccines:pg" },
+  { table: "vaccine_season_plan", loader: "db:load:vaccines:pg" },
+  { table: "vaccine_season_event", loader: "db:load:vaccines:pg" },
+  { table: "vaccine_tender_dose", loader: "db:load:vaccines:pg" },
+  { table: "vaccine_source_asof", loader: "db:load:vaccines:pg" },
   // еФорми request volumes (201): TRUNCATE + COPY in one transaction.
   {
     table: "admin_service_requests",

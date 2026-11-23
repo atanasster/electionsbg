@@ -1348,7 +1348,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 - **Marker:** `state/ingest/update-vaccines.json`
 - **Sources:** `his_immunizations_daily`, `his_immunization_app`, `ial_shortage_list`, `ncipd_flu_weekly`, `eurostat_vaccine_trade`, `eurostat_flu_coverage`
 - **Needs:** `egress:bg`
-- **Changelog:** none
+- **Changelog:** orchestrator
 
 | step | phase | command | only on |
 | --- | --- | --- | --- |
@@ -1357,6 +1357,10 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `vaccines:snapshot --only sespa` | ingest | `pnpm run vaccines:snapshot --only sespa` | `ial_shortage_list` |
 | `vaccines:snapshot --only ncipd` | ingest | `pnpm run vaccines:snapshot --only ncipd` | `ncipd_flu_weekly` |
 | `vaccines:snapshot --only eurostat` | ingest | `pnpm run vaccines:snapshot --only eurostat` | `eurostat_vaccine_trade`, `eurostat_flu_coverage` |
+| `db:load:vaccines:pg` | derive | `pnpm run db:load:vaccines:pg` | — |
+
+**Publish:**
+- cloud (global order applies): `pnpm run db:load:place-dim:pg:cloud`, `pnpm run db:load:vaccines:pg:cloud`
 
 ### `wiki_governments`
 
