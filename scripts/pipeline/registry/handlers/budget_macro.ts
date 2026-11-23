@@ -630,4 +630,54 @@ export const BUDGET_MACRO: Handler[] = [
     followUps: ["health-hub-stats"],
     outputs: ["data/budget/nzok", "data/data-changes.json"],
   },
+  {
+    // docs/plans/vaccines-flow-v1.md. Three of the six sources keep no history
+    // (НЗИС year-to-date counters, the weekly СЕСПА list, the two НЦЗПБ weeks
+    // on show), so the snapshot writer is the only record of them: it runs on
+    // ANY flip and appends to data/health/vaccines/*.jsonl, never rewrites.
+    id: "update-vaccines",
+    runner: "script",
+    sources: [
+      "his_immunizations_daily",
+      "his_immunization_app",
+      "ial_shortage_list",
+      "ncipd_flu_weekly",
+      "eurostat_vaccine_trade",
+      "eurostat_flu_coverage",
+    ],
+    needs: ["egress:bg"],
+    // One step per part, so a flip re-captures only what moved — the Comext
+    // part alone is twenty requests and the info-app a multi-MB decode.
+    steps: [
+      ingest(
+        "vaccines:snapshot --only his",
+        pnpm("vaccines:snapshot", "--only", "his"),
+        {
+          on: ["his_immunizations_daily"],
+        },
+      ),
+      ingest(
+        "vaccines:snapshot --only infoapp",
+        pnpm("vaccines:snapshot", "--only", "infoapp"),
+        { on: ["his_immunization_app"] },
+      ),
+      ingest(
+        "vaccines:snapshot --only sespa",
+        pnpm("vaccines:snapshot", "--only", "sespa"),
+        { on: ["ial_shortage_list"] },
+      ),
+      ingest(
+        "vaccines:snapshot --only ncipd",
+        pnpm("vaccines:snapshot", "--only", "ncipd"),
+        { on: ["ncipd_flu_weekly"] },
+      ),
+      ingest(
+        "vaccines:snapshot --only eurostat",
+        pnpm("vaccines:snapshot", "--only", "eurostat"),
+        { on: ["eurostat_vaccine_trade", "eurostat_flu_coverage"] },
+      ),
+    ],
+    changelog: "none",
+    outputs: ["data/health/vaccines"],
+  },
 ];

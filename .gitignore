@@ -95,6 +95,10 @@ functions/.secret.local
 # Commerce Registry (TR) raw dump — ~540 MB zip + ~12 GB extracted JSON.
 # Re-fetch with `pnpm exec tsx scripts/declarations/tr/cli.ts --bulk` (or `--incremental`).
 /raw_data/tr/
+# НЗИС info-app decode + Eurostat trade/coverage caches (vaccines-flow-v1 T1)
+# — regenerable monthly; the irreplaceable series are the committed JSONL
+# under data/health/vaccines/.
+/raw_data/health/vaccines/
 
 # Комисия по досиетата decision archive (pages + .doc/.pdf decisions, ~2k each).
 # Re-fetch with `pnpm run comdos:crawl`; the parsed corpus under data/comdos/ is committed.

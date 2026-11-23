@@ -7,7 +7,7 @@ truth; a skill's runbook covers only what a script cannot do (operator and agent
 steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 `docs/plans/watch-pipeline-scripts-v1.md` for how.
 
-62 handlers: 41 script, 13 delegated to an agent, 8 operator-only.
+63 handlers: 42 script, 13 delegated to an agent, 8 operator-only.
 
 | handler | runner | sources |
 | --- | --- | --- |
@@ -72,6 +72,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | [`update-schools`](#update-schools) | script | `indicators_mon_dzi`, `indicators_mon_nvo` |
 | [`update-social`](#update-social) | skill | `asp_benefits`, `git_inspections` |
 | [`update-transparency-lisi`](#update-transparency-lisi) | skill | `ti_bg_lisi` |
+| [`update-vaccines`](#update-vaccines) | script | `his_immunizations_daily`, `his_immunization_app`, `ial_shortage_list`, `ncipd_flu_weekly`, `eurostat_vaccine_trade`, `eurostat_flu_coverage` |
 | [`wiki_governments`](#wiki_governments) | operator | `wiki_governments` |
 
 ## Handlers
@@ -1340,6 +1341,22 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 **Publish:**
 - bucket: `municipal_transparency`
+
+### `update-vaccines`
+
+- **Runner:** script — runs unattended under `pipeline:ingest`
+- **Marker:** `state/ingest/update-vaccines.json`
+- **Sources:** `his_immunizations_daily`, `his_immunization_app`, `ial_shortage_list`, `ncipd_flu_weekly`, `eurostat_vaccine_trade`, `eurostat_flu_coverage`
+- **Needs:** `egress:bg`
+- **Changelog:** none
+
+| step | phase | command | only on |
+| --- | --- | --- | --- |
+| `vaccines:snapshot --only his` | ingest | `pnpm run vaccines:snapshot --only his` | `his_immunizations_daily` |
+| `vaccines:snapshot --only infoapp` | ingest | `pnpm run vaccines:snapshot --only infoapp` | `his_immunization_app` |
+| `vaccines:snapshot --only sespa` | ingest | `pnpm run vaccines:snapshot --only sespa` | `ial_shortage_list` |
+| `vaccines:snapshot --only ncipd` | ingest | `pnpm run vaccines:snapshot --only ncipd` | `ncipd_flu_weekly` |
+| `vaccines:snapshot --only eurostat` | ingest | `pnpm run vaccines:snapshot --only eurostat` | `eurostat_vaccine_trade`, `eurostat_flu_coverage` |
 
 ### `wiki_governments`
 

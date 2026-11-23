@@ -142,6 +142,8 @@ import {
   apiRoadCharges,
 } from "./fiscal_anchors";
 
+import { VACCINE_SOURCES } from "./vaccines";
+
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
 // header. The new `cik_results` source below uses the Playwright bypass
 // helper at scripts/parsers_local/cik_fetch.ts; once that proves itself we
@@ -283,4 +285,5 @@ export const SOURCES: WatchSource[] = [
   eurostatRoadSafety,
   municipalFiscalDue,
   procurementScopeWindows,
+  ...VACCINE_SOURCES,
 ];

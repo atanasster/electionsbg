@@ -94,6 +94,28 @@ export const WATCH_ONLY_SOURCES: Record<string, string> = {
   // — a re-derivation over data we already hold, which is exactly what has no
   // dataset node of its own. Placing it in a source group would assert that some
   // publisher emits it, and none does.
+  // "No downstream YET" — the six vaccine watchers (docs/plans/vaccines-flow-v1.md
+  // T1). They feed only the append-only capture writer until the vaccines
+  // loader (T3) and the dataset node (T6) exist; T6 deletes these entries and
+  // places the six in their own source group.
+  his_immunizations_daily:
+    "НЗИС year-to-date immunization counters, captured daily into an append-only " +
+    "series ahead of the vaccines loader and dataset (vaccines-flow-v1 T3/T6).",
+  his_immunization_app:
+    "НЗИС month × oblast × age × vaccine info-app, cached ahead of the vaccines " +
+    "loader and dataset (vaccines-flow-v1 T3/T6).",
+  ial_shortage_list:
+    "ИАЛ СЕСПА weekly shortage list, captured ahead of the vaccines loader and " +
+    "dataset (vaccines-flow-v1 T3/T6).",
+  ncipd_flu_weekly:
+    "НЦЗПБ weekly influenza incidence and virology, captured ahead of the " +
+    "vaccines loader and dataset (vaccines-flow-v1 T3/T6).",
+  eurostat_vaccine_trade:
+    "Eurostat Comext vaccine trade (CN 3002 41), cached ahead of the vaccines " +
+    "loader and dataset (vaccines-flow-v1 T3/T6).",
+  eurostat_flu_coverage:
+    "Eurostat hlth_ps_immu 65+ influenza coverage, cached ahead of the vaccines " +
+    "loader and dataset (vaccines-flow-v1 T3/T6).",
   procurement_scope_windows:
     "The Jan-1 / new-election scope rollover (cloud-deploy-speed-v1 §v2-g). " +
     "Ingests nothing and reads no publisher — it re-derives the window set from " +
