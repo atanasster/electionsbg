@@ -46,6 +46,7 @@ export const ENGLISH_STATIC_PAGES = [
   "sector/health/drugs",
   "sector/health/procurement",
   "sector/health/money",
+  "sector/health/vaccines",
   "subsidies/browse",
   "subsidies/places",
   "subsidies/recipients",
@@ -274,6 +275,12 @@ export const routeDefs = (year: string): RouteDefs => [
     path: `sector/health/${sub}`,
     file: `data/health/derived/hub_stats.json`,
   })),
+  // The flu-vaccine page (docs/plans/vaccines-flow-v1.md T6): its prerender
+  // quotes only the curated season plan.
+  {
+    path: "sector/health/vaccines",
+    file: `data/health/vaccines/season_plan.json`,
+  },
   {
     path: "subsidies/browse",
     file: `src/screens/dev/SubsidiesBrowserDbScreen.tsx`,

@@ -10,7 +10,7 @@
 //
 // ⚠️ ONLY /procurement IS SCOPED, so only its links carry `?pscope=all`: the hub
 // is whole-corpus while that page defaults to the selected parliament.
-// /hospitals, /drugs and /money are „без период" and take no scope.
+// /hospitals, /drugs, /money and /vaccines are „без период" and take no scope.
 //
 // ⚠️ THE FRAGMENT IDS ARE THE PLAN'S §3 SET AND ONLY THAT SET; the registry test
 // fails a #fragment its destination does not render.
@@ -73,6 +73,18 @@ export const HEALTH_FRAGMENTS = {
     "bodies",
   ],
   [HEALTH_PATHS.money]: ["nzok-budget", "mz-budget", "funds", "activity"],
+  [HEALTH_PATHS.vaccines]: [
+    "head",
+    "when",
+    "who",
+    "where",
+    "shortage",
+    "incidence",
+    "imports",
+    "money",
+    "eu",
+    "gaps",
+  ],
 } as const satisfies Record<string, readonly string[]>;
 
 /** Band + tile copy. Kept beside the registry, not in the i18n corpus. */
@@ -179,6 +191,41 @@ export const HEALTH_HUB_COPY: Record<string, { bg: string; en: string }> = {
     bg: "Безвъзмездната помощ по европейските програми за министерството и ведомствата — друг корпус, не се събира с поръчките.",
     en: "The grant aid from EU programmes to the ministry and its bodies — a different corpus, never summed with procurement.",
   },
+
+  health_band_vaccines: { bg: "Ваксините", en: "The vaccines" },
+  health_band_vaccines_desc: {
+    bg: "Грипните ваксини през сезона — кога и къде са записани в НЗИС, кога ги е нямало и договорите на МЗ за ваксини. Всяко на своя източник.",
+    en: "Flu vaccines through the season — when and where they were recorded, when they ran short and the health ministry's vaccine contracts. Each on its own source.",
+  },
+  health_tile_vax_when: {
+    bg: "Кога се ваксинират",
+    en: "When people get vaccinated",
+  },
+  health_tile_vax_when_desc: {
+    bg: "Записаните в НЗИС грипни ваксини по месеци, сезон срещу сезон, по данните на НЗИС.",
+    en: "Flu shots recorded month by month, season against season, from НЗИС records.",
+  },
+  health_tile_vax_where: { bg: "По области", en: "By province" },
+  health_tile_vax_where_desc: {
+    bg: "Записани ваксини на 1000 души над 60 години във всяка област — до последния завършен месец.",
+    en: "Recorded shots per 1,000 people over 60 in each province — up to the last complete month.",
+  },
+  health_tile_vax_shortage: {
+    bg: "Кога ги е нямало",
+    en: "When they ran short",
+  },
+  health_tile_vax_shortage_desc: {
+    bg: "Седмиците, в които ваксини са в списъка на лекарствата в недостиг (СЕСПА).",
+    en: "The weeks in which vaccines are on the list of medicines in short supply (СЕСПА).",
+  },
+  health_tile_vax_money: {
+    bg: "Колко струват",
+    en: "What they cost",
+  },
+  health_tile_vax_money_desc: {
+    bg: "Договорите на Министерството на здравеопазването за ваксини — по доставчици и години.",
+    en: "The Ministry of Health's vaccine contracts — by supplier and year.",
+  },
 };
 
 export const HEALTH_BANDS: HealthBand[] = [
@@ -281,6 +328,40 @@ export const HEALTH_BANDS: HealthBand[] = [
         descKey: "health_tile_funds_desc",
         to: `${HEALTH_PATHS.money}#funds`,
         accent: TILE_ACCENTS.emerald,
+      },
+    ],
+  },
+  {
+    labelKey: "health_band_vaccines",
+    descKey: "health_band_vaccines_desc",
+    tiles: [
+      {
+        id: "vax-when",
+        titleKey: "health_tile_vax_when",
+        descKey: "health_tile_vax_when_desc",
+        to: `${HEALTH_PATHS.vaccines}#when`,
+        accent: TILE_ACCENTS.steel,
+      },
+      {
+        id: "vax-where",
+        titleKey: "health_tile_vax_where",
+        descKey: "health_tile_vax_where_desc",
+        to: `${HEALTH_PATHS.vaccines}#where`,
+        accent: TILE_ACCENTS.olive,
+      },
+      {
+        id: "vax-shortage",
+        titleKey: "health_tile_vax_shortage",
+        descKey: "health_tile_vax_shortage_desc",
+        to: `${HEALTH_PATHS.vaccines}#shortage`,
+        accent: TILE_ACCENTS.moss,
+      },
+      {
+        id: "vax-money",
+        titleKey: "health_tile_vax_money",
+        descKey: "health_tile_vax_money_desc",
+        to: `${HEALTH_PATHS.vaccines}#money`,
+        accent: TILE_ACCENTS.clay,
       },
     ],
   },

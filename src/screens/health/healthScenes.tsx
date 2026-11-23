@@ -392,6 +392,138 @@ const FundsScene: FC = () => (
   </SceneFrame>
 );
 
+// Кога — a syringe over a month row whose autumn months are tall.
+const VaxWhenScene: FC = () => (
+  <SceneFrame>
+    {[6, 10, 30, 52, 40, 22, 12, 8].map((h, i) => (
+      <rect
+        key={i}
+        x={150 + i * 16}
+        y={96 - h}
+        width={10}
+        height={h}
+        fill={ACCENT}
+        opacity={0.85}
+      />
+    ))}
+    <path d="M146 96 H282" stroke="currentColor" strokeWidth={1} />
+    <g transform="rotate(-30 230 24)">
+      <rect
+        x={196}
+        y={20}
+        width={52}
+        height={9}
+        rx={2}
+        fill={PAPER}
+        stroke="currentColor"
+        strokeWidth={1.2}
+      />
+      <path
+        d="M248 24.5 H262 M192 18 V31 M186 24.5 H196"
+        stroke="currentColor"
+        strokeWidth={1.2}
+      />
+    </g>
+  </SceneFrame>
+);
+
+// Къде — a grid of provinces shaded by rate.
+const VaxWhereScene: FC = () => (
+  <SceneFrame>
+    {[
+      [0.9, 0.5, 0.7, 0.3, 0.6],
+      [0.4, 0.8, 0.35, 0.95, 0.5],
+      [0.6, 0.3, 0.75, 0.45, 0.85],
+    ].map((row, r) =>
+      row.map((o, c) => (
+        <rect
+          key={`${r}-${c}`}
+          x={176 + c * 20}
+          y={22 + r * 22}
+          width={16}
+          height={18}
+          rx={2}
+          fill={ACCENT}
+          opacity={o}
+        />
+      )),
+    )}
+  </SceneFrame>
+);
+
+// Недостиг — a weekly calendar with flagged weeks.
+const VaxShortageScene: FC = () => (
+  <SceneFrame>
+    <rect
+      x={168}
+      y={16}
+      width={108}
+      height={84}
+      rx={3}
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth={1.2}
+    />
+    <path d="M168 30 H276" stroke="currentColor" strokeWidth={1} />
+    {Array.from({ length: 12 }, (_, i) => (
+      <rect
+        key={i}
+        x={176 + (i % 4) * 24}
+        y={38 + Math.floor(i / 4) * 20}
+        width={18}
+        height={14}
+        rx={2}
+        fill={[2, 3, 6].includes(i) ? ACCENT : "none"}
+        stroke="currentColor"
+        strokeWidth={0.8}
+        opacity={[2, 3, 6].includes(i) ? 0.9 : 0.5}
+      />
+    ))}
+  </SceneFrame>
+);
+
+// Договорите — vials stacked beside a contract sheet.
+const VaxMoneyScene: FC = () => (
+  <SceneFrame>
+    <rect
+      x={160}
+      y={18}
+      width={56}
+      height={76}
+      rx={3}
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth={1.2}
+    />
+    <path
+      d="M170 34 H206 M170 46 H200 M170 58 H204 M170 70 H192"
+      stroke="currentColor"
+      strokeWidth={1}
+      opacity={0.7}
+    />
+    {[0, 1, 2].map((i) => (
+      <g key={i}>
+        <rect
+          x={230 + i * 18}
+          y={44 - i * 10}
+          width={12}
+          height={50 + i * 10}
+          rx={3}
+          fill={ACCENT}
+          opacity={0.85 - i * 0.15}
+        />
+        <rect
+          x={228 + i * 18}
+          y={38 - i * 10}
+          width={16}
+          height={6}
+          fill="currentColor"
+        />
+      </g>
+    ))}
+  </SceneFrame>
+);
+
 export const HEALTH_SCENES: Record<string, FC> = {
   map: MapScene,
   payments: PaymentsScene,
@@ -405,4 +537,8 @@ export const HEALTH_SCENES: Record<string, FC> = {
   frameworks: FrameworksScene,
   "nzok-budget": BudgetScene,
   funds: FundsScene,
+  "vax-when": VaxWhenScene,
+  "vax-where": VaxWhereScene,
+  "vax-shortage": VaxShortageScene,
+  "vax-money": VaxMoneyScene,
 };

@@ -12720,5 +12720,57 @@
       "polls/presidential/polls_details.json"
     ],
     "clarify": false
+  },
+  {
+    "id": "vaccineUptake",
+    "lang": "bg",
+    "text": "Колко души са се ваксинирали срещу грип този сезон?",
+    "tool": "vaccineUptake",
+    "args": {},
+    "title": "Ваксини срещу грип, сезон 2026/27",
+    "rows": 2,
+    "facts": {
+      "season": "2026/27",
+      "recorded_season_to_date": "349 385",
+      "recorded_season_to_date_as_of": "2026-11-23T06:08:00",
+      "complete_months": "2026-10",
+      "complete_months_this_season": "52 742",
+      "complete_months_last_season": "279 407",
+      "monthly_as_of": "2026-11-23T14:07:49.436Z",
+      "announced_doses": "770 000",
+      "announced_by": "МЗ, citing ИАЛ, 2026-09-29"
+    },
+    "provenance": [
+      "his_immunization_month (PG)",
+      "his_immunization_daily (PG)",
+      "vaccine_season_plan (PG)"
+    ],
+    "clarify": false
+  },
+  {
+    "id": "vaccineUptake",
+    "lang": "en",
+    "text": "How many people got a flu shot this season?",
+    "tool": "vaccineUptake",
+    "args": {},
+    "title": "Flu vaccines, season 2026/27",
+    "rows": 2,
+    "facts": {
+      "season": "2026/27",
+      "recorded_season_to_date": "349,385",
+      "recorded_season_to_date_as_of": "2026-11-23T06:08:00",
+      "complete_months": "2026-10",
+      "complete_months_this_season": "52,742",
+      "complete_months_last_season": "279,407",
+      "monthly_as_of": "2026-11-23T14:07:49.436Z",
+      "announced_doses": "770,000",
+      "announced_by": "МЗ, citing ИАЛ, 2026-09-29"
+    },
+    "provenance": [
+      "his_immunization_month (PG)",
+      "his_immunization_daily (PG)",
+      "vaccine_season_plan (PG)"
+    ],
+    "clarify": false
   }
 ]

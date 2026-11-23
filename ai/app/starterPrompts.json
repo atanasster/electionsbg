@@ -998,6 +998,18 @@
     }
   },
   {
+    "id": "vaccineUptake",
+    "category": "health",
+    "subcategory": "vaccines",
+    "tool": "vaccineUptake",
+    "bg": "Колко души са се ваксинирали срещу грип този сезон?",
+    "en": "How many people got a flu shot this season?",
+    "args": {
+      "bg": {},
+      "en": {}
+    }
+  },
+  {
     "id": "nzokPrivateHospitals",
     "category": "health",
     "subcategory": "hospitals",

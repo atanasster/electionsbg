@@ -94,28 +94,6 @@ export const WATCH_ONLY_SOURCES: Record<string, string> = {
   // — a re-derivation over data we already hold, which is exactly what has no
   // dataset node of its own. Placing it in a source group would assert that some
   // publisher emits it, and none does.
-  // "No downstream YET" — the six vaccine watchers (docs/plans/vaccines-flow-v1.md
-  // T1). They feed only the append-only capture writer until the vaccines
-  // loader (T3) and the dataset node (T6) exist; T6 deletes these entries and
-  // places the six in their own source group.
-  his_immunizations_daily:
-    "НЗИС year-to-date immunization counters, captured daily into an append-only " +
-    "series ahead of the vaccines loader and dataset (vaccines-flow-v1 T3/T6).",
-  his_immunization_app:
-    "НЗИС month × oblast × age × vaccine info-app, cached ahead of the vaccines " +
-    "loader and dataset (vaccines-flow-v1 T3/T6).",
-  ial_shortage_list:
-    "ИАЛ СЕСПА weekly shortage list, captured ahead of the vaccines loader and " +
-    "dataset (vaccines-flow-v1 T3/T6).",
-  ncipd_flu_weekly:
-    "НЦЗПБ weekly influenza incidence and virology, captured ahead of the " +
-    "vaccines loader and dataset (vaccines-flow-v1 T3/T6).",
-  eurostat_vaccine_trade:
-    "Eurostat Comext vaccine trade (CN 3002 41), cached ahead of the vaccines " +
-    "loader and dataset (vaccines-flow-v1 T3/T6).",
-  eurostat_flu_coverage:
-    "Eurostat hlth_ps_immu 65+ influenza coverage, cached ahead of the vaccines " +
-    "loader and dataset (vaccines-flow-v1 T3/T6).",
   procurement_scope_windows:
     "The Jan-1 / new-election scope rollover (cloud-deploy-speed-v1 §v2-g). " +
     "Ingests nothing and reads no publisher — it re-derives the window set from " +
@@ -1216,6 +1194,30 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["eurostat_rail"],
     skills: [],
     tags: ["indicators"],
+  },
+  {
+    id: "vaccines",
+    label: { bg: "НЗИС · ИАЛ · НЦЗПБ · ваксини", en: "НЗИС · IAL · NCIPD · vaccines" }, // prettier-ignore
+    detail: {
+      bg: "записани ваксини, недостиг, грип",
+      en: "shots recorded, shortage, flu",
+    },
+    desc: {
+      bg: "Ваксините срещу грип: записаните ваксини по месец, област, възраст и ваксина от информационното приложение на НЗИС и дневния брояч на his.bg, седмичният списък за недостиг на ИАЛ (СЕСПА), седмичната заболяемост и вирусологията на НЦЗПБ и вносът на ваксини и обхватът 65+ от Евростат. Обявените количества по сезон са ръчно подбрани, с източник на всяко число.",
+      en: "The flu vaccines: shots recorded by month, oblast, age and vaccine from the НЗИС info-app and the his.bg daily counter, the IAL weekly shortage list (СЕСПА), NCIPD weekly incidence and virology, and Eurostat vaccine imports and 65+ coverage. The announced doses per season are curated, with a source on every figure.",
+    },
+    url: "https://his.bg/",
+    origin: "state",
+    members: [
+      "his_immunizations_daily",
+      "his_immunization_app",
+      "ial_shortage_list",
+      "ncipd_flu_weekly",
+      "eurostat_vaccine_trade",
+      "eurostat_flu_coverage",
+    ],
+    skills: [],
+    tags: ["fiscal"],
   },
   {
     id: "administration",
@@ -2339,6 +2341,34 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "vaccines",
+    label: { bg: "Ваксини срещу грип", en: "Flu vaccines" },
+    detail: {
+      bg: "кога, къде, недостиг, пари",
+      en: "when, where, shortage, money",
+    },
+    desc: {
+      bg: "Сезонът на ваксините срещу грип: записаните в НЗИС ваксини по месец и област спрямо миналия сезон, обявените количества, седмиците с ваксини в списъка за недостиг, заболяемостта, вносът и договорите на Министерството на здравеопазването.",
+      en: "The flu-vaccine season: shots recorded by month and oblast against last season, the announced doses, the weeks vaccines sat on the shortage list, incidence, imports and the health ministry's contracts.",
+    },
+    serving: "pg",
+    tables: [
+      "his_vaccine_dim",
+      "his_immunization_month",
+      "his_immunization_daily",
+      "ial_shortage_week",
+      "flu_incidence_week",
+      "flu_virology_week",
+      "vaccine_trade_month",
+      "flu_coverage_eu",
+      "vaccine_season_plan",
+      "vaccine_season_event",
+      "vaccine_tender_dose",
+      "vaccine_source_asof",
+    ],
+    tags: ["fiscal"],
+  },
+  {
     id: "judiciary",
     label: { bg: "Съдебна власт", en: "The judiciary" },
     detail: {
@@ -2765,6 +2795,17 @@ export const DATASETS: DatasetDef[] = [
 ];
 
 export const FEATURES: FeatureDef[] = [
+  {
+    id: "health",
+    label: { bg: "Здравеопазване", en: "Health" },
+    detail: { bg: "НЗОК и ваксини", en: "the health fund and vaccines" },
+    desc: {
+      bg: "Здравният сектор — какво плаща НЗОК на болниците, лекарствата и дейността по пътеки, и сезонът на ваксините срещу грип: записани ваксини, недостиг, внос и договори.",
+      en: "The health sector — what the health fund pays hospitals, medicines and activity per pathway, and the flu-vaccine season: shots recorded, shortage, imports and contracts.",
+    },
+    route: "/sector/health",
+    tags: ["fiscal"],
+  },
   {
     id: "transport",
     label: { bg: "Транспорт", en: "Transport" },
@@ -3404,6 +3445,10 @@ export const EDGES: [string, string][] = [
   // ds:health's readers: src/screens/components/procurement/nzok/* and
   // sectorPacks.tsx (the /awarder/121858220 pack) on the procurement surface,
   // src/data/budget/useBudget.tsx on the budget one.
+  ["src:vaccines", "ds:vaccines"],
+  ["ds:vaccines", "f:health"],
+  ["ds:procurement", "f:health"],
+  ["ds:health", "f:health"],
   ["ds:health", "f:procurement"],
   ["ds:health", "f:budget"],
   ["ds:agri", "f:agri"],

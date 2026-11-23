@@ -229,6 +229,12 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
       "the republican road network (АПИ) — procurement, cost per kilometre by corridor, exercised annex options and competition",
   },
   {
+    url: "/sector/health",
+    label: "Healthcare sector",
+    description:
+      "the health insurance fund (НЗОК) and the Ministry of Health — hospital payments, reimbursed medicines, procurement and budgets; sub-pages /sector/health/hospitals, /drugs, /procurement, /money and /vaccines (the flu-vaccine season: announced doses, shots recorded in НЗИС by month and province on a 60+ basis, shortages, incidence, imports and contracts)",
+  },
+  {
     url: "/water",
     label: "Water sector",
     description:

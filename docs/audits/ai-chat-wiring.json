@@ -6249,6 +6249,71 @@
       "h": 62
     },
     {
+      "id": "src:vaccines",
+      "kind": "source",
+      "label": {
+        "bg": "НЗИС · ИАЛ · НЦЗПБ · ваксини",
+        "en": "НЗИС · IAL · NCIPD · vaccines"
+      },
+      "detail": {
+        "bg": "записани ваксини, недостиг, грип",
+        "en": "shots recorded, shortage, flu"
+      },
+      "desc": {
+        "bg": "Ваксините срещу грип: записаните ваксини по месец, област, възраст и ваксина от информационното приложение на НЗИС и дневния брояч на his.bg, седмичният списък за недостиг на ИАЛ (СЕСПА), седмичната заболяемост и вирусологията на НЦЗПБ и вносът на ваксини и обхватът 65+ от Евростат. Обявените количества по сезон са ръчно подбрани, с източник на всяко число.",
+        "en": "The flu vaccines: shots recorded by month, oblast, age and vaccine from the НЗИС info-app and the his.bg daily counter, the IAL weekly shortage list (СЕСПА), NCIPD weekly incidence and virology, and Eurostat vaccine imports and 65+ coverage. The announced doses per season are curated, with a source on every figure."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "url": "https://his.bg/",
+      "origin": "state",
+      "cadence": "hourly",
+      "skills": [],
+      "sources": [
+        {
+          "id": "his_immunizations_daily",
+          "label": "НЗИС — имунизации от началото на годината (his.bg)",
+          "url": "https://his.bg/bg/statistical-reports/immunizations/2026",
+          "cadence": "hourly"
+        },
+        {
+          "id": "his_immunization_app",
+          "label": "НЗИС — имунизации по месец, област, възраст (info-app)",
+          "url": "https://his.bg/infoapps/immunization_bg/results-immunization_bg.html",
+          "cadence": "daily"
+        },
+        {
+          "id": "ial_shortage_list",
+          "label": "ИАЛ СЕСПА — лекарства с установен недостиг (чл. 217в ЗЛПХМ)",
+          "url": "https://sespa.mh.government.bg/sespa/f?p=100:1:0",
+          "cadence": "daily"
+        },
+        {
+          "id": "ncipd_flu_weekly",
+          "label": "НЦЗПБ — седмична заболяемост от грип и ОРЗ (grippe.gateway.bg)",
+          "url": "https://grippe.gateway.bg/table.php?offset=1",
+          "cadence": "daily"
+        },
+        {
+          "id": "eurostat_vaccine_trade",
+          "label": "Eurostat Comext — търговия с ваксини (CN 3002 41)",
+          "url": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409",
+          "cadence": "weekly"
+        },
+        {
+          "id": "eurostat_flu_coverage",
+          "label": "Eurostat — обхват с грипна ваксина 65+ (hlth_ps_immu)",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hlth_ps_immu?format=JSON&lang=en",
+          "cadence": "weekly"
+        }
+      ],
+      "x": 28,
+      "y": 458,
+      "w": 240,
+      "h": 62
+    },
+    {
       "id": "src:administration",
       "kind": "source",
       "label": {

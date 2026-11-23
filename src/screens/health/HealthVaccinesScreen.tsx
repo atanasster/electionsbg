@@ -42,6 +42,7 @@ import {
 } from "@/data/health/useVaccines";
 import { HealthPageFrame } from "./HealthPageFrame";
 import { HealthNote } from "./HealthNote";
+import { currentTotal, seasonLabel } from "@/lib/vaccineSeason";
 
 type L = { bg: string; en: string };
 
@@ -51,9 +52,6 @@ const MZ_EIK = "000695317";
 /** The first season НЗИС flu recording is treated as complete enough to chart
  *  without a caveat (plan §8.2: 2023/24, with earlier seasons greyed). */
 const COMPLETE_FROM_SEASON = 2023;
-
-const seasonLabel = (s: number): string =>
-  `${s}/${String((s + 1) % 100).padStart(2, "0")}`;
 
 /** A season's month (August = 1) as a short month name. */
 const seasonMonthName = (m: number, lang: string): string =>
@@ -142,12 +140,6 @@ const Figure: FC<{
     {asOf}
   </div>
 );
-
-/** The latest announced season total that no later row superseded. */
-const currentTotal = (rows: VaccinePlanRow[]): VaccinePlanRow | null =>
-  rows
-    .filter((r) => r.channel === "total" && !r.supersededBy)
-    .sort((a, b) => b.sourceDate.localeCompare(a.sourceDate))[0] ?? null;
 
 export const Head: FC<{ o: VaccinesOverview }> = ({ o }) => {
   const { i18n } = useTranslation();

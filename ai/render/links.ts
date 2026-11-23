@@ -426,6 +426,12 @@ pages(
   "NHIF — hospitals",
 );
 pages(
+  ["vaccineUptake"],
+  "/sector/health/vaccines",
+  "Ваксините срещу грип",
+  "The flu vaccines",
+);
+pages(
   ["awarderProcurement"],
   "/procurement/awarders",
   "Възложители",

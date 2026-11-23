@@ -10,6 +10,7 @@ export const ARGUMENT_ALIASES: Record<string, Record<string, string>> = {
   nzokHospitalScorecard: { name: "hospital" },
   nzokPathwayHospitals: { pathway: "procedure", name: "procedure" },
   nzokPrivateHospitals: { mode: "filter" },
+  vaccineUptake: { year: "season" },
   contractSearch: { eik: "company" },
   entityMentions: { company: "term" },
   awarderProcurement: { place: "org" },

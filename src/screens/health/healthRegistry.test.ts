@@ -45,15 +45,16 @@ const PAGE_SOURCE: Record<string, string> = {
   [HEALTH_PATHS.drugs]: "src/screens/health/HealthDrugsScreen.tsx",
   [HEALTH_PATHS.procurement]: "src/screens/health/HealthProcurementScreen.tsx",
   [HEALTH_PATHS.money]: "src/screens/health/HealthMoneyScreen.tsx",
+  [HEALTH_PATHS.vaccines]: "src/screens/health/HealthVaccinesScreen.tsx",
 };
 
-/** Only /procurement carries a ScopeControl; the other three are „без период"
+/** Only /procurement carries a ScopeControl; the others are „без период"
  *  and must NOT carry ?pscope. */
 const SCOPED: string[] = [HEALTH_PATHS.procurement];
 
 describe("the health hub registry", () => {
   it("has four tiles in every band", () => {
-    expect(HEALTH_BANDS).toHaveLength(3);
+    expect(HEALTH_BANDS).toHaveLength(4);
     for (const b of HEALTH_BANDS) expect(b.tiles.length).toBe(4);
   });
 

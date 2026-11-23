@@ -2507,6 +2507,16 @@
     }
   ],
   "nzokPublicPrivate": [],
+  "vaccineUptake": [
+    {
+      "name": "season",
+      "type": "year",
+      "description": {
+        "bg": "Начална година (2025 = 2025/26)",
+        "en": "The season's starting year (2025 = 2025/26)"
+      }
+    }
+  ],
   "nzokPrivateHospitals": [
     {
       "name": "filter",

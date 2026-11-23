@@ -6,7 +6,7 @@
     "chatStarters": 150,
     "editorialQuestions": 257,
     "sqlQueries": 37,
-    "sourceGroups": 47
+    "sourceGroups": 48
   },
   "sourceGroups": [
     {
@@ -323,6 +323,15 @@
       },
       "status": "partial",
       "disposition": "Rail/subsidy/sector/funds tools present; project/facility detail incomplete."
+    },
+    {
+      "id": "src:vaccines",
+      "label": {
+        "bg": "НЗИС · ИАЛ · НЦЗПБ · ваксини",
+        "en": "НЗИС · IAL · NCIPD · vaccines"
+      },
+      "status": "partial",
+      "disposition": "Season uptake tool (vaccineUptake) present; shortage, incidence, imports and per-oblast detail not exposed in chat — partial."
     },
     {
       "id": "src:administration",

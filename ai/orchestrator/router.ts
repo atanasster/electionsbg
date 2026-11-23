@@ -1674,6 +1674,23 @@ const routeText = (question: string, ctx: ToolContext): Route => {
     };
   }
 
+  // Flu vaccines (vaccineUptake): a vaccine word together with a flu word, or
+  // the English "flu shot". Only a year written AS a season ("2025/26", or
+  // after „сезон"/"season") names one; a bare calendar year does not, since a
+  // January 2026 shot belongs to the 2025/26 season.
+  if (
+    (has(q, "ваксин", "vaccin") && has(q, "грип", "flu", "influenza")) ||
+    has(q, "flu shot", "flu jab")
+  ) {
+    const year =
+      question.match(/(?<!\d)(20\d\d)\s*[/–-]\s*(?:\d{2}|20\d\d)(?!\d)/)?.[1] ??
+      question.match(/(?:сезон|season)\D{0,3}(20\d\d)(?!\d)/i)?.[1];
+    return {
+      tool: "vaccineUptake",
+      args: year ? { season: Number(year) } : {},
+    };
+  }
+
   // Public-vs-private hospitals, private-hospital ГФО revenue, and the
   // "which hospitals run no tenders" leaderboard (the ЕК-съди-България band).
   // These carry no explicit НЗОК token and often use compare/procurement words

@@ -275,6 +275,11 @@
   "nzokPathwayHospitals": ["nzok_activities (PG)", "nzok_pathway_tariffs (PG)"],
   "nzokPrivateHospitals": ["budget/nzok/public_private.json"],
   "nzokPublicPrivate": ["budget/nzok/public_private.json"],
+  "vaccineUptake": [
+    "his_immunization_month (PG)",
+    "his_immunization_daily (PG)",
+    "vaccine_season_plan (PG)"
+  ],
   "officialsAssetsTop": ["db:officials_rankings"],
   "openCalls": ["db:open-calls (ИСУН /Active + ДФЗ индикативен график)"],
   "openTenders": ["db:tender-corpus-search"],

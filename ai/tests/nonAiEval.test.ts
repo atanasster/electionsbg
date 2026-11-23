@@ -32,7 +32,8 @@ describe("Non AI shared bilingual evals (known failures are explicit)", () => {
     // 367 → 369 on 2026-10-13: the two capex macro starters (macro-capexExecKfp,
     // macro-capexExecStateBudget), each declaring its expected `indicator` arg.
     // 369 → 370 on 2026-11-23: the entityMentions starter (INSAIT).
-    expect(starters).toHaveLength(370);
+    // 370 → 371 on 2026-11-23: the vaccineUptake starter.
+    expect(starters).toHaveLength(371);
     const argScored = (lang: "en" | "bg") =>
       starters.filter((c) => expectedArgs(c, lang) !== undefined).length;
     // 243/244 → 244/245 on 2026-11-23: the entityMentions starter declares `term`.
@@ -60,7 +61,8 @@ describe("Non AI shared bilingual evals (known failures are explicit)", () => {
       (LEGACY_GROUPS as readonly string[]).includes(c.group),
     );
     // 474 → 476 on 2026-11-23: entityMentions' two registry examples.
-    expect(legacy).toHaveLength(476);
+    // 476 → 478 on 2026-11-23: vaccineUptake's two registry examples.
+    expect(legacy).toHaveLength(478);
     for (const lang of ["en", "bg"] as const)
       expect(
         legacy.filter((c) => expectedArgs(c, lang) !== undefined),

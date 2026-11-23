@@ -72,6 +72,7 @@ import {
   nzokDrugMolecule,
   nzokPublicPrivate,
   nzokPrivateHospitals,
+  vaccineUptake,
 } from "./nzok";
 import {
   judiciaryBudget,
@@ -2996,6 +2997,35 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nzokPublicPrivate,
+  },
+  {
+    name: "vaccineUptake",
+    domain: "fiscal",
+    description: {
+      bg: "Ваксини срещу грип за сезон (авг–юли): записани в НЗИС, по месеци спрямо миналия сезон, и обявените дози.",
+      en: "Flu vaccinations for one season (1 August – 31 July): the shots recorded in НЗИС since the season began (daily counter), the complete months against the same months last season, and the doses the ministry announced. Recorded, not necessarily given.",
+    },
+    params: [
+      {
+        name: "season",
+        type: "year",
+        description: {
+          bg: "Начална година (2025 = 2025/26)",
+          en: "The season's starting year (2025 = 2025/26)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко души са се ваксинирали срещу грип този сезон?",
+        en: "How many people got a flu shot this season?",
+      },
+      {
+        bg: "Ваксините срещу грип закъсняват ли спрямо миналата година?",
+        en: "Are flu vaccinations behind last year?",
+      },
+    ],
+    run: vaccineUptake,
   },
   {
     name: "nzokPrivateHospitals",

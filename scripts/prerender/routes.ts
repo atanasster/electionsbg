@@ -84,6 +84,7 @@ import {
 import { getLatestElection } from "./dynamicRoutes";
 import { electionYearSuffix } from "./electionYear";
 import { oblastLabel } from "@/lib/oblastName";
+import { currentTotal, seasonLabel } from "@/lib/vaccineSeason";
 // Derived, not a literal — same reason as scripts/prerender/institutions.ts:
 // these strings are prerendered, indexed page bodies.
 import { MO_ENTITIES } from "@/lib/defenseReferenceData";
@@ -517,6 +518,49 @@ const eduFacts = (() => {
     ),
     grantBnBg: bn(s.euFunds.grantEur, "bg-BG"),
     grantBnEn: bn(s.euFunds.grantEur, "en-US"),
+  };
+})();
+
+// The /sector/health/vaccines body quotes the CURATED season plan
+// (data/health/vaccines/season_plan.json, committed, source-cited) and nothing
+// live: the НЗИС counters move daily and a prerendered count would be stale by
+// the next morning (docs/plans/vaccines-flow-v1.md T6).
+const vaccinePlanFacts = (() => {
+  const plan = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/health/vaccines/season_plan.json"),
+      "utf-8",
+    ),
+  ) as {
+    rows: {
+      season: number;
+      channel: string;
+      doses: number;
+      doses_qualifier?: string | null;
+      source_date: string;
+      superseded_by: string | null;
+    }[];
+  };
+  const season = Math.max(...plan.rows.map((r) => r.season));
+  const total = currentTotal(
+    plan.rows
+      .filter((r) => r.season === season)
+      .map((r) => ({
+        ...r,
+        sourceDate: r.source_date,
+        supersededBy: r.superseded_by,
+      })),
+  );
+  const over = total?.doses_qualifier === "over";
+  return {
+    season: seasonLabel(season),
+    totalBg: total
+      ? `${over ? "над " : ""}${total.doses.toLocaleString("bg-BG")}`
+      : null,
+    totalEn: total
+      ? `${over ? "over " : ""}${total.doses.toLocaleString("en-US")}`
+      : null,
+    date: total?.source_date ?? null,
   };
 })();
 
@@ -1964,13 +2008,14 @@ ${up(true)}`.trim(),
   ];
 };
 
-/** /sector/health and its four sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
+/** /sector/health and its five sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
  *  Plan: docs/plans/health-hub-v1.md T3. Every figure comes from healthFacts (the
  *  committed hub blob). Each <h1> equals the screen's own heading (HealthHubScreen
  *  / HealthPageFrame titles). English heads name the bodies in English — no
  *  Cyrillic acronyms in an /en <title> (the edu lesson). */
 const healthStaticPages = (): PrerenderRoute[] => {
   const f = healthFacts;
+  const v = vaccinePlanFacts;
   const span = f.from && f.to ? `${f.from}–${f.to}` : "";
   const og = "/og/sector-health.png";
   const links = (en: boolean) => {
@@ -1981,12 +2026,14 @@ const healthStaticPages = (): PrerenderRoute[] => {
 <li><a href="${b}/drugs">The medicines</a> — the reimbursed medicines by active substance and quarter, the pack prices and the medicines in hospitals.</li>
 <li><a href="${b}/procurement">Healthcare procurement</a> — what the fund, the ministry and its bodies buy, the framework agreements apart, competition and contractors.</li>
 <li><a href="${b}/money">The budget and the activity</a> — the fund's budget, the ministry's budget, the EU funds and the clinical pathways.</li>
+<li><a href="${b}/vaccines">The flu vaccines</a> — the season's announced doses, the shots recorded by month and province, shortages, incidence, imports and contracts.</li>
 </ul>`
       : `<ul>
 <li><a href="${b}/hospitals">Болниците</a> — колко плаща здравната каса на всяка болница, на картата, по области, по собственост и във времето.</li>
 <li><a href="${b}/drugs">Лекарствата</a> — реимбурсираните лекарства по активно вещество и тримесечие, цените за опаковка и лекарствата в болниците.</li>
 <li><a href="${b}/procurement">Поръчките в здравеопазването</a> — какво купуват касата, министерството и ведомствата му, рамковите споразумения отделно, конкуренцията и изпълнителите.</li>
 <li><a href="${b}/money">Бюджетът и дейността</a> — бюджетът на касата, бюджетът на министерството, еврофондовете и клиничните пътеки.</li>
+<li><a href="${b}/vaccines">Ваксините срещу грип</a> — обявените дози за сезона, записаните ваксинации по месеци и области, недостигът, заболяемостта, вносът и договорите.</li>
 </ul>`;
   };
   const competitionBg = f.singleBidPct
@@ -2143,6 +2190,25 @@ ${links(true)}
           "The budget of the health insurance fund and of the Ministry of Health, the institutions' EU funds and the clinical-pathway activity — each on its own basis.",
         h1: "The budget and the activity",
         body: `<p>The National Health Insurance Fund's expenditure by year (€${f.nzokBnEn}bn in ${f.year}) and the Ministry of Health's budget — not added together, because the ministry transfers part of the money to the fund. The institutions' EU funds — €${f.grantBnEn}bn of grant aid — and the hospitals' clinical-pathway activity.</p>`,
+      },
+    ),
+    sub(
+      "sector/health/vaccines",
+      {
+        title: "Ваксините срещу грип — сезон по сезон, по области",
+        description:
+          "Сезонът на ваксините срещу грип — обявените дози, записаните в НЗИС ваксинации по месеци и по области, недостигът, заболяемостта, вносът и договорите на МЗ.",
+        h1: "Ваксините срещу грип",
+        body: `<p>Сезонът тече от 1 август до 31 юли, затова ваксина, поставена през януари, принадлежи на предишния сезон.${v.totalBg ? ` За сезон ${v.season} са обявени ${v.totalBg} дози (към ${v.date}).` : ""} Всяко обявление се пази с източника и датата си; по-късно съобщение не изтрива по-ранното.</p>
+<p>Записаните ваксинации идват от НЗИС — по месеци, области и възрастови групи, и от дневния брояч. Това са записани, не непременно поставени ваксинации. Обхватът по области е на 1000 души над 60 години — групата на НЗИС, не 65+ на програмата и не 65+ на Евростат. Недостигът е по списъка на ИАЛ (СЕСПА), заболяемостта — по седмичните бюлетини на НЦЗПБ, вносът — по Евростат, а договорите — от обществените поръчки на МЗ. Нищо не е изчислено като остатък: доставеното по канал не е публично и е отбелязано като такова.</p>`,
+      },
+      {
+        title: "The flu vaccines — season by season, by province",
+        description:
+          "The flu-vaccine season — the doses announced, the shots recorded in Bulgaria's national health information system by month and province, shortages, incidence, imports and the health ministry's contracts.",
+        h1: "The flu vaccines",
+        body: `<p>A season runs from 1 August to 31 July, so a shot given in January belongs to the previous season.${v.totalEn ? ` For the ${v.season} season, ${v.totalEn} doses were announced (as of ${v.date}).` : ""} Every announcement is kept with its source and date; a later one never erases an earlier one.</p>
+<p>Recorded shots come from the national health information system — by month, province and age band, and from its daily counter. They are shots recorded, not necessarily given. Province coverage is per 1,000 people over 60 — the system's own band, not the programme's 65+ and not Eurostat's 65+. Shortages follow the drug agency's weekly list, incidence the national public-health centre's weekly bulletins, imports Eurostat, and contracts the ministry's public procurement. Nothing is derived as a remainder: what each channel delivered is not public and is marked as such.</p>`,
       },
     ),
   ];

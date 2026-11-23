@@ -13,6 +13,7 @@ import {
   standingLabel,
 } from "@/lib/nzokMeasures";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
+import { currentTotal, seasonLabel } from "../../src/lib/vaccineSeason";
 
 type Money = { amountEur: number; amount: number; currency: string };
 
@@ -1392,5 +1393,165 @@ export const nzokPrivateHospitals = async (
       ...(biggest?.eik ? { eik_id: biggest.eik } : {}),
     },
     provenance: ["budget/nzok/public_private.json"],
+  };
+};
+
+// ---- flu vaccines („Колко души са се ваксинирали срещу грип?") ---------------
+// DB-backed (migration 206, /api/db/vaccines-overview). A SEASON runs 1 Aug →
+// 31 Jul, so a January shot belongs to the previous season. Two НЗИС clocks
+// answer here and are never compared with each other: the daily counter
+// (season-to-date) and the monthly cells, of which only COMPLETE months are
+// set against the same months last season (docs/plans/vaccines-flow-v1.md §7).
+
+type VaccinesOverviewLite = {
+  season: number;
+  plan: {
+    rows: {
+      channel: string;
+      doses: number;
+      qualifier: string | null;
+      source: string;
+      sourceDate: string;
+      supersededBy: string | null;
+    }[];
+  };
+  curve: {
+    seasons: {
+      season: number;
+      points: { month: string; m: number; n: number }[];
+    }[];
+  };
+  recorded: {
+    asOf: string | null;
+    completeThrough: string | null;
+    completeTotal: number | null;
+    sameMonthsLastSeason: number | null;
+    seasonToDate: number | null;
+    seasonToDateAsOf: string | null;
+  };
+};
+
+export const vaccineUptake = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const want = Number(args.season ?? args.year);
+  const season =
+    Number.isInteger(want) && want >= 2000 && want <= 2100 ? want : undefined;
+  const o = await fetchDb<VaccinesOverviewLite | null>(
+    "vaccines-overview",
+    season ? { season } : {},
+  );
+  if (!o) {
+    return {
+      tool: "vaccineUptake",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Данните за ваксините срещу грип не са заредени"
+        : "The flu-vaccine data are not loaded",
+      viz: "none",
+      facts: {},
+      provenance: ["his_immunization_month (PG)"],
+    };
+  }
+  const label = seasonLabel(o.season);
+  const r = o.recorded;
+  const cur = o.curve.seasons.find((s) => s.season === o.season);
+  const prev = o.curve.seasons.find((s) => s.season === o.season - 1);
+  const through = r.completeThrough;
+  // Complete months only: the current month is partial in the monthly cells,
+  // and with no complete month yet there is nothing to compare.
+  const points = through
+    ? (cur?.points ?? []).filter((p) => p.month <= through)
+    : [];
+  const prevByM = new Map((prev?.points ?? []).map((p) => [p.m, p.n]));
+  const rows: Row[] = points.map((p) => {
+    const last = prevByM.get(p.m);
+    return {
+      month: p.month,
+      this_season: fmtInt(p.n, ctx.lang),
+      last_season: last === undefined ? "—" : fmtInt(last, ctx.lang),
+    };
+  });
+  const columns: Column[] = [
+    { key: "month", label: bg ? "Месец" : "Month" },
+    {
+      key: "this_season",
+      label: bg ? `Сезон ${label}` : `Season ${label}`,
+      numeric: true,
+    },
+    {
+      key: "last_season",
+      label: bg
+        ? `Сезон ${seasonLabel(o.season - 1)}`
+        : `Season ${seasonLabel(o.season - 1)}`,
+      numeric: true,
+    },
+  ];
+  const total = currentTotal(o.plan.rows);
+  const swapped = season !== undefined && season !== o.season;
+  const notes = [
+    ...(swapped
+      ? [
+          bg
+            ? `Няма данни за сезон ${seasonLabel(season)}; показан е сезон ${label}.`
+            : `No data for season ${seasonLabel(season)}; showing season ${label}.`,
+        ]
+      : []),
+    bg
+      ? "Записани в НЗИС ваксинации — записани, не непременно поставени."
+      : "Shots recorded in НЗИС — recorded, not necessarily given.",
+    through
+      ? bg
+        ? "Месечните данни са само за завършени месеци; дневният брояч е отделна, по-пресна база."
+        : "The monthly data cover complete months only; the daily counter is a separate, fresher basis."
+      : bg
+        ? "Сезонът още няма завършен месец, затова няма месечно сравнение; само дневният брояч е актуален."
+        : "The season has no complete month yet, so there is no monthly comparison; only the daily counter is current.",
+  ];
+  return {
+    tool: "vaccineUptake",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Ваксини срещу грип, сезон ${label}`
+      : `Flu vaccines, season ${label}`,
+    subtitle: notes.join(" "),
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      season: label,
+      ...(r.seasonToDate !== null
+        ? {
+            recorded_season_to_date: fmtInt(r.seasonToDate, ctx.lang),
+            recorded_season_to_date_as_of: r.seasonToDateAsOf ?? "",
+          }
+        : {}),
+      ...(through && r.completeTotal !== null && r.sameMonthsLastSeason !== null
+        ? {
+            complete_months: through,
+            complete_months_this_season: fmtInt(r.completeTotal, ctx.lang),
+            complete_months_last_season: fmtInt(
+              r.sameMonthsLastSeason,
+              ctx.lang,
+            ),
+            monthly_as_of: r.asOf ?? "",
+          }
+        : {}),
+      ...(total
+        ? {
+            announced_doses: `${total.qualifier === "over" ? (bg ? "над " : "over ") : ""}${fmtInt(total.doses, ctx.lang)}`,
+            announced_by: `${total.source}, ${total.sourceDate}`,
+          }
+        : {}),
+    },
+    provenance: [
+      "his_immunization_month (PG)",
+      "his_immunization_daily (PG)",
+      "vaccine_season_plan (PG)",
+    ],
   };
 };

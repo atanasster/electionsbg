@@ -12,7 +12,7 @@ describe("question capability matrix", () => {
       chatStarters: STARTERS.length,
       editorialQuestions: 257,
       sqlQueries: ALL_QUERIES.length,
-      sourceGroups: 47,
+      sourceGroups: 48,
     });
     expect(new Set(matrix.questions.map((q) => q.id)).size).toBe(
       matrix.summary.rows,
@@ -45,7 +45,7 @@ describe("question capability matrix", () => {
 
   it("records a distinct coverage assessment for every source", () => {
     expect(new Set(matrix.sourceGroups.map((s) => s.disposition)).size).toBe(
-      47,
+      48,
     );
     for (const source of matrix.sourceGroups) {
       expect(source.disposition.length, source.id).toBeGreaterThan(20);

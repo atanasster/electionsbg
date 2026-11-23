@@ -2,11 +2,11 @@
   "basis": "Runtime question catalog; readiness does not assert complete data coverage or current production deployment.",
   "totals": {
     "categories": 19,
-    "leaves": 87,
-    "chat": 370,
+    "leaves": 88,
+    "chat": 371,
     "sql": 74,
     "dual": 15,
-    "tools": 236,
+    "tools": 237,
     "recipes": 74
   },
   "missingToolStarters": [],
@@ -1020,6 +1020,18 @@
       "chat": [
         "nzokActivities",
         "nzokPathwayHospitals"
+      ],
+      "sql": []
+    },
+    {
+      "category": "health",
+      "subcategory": "vaccines",
+      "label": {
+        "bg": "Здравеопазване / Ваксини",
+        "en": "Healthcare / Vaccines"
+      },
+      "chat": [
+        "vaccineUptake"
       ],
       "sql": []
     },
