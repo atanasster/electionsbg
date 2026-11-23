@@ -1,0 +1,427 @@
+{
+  "schema": 1,
+  "session": "20261123T224804Z-8290",
+  "kind": "ingest",
+  "startedAt": "2026-11-23T22:48:05.182Z",
+  "git": {
+    "shaStart": "2fcf2b0e93a423bea3632d8578d7429e36a9ff58",
+    "shaEnd": "1a0ab9c2b74ed3a1571d3250d303a85ebd69bce5"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country BG; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "reach:gov-hosts": {
+      "ok": true,
+      "detail": "www.parliament.bg, www.mod.bg answer (exit BG)"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 1 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 23.7 GB free (min 10); Docker VM 39.8 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-procurement",
+      "status": "skipped",
+      "sources": [
+        "eop_procurement",
+        "ted_bg"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "delegated to the update-procurement runbook (not yet a script)"
+    },
+    {
+      "id": "update-open-calls",
+      "status": "ok",
+      "sources": [
+        "isun_procedures"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "opencalls:isun",
+          "command": "pnpm run opencalls:isun",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 60006,
+          "medianMs": 68866,
+          "log": "logs/pipeline/20261123T224804Z-8290/001-opencalls_isun.log"
+        },
+        {
+          "seq": 2,
+          "id": "opencalls:az",
+          "command": "pnpm run opencalls:az",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 16434,
+          "medianMs": 19071,
+          "log": "logs/pipeline/20261123T224804Z-8290/002-opencalls_az.log"
+        },
+        {
+          "seq": 3,
+          "id": "db:load:open-calls:pg",
+          "command": "pnpm run db:load:open-calls:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 739,
+          "medianMs": 592.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/003-db_load_open-calls_pg.log"
+        },
+        {
+          "seq": 4,
+          "id": "open_calls.data.test",
+          "command": "pnpm exec vitest run scripts/db/tests/open_calls.data.test.ts",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 22045,
+          "medianMs": 24401,
+          "log": "logs/pipeline/20261123T224804Z-8290/004-open_calls.data.test.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/opencalls/az.json",
+        "data/opencalls/isun.json"
+      ],
+      "summary": "4 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-vaccines",
+      "status": "needs-operator",
+      "sources": [
+        "his_immunizations_daily",
+        "his_immunization_app",
+        "ial_shortage_list",
+        "ncipd_flu_weekly",
+        "eurostat_vaccine_trade",
+        "eurostat_flu_coverage"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "no marker yet — choose run or seed"
+    },
+    {
+      "id": "fiscal_council_bg",
+      "status": "ok",
+      "sources": [
+        "fiscal_council_bg"
+      ],
+      "steps": [
+        {
+          "seq": 5,
+          "id": "fiscal-council:triage",
+          "command": "pnpm run fiscal-council:triage",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 14435,
+          "log": "logs/pipeline/20261123T224804Z-8290/005-fiscal-council_triage.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "state/fiscal_council/triage.json"
+      ],
+      "summary": "1 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-culture",
+      "status": "skipped",
+      "sources": [
+        "nfc_film_register"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "delegated to the update-culture runbook (not yet a script)"
+    },
+    {
+      "id": "update-prices",
+      "status": "ok",
+      "sources": [
+        "kzp_prices"
+      ],
+      "steps": [
+        {
+          "seq": 6,
+          "id": "prices",
+          "command": "pnpm run prices",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 391733,
+          "medianMs": 485913.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/006-prices.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data-changes.json",
+        "data/prices/product_slugs.json"
+      ],
+      "summary": "1 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 7,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 17917,
+          "medianMs": 13639,
+          "log": "logs/pipeline/20261123T224804Z-8290/007-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 8,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 5389,
+          "medianMs": 6372.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/008-data_map.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data_map.json"
+      ]
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 9,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 632,
+          "medianMs": 642.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/009-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 10,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 461,
+          "medianMs": 373.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/010-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 11,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6261,
+          "medianMs": 8701.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/011-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 12,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2169,
+          "medianMs": 4328,
+          "log": "logs/pipeline/20261123T224804Z-8290/012-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 13,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1104,
+          "medianMs": 1206.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/013-db_gen-home-feed.log"
+        },
+        {
+          "seq": 14,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 458,
+          "medianMs": 498,
+          "log": "logs/pipeline/20261123T224804Z-8290/014-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/home/feed.json",
+        "data/home/flyover.json",
+        "data/home/price_events.json"
+      ]
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 15,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 883,
+          "medianMs": 897.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/015-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 16,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1279,
+          "medianMs": 1216.5,
+          "log": "logs/pipeline/20261123T224804Z-8290/016-db_check-cloud.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    }
+  ],
+  "needsOperator": [
+    {
+      "unit": "update-vaccines",
+      "id": "bootstrap",
+      "instruction": "No marker yet. Run it (`pnpm run pipeline:ingest --only update-vaccines --bootstrap run`) or seed it without running (`--bootstrap seed`)."
+    }
+  ],
+  "needsAgent": [
+    {
+      "unit": "update-procurement",
+      "id": "run-runbook",
+      "instruction": "Run update-procurement for eop_procurement, ted_bg. Planned steps: pnpm exec tsx scripts/procurement/ingest_eop.ts --self-heal --apply → pnpm run procurement:ingest → pnpm exec tsx scripts/procurement/ingest_tenders.ts --apply → pnpm exec tsx scripts/procurement/eop_field_map.ts --apply → pnpm exec tsx scripts/procurement/by_id_shards.ts → pnpm exec tsx scripts/procurement/ingest_anexi.ts → pnpm exec tsx scripts/procurement/anexi_current_value.ts --apply → pnpm run proc:backfill-unp:apply → pnpm run proc:reconcile:apply → pnpm exec tsx scripts/procurement/rebuild_from_cache.ts → pnpm exec tsx scripts/procurement/contract_index.ts → pnpm exec tsx scripts/procurement/rebuild_derived.ts → pnpm run db:refresh → pnpm run ted:ingest --apply → pnpm run db:load:ted:pg.",
+      "doc": ".claude/skills/update-procurement/SKILL.md"
+    },
+    {
+      "unit": "update-culture",
+      "id": "run-runbook",
+      "instruction": "Run update-culture for nfc_film_register. Planned steps: pnpm exec tsx scripts/culture/ingest.ts.",
+      "doc": ".claude/skills/update-culture/SKILL.md"
+    }
+  ],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261123T224804Z-8290/015-db_check-generated.log"
+  ],
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-23T23:23:09.990Z",
+  "verdict": "degraded",
+  "published": {
+    "exitCode": 0,
+    "report": "state/pipeline/runs/20261123T225709Z-843e/report.md"
+  }
+}
