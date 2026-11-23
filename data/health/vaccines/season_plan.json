@@ -1,0 +1,109 @@
+{
+  "_doc": "Curated flu-vaccine season plan (docs/plans/vaccines-flow-v1.md §0 D5, §7.8). One row per (season, channel, basis, source). A later announcement never overwrites an earlier row: it is added and the older row's superseded_by names it. `season` is the starting year of the 1 Aug → 31 Jul season. `basis`: planned = a programme quantity; contracted = signed by НЗОК; announced = a ministry statement of expected supply. `within` names a channel this row is a subset of, when the source says so; when two sources disagree on that, each gets its own row and only the one that says so carries `within`. `doses_qualifier: \"over\"` marks a floor („над“), never an exact figure. `scope: \"delivery\"` marks one promised delivery rather than a season total.",
+  "rows": [
+    {
+      "id": "2026-total-mz-0929",
+      "season": 2026,
+      "channel": "total",
+      "doses": 770000,
+      "basis": "announced",
+      "source": "МЗ, citing ИАЛ",
+      "source_url": "https://www.bta.bg/bg/news/bulgaria/1213699",
+      "source_date": "2026-09-29",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-65plus-nzok-0929",
+      "season": 2026,
+      "channel": "adults_65plus",
+      "doses": 490000,
+      "basis": "contracted",
+      "source": "НЗОК, relayed by МЗ",
+      "source_url": "https://www.bta.bg/bg/news/bulgaria/1213699",
+      "source_date": "2026-09-29",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-75plus-hd-nzok-0924",
+      "season": 2026,
+      "channel": "adults_75plus_high_dose",
+      "doses": 50000,
+      "basis": "contracted",
+      "within": "adults_65plus",
+      "source": "НЗОК, relayed by МЗ (Mediapool: „в рамките на това количество“, i.e. inside the 490,000)",
+      "source_url": "https://www.mediapool.bg/bulgaria/osigureni-sa-770-000-protivogripni-vaksini-za-sezona-no-za-detsata-sa-s-27-po-malko-ot-planiranite/",
+      "source_date": "2026-09-24",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-75plus-hd-nzok-0929",
+      "season": 2026,
+      "channel": "adults_75plus_high_dose",
+      "doses": 50000,
+      "basis": "contracted",
+      "source": "НЗОК, relayed by МЗ (BTA words it as a further delivery; it does not say whether it is inside the 490,000)",
+      "source_url": "https://www.bta.bg/bg/news/bulgaria/1213699",
+      "source_date": "2026-09-29",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-children-plan-0924",
+      "season": 2026,
+      "channel": "children",
+      "doses": 135138,
+      "basis": "planned",
+      "source": "Национална програма 2026–2030, as described by Mediapool",
+      "source_url": "https://www.mediapool.bg/bulgaria/osigureni-sa-770-000-protivogripni-vaksini-za-sezona-no-za-detsata-sa-s-27-po-malko-ot-planiranite/",
+      "source_date": "2026-09-24",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-children-injectable-nzok-0924",
+      "season": 2026,
+      "channel": "children_injectable",
+      "doses": 50790,
+      "basis": "contracted",
+      "within": "children",
+      "source": "НЗОК, relayed by МЗ",
+      "source_url": "https://www.mediapool.bg/bulgaria/osigureni-sa-770-000-protivogripni-vaksini-za-sezona-no-za-detsata-sa-s-27-po-malko-ot-planiranite/",
+      "source_date": "2026-09-24",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-children-nasal-nzok-0924",
+      "season": 2026,
+      "channel": "children_nasal",
+      "doses": 47504,
+      "basis": "contracted",
+      "within": "children",
+      "source": "НЗОК, relayed by МЗ",
+      "source_url": "https://www.mediapool.bg/bulgaria/osigureni-sa-770-000-protivogripni-vaksini-za-sezona-no-za-detsata-sa-s-27-po-malko-ot-planiranite/",
+      "source_date": "2026-09-24",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-free-market-mz-0924",
+      "season": 2026,
+      "channel": "free_market",
+      "doses": 180000,
+      "doses_qualifier": "over",
+      "basis": "announced",
+      "source": "МЗ",
+      "source_url": "https://www.mediapool.bg/bulgaria/osigureni-sa-770-000-protivogripni-vaksini-za-sezona-no-za-detsata-sa-s-27-po-malko-ot-planiranite/",
+      "source_date": "2026-09-24",
+      "superseded_by": null
+    },
+    {
+      "id": "2026-free-market-minister-1114",
+      "season": 2026,
+      "channel": "free_market",
+      "doses": 100000,
+      "basis": "announced",
+      "source": "Minister of Health, written answer to a parliamentary question (reported): the doses promised for 9–13 November, a single delivery, not a season total",
+      "source_url": "https://balgari.bg/2026/11/14/%D0%BE%D0%B1%D0%B5%D1%89%D0%B0%D0%BD%D0%B8%D1%82%D0%B5-%D0%B2%D0%B0%D0%BA%D1%81%D0%B8%D0%BD%D0%B8-%D0%B7%D0%B0-%D0%B3%D1%80%D0%B8%D0%BF-%D0%BF%D0%B0%D0%BA-%D0%BD%D0%B5-%D0%B4%D0%BE%D0%B9%D0%B4%D0%BE/",
+      "source_date": "2026-11-14",
+      "superseded_by": null,
+      "scope": "delivery"
+    }
+  ]
+}

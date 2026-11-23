@@ -1,0 +1,29 @@
+{
+  "_doc": "Curated dated events for the flu-vaccine season (docs/plans/vaccines-flow-v1.md §0 D5). Every row carries the URL it was read from; `event_date` is the date of that publication.",
+  "rows": [
+    {
+      "season": 2026,
+      "event_date": "2026-09-24",
+      "kind": "plan",
+      "text_bg": "МЗ: 770 000 дози за сезона; договорените детски ваксини (50 790 инжекционни + 47 504 назални) са под програмните 135 138 — по изчисление на Mediapool с около 27%.",
+      "text_en": "МЗ: 770,000 doses for the season; the children's vaccines contracted (50,790 injectable + 47,504 nasal) are below the programme's 135,138 — by about 27%, as Mediapool calculates it.",
+      "source_url": "https://www.mediapool.bg/bulgaria/osigureni-sa-770-000-protivogripni-vaksini-za-sezona-no-za-detsata-sa-s-27-po-malko-ot-planiranite/"
+    },
+    {
+      "season": 2026,
+      "event_date": "2026-09-29",
+      "kind": "plan",
+      "text_bg": "МЗ, по данни на ИАЛ: очакват се общо 770 000 дози противогрипни ваксини.",
+      "text_en": "МЗ, citing ИАЛ: a total of 770,000 flu-vaccine doses is expected.",
+      "source_url": "https://www.bta.bg/bg/news/bulgaria/1213699"
+    },
+    {
+      "season": 2026,
+      "event_date": "2026-11-14",
+      "kind": "delay",
+      "text_bg": "Обещаните за 9–13 ноември ваксини за свободния пазар (100 000 дози) не са доставени; МЗ заявява, че не е страна по договорите.",
+      "text_en": "The free-market vaccines promised for 9–13 November (100,000 doses) have not arrived; МЗ says it is not a party to those contracts.",
+      "source_url": "https://balgari.bg/2026/11/14/%D0%BE%D0%B1%D0%B5%D1%89%D0%B0%D0%BD%D0%B8%D1%82%D0%B5-%D0%B2%D0%B0%D0%BA%D1%81%D0%B8%D0%BD%D0%B8-%D0%B7%D0%B0-%D0%B3%D1%80%D0%B8%D0%BF-%D0%BF%D0%B0%D0%BA-%D0%BD%D0%B5-%D0%B4%D0%BE%D0%B9%D0%B4%D0%BE/"
+    }
+  ]
+}

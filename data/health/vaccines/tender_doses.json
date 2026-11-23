@@ -1,0 +1,4 @@
+{
+  "_doc": "Curated МЗ vaccine-tender lot → dose quantities (docs/plans/vaccines-flow-v1.md §4 vaccine_tender_dose). One row per (unp, lot_id), each with the document it was read from. EMPTY until a lot's quantity is read from its tender documentation: a quantity is never inferred from a lot's estimated value.",
+  "rows": []
+}
