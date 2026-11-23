@@ -1591,7 +1591,10 @@ window: `persons` AND `/api/db/person-profile` answered **500 from 14:50:43 to ~
 (~1 min)** during `db:load:persons-browse:pg:cloud` (120's DROP + CREATE) — the profile route
 was 200 everywhere else, including through the CASCADE. Everything was 200 again by 14:52:09.
 So both numbers are true of this box: 0 on 2026-09-04, ~6½ minutes of 500s across two windows
-on 2026-10-21. Run it off-peak, and do not read either as a guarantee. The values are derived from immutable filings,
+on 2026-10-21. A THIRD sample, 2026-11-23 (the national↔local merge, 04:36→05:02 EET, the same
+19-step shape): **51 probes at 30 s, all 200**. That includes `person-profile`, through both
+the CASCADE and the persons-browse window. So the record is 0 / ~6½ min / 0. Run it off-peak,
+and do not read any of the three as a guarantee. The values are derived from immutable filings,
 so they are identical whichever database computes them — the `ship_filed_position.ts`
 argument — and `scripts/db/ship_held_abroad.ts` writes them into the rows already there:
 

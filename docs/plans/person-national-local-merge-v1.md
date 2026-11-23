@@ -245,5 +245,25 @@ against ≥400 for a layer without the tier.
 The repair chain (`CLAUDE.md` "A LOCAL `db:resolve:persons` is never one command") ran after
 the resolve.
 
-Not done: step 7 (cloud). That means `db:resolve:persons:cloud` plus its repair chain, run
-off-peak, because 090's CASCADE window can 500 `/persons` (measured ~6½ min on 2026-10-21).
+## 11. Step 7 done — Cloud SQL (2026-11-23, 04:36→05:02 EET, 26 min)
+
+The full cloud person chain ran in the update-persons order: place-dim, judicial-bodies,
+name-fold people, declarations phase 1, resolve, then the repair chain, then the two
+redirect maps. Results:
+
+- **The resolve matches local exactly**: 417 slugs retired, 0 dead, 3,340 review groups.
+  Declarations: 0/61,743 left unresolved. Council: 51,121 votes attributed.
+- The merged-away SLUGS differ from local (Джипов's is `dzhipo-dzhipov-mzc56v`, not
+  `mp-5202-2`), because `person_slug_lock` diverges per database. Every one of the 417
+  redirects lands on an active person, and none chains.
+- **No 500s**: 51 probes, one every 30 s, of `persons`, `officials_rankings`,
+  `crypto_holdings`, `abroad_holdings` and `person-profile`, every one 200.
+- The live `/api/db/person-profile?slug=mp-5202` carries МАТ / МАТ 2020 on a cache-busted
+  request. The plain URL stays an edge HIT for up to an hour (`s-maxage=3600`).
+- Re-minted from Cloud SQL and bucket-synced: `person:slugs:cloud` (63,683 → 63,266 slugs:
+  417 removed, 0 added), `declarations_hub_stats.json`, `data_map.json` (officials found in
+  the company registry: 5,597 → 5,637), and the three hub blobs.
+
+**Still open: hosting.** The merged-away slugs that were PRERENDERED still serve their old
+static page at 200, because Firebase ranks a static file above the `/person/*` redirect
+rewrite. They need `pnpm run build` plus the three-step deploy in CLAUDE.md.
