@@ -56,8 +56,8 @@ const COMPLETE_FROM_SEASON = 2023;
 /** A season's month (August = 1) as a short month name. */
 const seasonMonthName = (m: number, lang: string): string =>
   // `month: "short"` renders as a bare number („08") in Bulgarian.
-  new Date(2000, (m + 6) % 12, 1)
-    .toLocaleDateString(lang, { month: "long" })
+  new Date(Date.UTC(2000, (m + 6) % 12, 1))
+    .toLocaleDateString(lang, { month: "long", timeZone: "UTC" })
     .slice(0, 3);
 
 /** An as-of stamp as a date in the reader's locale; "" when absent. */
@@ -70,15 +70,17 @@ const asOfDate = (v: string | null | undefined, lang: string): string => {
         day: "numeric",
         month: "long",
         year: "numeric",
+        timeZone: "Europe/Sofia",
       });
 };
 
 const monthName = (ym: string | null, lang: string): string => {
   if (!ym) return "";
   const [y, m] = ym.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString(lang, {
+  return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString(lang, {
     month: "long",
     year: "numeric",
+    timeZone: "UTC",
   });
 };
 

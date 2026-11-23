@@ -63,23 +63,22 @@ const cachePresent = existsSync(
   ),
 );
 const refused = monthlyRows === 0 && cachePresent;
-const skip = !haveDb
+const corpusSkip = !haveDb
   ? "Postgres unreachable"
   : monthlyRows === null
     ? "migration 206 not applied — run db:load:vaccines:pg"
-    : monthlyRows === 0 && !cachePresent
-      ? "his_immunization_month is empty — the info-app cache is absent on this machine"
-      : false;
-reportSkip(import.meta.url, skip);
+    : monthlyRows !== 0
+      ? false
+      : cachePresent
+        ? "the info-app cache was refused — see the failing gate"
+        : "his_immunization_month is empty — the info-app cache is absent on this machine";
+reportSkip(import.meta.url, corpusSkip);
 
 test.skipIf(!refused)("a present info-app cache was loaded", () => {
   assert.fail(
     `${CACHE_FILES.infoapp} is present but his_immunization_month is empty — db:load:vaccines:pg refused it; re-run and read the refusal`,
   );
 });
-const corpusSkip =
-  skip ||
-  (refused ? "the info-app cache was refused — see the failing gate" : false);
 
 afterAll(async () => {
   if (haveDb) await end();
