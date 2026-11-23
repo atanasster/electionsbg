@@ -406,6 +406,11 @@ const HealthMoneyScreen = lazy(() =>
     default: m.HealthMoneyScreen,
   })),
 );
+const HealthVaccinesScreen = lazy(() =>
+  import("./screens/health/HealthVaccinesScreen").then((m) => ({
+    default: m.HealthVaccinesScreen,
+  })),
+);
 // The education-and-science sector hub and its three sub-pages
 // (docs/plans/edu-hub-v1.md T3) — literal routes ahead of sector/:id.
 const EduHubScreen = lazy(() =>
@@ -2428,6 +2433,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <HealthMoneyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/health/vaccines"
+            element={
+              <LayoutScreen>
+                <HealthVaccinesScreen />
               </LayoutScreen>
             }
           />
