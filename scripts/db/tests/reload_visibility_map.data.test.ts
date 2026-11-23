@@ -289,6 +289,14 @@ const RELOADED: ReadonlyArray<{
   // SEE those call sites, and an unlisted vacuum is one nothing verifies took.
   { table: "budget_peer_band", loader: "db:load:budget-hub:pg" },
   { table: "tr_name_fold_people", loader: "db:load:tr-name-fold-people:pg" },
+  // Upsert-only merge over the feed archive + CR captures (205). Rows are rewritten
+  // only when a source adds a value, but the first backfill and every enrichment pass
+  // leave dead tuples the 20% threshold never reaches on a multi-million-row table.
+  { table: "tr_announced_act", loader: "db:load:tr-announced-acts:pg" },
+  {
+    table: "tr_announced_act_feed_file",
+    loader: "db:load:tr-announced-acts:pg",
+  },
   // Stage-merged, like the Interreg three. The loader ran a bare ANALYZE here for
   // its stats, which stamps last_analyze and leaves the map untouched — so
   // graph_company_node sat at 20/1174 pages (1.7%) while looking freshly maintained,

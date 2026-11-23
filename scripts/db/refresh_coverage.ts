@@ -51,6 +51,13 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
     reason:
       "the company_nkid half reads the same gitignored raw_data/tr/cr_deeds.sqlite crawl cache — absent on a fresh clone. (The crosswalk tables it also seeds come from the committed src/lib/naceCpv.ts, but with an empty company_nkid the nkidMismatch flag is unavailable regardless, so seeding them in db:refresh would buy nothing.)",
   },
+  "db:load:tr-announced-acts:pg": {
+    axes: ["uncommitted-input"],
+    ranBy:
+      "pnpm run tr:daily-refresh (last link; docs/plans/tr-gfo-ingest-v1.md Phase 0)",
+    reason:
+      "reads the gitignored TR daily feed archive (raw_data/tr/daily, ~16 GB) and the gitignored raw_data/tr/cr_deeds.sqlite capture — both absent on a fresh clone.",
+  },
   "db:load:company-founded:pg": {
     axes: ["uncommitted-input"],
     ranBy: "the founding-date ingest, by hand (CLAUDE.md, CR Deeds section)",
