@@ -84,6 +84,11 @@ const MEASURED: Record<string, Measured> = {
   "tr_officers.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "tr_person_roles.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "tender_search_text.fold": { bg: 0, extraPct: 0, extraFloor: 0 },
+  // GENERATED from translit_bg_latin() like price_products.title_fold (207, 209).
+  // Measured 2026-11-24 on a partial crawl: 3 of 1,101 requests quote pre-reform
+  // spelling — ѣ and ѫ, which the function does not map.
+  "zdoi_request.search_fold": { bg: 0, extraPct: 0.272, extraFloor: 3 },
+  "budget_spending_decree.search_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
 };
 /** Headroom over the measured rate. Ordinary ingestion adds rows at roughly the rate
  *  already there, so 30% absorbs corpus churn while still catching a fold that started
@@ -353,6 +358,8 @@ const EXPECT_STALE: Record<string, boolean> = {
   "tr_officers.name_fold": false,
   "tr_person_roles.name_fold": false,
   "tender_search_text.fold": false,
+  "zdoi_request.search_fold": false,
+  "budget_spending_decree.search_fold": false,
 };
 test.skipIf(skip)(
   "stored folds agree with the installed function — or are recorded as not yet rewritten",
