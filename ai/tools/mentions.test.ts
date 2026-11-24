@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mentionsTerm, termVariants } from "./mentions";
+import { clipToMatch, mentionsTerm, termVariants } from "./mentions";
 import { nameResembles } from "./fiscal";
 
 describe("mentionsTerm", () => {
@@ -39,5 +39,35 @@ describe("nameResembles", () => {
   });
   it("INSAIT is not Инсас ООД", () => {
     expect(nameResembles("Инсас ООД", "INSAIT")).toBe(false);
+  });
+});
+
+describe("clipToMatch", () => {
+  const terms = ["INSAIT", "ИНИОКН"];
+  it("keeps a name that sits past the cut visible", () => {
+    const title =
+      "Покана 44.1: „Периодична доставка и монтаж на мебели за нуждите на учебни сгради и бази към Софийски университет „Св. Климент Охридски” - ИНИОКН";
+    const out = clipToMatch(title, terms, 100);
+    expect(out).toContain("ИНИОКН");
+    expect(out.startsWith("Покана 44.1")).toBe(true);
+    expect(out).toContain(" … ");
+    expect(out.length).toBeLessThanOrEqual(130);
+  });
+  it("shows the INSAIT clause at the end of a long ЗДОИ subject", () => {
+    const subject =
+      "Aвтоматизацията на дейности в Министерството на иновациите и растежа (МИР) и на Информационната система за управление и наблюдение на средствата от ЕС в България 2020 (ИСУН 2020), извършвана съвместно с ИНСАИТ (INSAIT)";
+    expect(clipToMatch(subject, terms, 140)).toMatch(
+      /съвместно с ИНСАИТ \(INSAIT\)$/,
+    );
+  });
+  it("cuts as before when the name is already inside the cut, or absent", () => {
+    const early = "Доставка за INSAIT " + "x".repeat(200);
+    expect(clipToMatch(early, terms, 50)).toBe(early.slice(0, 49) + "…");
+    const none = "y".repeat(200);
+    expect(clipToMatch(none, terms, 50)).toBe(none.slice(0, 49) + "…");
+  });
+  it("needs the whole word, as the search does", () => {
+    const t = "z ".repeat(80) + "INSAS програма";
+    expect(clipToMatch(t, ["INSAIT"], 60)).not.toContain("INSAS");
   });
 });

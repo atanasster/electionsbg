@@ -353,6 +353,13 @@ describe("entityMentions — INSAIT", () => {
     expect(String(env.facts?.appropriations_note)).toMatch(/не е преведено/);
   });
 
+  it("states the authorised totals in the summary line, labelled as not paid out", async () => {
+    const { env } = await run("INSAIT");
+    expect(env.subtitle).toMatch(/заложени по закон 3[,.]5 млн € \(2026\)/);
+    expect(env.subtitle).toMatch(/по ПМС 4 млн €/);
+    expect(env.subtitle).toMatch(/одобрени, не преведени/);
+  });
+
   const withAppropriations = (body: unknown) => {
     mockRoutes();
     const inner = vi.mocked(fetchDb).getMockImplementation()!;
@@ -421,6 +428,7 @@ describe("entityMentions — INSAIT", () => {
       /няма данни, а не „няма средства“/,
     );
     expect(String(env.facts?.coverage_note)).not.toMatch(/ПМС/);
+    expect(env.subtitle).toMatch(/поименните средства не можаха да се заредят/);
   });
 
   it("asks for no appropriations when the entity has none curated", async () => {

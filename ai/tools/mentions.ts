@@ -97,6 +97,7 @@ type ZdoiHit = {
   status: string;
   submittedOn: string | null;
   subjectExcerpt: string;
+  decisionExcerpt: string | null;
 };
 type ZdoiCoverage = {
   requests: number;
@@ -197,6 +198,48 @@ export const mentionsTerm = (text: string, term: string): boolean => {
   for (let i = 0; i + t.length <= w.length; i++)
     if (t.every((tw, j) => same(tw, w[i + j]))) return true;
   return false;
+};
+
+/** Where `term` first occurs in `text` as whole words — the same rule as
+ *  mentionsTerm — as [start, end) character offsets into the ORIGINAL text. */
+export const termSpan = (
+  text: string,
+  term: string,
+): [number, number] | null => {
+  const t = words(term);
+  if (!t.length) return null;
+  const tokens = [...text.matchAll(/[\p{L}\p{N}]+/gu)].map((m) => ({
+    key: words(m[0]).join(""),
+    start: m.index,
+    end: m.index + m[0].length,
+  }));
+  const same = (tw: string, ww: string) =>
+    tw === ww ||
+    (tw.length >= 5 && ww.startsWith(tw) && ww.length - tw.length <= 3);
+  for (let i = 0; i + t.length <= tokens.length; i++)
+    if (t.every((tw, j) => same(tw, tokens[i + j].key)))
+      return [tokens[i].start, tokens[i + t.length - 1].end];
+  return null;
+};
+
+/** Cut `text` to about `n` characters, keeping the matched name visible: a row
+ *  that matched on its last words („… - ИНИОКН") must not show the reader a cut
+ *  that hides why it is there. Head, „…", then the words around the match. */
+export const clipToMatch = (text: string, terms: string[], n = 140): string => {
+  if (text.length <= n) return text;
+  const spans = terms
+    .map((t) => termSpan(text, t))
+    .filter((x): x is [number, number] => x != null)
+    .sort((a, b) => a[0] - b[0]);
+  const plain = text.slice(0, n - 1) + "…";
+  const [start, end] = spans[0] ?? [0, 0];
+  if (!spans.length || end <= n - 1) return plain;
+  const tailLen = Math.max(end - start + 40, 70);
+  const from = Math.max(0, Math.min(start - 20, text.length - tailLen));
+  const tail = text.slice(from, from + tailLen);
+  const headLen = Math.max(n - tail.length - 4, 20);
+  const head = text.slice(0, headLen).replace(/\s+\S*$/u, "");
+  return `${head} … ${from > 0 ? tail.replace(/^\S*\s+/u, "") : tail}${from + tailLen < text.length ? "…" : ""}`;
 };
 
 /** "INSAIT, ИНСАИТ" / "INSAIT или ИНСАИТ" → distinct spellings. Two spellings
@@ -582,8 +625,9 @@ export const entityMentions = async (
   };
   const rows: Row[] = [];
   const cellLinks: TableCellLink[] = [];
-  const clip = (s: string, n = 140) =>
-    s.length > n ? s.slice(0, n - 1) + "…" : s;
+  // Every name this answer searched for, so a cut never hides the one that matched.
+  const shownTerms = [...rest, ...aliases.flatMap((a) => a.matchTerms)];
+  const clip = (s: string, n = 140) => clipToMatch(s, shownTerms, n);
   const push = (r: Row, href?: string) => {
     rows.push(r);
     if (href && typeof r.subject === "string")
@@ -782,12 +826,19 @@ export const entityMentions = async (
     );
   // The body's own answer, quoted — not data we verified (207 rule 2); the page is
   // on the platform, so the link goes out to it.
+  // A request can match on its answer alone; then the row says so and shows the
+  // answer's words around the match, or it reads as unrelated to the search.
+  const inText = (s: string | null) =>
+    !!s && shownTerms.some((t) => termSpan(s, t) != null);
   for (const z of zdoi)
     push(
       {
         kind: kind.zdoi,
         date: (z.submittedOn ?? "").slice(0, 10) || "—",
-        subject: clip(z.subjectExcerpt),
+        subject:
+          !inText(z.subjectExcerpt) && inText(z.decisionExcerpt)
+            ? `${clip(z.subjectExcerpt, 70)} — ${bg ? "в отговора" : "in the answer"}: ${clip(z.decisionExcerpt!, 100)}`
+            : clip(z.subjectExcerpt),
         party: `${z.body} · ${z.status}`,
         amount: "—",
       },
@@ -932,6 +983,18 @@ export const entityMentions = async (
     subtitle += bg
       ? ` · договори общо ${fmtEurCompact(contractEur, ctx.lang)}`
       : ` · contracts total ${fmtEurCompact(contractEur, ctx.lang)}`;
+  // Money named by the law and decrees: the same figures as the facts (only
+  // appropriations, years named, „до" kept), and never presented as paid out.
+  const law = facts.budget_law_appropriated;
+  const byDecree = facts.decrees_authorised;
+  if (law || byDecree)
+    subtitle += bg
+      ? ` · ${[law && `заложени по закон ${law}`, byDecree && `по ПМС ${byDecree}`].filter(Boolean).join(", ")} (одобрени, не преведени)`
+      : ` · ${[law && `set by the budget law ${law}`, byDecree && `by decree ${byDecree}`].filter(Boolean).join(", ")} (authorised, not paid out)`;
+  else if (facts.appropriations_unavailable)
+    subtitle += bg
+      ? " · поименните средства не можаха да се заредят"
+      : " · the named state money could not be loaded";
   if (lookalikes.length)
     subtitle += bg
       ? `. Сходни, но различни имена не са включени: ${lookalikes.slice(0, 3).join(", ")}${lookalikes.length > 3 ? "…" : ""}`

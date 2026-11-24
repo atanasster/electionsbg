@@ -108,6 +108,34 @@ END $$;
 -- fold is checked again with the same rule `mentionsTerm` (ai/tools/mentions.ts)
 -- applies: the term's words in a row, a word of 5+ letters allowed up to 3 trailing
 -- letters (Bulgarian inflection). plpgsql for the same reason as zdoi_search.
+-- The excerpt (rule 3) is a window of `len` characters cut AROUND the words that
+-- matched, so an answer can show why a request is there; `left(t, len)` hides a
+-- match that sits later in the text. Windows overlap by half, so a match up to
+-- len/2 long always falls whole inside one. A cut start is marked „…".
+CREATE OR REPLACE FUNCTION zdoi_match_excerpt(t text, pat text, len integer DEFAULT 300)
+RETURNS text
+LANGUAGE plpgsql IMMUTABLE PARALLEL SAFE AS $$
+DECLARE
+  i integer := 1;
+  n integer;
+BEGIN
+  IF t IS NULL THEN
+    RETURN NULL;
+  END IF;
+  n := length(t);
+  IF n <= len OR translit_bg_latin(left(t, len)) ~ pat
+     OR translit_bg_latin(t) !~ pat THEN
+    RETURN left(t, len);
+  END IF;
+  WHILE i <= n LOOP
+    IF translit_bg_latin(substr(t, i, len)) ~ pat THEN
+      RETURN '…' || substr(t, i, len);
+    END IF;
+    i := i + len / 2;
+  END LOOP;
+  RETURN left(t, len);
+END $$;
+
 CREATE OR REPLACE FUNCTION zdoi_mentions(q text, lim integer DEFAULT 20)
 RETURNS TABLE (
   app_id integer, reg_no text, body text, status text, submitted_on date,
@@ -131,7 +159,7 @@ BEGIN
   pat := '(^|[^a-z0-9])' || pat || '([^a-z0-9]|$)';
   RETURN QUERY
   SELECT r.app_id, r.reg_no, r.body, r.status, r.submitted_on, r.decision_date,
-         left(r.subject, 300), left(r.decision_text, 300),
+         zdoi_match_excerpt(r.subject, pat), zdoi_match_excerpt(r.decision_text, pat),
          cardinality(r.attachment_ids)
     FROM zdoi_request r
    WHERE to_tsvector('simple', r.search_fold) @@ fold_prefix_tsquery(q)
@@ -160,7 +188,7 @@ DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON zdoi_request, zdoi_event, zdoi_forward TO app_readonly;
     GRANT EXECUTE ON FUNCTION zdoi_search(text, integer), zdoi_mentions(text, integer),
-      zdoi_coverage() TO app_readonly;
+      zdoi_match_excerpt(text, text, integer), zdoi_coverage() TO app_readonly;
   ELSE
     RAISE WARNING 'app_readonly absent — 207 granted nothing';
   END IF;
