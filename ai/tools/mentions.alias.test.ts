@@ -1,0 +1,291 @@
+// The curated-entity path of entityMentions (docs/plans/insait-gap-v1.md §2).
+// The fixture mirrors what the live routes returned on 2026-11-24 for the three
+// queries a reader actually tried — „INSAIT", „ИНСАЙТ" and „INSAIT, ИНСАЙТ" —
+// and the assertion is that all three give the SAME, correct answer.
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { fetchData, fetchDb } from "./dataClient";
+import { ENTITY_ALIASES } from "./entityAliases";
+import { aliasMentioned, entityMentions, resolveAliases } from "./mentions";
+
+vi.mock("./dataClient", () => ({ fetchDb: vi.fn(), fetchData: vi.fn() }));
+afterEach(() => vi.resetAllMocks());
+
+const SU = 'Софийски университет "СВ.КЛИМЕНТ Охридски"';
+const insait = ENTITY_ALIASES.find((a) => a.id === "insait")!;
+
+const contract = (
+  key: string,
+  title: string,
+  awarderName: string,
+  amountEur: number,
+) => ({
+  key,
+  title,
+  date: "2025-09-26",
+  awarderName,
+  contractorName: "Доставчик ЕООД",
+  amountEur,
+});
+
+// What procurement-search returns per needle.
+const searchFor = (q: string) => {
+  if (q === "INSAIT")
+    return {
+      contracts: [
+        contract(
+          "c1",
+          "Доставка на сървъри за нуждите на Институт (INSAIT) към СУ",
+          SU,
+          1_760_378,
+        ),
+        // Names the institute, but another buyer — not INSAIT's purchase.
+        contract("c9", "Обучение по модели на INSAIT", "Община Пловдив", 9_000),
+      ],
+      tenders: [
+        {
+          unp: "u1",
+          subject: "Доставка на хардуер за INSAIT",
+          publicationDate: "2025-11-11",
+          buyerName: SU,
+          estimatedValueEur: 554_900,
+        },
+      ],
+      funds: [
+        {
+          contractNumber: "f1",
+          title: "Изчислителна инфраструктура за INSAIT",
+          beneficiaryEik: "000670680",
+          beneficiaryName: SU,
+          programName: "ПВУ",
+          totalEur: 2_000_000,
+        },
+        // An excluded "insight" firm's project — must never read as INSAIT's.
+        {
+          contractNumber: "f2",
+          title: "Дигитализация в ДАТА ИНСАИТ И БИЗНЕС",
+          beneficiaryEik: "203637591",
+          beneficiaryName: "ДАТА ИНСАИТ И БИЗНЕС",
+          programName: "ПКИП",
+          totalEur: 40_000,
+        },
+      ],
+      interreg: [
+        {
+          keepId: 77,
+          title: "Cross-border AI with INSAIT",
+          programmeBg: "Interreg RO-BG",
+          period: "2021-2027",
+          bgBudgetEur: 300_000,
+          partnerHit: "Община Русе",
+        },
+      ],
+      companies: [],
+    };
+  if (q === "ИНИОКН")
+    return {
+      contracts: [
+        contract(
+          "c2",
+          "Сървър за Института за научни изследвания в областта на компютърните науки (ИНИОКН)",
+          SU.toUpperCase(),
+          49_805,
+        ),
+      ],
+    };
+  if (q === "ИНСАЙТ")
+    return {
+      contracts: [
+        contract("c8", "Доставка на абокатери", "УМБАЛ Свети Георги", 4_500),
+      ],
+    };
+  return {};
+};
+
+const companiesFor = (global: string) =>
+  global === "INSAIT"
+    ? [
+        { uic: "203637591", name: "ДАТА ИНСАИТ И БИЗНЕС", legalForm: "EOOD" },
+        { uic: "131231159", name: "ИНСАИТ ИН", legalForm: "EOOD" },
+        // Not on the exclude list: only the verified-ЕИК rule keeps it out.
+        { uic: "111111111", name: "ИНСАИТ КОНСУЛТ", legalForm: "EOOD" },
+      ]
+    : global === "ИНСАЙТ"
+      ? [
+          { uic: "121396326", name: "АГЕНЦИЯ ИНСАЙТ", legalForm: "EOOD" },
+          {
+            uic: "207211849",
+            name: "ИНСАЙТ изследвания и образование",
+            legalForm: "FOUND",
+          },
+        ]
+      : [];
+
+const mockRoutes = () => {
+  vi.mocked(fetchData).mockResolvedValue(null);
+  vi.mocked(fetchDb).mockImplementation(
+    async (route: string, params?: Record<string, unknown>) => {
+      const p = params ?? {};
+      if (route === "procurement-search") return searchFor(String(p.q));
+      if (route === "agri-search")
+        return String(p.q) === "ИНСАЙТ"
+          ? [
+              {
+                eik: "205144615",
+                name: "ИНСАЙТ АГРО ООД",
+                oblast: "Стара Загора",
+                totalEur: 825_900,
+              },
+            ]
+          : String(p.q) === "INSAIT"
+            ? [
+                {
+                  eik: "222222222",
+                  name: "ИНСАИТ ФАРМ",
+                  oblast: "Плевен",
+                  totalEur: 120_000,
+                },
+              ]
+            : [];
+      if (route === "vote-item-search") return { items: [] };
+      if (route === "table") {
+        const req = JSON.parse(String(p.q));
+        if (req.resource === "companies")
+          return { rows: companiesFor(req.filters.global) };
+        return { rows: [] };
+      }
+      return {};
+    },
+  );
+};
+
+const ctx = { lang: "bg", election: "2026_04_19" } as const;
+
+describe("resolveAliases", () => {
+  it("resolves every spelling a reader used to the same entity", () => {
+    for (const v of ["INSAIT", "ИНСАИТ", "ИНСАЙТ", "insait", "ИНИОКН"])
+      expect(resolveAliases([v]).aliases.map((a) => a.id)).toEqual(["insait"]);
+  });
+  it("resolves once for several spellings and keeps other names plain", () => {
+    expect(resolveAliases(["INSAIT", "ИНСАЙТ", "Google"])).toEqual({
+      aliases: [insait],
+      rest: ["Google"],
+    });
+  });
+  it("does not resolve a longer name that merely contains the word", () => {
+    expect(resolveAliases(["АГЕНЦИЯ ИНСАЙТ"]).aliases).toEqual([]);
+  });
+});
+
+describe("aliasMentioned", () => {
+  it("needs the institute named AND the parent as buyer for procurement", () => {
+    expect(aliasMentioned(insait, "Хардуер за INSAIT", SU)).toBe(true);
+    expect(aliasMentioned(insait, "Хардуер за INSAIT", "Община Пловдив")).toBe(
+      false,
+    );
+    expect(aliasMentioned(insait, "Хардуер за INSAIT", null)).toBe(false);
+  });
+  it("never treats the word „инсайт“ as the institute", () => {
+    expect(aliasMentioned(insait, "ИНСАЙТ АГРО ООД")).toBe(false);
+    expect(aliasMentioned(insait, "ДАТА ИНСАИТ И БИЗНЕС")).toBe(true); // a name match…
+  });
+});
+
+describe("entityMentions — INSAIT", () => {
+  const run = async (term: string) => {
+    mockRoutes();
+    const env = await entityMentions({ term }, ctx);
+    const rows = (env.rows ?? []) as Record<string, string>[];
+    return { env, subjects: rows.map((r) => r.subject) };
+  };
+
+  it.each(["INSAIT", "ИНСАЙТ", "INSAIT, ИНСАЙТ"])(
+    "„%s“ gives the same correct answer",
+    async (term) => {
+      const { env, subjects } = await run(term);
+      // the institute's purchases, including the old-acronym one
+      expect(subjects.some((s) => s.includes("(INSAIT) към СУ"))).toBe(true);
+      expect(subjects.some((s) => s.includes("ИНИОКН"))).toBe(true);
+      expect(
+        subjects.some((s) => s.includes("Доставка на хардуер за INSAIT")),
+      ).toBe(true);
+      // the foundation, by verified ЕИК
+      expect(subjects).toContain("ИНСАЙТ изследвания и образование");
+      // …and none of the noise
+      // its parent's EU-funds project that names it
+      expect(subjects).toContain("Изчислителна инфраструктура за INSAIT");
+      // These are all returned by the INSAIT-needle searches above, so they reach
+      // the filter: a firm, a beneficiary or a subsidy recipient is never INSAIT
+      // on a name match, and a title naming it under another buyer is not its.
+      for (const noise of [
+        "ДАТА ИНСАИТ И БИЗНЕС",
+        "ИНСАИТ ИН",
+        "ИНСАИТ КОНСУЛТ",
+        "ИНСАИТ ФАРМ",
+        "Дигитализация в ДАТА ИНСАИТ И БИЗНЕС",
+        "Cross-border AI with INSAIT",
+        "Обучение по модели на INSAIT",
+      ])
+        expect(subjects).not.toContain(noise);
+      expect(env.facts?.resolved_entity).toMatch(/000670680/);
+      expect(env.facts?.farm_subsidy_recipients).toBe(0);
+    },
+  );
+
+  it("names the excluded „insight“ firms instead of dropping them silently", async () => {
+    const { env } = await run("INSAIT");
+    expect(String(env.facts?.similar_names_not_included)).toMatch(
+      /ДАТА ИНСАИТ И БИЗНЕС/,
+    );
+  });
+});
+
+describe("entityMentions — without the alias entry", () => {
+  // Mutation check: the „ИНСАЙТ" fixtures above are only reachable when the
+  // spelling is NOT resolved. Removing the entry must bring the noise back —
+  // otherwise the INSAIT assertions could pass for a reason other than the alias.
+  it("„ИНСАЙТ“ falls back to a plain name search full of look-alikes", async () => {
+    const i = ENTITY_ALIASES.indexOf(insait);
+    ENTITY_ALIASES.splice(i, 1);
+    try {
+      mockRoutes();
+      const env = await entityMentions({ term: "ИНСАЙТ" }, ctx);
+      const subjects = (env.rows ?? []).map((r) => r.subject);
+      expect(subjects).toContain("АГЕНЦИЯ ИНСАЙТ");
+      expect(subjects).toContain("ИНСАЙТ АГРО ООД");
+      expect(subjects.some((s) => String(s).includes("INSAIT"))).toBe(false);
+    } finally {
+      ENTITY_ALIASES.splice(i, 0, insait);
+    }
+  });
+});
+
+describe("entityMentions — plain names", () => {
+  it("caps organisations AFTER the word check, so look-alikes cannot crowd out a match", async () => {
+    vi.mocked(fetchData).mockResolvedValue(null);
+    const noise = Array.from({ length: 30 }, (_, i) => ({
+      uic: String(100000000 + i),
+      name: `АА Фирма ${i}`,
+      legalForm: "EOOD",
+    }));
+    vi.mocked(fetchDb).mockImplementation(
+      async (route: string, params?: Record<string, unknown>) => {
+        if (route === "table") {
+          const req = JSON.parse(String(params?.q));
+          if (req.resource === "companies")
+            return {
+              rows: [
+                ...noise,
+                { uic: "999999999", name: "Зебра Медия", legalForm: "OOD" },
+              ].slice(0, req.pageSize),
+            };
+          return { rows: [] };
+        }
+        if (route === "vote-item-search") return { items: [] };
+        if (route === "agri-search") return [];
+        return {};
+      },
+    );
+    const env = await entityMentions({ term: "Зебра Медия" }, ctx);
+    expect((env.rows ?? []).map((r) => r.subject)).toEqual(["Зебра Медия"]);
+  });
+});

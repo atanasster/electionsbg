@@ -13,6 +13,7 @@
 // entity (name match ≠ identity).
 
 import { fetchData, fetchDb } from "./dataClient";
+import { ENTITY_ALIASES, type EntityAlias } from "./entityAliases";
 import { fmtEurCompact, fmtInt } from "./format";
 import { translitKey } from "./translit";
 import type {
@@ -109,6 +110,11 @@ type Film = {
 };
 
 const LIMIT = 20;
+// The companies resource is sorted by NAME, so a 20-row page fills alphabetically with
+// look-alikes before the real entity: „ИНСАЙТ изследвания и образование" sorted after 20
+// "insight" firms and was never shown. Fetch the resource's whole page (its maxPageSize)
+// and cap AFTER the word check, so only real matches compete for the 20 slots.
+const COMPANY_PAGE = 50;
 const PROVENANCE = [
   "db:procurement-search",
   "db:table/companies",
@@ -175,6 +181,39 @@ export const termVariants = (raw: string): string[] => {
   });
 };
 
+const wordKey = (s: string): string => words(s).join(" ");
+
+/** Split the reader's spellings into curated entities (entityAliases.ts) and plain
+ *  names. A spelling resolves only when it equals a trigger word for word. */
+export const resolveAliases = (
+  variants: string[],
+): { aliases: EntityAlias[]; rest: string[] } => {
+  const aliases: EntityAlias[] = [];
+  const rest: string[] = [];
+  for (const v of variants) {
+    const k = wordKey(v);
+    const a = ENTITY_ALIASES.find((e) =>
+      e.triggers.some((t) => wordKey(t) === k),
+    );
+    if (!a) rest.push(v);
+    else if (!aliases.includes(a)) aliases.push(a);
+  }
+  return { aliases, rest };
+};
+
+/** Does `text` name the curated entity? With `buyer`, the parent must ALSO be the
+ *  buyer — a procurement title naming the institute under some other buyer is a
+ *  different thing (and the parent is the only body that buys for it). */
+export const aliasMentioned = (
+  a: EntityAlias,
+  text: string | null | undefined,
+  buyer?: string | null,
+): boolean => {
+  if (!text || !a.matchTerms.some((t) => mentionsTerm(text, t))) return false;
+  if (buyer === undefined) return true;
+  return !!buyer && a.parent.names.some((n) => mentionsTerm(buyer, n));
+};
+
 const settledOr = async <T>(p: Promise<T>, fallback: T): Promise<T> => {
   try {
     return await p;
@@ -191,6 +230,11 @@ export const entityMentions = async (
   const raw = String(args.term ?? args.company ?? "").trim();
   const variants = termVariants(raw);
   const label = variants.join(" / ") || raw;
+  const { aliases, rest } = resolveAliases(variants);
+  // One search per plain spelling plus each curated entity's own search terms.
+  const queries = [...rest, ...aliases.flatMap((a) => a.searchTerms)].filter(
+    (q, i, arr) => arr.findIndex((x) => wordKey(x) === wordKey(q)) === i,
+  );
 
   if (!variants.length)
     return {
@@ -207,7 +251,7 @@ export const entityMentions = async (
     };
 
   const per = await Promise.all(
-    variants.map(async (v) => {
+    queries.map(async (v) => {
       const [search, companies, votes, kzk, calls, agri] = await Promise.all([
         settledOr(
           fetchDb<SearchBody>("procurement-search", { q: v, limit: LIMIT }),
@@ -218,7 +262,7 @@ export const entityMentions = async (
             q: JSON.stringify({
               resource: "companies",
               page: 0,
-              pageSize: LIMIT,
+              pageSize: COMPANY_PAGE,
               sort: [
                 { id: "name", desc: false },
                 { id: "uic", desc: false },
@@ -265,8 +309,26 @@ export const entityMentions = async (
     null,
   );
 
+  const plainHit = (text: string | null | undefined) =>
+    !!text && rest.some((v) => mentionsTerm(text, v));
+  // Records that only MENTION a subject (votes, calls, appeal subjects) may match a
+  // curated entity by name. Records that ARE a party — a firm, a beneficiary, a
+  // subsidy recipient — never do: for those the entity contributes only its
+  // verified ЕИКs, or its name under the parent as the party (name match ≠ identity).
   const hit = (text: string | null | undefined) =>
-    !!text && variants.some((v) => mentionsTerm(text, v));
+    plainHit(text) || aliases.some((a) => aliasMentioned(a, text));
+  // A curated entity counts only where its parent is the buyer / beneficiary.
+  const procHit = (
+    text: string | null | undefined,
+    buyer: string | null | undefined,
+  ) =>
+    plainHit(text) ||
+    aliases.some((a) => aliasMentioned(a, text, buyer ?? null));
+  const aliasOrgs = aliases.flatMap((a) => a.organisations);
+  const aliasEiks = new Set(aliasOrgs.map((o) => o.eik));
+  const excludedEiks = new Set(aliases.flatMap((a) => a.excludeEiks));
+  const keepCompany = (eik: string, name: string) =>
+    !excludedEiks.has(eik) && (aliasEiks.has(eik) || plainHit(name));
 
   // Dedup across variants by each corpus's own key.
   const byKey = <T>(items: T[], key: (t: T) => string): T[] => {
@@ -330,18 +392,48 @@ export const entityMentions = async (
     (v) => String(v.itemId),
   );
 
-  const contracts = contractsAll.filter((c) => hit(c.title));
-  const tenders = tendersAll.filter((t) => hit(t.subject));
-  const funds = fundsAll.filter((f) => hit(f.title) || hit(f.beneficiaryName));
-  const interreg = interregAll.filter((o) => hit(o.title) || hit(o.partnerHit));
-  const companies = companiesAll.filter((c) => hit(c.name));
-  const awarders = awardersAll.filter((a) => hit(a.name));
+  const contracts = contractsAll.filter((c) => procHit(c.title, c.awarderName));
+  const tenders = tendersAll.filter((t) => procHit(t.subject, t.buyerName));
+  const funds = fundsAll.filter(
+    (f) =>
+      !(f.beneficiaryEik && excludedEiks.has(f.beneficiaryEik)) &&
+      (plainHit(f.beneficiaryName) ||
+        procHit(f.title, f.beneficiaryName) ||
+        (!!f.beneficiaryEik && aliasEiks.has(f.beneficiaryEik))),
+  );
+  const interreg = interregAll.filter(
+    (o) => plainHit(o.partnerHit) || procHit(o.title, o.partnerHit),
+  );
+  // A curated entity's verified organisations lead, whether or not the name search
+  // surfaced them; then the word-checked registry hits, capped to the preview size.
+  const companies = [
+    ...aliases.flatMap((a) =>
+      a.organisations.map((o) => ({
+        eik: o.eik,
+        name: o.name,
+        form: (ctx.lang === "bg" ? o.role.bg : o.role.en) as
+          | string
+          | null
+          | undefined,
+      })),
+    ),
+    ...companiesAll.filter(
+      (c) => !aliasEiks.has(c.eik) && keepCompany(c.eik, c.name),
+    ),
+  ].slice(0, Math.max(LIMIT, aliasOrgs.length));
+  const awarders = awardersAll.filter((a) => plainHit(a.name));
   const votes = votesAll.filter((v) => hit(v.title));
   const appeals = kzkAll.filter(
-    (k) => hit(k.subject) || hit(k.complainant) || hit(k.buyerName),
+    (k) =>
+      procHit(k.subject, k.buyerName) ||
+      plainHit(k.complainant) ||
+      plainHit(k.buyerName),
   );
   const calls = callsAll.filter((c) => hit(c.title) || hit(c.programmeName));
-  const agri = agriAll.filter((a) => hit(a.name));
+  const agri = agriAll.filter(
+    (a) =>
+      !excludedEiks.has(a.eik) && (aliasEiks.has(a.eik) || plainHit(a.name)),
+  );
   const films = (filmsFile?.films ?? []).filter(
     (f) => hit(f.title) || hit(f.producer),
   );
@@ -349,12 +441,14 @@ export const entityMentions = async (
   // Look-alikes the fuzzy search offered and the word check refused — named so
   // a reader sees they were considered and deliberately left out.
   const lookalikes = [
-    ...companiesAll.filter((c) => !hit(c.name)).map((c) => c.name),
-    ...awardersAll.filter((a) => !hit(a.name)).map((a) => a.name),
+    ...companiesAll
+      .filter((c) => !keepCompany(c.eik, c.name))
+      .map((c) => c.name),
+    ...awardersAll.filter((a) => !awarders.includes(a)).map((a) => a.name),
     ...fundsAll
-      .filter((f) => !hit(f.title) && !hit(f.beneficiaryName))
+      .filter((f) => !funds.includes(f))
       .map((f) => f.beneficiaryName ?? f.title),
-    ...agriAll.filter((a) => !hit(a.name)).map((a) => a.name),
+    ...agriAll.filter((a) => !agri.includes(a)).map((a) => a.name),
   ].filter((n, i, arr) => n && arr.indexOf(n) === i);
 
   // A capped preview means there may be more than we show; the route counts the
@@ -562,6 +656,14 @@ export const entityMentions = async (
     funding_calls: calls.length,
     similar_names_excluded: lookalikes.length,
   };
+  if (aliases.length)
+    facts.resolved_entity = aliases
+      .map((a) =>
+        bg
+          ? `${a.name.bg}: няма собствен ЕИК — договори и поръчки само с възложител ${a.parent.names.join("/")} (ЕИК ${a.parent.eik}), организации по проверен ЕИК`
+          : `${a.name.en}: no ЕИК of its own — contracts and tenders only where ${a.parent.names.join("/")} (ЕИК ${a.parent.eik}) is the buyer; organisations by verified ЕИК`,
+      )
+      .join("; ");
   if (lookalikes.length)
     facts.similar_names_not_included = lookalikes.slice(0, 6).join("; ");
   if (cappedContracts) facts.contracts_matching_search_up_to = contractsUpTo;
@@ -616,6 +718,12 @@ export const entityMentions = async (
     add(votes.length, "vote", "votes");
   }
   let subtitle = parts.join(" · ");
+  if (aliases.length)
+    subtitle =
+      (bg
+        ? `${aliases.map((a) => a.name.bg).join("; ")}. Звено без собствен ЕИК — показани са договорите и поръчките на ${aliases.map((a) => a.parent.names.join("/")).join(", ")} за него. `
+        : `${aliases.map((a) => a.name.en).join("; ")}. A unit with no ЕИК of its own — showing ${aliases.map((a) => a.parent.names.join("/")).join(", ")}'s contracts and tenders for it. `) +
+      subtitle;
   if (contracts.length)
     subtitle += bg
       ? ` · договори общо ${fmtEurCompact(contractEur, ctx.lang)}`
