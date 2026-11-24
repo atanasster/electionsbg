@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-22T17:33:51.175Z",
-  "lastIngest": "2026-11-22T17:33:51.175Z",
+  "generatedAt": "2026-11-23T23:26:45.841Z",
+  "lastIngest": "2026-11-23T23:26:45.841Z",
   "years": [
     "2011",
     "2012",
@@ -213,12 +213,12 @@
     "2026-11"
   ],
   "totals": {
-    "contracts": 420196,
+    "contracts": 420207,
     "awards": 0,
-    "amendments": 8014,
+    "amendments": 8077,
     "contractorCount": 30404,
-    "awarderCount": 4438,
-    "totalEur": 102505293068.4,
+    "awarderCount": 4440,
+    "totalEur": 102504446069.55,
     "totalOther": {
       "USD": 44823273.410000004,
       "CHF": 12910211.63,
@@ -229,6 +229,31 @@
     }
   },
   "periods": [
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-22",
+      "periodEnd": "2026-11-22"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-21",
+      "periodEnd": "2026-11-21"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-20",
+      "periodEnd": "2026-11-20"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-19",
+      "periodEnd": "2026-11-19"
+    },
+    {
+      "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
+      "periodStart": "2026-11-18",
+      "periodEnd": "2026-11-18"
+    },
     {
       "bundleUuid": "c8d1d80f-dc17-4107-9302-d34483d96717",
       "periodStart": "2026-11-17",
@@ -1086,18 +1111,18 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-11-22T17:33:51.173Z",
-    "mpCount": 109,
-    "contractorCount": 109,
-    "pairCount": 121,
-    "totalPerPairEur": 2780870655.14,
+    "generatedAt": "2026-11-23T23:26:45.839Z",
+    "mpCount": 112,
+    "contractorCount": 111,
+    "pairCount": 124,
+    "totalPerPairEur": 2791329293.81,
     "totalOtherPerPair": {}
   },
   "officialsCrossReference": {
-    "generatedAt": "2026-11-22T17:33:33.915Z",
-    "officialCount": 833,
-    "contractorCount": 464,
-    "pairCount": 909,
-    "totalPerCompanyEur": 6835880124.77
+    "generatedAt": "2026-11-23T23:26:30.480Z",
+    "officialCount": 836,
+    "contractorCount": 465,
+    "pairCount": 912,
+    "totalPerCompanyEur": 6836106404.38
   }
 }

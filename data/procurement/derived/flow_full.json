@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T17:33:39.746Z",
+  "generatedAt": "2026-11-23T23:26:34.980Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -3649,7 +3649,7 @@
     {
       "id": "awarder:107507217",
       "type": "awarder",
-      "label": "Многопрофилна болница за активно лечение \"Д-Р тота Венкова\" АД"
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р ТОТА ВЕНКОВА\" АД"
     },
     {
       "id": "awarder:107507982",
@@ -6367,6 +6367,11 @@
       "label": "Андрей Николаев Михайлов"
     },
     {
+      "id": "mp:5202",
+      "type": "mp",
+      "label": "Джипо Николов Джипов"
+    },
+    {
       "id": "mp:1618",
       "type": "mp",
       "label": "Митко Живков Захов"
@@ -6602,6 +6607,16 @@
       "label": "Иво Севдалинов Цанев"
     },
     {
+      "id": "contractor:107558642",
+      "type": "contractor",
+      "label": "ОФИС-ПРИНТ СЕРВИЗ ЕООД"
+    },
+    {
+      "id": "mp:3241",
+      "type": "mp",
+      "label": "Николай Цветанов Сираков"
+    },
+    {
       "id": "contractor:204770025",
       "type": "contractor",
       "label": "Полихронов мотърс ООД"
@@ -6715,6 +6730,16 @@
       "id": "mp:2727",
       "type": "mp",
       "label": "Светла Маринова Бъчварова-Пиралкова"
+    },
+    {
+      "id": "contractor:200502607",
+      "type": "contractor",
+      "label": "ДЖЕНИ СПОРТ ЕООД"
+    },
+    {
+      "id": "mp:4925",
+      "type": "mp",
+      "label": "Мюмюн Сали Мюмюн"
     },
     {
       "id": "mp:594",
@@ -9767,6 +9792,11 @@
       "label": "Иванка Петрова Кусева"
     },
     {
+      "id": "official:nikolai-tsvetanov-sirakov-435a77",
+      "type": "official",
+      "label": "Николай Цветанов Сираков"
+    },
+    {
       "id": "official:mariya-tsetskova-todorova-ba60a7",
       "type": "official",
       "label": "Мария Цецкова Тодорова"
@@ -11382,6 +11412,11 @@
       "label": "Калин Ангелов Каменов"
     },
     {
+      "id": "official:madlena-tsvetanova-boyadzhieva-nicheva-26f6a1",
+      "type": "official",
+      "label": "Мадлена Цветанова Бояджиева-Ничева"
+    },
+    {
       "id": "official:merdin-mustafa-bairyam-383040",
       "type": "official",
       "label": "Мердин Мустафа Байрям"
@@ -12032,6 +12067,11 @@
       "label": "Цветан Петров Ценков"
     },
     {
+      "id": "official:yanka-stoyanova-gospodinova-079ea0",
+      "type": "official",
+      "label": "Янка Стоянова Господинова"
+    },
+    {
       "id": "contractor:106617792",
       "type": "contractor",
       "label": "КСВ ЕООД"
@@ -12117,6 +12157,16 @@
       "label": "Пламен Иванов Данаилов"
     },
     {
+      "id": "awarder:000133673",
+      "type": "awarder",
+      "label": "Община Горна оряховица"
+    },
+    {
+      "id": "awarder:000210319",
+      "type": "awarder",
+      "label": "Технически университет /ТУ/ - Габрово"
+    },
+    {
       "id": "awarder:000903946",
       "type": "awarder",
       "label": "Община Хасково"
@@ -12135,6 +12185,11 @@
       "id": "awarder:000472182",
       "type": "awarder",
       "label": "Община Марица, област Пловдив"
+    },
+    {
+      "id": "awarder:000291591",
+      "type": "awarder",
+      "label": "Община Ловеч"
     },
     {
       "id": "awarder:000530657",
@@ -12180,11 +12235,6 @@
       "id": "awarder:000931511",
       "type": "awarder",
       "label": "Община Каспичан"
-    },
-    {
-      "id": "awarder:000291591",
-      "type": "awarder",
-      "label": "Община Ловеч"
     },
     {
       "id": "awarder:000017149",
@@ -12240,11 +12290,6 @@
       "id": "awarder:000565380",
       "type": "awarder",
       "label": "Община Главиница"
-    },
-    {
-      "id": "awarder:000133673",
-      "type": "awarder",
-      "label": "Община Горна оряховица"
     },
     {
       "id": "awarder:000505821",
@@ -21039,6 +21084,11 @@
       "valueEur": 10136923.36
     },
     {
+      "source": "contractor:116011316",
+      "target": "mp:5202",
+      "valueEur": 10136923.36
+    },
+    {
       "source": "contractor:101732851",
       "target": "mp:1618",
       "valueEur": 8261199.47
@@ -21254,6 +21304,11 @@
       "valueEur": 266429.08
     },
     {
+      "source": "contractor:107558642",
+      "target": "mp:3241",
+      "valueEur": 226279.61
+    },
+    {
       "source": "contractor:836163459",
       "target": "mp:3067",
       "valueEur": 213929.14
@@ -21332,6 +21387,11 @@
       "source": "contractor:200810344",
       "target": "mp:2727",
       "valueEur": 97247.71
+    },
+    {
+      "source": "contractor:200502607",
+      "target": "mp:4925",
+      "valueEur": 95435.7
     },
     {
       "source": "contractor:121243960",
@@ -24354,6 +24414,11 @@
       "valueEur": 227271.79
     },
     {
+      "source": "contractor:107558642",
+      "target": "official:nikolai-tsvetanov-sirakov-435a77",
+      "valueEur": 226279.61
+    },
+    {
       "source": "contractor:206744755",
       "target": "official:mariya-tsetskova-todorova-ba60a7",
       "valueEur": 225871.13
@@ -25625,6 +25690,11 @@
     },
     {
       "source": "contractor:121399226",
+      "target": "official:madlena-tsvetanova-boyadzhieva-nicheva-26f6a1",
+      "valueEur": 16616.99
+    },
+    {
+      "source": "contractor:121399226",
       "target": "official:merdin-mustafa-bairyam-383040",
       "valueEur": 16616.99
     },
@@ -26009,6 +26079,11 @@
       "valueEur": 1012.36
     },
     {
+      "source": "contractor:114107675",
+      "target": "official:yanka-stoyanova-gospodinova-079ea0",
+      "valueEur": 1012.36
+    },
+    {
       "source": "contractor:106617792",
       "target": "official:yuliyan-todorov-dimitrov-b63871",
       "valueEur": 1002.13
@@ -26114,6 +26189,31 @@
       "valueEur": 2086.07
     },
     {
+      "source": "awarder:000133673",
+      "target": "contractor:107558642",
+      "valueEur": 87562.42
+    },
+    {
+      "source": "awarder:000215630",
+      "target": "contractor:107558642",
+      "valueEur": 62857.23
+    },
+    {
+      "source": "awarder:107507217",
+      "target": "contractor:107558642",
+      "valueEur": 24882.6
+    },
+    {
+      "source": "awarder:000133965",
+      "target": "contractor:107558642",
+      "valueEur": 19629.9
+    },
+    {
+      "source": "awarder:000210319",
+      "target": "contractor:107558642",
+      "valueEur": 14674.08
+    },
+    {
       "source": "awarder:000903825",
       "target": "contractor:204770025",
       "valueEur": 156344.11
@@ -26187,6 +26287,16 @@
       "source": "awarder:000057179",
       "target": "contractor:202388240",
       "valueEur": 100913.38
+    },
+    {
+      "source": "awarder:123531939",
+      "target": "contractor:200502607",
+      "valueEur": 85897.04
+    },
+    {
+      "source": "awarder:000291591",
+      "target": "contractor:200502607",
+      "valueEur": 9538.66
     },
     {
       "source": "awarder:833017552",

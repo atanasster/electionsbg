@@ -1,9 +1,9 @@
 {
-  "computedAt": "2026-11-23T22:56:54.995Z",
+  "computedAt": "2026-11-23T23:55:42.905Z",
   "tiles": {
     "procurement": {
       "kind": "eur",
-      "value": 102216860086,
+      "value": 102216013087,
       "basis": "contracts"
     },
     "sectors": {
@@ -50,7 +50,7 @@
     },
     "connections": {
       "kind": "count",
-      "value": 211916,
+      "value": 211917,
       "basis": "edges"
     }
   },
@@ -131,7 +131,7 @@
   "coverage": [
     {
       "id": "contracts",
-      "value": 431031,
+      "value": 431105,
       "to": "/procurement/contracts?pscope=all"
     },
     {
