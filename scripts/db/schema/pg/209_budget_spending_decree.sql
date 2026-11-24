@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS budget_spending_decree (
   id_mat       integer PRIMARY KEY,               -- dv.parliament.bg material id
   decree_no    integer NOT NULL,
   decree_date  date    NOT NULL,
-  kind         text    NOT NULL CHECK (kind IN ('разходи', 'трансфери', 'разходи/трансфери')),
+  kind         text    NOT NULL CHECK (kind IN ('разходи', 'трансфери', 'разходи/трансфери', 'средства', 'плащания')),
   budget_of    text,                              -- „Министерството на енергетиката"
   budget_year  integer,
   title        text    NOT NULL,
@@ -29,6 +29,12 @@ CREATE TABLE IF NOT EXISTS budget_spending_decree (
   body         text    NOT NULL,                  -- the decree's text, as published
   search_fold  text GENERATED ALWAYS AS (translit_bg_latin(title || ' ' || body)) STORED
 );
+
+-- A warm database keeps the CHECK it was created with; restate it so a new kind
+-- reaches it (CREATE TABLE IF NOT EXISTS cannot).
+ALTER TABLE budget_spending_decree DROP CONSTRAINT IF EXISTS budget_spending_decree_kind_check;
+ALTER TABLE budget_spending_decree ADD CONSTRAINT budget_spending_decree_kind_check
+  CHECK (kind IN ('разходи', 'трансфери', 'разходи/трансфери', 'средства', 'плащания'));
 
 CREATE TABLE IF NOT EXISTS budget_spending_decree_clause (
   id_mat        integer NOT NULL REFERENCES budget_spending_decree (id_mat) ON DELETE CASCADE,

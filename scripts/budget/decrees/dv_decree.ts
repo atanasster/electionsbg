@@ -33,7 +33,7 @@ export type DecreeClause = {
 export type SpendingDecree = {
   number: number;
   date: string; // YYYY-MM-DD
-  kind: "разходи" | "трансфери" | "разходи/трансфери";
+  kind: DecreeKind;
   budgetOf: string | null; // „Министерството на енергетиката"
   budgetYear: number | null;
   clauses: DecreeClause[];
@@ -116,17 +116,42 @@ export const isSpendingDecree = (h: DvHeader): boolean =>
   /^Постановление №/.test(h.title) &&
   /(допълнителни|разходи|трансфер)/i.test(h.title);
 
+export const DECREE_KINDS = [
+  "разходи",
+  "трансфери",
+  "разходи/трансфери",
+  "средства",
+  "плащания",
+] as const;
+export type DecreeKind = (typeof DECREE_KINDS)[number];
+
+const decreeKind = (word: string): DecreeKind => {
+  const w = word.toLowerCase();
+  if (w === "разходи/трансфери") return "разходи/трансфери";
+  if (w.startsWith("трансфер")) return "трансфери";
+  if (w === "средства" || w === "плащания") return w;
+  return "разходи";
+};
+
 // The titles vary more than one pattern: „… допълнителни разходи по бюджета на X за 2026
 // г.", „… допълнителни трансфери за 2021 г. за финансово осигуряване на …", „…
 // допълнителен трансфер по бюджета на Община Добрич", „… допълнителни разходи/трансфери
 // от резерва по …". So the title is read in parts: the head is required, the budget and
 // the year are taken when present. A combined title („за определяне размера на … и за
 // одобряване на допълнителни разходи …") is one too, so the kind is looked for anywhere.
+// „Допълнителни средства" and „допълнителни плащания" are kinds of their own — never
+// filed under разходи or трансфери, which the decree does not say.
 const TITLE_HEAD = /^Постановление № (\d+) от (\d{1,2}) ([а-я]+) (\d{4}) г\./u;
 const TITLE_KIND =
-  /за одобряване на допълнител(?:ни|ен) (разходи\/трансфери|разходи|трансфери|трансфер)(?![\p{L}])/iu;
+  /за одобряване (?:на )?допълнител(?:ни|ен|но) (разходи\/трансфери|разходи|трансфери|трансфер|средства|плащания)(?![\p{L}])/iu;
+// An amendment cites the decree it amends — „за допълнение на Постановление № 304 … за
+// одобряване на допълнителни разходи" — so its title carries the kind without being one.
+const AMENDMENT = /^\s*за (?:изменение|допълнение)(?![\p{L}])/u;
+// Thousands are not always grouped („20 000000", „1908014", „4890"), the unit may be
+// scaled („37 млн. лв.", „800,0 хил. лв.") or unspaced („28 095 469лв."), and a total
+// may be „на обща стойност" instead of „в размер".
 const AMOUNT =
-  /в (общ )?размер(?: на)?( до)? (\d{1,3}(?: \d{3})*(?:,\d+)?) (лв|евро)\.?(?: \([^)]*\))?(?:,? (за [\s\S]+?)(?=\.\s*\(\d+\)|\.\s*\d+\.\s|\.\s*Чл\.|;\s|:\s|\.?$))?/;
+  /(?:в (общ )?размер(?: на)?|на обща стойност)( до)? (\d{1,3}(?:\s?\d{3})*(?:,\d+)?)\s?(?:(млн|хил)\.\s?)?(лв|евро)\.?(?: \([^)]*\))?(?:,? (за [\s\S]+?)(?=\.\s*\(\d+\)|\.\s*\d+\.\s|\.\s*Чл\.|;\s|:\s|\.?$))?/;
 
 /** The paragraphs that appropriate money: every „(n)" of every article (or the whole
  *  article when it has none) whose text starts with „Одобрява". */
@@ -151,7 +176,7 @@ export const parseSpendingDecree = (
 ): SpendingDecree | null => {
   const t = TITLE_HEAD.exec(header.title);
   const k = t && TITLE_KIND.exec(header.title);
-  if (!t || !k) return null;
+  if (!t || !k || AMENDMENT.test(header.title.slice(t[0].length))) return null;
   const rest = header.title.slice(k.index + k[0].length);
   const month = MONTHS[t[3].toLowerCase()];
   if (!month) throw new Error(`unknown month „${t[3]}" in „${header.title}"`);
@@ -167,8 +192,9 @@ export const parseSpendingDecree = (
     .map((p) => AMOUNT.exec(p))
     .filter((m): m is RegExpExecArray => m != null);
   const clauses: DecreeClause[] = totals.map((m, i) => {
-    const native = amount(m[3]);
-    const currency = m[4] === "евро" ? "EUR" : "BGN";
+    const scale = m[4] === "млн" ? 1e6 : m[4] === "хил" ? 1e3 : 1;
+    const native = Math.round(amount(m[3]) * scale * 100) / 100;
+    const currency = m[5] === "евро" ? "EUR" : "BGN";
     return {
       seq: i + 1,
       native,
@@ -178,17 +204,13 @@ export const parseSpendingDecree = (
           ? native
           : Math.round((native / BGN_PER_EUR) * 100) / 100,
       upTo: !!m[2],
-      purpose: m[5]?.replace(/[\s.]+$/, "") || null,
+      purpose: m[6]?.replace(/[\s.]+$/, "") || null,
     };
   });
   return {
     number: Number(t[1]),
     date: `${t[4]}-${String(month).padStart(2, "0")}-${t[2].padStart(2, "0")}`,
-    kind: /разходи\/трансфери/i.test(k[1])
-      ? "разходи/трансфери"
-      : /трансфер/i.test(k[1])
-        ? "трансфери"
-        : "разходи",
+    kind: decreeKind(k[1]),
     budgetOf: BUDGET_OF.exec(rest)?.[1] ?? null,
     budgetYear: Number(BUDGET_YEAR.exec(rest)?.[1]) || null,
     clauses,

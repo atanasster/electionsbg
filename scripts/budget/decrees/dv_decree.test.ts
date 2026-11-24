@@ -129,6 +129,29 @@ describe("parseSpendingDecree", () => {
     expect(d.clauses.map((c) => c.native)).toEqual([105_000_000]);
   });
 
+  it("reads a scaled ceiling — „в размер до 37 млн. лв.“", () => {
+    const d = parseSpendingDecree(page(162890), parseHeader(page(162890))!)!;
+    expect(d.clauses).toEqual([
+      expect.objectContaining({
+        native: 37_000_000,
+        currency: "BGN",
+        upTo: true,
+      }),
+    ]);
+  });
+
+  it("files „допълнителни плащания“ as its own kind, never as разходи", () => {
+    const d = parseSpendingDecree(page(175139), parseHeader(page(175139))!)!;
+    expect(d).toMatchObject({ number: 195, kind: "плащания" });
+    expect(d.clauses.map((c) => c.native)).toEqual([35_000_000]);
+  });
+
+  it("skips an amendment that only cites a spending decree in its title", () => {
+    expect(
+      parseSpendingDecree(page(165094), parseHeader(page(165094))!),
+    ).toBeNull();
+  });
+
   it("reads a combined title, with the money in a later article", () => {
     // ПМС 45/2021: „за определяне размера на … и за одобряване на допълнителни разходи"
     const d = parseSpendingDecree(page(155983), parseHeader(page(155983))!)!;
