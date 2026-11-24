@@ -104,6 +104,10 @@ functions/.secret.local
 # Re-fetch with `pnpm run comdos:crawl`; the parsed corpus under data/comdos/ is committed.
 /raw_data/comdos/
 
+# pitay.government.bg ЗДОИ crawl (insait-gap-v1 §3) — gzip'd pages, re-fetched with
+# `pnpm run zdoi:fetch`; the loader re-parses it into zdoi_request.
+/raw_data/zdoi/
+
 # Per-MP declaration XML cache from register.cacbg.bg. Re-fetched on demand by
 # `pnpm run data --declarations`. The processed JSON outputs under
 # public/parliament/declarations/ are committed; this raw cache is not.

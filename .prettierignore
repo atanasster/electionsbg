@@ -34,3 +34,6 @@ scripts/stats-briefing/doc.html
 
 # Generated from the pipeline registry (pnpm run pipeline:index); a reformat would make it stale
 docs/pipeline-handlers.md
+
+# Verbatim pages captured from pitay.government.bg — parser fixtures, must stay byte-exact
+scripts/zdoi/__fixtures__/

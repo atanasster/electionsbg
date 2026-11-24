@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="bg">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="https://pitay.government.bg/img/favicon.ico">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="25oTMFikdtGIgwvYQbKXZW0g32FmSoSkopHd3jAf">
+
+    <title>Платформа за достъп до обществена информация</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+
+
+
+
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+
+    <!-- Styles -->
+    <link href="https://pitay.government.bg/fontawesome-6.4.0/css/all.css" rel="stylesheet">
+    <link href="https://pitay.government.bg/css/app.css" rel="stylesheet">
+        <script type="text/javascript"  nonce="2726c7f26c">
+        var max_upload_file_size = parseInt(256000) * 1024; //kb to b
+        var allowed_file_extensions = 'doc|docx|xls|xlsx|pdf|p7s|p7m|zip|rar|7z';
+        var max_upload_file = parseInt(20);
+        var vo_font_percent = parseInt('100');
+        var vo_high_contrast = parseInt('0');
+        var vo_ajax = false;
+        var GlobalLang = "bg";
+    </script>
+    <link rel="alternate" type="application/atom+xml" href="https://pitay.government.bg/applications.rss" title="Нови и обновени заявления">
+</head>
+<body class="">
+
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0"></script>
+<!-- END Load Facebook SDK for JavaScript -->
+
+<div id="app">
+    <header>
+        <nav class="navbar navbar-expand-lg main-nav">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="https://pitay.government.bg">
+            <div class="d-flex">
+                <img src="https://pitay.government.bg/img/coat_arms.png" width="110px" height="auto" alt="Министерски съвет">
+                <div class="project_name align-self-center ps-2">
+                    <h1>МИНИСТЕРСКИ СЪВЕТ</h1>
+                    <h2 class="text-wrap">Платформа за достъп до обществена информация</h2>
+                </div>
+            </div>
+        </a>
+        <div class="navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 flex-row flex-wrap">
+                                <li class="nav-item order-1 me-md-0 me-3">
+                                                                    <a href="https://pitay.government.bg/locale?locale=bg" class="nav-link d-inline-block  fw-bold ">BG</a>
+                                             |                         <a href="https://pitay.government.bg/locale?locale=en" class="nav-link d-inline-block ">EN</a>
+                                    </li>
+                                    <li class="nav-item order-4 me-md-0 me-1">
+                        <a href="https://pitay.government.bg/login" class="nav-link d-inline-block">Вход</a> |
+                        <a href="https://pitay.government.bg/register" class="nav-link d-inline-block">Регистрация</a>
+                    </li>
+                
+
+
+                <li class="nav-item order-md-4 order-3 me-md-0 me-3">
+                    <button id="vo-option-btn" class="btn btn-primary" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#visual-option-div"
+                            aria-expanded="false" aria-controls="visual-option-div">Намалено зрение</button>
+                </li>
+                            </ul>
+        </div>
+    </div>
+</nav>
+        <nav class="navbar navbar-dark navbar-expand-lg bg-body-tertiary top-menu-nav py-1">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topMenuNav" aria-controls="topMenuNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-center" id="topMenuNav">
+            <ul class="navbar-nav me-auto my-2 my-lg-0" style="--bs-scroll-height: 100px;">
+                <li class="nav-item px-1">
+                    <a class="nav-link " aria-current="page" href="https://pitay.government.bg">Начало</a>
+                </li>
+                <li class="nav-item px-1">
+                    <a class="nav-link " href="https://pitay.government.bg/new-application">Подаване на заявление</a>
+                </li>
+                                <li class="nav-item px-1">
+                    <a class="nav-link  active " href="https://pitay.government.bg/application" >Търси</a>
+                </li>
+                </li>
+                                                            <li class="nav-item ">
+
+        <a class="nav-link  px-2 "
+           href="https://pitay.government.bg/documents"
+           >
+            Нормативни актове и документи
+                    </a>
+            </li>
+                                            <li class="nav-item ">
+
+        <a class="nav-link  px-2 "
+           href="https://pitay.government.bg/informaciia-pri-texniceski-problemi-na-platformata"
+           >
+            Информация при технически проблеми на Платформата
+                    </a>
+            </li>
+                                    
+
+
+                <li class="nav-item px-1">
+                    <a class="nav-link" href="https://pitay.government.bg/statistic">Статистики</a>
+                </li>
+                <li class="nav-item px-1">
+                    <a class="nav-link" href="https://pitay.government.bg/contacts">Контакти</a>
+                </li>
+                <li class="nav-item px-1">
+                    <a class="nav-link" href="https://pitay.government.bg/help-section">Помощ</a>
+                </li>
+
+
+
+
+
+
+
+
+
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+    </header>
+    <div class="container-fluid py-1 px-4 social d-flex justify-content-between align-items-center" id="top-panel">
+        <nav style="--bs-breadcrumb-divider: '»';" aria-label="breadcrumb">
+        <ol class="breadcrumb pb-0 mb-0">
+            <li class="breadcrumb-item"><a href="https://pitay.government.bg">Начало</a></li>
+                                                <li class="breadcrumb-item"><a href="/application">Заявления</a></li>
+                                                                <li class="breadcrumb-item active" aria-current="page">Преглед на Заявление</li>
+                                    </ol>
+    </nav>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="fb-share-button me-1"
+                 data-href="https://pitay.government.bg/application/5000/view"
+                 data-layout="button" data-size="small">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
+            </div>
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button  me-1" data-lang="en" data-show-count="false"></a>
+            <a href="/applications.rss" id="rss-link"
+               class="text-decoration-none  me-1"
+               target="_blank" title="Абонирай се"><span class="d-none">RSS</span>
+                <i class="fas fa-rss-square mr-2 bg-white"></i>
+            </a>
+        </div>
+    </div>
+    <main class="px-md-5 px-3 pt-3 pb-md-3 pb-3 ">
+                                                                                        
+            <section class="content container">
+        <div class="page-title mb-md-3 mb-2 px-5">
+            <h3 class="b-1 text-center">Заявление от Физическо лице до Министерство на околната среда и водите от 12.10.2021</h3>
+        </div>
+
+            <div class="card card-light mb-4">
+                <div class="card-header app-card-header p-0 pt-1 border-bottom-0">
+                    <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="application-tab" data-bs-toggle="tab" data-bs-target="#application" role="button" aria-controls="application" aria-selected="true">Заявление</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" role="button" aria-controls="history" aria-selected="false">История</a>
+                        </li>
+                                            </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-three-tabContent">
+                        <div class="tab-pane fade active show" id="application" role="tabpanel" aria-labelledby="application-tab">
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <p class="my-1 p-fs"><strong>Рег. №:</strong>
+                                        1634057377907-12.10.2021 | Министерство на околната среда и водите | Одобрено |
+                                        <strong>Дата на подаване:</strong> 12.10.2021 |
+                                        <strong>Срок:</strong>29.11.2021<br>                                    </p>
+                                    <p class="my-1 p-fs">
+                                        <a href="#"><i class="fas fa-user text-dark fw-bold me-1"></i> Физическо лице</a> |
+                                    </p>
+                                    <p class="p-fs">
+                                                                                                                                                            </p>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    Проект на Наредба за отпадъците от обувки и текстил във връзка с чл. 13, ал. 1 от Закон за управление на отпадъците.
+                                </div>
+                                                                    <div class="col-12 mb-3">
+                                        <h4>Решение</h4>
+                                        <hr>
+                                                                                <p class="my-1 p-fs"><strong>Дата: </strong> 08.11.2022</p>
+
+                                        
+                                                                                    Решението е публикувано в платформата, но поради техническа грешка е редактирано и качено отново.
+                                        
+                                                                                    <hr>
+                                            <p class="my-1 p-fs"><strong>Документи: </strong></p>
+                                            <table class="table table-sm mе-4">
+                                                <tbody>
+                                                                                                    <tr>
+                                                        <td>
+                                                            1
+                                                            <a class="btn btn-sm btn-secondary ms-2" type="button" href="https://pitay.government.bg/download/14232">
+                                                                <i class="fas fa-download me-1 download-file" data-file="$file->id" role="button"
+                                                                   data-toggle="tooltip" title="Изтегли"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td>Няма описание</td>
+                                                    </tr>
+                                                                                                </tbody>
+                                            </table>
+                                                                            </div>
+                                                                <div class="col-12 mb-3">
+
+
+
+
+
+
+
+
+                                    <p class="my-1 d-inline-block p-fs"><i class="fas fa-eye text-primary me-1"></i>242</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                            <table class="table table-sm table-bordered table-responsive">
+                                <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Процес</th>
+                                </tr>
+                                </thead>
+                                <thead>
+                                                                                                            <tr>
+                                            <td class="text-nowrap">12.10.2021 19:49</td>
+                                            <td>Подаване на заявление</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td class="text-nowrap">12.10.2021 19:49</td>
+                                            <td>Изпратено към деловодна система</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td class="text-nowrap">15.11.2021 11:26</td>
+                                            <td>Потвърждение от деловодна система</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td class="text-nowrap">08.11.2022 10:26</td>
+                                            <td>Крайно решение (Оставено без разглеждане)</td>
+                                        </tr>
+                                                                                                    </thead>
+                            </table>
+                        </div>
+                                            </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <a href="https://pitay.government.bg" class="btn btn-sm btn-primary">Обратно</a>
+            </div>
+    </section>
+    </main>
+    <footer class="p-md-5 p-3 ">
+    <div class="row footer-content">
+        <div class="col-12">
+            <p class="text-center">Платформата за достъп до обществена информация е разработена в рамките на обществена поръчка с предмет: „Изработване, тестване и внедряване на Платформа за достъп до обществена информация и провеждане на свързано обучение“ в изпълнение на проект: „Подобряване на процесите, свързани с предоставянето, достъпа и повторното използване на информацията от обществения сектор“, финансиран по Оперативна програма „Добро управление“ по процедура BG05SFOP001-2.001 за директно предоставяне на безвъзмездна финансова помощ „Стратегически проекти в изпълнение на Стратегията за развитие на държавната администрация 2014 – 2020 г., ПОС, ПИК и НАТУРА 2000“.</p>
+        </div>
+    </div>
+    <div class="row footer-content">
+        <div class="col-md-2 col-6">
+            <img src="https://pitay.government.bg/img/eu_white.png" alt="EU" class="img-fluid" />
+        </div>
+        <div class="col-md-8 d-md-block d-none"></div>
+        <div class="col-md-2 col-6">
+            <img src="https://pitay.government.bg/img/op_white.png" alt="OP" class="img-fluid" />
+        </div>
+    </div>
+    <div class="row footer-content d-md-none">
+        <a href="https://www.asap.bg/" title="Софтуерна разработка и поддръжка от ASAP" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-light text-center d-block mt-2" style="font-size: 10px;">Софтуерна разработка и поддръжка от АСАП ЕООД</a>
+    </div>
+</footer></div>
+<!-- Scripts -->
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script src="https://pitay.government.bg/js/app.js" nonce="2726c7f26c"></script>
+<script type="text/javascript"  nonce="2726c7f26c">
+   $(document).ready(function (){
+       setDomElFontSize(vo_font_percent, true);
+   });
+</script>
+    <script src="https://pitay.government.bg/jquery-validation/jquery.validate.min.js"></script>
+    <script src="https://pitay.government.bg/jquery-validation/localization/messages_bg.js"></script>
+<div id="visual-option-div" class="collapse p-3">
+    <ul class="p-0 m-0">
+        <li class="d-flex flex-row justify-content-between">
+            <span>Намалено зрение</span>
+            <i class="fas fa-close text-secondary" id="vo-close" role="button"></i>
+        </li>
+        <hr class="m-0">
+        <li class="visual-option vo-increase-text py-2" role="button"><i class="text-primary me-2">A+</i>Увеличаване на текста</li>
+        <li class="visual-option vo-decrease-text py-2" role="button"><i class="text-primary me-2">A-</i>Намаляване на текста</li>
+        <li class="visual-option vo-contrast py-2" role="button" id="vo-contrast"><i class="fa-solid fa-palette text-primary me-2"></i><span class="height ">Висок контраст</span><span class="low  d-none ">Нисък контраст</span></li>
+        <li class="visual-option vo-reset py-2" role="button"><i class="fas fa-sync-alt text-primary me-2"></i>Изчисти</li>
+    </ul>
+</div>
+</body>
+</html>

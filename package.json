@@ -106,6 +106,7 @@
     "aop:experts": "tsx scripts/procurement/aop_experts/ingest.ts",
     "comdos:crawl": "tsx scripts/comdos/crawl.ts",
     "comdos:parse": "tsx scripts/comdos/parse.ts",
+    "zdoi:fetch": "tsx scripts/zdoi/fetch_pitay.ts",
     "funds:clean-delivery": "tsx scripts/funds/clean_delivery/ingest.ts",
     "db:load:clean-delivery:pg": "tsx scripts/db/load_isun_clean_delivery_pg.ts",
     "db:load:clean-delivery:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg pnpm run db:load:clean-delivery:pg",
