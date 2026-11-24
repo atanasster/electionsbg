@@ -1,0 +1,48 @@
+{
+  "session": "20261123T232336Z-09f2",
+  "createdAt": "2026-11-24T00:02:39.322Z",
+  "commit": "c9bedadfe0",
+  "skills": [
+    "update-procurement"
+  ],
+  "paths": [
+    "procurement/derived/hub_stats.json",
+    "procurement/derived/sector_stats.json",
+    "procurement/derived/mp_party.json",
+    "data-changes.json",
+    "culture/derived/hub_stats.json",
+    "roads/derived/hub_stats.json",
+    "water/flood_maintenance.json",
+    "water/derived/hub_stats.json",
+    "transport/derived/hub_stats.json",
+    "education/derived/hub_stats.json",
+    "health/derived/hub_stats.json",
+    "governance/hub_stats.json",
+    "home/flyover.json",
+    "home/hub_stats.json",
+    "governance/declarations_hub_stats.json",
+    "culture/derived/fund_sources.json"
+  ],
+  "cloudCommands": [
+    "pnpm run db:load:pg:cloud",
+    "pnpm run db:load:tenders:pg:cloud",
+    "pnpm run db:load:awarder-seats:pg:cloud",
+    "pnpm run proc:verify-seats:cloud",
+    "pnpm run db:load:annexes:pg:cloud",
+    "pnpm run db:load:nzok-hospital-map:pg:cloud",
+    "pnpm run db:load:water-operator-map:pg:cloud",
+    "pnpm run db:load:mvr-directorate-map:pg:cloud",
+    "pnpm run db:load:transport-project-map:pg:cloud",
+    "pnpm run db:load:transport-facility-map:pg:cloud",
+    "pnpm run db:load:persons-browse:pg:cloud",
+    "pnpm run db:load:person-search:pg:cloud",
+    "pnpm run db:load:graph:pg:cloud",
+    "pnpm run db:load:agri-hub-stats:pg:cloud",
+    "pnpm run db:load:tr-company-place:pg:cloud",
+    "pnpm run db:load:employer-links:pg:cloud",
+    "pnpm run db:load:grant-links:pg:cloud",
+    "pnpm run db:load:procurement-scopes:pg:cloud",
+    "pnpm run db:load:ted:pg:cloud"
+  ],
+  "notes": "Procurement: 5 OCDS days through 2026-11-22, EOP gap-fill, tenders, TED; regenerated sector hub blobs"
+}
