@@ -147,6 +147,28 @@ const mockRoutes = () => {
               ]
             : [];
       if (route === "vote-item-search") return { items: [] };
+      if (route === "zdoi-search")
+        return {
+          items:
+            String(p.q) === "INSAIT"
+              ? [
+                  {
+                    appId: 8905,
+                    regNo: "1702480122-13.12.2023",
+                    body: "Министерство на образованието и науката",
+                    status: "Одобрено",
+                    submittedOn: "2023-12-13",
+                    subjectExcerpt:
+                      "Информация за проекта за изчислителен център на INSAIT",
+                  },
+                ]
+              : [],
+          coverage: {
+            requests: 22000,
+            firstSubmitted: "2019-01-02",
+            lastSubmitted: "2026-11-23",
+          },
+        };
       if (route === "table") {
         const req = JSON.parse(String(p.q));
         if (req.resource === "companies")
@@ -230,6 +252,40 @@ describe("entityMentions — INSAIT", () => {
       expect(env.facts?.farm_subsidy_recipients).toBe(0);
     },
   );
+
+  it("finds the ЗДОИ request by the institute's NAME, labelled as the body's answer", async () => {
+    const { env } = await run("ИНСАЙТ");
+    const asked = vi
+      .mocked(fetchDb)
+      .mock.calls.filter(([route]) => route === "zdoi-search")
+      .map(([, p]) => String(p?.q));
+    expect(asked).toContain("INSAIT");
+    // the broad search phrase would pull in other institutes' requests
+    expect(asked).not.toContain("изследвания в областта на компютърните науки");
+    expect(env.cellLinks).toContainEqual(
+      expect.objectContaining({
+        href: "https://pitay.government.bg/application/8905/view",
+      }),
+    );
+    expect(env.facts?.access_to_information_requests).toBe(1);
+    expect(String(env.facts?.access_to_information_note)).toMatch(
+      /отговорът е на самата институция/,
+    );
+    expect(String(env.facts?.access_to_information_coverage)).toMatch(
+      /подадени през ПДОИ/,
+    );
+  });
+
+  it("does not claim ЗДОИ was searched when the corpus is not there", async () => {
+    mockRoutes();
+    const inner = vi.mocked(fetchDb).getMockImplementation()!;
+    vi.mocked(fetchDb).mockImplementation(async (route, p) =>
+      route === "zdoi-search" ? { items: [], coverage: null } : inner(route, p),
+    );
+    const env = await entityMentions({ term: "INSAIT" }, ctx);
+    expect(String(env.facts?.coverage_note)).not.toMatch(/ЗДОИ/);
+    expect(env.facts?.access_to_information_coverage).toBeUndefined();
+  });
 
   it("names the excluded „insight“ firms instead of dropping them silently", async () => {
     const { env } = await run("INSAIT");

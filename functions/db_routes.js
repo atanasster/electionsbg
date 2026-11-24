@@ -1288,6 +1288,47 @@ const DB_ROUTES = {
     return { body: { items: merged, altQuery: alt || null } };
   },
 
+  // ЗДОИ requests filed through pitay.government.bg (migration 207) that NAME a term, for
+  // the AI mentions tool. `zdoi_mentions` does the whole-word check server-side, so the
+  // caller never needs the full texts — it gets 300-char excerpts and links out (207's
+  // rule 3). `coverage` travels with every answer so a surface can say „заявления,
+  // подадени през ПДОИ" and the period, never „all requests" (rule 1).
+  // A database 207 has not reached degrades to no rows and NO coverage, never a 500 — the
+  // caller says nothing about ЗДОИ without a coverage row — and logs `zdoi:not-built` once.
+  "zdoi-search": async (dbRows, q) => {
+    const term = s(q, "q");
+    if ([...term.normalize("NFC")].length < 3)
+      return {
+        status: 400,
+        body: { error: "q must be at least 3 characters" },
+      };
+    const lim = clampInt(q.limit, 20, 1, 50);
+    const degrade = (e) => {
+      if (e?.code === "42883" || e?.code === "42P01")
+        logMissOnce(
+          `zdoi:not-built:${e.code}`,
+          "migration 207 not applied — run pnpm run db:load:zdoi:pg:cloud",
+        );
+      return missingMigrationRows(e);
+    };
+    const [items, cov] = await Promise.all([
+      dbRows(
+        `SELECT app_id AS "appId", reg_no AS "regNo", body, status,
+                submitted_on::text AS "submittedOn", decision_date::text AS "decisionDate",
+                subject_excerpt AS "subjectExcerpt", decision_excerpt AS "decisionExcerpt",
+                attachment_count AS "attachmentCount"
+           FROM zdoi_mentions($1, $2)`,
+        [term, lim],
+      ).catch(degrade),
+      dbRows(
+        `SELECT requests::int AS requests, bodies::int AS bodies,
+                first_submitted::text AS "firstSubmitted",
+                last_submitted::text AS "lastSubmitted"
+           FROM zdoi_coverage()`,
+      ).catch(degrade),
+    ]);
+    return { body: { items, coverage: cov[0] ?? null } };
+  },
   async company(dbRows, q) {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };

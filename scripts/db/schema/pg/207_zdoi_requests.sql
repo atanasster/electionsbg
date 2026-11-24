@@ -103,6 +103,43 @@ BEGIN
    LIMIT LEAST(GREATEST(coalesce(lim, 20), 1), 100);
 END $$;
 
+-- Requests that NAME a term, as whole words — the mentions tool's arm. The FTS prefix
+-- match alone is too loose for a name („insait" also matches „insaitkonsult"), so the
+-- fold is checked again with the same rule `mentionsTerm` (ai/tools/mentions.ts)
+-- applies: the term's words in a row, a word of 5+ letters allowed up to 3 trailing
+-- letters (Bulgarian inflection). plpgsql for the same reason as zdoi_search.
+CREATE OR REPLACE FUNCTION zdoi_mentions(q text, lim integer DEFAULT 20)
+RETURNS TABLE (
+  app_id integer, reg_no text, body text, status text, submitted_on date,
+  decision_date date, subject_excerpt text, decision_excerpt text,
+  attachment_count integer
+)
+LANGUAGE plpgsql STABLE AS $$
+DECLARE
+  pat text;
+BEGIN
+  SELECT string_agg(
+           CASE WHEN length(tok) >= 5 THEN tok || '[a-z0-9]{0,3}' ELSE tok END,
+           '[^a-z0-9]+' ORDER BY ord)
+    INTO pat
+    FROM regexp_split_to_table(translit_bg_latin(q), '[^a-z0-9]+')
+         WITH ORDINALITY AS t(tok, ord)
+   WHERE tok <> '';
+  IF pat IS NULL THEN
+    RETURN;
+  END IF;
+  pat := '(^|[^a-z0-9])' || pat || '([^a-z0-9]|$)';
+  RETURN QUERY
+  SELECT r.app_id, r.reg_no, r.body, r.status, r.submitted_on, r.decision_date,
+         left(r.subject, 300), left(r.decision_text, 300),
+         cardinality(r.attachment_ids)
+    FROM zdoi_request r
+   WHERE to_tsvector('simple', r.search_fold) @@ fold_prefix_tsquery(q)
+     AND r.search_fold ~ pat
+   ORDER BY r.submitted_on DESC NULLS LAST, r.app_id DESC
+   LIMIT LEAST(GREATEST(coalesce(lim, 20), 1), 100);
+END $$;
+
 -- What the corpus covers, so a surface can state it (rule 1) instead of implying it.
 CREATE OR REPLACE FUNCTION zdoi_coverage()
 RETURNS TABLE (
@@ -122,7 +159,8 @@ COMMENT ON TABLE zdoi_request IS
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON zdoi_request, zdoi_event, zdoi_forward TO app_readonly;
-    GRANT EXECUTE ON FUNCTION zdoi_search(text, integer), zdoi_coverage() TO app_readonly;
+    GRANT EXECUTE ON FUNCTION zdoi_search(text, integer), zdoi_mentions(text, integer),
+      zdoi_coverage() TO app_readonly;
   ELSE
     RAISE WARNING 'app_readonly absent — 207 granted nothing';
   END IF;

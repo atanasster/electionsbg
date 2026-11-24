@@ -69,6 +69,19 @@ type CompanyRow = {
   legalForm?: string | null;
   status?: string | null;
 };
+type ZdoiHit = {
+  appId: number;
+  regNo: string;
+  body: string;
+  status: string;
+  submittedOn: string | null;
+  subjectExcerpt: string;
+};
+type ZdoiCoverage = {
+  requests: number;
+  firstSubmitted: string | null;
+  lastSubmitted: string | null;
+};
 type VoteItem = {
   itemId: number | string;
   ns: number;
@@ -122,6 +135,7 @@ const PROVENANCE = [
   "db:table/open_calls",
   "db:agri-search",
   "db:vote-item-search",
+  "db:zdoi-search",
   "culture/films.json",
 ];
 
@@ -235,6 +249,14 @@ export const entityMentions = async (
   const queries = [...rest, ...aliases.flatMap((a) => a.searchTerms)].filter(
     (q, i, arr) => arr.findIndex((x) => wordKey(x) === wordKey(q)) === i,
   );
+  // ЗДОИ requests are matched whole-word on the server (zdoi_mentions), so they are
+  // asked with the names themselves — a curated entity's NAMES, not its broader
+  // search phrases, which would pull in other institutes' requests.
+  const zdoiTerms = [...rest, ...aliases.flatMap((a) => a.matchTerms)].filter(
+    (q, i, arr) =>
+      [...q].length >= 3 &&
+      arr.findIndex((x) => wordKey(x) === wordKey(q)) === i,
+  );
 
   if (!variants.length)
     return {
@@ -250,6 +272,17 @@ export const entityMentions = async (
       provenance: [],
     };
 
+  const zdoiPending = Promise.all(
+    zdoiTerms.map((v) =>
+      settledOr(
+        fetchDb<{ items?: ZdoiHit[]; coverage?: ZdoiCoverage | null }>(
+          "zdoi-search",
+          { q: v, limit: LIMIT },
+        ),
+        {} as { items?: ZdoiHit[]; coverage?: ZdoiCoverage | null },
+      ),
+    ),
+  );
   const per = await Promise.all(
     queries.map(async (v) => {
       const [search, companies, votes, kzk, calls, agri] = await Promise.all([
@@ -303,6 +336,14 @@ export const entityMentions = async (
       };
     }),
   );
+
+  const zdoiPer = await zdoiPending;
+  // Only a database that holds the corpus may be said to have been searched: no coverage
+  // row (207 not applied, the route failed) or an empty table must not read as „nobody
+  // asked" (207 rule 1).
+  const zdoiCoverage = zdoiPer.find((z) => z.coverage)?.coverage ?? null;
+  const zdoiSearched = (zdoiCoverage?.requests ?? 0) > 0;
+  const zdoiCapped = zdoiPer.some((z) => (z.items?.length ?? 0) >= LIMIT);
 
   const filmsFile = await settledOr(
     fetchData<{ films?: Film[] } | null>("/culture/films.json"),
@@ -387,6 +428,12 @@ export const entityMentions = async (
     per.flatMap((p) => p.agri),
     (a) => a.eik,
   );
+  const zdoi = byKey(
+    zdoiPer.flatMap((z) => z.items ?? []),
+    (r) => String(r.appId),
+  )
+    .sort((a, b) => (b.submittedOn ?? "").localeCompare(a.submittedOn ?? ""))
+    .slice(0, LIMIT);
   const votesAll = byKey(
     per.flatMap((p) => p.votes),
     (v) => String(v.itemId),
@@ -477,6 +524,7 @@ export const entityMentions = async (
     agri: bg ? "Земеделски субсидии (ДФЗ)" : "Farm subsidies (ДФЗ)",
     film: bg ? "Филмова субсидия (НФЦ)" : "Film subsidy (НФЦ)",
     call: bg ? "Процедура за финансиране" : "Funding call",
+    zdoi: bg ? "Заявление по ЗДОИ" : "Access-to-information request",
   };
   const rows: Row[] = [];
   const cellLinks: TableCellLink[] = [];
@@ -635,6 +683,20 @@ export const entityMentions = async (
       `/votes/${encodeURIComponent(v.date.slice(0, 10))}`,
     );
 
+  // The body's own answer, quoted — not data we verified (207 rule 2); the page is
+  // on the platform, so the link goes out to it.
+  for (const z of zdoi)
+    push(
+      {
+        kind: kind.zdoi,
+        date: (z.submittedOn ?? "").slice(0, 10) || "—",
+        subject: clip(z.subjectExcerpt),
+        party: `${z.body} · ${z.status}`,
+        amount: "—",
+      },
+      `https://pitay.government.bg/application/${z.appId}/view`,
+    );
+
   const contractEur = contracts.reduce((s, c) => s + (c.amountEur ?? 0), 0);
   const facts: Record<string, string | number> = {
     term: label,
@@ -654,6 +716,7 @@ export const entityMentions = async (
     ),
     film_subsidies: films.length,
     funding_calls: calls.length,
+    access_to_information_requests: zdoi.length,
     similar_names_excluded: lookalikes.length,
   };
   if (aliases.length)
@@ -666,11 +729,20 @@ export const entityMentions = async (
       .join("; ");
   if (lookalikes.length)
     facts.similar_names_not_included = lookalikes.slice(0, 6).join("; ");
+  if (zdoi.length)
+    facts.access_to_information_note = bg
+      ? "Заявленията по ЗДОИ са подадени през Платформата за достъп до обществена информация (pitay.government.bg); отговорът е на самата институция, не е проверен от нас."
+      : "The access-to-information requests were filed through the public-information platform (pitay.government.bg); each answer is the institution's own, not verified by us.";
+  if (zdoiCapped) facts.access_to_information_requests_at_least = zdoi.length;
+  if (zdoiCoverage && zdoiSearched)
+    facts.access_to_information_coverage = bg
+      ? `${fmtInt(zdoiCoverage.requests, ctx.lang)} заявления, подадени през ПДОИ (${zdoiCoverage.firstSubmitted ?? "—"} – ${zdoiCoverage.lastSubmitted ?? "—"}); заявления по пощата, имейл или на място не са включени`
+      : `${fmtInt(zdoiCoverage.requests, ctx.lang)} requests filed through the platform (${zdoiCoverage.firstSubmitted ?? "—"} – ${zdoiCoverage.lastSubmitted ?? "—"}); requests by post, e-mail or in person are not included`;
   if (cappedContracts) facts.contracts_matching_search_up_to = contractsUpTo;
   if (cappedTenders) facts.tenders_matching_search_up_to = tendersUpTo;
   facts.coverage_note = bg
-    ? "Търсени: договори, поръчки, жалби до КЗК, Търговски регистър (вкл. ЮЛНЦ), ЕС фондове, Interreg, субсидии ДФЗ, субсидии НФЦ, процедури за финансиране, гласувания в парламента. Търсене по име — запис, който не споменава името, не се вижда; парите по ЕИК на всяка организация са на страницата ѝ."
-    : "Searched: contracts, tenders, КЗК appeals, the Commerce Registry (incl. NGOs), EU funds, Interreg, ДФЗ farm subsidies, НФЦ film subsidies, funding calls, parliament votes. Name search — a record that does not name it is not found; each organisation's money by EIK is on its own page.";
+    ? `Търсени: договори, поръчки, жалби до КЗК, Търговски регистър (вкл. ЮЛНЦ), ЕС фондове, Interreg, субсидии ДФЗ, субсидии НФЦ, процедури за финансиране, гласувания в парламента${zdoiSearched ? ", заявления по ЗДОИ, подадени през ПДОИ" : ""}. Търсене по име — запис, който не споменава името, не се вижда; парите по ЕИК на всяка организация са на страницата ѝ.`
+    : `Searched: contracts, tenders, КЗК appeals, the Commerce Registry (incl. NGOs), EU funds, Interreg, ДФЗ farm subsidies, НФЦ film subsidies, funding calls, parliament votes${zdoiSearched ? ", access-to-information requests filed through the platform" : ""}. Name search — a record that does not name it is not found; each organisation's money by EIK is on its own page.`;
 
   if (!rows.length)
     return {
@@ -685,8 +757,8 @@ export const entityMentions = async (
           ? `Сходни, но различни имена (не са включени): ${lookalikes.slice(0, 4).join(", ")}`
           : `Similar but different names (not included): ${lookalikes.slice(0, 4).join(", ")}`
         : bg
-          ? "Търсих в договори, поръчки, жалби до КЗК, Търговския регистър, ЕС фондове, Interreg, субсидии ДФЗ и НФЦ, процедури за финансиране и гласувания в парламента."
-          : "Searched contracts, tenders, КЗК appeals, the Commerce Registry, EU funds, Interreg, ДФЗ and НФЦ subsidies, funding calls and parliament votes.",
+          ? `Търсих в договори, поръчки, жалби до КЗК, Търговския регистър, ЕС фондове, Interreg, субсидии ДФЗ и НФЦ, процедури за финансиране, гласувания в парламента${zdoiSearched ? " и заявления по ЗДОИ през ПДОИ" : ""}.`
+          : `Searched contracts, tenders, КЗК appeals, the Commerce Registry, EU funds, Interreg, ДФЗ and НФЦ subsidies, funding calls, parliament votes${zdoiSearched ? " and access-to-information requests filed through the platform" : ""}.`,
       facts,
       viz: "none",
       provenance: [...PROVENANCE],
@@ -706,6 +778,7 @@ export const entityMentions = async (
     add(films.length, "филм", "филма");
     add(calls.length, "процедура", "процедури");
     add(votes.length, "гласуване", "гласувания");
+    add(zdoi.length, "заявление по ЗДОИ", "заявления по ЗДОИ");
   } else {
     add(contracts.length, "contract", "contracts");
     add(tenders.length, "tender", "tenders");
@@ -716,6 +789,7 @@ export const entityMentions = async (
     add(films.length, "film", "films");
     add(calls.length, "call", "calls");
     add(votes.length, "vote", "votes");
+    add(zdoi.length, "information request", "information requests");
   }
   let subtitle = parts.join(" · ");
   if (aliases.length)

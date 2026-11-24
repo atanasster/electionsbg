@@ -24,6 +24,7 @@ import { isunCleanDelivery } from "./isun_clean_delivery";
 import { aopDebarred } from "./aop_debarred";
 import { ofacSanctions } from "./ofac_sanctions";
 import { comdosDs } from "./comdos_ds";
+import { zdoiPitay } from "./zdoi_pitay";
 import { regulatorRosters } from "./regulator_rosters";
 import { personLinkOverrides } from "./person_link_overrides";
 import { rnflInsolvency } from "./rnfl_insolvency";
@@ -158,6 +159,7 @@ export const SOURCES: WatchSource[] = [
   comdosDs, // person-layer ДС/COMDOS facet (→ update-persons)
   regulatorRosters, // person-layer regulator facet (→ update-persons)
   personLinkOverrides, // committed adjudications changed (→ update-persons)
+  zdoiPitay, // ЗДОИ requests on pitay.government.bg (→ update-zdoi)
   rnflInsolvency, // РНФЛ личен фалит (→ NO skill — operator reads docs/plans/rnfl-insolvency-v1.md)
   mcDkiRegister,
   nfcFilmRegister,

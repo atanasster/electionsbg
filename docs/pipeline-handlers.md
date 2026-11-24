@@ -7,7 +7,7 @@ truth; a skill's runbook covers only what a script cannot do (operator and agent
 steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 `docs/plans/watch-pipeline-scripts-v1.md` for how.
 
-63 handlers: 42 script, 13 delegated to an agent, 8 operator-only.
+64 handlers: 43 script, 13 delegated to an agent, 8 operator-only.
 
 | handler | runner | sources |
 | --- | --- | --- |
@@ -73,6 +73,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | [`update-social`](#update-social) | skill | `asp_benefits`, `git_inspections` |
 | [`update-transparency-lisi`](#update-transparency-lisi) | skill | `ti_bg_lisi` |
 | [`update-vaccines`](#update-vaccines) | script | `his_immunizations_daily`, `his_immunization_app`, `ial_shortage_list`, `ncipd_flu_weekly`, `eurostat_vaccine_trade`, `eurostat_flu_coverage` |
+| [`update-zdoi`](#update-zdoi) | script | `zdoi_pitay` |
 | [`wiki_governments`](#wiki_governments) | operator | `wiki_governments` |
 
 ## Handlers
@@ -1361,6 +1362,24 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 **Publish:**
 - cloud (global order applies): `pnpm run db:load:place-dim:pg:cloud`, `pnpm run db:load:vaccines:pg:cloud`
+
+### `update-zdoi`
+
+- **Runner:** script — runs unattended under `pipeline:ingest`
+- **Runbook:** `.claude/skills/update-zdoi/SKILL.md`
+- **Marker:** `state/ingest/update-zdoi.json`
+- **Sources:** `zdoi_pitay`
+- **Needs:** `pg-local`
+- **Changelog:** orchestrator
+
+| step | phase | command | only on |
+| --- | --- | --- | --- |
+| `zdoi:fetch --refresh` | ingest | `pnpm run zdoi:fetch --refresh` | — |
+| `db:load:zdoi:pg` | derive | `pnpm run db:load:zdoi:pg` | — |
+| `zdoi.data.test` | verify | `pnpm exec vitest run scripts/db/tests/zdoi.data.test.ts` | — |
+
+**Publish:**
+- cloud (global order applies): `pnpm run db:load:zdoi:pg:cloud`
 
 ### `wiki_governments`
 

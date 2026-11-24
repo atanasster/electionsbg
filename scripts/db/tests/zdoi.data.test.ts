@@ -22,6 +22,15 @@ const skip = !haveDb
     : null;
 const d = skip ? describe.skip : describe;
 reportSkip(import.meta.url, skip);
+// The two INSAIT arms need application 8905, which a partial crawl may not have reached.
+const has8905 =
+  !skip &&
+  (
+    await allRows<{ n: string }>(
+      "SELECT count(*)::text n FROM zdoi_request WHERE app_id = 8905",
+    )
+  )[0].n !== "0";
+const it8905 = it.skipIf(!has8905);
 
 d("zdoi_request (207)", () => {
   it("stores the requester only as one of the two types, or not at all", async () => {
@@ -55,21 +64,38 @@ d("zdoi_request (207)", () => {
     expect(r.cov).toBe(r.rows);
   });
 
-  it("search finds the INSAIT request a reader pointed us at, when it is loaded", async () => {
-    const [has] = await allRows<{ n: string }>(
-      "SELECT count(*)::text n FROM zdoi_request WHERE app_id = 8905",
-    );
-    if (has.n === "0") return; // a partial crawl that has not reached it
-    const hits = await allRows<{ app_id: number }>(
-      "SELECT app_id FROM zdoi_search('INSAIT', 50)",
-    );
-    expect(hits.map((h) => h.app_id)).toContain(8905);
-    // …and a Latin-typed query reaches the same Cyrillic text through the fold.
-    const latin = await allRows<{ app_id: number }>(
-      "SELECT app_id FROM zdoi_search('izchislitelen tsentar', 50)",
-    );
-    expect(latin.map((h) => h.app_id)).toContain(8905);
-  });
+  it8905(
+    "search finds the INSAIT request a reader pointed us at (8905 loaded)",
+    async () => {
+      const hits = await allRows<{ app_id: number }>(
+        "SELECT app_id FROM zdoi_search('INSAIT', 50)",
+      );
+      expect(hits.map((h) => h.app_id)).toContain(8905);
+      // …and a Latin-typed query reaches the same Cyrillic text through the fold.
+      const latin = await allRows<{ app_id: number }>(
+        "SELECT app_id FROM zdoi_search('izchislitelen tsentar', 50)",
+      );
+      expect(latin.map((h) => h.app_id)).toContain(8905);
+    },
+  );
+
+  it8905(
+    "the mentions arm is whole-word, where the search is a prefix match",
+    async () => {
+      const ids = async (sql: string) =>
+        (await allRows<{ app_id: number }>(sql)).map((r) => r.app_id);
+      expect(
+        await ids("SELECT app_id FROM zdoi_mentions('INSAIT', 50)"),
+      ).toContain(8905);
+      // „insa" is a prefix of „insait": the FTS arm takes it, the word check must not.
+      expect(
+        await ids("SELECT app_id FROM zdoi_search('insa', 100)"),
+      ).toContain(8905);
+      expect(
+        await ids("SELECT app_id FROM zdoi_mentions('insa', 100)"),
+      ).not.toContain(8905);
+    },
+  );
 
   it("every event and forward belongs to a stored request", async () => {
     const [r] = await allRows<{ n: string }>(

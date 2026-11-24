@@ -528,6 +528,33 @@ export const PROCUREMENT_FUNDS: Handler[] = [
       "Never runs enrich-open-calls — that is a separate, human-gated skill.",
   },
   {
+    id: "update-zdoi",
+    skill: "update-zdoi",
+    runner: "script",
+    sources: ["zdoi_pitay"],
+    needs: ["pg-local"],
+    steps: [
+      // Resumable and polite (one request at a time); a night fetches the new ids plus
+      // every request still open or last read more than 30 days ago. Exit 2 = some ids
+      // failed and are queued for the next run — not a reason to hold the load. The
+      // FIRST crawl (~23k pages) is an operator run (see the runbook): a timeout here
+      // keeps every page already stored, and the next night resumes.
+      ingest("zdoi:fetch --refresh", pnpm("zdoi:fetch", "--refresh"), {
+        okExit: [2],
+        timeoutMin: 240,
+      }),
+      derive("db:load:zdoi:pg", pnpm("db:load:zdoi:pg")),
+      verify(
+        "zdoi.data.test",
+        "pnpm exec vitest run scripts/db/tests/zdoi.data.test.ts",
+      ),
+    ],
+    publish: { cloud: ["pnpm run db:load:zdoi:pg:cloud"] },
+    changelog: "orchestrator",
+    notes:
+      "The raw store raw_data/zdoi/pitay.sqlite is gitignored and never uploaded; only the PG load publishes.",
+  },
+  {
     id: "update-agri",
     skill: "update-agri",
     // Still delegated — FINDING-016: a new egov year must be promoted by hand and there is no FY sanity gate yet.

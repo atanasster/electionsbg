@@ -57,6 +57,7 @@ export const CLOUD_ORDER: readonly string[] = [
   "db:load:schools:pg:cloud",
   "db:load:excise-warehouses:pg:cloud",
   "db:load:open-calls:pg:cloud",
+  "db:load:zdoi:pg:cloud", // reads only its own tables; no ordering dependency
   "db:load:election-national:pg:cloud",
   "db:load:mp-roster:pg:cloud",
   "db:load:rollcall:pg:cloud",
