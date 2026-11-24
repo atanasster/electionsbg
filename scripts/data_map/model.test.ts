@@ -72,6 +72,8 @@ describe("data-map model", () => {
     // `pvrCycle` rule exists to prevent, one layer up.
     const derived = new Set(deriveAiEdges().edges.map(([from]) => from));
     expect(derived.has("ds:presidential")).toBe(true);
+    // read only through an /api/db route (AI_DB_ROUTE_RULES), never a data path
+    expect(derived.has("ds:zdoi")).toBe(true);
     expect(derived.size).toBeGreaterThan(20);
 
     // Nothing in the manifest claims an AI edge the derivation no longer produces — that is a

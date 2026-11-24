@@ -168,6 +168,17 @@ export interface TourDef {
  * The build FAILS on an unmatched path — adding a tool that reads a new
  * dataset forces a rule (and thereby an edge) here.
  */
+/**
+ * The same projection for corpora the assistant reads through an /api/db route rather
+ * than a data path: a quoted route literal in ai/ (`fetchDb("zdoi-search", …)`) derives
+ * that dataset's AI edge. Listed only where the route is the assistant's ONLY reader,
+ * so the edge would otherwise be missing; a route no tool names any more drops its edge.
+ */
+export const AI_DB_ROUTE_RULES: { route: string; dataset: string }[] = [
+  { route: "zdoi-search", dataset: "zdoi" },
+  { route: "entity-appropriations", dataset: "budget" },
+];
+
 export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/ai\//, dataset: null }, // internal eval artifacts
   // ⚠ BEFORE THE `{cycle}` RULE, AND THE ORDER IS THE WHOLE POINT. `ai/tools/presidential.ts`
@@ -366,17 +377,34 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     id: "dv",
     label: { bg: "Държавен вестник", en: "State Gazette" },
     detail: {
-      bg: "закон за бюджета и приложения",
-      en: "budget law and annexes",
+      bg: "закон за бюджета, приложения и ПМС",
+      en: "budget law, annexes and decrees",
     },
     desc: {
-      bg: "Обнародваният Закон за държавния бюджет с чл. 53 (трансфери към общините) и Приложение III — инвестиционната програма по проекти. Официалният раздел на ДВ се следи ежедневно за обнародване на целия бюджетен пакет — ЗДБРБ, ЗБДОО и ЗБНЗОК, както и удължителните закони и техните ЗИД.",
-      en: "The promulgated State Budget Law with Article 53 municipal transfers and Annex III — the per-project investment programme. The gazette's official section is watched daily for the promulgation of the whole budget package — the state budget law, the social-security fund budget and the health-fund budget, plus the interim bridging laws and their amendments.",
+      bg: "Обнародваният Закон за държавния бюджет с чл. 53 (трансфери към общините), Приложение III — инвестиционната програма по проекти — и Приложение № 2 към чл. 110 — поименните приоритетни проекти с национално финансиране (законите за 2025 и 2026 г.). Постановленията на Министерския съвет за одобряване на допълнителни разходи и трансфери се четат от ДВ по номер на материал, от 2021 г. насам. Официалният раздел на ДВ се следи ежедневно за обнародване на целия бюджетен пакет — ЗДБРБ, ЗБДОО и ЗБНЗОК, както и удължителните закони и техните ЗИД.",
+      en: "The promulgated State Budget Law with Article 53 municipal transfers, Annex III — the per-project investment programme — and Annex 2 to Art. 110 — the named priority projects with national financing (the 2025 and 2026 laws). Council of Ministers decrees approving additional spending and transfers are read from the gazette by material number, from 2021 on. The gazette's official section is watched daily for the promulgation of the whole budget package — the state budget law, the social-security fund budget and the health-fund budget, plus the interim bridging laws and their amendments.",
     },
     url: "https://dv.parliament.bg/",
     origin: "state",
     members: ["budget_law", "dv_investment_annex", "dv_laws"],
     skills: ["update-budget"],
+    tags: ["fiscal"],
+  },
+  {
+    id: "zdoi",
+    label: { bg: "Платформа за достъп до обществена информация", en: "Access-to-information platform" }, // prettier-ignore
+    detail: {
+      bg: "заявления по ЗДОИ и отговори",
+      en: "ЗДОИ requests and answers",
+    },
+    desc: {
+      bg: "Заявленията за достъп до обществена информация, подадени през pitay.government.bg — институцията, предметът, статусът и решението ѝ. Данните за заявителя не се съхраняват. Заявления, подадени по пощата, по имейл или на място, не са в платформата.",
+      en: "Access-to-information requests filed through pitay.government.bg — the institution, the subject, the status and its decision. Nothing about the requester is stored. Requests filed by post, e-mail or in person are not on the platform.",
+    },
+    url: "https://pitay.government.bg/",
+    origin: "state",
+    members: ["zdoi_pitay"],
+    skills: ["update-zdoi"],
     tags: ["fiscal"],
   },
   {
@@ -2635,7 +2663,26 @@ export const DATASETS: DatasetDef[] = [
       "budget_peer_band",
       "budget_personnel",
       "budget_program_fact",
+      "budget_named_appropriation",
+      "budget_named_appropriation_amount",
+      "budget_spending_decree",
+      "budget_spending_decree_clause",
     ],
+    tags: ["fiscal"],
+  },
+  {
+    id: "zdoi",
+    label: { bg: "Заявления по ЗДОИ", en: "Access-to-information requests" },
+    detail: {
+      bg: "какво питат институциите",
+      en: "what institutions are asked",
+    },
+    desc: {
+      bg: "Заявленията по ЗДОИ, подадени през платформата, с отговора на институцията — търсят се по дума в чат асистента. Отговорът е на самата институция, не е проверен от нас.",
+      en: "Access-to-information requests filed through the platform, with the institution's answer — searched by word in the chat assistant. Each answer is the institution's own, not verified by us.",
+    },
+    serving: "pg",
+    tables: ["zdoi_request", "zdoi_event", "zdoi_forward"],
     tags: ["fiscal"],
   },
   {
@@ -3355,6 +3402,7 @@ export const EDGES: [string, string][] = [
   ["src:sp", "ds:ngo"],
   ["src:vss", "ds:ngo"],
   ["src:dv", "ds:budget"],
+  ["src:zdoi", "ds:zdoi"],
   ["src:ministries", "ds:budget"],
   ["src:ministries", "ds:municipal_fiscal"],
   ["ds:municipal_fiscal", "f:governance"],

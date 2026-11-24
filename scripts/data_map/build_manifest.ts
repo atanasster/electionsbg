@@ -27,6 +27,7 @@ import { ALL_QUERIES } from "../../src/screens/dev/sqlLibrary";
 import { isExcluded } from "../bucket_sync_paths";
 import type { Cadence } from "../watch/types";
 import {
+  AI_DB_ROUTE_RULES,
   AI_PATH_RULES,
   DATASETS,
   type DatasetDef,
@@ -218,8 +219,12 @@ export const deriveAiEdges = (): {
 } => {
   const datasetIds = new Set(DATASETS.map((d) => d.id));
   const found = new Map<string, string[]>(); // normalised path -> files
+  const viaRoute = new Set<string>();
   for (const file of walkTs(AI_DIR)) {
     const content = fs.readFileSync(file, "utf-8");
+    if (!file.endsWith(".test.ts"))
+      for (const r of AI_DB_ROUTE_RULES)
+        if (content.includes(`"${r.route}"`)) viaRoute.add(r.dataset);
     for (const m of content.matchAll(PATH_RE)) {
       // `${expr}` → `{expr}` so rules can distinguish /{election}/ vs /{cycle}/.
       const norm = m[2].replace(/\$\{([^}]*)\}/g, "{$1}");
@@ -239,6 +244,11 @@ export const deriveAiEdges = (): {
     if (!datasetIds.has(rule.dataset))
       fail(`AI_PATH_RULES maps "${p}" to unknown dataset "${rule.dataset}"`);
     datasets.add(rule.dataset);
+  }
+  for (const d of viaRoute) {
+    if (!datasetIds.has(d))
+      fail(`AI_DB_ROUTE_RULES maps to unknown dataset "${d}"`);
+    datasets.add(d);
   }
   if (unmatched.length)
     fail(
