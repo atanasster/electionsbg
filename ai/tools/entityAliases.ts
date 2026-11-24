@@ -40,6 +40,16 @@ export type EntityAlias = {
   /** Firms whose names collide with a trigger and are known to be unrelated.
    *  Listed so they are NAMED as excluded rather than silently dropped. */
   excludeEiks: string[];
+  /** State money set aside for the entity BY NAME, listed explicitly — never found by
+   *  a name search (docs/plans/insait-gap-v1.md §4). `lines` are the State Budget
+   *  Law's own codes in Приложение № 2 към чл. 110, each with the law's fiscal year —
+   *  a code is unique only within one law, and a later law may reuse it for another
+   *  project. `decrees` are Държавен вестник idMat of the ПМС that granted it. Each
+   *  one is read at its source by hand before it is added. */
+  appropriations?: {
+    lines: { fiscalYear: number; code: string }[];
+    decrees: number[];
+  };
 };
 
 export const ENTITY_ALIASES: EntityAlias[] = [
@@ -77,5 +87,21 @@ export const ENTITY_ALIASES: EntityAlias[] = [
     ],
     // ДАТА ИНСАИТ И БИЗНЕС, ИНСАИТ ИН — "insight" firms, unrelated.
     excludeEiks: ["203637591", "131231159"],
+    appropriations: {
+      // ЗДБРБ 2025 and 2026, Приложение № 2: „Изграждане на изчислителен център за
+      // изкуствен интелект … (INSAIT)" — 2025 раздел I, 3 800,0 хил. лв; 2025 раздел II
+      // (the reserve list), the same project at 31 200,0 хил. лв, indicative only;
+      // 2026 раздел I, 3 500,0 хил. евро plus forecasts for 2027–2028.
+      lines: [
+        { fiscalYear: 2025, code: "NP-25.001-0048" },
+        { fiscalYear: 2025, code: "NP-25.002-0048" },
+        { fiscalYear: 2026, code: "NP-25.002-0048" },
+      ],
+      // ПМС № 67/25.02.2021 (ДВ бр. 18/2021): 7 802 200 лв to Sofia University for the
+      // institute's activity. ПМС № 56/2021 only FOUNDED the institute — no money.
+      // Checked against a crawl of February 2021 only; later decrees are added once
+      // the 2021 → today backfill has been read.
+      decrees: [156315],
+    },
   },
 ];

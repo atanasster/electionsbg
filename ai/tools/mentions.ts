@@ -69,6 +69,27 @@ type CompanyRow = {
   legalForm?: string | null;
   status?: string | null;
 };
+type NamedRow = {
+  fiscalYear: number;
+  section: "priority" | "reserve";
+  projectCode: string;
+  title: string;
+  institution: string;
+  dvIdMat: string;
+  year: number;
+  kind: "appropriation" | "forecast" | "indicative";
+  amountEur: number;
+};
+type DecreeRow = {
+  idMat: number;
+  decreeNo: number;
+  decreeDate: string;
+  budgetOf: string | null;
+  seq: number | null;
+  amountEur: number | null;
+  upTo: boolean | null;
+  purpose: string | null;
+};
 type ZdoiHit = {
   appId: number;
   regNo: string;
@@ -136,6 +157,7 @@ const PROVENANCE = [
   "db:agri-search",
   "db:vote-item-search",
   "db:zdoi-search",
+  "db:entity-appropriations",
   "culture/films.json",
 ];
 
@@ -272,6 +294,24 @@ export const entityMentions = async (
       provenance: [],
     };
 
+  // Money a curated entity was given BY NAME — fetched by the alias's explicit list of
+  // budget-law codes and decree ids, never by a name search.
+  const lines = aliases.flatMap((a) => a.appropriations?.lines ?? []);
+  const decreeIds = aliases.flatMap((a) => a.appropriations?.decrees ?? []);
+  const curatedMoney = lines.length > 0 || decreeIds.length > 0;
+  // null = the lookup failed; the curated money EXISTS, so that is „no data", never „none".
+  const appropriationsPending = curatedMoney
+    ? settledOr(
+        fetchDb<{ named?: NamedRow[]; decrees?: DecreeRow[] }>(
+          "entity-appropriations",
+          {
+            lines: lines.map((l) => `${l.fiscalYear}:${l.code}`).join(","),
+            decrees: decreeIds.join(","),
+          },
+        ),
+        null,
+      )
+    : Promise.resolve(null);
   const zdoiPending = Promise.all(
     zdoiTerms.map((v) =>
       settledOr(
@@ -338,6 +378,14 @@ export const entityMentions = async (
   );
 
   const zdoiPer = await zdoiPending;
+  const appropriations = await appropriationsPending;
+  const named = appropriations?.named ?? [];
+  const decreeRows = appropriations?.decrees ?? [];
+  const missingDecrees = decreeIds.filter(
+    (id) => !decreeRows.some((d) => d.idMat === id),
+  );
+  const appropriationsSearched =
+    curatedMoney && (named.length > 0 || decreeRows.length > 0);
   // Only a database that holds the corpus may be said to have been searched: no coverage
   // row (207 not applied, the route failed) or an empty table must not read as „nobody
   // asked" (207 rule 1).
@@ -525,6 +573,12 @@ export const entityMentions = async (
     film: bg ? "Филмова субсидия (НФЦ)" : "Film subsidy (НФЦ)",
     call: bg ? "Процедура за финансиране" : "Funding call",
     zdoi: bg ? "Заявление по ЗДОИ" : "Access-to-information request",
+    law: bg
+      ? "Закон за държавния бюджет (поименно)"
+      : "State Budget Law (named line)",
+    decree: bg
+      ? "ПМС за допълнителни средства"
+      : "Council of Ministers decree (extra funds)",
   };
   const rows: Row[] = [];
   const cellLinks: TableCellLink[] = [];
@@ -683,6 +737,49 @@ export const entityMentions = async (
       `/votes/${encodeURIComponent(v.date.slice(0, 10))}`,
     );
 
+  // What the law and the decrees AUTHORISED. Each amount keeps its kind: a forecast
+  // or a reserve-list figure is shown as such and never summed into an appropriation.
+  const dvLink = (idMat: string | number) =>
+    `https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=${idMat}`;
+  const namedKind = (r: NamedRow) =>
+    r.kind === "appropriation"
+      ? bg
+        ? `заложени за ${r.year} г.`
+        : `set for ${r.year}`
+      : r.kind === "forecast"
+        ? bg
+          ? `прогноза за ${r.year} г. (не е разход по закона)`
+          : `forecast for ${r.year} (not an appropriation)`
+        : bg
+          ? `резервен списък, индикативно за ${r.year} г.`
+          : `reserve list, indicative for ${r.year}`;
+  for (const r of named)
+    push(
+      {
+        kind: kind.law,
+        date: String(r.fiscalYear),
+        subject: clip(`${r.projectCode} — ${r.title}`),
+        party: `${r.institution} · ${namedKind(r)}`,
+        amount: eur(r.amountEur),
+      },
+      dvLink(r.dvIdMat),
+    );
+  for (const d of decreeRows)
+    push(
+      {
+        kind: kind.decree,
+        date: d.decreeDate.slice(0, 10),
+        subject: clip(
+          `ПМС № ${d.decreeNo}/${d.decreeDate.slice(0, 4)}${d.purpose ? ` — ${d.purpose}` : ""}`,
+        ),
+        party: d.budgetOf ?? "—",
+        amount:
+          d.amountEur == null
+            ? "—"
+            : `${d.upTo ? (bg ? "до " : "up to ") : ""}${eur(d.amountEur)}`,
+      },
+      dvLink(d.idMat),
+    );
   // The body's own answer, quoted — not data we verified (207 rule 2); the page is
   // on the platform, so the link goes out to it.
   for (const z of zdoi)
@@ -729,6 +826,39 @@ export const entityMentions = async (
       .join("; ");
   if (lookalikes.length)
     facts.similar_names_not_included = lookalikes.slice(0, 6).join("; ");
+  if (appropriationsSearched) {
+    // Only appropriations are summed — forecasts and the reserve list are shown as rows
+    // and never added — and the years summed are named.
+    const set = named.filter((r) => r.kind === "appropriation");
+    if (set.length) {
+      const years = [...new Set(set.map((r) => r.year))].sort();
+      facts.budget_law_appropriated = `${fmtEurCompact(
+        set.reduce((a, r) => a + r.amountEur, 0),
+        ctx.lang,
+      )} (${years.length > 1 ? `${years[0]}–${years[years.length - 1]}` : years[0]})`;
+    }
+    // A decree with no parsed amount is „no data", never a 0 in the sum.
+    const valued = decreeRows.filter((d) => d.amountEur != null);
+    if (valued.length)
+      facts.decrees_authorised = `${valued.some((d) => d.upTo) ? (bg ? "до " : "up to ") : ""}${fmtEurCompact(
+        valued.reduce((a, d) => a + (d.amountEur ?? 0), 0),
+        ctx.lang,
+      )}`;
+    const unvalued = new Set(
+      decreeRows.filter((d) => d.amountEur == null).map((d) => d.idMat),
+    ).size;
+    if (unvalued)
+      facts.decrees_without_amount = bg
+        ? `${unvalued} ПМС без разчетена сума — няма данни, не 0`
+        : `${unvalued} decree(s) with no parsed amount — no data, not 0`;
+    facts.appropriations_note = bg
+      ? "Заложено по закон и одобрено с ПМС — това не е преведено, нито изразходвано. Данни за превод и разход: няма. Прогнозите и резервният списък не са включени в заложената сума."
+      : "Set by the budget law and authorised by decree — not transferred, not spent. Transfer and spending figures: no data. Forecasts and the reserve list are not included in the appropriated sum.";
+  }
+  if (curatedMoney && (!appropriationsSearched || missingDecrees.length))
+    facts.appropriations_unavailable = bg
+      ? `Поименните средства по закона и ПМС не можаха да се заредят${missingDecrees.length && appropriationsSearched ? ` (липсват ПМС с idMat ${missingDecrees.join(", ")})` : ""} — няма данни, а не „няма средства“.`
+      : `The money named in the budget law and decrees could not be loaded${missingDecrees.length && appropriationsSearched ? ` (missing decree idMat ${missingDecrees.join(", ")})` : ""} — no data, not „no money“.`;
   if (zdoi.length)
     facts.access_to_information_note = bg
       ? "Заявленията по ЗДОИ са подадени през Платформата за достъп до обществена информация (pitay.government.bg); отговорът е на самата институция, не е проверен от нас."
@@ -741,8 +871,8 @@ export const entityMentions = async (
   if (cappedContracts) facts.contracts_matching_search_up_to = contractsUpTo;
   if (cappedTenders) facts.tenders_matching_search_up_to = tendersUpTo;
   facts.coverage_note = bg
-    ? `Търсени: договори, поръчки, жалби до КЗК, Търговски регистър (вкл. ЮЛНЦ), ЕС фондове, Interreg, субсидии ДФЗ, субсидии НФЦ, процедури за финансиране, гласувания в парламента${zdoiSearched ? ", заявления по ЗДОИ, подадени през ПДОИ" : ""}. Търсене по име — запис, който не споменава името, не се вижда; парите по ЕИК на всяка организация са на страницата ѝ.`
-    : `Searched: contracts, tenders, КЗК appeals, the Commerce Registry (incl. NGOs), EU funds, Interreg, ДФЗ farm subsidies, НФЦ film subsidies, funding calls, parliament votes${zdoiSearched ? ", access-to-information requests filed through the platform" : ""}. Name search — a record that does not name it is not found; each organisation's money by EIK is on its own page.`;
+    ? `Търсени: договори, поръчки, жалби до КЗК, Търговски регистър (вкл. ЮЛНЦ), ЕС фондове, Interreg, субсидии ДФЗ, субсидии НФЦ, процедури за финансиране, гласувания в парламента${zdoiSearched ? ", заявления по ЗДОИ, подадени през ПДОИ" : ""}${appropriationsSearched ? ", Закона за държавния бюджет (поименно) и ПМС" : ""}. Търсене по име — запис, който не споменава името, не се вижда; парите по ЕИК на всяка организация са на страницата ѝ.`
+    : `Searched: contracts, tenders, КЗК appeals, the Commerce Registry (incl. NGOs), EU funds, Interreg, ДФЗ farm subsidies, НФЦ film subsidies, funding calls, parliament votes${zdoiSearched ? ", access-to-information requests filed through the platform" : ""}${appropriationsSearched ? ", the State Budget Law's named lines and decrees" : ""}. Name search — a record that does not name it is not found; each organisation's money by EIK is on its own page.`;
 
   if (!rows.length)
     return {
@@ -757,8 +887,8 @@ export const entityMentions = async (
           ? `Сходни, но различни имена (не са включени): ${lookalikes.slice(0, 4).join(", ")}`
           : `Similar but different names (not included): ${lookalikes.slice(0, 4).join(", ")}`
         : bg
-          ? `Търсих в договори, поръчки, жалби до КЗК, Търговския регистър, ЕС фондове, Interreg, субсидии ДФЗ и НФЦ, процедури за финансиране, гласувания в парламента${zdoiSearched ? " и заявления по ЗДОИ през ПДОИ" : ""}.`
-          : `Searched contracts, tenders, КЗК appeals, the Commerce Registry, EU funds, Interreg, ДФЗ and НФЦ subsidies, funding calls, parliament votes${zdoiSearched ? " and access-to-information requests filed through the platform" : ""}.`,
+          ? `Търсих в договори, поръчки, жалби до КЗК, Търговския регистър, ЕС фондове, Interreg, субсидии ДФЗ и НФЦ, процедури за финансиране, гласувания в парламента${zdoiSearched ? " и заявления по ЗДОИ през ПДОИ" : ""}${appropriationsSearched ? ", поименните редове в бюджета и ПМС" : ""}.`
+          : `Searched contracts, tenders, КЗК appeals, the Commerce Registry, EU funds, Interreg, ДФЗ and НФЦ subsidies, funding calls, parliament votes${zdoiSearched ? " and access-to-information requests filed through the platform" : ""}${appropriationsSearched ? ", the budget law's named lines and decrees" : ""}.`,
       facts,
       viz: "none",
       provenance: [...PROVENANCE],

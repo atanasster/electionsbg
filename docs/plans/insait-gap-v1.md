@@ -1,6 +1,6 @@
 # INSAIT gap — entity aliases, ЗДОИ platform, named appropriations (v1)
 
-Status: Phases 1–2 built (2026-11-24); Phase 3 in progress (named appropriations and ПМС decrees built); Phase 4 planned. Written 2026-11-24.
+Status: Phases 1–3 built (2026-11-24); Phase 4 blocked on the registry and on `tr-gfo-ingest-v1.md`. Written 2026-11-24.
 
 Trigger: a reader asked the chat „INSAIT“ (`/chat?q=INSAIT`) and pointed at
 <https://pitay.government.bg/application/8905/view> — a ЗДОИ answer from МОН (13.12.2023) stating
@@ -143,14 +143,23 @@ This is where the INSAIT money is, and it generalises to every targeted state tr
   source is Държавен вестник itself: its issue index is a JSF postback, but every material is a
   plain GET by sequential idMat (~1,000 a month; an unissued id answers an empty 200), so the
   crawler walks ids and keeps only Council of Ministers „за одобряване на допълнител(ни|ен)
-  разходи/трансфери" decrees. Чл. 1's total is stored (an itemised per-município list that
-  breaks it down is not added to it), with `up_to` for a ceiling. The 2021 → today backfill
+  разходи/трансфери" decrees (anywhere in the title — combined titles count). One amount per
+  paragraph that starts „Одобрява", the first it states: an itemised list or an item's own „в
+  общ размер" subtotal breaks that total down and is never added, and a paragraph that
+  appropriates nothing (a per-pensioner sum) carries no clause. `up_to` marks a ceiling. The 2021 → today backfill
   (~93k ids, ~8 h) is an operator run; the pipeline walks only new ids. РМС (decisions) are not
   modelled — they are not promulgated as spending acts in the same form.
 - Tables `budget_named_appropriation`, `budget_spending_decree`; loaders + `:cloud` twins; link to
   Phase 1 aliases by explicit mapping, never by name search.
-- Surface: the INSAIT answer gains „заложени по закон / ПМС" beside „договорени по ЗОП", each with
-  its source. **Appropriated ≠ transferred ≠ spent**: until the execution reports are in (below),
+- Surface — BUILT: `/api/db/entity-appropriations` takes an alias's explicit (fiscal year, code)
+  lines — a code is unique only within one law — and decree idMats; the mentions tool renders
+  each law line and decree as a row linked to its DV material, keeps forecasts and the reserve
+  list labelled and out of the appropriated sum, and says „no data" (never €0 or „no money")
+  when the lookup fails or an amount is unparsed. INSAIT is mapped to 2025 NP-25.001-0048, 2025
+  NP-25.002-0048 (the same project on the reserve list, indicative), 2026 NP-25.002-0048 and
+  ПМС № 67/2021 (idMat 156315, 7 802 200 лв to
+  СУ for the institute) — checked against the Feb 2021 crawl only, so later decrees wait on the
+  full backfill. **Appropriated ≠ transferred ≠ spent**: until the execution reports are in (below),
   the transferred and spent columns render as „няма данни", never as 0 and never as the difference.
 - Later: МОН programme execution report and СУ's annual budget report for the transferred/spent
   figures.
@@ -158,8 +167,12 @@ This is where the INSAIT money is, and it generalises to every targeted state tr
 ## 5. Phase 4 — the foundation's ГФО
 
 Already planned: `tr-gfo-ingest-v1.md` tier 7 (NGO prompt arm, validated on INSAIT 2023). Nothing
-new here except linking the result to the Phase 1 alias. Blocked on FY2024/2025 reaching the TR
-feed.
+new here except linking the result to the Phase 1 alias.
+
+**Blocked, re-checked 2026-11-24.** `tr_announced_act` holds one statement for the foundation
+(ЕИК 207211849): fiscal year 2023, in the feed and not yet in a CR capture — FY2024/2025 have not
+reached the TR feed. And the ГФО ingest this would ride is itself unbuilt (`tr-gfo-ingest-v1.md`
+is a plan, human-gated on OCR cost). Unblocks when both move.
 
 ## 6. Order and why
 

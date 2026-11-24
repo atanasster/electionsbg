@@ -169,6 +169,45 @@ const mockRoutes = () => {
             lastSubmitted: "2026-11-23",
           },
         };
+      if (route === "entity-appropriations")
+        return {
+          named: [
+            {
+              fiscalYear: 2026,
+              section: "priority",
+              projectCode: "NP-25.002-0048",
+              title: "Изчислителен център за изкуствен интелект",
+              institution: "Министерство на образованието и науката",
+              dvIdMat: "241000",
+              year: 2026,
+              kind: "appropriation",
+              amountEur: 3_500_000,
+            },
+            {
+              fiscalYear: 2026,
+              section: "priority",
+              projectCode: "NP-25.002-0048",
+              title: "Изчислителен център за изкуствен интелект",
+              institution: "Министерство на образованието и науката",
+              dvIdMat: "241000",
+              year: 2028,
+              kind: "forecast",
+              amountEur: 4_000_000,
+            },
+          ],
+          decrees: [
+            {
+              idMat: 156315,
+              decreeNo: 67,
+              decreeDate: "2021-02-25",
+              budgetOf: "Министерството на образованието и науката",
+              seq: 1,
+              amountEur: 3_989_201.52,
+              upTo: false,
+              purpose: "за Софийския университет",
+            },
+          ],
+        };
       if (route === "table") {
         const req = JSON.parse(String(p.q));
         if (req.resource === "companies")
@@ -285,6 +324,113 @@ describe("entityMentions — INSAIT", () => {
     const env = await entityMentions({ term: "INSAIT" }, ctx);
     expect(String(env.facts?.coverage_note)).not.toMatch(/ЗДОИ/);
     expect(env.facts?.access_to_information_coverage).toBeUndefined();
+  });
+
+  it("shows the law line and the decree, never summing a forecast into the appropriation", async () => {
+    const { env, subjects } = await run("INSAIT");
+    const asked = vi
+      .mocked(fetchDb)
+      .mock.calls.filter(([route]) => route === "entity-appropriations")
+      .map(([, p]) => p);
+    expect(asked).toEqual([
+      {
+        lines: "2025:NP-25.001-0048,2025:NP-25.002-0048,2026:NP-25.002-0048",
+        decrees: "156315",
+      },
+    ]);
+    expect(subjects.some((s) => s.startsWith("NP-25.002-0048"))).toBe(true);
+    expect(subjects.some((s) => s.startsWith("ПМС № 67/2021"))).toBe(true);
+    const parties = (env.rows ?? []).map((r) => String(r.party));
+    expect(parties.some((p) => /прогноза за 2028/.test(p))).toBe(true);
+    expect(env.cellLinks).toContainEqual(
+      expect.objectContaining({
+        href: "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=156315",
+      }),
+    );
+    // 3.5M appropriated; the 4M forecast is shown as a row but never added in
+    expect(String(env.facts?.budget_law_appropriated)).toMatch(/3[,.]5/);
+    expect(String(env.facts?.budget_law_appropriated)).not.toMatch(/7[,.]5/);
+    expect(String(env.facts?.appropriations_note)).toMatch(/не е преведено/);
+  });
+
+  const withAppropriations = (body: unknown) => {
+    mockRoutes();
+    const inner = vi.mocked(fetchDb).getMockImplementation()!;
+    vi.mocked(fetchDb).mockImplementation(async (route, p) =>
+      route === "entity-appropriations"
+        ? typeof body === "function"
+          ? body()
+          : body
+        : inner(route, p),
+    );
+    return entityMentions({ term: "INSAIT" }, ctx);
+  };
+  const decree = {
+    idMat: 156315,
+    decreeNo: 67,
+    decreeDate: "2021-02-25",
+    budgetOf: "МОН",
+    seq: 1,
+    amountEur: 3_989_201.52,
+    upTo: false,
+    purpose: null,
+  };
+
+  it("publishes no appropriated total when the law only forecasts or lists a reserve", async () => {
+    const env = await withAppropriations({
+      named: [
+        {
+          fiscalYear: 2025,
+          section: "reserve",
+          projectCode: "NP-25.002-0048",
+          title: "Изчислителен център",
+          institution: "МОН",
+          dvIdMat: "230000",
+          year: 2025,
+          kind: "indicative",
+          amountEur: 15_952_000,
+        },
+      ],
+      decrees: [decree],
+    });
+    expect(env.facts?.budget_law_appropriated).toBeUndefined();
+  });
+
+  it("treats a decree with no parsed amount as no data, never €0", async () => {
+    const env = await withAppropriations({
+      named: [],
+      decrees: [{ ...decree, seq: null, amountEur: null, upTo: null }],
+    });
+    expect(env.facts?.decrees_authorised).toBeUndefined();
+    expect(String(env.facts?.decrees_without_amount)).toMatch(/не 0/);
+  });
+
+  it("keeps a ceiling a ceiling in the total", async () => {
+    const env = await withAppropriations({
+      named: [],
+      decrees: [{ ...decree, upTo: true }],
+    });
+    expect(String(env.facts?.decrees_authorised)).toMatch(/^до /);
+  });
+
+  it("says the curated money could not be loaded, rather than that there is none", async () => {
+    const env = await withAppropriations(() => {
+      throw new Error("500");
+    });
+    expect(String(env.facts?.appropriations_unavailable)).toMatch(
+      /няма данни, а не „няма средства“/,
+    );
+    expect(String(env.facts?.coverage_note)).not.toMatch(/ПМС/);
+  });
+
+  it("asks for no appropriations when the entity has none curated", async () => {
+    mockRoutes();
+    await entityMentions({ term: "Google" }, ctx);
+    expect(
+      vi
+        .mocked(fetchDb)
+        .mock.calls.some(([route]) => route === "entity-appropriations"),
+    ).toBe(false);
   });
 
   it("names the excluded „insight“ firms instead of dropping them silently", async () => {

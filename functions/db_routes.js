@@ -1329,6 +1329,64 @@ const DB_ROUTES = {
     ]);
     return { body: { items, coverage: cov[0] ?? null } };
   },
+
+  // State money set aside for a curated entity BY NAME (insait-gap-v1 §4): the State
+  // Budget Law's named projects (208) by their own codes, and ПМС spending decrees (209)
+  // by Държавен вестник idMat. The caller passes an explicit list — this route never
+  // searches by name. Authorised, not paid: nothing here is a transfer or a spend.
+  "entity-appropriations": async (dbRows, q) => {
+    // `lines` = "2025:NP-25.001-0048,…" — a code is unique only within one law's year.
+    const lines = s(q, "lines")
+      .split(",")
+      .map((c) => /^(\d{4}):(NP-\d{2}\.\d{3}-\d{4})$/.exec(c.trim()))
+      .filter(Boolean)
+      .slice(0, 50);
+    const decrees = s(q, "decrees")
+      .split(",")
+      .map((d) => Number(d))
+      .filter((d) => Number.isInteger(d) && d > 0 && d <= 2147483647)
+      .slice(0, 50);
+    if (!lines.length && !decrees.length)
+      return { status: 400, body: { error: "lines or decrees required" } };
+    const degrade = (e) => {
+      if (e?.code === "42883" || e?.code === "42P01")
+        logMissOnce(
+          `ea:not-built:${e.code}`,
+          "migration 208/209 not applied — run db:load:budget-named:pg:cloud / db:load:budget-decrees:pg:cloud",
+        );
+      return missingMigrationRows(e);
+    };
+    const [named, decreeRows] = await Promise.all([
+      lines.length
+        ? dbRows(
+            `SELECT p.fiscal_year AS "fiscalYear", p.section, p.project_code AS "projectCode",
+                    p.title, p.institution, p.currency, p.dv_idmat AS "dvIdMat",
+                    a.year, a.kind, a.amount_native AS "amountNative", a.amount_eur AS "amountEur"
+               FROM budget_named_appropriation p
+               JOIN budget_named_appropriation_amount a USING (fiscal_year, section, seq)
+              WHERE (p.fiscal_year, p.project_code) IN
+                    (SELECT * FROM unnest($1::int[], $2::text[]))
+              ORDER BY p.fiscal_year, p.section, a.year`,
+            [lines.map((m) => Number(m[1])), lines.map((m) => m[2])],
+          ).catch(degrade)
+        : [],
+      decrees.length
+        ? dbRows(
+            `SELECT d.id_mat AS "idMat", d.decree_no AS "decreeNo",
+                    d.decree_date::text AS "decreeDate", d.kind, d.budget_of AS "budgetOf",
+                    d.title, d.issue_no AS "issueNo", d.issue_date::text AS "issueDate",
+                    c.seq, c.amount_native AS "amountNative", c.currency,
+                    c.amount_eur AS "amountEur", c.up_to AS "upTo", c.purpose
+               FROM budget_spending_decree d
+               LEFT JOIN budget_spending_decree_clause c USING (id_mat)
+              WHERE d.id_mat = ANY($1::int[])
+              ORDER BY d.decree_date, c.seq`,
+            [decrees],
+          ).catch(degrade)
+        : [],
+    ]);
+    return { body: { named, decrees: decreeRows } };
+  },
   async company(dbRows, q) {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
