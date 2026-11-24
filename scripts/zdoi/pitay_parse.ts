@@ -98,8 +98,10 @@ export const scrubContacts = (s: string): string =>
     )
     .replace(
       // Anchored so a number cannot continue a document reference
-      // („РД-02-14-577/20.06.2019", „№ 02-00-71/26.01.2018").
-      /(?<![\p{L}\p{N}/.\-№])(?:\+359|00359|0)\s?(?:8[789]|2|[3-9]\d)(?:[\s-]?\d){6,7}(?![\p{N}/.])/gu,
+      // („РД-02-14-577/20.06.2019", „№ 02-00-71/26.01.2018"). A full stop blocks only
+      // with a digit on its far side: „тел.0888…" and a number ending a sentence are
+      // contacts, „20.06.2019" is not.
+      /(?<![\p{L}\p{N}/\-№]|\p{N}\.)(?:\+359|00359|0)\s?(?:8[789]|2|[3-9]\d)(?:[\s-]?\d){6,7}(?![\p{N}]|[/.]\p{N})/gu,
       SCRUBBED_CONTACT,
     );
 

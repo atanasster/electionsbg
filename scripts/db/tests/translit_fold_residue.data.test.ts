@@ -85,9 +85,9 @@ const MEASURED: Record<string, Measured> = {
   "tr_person_roles.name_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   "tender_search_text.fold": { bg: 0, extraPct: 0, extraFloor: 0 },
   // GENERATED from translit_bg_latin() like price_products.title_fold (207, 209).
-  // Measured 2026-11-24 on a partial crawl: 3 of 1,101 requests quote pre-reform
-  // spelling — ѣ and ѫ, which the function does not map.
-  "zdoi_request.search_fold": { bg: 0, extraPct: 0.272, extraFloor: 3 },
+  // Measured 2026-11-24 on the full crawl: 7 of 22,108 requests quote pre-reform or
+  // Serbian spelling — ѣ, ѫ, љ, њ, which the function does not map.
+  "zdoi_request.search_fold": { bg: 0, extraPct: 0.032, extraFloor: 7 },
   "budget_spending_decree.search_fold": { bg: 0, extraPct: 0, extraFloor: 0 },
 };
 /** Headroom over the measured rate. Ordinary ingestion adds rows at roughly the rate

@@ -122,6 +122,16 @@ describe("scrubContacts", () => {
     expect(scrubContacts("централа: 02 9404 999")).toBe(
       `централа: ${SCRUBBED_CONTACT}`,
     );
+    // a full stop against the number — „тел.0888…", a number ending a sentence
+    expect(scrubContacts("тел.0888123456 До Директора")).toBe(
+      `тел.${SCRUBBED_CONTACT} До Директора`,
+    );
+    expect(scrubContacts("тел. номер: 0888123456. На основание")).toBe(
+      `тел. номер: ${SCRUBBED_CONTACT}. На основание`,
+    );
+    expect(scrubContacts("тел. +359 888 123 456.На основание")).toBe(
+      `тел. ${SCRUBBED_CONTACT}.На основание`,
+    );
     for (const keep of [
       "Сумата от 100 млн. лв., Решение № 94-7052/13.12.2023, ПИ 56722.667.824, 1835 кв. м",
       "Решение № РД-02-14-577/20.06.2019",
