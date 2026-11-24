@@ -8,12 +8,40 @@
 //
 // Also sweeps any orphaned `dist.old-*` directories left by previous crashed
 // or interrupted runs — without this, leftovers can accumulate to many GB.
+//
+// `--sweep` (run at the end of postbuild) only removes those orphans, in the
+// foreground: by then the background delete has long finished, and what it
+// leaves is the directory itself, which Finder re-populates with a .DS_Store
+// mid-delete so the final rmdir fails with ENOTEMPTY. Without the sweep every
+// build left one `dist.old-*` behind until the next build.
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
 const PROJECT = path.resolve(".");
 const DIST = path.join(PROJECT, "dist");
+
+const orphans = () =>
+  fs
+    .readdirSync(PROJECT)
+    .filter((e) => e.startsWith("dist.old-"))
+    .map((e) => path.join(PROJECT, e));
+
+if (process.argv.includes("--sweep")) {
+  for (const t of orphans()) {
+    try {
+      fs.rmSync(t, {
+        recursive: true,
+        force: true,
+        maxRetries: 30,
+        retryDelay: 200,
+      });
+    } catch (e) {
+      process.stderr.write(`postbuild sweep failed for ${t}: ${e.message}\n`);
+    }
+  }
+  process.exit(0);
+}
 
 // Move the active dist/ aside so vite has a clean target to write to.
 const toDelete = [];
@@ -24,12 +52,7 @@ if (fs.existsSync(DIST)) {
 }
 
 // Sweep orphans from earlier interrupted runs.
-for (const entry of fs.readdirSync(PROJECT)) {
-  if (entry.startsWith("dist.old-")) {
-    const full = path.join(PROJECT, entry);
-    if (!toDelete.includes(full)) toDelete.push(full);
-  }
-}
+for (const full of orphans()) if (!toDelete.includes(full)) toDelete.push(full);
 
 if (toDelete.length === 0) process.exit(0);
 

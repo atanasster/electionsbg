@@ -53,7 +53,7 @@
     "i18n:split": "tsx ./scripts/i18n/split_bundles.ts",
     "brand:channels": "tsx ./scripts/brand/generate_channel_art.ts",
     "brand:icons": "tsx ./scripts/brand/generate_site_icons.ts",
-    "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/llms/buildIndex.ts && tsx ./scripts/llms/buildFull.ts && tsx ./scripts/images/optimize.ts && find dist public -name .DS_Store -delete && node scripts/articles/package.mjs",
+    "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/llms/buildIndex.ts && tsx ./scripts/llms/buildFull.ts && tsx ./scripts/images/optimize.ts && find dist public -name .DS_Store -delete && node scripts/articles/package.mjs && node ./scripts/prebuild.mjs --sweep",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "preview": "vite preview",
