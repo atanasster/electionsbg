@@ -132,6 +132,15 @@ const RELOADED: ReadonlyArray<{
     table: "budget_named_appropriation_amount",
     loader: "pnpm run db:load:budget-named:pg",
   },
+  // Council of Ministers spending decrees (209) — DELETEd and re-COPYd from the crawl.
+  {
+    table: "budget_spending_decree",
+    loader: "pnpm run db:load:budget-decrees:pg",
+  },
+  {
+    table: "budget_spending_decree_clause",
+    loader: "pnpm run db:load:budget-decrees:pg",
+  },
   // ⚠️ THE SCAN BELOW CANNOT SEE THESE TWO. Their vacuum lives in
   // `scripts/prices/load_day.ts`, and neither LOADER_FILES (a glob over
   // `scripts/db/load_*.ts`) nor DELEGATE_FILES (their escaping imports) reaches

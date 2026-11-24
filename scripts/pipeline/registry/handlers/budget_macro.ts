@@ -117,6 +117,14 @@ export const BUDGET_MACRO: Handler[] = [
       // Приложение № 2 към чл. 110 — named investment projects, parsed from the
       // law HTML budget:ingest caches (insait-gap-v1 §4).
       derive("db:load:budget-named:pg", pnpm("db:load:budget-named:pg")),
+      // ПМС spending decrees: walk DV material ids published since the last run
+      // (resumable; exit 2 = some ids failed and are retried next time; exit 3 = DV
+      // stopped answering, which fails the step), then load.
+      ingest("budget:dv-decrees", pnpm("budget:dv-decrees"), {
+        okExit: [2],
+        timeoutMin: 60,
+      }),
+      derive("db:load:budget-decrees:pg", pnpm("db:load:budget-decrees:pg")),
     ],
     operator: [
       {
@@ -163,6 +171,7 @@ export const BUDGET_MACRO: Handler[] = [
         "pnpm run db:load:budget-muni:pg:cloud",
         "pnpm run db:load:budget-hub:pg:cloud",
         "pnpm run db:load:budget-named:pg:cloud",
+        "pnpm run db:load:budget-decrees:pg:cloud",
         "pnpm run db:load:agri-hub-stats:pg:cloud",
       ],
     },

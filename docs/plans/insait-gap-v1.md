@@ -1,6 +1,6 @@
 # INSAIT gap — entity aliases, ЗДОИ platform, named appropriations (v1)
 
-Status: Phases 1–2 built (2026-11-24); Phase 3 in progress (named appropriations built); Phase 4 planned. Written 2026-11-24.
+Status: Phases 1–2 built (2026-11-24); Phase 3 in progress (named appropriations and ПМС decrees built); Phase 4 planned. Written 2026-11-24.
 
 Trigger: a reader asked the chat „INSAIT“ (`/chat?q=INSAIT`) and pointed at
 <https://pitay.government.bg/application/8905/view> — a ЗДОИ answer from МОН (13.12.2023) stating
@@ -138,10 +138,15 @@ This is where the INSAIT money is, and it generalises to every targeted state tr
   are NP-25.001-0048 (2025, 3 800,0 хил. лв) and NP-25.002-0048 (2026, 3 500,0 хил. евро) — an
   order of magnitude below the 100M лв per year in МОН's ЗДОИ answer, so the rest of that money,
   if it exists, flows through a channel this annex does not name (programme budgets, ПМС).
-- **ПМС / РМС for additional spending.** Source: Държавен вестник (decrees are promulgated there).
-  Parse „одобряване на допълнителни разходи / трансфери по бюджета на …": decree no., date,
-  ministry, amount, beneficiary named in the text, purpose. Covers ПМС 56/2021 and later INSAIT
-  transfers, and every ad-hoc distribution of state money.
+- **ПМС for additional spending — BUILT (2026-11-24) as migration 209 + `budget:dv-decrees` +
+  `db:load:budget-decrees:pg`.** pris.government.bg's search answered HTTP 500 throughout, so the
+  source is Държавен вестник itself: its issue index is a JSF postback, but every material is a
+  plain GET by sequential idMat (~1,000 a month; an unissued id answers an empty 200), so the
+  crawler walks ids and keeps only Council of Ministers „за одобряване на допълнител(ни|ен)
+  разходи/трансфери" decrees. Чл. 1's total is stored (an itemised per-município list that
+  breaks it down is not added to it), with `up_to` for a ceiling. The 2021 → today backfill
+  (~93k ids, ~8 h) is an operator run; the pipeline walks only new ids. РМС (decisions) are not
+  modelled — they are not promulgated as spending acts in the same form.
 - Tables `budget_named_appropriation`, `budget_spending_decree`; loaders + `:cloud` twins; link to
   Phase 1 aliases by explicit mapping, never by name search.
 - Surface: the INSAIT answer gains „заложени по закон / ПМС" beside „договорени по ЗОП", each with

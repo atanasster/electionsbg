@@ -553,6 +553,8 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `db:load:budget-muni:pg` | derive | `pnpm run db:load:budget-muni:pg` | — |
 | `db:load:budget-hub:pg` | derive | `pnpm run db:load:budget-hub:pg` | — |
 | `db:load:budget-named:pg` | derive | `pnpm run db:load:budget-named:pg` | — |
+| `budget:dv-decrees` | ingest | `pnpm run budget:dv-decrees` | — |
+| `db:load:budget-decrees:pg` | derive | `pnpm run db:load:budget-decrees:pg` | — |
 
 **Operator steps:**
 - `budget-law-constants` (blocks arm, only on `budget_law`, `dv_laws`): A budget law was promulgated: resolve its idMat, edit scripts/budget/fetch_sources.ts and re-verify the statutory constants.
@@ -563,7 +565,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 
 **Publish:**
 - bucket: `budget`
-- cloud (global order applies): `pnpm run db:load:place-dim:pg:cloud`, `pnpm run db:load:budget:pg:cloud`, `pnpm run db:load:budget-muni:pg:cloud`, `pnpm run db:load:budget-hub:pg:cloud`, `pnpm run db:load:budget-named:pg:cloud`, `pnpm run db:load:agri-hub-stats:pg:cloud`
+- cloud (global order applies): `pnpm run db:load:place-dim:pg:cloud`, `pnpm run db:load:budget:pg:cloud`, `pnpm run db:load:budget-muni:pg:cloud`, `pnpm run db:load:budget-hub:pg:cloud`, `pnpm run db:load:budget-named:pg:cloud`, `pnpm run db:load:budget-decrees:pg:cloud`, `pnpm run db:load:agri-hub-stats:pg:cloud`
 
 **Never:**
 - Re-seed a canary only on a confirmed upstream change.

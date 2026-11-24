@@ -134,6 +134,7 @@ pnpm run db:load:budget:pg:cloud            # 152 КФП · 153 admin/programme 
 pnpm run db:load:budget-muni:pg:cloud       # 154: transfers, execution, capital + ИПОП projects
 pnpm run db:load:budget-hub:pg:cloud        # 156 — LAST, it reads all of the above
 pnpm run db:load:budget-named:pg:cloud      # 208 — independent; see below
+pnpm run db:load:budget-decrees:pg:cloud    # 209 — independent; see below
 ```
 
 Three things about that order are easy to get backwards:
@@ -190,6 +191,31 @@ no such annex. Three things to keep straight:
   against the new page (its test carries the shapes the real pages have).
 - **A project is re-coded each year** (INSAIT: NP-25.001-0048 in 2025, NP-25.002-0048 in
   2026). Link an entity by an explicit list of codes, never by a title search.
+
+**`db:load:budget-decrees:pg` — Council of Ministers spending decrees (migration 209).**
+ПМС „за одобряване на допълнителни разходи / трансфери …" — how the government moves money
+no budget line named in advance. `pnpm run budget:dv-decrees` walks Държавен вестник
+material ids (`showMaterialDV.jsp?idMat=N`, ~1,000 a month) into the gitignored
+`raw_data/budget/dv_decrees.sqlite`, keeping the body of every Council of Ministers
+spending decree; the loader re-parses that store. With no `--from-id` it walks only the
+ids published since the highest one stored, so the pipeline step stays short.
+
+```bash
+pnpm run budget:dv-decrees --from-id 155000   # ONE-OFF backfill, 2021-01 → today, ~93k ids (~8 h)
+pnpm run db:load:budget-decrees:pg
+```
+
+The backfill is an operator run — resumable, polite, and a re-run continues where it
+stopped. Three things to keep straight:
+
+- **A decree authorises; it does not pay.** `up_to` marks a ceiling („в размер до");
+  whether and to whom the money was finally paid is a different record.
+- **The amount is Чл. 1's TOTAL.** When a decree states „в общ размер" and then itemises
+  it per município, only the total is stored — summing the list as well would count the
+  money twice.
+- **Coverage is the crawled range.** A decree before the first crawled id is absent, not
+  non-existent; `spending_decree_coverage()` states the dates a surface must cite. A DV
+  material listed with „брой: null" was never promulgated and is not loaded.
 
 ## Revenue-breakdown ingests (separate scripts)
 

@@ -139,6 +139,8 @@ export const TOLERATED_GITIGNORED_INPUTS: Record<string, string[]> = {
   "db:load:zdoi:pg": ["raw_data/zdoi/pitay.sqlite"],
   // The cached Държавен вестник budget laws (insait-gap-v1 §4) — `pnpm run budget:ingest`.
   "db:load:budget-named:pg": ["raw_data/budget"],
+  // The Държавен вестник decree crawl (insait-gap-v1 §4) — `pnpm run budget:dv-decrees`.
+  "db:load:budget-decrees:pg": ["raw_data/budget/dv_decrees.sqlite"],
   // A db:gen-* generator, not a loader — same contract, see REFRESH_GENERATORS.
   "db:gen-sector-stats": ["data/budget/ministries"],
 };
