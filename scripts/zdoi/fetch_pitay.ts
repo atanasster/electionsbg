@@ -95,6 +95,9 @@ const get = async (
 
 const main = async () => {
   const store = new PitayStore();
+  const redacted = store.redactExisting();
+  if (redacted)
+    console.log(`pitay: redacted the requester on ${redacted} stored page(s)`);
   const refresh = process.argv.includes("--refresh");
   const front = await get(`${BASE}/`);
   if (front.status !== 200)

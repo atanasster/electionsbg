@@ -135,6 +135,8 @@ export const TOLERATED_GITIGNORED_INPUTS: Record<string, string[]> = {
   "db:load:nzok-drug-prices:pg": ["data/budget/nzok/drug_unit_prices.json"],
   "db:load:nzok-financials:pg": ["data/budget/nzok/hospital_financials.json"],
   "db:load:ngo-funding:pg": ["raw_data/ngo_funding/fts"],
+  // The pitay.government.bg ЗДОИ crawl (insait-gap-v1 §3) — `pnpm run zdoi:fetch`.
+  "db:load:zdoi:pg": ["raw_data/zdoi/pitay.sqlite"],
   // A db:gen-* generator, not a loader — same contract, see REFRESH_GENERATORS.
   "db:gen-sector-stats": ["data/budget/ministries"],
 };

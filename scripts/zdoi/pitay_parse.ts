@@ -8,10 +8,13 @@
 // server-rendered and ids are sequential (docs/plans/insait-gap-v1.md §3).
 //
 // PRIVACY: the requester's IDENTITY is stored only as the type the platform
-// prints („Физическо лице" / „Юридическо лице"); any other value throws, so a
-// markup change cannot leak a name through that field. The subject and the
-// decision are stored VERBATIM as the platform publishes them, and either can
-// contain a name — consumers show an excerpt and link out (plan §3).
+// prints („Физическо лице" / „Юридическо лице"). Early pages (2019) print the
+// requester's NAME in that field instead, with their phone and e-mail beside it;
+// `redactRequester` removes all three before a page is stored, and the parser
+// then records the type as unknown (null) — never the value it found. The
+// subject and the decision are stored as published except that e-mail addresses
+// and phone numbers are scrubbed (`scrubContacts`); either can still contain a
+// name — consumers show an excerpt and link out.
 
 import { decodeEntities, stripTags } from "../lib/html";
 
@@ -35,7 +38,9 @@ export interface ZdoiApplication {
   regNo: string;
   body: string;
   status: string;
-  applicantType: string;
+  /** One of APPLICANT_TYPES, or null when the page named the requester instead
+   *  of a type (the name is redacted, never stored). */
+  applicantType: string | null;
   /** ISO dates "YYYY-MM-DD". */
   submittedOn: string | null;
   deadline: string | null;
@@ -54,6 +59,49 @@ export const APPLICANT_TYPES: ReadonlySet<string> = new Set([
   "Физическо лице",
   "Юридическо лице",
 ]);
+
+/** What a redacted requester reads as. */
+export const REDACTED = "[заявител]";
+
+/**
+ * Remove the requester's identity from a page before it is stored anywhere: a
+ * name printed in the requester field (everywhere it recurs on the page — the
+ * title repeats it) and the contact paragraph with phone / e-mail / address.
+ * A page whose requester field is already a type passes through unchanged.
+ */
+export const redactRequester = (html: string): string => {
+  let out = html.replace(
+    /<p class="p-fs">(?:(?!<\/p>)[\s\S])*?fa-(?:phone|envelope|map-marker|home|address)[\s\S]*?<\/p>/gi,
+    '<p class="p-fs"></p>',
+  );
+  const anchor = /(fa-user[^>]*><\/i>)([\s\S]*?)(<\/a>)/i.exec(out);
+  const name = anchor ? anchor[2].trim() : "";
+  const visible = text(name);
+  if (name && !APPLICANT_TYPES.has(visible)) {
+    out = out.split(name).join(REDACTED);
+    if (visible.length >= 3 && visible !== name)
+      out = out.split(visible).join(REDACTED);
+  }
+  return out;
+};
+
+/** What a scrubbed contact reads as. */
+export const SCRUBBED_CONTACT = "[контакт]";
+
+/** E-mail addresses and Bulgarian phone numbers inside free text — bodies quote
+ *  the requester's own address back in the decision („изпратено на … @abv.bg"). */
+export const scrubContacts = (s: string): string =>
+  s
+    .replace(
+      /[\p{L}\p{N}._%+-]+@[\p{L}\p{N}.-]+\.[\p{L}]{2,}/gu,
+      SCRUBBED_CONTACT,
+    )
+    .replace(
+      // Anchored so a number cannot continue a document reference
+      // („РД-02-14-577/20.06.2019", „№ 02-00-71/26.01.2018").
+      /(?<![\p{L}\p{N}/.\-№])(?:\+359|00359|0)\s?(?:8[789]|2|[3-9]\d)(?:[\s-]?\d){6,7}(?![\p{N}/.])/gu,
+      SCRUBBED_CONTACT,
+    );
 
 /** Visible text of a fragment, whitespace collapsed. */
 const text = (html: string): string =>
@@ -138,7 +186,7 @@ export const parseApplication = (
     const prose = (docsAt < 0 ? decisionBlock : decisionBlock.slice(0, docsAt))
       .replace(/<h4>[\s\S]*?<\/h4>/i, "")
       .replace(/<p[^>]*>\s*<strong>\s*Дата:[\s\S]*?<\/p>/i, "");
-    decisionText = text(prose) || null;
+    decisionText = scrubContacts(text(prose)) || null;
     if (docsAt >= 0)
       for (const r of rows(decisionBlock.slice(docsAt))) {
         const m = /\/download\/(\d+)/.exec(r[0] ?? "");
@@ -151,11 +199,8 @@ export const parseApplication = (
       }
   }
 
-  const applicantType = applicant ? text(applicant[1]) : "";
-  if (!APPLICANT_TYPES.has(applicantType))
-    throw new Error(
-      `pitay #${id}: unexpected applicant field „${applicantType.slice(0, 40)}"`,
-    );
+  const applicantRaw = applicant ? text(applicant[1]) : "";
+  const applicantType = APPLICANT_TYPES.has(applicantRaw) ? applicantRaw : null;
 
   const views = /fa-eye[^>]*><\/i>\s*(\d+)/.exec(app);
 
@@ -187,7 +232,7 @@ export const parseApplication = (
     applicantType,
     submittedOn: bgDate(field("Дата на подаване:")),
     deadline: bgDate(field("Срок:")),
-    subject: subjectBlock ? text(subjectBlock) : "",
+    subject: subjectBlock ? scrubContacts(text(subjectBlock)) : "",
     decisionDate,
     decisionText,
     attachments,

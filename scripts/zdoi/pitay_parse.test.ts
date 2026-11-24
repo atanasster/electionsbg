@@ -5,6 +5,10 @@ import {
   bgDate,
   FINAL_STATUSES,
   parseApplication,
+  REDACTED,
+  redactRequester,
+  SCRUBBED_CONTACT,
+  scrubContacts,
   STATUSES,
 } from "./pitay_parse";
 import { newestIdFrom } from "./fetch_pitay";
@@ -82,17 +86,49 @@ describe("parseApplication", () => {
     }
   });
 
-  it("refuses a requester field that is not one of the two types", () => {
-    const leaked = fixture(8905).replace(
-      "Физическо лице</a>",
-      "Иван Иванов, ул. Шипка 1</a>",
-    );
-    expect(() => parseApplication(leaked, 8905)).toThrow(/applicant/);
+  it("redacts a requester the page names, with their contacts, and stores no type", () => {
+    const named = fixture(8905)
+      .replace("Заявление от Физическо лице", "Заявление от Petar Petrov")
+      .replace("Физическо лице</a>", "Petar Petrov</a>")
+      .replace(
+        '<p class="p-fs">',
+        '<p class="p-fs"><i class="fas fa-phone"></i> 0888000000 | <i class="fas fa-envelope"></i> petar@example.bg',
+      );
+    const safe = redactRequester(named);
+    expect(safe).not.toMatch(/Petar|0888000000|petar@example/);
+    expect(safe).toContain(REDACTED);
+    const a = parseApplication(safe, 8905)!;
+    expect(a.applicantType).toBeNull();
+    expect(a.subject).toMatch(/INSAIT/);
+    // an ordinary page is untouched
+    expect(redactRequester(fixture(8905))).toBe(fixture(8905));
   });
 
   it("throws on an application whose header cannot be read", () => {
     const broken = fixture(8905).replace("Рег. №:", "Номер:");
     expect(() => parseApplication(broken, 8905)).toThrow(/Рег\. №/);
+  });
+});
+
+describe("scrubContacts", () => {
+  it("removes e-mails and phone numbers, and leaves figures and dates alone", () => {
+    expect(
+      scrubContacts(
+        "изпратено на ivan.petrov2@abv.bg и на тел. 0888 123 456; +359 2 9876543",
+      ),
+    ).toBe(
+      `изпратено на ${SCRUBBED_CONTACT} и на тел. ${SCRUBBED_CONTACT}; ${SCRUBBED_CONTACT}`,
+    );
+    expect(scrubContacts("централа: 02 9404 999")).toBe(
+      `централа: ${SCRUBBED_CONTACT}`,
+    );
+    for (const keep of [
+      "Сумата от 100 млн. лв., Решение № 94-7052/13.12.2023, ПИ 56722.667.824, 1835 кв. м",
+      "Решение № РД-02-14-577/20.06.2019",
+      "изх. № 02-00-71/26.01.2018",
+      "досъдебно производство 02550/2021г.",
+    ])
+      expect(scrubContacts(keep)).toBe(keep);
   });
 });
 

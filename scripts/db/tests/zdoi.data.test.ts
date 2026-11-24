@@ -1,0 +1,87 @@
+// Gate for the pitay.government.bg ЗДОИ corpus (migration 207, insait-gap-v1 §3).
+//
+// The thing most worth protecting is PRIVACY: the requester is a type, never a
+// person, and contacts the platform printed (early pages) or a body quoted back
+// must not reach a table. Then that the search and coverage functions answer from
+// the same rows the table holds.
+
+import { describe, expect, it } from "vitest";
+import { allRows, dbReachable, end } from "../lib/pg";
+import { reportSkip } from "../../lib/report_skip";
+
+const haveDb = await dbReachable();
+const [{ n } = { n: "0" }] = haveDb
+  ? await allRows<{ n: string }>(
+      "SELECT count(*)::text n FROM zdoi_request",
+    ).catch(() => [{ n: "0" }])
+  : [{ n: "0" }];
+const skip = !haveDb
+  ? "Postgres unreachable"
+  : n === "0"
+    ? "zdoi_request is empty — run pnpm run zdoi:fetch, then pnpm run db:load:zdoi:pg"
+    : null;
+const d = skip ? describe.skip : describe;
+reportSkip(import.meta.url, skip);
+
+d("zdoi_request (207)", () => {
+  it("stores the requester only as one of the two types, or not at all", async () => {
+    const rows = await allRows<{ applicant_type: string | null; n: string }>(
+      "SELECT applicant_type, count(*)::text n FROM zdoi_request GROUP BY 1",
+    );
+    for (const r of rows)
+      expect([null, "Физическо лице", "Юридическо лице"]).toContain(
+        r.applicant_type,
+      );
+  });
+
+  it("holds no e-mail address or mobile number in the stored texts", async () => {
+    // A bare domain („@sofia.bg") is not a contact and is allowed; an address with a
+    // local part is.
+    const [r] = await allRows<{ n: string }>(
+      `SELECT count(*)::text n FROM zdoi_request
+        WHERE (subject || ' ' || coalesce(decision_text, ''))
+              ~* '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}'
+           OR (subject || ' ' || coalesce(decision_text, ''))
+              ~ '(\\+359|\\m0)\\s?8[789]([\\s/-]?[0-9]){7}\\M'`,
+    );
+    expect(Number(r.n)).toBe(0);
+  });
+
+  it("coverage counts the same rows the table holds", async () => {
+    const [r] = await allRows<{ rows: string; cov: string }>(
+      `SELECT (SELECT count(*) FROM zdoi_request)::text rows,
+              (SELECT requests FROM zdoi_coverage())::text cov`,
+    );
+    expect(r.cov).toBe(r.rows);
+  });
+
+  it("search finds the INSAIT request a reader pointed us at, when it is loaded", async () => {
+    const [has] = await allRows<{ n: string }>(
+      "SELECT count(*)::text n FROM zdoi_request WHERE app_id = 8905",
+    );
+    if (has.n === "0") return; // a partial crawl that has not reached it
+    const hits = await allRows<{ app_id: number }>(
+      "SELECT app_id FROM zdoi_search('INSAIT', 50)",
+    );
+    expect(hits.map((h) => h.app_id)).toContain(8905);
+    // …and a Latin-typed query reaches the same Cyrillic text through the fold.
+    const latin = await allRows<{ app_id: number }>(
+      "SELECT app_id FROM zdoi_search('izchislitelen tsentar', 50)",
+    );
+    expect(latin.map((h) => h.app_id)).toContain(8905);
+  });
+
+  it("every event and forward belongs to a stored request", async () => {
+    const [r] = await allRows<{ n: string }>(
+      `SELECT (
+         (SELECT count(*) FROM zdoi_event e
+           WHERE NOT EXISTS (SELECT 1 FROM zdoi_request r WHERE r.app_id = e.app_id))
+       + (SELECT count(*) FROM zdoi_forward f
+           WHERE NOT EXISTS (SELECT 1 FROM zdoi_request r WHERE r.app_id = f.app_id))
+       )::text n`,
+    );
+    expect(Number(r.n)).toBe(0);
+  });
+});
+
+await end();

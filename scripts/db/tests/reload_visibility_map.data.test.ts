@@ -118,6 +118,11 @@ const RELOADED: ReadonlyArray<{
     table: "nzok_payment_coverage",
     loader: "pnpm run db:load:nzok-hospital:pg",
   },
+  // The pitay ЗДОИ corpus (207) — compactAfterReload: `last_seen_at` moves on every
+  // row, so each run rewrites the whole heap.
+  { table: "zdoi_request", loader: "pnpm run db:load:zdoi:pg" },
+  { table: "zdoi_event", loader: "pnpm run db:load:zdoi:pg" },
+  { table: "zdoi_forward", loader: "pnpm run db:load:zdoi:pg" },
   // ⚠️ THE SCAN BELOW CANNOT SEE THESE TWO. Their vacuum lives in
   // `scripts/prices/load_day.ts`, and neither LOADER_FILES (a glob over
   // `scripts/db/load_*.ts`) nor DELEGATE_FILES (their escaping imports) reaches
