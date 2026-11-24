@@ -1,6 +1,6 @@
 # INSAIT gap — entity aliases, ЗДОИ platform, named appropriations (v1)
 
-Status: Phase 1 built (2026-11-24); Phases 2–4 planned. Written 2026-11-24.
+Status: Phases 1–2 built (2026-11-24); Phase 3 in progress (named appropriations built); Phase 4 planned. Written 2026-11-24.
 
 Trigger: a reader asked the chat „INSAIT“ (`/chat?q=INSAIT`) and pointed at
 <https://pitay.government.bg/application/8905/view> — a ЗДОИ answer from МОН (13.12.2023) stating
@@ -19,7 +19,7 @@ All figures are local Postgres, 2026-11-24, unless stated.
 | same, title ~ „компютърните науки" without the acronym | 1 | 49,805 (2023, acronym „ИНИОКН") |
 | `tenders`, subject ~ INSAIT/ИНСАИТ/„компютърните науки" | 9 | — |
 
-So the corpus holds ~€5.8M of INSAIT procurement against ~€153M appropriated (3 × 100M лв) plus
+So the corpus holds ~€5.8M of INSAIT procurement against the ~€153M МОН's answer states (3 × 100M лв) plus
 the ПМС 56/2021 grant (~166M лв over ten years; €7.3M announced again for 2027). The difference
 is money that never passed through ЗОП, and we ingest none of the sources that record it.
 
@@ -47,7 +47,7 @@ no ЕИК of its own; name matching cannot be its identity ([[name-match-not-ide
 
 | source | what it says about INSAIT | held? |
 | --- | --- | --- |
-| ЗДБРБ named items | 2024: „финансиране изграждането на изчислителен център за изкуствен интелект … (INSAIT)" 100,000 хил. лв (Ciela item №133); 2025, 2026 same per МОН | no — `budget_program_fact` has 3 МОН programme totals per year; `investment_program` is 2025 municipal Приложение III only |
+| ЗДБРБ named items | a web summary cited a 2024 line of 100,000 хил. лв („Ciela item №133"); **not confirmed** — the DV text of the 2024 law has no INSAIT line and no named-project annex. What the laws DO print (measured 2026-11-24, see §4): Приложение № 2 към чл. 110 — 2025: NP-25.001-0048, 3 800,0 хил. лв; 2026: NP-25.002-0048, 3 500,0 хил. евро (+3 500,0 / 4 000,0 forecast for 2027/2028) | no — `budget_program_fact` has 3 МОН programme totals per year; `investment_program` is 2025 municipal Приложение III only |
 | ПМС / РМС for additional spending | ПМС 56/18.02.2021 (founding grant) and later transfers to МОН | no |
 | МОН programme execution report; СУ's own budget report | what was actually transferred / spent | no |
 | Foundation ГФО (НПО form) | donations, conditional financing | no — `tr-gfo-ingest-v1.md` tier 7; FY2024/2025 not in the TR feed as of 2026-11-21 |
@@ -128,11 +128,16 @@ requests".
 
 This is where the INSAIT money is, and it generalises to every targeted state transfer.
 
-- **ЗДБРБ named lines, 2021–2026.** Source: the law text in Държавен вестник (dv.parliament.bg).
-  Parse the items of the form „за финансиране на …" / named capital objects: year, ministry,
-  amount (хил. лв → EUR at 1.95583), beneficiary text, purpose text, DV issue, article/item. Start
-  with a reviewed sample of the 2024 law before automating — the INSAIT line sits in a numbered
-  table, not a stand-alone article.
+- **ЗДБРБ named lines — BUILT (2026-11-24) as migration 208 + `db:load:budget-named:pg`.** The
+  named projects live in „Приложение № 2 към чл. 110" — the programme of priority strategic
+  investment projects with national financing — which only the 2025 and 2026 laws carry (none of
+  2018–2024 has it). Parsed from the cached DV HTML: 2025 → 404 projects (176 in раздел I, €1.50bn
+  appropriated; 228 in the раздел II reserve list, €1.95bn indicative), 2026 → 199 (€1.44bn, plus
+  forecasts for 2027–2028). Every amount carries its kind (`appropriation` / `forecast` /
+  `indicative`), and the loader refuses on any unreadable row or numbering gap. The INSAIT lines
+  are NP-25.001-0048 (2025, 3 800,0 хил. лв) and NP-25.002-0048 (2026, 3 500,0 хил. евро) — an
+  order of magnitude below the 100M лв per year in МОН's ЗДОИ answer, so the rest of that money,
+  if it exists, flows through a channel this annex does not name (programme budgets, ПМС).
 - **ПМС / РМС for additional spending.** Source: Държавен вестник (decrees are promulgated there).
   Parse „одобряване на допълнителни разходи / трансфери по бюджета на …": decree no., date,
   ministry, amount, beneficiary named in the text, purpose. Covers ПМС 56/2021 and later INSAIT

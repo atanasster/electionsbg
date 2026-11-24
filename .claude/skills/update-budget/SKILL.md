@@ -133,6 +133,7 @@ pnpm run db:load:municipal-fiscal:pg:cloud  # 149: municipal_fiscal + obshtina_p
 pnpm run db:load:budget:pg:cloud            # 152 КФП · 153 admin/programme · 157
 pnpm run db:load:budget-muni:pg:cloud       # 154: transfers, execution, capital + ИПОП projects
 pnpm run db:load:budget-hub:pg:cloud        # 156 — LAST, it reads all of the above
+pnpm run db:load:budget-named:pg:cloud      # 208 — independent; see below
 ```
 
 Three things about that order are easy to get backwards:
@@ -171,6 +172,24 @@ programme grain lives in the **gitignored** `data/budget/reconciliation/` and
 `data/budget/ministries/`. That is about the INPUT, not the cost — the load itself is
 ~2 MB and seconds. It means a fresh clone has the budget tables EMPTY (the in-chain
 `db:load:budget-muni:pg` creates them), and this is the step that fills them.
+
+**`db:load:budget-named:pg` — the law's named investment projects (migration 208).**
+It parses „Приложение № 2 към чл. 110" (priority strategic investment projects with
+national financing) out of the cached law HTML `budget:ingest` writes
+(`raw_data/budget/law-<idMat>.html.gz`), for every year in `LAW_DV_MATERIALS` — so a new
+law reaches it once its idMat is added and the ingest has cached the page. Measured
+2026-11-24: 2025 → 404 projects (€1.50bn appropriated in раздел I, €1.95bn in the раздел
+II reserve list), 2026 → 199 (€1.44bn, plus 2027–2028 forecasts); laws before 2025 have
+no such annex. Three things to keep straight:
+
+- **Only `kind = 'appropriation'` is money the law set.** `forecast` (later years,
+  „прогнозен") and `indicative` (the reserve list, funded only if money frees up) are
+  not, and must never be summed into it.
+- **It refuses rather than under-reports**: any unreadable row, or a gap in a section's
+  1..N numbering, throws — the DV table layout moved. Fix `scripts/budget/named_appropriations.ts`
+  against the new page (its test carries the shapes the real pages have).
+- **A project is re-coded each year** (INSAIT: NP-25.001-0048 in 2025, NP-25.002-0048 in
+  2026). Link an entity by an explicit list of codes, never by a title search.
 
 ## Revenue-breakdown ingests (separate scripts)
 

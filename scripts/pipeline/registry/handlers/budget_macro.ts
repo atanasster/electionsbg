@@ -114,6 +114,9 @@ export const BUDGET_MACRO: Handler[] = [
       derive("db:load:budget:pg", pnpm("db:load:budget:pg")),
       derive("db:load:budget-muni:pg", pnpm("db:load:budget-muni:pg")),
       derive("db:load:budget-hub:pg", pnpm("db:load:budget-hub:pg")),
+      // Приложение № 2 към чл. 110 — named investment projects, parsed from the
+      // law HTML budget:ingest caches (insait-gap-v1 §4).
+      derive("db:load:budget-named:pg", pnpm("db:load:budget-named:pg")),
     ],
     operator: [
       {
@@ -159,6 +162,7 @@ export const BUDGET_MACRO: Handler[] = [
         "pnpm run db:load:budget:pg:cloud",
         "pnpm run db:load:budget-muni:pg:cloud",
         "pnpm run db:load:budget-hub:pg:cloud",
+        "pnpm run db:load:budget-named:pg:cloud",
         "pnpm run db:load:agri-hub-stats:pg:cloud",
       ],
     },

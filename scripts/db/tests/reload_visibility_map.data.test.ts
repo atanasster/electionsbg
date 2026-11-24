@@ -123,6 +123,15 @@ const RELOADED: ReadonlyArray<{
   { table: "zdoi_request", loader: "pnpm run db:load:zdoi:pg" },
   { table: "zdoi_event", loader: "pnpm run db:load:zdoi:pg" },
   { table: "zdoi_forward", loader: "pnpm run db:load:zdoi:pg" },
+  // State Budget Law Приложение № 2 (208) — each loaded year DELETEd and re-COPYd.
+  {
+    table: "budget_named_appropriation",
+    loader: "pnpm run db:load:budget-named:pg",
+  },
+  {
+    table: "budget_named_appropriation_amount",
+    loader: "pnpm run db:load:budget-named:pg",
+  },
   // ⚠️ THE SCAN BELOW CANNOT SEE THESE TWO. Their vacuum lives in
   // `scripts/prices/load_day.ts`, and neither LOADER_FILES (a glob over
   // `scripts/db/load_*.ts`) nor DELEGATE_FILES (their escaping imports) reaches
