@@ -1,8 +1,102 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-23T23:59:59.999Z",
+  "computedAt": "2026-11-26T23:59:59.999Z",
   "windowDays": 30,
   "events": [
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:0b1e7172-9074-42a3-83a3-9067ad514dba",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-11-26T08:00:00.000Z",
+      "deadlineAt": "2026-12-29T15:30:00.000Z",
+      "firstSeenAt": "2026-11-26T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/0b1e7172-9074-42a3-83a3-9067ad514dba"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "МИГ Белово, Септември, Велинград – Мярка 4 „Подкрепа за развитието на основни услуги и дребна по мащаби инфраструктура“",
+        "programme": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
+      "id": "parliament:sitting:2026-11-25",
+      "kind": "plenary_sitting",
+      "category": "parliament_elections",
+      "occurredAt": "2026-11-25T00:00:00.000Z",
+      "firstSeenAt": "2026-11-25T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "parliament_votes",
+        "labelKey": "home_source_parliament"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/votes/2026-11-25",
+      "factKey": "home_fact_plenary_sittings",
+      "factArgs": {
+        "items": 19,
+        "sittings": 11,
+        "windowDays": 30
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 1,
+      "actionability": 0.4
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:RAZ26-2026-prot40-r598",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-11-24T00:00:00.000Z",
+      "firstSeenAt": "2026-11-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "RAZ26"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/RAZ26-2026-prot40-r598",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "статута на общинските мери и пасища се съдържа в чл. 25, ал. 1 от Закона за собствеността и ползването на земеделските з",
+        "council": "RAZ26",
+        "number": "598"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.45,
+      "actionability": 0.3
+    },
     {
       "schemaVersion": 1,
       "id": "funds:call_opened:isun:6d4f5ea2-9058-49f3-8957-af38e0ac2f59",
@@ -103,99 +197,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "funds:call_opened:isun:bde1efcb-0e1e-4549-98a1-31c393bd3d3c",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-11-20T08:00:00.000Z",
-      "deadlineAt": "2027-03-01T15:00:00.000Z",
-      "firstSeenAt": "2026-11-20T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/bde1efcb-0e1e-4549-98a1-31c393bd3d3c"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "СОЦИАЛНО-ИКОНОМИЧЕСКА ИНТЕГРАЦИЯ НА МАРГИНАЛИЗИРАНИ ОБЩНОСТИ КАТО РОМИТЕ ЧРЕЗ ПОДХОДА ВОМР",
-        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-11-20",
-      "kind": "plenary_sitting",
-      "category": "parliament_elections",
-      "occurredAt": "2026-11-20T00:00:00.000Z",
-      "firstSeenAt": "2026-11-20T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "parliament_votes",
-        "labelKey": "home_source_parliament"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/votes/2026-11-20",
-      "factKey": "home_fact_plenary_sittings",
-      "factArgs": {
-        "items": 28,
-        "sittings": 10,
-        "windowDays": 30
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 1,
-      "actionability": 0.4
-    },
-    {
-      "schemaVersion": 1,
-      "id": "debt:domestic_auction:BG-2026-11-09-218",
-      "kind": "debt_auction",
-      "category": "budget_debt",
-      "occurredAt": "2026-11-09T00:00:00.000Z",
-      "firstSeenAt": "2026-11-09T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "bnb_auctions",
-        "labelKey": "home_source_bnb"
-      },
-      "coverage": {
-        "complete": true
-      },
-      "route": "/indicators/fiscal",
-      "factKey": "home_fact_debt_auction_yield",
-      "factArgs": {
-        "millions": 100,
-        "currency": "EUR",
-        "years": 10,
-        "yieldPct": "4.64"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.6681071245942142,
-      "actionability": 0.2
-    },
-    {
-      "schemaVersion": 1,
       "id": "prices:promotion:kartofi",
       "kind": "promotion_started",
       "category": "prices",
@@ -226,6 +227,38 @@
       "verification": "automatic",
       "materiality": 0.7857142857142857,
       "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:bde1efcb-0e1e-4549-98a1-31c393bd3d3c",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-11-20T08:00:00.000Z",
+      "deadlineAt": "2027-03-01T15:00:00.000Z",
+      "firstSeenAt": "2026-11-20T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/bde1efcb-0e1e-4549-98a1-31c393bd3d3c"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "СОЦИАЛНО-ИКОНОМИЧЕСКА ИНТЕГРАЦИЯ НА МАРГИНАЛИЗИРАНИ ОБЩНОСТИ КАТО РОМИТЕ ЧРЕЗ ПОДХОДА ВОМР",
+        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -318,6 +351,69 @@
       "verification": "automatic",
       "materiality": 0.50425,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:RAZ26-2026-prot40-r588",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-11-24T00:00:00.000Z",
+      "firstSeenAt": "2026-11-24T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "RAZ26"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/RAZ26-2026-prot40-r588",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "отлагане произнасянето по докладната. Това предложение е подкрепено със: 7 гласа „ЗА“, без „против“, и без „въздържали с",
+        "council": "RAZ26",
+        "number": "588"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "debt:domestic_auction:BG-2026-11-09-218",
+      "kind": "debt_auction",
+      "category": "budget_debt",
+      "occurredAt": "2026-11-09T00:00:00.000Z",
+      "firstSeenAt": "2026-11-09T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "bnb_auctions",
+        "labelKey": "home_source_bnb"
+      },
+      "coverage": {
+        "complete": true
+      },
+      "route": "/indicators/fiscal",
+      "factKey": "home_fact_debt_auction_yield",
+      "factArgs": {
+        "millions": 100,
+        "currency": "EUR",
+        "years": 10,
+        "yieldPct": "4.64"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.6681071245942142,
+      "actionability": 0.2
     },
     {
       "schemaVersion": 1,
@@ -732,70 +828,6 @@
       "verification": "automatic",
       "materiality": 0.2,
       "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot18-r432",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-11-12T00:00:00.000Z",
-      "firstSeenAt": "2026-11-12T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot18-r432",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Източен”",
-        "council": "PDV01",
-        "number": "432"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot18-r433",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-11-12T00:00:00.000Z",
-      "firstSeenAt": "2026-11-12T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot18-r433",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, ЖР „Тракия“, бл",
-        "council": "PDV01",
-        "number": "433"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
     }
   ],
   "sourceCoverage": {
@@ -807,7 +839,7 @@
     },
     "council": {
       "available": true,
-      "asOf": "2026-11-12",
+      "asOf": "2026-11-24",
       "staleAfterDays": 45,
       "stale": false
     },
@@ -834,13 +866,13 @@
     "opencalls": {
       "available": true,
       "asOf": "2026-10-21",
-      "observedAt": "2026-11-23",
+      "observedAt": "2026-11-26",
       "staleAfterDays": 45,
       "stale": false
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-11-20",
+      "asOf": "2026-11-25",
       "staleAfterDays": 90,
       "stale": false
     },

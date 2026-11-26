@@ -1,6 +1,80 @@
 {
-  "updatedAt": "2026-11-24T00:02:24.704Z",
+  "updatedAt": "2026-11-26T21:09:27.286Z",
   "entries": [
+    {
+      "timestamp": "2026-11-26T21:09:27.286Z",
+      "date": "2026-11-26",
+      "skill": "update-council-minutes",
+      "summary": "3 step(s) ok",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-26T20:40:26.739Z",
+      "date": "2026-11-26",
+      "skill": "update-macro",
+      "summary": "6 step(s) ok",
+      "source": "Eurostat macro (BG): 29 datasets",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-26T20:39:45.563Z",
+      "date": "2026-11-26",
+      "skill": "update-open-calls",
+      "summary": "4 step(s) ok",
+      "source": "ИСУН — отворени процедури"
+    },
+    {
+      "timestamp": "2026-11-26T20:36:51.894Z",
+      "date": "2026-11-26",
+      "skill": "update-funds",
+      "summary": "14 step(s) ok",
+      "source": "ИСУН EU funds (beneficiaries); ИСУН EU funds (projects); ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-11-26T20:29:13.458Z",
+      "date": "2026-11-26",
+      "skill": "update-kzk-appeals",
+      "summary": "3 step(s) ok",
+      "source": "КЗК procurement-appeals register (жалби по ЗОП)"
+    },
+    {
+      "timestamp": "2026-11-26T20:28:05.566Z",
+      "date": "2026-11-26",
+      "skill": "update-persons",
+      "summary": "21 step(s) ok",
+      "source": "Комисия по досиетата (comdos.bg) — решения (ДС facet)"
+    },
+    {
+      "timestamp": "2026-11-26T20:17:50.582Z",
+      "date": "2026-11-26",
+      "skill": "update-financing",
+      "summary": "1 step(s) ok",
+      "source": "Сметна палата party financing",
+      "links": [
+        {
+          "to": "/financing",
+          "labelKey": "data_changes_link_financing"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-26T20:17:43.459Z",
+      "date": "2026-11-26",
+      "skill": "update-rollcall",
+      "summary": "4 step(s) ok",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-24T00:02:24.704Z",
       "date": "2026-11-24",

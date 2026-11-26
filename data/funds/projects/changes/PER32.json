@@ -1,0 +1,35 @@
+{
+  "obshtina": "PER32",
+  "generatedAt": "2026-11-26T20:32:47.349Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR001-3.010-0005",
+      "title": "Дуално образование за устойчива заетост в община Перник",
+      "type": "new",
+      "totalEur": 127823,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "МоМенТор Сдружение",
+      "detectedAt": "2026-11-26"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0336",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 33374.58,
+      "totalEur": 33374.58,
+      "paidEur": 23362.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Диалдент 2000 ЕООД",
+      "detectedAt": "2026-11-26"
+    }
+  ]
+}

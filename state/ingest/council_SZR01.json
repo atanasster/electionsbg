@@ -1,6 +1,16 @@
 {
   "skill": "council_SZR01",
-  "lastSuccessfulIngest": "2026-11-22T17:16:27.209Z",
+  "lastSuccessfulIngest": "2026-11-26T20:41:36.508Z",
   "summary": "0 prot(s) → 0+/0=/273 total",
-  "sinceDate": "2026-10-29"
+  "sinceDate": "2026-10-29",
+  "deferred": [
+    {
+      "url": "https://www.starazagora.bg/bg/resheniya-i-protokoli/",
+      "kind": "discovery",
+      "message": "https://www.starazagora.bg/bg/resheniya-i-protokoli/ → HTTP 403",
+      "firstSeen": "2026-11-26T20:41:36.508Z",
+      "attempts": 1,
+      "givenUp": false
+    }
+  ]
 }

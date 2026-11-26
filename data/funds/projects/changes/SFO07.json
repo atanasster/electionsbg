@@ -1,0 +1,41 @@
+{
+  "obshtina": "SFO07",
+  "generatedAt": "2026-11-26T20:32:47.349Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR002-1.012-0456",
+      "title": "Устойчива заетост в Стрелец Груп ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 135819.63,
+      "totalEur": 135819.63,
+      "paidEur": 127530.21,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Стрелец груп ЕООД",
+      "detectedAt": "2026-11-26"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2237",
+      "title": "Подобряване на производствения процес на ГРАВЮРА ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 99533.19,
+      "totalEur": 97934.08,
+      "paidEur": 61208.81,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Гравюра ЕООД",
+      "detectedAt": "2026-11-26"
+    }
+  ]
+}

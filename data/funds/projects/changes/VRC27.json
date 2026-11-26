@@ -1,0 +1,39 @@
+{
+  "obshtina": "VRC27",
+  "generatedAt": "2026-11-26T20:32:47.349Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR001-1.010-0006",
+      "title": "\"Апостоли на добротата\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 56990.39,
+      "totalEur": 56990.39,
+      "paidEur": 21659.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия \"Васил Левски\"",
+      "detectedAt": "2026-11-26"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0679",
+      "title": "Изграждане на дигитален клуб в Народно читалище - \"Съзнание -1899\" в село Типченица , община Мездра, област Враца.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 11802.33,
+      "totalEur": 11575.99,
+      "paidEur": 11575.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Съзнание-1899\"",
+      "detectedAt": "2026-11-26"
+    }
+  ]
+}

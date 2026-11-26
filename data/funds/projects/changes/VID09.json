@@ -1,0 +1,57 @@
+{
+  "obshtina": "VID09",
+  "generatedAt": "2026-11-26T20:32:47.349Z",
+  "changes": [
+    {
+      "contractNumber": "BG-RRP-11.010-0035",
+      "title": "„Реформиране на Дом да стари хора в с. Кутово”",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1292736.04,
+      "totalEur": 1279295.85,
+      "paidEur": 1292736.04,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Видин",
+      "detectedAt": "2026-11-26"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0104",
+      "title": "\"Училище без насилие: Система за превенция, ранна интервенция и устойчиви модели за намаляване на агресията“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 46782.96,
+      "totalEur": 46782.96,
+      "paidEur": 9356.59,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Иван Вазов\" - гр. Видин",
+      "detectedAt": "2026-11-26"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1993",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 9488.55,
+      "totalEur": 9488.55,
+      "paidEur": 6641.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Актив Инвест Груп ЕООД",
+      "detectedAt": "2026-11-26"
+    }
+  ]
+}

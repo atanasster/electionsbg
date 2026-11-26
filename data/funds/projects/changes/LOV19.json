@@ -1,0 +1,56 @@
+{
+  "obshtina": "LOV19",
+  "generatedAt": "2026-11-26T20:32:47.349Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR001-1.004-0008",
+      "title": "Аз обичам България",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 255045.49,
+      "totalEur": 255045.49,
+      "paidEur": 196398.64,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Луковит",
+      "detectedAt": "2026-11-26"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1576",
+      "title": "Адаптирана работна среда в Черноморска Газова Компания ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 157011.2,
+      "totalEur": 157011.2,
+      "paidEur": 122007.62,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Черноморска Газова компания ЕООД",
+      "detectedAt": "2026-11-26"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1601",
+      "title": "Адаптирана работна среда в \"МЕДИКО ПЛЮС-1\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 112694,
+      "totalEur": 59886.57,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Медико ПЛЮС-1 ЕООД",
+      "detectedAt": "2026-11-26"
+    }
+  ]
+}
