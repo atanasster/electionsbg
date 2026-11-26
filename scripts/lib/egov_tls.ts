@@ -19,7 +19,7 @@
 // REMOVE THIS once data.egov.bg serves a valid chain on every connection:
 // delete this file and its imports (grep "lib/egov_tls"). Set
 // EGOV_TLS_STRICT=1 to disable the bypass without a code change and check.
-import { Agent } from "undici";
+import { Agent, EnvHttpProxyAgent } from "undici";
 
 const EGOV_HOSTS = new Set(["data.egov.bg"]);
 const INSTALLED = Symbol.for("electionsbg.egovTlsBypass");
@@ -42,7 +42,19 @@ const install = (): void => {
   if (g[INSTALLED] || process.env.EGOV_TLS_STRICT === "1") return;
   g[INSTALLED] = true;
 
-  const insecure = new Agent({ connect: { rejectUnauthorized: false } });
+  // A per-request `dispatcher` REPLACES Node's global one, so a plain Agent
+  // here silently bypasses the env proxy that `pnpm run bg --` and the
+  // pipeline's BG-egress fallback set (HTTPS_PROXY + NODE_USE_ENV_PROXY=1).
+  // That made every data.egov.bg fetch go DIRECT under a "via BG proxy" run —
+  // measured 2026-11-26: node 403 through `bg --` while curl through the same
+  // proxy got 200. Honour the env proxy the same way Node would: only when
+  // NODE_USE_ENV_PROXY=1, with verification off on the TARGET leg
+  // (`requestTls`) as well as the direct one (`connect`).
+  const tls = { rejectUnauthorized: false };
+  const insecure =
+    process.env.NODE_USE_ENV_PROXY === "1"
+      ? new EnvHttpProxyAgent({ connect: tls, requestTls: tls })
+      : new Agent({ connect: tls });
   const original = globalThis.fetch;
   let warned = false;
 
