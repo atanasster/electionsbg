@@ -16,6 +16,7 @@ const {
 } = require("./db_table.js");
 const { interregQueryFor } = require("./interreg_topics.js");
 const { SITE_ORIGIN } = require("./site_origin.js");
+const { memoCapabilities } = require("./capabilities_memo.js");
 
 // Shared by the fit resolver's three queries. 42883 FIRST — the arms are FUNCTIONS, so a database
 // without 143 raises undefined_function and never 42P01. 55000 is a matview created WITH NO DATA,
@@ -965,11 +966,11 @@ const DB_ROUTES = {
     let raw;try{raw=typeof q.query === "string" ? JSON.parse(q.query) : q.query;}catch{return {status:400,body:{status:"unsupported",reason:"invalid_query"}};}
     return require("./rollcall_query").runRollcallQuery(dbRows,raw);
   },
-  "rollcall-capabilities": async dbRows => require("./rollcall_query").rollcallCapabilities(dbRows),
+  "rollcall-capabilities": memoCapabilities("rollcall-capabilities", async dbRows => require("./rollcall_query").rollcallCapabilities(dbRows)),
   "rollcall-entities": async (dbRows,q) => require("./rollcall_query").rollcallEntities(dbRows,q),
   "rollcall-catalog": async dbRows => require("./rollcall_query").rollcallCatalog(dbRows),
-  "funding-capabilities": async (dbRows) => require("./funding_query").fundingCapabilities(dbRows),
-  "procurement-capabilities": async (dbRows) => {
+  "funding-capabilities": memoCapabilities("funding-capabilities", async (dbRows) => require("./funding_query").fundingCapabilities(dbRows)),
+  "procurement-capabilities": memoCapabilities("procurement-capabilities", async (dbRows) => {
     const { runProcurementQuery } = require("./procurement_query.js");
     const shared = require("./generated/procurement_query.js");
     const corpora = {};
@@ -983,7 +984,7 @@ const DB_ROUTES = {
       }
     }
     return {body:{version:shared.PROCUREMENT_QUERY_VERSION,corpora}};
-  },
+  }),
   "procurement-query": async (dbRows, q) => {
     if (typeof q.query !== "string" || q.query.length > 16000) return { status: 400, body: { status: "unsupported", reason: "invalid_query_size" } };
     let query;

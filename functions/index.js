@@ -344,7 +344,10 @@ const getDbPool = async (password) => {
     user: "app_readonly",
     password,
     database: "electionsbg",
-    max: 4,
+    // 8, not 4: one chat question fans out ~25 /api/db requests onto one instance, and at
+    // 4 they queued — measured 2026-11-26, 7–10 s per term against 0.1–0.6 s each alone.
+    // Ceiling: maxInstances 10 × 8 = 80 of Cloud SQL's max_connections 400.
+    max: 8,
     // Server-side kill switch: no /api/db query may hold a connection longer
     // than this (the /api/sql console has its own 8s cap in sql_lib.js).
     statement_timeout: 10000,
