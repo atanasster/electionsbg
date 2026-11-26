@@ -1262,5 +1262,47 @@
       "extraction": null
     },
     "lastError": null
+  },
+  {
+    "pubId": "122",
+    "url": "https://www.marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-noemvri-2026-122.html",
+    "title": "Обществено–политически нагласи - Ноември 2026",
+    "publishedAt": "2026-11-24",
+    "agencyId": "ML",
+    "pubIds": [
+      "122"
+    ],
+    "discoveredAt": "2026-11-26T19:48:51.313Z",
+    "latestHash": "40ec6914788eb5a29e0422855ffa0ddbb94cb2302e4e2ad414981c7b243820ab",
+    "versions": [
+      {
+        "sha256": "40ec6914788eb5a29e0422855ffa0ddbb94cb2302e4e2ad414981c7b243820ab",
+        "capturePath": "raw_data/polls/market_links/122",
+        "capturedAt": "2026-11-26T21:13:05.034Z",
+        "attachmentFailures": [
+          "https://www.marketlinks.bg/storage1/images/articles/item122/pic141/C.jpg"
+        ],
+        "drafts": []
+      }
+    ],
+    "failures": {
+      "capture": 0,
+      "extraction": 2
+    },
+    "errors": {
+      "capture": {
+        "message": "Attachments unavailable: https://www.marketlinks.bg/storage1/images/articles/item122/pic141/C.jpg",
+        "at": "2026-11-26T21:13:05.034Z"
+      },
+      "extraction": {
+        "message": "Capture has unavailable attachments; retry capture before extraction",
+        "at": "2026-11-26T21:13:17.401Z"
+      }
+    },
+    "lastError": {
+      "message": "Capture has unavailable attachments; retry capture before extraction",
+      "at": "2026-11-26T21:13:17.401Z",
+      "stage": "extraction"
+    }
   }
 ]
