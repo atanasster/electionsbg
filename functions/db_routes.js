@@ -4291,6 +4291,15 @@ const DB_ROUTES = {
     //
     // $2 is the alternate or the plain needle again, so the predicate is a union of the two
     // whenever a rewrite exists and a harmless duplicate of itself when it does not.
+    //
+    // FULL-TEXT ARMS ONLY. The search fns reach for the `%>` trigram arm only to FILL a
+    // preview the full-text arm left short, and in a count that arm is the whole cost: every
+    // trigram candidate is rechecked with word_similarity over the full title. Measured on
+    // Cloud SQL 2026-11-26, q=GATE: 16,104 candidates per arm, 14.2 s on tenders and 9.4 s
+    // on contracts — past the pool's 10 s statement_timeout, so the whole route 500'd. So
+    // when the full-text arms alone cover the preview, they ARE the total the preview was
+    // drawn from; when they do not, fuzzy rows filled it and the route reports only what it
+    // shows rather than paying for a number the dropdown renders as "99+" at most.
     const boundedTotal = async (table, foldCol, extra, shown) => {
       if (shown < lim) return shown; // preview wasn't capped → we have them all
       const rows = await dbRows(
@@ -4298,13 +4307,12 @@ const DB_ROUTES = {
            SELECT 1 FROM ${table}
            WHERE ${extra}
              AND (to_tsvector('simple', ${foldCol}) @@ fold_prefix_tsquery($1)
-                  OR ${foldCol} %> translit_bg_latin($1)
-                  OR to_tsvector('simple', ${foldCol}) @@ fold_prefix_tsquery($2)
-                  OR ${foldCol} %> translit_bg_latin($2))
+                  OR to_tsvector('simple', ${foldCol}) @@ fold_prefix_tsquery($2))
            LIMIT 100) x`,
         [term, alt || term],
       );
-      return Number(rows[0]?.n ?? shown);
+      const n = Number(rows[0]?.n ?? 0);
+      return n >= shown ? n : shown;
     };
     const [contractsTotal, tendersTotal] = await Promise.all([
       boundedTotal(
