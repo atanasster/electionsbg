@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.572Z",
+  "generatedAt": "2026-11-26T22:05:16.459Z",
   "obshtinaCode": "HKV17",
   "municipalityName": "Любимец",
   "oblastCode": "HKV",
@@ -11,16 +11,32 @@
     "oblastCode": "HKV",
     "oblastName": "Хасково",
     "projectCount": 7,
-    "stalledCount": 0,
-    "agreementEur": 6912870.75,
+    "stalledCount": 2,
+    "agreementEur": 10597751.33,
     "submittedEur": 7048.16,
     "awaitingEur": 0,
     "paidEur": 6722432.99,
     "mrrbPaidEur": 6565144.3100000005,
     "bbrPaidEur": 157288.68,
-    "paidPct": 97.25
+    "paidPct": 63.43
   },
   "projects": [
+    {
+      "id": "OP-25.001-0676",
+      "description": "Реконструкция на улична мрежа и тротоари в гр. Любимец и с. Лозен, община Любимец, област Хасково, на подобекти",
+      "oblastCode": "HKV",
+      "oblastName": "Хасково",
+      "obshtinaCode": "HKV17",
+      "municipalityName": "Любимец",
+      "agreementEur": 2531406.1,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
     {
       "id": "OP-24.001-1511",
       "description": "Околовръстна улица на град Любимец, по направление на Републикански път III-597/обходен път запад/",
@@ -70,6 +86,22 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0677",
+      "description": "Подмяна на напорен водопровод до напорен резервоар за водоснабдяване на гр. Любимец",
+      "oblastCode": "HKV",
+      "oblastName": "Хасково",
+      "obshtinaCode": "HKV17",
+      "municipalityName": "Любимец",
+      "agreementEur": 1153474.48,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-25.001-0678",
       "description": "Подмяна на участъци от водопроводната мрежа по улици на територията на град Любимец, по подобекти",
       "oblastCode": "HKV",
@@ -83,38 +115,6 @@
       "mrrbPaidEur": 814278.68,
       "bbrPaidEur": 0,
       "paidPct": 84.04,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0676",
-      "description": "Реконструкция на улична мрежа и тротоари в гр. Любимец и с. Лозен, община Любимец, област Хасково, на подобекти",
-      "oblastCode": "HKV",
-      "oblastName": "Хасково",
-      "obshtinaCode": "HKV17",
-      "municipalityName": "Любимец",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0677",
-      "description": "Подмяна на напорен водопровод до напорен резервоар за водоснабдяване на гр. Любимец",
-      "oblastCode": "HKV",
-      "oblastName": "Хасково",
-      "obshtinaCode": "HKV17",
-      "municipalityName": "Любимец",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
       "stalled": false
     },
     {

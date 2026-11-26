@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.573Z",
+  "generatedAt": "2026-11-26T22:05:16.460Z",
   "obshtinaCode": "SHU19",
   "municipalityName": "Каспичан",
   "oblastCode": "SHU",
@@ -11,14 +11,14 @@
     "oblastCode": "SHU",
     "oblastName": "Шумен",
     "projectCount": 5,
-    "stalledCount": 1,
-    "agreementEur": 4456777.94,
+    "stalledCount": 2,
+    "agreementEur": 5112918.81,
     "submittedEur": 8160.22,
     "awaitingEur": 274066.47,
     "paidEur": 964017.4900000001,
     "mrrbPaidEur": 550403.8,
     "bbrPaidEur": 413613.69,
-    "paidPct": 21.63
+    "paidPct": 18.85
   },
   "projects": [
     {
@@ -29,6 +29,22 @@
       "obshtinaCode": "SHU19",
       "municipalityName": "Каспичан",
       "agreementEur": 3121232.42,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-24.001-1573",
+      "description": "Реконструкция и изграждане на водопроводна мрежа на гр. Каспичан",
+      "oblastCode": "SHU",
+      "oblastName": "Шумен",
+      "obshtinaCode": "SHU19",
+      "municipalityName": "Каспичан",
+      "agreementEur": 656140.87,
       "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 0,
@@ -83,22 +99,6 @@
       "mrrbPaidEur": 163104.11,
       "bbrPaidEur": 204.52,
       "paidPct": 99.81,
-      "stalled": false
-    },
-    {
-      "id": "OP-24.001-1573",
-      "description": "Реконструкция и изграждане на водопроводна мрежа на гр. Каспичан",
-      "oblastCode": "SHU",
-      "oblastName": "Шумен",
-      "obshtinaCode": "SHU19",
-      "municipalityName": "Каспичан",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
       "stalled": false
     }
   ]

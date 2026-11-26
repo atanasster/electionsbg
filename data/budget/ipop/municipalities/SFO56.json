@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.569Z",
+  "generatedAt": "2026-11-26T22:05:16.457Z",
   "obshtinaCode": "SFO56",
   "municipalityName": "Мирково",
   "oblastCode": "SFO",
@@ -11,14 +11,14 @@
     "oblastCode": "SFO",
     "oblastName": "София област",
     "projectCount": 14,
-    "stalledCount": 2,
-    "agreementEur": 5094307.779999999,
+    "stalledCount": 3,
+    "agreementEur": 5211393.619999999,
     "submittedEur": 1322088.31,
     "awaitingEur": 91642.63,
     "paidEur": 2800435.6199999996,
     "mrrbPaidEur": 1519133.05,
     "bbrPaidEur": 1281302.5699999998,
-    "paidPct": 54.97
+    "paidPct": 53.74
   },
   "projects": [
     {
@@ -150,6 +150,22 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0655",
+      "description": "Изпълнение на СМР на обект \"Мост в с. Буново\"",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO56",
+      "municipalityName": "Мирково",
+      "agreementEur": 117085.84,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-1385",
       "description": "Основен ремонт на улици в с. Буново, община Мирково, ЕТАП 1 – улица от о.т. 97 до о.т. 100, от о.т. 99 до о.т. 132, от о.т. 101 до о.т. 130, от о.т. 102 до о.т. 127, от о.т. 114 до о.т. 126",
       "oblastCode": "SFO",
@@ -200,22 +216,6 @@
     {
       "id": "OP-25.001-0654",
       "description": "Основен ремонт на улицa в с. Буново, община Мирково – от осова т. 174 до осова т. 159",
-      "oblastCode": "SFO",
-      "oblastName": "София област",
-      "obshtinaCode": "SFO56",
-      "municipalityName": "Мирково",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0655",
-      "description": "Изпълнение на СМР на обект \"Мост в с. Буново\"",
       "oblastCode": "SFO",
       "oblastName": "София област",
       "obshtinaCode": "SFO56",

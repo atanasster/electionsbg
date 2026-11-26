@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.555Z",
+  "generatedAt": "2026-11-26T22:05:16.443Z",
   "obshtinaCode": "DOB29",
   "municipalityName": "Шабла",
   "oblastCode": "DOB",
@@ -11,14 +11,14 @@
     "oblastCode": "DOB",
     "oblastName": "Добрич",
     "projectCount": 11,
-    "stalledCount": 2,
+    "stalledCount": 0,
     "agreementEur": 9643476.159999998,
     "submittedEur": 0,
-    "awaitingEur": 913969.6900000001,
-    "paidEur": 6198996.8,
-    "mrrbPaidEur": 4533901.31,
+    "awaitingEur": 259604.95,
+    "paidEur": 6853361.539999999,
+    "mrrbPaidEur": 5188266.05,
     "bbrPaidEur": 1665095.49,
-    "paidPct": 64.28
+    "paidPct": 71.07
   },
   "projects": [
     {
@@ -62,12 +62,12 @@
       "municipalityName": "Шабла",
       "agreementEur": 1763956.99,
       "submittedEur": 0,
-      "awaitingEur": 353983.37,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 353983.37,
+      "mrrbPaidEur": 353983.37,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 20.07,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0562",
@@ -78,12 +78,12 @@
       "municipalityName": "Шабла",
       "agreementEur": 1099277.54,
       "submittedEur": 0,
-      "awaitingEur": 217122.47,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 217122.47,
+      "mrrbPaidEur": 217122.47,
       "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidPct": 19.75,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0563",
@@ -94,11 +94,11 @@
       "municipalityName": "Шабла",
       "agreementEur": 838518.69,
       "submittedEur": 0,
-      "awaitingEur": 83258.9,
-      "paidEur": 753809.04,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 837067.94,
+      "mrrbPaidEur": 83258.9,
       "bbrPaidEur": 753809.04,
-      "paidPct": 89.9,
+      "paidPct": 99.83,
       "stalled": false
     },
     {

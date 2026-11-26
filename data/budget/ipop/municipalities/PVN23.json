@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.561Z",
+  "generatedAt": "2026-11-26T22:05:16.448Z",
   "obshtinaCode": "PVN23",
   "municipalityName": "Искър",
   "oblastCode": "PVN",
@@ -12,13 +12,13 @@
     "oblastName": "Плевен",
     "projectCount": 13,
     "stalledCount": 1,
-    "agreementEur": 14955417.899999999,
-    "submittedEur": 39880.77,
-    "awaitingEur": 111008.65,
-    "paidEur": 4499266.18,
-    "mrrbPaidEur": 3690588.2199999997,
+    "agreementEur": 14809546.329999998,
+    "submittedEur": 75473.76,
+    "awaitingEur": 36768.47,
+    "paidEur": 4537913.37,
+    "mrrbPaidEur": 3729235.41,
     "bbrPaidEur": 808677.96,
-    "paidPct": 30.08
+    "paidPct": 30.64
   },
   "projects": [
     {
@@ -62,11 +62,11 @@
       "municipalityName": "Искър",
       "agreementEur": 1381817.44,
       "submittedEur": 0,
-      "awaitingEur": 21320.87,
-      "paidEur": 1214829.52,
-      "mrrbPaidEur": 971863.62,
+      "awaitingEur": 0,
+      "paidEur": 1236150.39,
+      "mrrbPaidEur": 993184.49,
       "bbrPaidEur": 242965.9,
-      "paidPct": 87.92,
+      "paidPct": 89.46,
       "stalled": false
     },
     {
@@ -86,22 +86,6 @@
       "stalled": false
     },
     {
-      "id": "OP-24.001-0928",
-      "description": "Реконструкция на улица \"Георги Димитров\" от ОК 231 до ОК 331 в с. Писарово",
-      "oblastCode": "PVN",
-      "oblastName": "Плевен",
-      "obshtinaCode": "PVN23",
-      "municipalityName": "Искър",
-      "agreementEur": 487210.03,
-      "submittedEur": 0,
-      "awaitingEur": 22069.55,
-      "paidEur": 450988.37,
-      "mrrbPaidEur": 406809.42,
-      "bbrPaidEur": 44178.95,
-      "paidPct": 92.57,
-      "stalled": false
-    },
-    {
       "id": "OP-24.001-2884",
       "description": "Реконструкция на ул. \"Васил Коларов\" в с. Староселци, община Искър",
       "oblastCode": "PVN",
@@ -118,6 +102,22 @@
       "stalled": false
     },
     {
+      "id": "OP-24.001-0928",
+      "description": "Реконструкция на улица \"Георги Димитров\" от ОК 231 до ОК 331 в с. Писарово",
+      "oblastCode": "PVN",
+      "oblastName": "Плевен",
+      "obshtinaCode": "PVN23",
+      "municipalityName": "Искър",
+      "agreementEur": 384696.01,
+      "submittedEur": 22069.55,
+      "awaitingEur": 0,
+      "paidEur": 450988.37,
+      "mrrbPaidEur": 406809.42,
+      "bbrPaidEur": 44178.95,
+      "paidPct": 117.23,
+      "stalled": false
+    },
+    {
       "id": "OP-24.001-2885",
       "description": "Реконструкция на улици в гр. Искър: ул. \"Септември\" от о.т. 71 до о.т. 125 в гр. Искър",
       "oblastCode": "PVN",
@@ -126,11 +126,11 @@
       "municipalityName": "Искър",
       "agreementEur": 371095.65,
       "submittedEur": 0,
-      "awaitingEur": 4816.37,
-      "paidEur": 65490.32,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 70306.69,
+      "mrrbPaidEur": 4816.37,
       "bbrPaidEur": 65490.32,
-      "paidPct": 17.65,
+      "paidPct": 18.95,
       "stalled": false
     },
     {
@@ -156,13 +156,13 @@
       "oblastName": "Плевен",
       "obshtinaCode": "PVN23",
       "municipalityName": "Искър",
-      "agreementEur": 218014.86,
-      "submittedEur": 0,
-      "awaitingEur": 13523.44,
+      "agreementEur": 174657.31,
+      "submittedEur": 13523.44,
+      "awaitingEur": 0,
       "paidEur": 192323.17,
       "mrrbPaidEur": 37892.99,
       "bbrPaidEur": 154430.18,
-      "paidPct": 88.22,
+      "paidPct": 110.11,
       "stalled": false
     },
     {
@@ -174,11 +174,11 @@
       "municipalityName": "Искър",
       "agreementEur": 174452.79,
       "submittedEur": 0,
-      "awaitingEur": 4681.05,
-      "paidEur": 32961.34,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 37642.39,
+      "mrrbPaidEur": 4681.05,
       "bbrPaidEur": 32961.34,
-      "paidPct": 18.89,
+      "paidPct": 21.58,
       "stalled": false
     },
     {
@@ -190,11 +190,11 @@
       "municipalityName": "Искър",
       "agreementEur": 174452.79,
       "submittedEur": 0,
-      "awaitingEur": 4196.68,
-      "paidEur": 30780.89,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 34977.57,
+      "mrrbPaidEur": 4196.68,
       "bbrPaidEur": 30780.89,
-      "paidPct": 17.64,
+      "paidPct": 20.05,
       "stalled": false
     },
     {
@@ -206,11 +206,11 @@
       "municipalityName": "Искър",
       "agreementEur": 144695.6,
       "submittedEur": 0,
-      "awaitingEur": 3632.22,
-      "paidEur": 25531.29,
-      "mrrbPaidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 29163.51,
+      "mrrbPaidEur": 3632.22,
       "bbrPaidEur": 25531.29,
-      "paidPct": 17.64,
+      "paidPct": 20.16,
       "stalled": false
     },
     {

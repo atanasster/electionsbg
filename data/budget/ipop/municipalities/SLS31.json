@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.565Z",
+  "generatedAt": "2026-11-26T22:05:16.453Z",
   "obshtinaCode": "SLS31",
   "municipalityName": "Силистра",
   "oblastCode": "SLS",
@@ -11,14 +11,14 @@
     "oblastCode": "SLS",
     "oblastName": "Силистра",
     "projectCount": 27,
-    "stalledCount": 2,
-    "agreementEur": 47907571.73,
-    "submittedEur": 8096747.7299999995,
-    "awaitingEur": 1212683.77,
-    "paidEur": 16419052.29,
-    "mrrbPaidEur": 11199834.100000001,
+    "stalledCount": 3,
+    "agreementEur": 48170784.79,
+    "submittedEur": 5425538.2700000005,
+    "awaitingEur": 0,
+    "paidEur": 20450572.959999997,
+    "mrrbPaidEur": 15231354.77,
     "bbrPaidEur": 5219218.19,
-    "paidPct": 34.27
+    "paidPct": 42.45
   },
   "projects": [
     {
@@ -125,12 +125,12 @@
       "obshtinaCode": "SLS31",
       "municipalityName": "Силистра",
       "agreementEur": 3131662.77,
-      "submittedEur": 1212683.77,
-      "awaitingEur": 1212683.77,
-      "paidEur": 236621.22,
-      "mrrbPaidEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 2661988.76,
+      "mrrbPaidEur": 2425367.54,
       "bbrPaidEur": 236621.22,
-      "paidPct": 7.56,
+      "paidPct": 85,
       "stalled": false
     },
     {
@@ -221,7 +221,7 @@
       "obshtinaCode": "SLS31",
       "municipalityName": "Силистра",
       "agreementEur": 1489342.12,
-      "submittedEur": 999507.22,
+      "submittedEur": 1147134.66,
       "awaitingEur": 0,
       "paidEur": 249876.81,
       "mrrbPaidEur": 0,
@@ -237,12 +237,12 @@
       "obshtinaCode": "SLS31",
       "municipalityName": "Силистра",
       "agreementEur": 1294591.04,
-      "submittedEur": 854287.54,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 244082.16,
-      "mrrbPaidEur": 0,
+      "paidEur": 1098369.7,
+      "mrrbPaidEur": 854287.54,
       "bbrPaidEur": 244082.16,
-      "paidPct": 18.85,
+      "paidPct": 84.84,
       "stalled": false
     },
     {
@@ -301,12 +301,12 @@
       "obshtinaCode": "SLS31",
       "municipalityName": "Силистра",
       "agreementEur": 789945.96,
-      "submittedEur": 521460.18,
+      "submittedEur": 260730.09,
       "awaitingEur": 0,
-      "paidEur": 148988.62,
-      "mrrbPaidEur": 0,
+      "paidEur": 409718.71,
+      "mrrbPaidEur": 260730.09,
       "bbrPaidEur": 148988.62,
-      "paidPct": 18.86,
+      "paidPct": 51.87,
       "stalled": false
     },
     {
@@ -317,12 +317,12 @@
       "obshtinaCode": "SLS31",
       "municipalityName": "Силистра",
       "agreementEur": 748020.02,
-      "submittedEur": 491135.5,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 140324.43,
-      "mrrbPaidEur": 0,
+      "paidEur": 631459.93,
+      "mrrbPaidEur": 491135.5,
       "bbrPaidEur": 140324.43,
-      "paidPct": 18.76,
+      "paidPct": 84.42,
       "stalled": false
     },
     {
@@ -340,6 +340,22 @@
       "bbrPaidEur": 432932.11,
       "paidPct": 99.99,
       "stalled": false
+    },
+    {
+      "id": "OP-25.001-0600",
+      "description": "Проектиране на IV-класна пътна мрежа и улици в населени места на територията на община Силистра",
+      "oblastCode": "SLS",
+      "oblastName": "Силистра",
+      "obshtinaCode": "SLS31",
+      "municipalityName": "Силистра",
+      "agreementEur": 263213.06,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-1126",
@@ -435,22 +451,6 @@
       "mrrbPaidEur": 24787.43,
       "bbrPaidEur": 0,
       "paidPct": 37.61,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0600",
-      "description": "Проектиране на IV-класна пътна мрежа и улици в населени места на територията на община Силистра",
-      "oblastCode": "SLS",
-      "oblastName": "Силистра",
-      "obshtinaCode": "SLS31",
-      "municipalityName": "Силистра",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
       "stalled": false
     }
   ]

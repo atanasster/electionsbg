@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.573Z",
+  "generatedAt": "2026-11-26T22:05:16.460Z",
   "obshtinaCode": "SHU07",
   "municipalityName": "Венец",
   "oblastCode": "SHU",
@@ -11,14 +11,14 @@
     "oblastCode": "SHU",
     "oblastName": "Шумен",
     "projectCount": 8,
-    "stalledCount": 0,
-    "agreementEur": 3714944.54,
+    "stalledCount": 1,
+    "agreementEur": 4215294.77,
     "submittedEur": 63781.25,
     "awaitingEur": 392797.46,
     "paidEur": 3250873.32,
     "mrrbPaidEur": 2093789.13,
     "bbrPaidEur": 1157084.19,
-    "paidPct": 87.51
+    "paidPct": 77.12
   },
   "projects": [
     {
@@ -68,6 +68,22 @@
       "bbrPaidEur": 259582.89,
       "paidPct": 39.46,
       "stalled": false
+    },
+    {
+      "id": "OP-25.001-0775",
+      "description": "Изграждане на многофункционална зала в УПИ I, кв. 13, с. Борци, община Венец, област Шумен",
+      "oblastCode": "SHU",
+      "oblastName": "Шумен",
+      "obshtinaCode": "SHU07",
+      "municipalityName": "Венец",
+      "agreementEur": 500350.23,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-1563",
@@ -131,22 +147,6 @@
       "mrrbPaidEur": 79746.54,
       "bbrPaidEur": 0,
       "paidPct": 94.99,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0775",
-      "description": "Изграждане на многофункционална зала в УПИ I, кв. 13, с. Борци, община Венец, област Шумен",
-      "oblastCode": "SHU",
-      "oblastName": "Шумен",
-      "obshtinaCode": "SHU07",
-      "municipalityName": "Венец",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
       "stalled": false
     }
   ]

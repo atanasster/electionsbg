@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.561Z",
+  "generatedAt": "2026-11-26T22:05:16.449Z",
   "obshtinaCode": "PVN39",
   "municipalityName": "Кнежа",
   "oblastCode": "PVN",
@@ -11,14 +11,14 @@
     "oblastCode": "PVN",
     "oblastName": "Плевен",
     "projectCount": 6,
-    "stalledCount": 1,
-    "agreementEur": 9781422.719999999,
+    "stalledCount": 2,
+    "agreementEur": 10738561.12,
     "submittedEur": 183126.96,
     "awaitingEur": 0,
     "paidEur": 4578982.04,
     "mrrbPaidEur": 4078509.19,
     "bbrPaidEur": 500472.85,
-    "paidPct": 46.81
+    "paidPct": 42.64
   },
   "projects": [
     {
@@ -86,6 +86,22 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0508",
+      "description": "Благоустрояване и обновяване на част от горски парк \"Гергана\" в ПИ 37376.592.1 в община Кнежа",
+      "oblastCode": "PVN",
+      "oblastName": "Плевен",
+      "obshtinaCode": "PVN39",
+      "municipalityName": "Кнежа",
+      "agreementEur": 957138.4,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-2058",
       "description": "Реконструкция на улици в град Кнежа – Етап 2 и Етап 4",
       "oblastCode": "PVN",
@@ -99,22 +115,6 @@
       "mrrbPaidEur": 307081.84,
       "bbrPaidEur": 500472.85,
       "paidPct": 90.04,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0508",
-      "description": "Благоустрояване и обновяване на част от горски парк \"Гергана\" в ПИ 37376.592.1 в община Кнежа",
-      "oblastCode": "PVN",
-      "oblastName": "Плевен",
-      "obshtinaCode": "PVN39",
-      "municipalityName": "Кнежа",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
       "stalled": false
     }
   ]

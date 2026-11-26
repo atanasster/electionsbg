@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.567Z",
+  "generatedAt": "2026-11-26T22:05:16.456Z",
   "obshtinaCode": "SFO07",
   "municipalityName": "Ботевград",
   "oblastCode": "SFO",
@@ -11,14 +11,14 @@
     "oblastCode": "SFO",
     "oblastName": "София област",
     "projectCount": 14,
-    "stalledCount": 3,
-    "agreementEur": 42121980.56,
-    "submittedEur": 944174.05,
+    "stalledCount": 4,
+    "agreementEur": 43690163.89,
+    "submittedEur": 0,
     "awaitingEur": 434338.48,
     "paidEur": 11721953.79,
     "mrrbPaidEur": 10725666.280000001,
     "bbrPaidEur": 996287.51,
-    "paidPct": 27.83
+    "paidPct": 26.83
   },
   "projects": [
     {
@@ -125,13 +125,29 @@
       "obshtinaCode": "SFO07",
       "municipalityName": "Ботевград",
       "agreementEur": 1671157.51,
-      "submittedEur": 43359.12,
+      "submittedEur": 0,
       "awaitingEur": 434338.48,
       "paidEur": 866435.17,
       "mrrbPaidEur": 238475.17,
       "bbrPaidEur": 627960,
       "paidPct": 51.85,
       "stalled": false
+    },
+    {
+      "id": "OP-24.001-3020",
+      "description": "Улични мрежи и съоръжения (УМС) – Югоизточен обход на ж.к. Васил Левски и УМС – Вътрешноквартални улици в ж.к. Васил Левски за реализация на част от уличната мрежа на гр. Ботевград, община Ботевград, област Софийска",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO07",
+      "municipalityName": "Ботевград",
+      "agreementEur": 1568183.33,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-1340",
@@ -141,7 +157,7 @@
       "obshtinaCode": "SFO07",
       "municipalityName": "Ботевград",
       "agreementEur": 762847.49,
-      "submittedEur": 900814.93,
+      "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 131594.1,
       "mrrbPaidEur": 131594.1,
@@ -164,22 +180,6 @@
       "bbrPaidEur": 0,
       "paidPct": 0,
       "stalled": true
-    },
-    {
-      "id": "OP-24.001-3020",
-      "description": "Улични мрежи и съоръжения (УМС) – Югоизточен обход на ж.к. Васил Левски и УМС – Вътрешноквартални улици в ж.к. Васил Левски за реализация на част от уличната мрежа на гр. Ботевград, община Ботевград, област Софийска",
-      "oblastCode": "SFO",
-      "oblastName": "София област",
-      "obshtinaCode": "SFO07",
-      "municipalityName": "Ботевград",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
     },
     {
       "id": "OP-25.001-0634",

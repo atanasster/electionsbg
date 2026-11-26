@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2026,
-  "generatedAt": "2026-11-13T00:57:27.564Z",
+  "generatedAt": "2026-11-26T22:05:16.451Z",
   "obshtinaCode": "RSE05",
   "municipalityName": "Ветово",
   "oblastCode": "RSE",
@@ -11,14 +11,14 @@
     "oblastCode": "RSE",
     "oblastName": "Русе",
     "projectCount": 8,
-    "stalledCount": 0,
-    "agreementEur": 6150994.73,
+    "stalledCount": 1,
+    "agreementEur": 6413798.760000001,
     "submittedEur": 0,
     "awaitingEur": 110734.36,
     "paidEur": 5952397.899999999,
     "mrrbPaidEur": 5952397.899999999,
     "bbrPaidEur": 0,
-    "paidPct": 96.77
+    "paidPct": 92.81
   },
   "projects": [
     {
@@ -86,6 +86,22 @@
       "stalled": false
     },
     {
+      "id": "OP-25.001-0550",
+      "description": "Изграждане на нови тротоари по ул. \"Трети март\" и ул. \"Христо Ботев\" в гр. Сеново, община Ветово",
+      "oblastCode": "RSE",
+      "oblastName": "Русе",
+      "obshtinaCode": "RSE05",
+      "municipalityName": "Ветово",
+      "agreementEur": 262804.03,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-2088",
       "description": "Рехабилитация и реконструкция на улица \"Георги Сава Раковски\" и част от улица \"Васил Друмев\", град Ветово, община Ветово, област Русе",
       "oblastCode": "RSE",
@@ -120,22 +136,6 @@
     {
       "id": "OP-25.001-0549",
       "description": "Реконструкция и рехабилитация на ул. \"Драва\" и част от ул. \"Бачо Киро\", град Глоджево, община Ветово",
-      "oblastCode": "RSE",
-      "oblastName": "Русе",
-      "obshtinaCode": "RSE05",
-      "municipalityName": "Ветово",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0550",
-      "description": "Изграждане на нови тротоари по ул. \"Трети март\" и ул. \"Христо Ботев\" в гр. Сеново, община Ветово",
       "oblastCode": "RSE",
       "oblastName": "Русе",
       "obshtinaCode": "RSE05",
