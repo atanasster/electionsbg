@@ -98,6 +98,9 @@ type ZdoiHit = {
   submittedOn: string | null;
   subjectExcerpt: string;
   decisionExcerpt: string | null;
+  /** Amounts the ANSWER names, as written, each with the words around it — a quote,
+   *  never a figure: the sum may be what was disclosed, a fee, or the question restated. */
+  moneyMentions?: { amount: string; excerpt: string }[];
 };
 type ZdoiCoverage = {
   requests: number;
@@ -225,6 +228,27 @@ export const termSpan = (
 /** Cut `text` to about `n` characters, keeping the matched name visible: a row
  *  that matched on its last words („… - ИНИОКН") must not show the reader a cut
  *  that hides why it is there. Head, „…", then the words around the match. */
+/** The words around an amount, at most `n` characters, keeping the amount in view. */
+export const aroundAmount = (
+  excerpt: string,
+  amount: string,
+  n = 160,
+): string => {
+  const quote = (t: string) => `„${t}“`;
+  if (excerpt.length <= n) return quote(excerpt);
+  const at = excerpt.indexOf(amount);
+  if (at < 0) return quote(`${excerpt.slice(0, n).trimEnd()}…`);
+  const start = Math.max(
+    0,
+    Math.min(at - Math.floor((n - amount.length) * 0.65), excerpt.length - n),
+  );
+  const end = start + n;
+  const head = start > 0 || excerpt.startsWith("…") ? "…" : "";
+  const body = excerpt.slice(start, end).trim().replace(/^…|…$/g, "");
+  const tail = end < excerpt.length || excerpt.endsWith("…") ? "…" : "";
+  return quote(`${head}${body}${tail}`);
+};
+
 export const clipToMatch = (text: string, terms: string[], n = 140): string => {
   if (text.length <= n) return text;
   const spans = terms
@@ -830,20 +854,32 @@ export const entityMentions = async (
   // answer's words around the match, or it reads as unrelated to the search.
   const inText = (s: string | null) =>
     !!s && shownTerms.some((t) => termSpan(s, t) != null);
-  for (const z of zdoi)
+  // An amount the answer names is shown as the answer words it — in quotes, beside the
+  // sentence it sits in — never as a number of ours: the INSAIT answer's only sum is the
+  // question restated („За какво … сумата от 100 млн. лв.?").
+  for (const z of zdoi) {
+    const money = z.moneyMentions ?? [];
+    const base =
+      !inText(z.subjectExcerpt) && inText(z.decisionExcerpt)
+        ? `${clip(z.subjectExcerpt, 70)} — ${bg ? "в отговора" : "in the answer"}: ${clip(z.decisionExcerpt!, 100)}`
+        : clip(z.subjectExcerpt);
     push(
       {
         kind: kind.zdoi,
         date: (z.submittedOn ?? "").slice(0, 10) || "—",
-        subject:
-          !inText(z.subjectExcerpt) && inText(z.decisionExcerpt)
-            ? `${clip(z.subjectExcerpt, 70)} — ${bg ? "в отговора" : "in the answer"}: ${clip(z.decisionExcerpt!, 100)}`
-            : clip(z.subjectExcerpt),
+        subject: money.length
+          ? `${base} — ${bg ? "сума в отговора" : "amount in the answer"}: ${aroundAmount(money[0].excerpt, money[0].amount)}`
+          : base,
         party: `${z.body} · ${z.status}`,
-        amount: "—",
+        amount: money.length
+          ? [...new Set(money.map((m) => m.amount))]
+              .map((m) => `„${m}“`)
+              .join(" · ")
+          : "—",
       },
       `https://pitay.government.bg/application/${z.appId}/view`,
     );
+  }
 
   const contractEur = contracts.reduce((s, c) => s + (c.amountEur ?? 0), 0);
   const facts: Record<string, string | number> = {
@@ -914,6 +950,11 @@ export const entityMentions = async (
     facts.access_to_information_note = bg
       ? "Заявленията по ЗДОИ са подадени през Платформата за достъп до обществена информация (pitay.government.bg); отговорът е на самата институция, не е проверен от нас."
       : "The access-to-information requests were filed through the public-information platform (pitay.government.bg); each answer is the institution's own, not verified by us.";
+  const zdoiWithAmounts = zdoi.filter((z) => z.moneyMentions?.length).length;
+  if (zdoiWithAmounts)
+    facts.access_to_information_answers_naming_amounts = bg
+      ? `${zdoiWithAmounts} — сумите са цитат от отговора на институцията, не са проверени и не се събират: може да са предоставената информация, такса или преразказан въпрос.`
+      : `${zdoiWithAmounts} — the amounts are quoted from the institution's answer, unverified and not to be added up: they may be the information disclosed, a fee, or the question restated.`;
   if (zdoiCapped) facts.access_to_information_requests_at_least = zdoi.length;
   if (zdoiCoverage && zdoiSearched)
     facts.access_to_information_coverage = bg

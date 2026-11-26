@@ -315,6 +315,48 @@ describe("entityMentions — INSAIT", () => {
     );
   });
 
+  it("quotes an amount the ЗДОИ answer names, never as a figure of ours", async () => {
+    mockRoutes();
+    const inner = vi.mocked(fetchDb).getMockImplementation()!;
+    vi.mocked(fetchDb).mockImplementation(async (route, p) => {
+      const r = (await inner(route, p)) as {
+        items?: Record<string, unknown>[];
+      };
+      if (route !== "zdoi-search" || !r.items?.length) return r;
+      return {
+        ...r,
+        items: r.items.map((it) => ({
+          ...it,
+          moneyMentions: [
+            {
+              amount: "100 млн. лв.",
+              excerpt:
+                "…По въпрос 3 За какво конкретно е предвидено да бъде разходвана сумата от 100 млн. лв., заложена в Бюджет 2024?…",
+            },
+            {
+              amount: "100 млн. лв.",
+              excerpt:
+                "…Сумата от 100 млн. лв. е предвидена за изчислителни модули…",
+            },
+          ],
+        })),
+      };
+    });
+    const env = await entityMentions({ term: "INSAIT" }, ctx);
+    const row = ((env.rows ?? []) as Record<string, string>[]).find((r) =>
+      String(r.subject).includes("изчислителен център на INSAIT"),
+    )!;
+    expect(row.amount).toBe("„100 млн. лв.“");
+    expect(row.subject).toMatch(
+      /сума в отговора: „…По въпрос 3 .*100 млн\. лв\..*“/,
+    );
+    expect(
+      String(env.facts?.access_to_information_answers_naming_amounts),
+    ).toMatch(/^1 — сумите са цитат от отговора/);
+    // the model is told THAT an answer names money, never handed the sum as a fact
+    expect(JSON.stringify(env.facts)).not.toMatch(/100 млн/);
+  });
+
   it("does not claim ЗДОИ was searched when the corpus is not there", async () => {
     mockRoutes();
     const inner = vi.mocked(fetchDb).getMockImplementation()!;

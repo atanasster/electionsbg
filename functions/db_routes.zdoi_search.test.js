@@ -28,14 +28,24 @@ test("asks the whole-word function, never the loose prefix search", async () => 
             lastSubmitted: "2026-11-23",
           },
         ]
-      : [{ appId: 8905 }];
+      : [
+          {
+            r: {
+              app_id: 8905,
+              submitted_on: "2024-01-10",
+              money_mentions: [{ amount: "100 млн. лв.", excerpt: "…сумата от 100 млн. лв.…" }],
+            },
+          },
+        ];
   };
   const r = await route(db, { q: "INSAIT", limit: "500" });
   const hit = calls.find((c) => c.sql.includes("zdoi_mentions"));
   assert.ok(hit);
   assert.ok(!calls.some((c) => c.sql.includes("zdoi_search")));
   assert.deepEqual(hit.params, ["INSAIT", 50]);
-  assert.deepEqual(r.body.items, [{ appId: 8905 }]);
+  assert.equal(r.body.items[0].appId, 8905);
+  assert.equal(r.body.items[0].submittedOn, "2024-01-10");
+  assert.equal(r.body.items[0].moneyMentions[0].amount, "100 млн. лв.");
   assert.equal(r.body.coverage.requests, 10);
 });
 
@@ -56,4 +66,12 @@ test("any other database error still fails loudly", async () => {
     throw e;
   };
   await assert.rejects(route(db, { q: "INSAIT" }));
+});
+
+test("a database whose 207 predates money_mentions still answers, with none", async () => {
+  const db = async (sql) =>
+    sql.includes("zdoi_coverage") ? [] : [{ r: { app_id: 1, subject_excerpt: "x" } }];
+  const r = await route(db, { q: "INSAIT" });
+  assert.deepEqual(r.body.items[0].moneyMentions, []);
+  assert.equal(r.body.items[0].submittedOn, null);
 });

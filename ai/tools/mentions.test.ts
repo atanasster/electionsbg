@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { clipToMatch, mentionsTerm, termVariants } from "./mentions";
+import {
+  aroundAmount,
+  clipToMatch,
+  mentionsTerm,
+  termVariants,
+} from "./mentions";
 import { nameResembles } from "./fiscal";
 
 describe("mentionsTerm", () => {
@@ -69,5 +74,21 @@ describe("clipToMatch", () => {
   it("needs the whole word, as the search does", () => {
     const t = "z ".repeat(80) + "INSAS програма";
     expect(clipToMatch(t, ["INSAIT"], 60)).not.toContain("INSAS");
+  });
+});
+
+describe("aroundAmount", () => {
+  it("quotes a short excerpt whole, keeping its own ellipses", () => {
+    expect(
+      aroundAmount("…сумата от 100 млн. лв., заложена…", "100 млн. лв."),
+    ).toBe("„…сумата от 100 млн. лв., заложена…“");
+  });
+  it("keeps the amount in view when it has to cut", () => {
+    const long = `${"а ".repeat(150)}сумата от 7 876 741 лв. е изплатена${" б".repeat(150)}`;
+    const q = aroundAmount(long, "7 876 741 лв.", 80);
+    expect(q).toContain("7 876 741 лв.");
+    expect(q.startsWith("„…")).toBe(true);
+    expect(q.endsWith("…“")).toBe(true);
+    expect(q.length).toBeLessThanOrEqual(80 + 4);
   });
 });

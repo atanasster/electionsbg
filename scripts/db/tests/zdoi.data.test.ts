@@ -108,6 +108,35 @@ d("zdoi_request (207)", () => {
     );
     expect(Number(r.n)).toBe(0);
   });
+
+  // The amounts an answer names are quoted, so a wrong cut publishes a sum the answer
+  // never wrote: „000 лв." from „500 000 лв.", „00 лв." from „5850, 00 лв.".
+  it("quotes whole amounts, each inside its own excerpt", async () => {
+    const rows = await allRows<{ amount: string; excerpt: string }>(
+      `SELECT x->>'amount' AS amount, x->>'excerpt' AS excerpt
+         FROM zdoi_request, jsonb_array_elements(zdoi_money_mentions(decision_text, 9)) x`,
+    );
+    expect(rows.length).toBeGreaterThan(1000);
+    expect(rows.every((r) => r.excerpt.includes(r.amount))).toBe(true);
+    // a leading zero followed by a digit is a cut number — the one survivor is the
+    // source's own typo („ЗОО 000 евро", Cyrillic З and О for 300)
+    const cut = rows.filter((r) => /^0[0-9]/.test(r.amount));
+    expect(cut.length).toBeLessThanOrEqual(1);
+    expect(
+      rows.some((r) => /^евро[а-я]/i.test(r.amount.split(/\s/).pop() ?? "")),
+    ).toBe(false);
+  });
+
+  it8905(
+    "finds the 100 млн. лв. in the INSAIT answer — with the question it restates",
+    async () => {
+      const [r] = await allRows<{ m: { amount: string; excerpt: string }[] }>(
+        "SELECT money_mentions AS m FROM zdoi_mentions('INSAIT', 20) WHERE app_id = 8905",
+      );
+      expect(r.m[0].amount).toBe("100 млн. лв.");
+      expect(r.m[0].excerpt).toMatch(/За какво конкретно е предвидено/);
+    },
+  );
 });
 
 await end();

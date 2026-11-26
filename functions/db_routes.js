@@ -1313,14 +1313,27 @@ const DB_ROUTES = {
       return missingMigrationRows(e);
     };
     const [items, cov] = await Promise.all([
-      dbRows(
-        `SELECT app_id AS "appId", reg_no AS "regNo", body, status,
-                submitted_on::text AS "submittedOn", decision_date::text AS "decisionDate",
-                subject_excerpt AS "subjectExcerpt", decision_excerpt AS "decisionExcerpt",
-                attachment_count AS "attachmentCount"
-           FROM zdoi_mentions($1, $2)`,
-        [term, lim],
-      ).catch(degrade),
+      // The whole row as jsonb rather than a column list: money_mentions (the amounts an
+      // answer names, quoted) is newer than the function's first deploy, and a named column
+      // the database lacks is a 42703 no degrade helper covers — so the route works on
+      // either side of 207. jsonb also renders a date as 'YYYY-MM-DD', where node-postgres
+      // would hand back a Date shifted by the server's timezone.
+      dbRows(`SELECT to_jsonb(z) AS r FROM zdoi_mentions($1, $2) z`, [term, lim])
+        .then((rows) =>
+          rows.map(({ r }) => ({
+            appId: r.app_id,
+            regNo: r.reg_no,
+            body: r.body,
+            status: r.status,
+            submittedOn: r.submitted_on ?? null,
+            decisionDate: r.decision_date ?? null,
+            subjectExcerpt: r.subject_excerpt,
+            decisionExcerpt: r.decision_excerpt,
+            attachmentCount: r.attachment_count,
+            moneyMentions: Array.isArray(r.money_mentions) ? r.money_mentions : [],
+          })),
+        )
+        .catch(degrade),
       dbRows(
         `SELECT requests::int AS requests, bodies::int AS bodies,
                 first_submitted::text AS "firstSubmitted",

@@ -136,11 +136,68 @@ BEGIN
   RETURN left(t, len);
 END $$;
 
+-- The money an ANSWER names, quoted — never parsed into a figure. Up to `lim` amounts in the
+-- body's own words („100 млн. лв.") with ~200 characters around each, so a reader sees
+-- whether the sum is what was disclosed or what the requester asked about: the INSAIT
+-- answer (8905) names „100 млн. лв." only while restating the question. A number column
+-- would assert the first reading on every row; a quote leaves it to the text (rule 3).
+-- The currency must end at a non-letter, or „евро" matches „европейски"; the number must
+-- not start right after a decimal separator, and „5850, 00 лв." (a typed space after the
+-- comma, common in these answers) is one number, not „00 лв.".
+CREATE OR REPLACE FUNCTION zdoi_money_mentions(t text, lim integer DEFAULT 2)
+RETURNS jsonb
+LANGUAGE plpgsql IMMUTABLE PARALLEL SAFE AS $$
+DECLARE
+  re  constant text :=
+    '(?<![0-9A-Za-zА-Яа-я])(?<![0-9][.,])'
+    '(?:[0-9]{1,3}(?:[  .][0-9]{3})+|[0-9]+)(?:[.,][0-9]+|, [0-9]{2})?'
+    '(?:\s*(?:млрд|млн|милиона|милион|хил|хиляди)\.?)?'
+    '\s*(?:лв|лева|евро|EUR|BGN|€)(?![A-Za-zА-Яа-я])\.?';
+  s   text;
+  n   integer;
+  pos integer;
+  m   text;
+  a   integer;
+  b   integer;
+  nxt integer := 1;
+  k   integer := 0;
+  out jsonb := '[]'::jsonb;
+BEGIN
+  IF t IS NULL THEN
+    RETURN out;
+  END IF;
+  s := btrim(regexp_replace(t, '\s+', ' ', 'g'));
+  n := length(s);
+  WHILE jsonb_array_length(out) < lim LOOP
+    -- by occurrence over the WHOLE text: a search started mid-text cannot see behind its
+    -- start, so „500 000 лв." cut by the previous window would be found as „000 лв.".
+    k := k + 1;
+    pos := regexp_instr(s, re, 1, k, 0, 'i');
+    EXIT WHEN pos = 0;
+    CONTINUE WHEN pos < nxt;  -- already inside the previous excerpt
+    m := regexp_substr(s, re, 1, k, 'i');
+    a := greatest(nxt, pos - 140);  -- never re-quote the previous window
+    b := least(n, pos + length(m) + 60);
+    -- widen to whole words, never past the text
+    WHILE a > nxt AND substr(s, a - 1, 1) <> ' ' AND pos - a < 160 LOOP a := a - 1; END LOOP;
+    WHILE b < n AND substr(s, b + 1, 1) <> ' ' AND b - pos < 120 LOOP b := b + 1; END LOOP;
+    out := out || jsonb_build_object(
+      'amount', btrim(m),
+      'excerpt', CASE WHEN a > 1 THEN '…' ELSE '' END
+                 || btrim(substr(s, a, b - a + 1))
+                 || CASE WHEN b < n THEN '…' ELSE '' END);
+    nxt := b + 1;
+  END LOOP;
+  RETURN out;
+END $$;
+
+-- Return type gained money_mentions; CREATE OR REPLACE cannot change OUT columns.
+DROP FUNCTION IF EXISTS zdoi_mentions(text, integer);
 CREATE OR REPLACE FUNCTION zdoi_mentions(q text, lim integer DEFAULT 20)
 RETURNS TABLE (
   app_id integer, reg_no text, body text, status text, submitted_on date,
   decision_date date, subject_excerpt text, decision_excerpt text,
-  attachment_count integer
+  attachment_count integer, money_mentions jsonb
 )
 LANGUAGE plpgsql STABLE AS $$
 DECLARE
@@ -160,7 +217,7 @@ BEGIN
   RETURN QUERY
   SELECT r.app_id, r.reg_no, r.body, r.status, r.submitted_on, r.decision_date,
          zdoi_match_excerpt(r.subject, pat), zdoi_match_excerpt(r.decision_text, pat),
-         cardinality(r.attachment_ids)
+         cardinality(r.attachment_ids), zdoi_money_mentions(r.decision_text)
     FROM zdoi_request r
    WHERE to_tsvector('simple', r.search_fold) @@ fold_prefix_tsquery(q)
      AND r.search_fold ~ pat
@@ -188,7 +245,8 @@ DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON zdoi_request, zdoi_event, zdoi_forward TO app_readonly;
     GRANT EXECUTE ON FUNCTION zdoi_search(text, integer), zdoi_mentions(text, integer),
-      zdoi_match_excerpt(text, text, integer), zdoi_coverage() TO app_readonly;
+      zdoi_match_excerpt(text, text, integer), zdoi_money_mentions(text, integer),
+      zdoi_coverage() TO app_readonly;
   ELSE
     RAISE WARNING 'app_readonly absent — 207 granted nothing';
   END IF;
