@@ -1,11 +1,23 @@
 {
-  "detail": "latest published day 2026-11-22; 11/12 recent days published, hash 5941915a616290e7",
-  "fingerprint": "5941915a616290e7",
-  "lastChanged": "2026-11-23T22:43:49.995Z",
-  "lastChecked": "2026-11-23T22:43:49.995Z",
+  "detail": "latest published day 2026-11-25; 11/12 recent days published, hash 1f7cf61cf5dbf636",
+  "fingerprint": "1f7cf61cf5dbf636",
+  "lastChanged": "2026-11-26T19:48:51.313Z",
+  "lastChecked": "2026-11-26T19:48:51.313Z",
   "meta": {
-    "latestDay": "2026-11-22",
+    "latestDay": "2026-11-25",
     "days": [
+      {
+        "day": "2026-11-25",
+        "len": 296186
+      },
+      {
+        "day": "2026-11-24",
+        "len": 392630
+      },
+      {
+        "day": "2026-11-23",
+        "len": 370323
+      },
       {
         "day": "2026-11-22",
         "len": 13234
@@ -37,18 +49,6 @@
       {
         "day": "2026-11-15",
         "len": 12033
-      },
-      {
-        "day": "2026-11-14",
-        "len": 6069
-      },
-      {
-        "day": "2026-11-13",
-        "len": 409583
-      },
-      {
-        "day": "2026-11-12",
-        "len": 394040
       }
     ]
   }
