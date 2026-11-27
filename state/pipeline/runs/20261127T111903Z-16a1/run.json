@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "session": "20261127T111903Z-16a1",
+  "kind": "publish",
+  "startedAt": "2026-11-27T11:19:03.641Z",
+  "git": {
+    "shaStart": "02c3d50f47b03f4a38f88c52b3d44d8a672bc62d",
+    "shaEnd": "02c3d50f47b03f4a38f88c52b3d44d8a672bc62d"
+  },
+  "env": {
+    "proxy": {
+      "ok": false,
+      "detail": "not needed"
+    }
+  },
+  "units": [
+    {
+      "id": "bucket",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "bucket:sync:paths:dry",
+          "command": "pnpm run bucket:sync:paths:dry polls",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3436,
+          "medianMs": 4173,
+          "log": "logs/pipeline/20261127T111903Z-16a1/001-bucket_sync_paths_dry.log"
+        },
+        {
+          "seq": 2,
+          "id": "bucket:sync:paths polls",
+          "command": "pnpm run bucket:sync:paths polls",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3861,
+          "medianMs": 2131,
+          "log": "logs/pipeline/20261127T111903Z-16a1/002-bucket_sync_paths_polls.log"
+        },
+        {
+          "seq": 3,
+          "id": "bucket:gz",
+          "command": "pnpm run bucket:gz",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 205044,
+          "medianMs": 134936,
+          "log": "logs/pipeline/20261127T111903Z-16a1/003-bucket_gz.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "verify",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 4,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1099,
+          "medianMs": 963,
+          "log": "logs/pipeline/20261127T111903Z-16a1/004-db_check-generated.log"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [],
+  "manifestDigest": "c3e5dafe88482795",
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-27T11:22:37.112Z",
+  "verdict": "clean"
+}
