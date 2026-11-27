@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-26T21:11:26.886Z",
+  "generatedAt": "2026-11-27T09:40:44.169Z",
   "nodes": [
     {
       "id": "src:water",
@@ -518,7 +518,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-11-22T16:08:31.179Z",
+      "freshness": "2026-11-27T08:44:27.560Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -540,7 +540,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-11-22T16:08:31.179Z"
+          "freshness": "2026-11-27T08:44:27.560Z"
         },
         {
           "id": "egov_budget_execution",
@@ -2197,7 +2197,7 @@
       "url": "https://his.bg/",
       "origin": "state",
       "cadence": "hourly",
-      "freshness": "2026-11-26T19:48:51.313Z",
+      "freshness": "2026-11-27T08:44:27.560Z",
       "skills": [],
       "sources": [
         {
@@ -2205,7 +2205,7 @@
           "label": "НЗИС — имунизации от началото на годината (his.bg)",
           "url": "https://his.bg/bg/statistical-reports/immunizations/2026",
           "cadence": "hourly",
-          "freshness": "2026-11-26T19:48:51.313Z"
+          "freshness": "2026-11-27T08:44:27.560Z"
         },
         {
           "id": "his_immunization_app",
@@ -2439,7 +2439,7 @@
       "url": "https://ted.europa.eu/",
       "origin": "eu",
       "cadence": "hourly",
-      "freshness": "2026-11-26T19:48:51.313Z",
+      "freshness": "2026-11-27T08:44:27.560Z",
       "skills": [
         "update-procurement"
       ],
@@ -2449,7 +2449,7 @@
           "label": "TED — обявления за България (api.ted.europa.eu)",
           "url": "https://api.ted.europa.eu/v3/notices/search",
           "cadence": "hourly",
-          "freshness": "2026-11-26T19:48:51.313Z"
+          "freshness": "2026-11-27T08:44:27.560Z"
         }
       ],
       "issue": {
@@ -7733,8 +7733,8 @@
         {
           "node": "ds:connections",
           "text": {
-            "bg": "Този ЕИК е ключът към Търговския регистър — 19 231 изпълнителя се намират там като фирми със собственици и управители.",
-            "en": "That company number is the key into the Commerce Registry — 19,231 contractors are found there as companies with owners and directors."
+            "bg": "Този ЕИК е ключът към Търговския регистър — 19 238 изпълнителя се намират там като фирми със собственици и управители.",
+            "en": "That company number is the key into the Commerce Registry — 19,238 contractors are found there as companies with owners and directors."
           }
         },
         {
@@ -7897,7 +7897,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 19231,
+      "overlap": 19238,
       "query": "contractors-in-the-registry"
     },
     {
@@ -7910,7 +7910,7 @@
         "bg": "кой е получил и обществени поръчки, и европейски средства",
         "en": "who received both public contracts and EU funds"
       },
-      "overlap": 5814,
+      "overlap": 5816,
       "query": "both-contracts-and-eu-funds"
     },
     {
@@ -7935,7 +7935,7 @@
         "bg": "кой взема и земеделски субсидии, и обществени поръчки",
         "en": "who takes both farm subsidies and public contracts"
       },
-      "overlap": 786
+      "overlap": 787
     },
     {
       "id": "agri|connections|eik",

@@ -37,6 +37,72 @@
     },
     {
       "schemaVersion": 1,
+      "id": "prices:promotion:500g-pasirani-domati-the-chefs",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-26T00:00:00.000Z",
+      "firstSeenAt": "2026-11-26T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/500g-pasirani-domati-the-chefs",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
+        "pct": 61,
+        "promoEur": "0.68",
+        "regularEur": "1.73",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8714285714285714,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-26T00:00:00.000Z",
+      "firstSeenAt": "2026-11-26T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 58,
+        "promoEur": "0.70",
+        "regularEur": "1.67",
+        "chains": 3
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8285714285714286,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
       "id": "parliament:sitting:2026-11-25",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
@@ -131,6 +197,71 @@
     },
     {
       "schemaVersion": 1,
+      "id": "prices:promotion:shokolad-roshen-aero-byal-80gr",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-26T00:00:00.000Z",
+      "firstSeenAt": "2026-11-26T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/shokolad-roshen-aero-byal-80gr",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ШОКОЛАД РОШЕН АЕРО БЯЛ 80ГР",
+        "pct": 52,
+        "promoEur": "0.75",
+        "regularEur": "1.56",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.7428571428571429,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:bde1efcb-0e1e-4549-98a1-31c393bd3d3c",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-11-20T08:00:00.000Z",
+      "deadlineAt": "2027-03-01T15:00:00.000Z",
+      "firstSeenAt": "2026-11-20T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/bde1efcb-0e1e-4549-98a1-31c393bd3d3c"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "СОЦИАЛНО-ИКОНОМИЧЕСКА ИНТЕГРАЦИЯ НА МАРГИНАЛИЗИРАНИ ОБЩНОСТИ КАТО РОМИТЕ ЧРЕЗ ПОДХОДА ВОМР",
+        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
+    },
+    {
+      "schemaVersion": 1,
       "id": "macro:cpi_release:prc_hicp_minr:2026-10",
       "kind": "cpi_released",
       "category": "prices",
@@ -189,38 +320,6 @@
       "verification": "automatic",
       "materiality": 0.4935,
       "actionability": 0.5
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:bde1efcb-0e1e-4549-98a1-31c393bd3d3c",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-11-20T08:00:00.000Z",
-      "deadlineAt": "2027-03-01T15:00:00.000Z",
-      "firstSeenAt": "2026-11-20T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/bde1efcb-0e1e-4549-98a1-31c393bd3d3c"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "СОЦИАЛНО-ИКОНОМИЧЕСКА ИНТЕГРАЦИЯ НА МАРГИНАЛИЗИРАНИ ОБЩНОСТИ КАТО РОМИТЕ ЧРЕЗ ПОДХОДА ВОМР",
-        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -779,8 +878,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-25",
-      "observedAt": "2026-11-25",
+      "asOf": "2026-11-26",
+      "observedAt": "2026-11-26",
       "staleAfterDays": 5,
       "stale": false
     }

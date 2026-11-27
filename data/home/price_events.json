@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-25",
+  "computedAt": "2026-11-26",
   "thresholds": {
     "basketPids": [
       1,
@@ -73,5 +73,36 @@
       "cohortShare": 0.9549
     }
   ],
-  "promotions": []
+  "promotions": [
+    {
+      "slug": "500g-pasirani-domati-the-chefs",
+      "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
+      "atOrBelowSince": "2026-11-26",
+      "promoEur": 0.68,
+      "regularEur": 1.73,
+      "discountPct": 61,
+      "stores": 4,
+      "chains": 2
+    },
+    {
+      "slug": "limoni",
+      "title": "ЛИМОНИ",
+      "atOrBelowSince": "2026-11-25",
+      "promoEur": 0.7,
+      "regularEur": 1.67,
+      "discountPct": 58,
+      "stores": 209,
+      "chains": 3
+    },
+    {
+      "slug": "shokolad-roshen-aero-byal-80gr",
+      "title": "ШОКОЛАД РОШЕН АЕРО БЯЛ 80ГР",
+      "atOrBelowSince": "2026-11-12",
+      "promoEur": 0.75,
+      "regularEur": 1.56,
+      "discountPct": 52,
+      "stores": 16,
+      "chains": 2
+    }
+  ]
 }
