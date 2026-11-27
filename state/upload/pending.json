@@ -1,0 +1,29 @@
+{
+  "session": "20261127T084406Z-3b83",
+  "createdAt": "2026-11-27T08:54:04.106Z",
+  "commit": "e103e52e639803967a27eb48ace3f109675faa57",
+  "skills": [
+    "tr-daily-refresh",
+    "update-administration"
+  ],
+  "paths": [
+    "administration",
+    "home",
+    "home/price_events.json",
+    "home/feed.json"
+  ],
+  "cloudCommands": [
+    "pnpm run db:load:tr:pg:cloud",
+    "pnpm run db:load:cr-nkid:pg:cloud",
+    "pnpm run db:load:company-founded:pg:cloud",
+    "pnpm run db:refresh:risk:cloud",
+    "pnpm run db:load:tr-announced-acts:pg:cloud",
+    "pnpm run db:load:persons-browse:pg:cloud",
+    "pnpm run db:load:person-search:pg:cloud",
+    "pnpm run db:load:graph:pg:cloud",
+    "pnpm run db:load:tr-company-place:pg:cloud",
+    "pnpm run db:load:admin-services:pg:cloud",
+    "pnpm run db:load:admin-service-requests:pg:cloud",
+    "pnpm run myarea:alerts:cloud"
+  ]
+}
