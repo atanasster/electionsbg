@@ -6,7 +6,7 @@
     "chatStarters": 150,
     "editorialQuestions": 257,
     "sqlQueries": 37,
-    "sourceGroups": 48
+    "sourceGroups": 49
   },
   "sourceGroups": [
     {
@@ -44,6 +44,15 @@
       },
       "status": "partial",
       "disposition": "Budget law-derived transfers/projects present; no general law search."
+    },
+    {
+      "id": "src:zdoi",
+      "label": {
+        "bg": "Платформа за достъп до обществена информация",
+        "en": "Access-to-information platform"
+      },
+      "status": "partial",
+      "disposition": "No dedicated ЗДОИ tool; requests are reachable only through the mentions tool (zdoi-search, whole-word) — partial."
     },
     {
       "id": "src:sp",

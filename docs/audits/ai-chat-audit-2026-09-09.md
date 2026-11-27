@@ -110,6 +110,7 @@ This is the full 48-entry source-node inventory from `data/data_map.json`, group
 | security | Eurostat / МВР / road safety | National crime/road-safety tools present; detailed place maps incomplete. |
 | transport | Eurostat / rail | Rail/subsidy/sector/funds tools present; project/facility detail incomplete. |
 | vaccines | НЗИС / ИАЛ / НЦЗПБ / Eurostat | Season uptake tool (vaccineUptake) present; shortage, incidence, imports and per-oblast detail not exposed in chat — partial. |
+| zdoi | pitay.government.bg (ЗДОИ) | No dedicated ЗДОИ tool; requests are reachable only through the mentions tool (zdoi-search, whole-word) — partial. |
 | administration | ИИСДА / Eurostat | Administration/digital adoption present; service directory missing. |
 | social | АСП / МТСП / Eurostat | Benefits/poverty/procurement tools present; generic spending question mixes scope. |
 | adfi | АДФИ | No dedicated inspection answer surface. |

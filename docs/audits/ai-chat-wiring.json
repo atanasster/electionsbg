@@ -4350,6 +4350,45 @@
       "h": 62
     },
     {
+      "id": "src:zdoi",
+      "kind": "source",
+      "label": {
+        "bg": "Платформа за достъп до обществена информация",
+        "en": "Access-to-information platform"
+      },
+      "detail": {
+        "bg": "заявления по ЗДОИ и отговори",
+        "en": "ЗДОИ requests and answers"
+      },
+      "desc": {
+        "bg": "Заявленията за достъп до обществена информация, подадени през pitay.government.bg — институцията, предметът, статусът и решението ѝ. Данните за заявителя не се съхраняват. Заявления, подадени по пощата, по имейл или на място, не са в платформата.",
+        "en": "Access-to-information requests filed through pitay.government.bg — the institution, the subject, the status and its decision. Nothing about the requester is stored. Requests filed by post, e-mail or in person are not on the platform."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "url": "https://pitay.government.bg/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-11-26T19:48:51.313Z",
+      "skills": [
+        "update-zdoi"
+      ],
+      "sources": [
+        {
+          "id": "zdoi_pitay",
+          "label": "Платформа за достъп до обществена информация (pitay.government.bg) — заявления по ЗДОИ",
+          "url": "https://pitay.government.bg/",
+          "cadence": "daily",
+          "freshness": "2026-11-26T19:48:51.313Z"
+        }
+      ],
+      "x": 28,
+      "y": 2174,
+      "w": 240,
+      "h": 62
+    },
+    {
       "id": "src:sp",
       "kind": "source",
       "label": {
