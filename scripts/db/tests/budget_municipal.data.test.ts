@@ -137,9 +137,10 @@ test.skipIf(skip)(
     // moves whenever payments land (769 → 700 on the 2026-08-14 refresh, 700 →
     // 657 on the 2026-09-25 one, as more projects crossed the 5%-paid line, with
     // munis and projects unmoved; 657 → 622 on the 2026-11-13 re-upload, same
-    // shape). Re-pin after an ipop ingest; a change here is the corpus moving, not
+    // shape; 622 → 628 on the 2026-11-26 refresh — UP, still munis and projects
+    // unmoved, so a re-export revised payments rather than adding projects). Re-pin after an ipop ingest; a change here is the corpus moving, not
     // the load failing.
-    assert.equal(Number(ipop.stalled), 622);
+    assert.equal(Number(ipop.stalled), 628);
 
     const [cap] = await allRows<{ munis: string }>(
       "SELECT count(DISTINCT obshtina)::text munis FROM budget_muni_capital_project",
