@@ -149,3 +149,18 @@ export const orderCloud = (commands: readonly string[]): string[] =>
     .map((c, i) => ({ c, i, r: cloudRank(c) }))
     .sort((a, b) => a.r - b.r || a.i - b.i)
     .map((x) => x.c);
+
+/** Cloud commands that FETCH from a Bulgaria-only upstream as part of the
+ *  publish (a re-crawl against the cloud URL, not a pure load). The publish
+ *  runner gives these the BG egress proxy when this machine's exit is not
+ *  Bulgarian — publish steps are otherwise never proxied. Same `pnpm run `-less
+ *  form as CLOUD_ORDER, matched on the script name (args ignored).
+ *  kzk:appeals:cloud: kzk_appeals has no loader; publishing re-crawls
+ *  reg.cpc.bg, which 403s a non-BG exit (2026-11-27: the publish failed on it
+ *  from a US exit while the same URL answered 200 through the Mac mini). */
+export const BG_EGRESS_CLOUD: readonly string[] = ["kzk:appeals:cloud"];
+
+export const needsBgEgress = (command: string): boolean => {
+  const script = command.replace(/^pnpm run /, "").split(/\s+/)[0];
+  return BG_EGRESS_CLOUD.includes(script);
+};

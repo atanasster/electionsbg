@@ -129,6 +129,28 @@ describe("planPublish", () => {
     expect(p.blocked).toEqual([]);
   });
 
+  it("gives the BG proxy only to cloud steps that crawl a BG-only upstream", () => {
+    const cloudCommands = [
+      "pnpm run db:load:pg:cloud",
+      "pnpm run kzk:appeals:cloud --year 2026",
+    ];
+    const proxied = (bg: string | null) =>
+      Object.fromEntries(
+        planPublish(manifest({ cloudCommands }), deps, true, bg)
+          .steps.filter((s) => s.unit === "cloud")
+          .map((s) => [s.spec.id, s.spec.bgProxy ?? null]),
+      );
+    expect(proxied("http://mac:8118")).toEqual({
+      "db:load:pg:cloud": null,
+      "kzk:appeals:cloud --year 2026": "http://mac:8118",
+    });
+    // No proxy found (BG exit, or none answers) — nothing is proxied.
+    expect(proxied(null)).toEqual({
+      "db:load:pg:cloud": null,
+      "kzk:appeals:cloud --year 2026": null,
+    });
+  });
+
   it("pins :cloud scripts to the cloud and leaves raw commands alone", () => {
     const p = planPublish(
       manifest({

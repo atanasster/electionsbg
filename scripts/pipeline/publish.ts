@@ -41,7 +41,8 @@ import {
   type CommitResult,
 } from "./git";
 import { acquireLock } from "./lock";
-import { orderCloud } from "./registry";
+import { findBgFallback } from "../lib/bg_egress";
+import { needsBgEgress, orderCloud } from "./registry";
 import { finalizeRun } from "./report/finalize";
 import {
   logDir,
@@ -64,6 +65,9 @@ export interface PublishDeps {
    *  keep anything pending.json gained meanwhile (settlePending). */
   clearManifest: (session: string, published: UploadManifest) => SettleResult;
   proxyUp: () => Promise<boolean>;
+  /** The BG egress proxy for steps that crawl a Bulgaria-only upstream
+   *  (BG_EGRESS_CLOUD), or null when the exit is already BG / none answers. */
+  findBgProxy?: () => Promise<string | null>;
   head: () => string | null;
   containsCommit: (sha: string) => boolean;
   excluded: (p: string) => string | null;
@@ -131,6 +135,7 @@ export const planPublish = (
   manifest: UploadManifest,
   deps: Pick<PublishDeps, "head" | "containsCommit" | "excluded">,
   proxyUp: boolean,
+  bgProxy: string | null = null,
 ): PublishPlan => {
   const blocked: string[] = [];
   const findings: string[] = [];
@@ -193,6 +198,7 @@ export const planPublish = (
         phase: "publish",
         timeoutMin: CLOUD_TIMEOUT_MIN,
         db: dbPinOf(c),
+        ...(bgProxy && needsBgEgress(c) ? { bgProxy } : {}),
       },
     });
   // Both checkers exit 1 for "found something" and 2 for "could not check"
@@ -253,7 +259,11 @@ export const runPublish = async (
     return { exitCode: 0 };
   }
   const proxyUp = manifest.cloudCommands.length ? await deps.proxyUp() : false;
-  const plan = planPublish(manifest, deps, proxyUp);
+  const bgProxy =
+    deps.findBgProxy && manifest.cloudCommands.some(needsBgEgress)
+      ? await deps.findBgProxy()
+      : null;
+  const plan = planPublish(manifest, deps, proxyUp, bgProxy);
   deps.log(renderPublishPlan(plan));
   if (opt.dryRun) return { exitCode: plan.blocked.length ? 3 : 0, plan };
 
@@ -580,6 +590,7 @@ export const realPublishDeps = (
   readManifest: () => readPending(),
   clearManifest: (session, published) => settlePending(session, published),
   proxyUp: () => portOpen(5434),
+  findBgProxy: () => findBgFallback(),
   head: () => headSha(),
   containsCommit: (sha) => isAncestorOfHead(sha),
   excluded: isExcluded,

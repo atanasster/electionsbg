@@ -8,7 +8,13 @@ import { SECTORS_LOCAL } from "./handlers/sectors_local";
 import { markerOf, type Handler } from "./types";
 
 export * from "./types";
-export { CLOUD_ORDER, cloudSlot, orderCloud } from "./cloud_order";
+export {
+  BG_EGRESS_CLOUD,
+  CLOUD_ORDER,
+  cloudSlot,
+  needsBgEgress,
+  orderCloud,
+} from "./cloud_order";
 
 export const HANDLERS: readonly Handler[] = [
   ...PARLIAMENT_PEOPLE,
