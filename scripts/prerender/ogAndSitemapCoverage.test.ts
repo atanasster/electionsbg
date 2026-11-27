@@ -1747,7 +1747,7 @@ describe("a hub's og capture anchors on its head", () => {
     "governance-sectors": {
       payloads: ["data/procurement/derived/sector_stats.json"],
       project: sectorsFigures,
-      md5: "1d35d9928d2a6b693e9364e92bd08dd7",
+      md5: "0534c2e44429c1822158cb9f5d4541fb",
       // ⚠️ RE-SHOT 2026-09-03, AND IT FIRED EXACTLY AS THE 08-31 NOTE PREDICTED. That note
       // measured the procurement total at €8.6m (0.029%) below the boundary into
       // „€29,7 млрд." and said the entry was „expected to fire soon, for real" — it did, on
@@ -1776,18 +1776,26 @@ describe("a hub's og capture anchors on its head", () => {
       // ⚠️ RE-SHOT 2026-11-12 (UTC) — the nightly corpus refreshes since 10-16 crossed two
       // rounding boundaries. LOOKED AT: procurement €29,7 → €29,8 млрд. and roads €9,1 →
       // €9,2 млрд.; the other six values are unchanged.
-      shot: "2026-11-12",
+      // ⚠️ RE-SHOT 2026-11-26 (UTC) — the 2026-11-26 procurement publish (contracts 431,397)
+      // moved every procurement-basis figure. LOOKED AT: procurement €29,8 → €32,6 млрд.,
+      // energy €10,1 → €10,7, roads €9,2 → €9,9, transport €7,2 → €8,3, water €3,3 → €3,7;
+      // defense, pension and administration are unchanged.
+      shot: "2026-11-26",
       figures:
-        "sectors_kpi_procurement=€29,8 млрд. [sectors_kpi_procurement_basis:4] " +
+        "sectors_kpi_procurement=€32,6 млрд. [sectors_kpi_procurement_basis:4] " +
         "defense=€2,6 млрд. [sectors_kpi_budget_basis:2026] " +
         "pension=€11,1 млрд. [sectors_kpi_payout_basis:2024] " +
         "administration=133 275 [sectors_kpi_headcount_basis:2025] " +
-        "| energy=€10,1 млрд. roads=€9,2 млрд. transport=€7,2 млрд. water=€3,3 млрд.",
+        "| energy=€10,7 млрд. roads=€9,9 млрд. transport=€8,3 млрд. water=€3,7 млрд.",
     },
     indicators: {
       payloads: ["data/macro.json", "data/macro_peers.json"],
       project: indicatorsFigures,
-      md5: "bb0bffc66a60fcb12c37a298c20ccff2",
+      md5: "0643cd8e41500a4a6078aba8e37f62bc",
+      // ⚠️ RE-SHOT 2026-11-26 (UTC) — Eurostat revised Bulgaria's 2026-Q2 growth print
+      // 2.8% → 2.6%, and the growth row left the rank rail (no longer one of the projected
+      // ranks). LOOKED AT: „2.6%" on the card and the rail reads unemployment 3 / debt 4 of
+      // 27 only; the other three KPIs are unchanged.
       // ⚠️ RE-SHOT 2026-10-25 (UTC) — government debt advanced from 2026-Q1 to Q2, moving
       // 28.5% / rank 3 of 27 to 28.7% / rank 4 of 27. LOOKED AT: both are on the card; the
       // other three KPIs and the growth/unemployment ranks are unchanged.
@@ -1823,16 +1831,16 @@ describe("a hub's og capture anchors on its head", () => {
       // lands on, because its 2026-Q2 return is the one still coming in. Expect it again
       // until the band clamps past 2026-Q2, at which point the capture entry's own
       // „THIS CLAUSE HAS AN EXPIRY" note takes over and the rail drops out entirely.
-      shot: "2026-10-25",
+      shot: "2026-11-26",
       figures:
-        "gdpGrowth=2.8% [Растеж на реалния БВП · % спрямо същия период предходна " +
+        "gdpGrowth=2.6% [Растеж на реалния БВП · % спрямо същия период предходна " +
         "година (реален, SCA) · 2026-Q2] " +
         "inflation=5.8% [Инфлация (ХИПЦ) · % спрямо предходната година (ХИПЦ, " +
         "тримес. ср.) · 2026-Q2] " +
         "unemployment=3.4% [Безработица · % от активното население (сезонно " +
         "изгладено) · 2026-Q2] " +
         "govDebt=28.7% [Брутен държавен дълг · % от БВП · 2026-Q2] " +
-        "| gdpGrowth=9/27 unemployment=3/27 govDebt=4/27",
+        "| unemployment=3/27 govDebt=4/27",
     },
   };
 
