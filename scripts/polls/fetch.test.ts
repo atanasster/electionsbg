@@ -17,7 +17,12 @@ vi.mock("../watch/state", () => ({ readState: vi.fn() }));
 
 import { fetchText } from "../watch/fingerprint";
 import { readState } from "../watch/state";
-import { __setCaptureRootForTests, main, parseArgv } from "./fetch";
+import {
+  __setCaptureRootForTests,
+  attachmentReferer,
+  main,
+  parseArgv,
+} from "./fetch";
 import { assertCommitted } from "../lib/assert_committed";
 import {
   pendingPublications,
@@ -704,6 +709,55 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     errorSpy.mockRestore();
   });
 
+  it("sends the page URL as Referer on attachment fetches (Market Links /storage1/images/ hotlink protection, live 2026-11-27)", async () => {
+    mockedReadState.mockImplementation((id: string) =>
+      id === "polls_trend"
+        ? {
+            fingerprint: "10",
+            detail: "d",
+            meta: {
+              newestId: 10,
+              items: [
+                {
+                  id: 10,
+                  url: "https://rctrend.bg/p/10",
+                  title: "T",
+                  publishedAt: null,
+                },
+              ],
+            },
+            lastChecked: "2026-09-01T00:00:00.000Z",
+          }
+        : null,
+    );
+    mockedFetchText.mockResolvedValue(
+      `<html><body><a href="/hotlinked.pdf">r</a></body></html>`,
+    );
+    const seen: (string | undefined)[] = [];
+    fetchSpy.mockImplementation(async (_input: unknown, init?: RequestInit) => {
+      const referer = (init?.headers as Record<string, string> | undefined)
+        ?.Referer;
+      seen.push(referer);
+      // Hotlink protection: only a request carrying the article as Referer
+      // gets the bytes; anything else is a (permanent) 403.
+      return referer === "https://rctrend.bg/p/10"
+        ? (new Response(new Uint8Array([1, 2, 3]), {
+            status: 200,
+          }) as unknown as Response)
+        : (new Response(null, { status: 403 }) as unknown as Response);
+    });
+
+    await main(["--agency", "TR"]);
+
+    expect(seen).toEqual(["https://rctrend.bg/p/10"]);
+    const dir = path.join(scratchRoot, "raw_data/polls/trend/10");
+    expect(fs.existsSync(path.join(dir, "hotlinked.pdf"))).toBe(true);
+    const stamp = JSON.parse(
+      fs.readFileSync(path.join(dir, "SOURCE.json"), "utf8"),
+    );
+    expect(stamp.attachmentFailures).toBeUndefined();
+  });
+
   it("does not retry a definite 403 (only a transient 5xx gets a second attempt)", async () => {
     mockedReadState.mockImplementation((id: string) =>
       id === "polls_trend"
@@ -1065,5 +1119,30 @@ describe("main — capture flow (real fs, redirected to a scratch dir)", () => {
     expect(logged).toContain("Медиана press item");
     // Never tried to fetch the Google News redirect token.
     expect(mockedFetchText).not.toHaveBeenCalled();
+  });
+});
+
+describe("attachmentReferer — the browser default strict-origin-when-cross-origin", () => {
+  const page = "https://www.marketlinks.bg/bg/news/x-122.html#top";
+  it("same-origin → the full page URL, fragment stripped", () => {
+    expect(
+      attachmentReferer(
+        "https://www.marketlinks.bg/storage1/images/articles/item122/pic141/C.jpg",
+        page,
+      ),
+    ).toBe("https://www.marketlinks.bg/bg/news/x-122.html");
+  });
+  it("cross-origin → the bare origin only", () => {
+    expect(attachmentReferer("https://cdn.example.com/a.pdf", page)).toBe(
+      "https://www.marketlinks.bg/",
+    );
+  });
+  it("https → http downgrade → no Referer", () => {
+    expect(attachmentReferer("http://www.marketlinks.bg/a.pdf", page)).toBe(
+      null,
+    );
+  });
+  it("malformed URL → no Referer", () => {
+    expect(attachmentReferer("not a url", page)).toBe(null);
   });
 });

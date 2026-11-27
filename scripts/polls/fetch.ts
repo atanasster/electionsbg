@@ -86,16 +86,57 @@ interface SourceStamp {
 // fetch alongside the page that already succeeded, not worth the page's own
 // 3-retry budget.
 //
-// ⚠️ A NON-5xx failure and a genuine timeout must NOT retry. A 403 (Market
-// Links' `/storage/` PDFs — a bare WAF block, measured live 2026-09-09: curl,
-// Node, with or without Referer/browser headers, all get the identical
-// response) is PERMANENT — retrying just hits the same block twice on a site
-// already documented elsewhere as sensitive to repeated requests. And an
+// ⚠️ A NON-5xx failure and a genuine timeout must NOT retry. A 403 is
+// PERMANENT — retrying just hits the same block twice on a site already
+// documented elsewhere as sensitive to repeated requests. And an
 // `AbortSignal.timeout` firing means the server is unresponsive, not
 // transiently failing — the same distinction `fetchText` already makes.
+//
+// ⚠️ Market Links has TWO different 403s, and only one of them is fixed by a
+// Referer — do not merge them:
+//  - `/storage/` PDFs: a bare WAF block, measured live 2026-09-09 — curl,
+//    Node, with or without Referer/browser headers, all got the identical
+//    response. Nothing a client sends gets through.
+//  - `/storage1/images/` bulletin images: HOTLINK PROTECTION, measured live
+//    2026-11-27 on pub 122 (`item122/pic141/C.jpg`) — 403 without a Referer
+//    (direct and through the BG proxy), 200 with `-e <article URL>`.
+// So every attachment fetch now sends the Referer a reader's browser would
+// (`attachmentReferer`, below): the full page URL for a same-origin
+// attachment, the bare origin cross-origin, none on an https→http downgrade.
+// That is the browser default (`strict-origin-when-cross-origin`), which is
+// the one header shape every agency site necessarily already accepts — so it
+// is safe to send for all agencies, not only ML. A 403 that survives it is
+// still permanent and still not retried.
 const FETCH_BINARY_TIMEOUT_MS = 30_000;
 
-const fetchBinary = async (url: string): Promise<Uint8Array> => {
+/** The Referer a browser sends for a subresource of `pageUrl` under the
+ *  default `strict-origin-when-cross-origin` policy, or null for none. */
+export const attachmentReferer = (
+  attachmentUrl: string,
+  pageUrl: string,
+): string | null => {
+  let a: URL, p: URL;
+  try {
+    a = new URL(attachmentUrl);
+    p = new URL(pageUrl);
+  } catch {
+    return null;
+  }
+  if (p.protocol === "https:" && a.protocol !== "https:") return null;
+  if (a.origin === p.origin) {
+    p.hash = "";
+    return p.href;
+  }
+  return `${p.origin}/`;
+};
+
+const fetchBinary = async (
+  url: string,
+  pageUrl: string,
+): Promise<Uint8Array> => {
+  const referer = attachmentReferer(url, pageUrl);
+  const headers: Record<string, string> = { "User-Agent": UA };
+  if (referer) headers.Referer = referer;
   for (let attempt = 0; attempt <= 1; attempt++) {
     // The fetch CALL itself (network error, DNS failure, a genuine timeout)
     // is the only thing this try/catch guards — deliberately narrower than
@@ -107,7 +148,7 @@ const fetchBinary = async (url: string): Promise<Uint8Array> => {
     let res: Response;
     try {
       res = await fetch(url, {
-        headers: { "User-Agent": UA },
+        headers,
         signal: AbortSignal.timeout(FETCH_BINARY_TIMEOUT_MS),
       });
     } catch (e) {
@@ -139,11 +180,14 @@ interface AttachmentResult {
 /** Fetches every URL independently — one failed attachment (a dead link, a
  *  WAF block) must not lose the page HTML and every OTHER attachment that
  *  DID succeed. */
-const fetchAttachments = (urls: string[]): Promise<AttachmentResult[]> =>
+const fetchAttachments = (
+  urls: string[],
+  pageUrl: string,
+): Promise<AttachmentResult[]> =>
   Promise.all(
     urls.map(async (url): Promise<AttachmentResult> => {
       try {
-        return { url, bytes: await fetchBinary(url) };
+        return { url, bytes: await fetchBinary(url, pageUrl) };
       } catch (e) {
         return {
           url,
@@ -261,8 +305,8 @@ const capturePublication = async (
     target.fetchUrl,
   );
   let [pdfResults, imageResults] = await Promise.all([
-    fetchAttachments(pdfUrls),
-    fetchAttachments(imageUrls),
+    fetchAttachments(pdfUrls, target.fetchUrl),
+    fetchAttachments(imageUrls, target.fetchUrl),
   ]);
   let failures = [...pdfResults, ...imageResults].filter((r) => r.error);
 
@@ -279,8 +323,8 @@ const capturePublication = async (
     const previouslyFailed = new Set(latestStamp.attachmentFailures ?? []);
     if (failures.some((f) => !previouslyFailed.has(f.url))) {
       [pdfResults, imageResults] = await Promise.all([
-        fetchAttachments(pdfUrls),
-        fetchAttachments(imageUrls),
+        fetchAttachments(pdfUrls, target.fetchUrl),
+        fetchAttachments(imageUrls, target.fetchUrl),
       ]);
       failures = [...pdfResults, ...imageResults].filter((r) => r.error);
     }
