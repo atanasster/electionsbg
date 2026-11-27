@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "session": "20261127T054056Z-ed76",
+  "kind": "ingest",
+  "startedAt": "2026-11-27T05:40:56.713Z",
+  "endedAt": "2026-11-27T05:41:03.444Z",
+  "git": {
+    "shaStart": "f4ac2838b6259f0a5c918e4f761f247c596e090d",
+    "shaEnd": "f4ac2838b6259f0a5c918e4f761f247c596e090d"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country US — met through the BG proxy mac:8118; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "reach:gov-hosts": {
+      "ok": true,
+      "detail": "www.parliament.bg, www.mod.bg answer (exit US)"
+    },
+    "pg-local": {
+      "ok": false,
+      "detail": "port 5433 is open but SELECT 1 failed: could not open file \"base/16384/2601\": Read-only file system — start it with `pnpm run db:pg:up`"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 0 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "held by this run (session 20261127T054056Z-ed76)"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm size unknown"
+    },
+    "disk": {
+      "ok": false,
+      "detail": "repo volume 3.7 GB free (min 10); Docker VM ? GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "preflight",
+      "status": "failed",
+      "why": "refused to start: pg-local: port 5433 is open but SELECT 1 failed: could not open file \"base/16384/2601\": Read-only file system — start it with `pnpm run db:pg:up`; disk: repo volume 3.7 GB free (min 10); Docker VM ? GB free (min 8; `docker builder prune -af` frees space)",
+      "steps": [],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "previous run s3 died without a report during starting; last sign of life 2026-11-13T16:13:46.579Z — its live log is logs/pipeline/s3/run.log, and its markers were not stamped for the unfinished work, so this run re-queues it",
+    "preflight started local Postgres (ok); it was down at the start of the run",
+    "preflight refused: pg-local: port 5433 is open but SELECT 1 failed: could not open file \"base/16384/2601\": Read-only file system — start it with `pnpm run db:pg:up`",
+    "preflight refused: disk: repo volume 3.7 GB free (min 10); Docker VM ? GB free (min 8; `docker builder prune -af` frees space)"
+  ],
+  "publish": {
+    "decision": "n/a",
+    "heldBecause": []
+  },
+  "exitCode": 3,
+  "verdict": "failed"
+}
