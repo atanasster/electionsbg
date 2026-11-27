@@ -93,22 +93,24 @@ const loadInputs = async () => {
   return { register, facilities, latest };
 };
 
-const reachable = async (): Promise<boolean> => {
+// Names the state rather than folding "Postgres down" and "table empty" into one false.
+const reachable = async (): Promise<string | false> => {
   try {
-    const [t] = await allRows<{ n: number }>(
-      `SELECT CASE WHEN to_regclass('public.nzok_hospital_payments') IS NULL THEN 0
+    const [t] = await allRows<{ present: boolean; n: number }>(
+      `SELECT to_regclass('public.nzok_hospital_payments') IS NOT NULL AS present,
+              CASE WHEN to_regclass('public.nzok_hospital_payments') IS NULL THEN 0
               ELSE (SELECT count(*)::int FROM nzok_hospital_payments) END AS n`,
     );
-    return (t?.n ?? 0) > 0;
-  } catch {
+    if (!t?.present)
+      return "nzok_hospital_payments absent — run pnpm run db:load:nzok-hospital:pg";
+    if ((t.n ?? 0) === 0)
+      return "nzok_hospital_payments empty — run pnpm run db:load:nzok-hospital:pg";
     return false;
+  } catch {
+    return "Postgres unreachable";
   }
 };
-
-const haveDb = await reachable();
-const skip = haveDb
-  ? false
-  : "Postgres unreachable / nzok_hospital_payments empty";
+const skip = await reachable();
 reportSkip(import.meta.url, skip);
 
 afterAll(async () => {
