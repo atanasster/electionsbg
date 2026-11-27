@@ -72,10 +72,8 @@
     "lastOkAt": "2026-11-26T19:48:51.313Z"
   },
   "dfz_subsidies": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-19T22:40:52.850Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "POST listDatasets → 403 Forbidden (retried: via BG proxy: POST listDatasets → 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "dv_investment_annex": {
     "consecutiveErrors": 0,
@@ -102,28 +100,20 @@
     "lastOkAt": "2026-11-26T19:48:51.313Z"
   },
   "egov_budget_execution": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-19T22:40:52.850Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "HTTP 403 Forbidden (retried: via BG proxy: HTTP 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "egov_commerce": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-23T22:43:49.995Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "HTTP 403 Forbidden (retried: via BG proxy: HTTP 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "egov_municipal_execution": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-19T22:40:52.850Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "POST listDatasets → 403 Forbidden (retried: via BG proxy: POST listDatasets → 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "egov_procurement": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-19T22:40:52.850Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "HTTP 403 Forbidden (retried: via BG proxy: HTTP 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "eop_procurement": {
     "consecutiveErrors": 0,
@@ -186,14 +176,14 @@
     "lastOkAt": "2026-11-26T19:48:51.313Z"
   },
   "his_immunization_app": {
-    "consecutiveErrors": 1,
+    "consecutiveErrors": 2,
     "lastOkAt": "2026-11-23T22:43:49.995Z",
     "firstFailedAt": "2026-11-26T19:48:51.313Z",
     "lastError": "his_infoapp: Sheet_1 row 111439 has an out-of-range string index null (retried: via BG proxy: his_infoapp: Sheet_1 row 111439 has an out-of-range string index null)"
   },
   "his_immunizations_daily": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-26T19:48:51.313Z"
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "ial_shortage_list": {
     "consecutiveErrors": 0,
@@ -220,16 +210,12 @@
     "lastOkAt": "2026-11-26T19:48:51.313Z"
   },
   "indicators_mon_dzi": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-23T22:43:49.995Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "HTTP 403 Forbidden (retried: via BG proxy: HTTP 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "indicators_mon_nvo": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-23T22:43:49.995Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "HTTP 403 Forbidden (retried: via BG proxy: HTTP 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "indicators_nsi_pop": {
     "consecutiveErrors": 0,
@@ -308,10 +294,8 @@
     "lastOkAt": "2026-11-26T19:48:51.313Z"
   },
   "mon_ri_register": {
-    "consecutiveErrors": 1,
-    "lastOkAt": "2026-11-23T22:43:49.995Z",
-    "firstFailedAt": "2026-11-26T19:48:51.313Z",
-    "lastError": "POST getResourceData → 403 Forbidden (retried: via BG proxy: POST getResourceData → 403 Forbidden)"
+    "consecutiveErrors": 0,
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "municipal_fiscal_due": {
     "consecutiveErrors": 0,
@@ -439,7 +423,7 @@
   },
   "ted_bg": {
     "consecutiveErrors": 0,
-    "lastOkAt": "2026-11-26T19:48:51.313Z"
+    "lastOkAt": "2026-11-27T08:44:27.560Z"
   },
   "ti_bg_lisi": {
     "consecutiveErrors": 0,
