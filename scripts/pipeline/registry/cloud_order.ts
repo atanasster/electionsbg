@@ -84,6 +84,8 @@ export const CLOUD_ORDER: readonly string[] = [
   // and the risk-cache rebuild below must see its dates.
   "db:load:company-founded:pg:cloud",
   "db:refresh:risk:cloud",
+  // reads only host files, touches no other table — position is free
+  "db:load:tr-announced-acts:pg:cloud",
   "db:load:tr-name-fold-people:pg:cloud",
   // the comdos.bg ДС corpus the resolver attaches the ДС facet from
   "db:load:ds:pg:cloud",

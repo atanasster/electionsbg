@@ -262,6 +262,10 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         "pnpm run db:load:graph:pg:cloud",
         "pnpm run db:load:tr-company-place:pg:cloud",
         "pnpm run db:refresh:risk:cloud",
+        // The announced-acts index (ГФО / доклад / декларация, migration 205):
+        // tr:daily-refresh loads it locally last; it reads only host files and
+        // touches no other table.
+        "pnpm run db:load:tr-announced-acts:pg:cloud",
       ],
     },
     changelog: "orchestrator",

@@ -461,7 +461,7 @@ steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
 | `db:load:company-founded:pg` | verify | `pnpm run db:load:company-founded:pg` | — |
 
 **Publish:**
-- cloud (global order applies): `pnpm run db:load:tr:pg:cloud`, `pnpm run db:load:cr-nkid:pg:cloud`, `pnpm run db:load:company-founded:pg:cloud`, `pnpm run db:refresh:risk:cloud`, `pnpm run db:load:persons-browse:pg:cloud`, `pnpm run db:load:person-search:pg:cloud`, `pnpm run db:load:graph:pg:cloud`, `pnpm run db:load:tr-company-place:pg:cloud`
+- cloud (global order applies): `pnpm run db:load:tr:pg:cloud`, `pnpm run db:load:cr-nkid:pg:cloud`, `pnpm run db:load:company-founded:pg:cloud`, `pnpm run db:refresh:risk:cloud`, `pnpm run db:load:tr-announced-acts:pg:cloud`, `pnpm run db:load:persons-browse:pg:cloud`, `pnpm run db:load:person-search:pg:cloud`, `pnpm run db:load:graph:pg:cloud`, `pnpm run db:load:tr-company-place:pg:cloud`
 
 ### `update-administration`
 
