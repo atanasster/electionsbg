@@ -1,0 +1,62 @@
+{
+  "schema": "polls-ai-reading/v1",
+  "agencyId": "ML",
+  "pubId": "122",
+  "captureSha256": "12898631fb415c176cf48620a0a93c7a7378bc299f648902917bbb1c678e9b72",
+  "model": "claude-opus-5-5",
+  "readAt": "2026-11-27T10:15:00Z",
+  "notAPoll": null,
+  "polls": [
+    {
+      "race": "parliamentary",
+      "fieldworkStart": "2026-11-14",
+      "fieldworkEnd": "2026-11-22",
+      "fieldworkQuote": "Период на провеждане 14 - 22 ноември 2026 г.",
+      "respondents": 1005,
+      "respondentsQuote": "1005 лица над 18 г. в страната",
+      "publishedAt": "2026-11-24",
+      "genre": "unclear",
+      "methodology": {
+        "bg": "Национално количествено проучване чрез пряко-лично интервю и онлайн анкета сред 1005 лица над 18 г.",
+        "en": "National quantitative survey by face-to-face interview and online questionnaire among 1,005 people aged 18+."
+      },
+      "methodologyQuote": "Метод на регистрация Пряко-лично интервю и онлайн анкета.",
+      "sponsor": "БТВ и Маркет ЛИНКС",
+      "sponsorQuote": "Финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС",
+      "questions": [
+        {
+          "measure": "vote_intention",
+          "round": 1,
+          "baseKind": "likely_voters",
+          "basePhrase": "Декларирали твърдо намерение да гласуват: 437",
+          "baseLabel": { "bg": "Декларирали твърдо намерение да гласуват", "en": "Respondents declaring a firm intention to vote" },
+          "answers": [
+            { "label": "Коалиция Прогресивна България", "kind": "choice", "value": 33.3, "quote": "Коалиция Прогресивна България 33,3%", "image": null },
+            { "label": "ГЕРБ – СДС", "kind": "choice", "value": 12.0, "quote": "ГЕРБ – СДС 12,0%", "image": null },
+            { "label": "Продължаваме промяната", "kind": "choice", "value": 10.6, "quote": "Продължаваме промяната 10,6%", "image": null },
+            { "label": "Демократична България", "kind": "choice", "value": 9.4, "quote": "Демократична България 9,4%", "image": null },
+            { "label": "Възраждане", "kind": "choice", "value": 5.0, "quote": "Възраждане 5,0%", "image": null },
+            { "label": "ДПС", "kind": "choice", "value": 4.8, "quote": "ДПС 4,8%", "image": null },
+            { "label": "Друга", "kind": "other", "value": 11.6, "quote": "Друга 11,6%", "image": null },
+            { "label": "Не съм решил", "kind": "undecided", "value": 12.3, "quote": "Не съм решил 12,3%", "image": null },
+            { "label": "Не подкрепям никого", "kind": "none", "value": 1.0, "quote": "Не подкрепям никого 1,0%", "image": null }
+          ]
+        },
+        {
+          "measure": "participation",
+          "round": 1,
+          "baseKind": "all_respondents",
+          "basePhrase": "Всички: НИ ноември 2026, 1005, 18+ г.",
+          "baseLabel": { "bg": "Всички анкетирани", "en": "All respondents" },
+          "answers": [
+            { "label": "Да", "kind": "choice", "value": 43, "quote": "решилите да гласуват сега са 43% при 51% през октомври", "image": null },
+            { "label": "По-скоро да", "kind": "choice", "value": 20, "quote": null, "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2011.2026.pdf" },
+            { "label": "Не зная / не мога да определя", "kind": "undecided", "value": 15, "quote": null, "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2011.2026.pdf" },
+            { "label": "По-скоро не", "kind": "choice", "value": 8, "quote": null, "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2011.2026.pdf" },
+            { "label": "Не", "kind": "choice", "value": 14, "quote": null, "image": "MarketLINKS%20Public%20Opinion%20Poll%20Report%2011.2026.pdf" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1273,7 +1273,7 @@
       "122"
     ],
     "discoveredAt": "2026-11-26T19:48:51.313Z",
-    "latestHash": "40ec6914788eb5a29e0422855ffa0ddbb94cb2302e4e2ad414981c7b243820ab",
+    "latestHash": "12898631fb415c176cf48620a0a93c7a7378bc299f648902917bbb1c678e9b72",
     "versions": [
       {
         "sha256": "40ec6914788eb5a29e0422855ffa0ddbb94cb2302e4e2ad414981c7b243820ab",
@@ -1283,26 +1283,53 @@
           "https://www.marketlinks.bg/storage1/images/articles/item122/pic141/C.jpg"
         ],
         "drafts": []
+      },
+      {
+        "sha256": "12898631fb415c176cf48620a0a93c7a7378bc299f648902917bbb1c678e9b72",
+        "capturePath": "raw_data/polls/market_links/122.v2",
+        "capturedAt": "2026-11-27T09:54:24.723Z",
+        "attachmentFailures": [],
+        "drafts": [
+          {
+            "pollId": "ml-pub-122-presidential",
+            "race": "presidential",
+            "extractedAt": "2026-11-27T09:54:48.212Z",
+            "draftHash": "ff08153ddbf2f5f6a30ca44364ec0dfcbc57862591e5bf7bfb6e9bffb3ddea49",
+            "refused": [
+              "fieldwork",
+              "respondents",
+              "questions",
+              "methodology"
+            ]
+          },
+          {
+            "pollId": "ml-2026-11-22",
+            "race": "parliamentary",
+            "extractedAt": "2026-11-27T10:03:09.000Z",
+            "draftHash": "1be6bd7368b07ea5f9994fc71cc59bbde6b5e6cf69f15696e234a8f9ac892691",
+            "refused": [],
+            "reviewedAt": "2026-11-27T10:03:09.000Z",
+            "acceptedAt": "2026-11-27T10:03:09.000Z",
+            "acceptedDraftHash": "1be6bd7368b07ea5f9994fc71cc59bbde6b5e6cf69f15696e234a8f9ac892691"
+          }
+        ],
+        "exclusions": [
+          {
+            "race": "presidential",
+            "reason": "Post-election wave (Nov 2026): no presidential vote-intention question; parliamentary vote intention accepted as ml-2026-11-22",
+            "reviewedAt": "2026-11-27"
+          }
+        ]
       }
     ],
     "failures": {
       "capture": 0,
-      "extraction": 2
+      "extraction": 4
     },
     "errors": {
-      "capture": {
-        "message": "Attachments unavailable: https://www.marketlinks.bg/storage1/images/articles/item122/pic141/C.jpg",
-        "at": "2026-11-26T21:13:05.034Z"
-      },
-      "extraction": {
-        "message": "Capture has unavailable attachments; retry capture before extraction",
-        "at": "2026-11-26T21:13:17.401Z"
-      }
+      "capture": null,
+      "extraction": null
     },
-    "lastError": {
-      "message": "Capture has unavailable attachments; retry capture before extraction",
-      "at": "2026-11-26T21:13:17.401Z",
-      "stage": "extraction"
-    }
+    "lastError": null
   }
 ]
