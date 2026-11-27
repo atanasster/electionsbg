@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-23",
+  "computedAt": "2026-11-25",
   "thresholds": {
     "basketPids": [
       1,
@@ -32,16 +32,6 @@
     "promoMaxEvents": 3
   },
   "basketMoves": [
-    {
-      "peakDay": "2026-10-23",
-      "startDay": "2026-10-23",
-      "endDay": "2026-10-23",
-      "pctChange": 1.736,
-      "costEur": 16.161,
-      "prevCostEur": 15.886,
-      "cohortCells": 1720,
-      "cohortShare": 0.9473
-    },
     {
       "peakDay": "2026-10-29",
       "startDay": "2026-10-26",
@@ -83,36 +73,5 @@
       "cohortShare": 0.9549
     }
   ],
-  "promotions": [
-    {
-      "slug": "krave-maslo-d-markenbutter-250gr",
-      "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-      "atOrBelowSince": "2026-11-19",
-      "promoEur": 1.59,
-      "regularEur": 4.07,
-      "discountPct": 61,
-      "stores": 210,
-      "chains": 2
-    },
-    {
-      "slug": "500g-pasirani-domati-the-chefs",
-      "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
-      "atOrBelowSince": "2026-10-29",
-      "promoEur": 0.72,
-      "regularEur": 1.73,
-      "discountPct": 58,
-      "stores": 4,
-      "chains": 2
-    },
-    {
-      "slug": "kartofi",
-      "title": "КАРТОФИ",
-      "atOrBelowSince": "2026-11-19",
-      "promoEur": 0.45,
-      "regularEur": 0.99,
-      "discountPct": 55,
-      "stores": 181,
-      "chains": 3
-    }
-  ]
+  "promotions": []
 }

@@ -131,137 +131,6 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:krave-maslo-d-markenbutter-250gr",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-23T00:00:00.000Z",
-      "firstSeenAt": "2026-11-23T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/krave-maslo-d-markenbutter-250gr",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "КРАВЕ МАСЛО D.MARKENBUTTER 250ГР",
-        "pct": 61,
-        "promoEur": "1.59",
-        "regularEur": "4.07",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8714285714285714,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:500g-pasirani-domati-the-chefs",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-23T00:00:00.000Z",
-      "firstSeenAt": "2026-11-23T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/500g-pasirani-domati-the-chefs",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
-        "pct": 58,
-        "promoEur": "0.72",
-        "regularEur": "1.73",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8285714285714286,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:kartofi",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-23T00:00:00.000Z",
-      "firstSeenAt": "2026-11-23T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/kartofi",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "КАРТОФИ",
-        "pct": 55,
-        "promoEur": "0.45",
-        "regularEur": "0.99",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.7857142857142857,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "funds:call_opened:isun:bde1efcb-0e1e-4549-98a1-31c393bd3d3c",
-      "kind": "call_opened",
-      "category": "funds",
-      "effectiveAt": "2026-11-20T08:00:00.000Z",
-      "deadlineAt": "2027-03-01T15:00:00.000Z",
-      "firstSeenAt": "2026-11-20T00:00:00.000Z",
-      "dateBasis": "effective",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "opencalls_isun",
-        "labelKey": "home_source_opencalls",
-        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/bde1efcb-0e1e-4549-98a1-31c393bd3d3c"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_calls_partial"
-      },
-      "route": "/funds/calls",
-      "factKey": "home_fact_call_opened_programme",
-      "factArgs": {
-        "title": "СОЦИАЛНО-ИКОНОМИЧЕСКА ИНТЕГРАЦИЯ НА МАРГИНАЛИЗИРАНИ ОБЩНОСТИ КАТО РОМИТЕ ЧРЕЗ ПОДХОДА ВОМР",
-        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.4,
-      "actionability": 0.9
-    },
-    {
-      "schemaVersion": 1,
       "id": "macro:cpi_release:prc_hicp_minr:2026-10",
       "kind": "cpi_released",
       "category": "prices",
@@ -320,6 +189,38 @@
       "verification": "automatic",
       "materiality": 0.4935,
       "actionability": 0.5
+    },
+    {
+      "schemaVersion": 1,
+      "id": "funds:call_opened:isun:bde1efcb-0e1e-4549-98a1-31c393bd3d3c",
+      "kind": "call_opened",
+      "category": "funds",
+      "effectiveAt": "2026-11-20T08:00:00.000Z",
+      "deadlineAt": "2027-03-01T15:00:00.000Z",
+      "firstSeenAt": "2026-11-20T00:00:00.000Z",
+      "dateBasis": "effective",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "opencalls_isun",
+        "labelKey": "home_source_opencalls",
+        "url": "https://eumis2020.government.bg/bg/s/Procedure/Info/bde1efcb-0e1e-4549-98a1-31c393bd3d3c"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_calls_partial"
+      },
+      "route": "/funds/calls",
+      "factKey": "home_fact_call_opened_programme",
+      "factArgs": {
+        "title": "СОЦИАЛНО-ИКОНОМИЧЕСКА ИНТЕГРАЦИЯ НА МАРГИНАЛИЗИРАНИ ОБЩНОСТИ КАТО РОМИТЕ ЧРЕЗ ПОДХОДА ВОМР",
+        "programme": "Програма \"Развитие на човешките ресурси\" 2021-2027"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.4,
+      "actionability": 0.9
     },
     {
       "schemaVersion": 1,
@@ -878,8 +779,8 @@
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-23",
-      "observedAt": "2026-11-23",
+      "asOf": "2026-11-25",
+      "observedAt": "2026-11-25",
       "staleAfterDays": 5,
       "stale": false
     }
