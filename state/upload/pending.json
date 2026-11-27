@@ -1,11 +1,13 @@
 {
-  "session": "20261127T093219Z-6f0c",
+  "session": "20261127-polls-ml122",
   "createdAt": "2026-11-27T08:54:04.106Z",
-  "commit": "836304e1d8a3c8a0831dcf7a039a091ccf50cc49",
+  "commit": "fd08da5dd2",
   "skills": [
     "tr-daily-refresh",
     "update-administration",
-    "update-prices"
+    "update-prices",
+    "update-procurement",
+    "update-polls"
   ],
   "paths": [
     "administration",
@@ -14,7 +16,8 @@
     "home/feed.json",
     "data_map.json",
     "governance/hub_stats.json",
-    "home/flyover.json"
+    "home/flyover.json",
+    "polls"
   ],
   "cloudCommands": [
     "pnpm run db:load:tr:pg:cloud",
@@ -29,6 +32,7 @@
     "pnpm run db:load:admin-services:pg:cloud",
     "pnpm run db:load:admin-service-requests:pg:cloud",
     "pnpm run myarea:alerts:cloud",
-    "pnpm run prices:ingest:cloud"
+    "pnpm run prices:ingest:cloud",
+    "pnpm run db:load:ted:pg:cloud"
   ]
 }
