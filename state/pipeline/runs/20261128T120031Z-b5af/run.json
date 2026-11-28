@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "session": "20261128T120031Z-b5af",
+  "kind": "publish",
+  "startedAt": "2026-11-28T12:00:31.843Z",
+  "git": {
+    "shaStart": "569e523657724c0d0f581f28d2b8d2d8b4473303",
+    "shaEnd": "569e523657724c0d0f581f28d2b8d2d8b4473303"
+  },
+  "env": {
+    "proxy": {
+      "ok": true,
+      "detail": "up"
+    }
+  },
+  "units": [
+    {
+      "id": "bucket",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "bucket:sync:paths:dry",
+          "command": "pnpm run bucket:sync:paths:dry data_map.json home governance/hub_stats.json",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4785,
+          "medianMs": 4173,
+          "log": "logs/pipeline/20261128T120031Z-b5af/001-bucket_sync_paths_dry.log"
+        },
+        {
+          "seq": 2,
+          "id": "bucket:sync:paths data_map.json",
+          "command": "pnpm run bucket:sync:paths data_map.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3523,
+          "medianMs": 1904,
+          "log": "logs/pipeline/20261128T120031Z-b5af/002-bucket_sync_paths_data_map.json.log"
+        },
+        {
+          "seq": 3,
+          "id": "bucket:sync:paths home",
+          "command": "pnpm run bucket:sync:paths home",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3563,
+          "medianMs": 1917,
+          "log": "logs/pipeline/20261128T120031Z-b5af/003-bucket_sync_paths_home.log"
+        },
+        {
+          "seq": 4,
+          "id": "bucket:sync:paths governance/hub_stats.json",
+          "command": "pnpm run bucket:sync:paths governance/hub_stats.json",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3065,
+          "medianMs": 1626.5,
+          "log": "logs/pipeline/20261128T120031Z-b5af/004-bucket_sync_paths_governance_hub_stats.json.log"
+        },
+        {
+          "seq": 5,
+          "id": "bucket:gz",
+          "command": "pnpm run bucket:gz",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 236881,
+          "medianMs": 146072.5,
+          "log": "logs/pipeline/20261128T120031Z-b5af/005-bucket_gz.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 6,
+          "id": "db:load:zdoi:pg:cloud",
+          "command": "pnpm run db:load:zdoi:pg:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 130041,
+          "log": "logs/pipeline/20261128T120031Z-b5af/006-db_load_zdoi_pg_cloud.log"
+        },
+        {
+          "seq": 7,
+          "id": "myarea:alerts:cloud",
+          "command": "pnpm run myarea:alerts:cloud",
+          "phase": "publish",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 26140,
+          "medianMs": 20524.5,
+          "log": "logs/pipeline/20261128T120031Z-b5af/007-myarea_alerts_cloud.log"
+        }
+      ],
+      "gates": []
+    },
+    {
+      "id": "verify",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 8,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1500,
+          "medianMs": 1228.5,
+          "log": "logs/pipeline/20261128T120031Z-b5af/008-db_check-generated.log"
+        },
+        {
+          "seq": 9,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3332,
+          "medianMs": 1528.5,
+          "log": "logs/pipeline/20261128T120031Z-b5af/009-db_check-cloud.log"
+        }
+      ],
+      "gates": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [],
+  "manifestDigest": "fbaf10448bf0fee0",
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-28T12:07:24.733Z",
+  "verdict": "clean"
+}
