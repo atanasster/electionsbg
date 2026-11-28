@@ -1,7 +1,7 @@
 -- 207 — ЗДОИ requests filed through pitay.government.bg („Платформа за достъп до
 -- обществена информация"): the obliged body, the subject as the requester wrote it,
 -- the status, the body's decision, decision attachments, the processing history and
--- forwarding „по компетентност". docs/plans/insait-gap-v1.md §3.
+-- forwarding „по компетентност".
 -- Loaded by `db:load:zdoi:pg` from the gitignored raw_data/zdoi/pitay.sqlite crawl
 -- (`pnpm run zdoi:fetch`).
 --

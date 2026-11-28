@@ -1,5 +1,5 @@
 // Council of Ministers spending decrees (ПМС) from Държавен вестник material pages
-// (dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=N) — docs/plans/insait-gap-v1.md §4.
+// (dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=N).
 //
 // A ПМС „за одобряване на допълнителни разходи / трансфери по бюджета на …" is how the
 // government moves money that no budget line named in advance: Чл. 1 states the amount,

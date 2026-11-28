@@ -1,4 +1,4 @@
-// The curated-entity path of entityMentions (docs/plans/insait-gap-v1.md §2).
+// The curated-entity path of entityMentions.
 // The fixture mirrors what the live routes returned on 2026-11-24 for the three
 // queries a reader actually tried — „INSAIT", „ИНСАЙТ" and „INSAIT, ИНСАЙТ" —
 // and the assertion is that all three give the SAME, correct answer.

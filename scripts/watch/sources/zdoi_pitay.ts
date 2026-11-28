@@ -1,6 +1,6 @@
 // ЗДОИ — requests filed through pitay.government.bg („Платформа за достъп до
 // обществена информация"), the corpus behind migration 207 and the mentions tool's
-// „Заявления по ЗДОИ" arm. See docs/plans/insait-gap-v1.md §3.
+// „Заявления по ЗДОИ" arm.
 //
 // Application ids are sequential and the front page lists the newest ones, so the
 // newest id is the whole fingerprint: it moves when a request is filed. The flip

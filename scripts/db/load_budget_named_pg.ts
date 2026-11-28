@@ -1,6 +1,5 @@
 // Load the State Budget Law's named investment projects (Приложение № 2 към чл. 110)
-// into `budget_named_appropriation` + `budget_named_appropriation_amount`
-// (migration 208, docs/plans/insait-gap-v1.md §4).
+// into `budget_named_appropriation` + `budget_named_appropriation_amount` (migration 208).
 //
 //   pnpm run db:load:budget-named:pg
 //   pnpm run db:load:budget-named:pg:cloud

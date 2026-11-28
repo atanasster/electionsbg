@@ -1,6 +1,6 @@
 // Named appropriations in the State Budget Law: „Приложение № 2 към чл. 110, ал. 1 —
 // Програма за приоритетни стратегически инвестиционни проекти с национално
-// финансиране" (docs/plans/insait-gap-v1.md §4). Each row is one coded project
+// финансиране". Each row is one coded project
 // (NP-25.001-0048) with the capital spending the law sets for it — for the law's own
 // year and, from 2026, a forecast for the two years after.
 //

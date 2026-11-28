@@ -1,6 +1,6 @@
 // Load the Council of Ministers spending decrees crawled from Държавен вестник
 // (raw_data/budget/dv_decrees.sqlite, gitignored) into `budget_spending_decree` +
-// `budget_spending_decree_clause` (migration 209, docs/plans/insait-gap-v1.md §4).
+// `budget_spending_decree_clause` (migration 209).
 //
 //   pnpm run db:load:budget-decrees:pg
 //   pnpm run db:load:budget-decrees:pg:cloud

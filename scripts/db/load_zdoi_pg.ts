@@ -1,6 +1,5 @@
 // Load the pitay.government.bg ЗДОИ crawl (raw_data/zdoi/pitay.sqlite, gitignored)
-// into `zdoi_request` + `zdoi_event` + `zdoi_forward` (migration 207,
-// docs/plans/insait-gap-v1.md §3).
+// into `zdoi_request` + `zdoi_event` + `zdoi_forward` (migration 207).
 //
 //   pnpm run db:load:zdoi:pg
 //   pnpm run db:load:zdoi:pg:cloud

@@ -1,4 +1,4 @@
-// Gate for the ПМС spending-decree corpus (migration 209, insait-gap-v1 §4): every
+// Gate for the ПМС spending-decree corpus (migration 209): every
 // decree carries its money in the stated currency at the locked rate, dates are
 // coherent, and the whole-word search agrees with the table it reads.
 import { describe, expect, it } from "vitest";

@@ -1344,7 +1344,7 @@ const DB_ROUTES = {
     return { body: { items, coverage: cov[0] ?? null } };
   },
 
-  // State money set aside for a curated entity BY NAME (insait-gap-v1 §4): the State
+  // State money set aside for a curated entity BY NAME: the State
   // Budget Law's named projects (208) by their own codes, and ПМС spending decrees (209)
   // by Държавен вестник idMat. The caller passes an explicit list — this route never
   // searches by name. Authorised, not paid: nothing here is a transfer or a spend.

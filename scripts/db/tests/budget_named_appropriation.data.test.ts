@@ -1,4 +1,4 @@
-// Gate for the State Budget Law's named projects (migration 208, insait-gap-v1 §4):
+// Gate for the State Budget Law's named projects (migration 208):
 // only раздел I appropriates, the numbering is whole, and the INSAIT lines a reader
 // asked about are there with the amounts the law prints.
 import { describe, expect, it } from "vitest";

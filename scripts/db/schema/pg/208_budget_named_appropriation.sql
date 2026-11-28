@@ -1,7 +1,7 @@
 -- 208 — named projects in the State Budget Law: „Приложение № 2 към чл. 110" —
 -- the programme of priority strategic investment projects with national financing
 -- (раздел I, ал. 1) and, where the law has one, the list of RESERVE projects
--- (раздел II, ал. 2). docs/plans/insait-gap-v1.md §4. Loaded by
+-- (раздел II, ал. 2). Loaded by
 -- `db:load:budget-named:pg` from the cached Държавен вестник law HTML
 -- (raw_data/budget/law-<idMat>.html.gz, gitignored, written by the budget ingest).
 --

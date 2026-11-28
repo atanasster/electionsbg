@@ -11,7 +11,7 @@
 // So the mentions tool resolves these names to an entry here and asks narrower
 // questions: the title must name the institute AND the buyer must be the parent.
 //
-// Rules for adding an entry (docs/plans/insait-gap-v1.md §2):
+// Rules for adding an entry:
 //   - the organisation genuinely has no ЕИК of its own;
 //   - `parentEik` and every `organisations` ЕИК are checked against the
 //     Commerce Registry BY HAND — never inferred from a name match;
@@ -41,7 +41,7 @@ export type EntityAlias = {
    *  Listed so they are NAMED as excluded rather than silently dropped. */
   excludeEiks: string[];
   /** State money set aside for the entity BY NAME, listed explicitly — never found by
-   *  a name search (docs/plans/insait-gap-v1.md §4). `lines` are the State Budget
+   *  a name search. `lines` are the State Budget
    *  Law's own codes in Приложение № 2 към чл. 110, each with the law's fiscal year —
    *  a code is unique only within one law, and a later law may reuse it for another
    *  project. `decrees` are Държавен вестник idMat of the ПМС that granted it. Each

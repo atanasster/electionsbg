@@ -1,4 +1,4 @@
-// Gate for the pitay.government.bg ЗДОИ corpus (migration 207, insait-gap-v1 §3).
+// Gate for the pitay.government.bg ЗДОИ corpus (migration 207).
 //
 // The thing most worth protecting is PRIVACY: the requester is a type, never a
 // person, and contacts the platform printed (early pages) or a body quoted back

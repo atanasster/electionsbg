@@ -1,6 +1,6 @@
 -- 209 — Council of Ministers spending decrees: „Постановление № N … за одобряване на
 -- допълнителни разходи / трансфери по бюджета на …", as promulgated in Държавен вестник.
--- docs/plans/insait-gap-v1.md §4. Loaded by `db:load:budget-decrees:pg` from the
+-- Loaded by `db:load:budget-decrees:pg` from the
 -- gitignored raw_data/budget/dv_decrees.sqlite crawl (`pnpm run budget:dv-decrees`).
 --
 -- This is how the government moves money that no budget line named in advance; Чл. 1

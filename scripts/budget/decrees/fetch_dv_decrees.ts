@@ -1,6 +1,5 @@
 // Crawl Държавен вестник material pages by idMat into raw_data/budget/dv_decrees.sqlite,
-// keeping the body of every Council of Ministers spending decree
-// (docs/plans/insait-gap-v1.md §4).
+// keeping the body of every Council of Ministers spending decree.
 //
 //   pnpm run budget:dv-decrees                         # every id after the highest stored
 //   pnpm run budget:dv-decrees --from-id 155000        # backfill from an id (2021-01 ≈ 155000)

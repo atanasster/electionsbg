@@ -5,7 +5,7 @@
 // obliged body, the subject as the requester wrote it, the status, the body's
 // decision text, decision attachments, the processing history and any
 // forwarding „по компетентност" to another body. There is no API; pages are
-// server-rendered and ids are sequential (docs/plans/insait-gap-v1.md §3).
+// server-rendered and ids are sequential.
 //
 // PRIVACY: the requester's IDENTITY is stored only as the type the platform
 // prints („Физическо лице" / „Юридическо лице"). Early pages (2019) print the

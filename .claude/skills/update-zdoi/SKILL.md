@@ -12,8 +12,7 @@ allowed-tools:
 > **Pipeline:** handler [`update-zdoi`](../../../docs/pipeline-handlers.md#update-zdoi) runs this unattended — `pnpm run pipeline:ingest --only update-zdoi`. The registry holds its commands, gates and publish set; this runbook covers what a script cannot do (operator steps, judgement calls, troubleshooting). When a step fails, start from the repair packet the run writes, not from the procedure below.
 <!-- pipeline-pointer:end -->
 
-Feeds the „Заявления по ЗДОИ" arm of the AI chat's mentions tool (`/api/db/zdoi-search`),
-docs/plans/insait-gap-v1.md §3.
+Feeds the „Заявления по ЗДОИ" arm of the AI chat's mentions tool (`/api/db/zdoi-search`).
 
 ## Read this first: three rules every consumer keeps
 
