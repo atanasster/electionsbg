@@ -1,6 +1,47 @@
 {
-  "updatedAt": "2026-11-27T10:04:03.641Z",
+  "updatedAt": "2026-11-28T06:32:21.639Z",
   "entries": [
+    {
+      "timestamp": "2026-11-28T06:32:21.639Z",
+      "date": "2026-11-28",
+      "skill": "update-council-minutes",
+      "summary": "3 step(s) ok",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-11-28T06:07:36.199Z",
+      "date": "2026-11-28",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-11-27 (+1 daily archive; 1,097,886 store rows, 167 settlements, 61 chains)",
+      "source": "КЗП Колко струва (retail prices)",
+      "key": "2026-11-27"
+    },
+    {
+      "timestamp": "2026-11-28T06:00:57.200Z",
+      "date": "2026-11-28",
+      "skill": "update-macro",
+      "summary": "6 step(s) ok",
+      "source": "Eurostat macro (BG): 29 datasets",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-11-28T06:00:14.633Z",
+      "date": "2026-11-28",
+      "skill": "update-rollcall",
+      "summary": "4 step(s) ok",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-11-27T10:04:03.641Z",
       "date": "2026-11-27",

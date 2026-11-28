@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-26",
+  "computedAt": "2026-11-27",
   "thresholds": {
     "basketPids": [
       1,
@@ -34,7 +34,7 @@
   "basketMoves": [
     {
       "peakDay": "2026-10-29",
-      "startDay": "2026-10-26",
+      "startDay": "2026-10-27",
       "endDay": "2026-10-30",
       "pctChange": 2.783,
       "costEur": 15.51,
@@ -91,18 +91,18 @@
       "promoEur": 0.7,
       "regularEur": 1.67,
       "discountPct": 58,
-      "stores": 209,
+      "stores": 211,
       "chains": 3
     },
     {
-      "slug": "shokolad-roshen-aero-byal-80gr",
-      "title": "ШОКОЛАД РОШЕН АЕРО БЯЛ 80ГР",
-      "atOrBelowSince": "2026-11-12",
-      "promoEur": 0.75,
-      "regularEur": 1.56,
-      "discountPct": 52,
-      "stores": 16,
-      "chains": 2
+      "slug": "morkovi",
+      "title": "МОРКОВИ",
+      "atOrBelowSince": "2026-10-29",
+      "promoEur": 0.49,
+      "regularEur": 0.99,
+      "discountPct": 51,
+      "stores": 395,
+      "chains": 6
     }
   ]
 }

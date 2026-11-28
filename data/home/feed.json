@@ -1,8 +1,74 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-26T23:59:59.999Z",
+  "computedAt": "2026-11-27T23:59:59.999Z",
   "windowDays": 30,
   "events": [
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:500g-pasirani-domati-the-chefs",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-27T00:00:00.000Z",
+      "firstSeenAt": "2026-11-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/500g-pasirani-domati-the-chefs",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
+        "pct": 61,
+        "promoEur": "0.68",
+        "regularEur": "1.73",
+        "chains": 2
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8714285714285714,
+      "actionability": 0.85
+    },
+    {
+      "schemaVersion": 1,
+      "id": "prices:promotion:limoni",
+      "kind": "promotion_started",
+      "category": "prices",
+      "occurredAt": "2026-11-27T00:00:00.000Z",
+      "firstSeenAt": "2026-11-27T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "national"
+      },
+      "source": {
+        "id": "prices_grid",
+        "labelKey": "home_source_prices"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_prices_partial"
+      },
+      "route": "/product/limoni",
+      "factKey": "home_fact_promotion",
+      "factArgs": {
+        "title": "ЛИМОНИ",
+        "pct": 58,
+        "promoEur": "0.70",
+        "regularEur": "1.67",
+        "chains": 3
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.8285714285714286,
+      "actionability": 0.85
+    },
     {
       "schemaVersion": 1,
       "id": "funds:call_opened:isun:0b1e7172-9074-42a3-83a3-9067ad514dba",
@@ -37,77 +103,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:500g-pasirani-domati-the-chefs",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-26T00:00:00.000Z",
-      "firstSeenAt": "2026-11-26T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/500g-pasirani-domati-the-chefs",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "500Г ПАСИРАНИ ДОМАТИ THE CHEFS",
-        "pct": 61,
-        "promoEur": "0.68",
-        "regularEur": "1.73",
-        "chains": 2
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8714285714285714,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "prices:promotion:limoni",
-      "kind": "promotion_started",
-      "category": "prices",
-      "occurredAt": "2026-11-26T00:00:00.000Z",
-      "firstSeenAt": "2026-11-26T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "national"
-      },
-      "source": {
-        "id": "prices_grid",
-        "labelKey": "home_source_prices"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_prices_partial"
-      },
-      "route": "/product/limoni",
-      "factKey": "home_fact_promotion",
-      "factArgs": {
-        "title": "ЛИМОНИ",
-        "pct": 58,
-        "promoEur": "0.70",
-        "regularEur": "1.67",
-        "chains": 3
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.8285714285714286,
-      "actionability": 0.85
-    },
-    {
-      "schemaVersion": 1,
-      "id": "parliament:sitting:2026-11-25",
+      "id": "parliament:sitting:2026-11-26",
       "kind": "plenary_sitting",
       "category": "parliament_elections",
-      "occurredAt": "2026-11-25T00:00:00.000Z",
-      "firstSeenAt": "2026-11-25T00:00:00.000Z",
+      "occurredAt": "2026-11-26T00:00:00.000Z",
+      "firstSeenAt": "2026-11-26T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -119,10 +119,10 @@
       "coverage": {
         "complete": true
       },
-      "route": "/votes/2026-11-25",
+      "route": "/votes/2026-11-26",
       "factKey": "home_fact_plenary_sittings",
       "factArgs": {
-        "items": 19,
+        "items": 230,
         "sittings": 11,
         "windowDays": 30
       },
@@ -197,11 +197,11 @@
     },
     {
       "schemaVersion": 1,
-      "id": "prices:promotion:shokolad-roshen-aero-byal-80gr",
+      "id": "prices:promotion:morkovi",
       "kind": "promotion_started",
       "category": "prices",
-      "occurredAt": "2026-11-26T00:00:00.000Z",
-      "firstSeenAt": "2026-11-26T00:00:00.000Z",
+      "occurredAt": "2026-11-27T00:00:00.000Z",
+      "firstSeenAt": "2026-11-27T00:00:00.000Z",
       "dateBasis": "occurred",
       "scope": {
         "level": "national"
@@ -214,18 +214,18 @@
         "complete": false,
         "noteKey": "home_coverage_prices_partial"
       },
-      "route": "/product/shokolad-roshen-aero-byal-80gr",
+      "route": "/product/morkovi",
       "factKey": "home_fact_promotion",
       "factArgs": {
-        "title": "ШОКОЛАД РОШЕН АЕРО БЯЛ 80ГР",
-        "pct": 52,
-        "promoEur": "0.75",
-        "regularEur": "1.56",
-        "chains": 2
+        "title": "МОРКОВИ",
+        "pct": 51,
+        "promoEur": "0.49",
+        "regularEur": "0.99",
+        "chains": 6
       },
       "backfill": false,
       "verification": "automatic",
-      "materiality": 0.7428571428571429,
+      "materiality": 0.7285714285714285,
       "actionability": 0.85
     },
     {
@@ -378,6 +378,38 @@
         "title": "отлагане произнасянето по докладната. Това предложение е подкрепено със: 7 гласа „ЗА“, без „против“, и без „въздържали с",
         "council": "RAZ26",
         "number": "588"
+      },
+      "backfill": false,
+      "verification": "automatic",
+      "materiality": 0.2,
+      "actionability": 0.3
+    },
+    {
+      "schemaVersion": 1,
+      "id": "council:resolution:VAR01-2026-prot42-r1319",
+      "kind": "council_resolution",
+      "category": "local",
+      "occurredAt": "2026-11-23T00:00:00.000Z",
+      "firstSeenAt": "2026-11-23T00:00:00.000Z",
+      "dateBasis": "occurred",
+      "scope": {
+        "level": "municipality",
+        "id": "VAR01"
+      },
+      "source": {
+        "id": "council_minutes",
+        "labelKey": "home_source_council"
+      },
+      "coverage": {
+        "complete": false,
+        "noteKey": "home_coverage_council_partial"
+      },
+      "route": "/council/resolution/VAR01-2026-prot42-r1319",
+      "factKey": "home_fact_council_resolution",
+      "factArgs": {
+        "title": "Разглеждане на предложения за решения от ПК „Собственост и стопанство” относно: (1) – приемане на „Годишна програма за у",
+        "council": "VAR01",
+        "number": "1319"
       },
       "backfill": false,
       "verification": "automatic",
@@ -796,38 +828,6 @@
       "verification": "automatic",
       "materiality": 0.2,
       "actionability": 0.3
-    },
-    {
-      "schemaVersion": 1,
-      "id": "council:resolution:PDV01-2026-prot18-r431",
-      "kind": "council_resolution",
-      "category": "local",
-      "occurredAt": "2026-11-12T00:00:00.000Z",
-      "firstSeenAt": "2026-11-12T00:00:00.000Z",
-      "dateBasis": "occurred",
-      "scope": {
-        "level": "municipality",
-        "id": "PDV01"
-      },
-      "source": {
-        "id": "council_minutes",
-        "labelKey": "home_source_council"
-      },
-      "coverage": {
-        "complete": false,
-        "noteKey": "home_coverage_council_partial"
-      },
-      "route": "/council/resolution/PDV01-2026-prot18-r431",
-      "factKey": "home_fact_council_resolution",
-      "factArgs": {
-        "title": "Вземане на решение за продажба на недвижим имот – частна общинска собственост, находящ се в гр. Пловдив, район „Източен”",
-        "council": "PDV01",
-        "number": "431"
-      },
-      "backfill": false,
-      "verification": "automatic",
-      "materiality": 0.2,
-      "actionability": 0.3
     }
   ],
   "sourceCoverage": {
@@ -872,14 +872,14 @@
     },
     "parliament": {
       "available": true,
-      "asOf": "2026-11-25",
+      "asOf": "2026-11-26",
       "staleAfterDays": 90,
       "stale": false
     },
     "prices": {
       "available": true,
-      "asOf": "2026-11-26",
-      "observedAt": "2026-11-26",
+      "asOf": "2026-11-27",
+      "observedAt": "2026-11-27",
       "staleAfterDays": 5,
       "stale": false
     }

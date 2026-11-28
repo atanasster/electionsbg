@@ -1,5 +1,5 @@
 {
-  "computedAt": "2026-11-26T20:10:10.703Z",
+  "computedAt": "2026-11-28T05:52:25.123Z",
   "byNs": {
     "44": {
       "seedId": 1371,
@@ -180,22 +180,22 @@
     "52": {
       "seedId": 5228,
       "seedPartyShort": "ПП",
-      "crossPartyCount": 11,
+      "crossPartyCount": 10,
       "twins": [
+        {
+          "mpId": 5245,
+          "partyShort": "ДБ",
+          "score": 0.6338710403722301
+        },
         {
           "mpId": 5180,
           "partyShort": "ДБ",
-          "score": 0.6017853896089845
+          "score": 0.6303783405405576
         },
         {
           "mpId": 5123,
           "partyShort": "ДБ",
-          "score": 0.5990045978827111
-        },
-        {
-          "mpId": 5096,
-          "partyShort": "ДБ",
-          "score": 0.5900525164697579
+          "score": 0.6174499387375137
         }
       ]
     }

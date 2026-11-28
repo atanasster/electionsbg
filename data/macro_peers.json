@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-26T20:40:23.091Z",
+  "fetchedAt": "2026-11-28T06:00:53.922Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -7477,7 +7477,7 @@
             "year": 2023,
             "quarter": 2,
             "period": "2023-Q2",
-            "value": 3.6
+            "value": 3.7
           },
           {
             "year": 2023,
@@ -7531,7 +7531,7 @@
             "year": 2025,
             "quarter": 3,
             "period": "2025-Q3",
-            "value": 3.3
+            "value": 3.2
           },
           {
             "year": 2025,
@@ -7543,13 +7543,19 @@
             "year": 2026,
             "quarter": 1,
             "period": "2026-Q1",
-            "value": 2.3
+            "value": 2.4
           },
           {
             "year": 2026,
             "quarter": 2,
             "period": "2026-Q2",
             "value": 1.7
+          },
+          {
+            "year": 2026,
+            "quarter": 3,
+            "period": "2026-Q3",
+            "value": 2.9
           }
         ]
       },
@@ -7559,8 +7565,8 @@
         "quarter": 3,
         "bgValue": 2.5,
         "euAverage": 1.5,
-        "rank": 8,
-        "total": 22,
+        "rank": 9,
+        "total": 23,
         "direction": "higher"
       }
     },
@@ -32795,7 +32801,7 @@
     }
   },
   "wgi": {
-    "fetchedAt": "2026-11-26T20:40:23.088Z",
+    "fetchedAt": "2026-11-28T06:00:53.917Z",
     "latestYear": 2025,
     "source": {
       "name": "World Bank — Worldwide Governance Indicators",
