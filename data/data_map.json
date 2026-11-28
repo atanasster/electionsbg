@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "generatedAt": "2026-11-28T06:32:57.470Z",
+  "generatedAt": "2026-11-28T10:11:51.433Z",
   "nodes": [
     {
       "id": "src:water",
@@ -7733,8 +7733,8 @@
         {
           "node": "ds:connections",
           "text": {
-            "bg": "Този ЕИК е ключът към Търговския регистър — 19 238 изпълнителя се намират там като фирми със собственици и управители.",
-            "en": "That company number is the key into the Commerce Registry — 19,238 contractors are found there as companies with owners and directors."
+            "bg": "Този ЕИК е ключът към Търговския регистър — 19 243 изпълнителя се намират там като фирми със собственици и управители.",
+            "en": "That company number is the key into the Commerce Registry — 19,243 contractors are found there as companies with owners and directors."
           }
         },
         {
@@ -7897,7 +7897,7 @@
         "bg": "кой изпълнител на обществени поръчки е фирма от Търговския регистър",
         "en": "which procurement contractors are companies in the Commerce Registry"
       },
-      "overlap": 19238,
+      "overlap": 19243,
       "query": "contractors-in-the-registry"
     },
     {
