@@ -1,0 +1,293 @@
+{
+  "schema": 1,
+  "session": "20261128T102550Z-5645",
+  "kind": "ingest",
+  "startedAt": "2026-11-28T10:25:52.832Z",
+  "git": {
+    "shaStart": "ea4e164eed48f7bcfb4c51088fb0ef6ae56f50dd",
+    "shaEnd": "22c2f9695b716e28bcc3df98f935ffba0423156e"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country US — met through the BG proxy mac:8118; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "reach:gov-hosts": {
+      "ok": true,
+      "detail": "www.parliament.bg, www.mod.bg answer (exit US)"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": false,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices: the link's target is not reachable — mount the external drive"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 0 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 33.3 GB free (min 10); Docker VM 40.1 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-zdoi",
+      "status": "ok",
+      "sources": [
+        "zdoi_pitay"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "zdoi:fetch --refresh",
+          "command": "pnpm run zdoi:fetch --refresh",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 5496423,
+          "log": "logs/pipeline/20261128T102550Z-5645/001-zdoi_fetch_--refresh.log"
+        },
+        {
+          "seq": 2,
+          "id": "db:load:zdoi:pg",
+          "command": "pnpm run db:load:zdoi:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 47746,
+          "log": "logs/pipeline/20261128T102550Z-5645/002-db_load_zdoi_pg.log"
+        },
+        {
+          "seq": 3,
+          "id": "zdoi.data.test",
+          "command": "pnpm exec vitest run scripts/db/tests/zdoi.data.test.ts",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 49013,
+          "log": "logs/pipeline/20261128T102550Z-5645/003-zdoi.data.test.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [],
+      "summary": "3 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 4,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 18748,
+          "medianMs": 16919.5,
+          "log": "logs/pipeline/20261128T102550Z-5645/004-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 5,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6420,
+          "medianMs": 6372.5,
+          "log": "logs/pipeline/20261128T102550Z-5645/005-data_map.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 6,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 691,
+          "medianMs": 623.5,
+          "log": "logs/pipeline/20261128T102550Z-5645/006-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 7,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 437,
+          "medianMs": 441,
+          "log": "logs/pipeline/20261128T102550Z-5645/007-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 8,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 10034,
+          "medianMs": 7169.5,
+          "log": "logs/pipeline/20261128T102550Z-5645/008-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 9,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6489,
+          "medianMs": 4078.5,
+          "log": "logs/pipeline/20261128T102550Z-5645/009-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 10,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2729,
+          "medianMs": 1140,
+          "log": "logs/pipeline/20261128T102550Z-5645/010-db_gen-home-feed.log"
+        },
+        {
+          "seq": 11,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 483,
+          "medianMs": 508,
+          "log": "logs/pipeline/20261128T102550Z-5645/011-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 12,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 1800,
+          "medianMs": 947.5,
+          "log": "logs/pipeline/20261128T102550Z-5645/012-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 13,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2567,
+          "medianMs": 1320,
+          "log": "logs/pipeline/20261128T102550Z-5645/013-db_check-cloud.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261128T102550Z-5645/012-db_check-generated.log"
+  ],
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-28T12:00:00.288Z",
+  "verdict": "clean"
+}
