@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T21:16:24.153Z",
+  "generatedAt": "2026-11-28T07:19:21.936Z",
   "total": 912,
   "officialCount": 836,
   "entries": [
@@ -1764,9 +1764,9 @@
       "role": "academic",
       "contractorEik": "200852966",
       "contractorName": "Бент ОЙЛ АД",
-      "totalEur": 652831530.21,
+      "totalEur": 663125585.35,
       "totalOther": {},
-      "contractCount": 967,
+      "contractCount": 968,
       "awardCount": 0,
       "relations": [
         {
@@ -1871,8 +1871,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 32,
-          "totalEur": 71652075.52,
+          "contractCount": 33,
+          "totalEur": 81946130.66,
           "totalOther": {}
         }
       ],
@@ -1880,8 +1880,8 @@
         {
           "eik": "831913661",
           "name": "Държавна агенция \"Държавен резерв и военновременни запаси\"",
-          "contractCount": 43,
-          "totalEur": 253299965.12,
+          "contractCount": 44,
+          "totalEur": 263594020.26,
           "totalOther": {}
         },
         {
@@ -15716,9 +15716,9 @@
       "role": "party_leader",
       "contractorEik": "115813904",
       "contractorName": "Дестинация българия ЕООД",
-      "totalEur": 30352135.07,
+      "totalEur": 30357977.17,
       "totalOther": {},
-      "contractCount": 265,
+      "contractCount": 266,
       "awardCount": 0,
       "relations": [
         {
@@ -15819,17 +15819,17 @@
         },
         {
           "year": "2026",
-          "contractCount": 13,
-          "totalEur": 750794,
+          "contractCount": 14,
+          "totalEur": 756636.1,
           "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "175201304",
-          "name": "Мрежови експлоатационен район - пловдив",
-          "contractCount": 137,
-          "totalEur": 11276821.43,
+          "name": "Мрежови експлоатационен район - горна оряховица",
+          "contractCount": 138,
+          "totalEur": 11282663.53,
           "totalOther": {}
         },
         {
@@ -17957,9 +17957,9 @@
       "role": "state_enterprise",
       "contractorEik": "103002253",
       "contractorName": "Водоснабдяване и канализация - варна ООД",
-      "totalEur": 23001517.63,
+      "totalEur": 23436464.63,
       "totalOther": {},
-      "contractCount": 96,
+      "contractCount": 98,
       "awardCount": 0,
       "relations": [
         {
@@ -18048,8 +18048,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 10,
-          "totalEur": 4947540.34,
+          "contractCount": 12,
+          "totalEur": 5382487.34,
           "totalOther": {}
         }
       ],
@@ -28028,50 +28028,15 @@
       ]
     },
     {
-      "slug": "ivan-markos-hristanov-0ec5c0",
-      "name": "Иван Маркос Христанов",
-      "tier": "executive",
-      "role": "deputy_minister",
-      "contractorEik": "205397700",
-      "contractorName": "Силвърлайн партнърс ООД",
-      "totalEur": 6044500,
-      "totalOther": {},
-      "contractCount": 1,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "partner",
-          "confidence": "high"
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2021",
-          "contractCount": 1,
-          "totalEur": 6044500,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "203740812",
-          "name": "Фонд мениджър на финансови инструменти в България ЕАД",
-          "contractCount": 1,
-          "totalEur": 6044500,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
       "slug": "ivanka-petrova-nikolova-59d810",
       "name": "Иванка Петрова Николова",
       "tier": "public_sector",
       "role": "school",
       "contractorEik": "102006848",
       "contractorName": "Бургасинвест ООД",
-      "totalEur": 6032587.87,
+      "totalEur": 6191752.15,
       "totalOther": {},
-      "contractCount": 64,
+      "contractCount": 66,
       "awardCount": 0,
       "relations": [
         {
@@ -28118,8 +28083,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 8,
-          "totalEur": 632672.1,
+          "contractCount": 10,
+          "totalEur": 791836.38,
           "totalOther": {}
         }
       ],
@@ -28134,8 +28099,8 @@
         {
           "eik": "000048600",
           "name": "Средно училище \"Епископ Константин Преславски\"",
-          "contractCount": 6,
-          "totalEur": 455088.23,
+          "contractCount": 7,
+          "totalEur": 607009.03,
           "totalOther": {}
         },
         {
@@ -28157,6 +28122,41 @@
           "name": "Средно училище \"Димчо Дебелянов\"",
           "contractCount": 3,
           "totalEur": 104397.63,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "ivan-markos-hristanov-0ec5c0",
+      "name": "Иван Маркос Христанов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "contractorEik": "205397700",
+      "contractorName": "Силвърлайн партнърс ООД",
+      "totalEur": 6044500,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "partner",
+          "confidence": "high"
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 6044500,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "203740812",
+          "name": "Фонд мениджър на финансови инструменти в България ЕАД",
+          "contractCount": 1,
+          "totalEur": 6044500,
           "totalOther": {}
         }
       ]

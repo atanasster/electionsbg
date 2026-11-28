@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T21:16:29.373Z",
+  "generatedAt": "2026-11-28T07:19:26.156Z",
   "nodes": [
     {
       "id": "awarder:000000281",
@@ -8287,14 +8287,14 @@
       "label": "Мирослав Петров Комитски"
     },
     {
-      "id": "official:ivan-markos-hristanov-0ec5c0",
-      "type": "official",
-      "label": "Иван Маркос Христанов"
-    },
-    {
       "id": "official:ivanka-petrova-nikolova-59d810",
       "type": "official",
       "label": "Иванка Петрова Николова"
+    },
+    {
+      "id": "official:ivan-markos-hristanov-0ec5c0",
+      "type": "official",
+      "label": "Иван Маркос Христанов"
     },
     {
       "id": "official:ivan-bobev-bobev-08fc95",
@@ -12566,7 +12566,7 @@
     {
       "source": "awarder:000048600",
       "target": "contractor:102006848",
-      "valueEur": 455088.23
+      "valueEur": 607009.03
     },
     {
       "source": "awarder:000048803",
@@ -12810,6 +12810,11 @@
     },
     {
       "source": "awarder:000083633",
+      "target": "contractor:103002253",
+      "valueEur": 944185.3
+    },
+    {
+      "source": "awarder:000083633",
       "target": "contractor:175040885",
       "valueEur": 636610.34
     },
@@ -12817,11 +12822,6 @@
       "source": "awarder:000083633",
       "target": "contractor:103562052",
       "valueEur": 622478.62
-    },
-    {
-      "source": "awarder:000083633",
-      "target": "contractor:103002253",
-      "valueEur": 569238.3
     },
     {
       "source": "awarder:000085748",
@@ -19236,7 +19236,7 @@
     {
       "source": "awarder:175201304",
       "target": "contractor:115813904",
-      "valueEur": 11276821.43
+      "valueEur": 11282663.53
     },
     {
       "source": "awarder:175203478",
@@ -20841,7 +20841,7 @@
     {
       "source": "awarder:831913661",
       "target": "contractor:200852966",
-      "valueEur": 253299965.12
+      "valueEur": 263594020.26
     },
     {
       "source": "awarder:831913661",
@@ -21046,7 +21046,7 @@
     {
       "source": "contractor:115813904",
       "target": "mp:5201",
-      "valueEur": 30352135.07
+      "valueEur": 30357977.17
     },
     {
       "source": "contractor:121015330",
@@ -21691,7 +21691,7 @@
     {
       "source": "contractor:200852966",
       "target": "official:dimitr-ivanov-radev-364ab0",
-      "valueEur": 652831530.21
+      "valueEur": 663125585.35
     },
     {
       "source": "contractor:831641791",
@@ -22321,7 +22321,7 @@
     {
       "source": "contractor:115813904",
       "target": "official:stefan-ivanov-tsankov-950909",
-      "valueEur": 30352135.07
+      "valueEur": 30357977.17
     },
     {
       "source": "contractor:000649348",
@@ -22426,7 +22426,7 @@
     {
       "source": "contractor:103002253",
       "target": "official:veselin-borislavov-rusev-78a86a",
-      "valueEur": 23001517.63
+      "valueEur": 23436464.63
     },
     {
       "source": "contractor:121660480",
@@ -22919,14 +22919,14 @@
       "valueEur": 6232660.17
     },
     {
+      "source": "contractor:102006848",
+      "target": "official:ivanka-petrova-nikolova-59d810",
+      "valueEur": 6191752.15
+    },
+    {
       "source": "contractor:205397700",
       "target": "official:ivan-markos-hristanov-0ec5c0",
       "valueEur": 6044500
-    },
-    {
-      "source": "contractor:102006848",
-      "target": "official:ivanka-petrova-nikolova-59d810",
-      "valueEur": 6032587.87
     },
     {
       "source": "contractor:130175896",
