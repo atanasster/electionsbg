@@ -1,0 +1,640 @@
+{
+  "schema": 1,
+  "session": "20261128T054138Z-116f",
+  "kind": "ingest",
+  "startedAt": "2026-11-28T05:48:19.550Z",
+  "git": {
+    "shaStart": "03a9dad7d11b1c6e75ee07220eb6a2de47326587",
+    "shaEnd": "2a30dc6b622375e450fe8e514e0b6262fb88bd3c"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country US — met through the BG proxy mac:8118; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "reach:gov-hosts": {
+      "ok": true,
+      "detail": "www.parliament.bg, www.mod.bg answer (exit US)"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": true,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": true,
+      "detail": "Cloud SQL proxy answers SELECT 1 on 127.0.0.1:5434"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 0 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "held by this run (session 20261128T054138Z-116f)"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 12.1 GB free (min 10); Docker VM 35.9 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "watcher",
+      "status": "partial",
+      "steps": [
+        {
+          "seq": 1,
+          "id": "watch",
+          "command": "pnpm run watch",
+          "phase": "plan",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 391272,
+          "medianMs": 173519.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/001-watch.log"
+        }
+      ],
+      "gates": [],
+      "summary": "8 changed, 1 error, 103 skipped, 31 unchanged",
+      "why": "standing problem(s): his_immunization_app failing 3 runs in a row"
+    },
+    {
+      "id": "update-rollcall",
+      "status": "ok",
+      "sources": [
+        "parliament_votes"
+      ],
+      "steps": [
+        {
+          "seq": 2,
+          "id": "rollcall:scrape",
+          "command": "pnpm run rollcall:scrape",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 270538,
+          "medianMs": 139123,
+          "log": "logs/pipeline/20261128T054138Z-116f/002-rollcall_scrape.log"
+        },
+        {
+          "seq": 3,
+          "id": "parliament:bills",
+          "command": "pnpm run parliament:bills",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 301101,
+          "medianMs": 258591,
+          "log": "logs/pipeline/20261128T054138Z-116f/003-parliament_bills.log"
+        },
+        {
+          "seq": 4,
+          "id": "db:load:rollcall:pg",
+          "command": "pnpm run db:load:rollcall:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 21643,
+          "medianMs": 18318.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/004-db_load_rollcall_pg.log"
+        },
+        {
+          "seq": 5,
+          "id": "db:load:rollcall-derived:pg",
+          "command": "pnpm run db:load:rollcall-derived:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 121203,
+          "medianMs": 99904,
+          "log": "logs/pipeline/20261128T054138Z-116f/005-db_load_rollcall-derived_pg.log"
+        }
+      ],
+      "gates": [
+        {
+          "id": "rollcall-sessions",
+          "ok": true,
+          "expected": "data/parliament/votes/index.json: no more than 0% below its pre-run copy",
+          "observed": "651 → 652 (+0.2%)"
+        },
+        {
+          "id": "rollcall-announced-sessions-loaded",
+          "ok": true,
+          "expected": "every roll-call session in state/watch/parliament_votes.json meta.newSinceLast has data/parliament/votes/sessions/<date>.json",
+          "observed": "announced 2026-11-26; all loaded"
+        }
+      ],
+      "filesChanged": [
+        "data/parliament/bills/ns52.json",
+        "data/parliament/votes/derived/attendance.json",
+        "data/parliament/votes/derived/cohesion.json",
+        "data/parliament/votes/derived/dissents.json",
+        "data/parliament/votes/derived/embedding.json",
+        "data/parliament/votes/derived/hub_feed/44.json",
+        "data/parliament/votes/derived/hub_feed/45.json",
+        "data/parliament/votes/derived/hub_feed/46.json",
+        "data/parliament/votes/derived/hub_feed/47.json",
+        "data/parliament/votes/derived/hub_feed/48.json",
+        "data/parliament/votes/derived/hub_feed/49.json",
+        "data/parliament/votes/derived/hub_feed/50.json",
+        "data/parliament/votes/derived/hub_feed/51.json",
+        "data/parliament/votes/derived/hub_feed/52.json",
+        "data/parliament/votes/derived/hub_stats.json",
+        "data/parliament/votes/derived/important_votes/44.json",
+        "data/parliament/votes/derived/important_votes/45.json",
+        "data/parliament/votes/derived/important_votes/46.json",
+        "data/parliament/votes/derived/important_votes/47.json",
+        "data/parliament/votes/derived/important_votes/48.json",
+        "data/parliament/votes/derived/important_votes/49.json",
+        "data/parliament/votes/derived/important_votes/50.json",
+        "data/parliament/votes/derived/important_votes/51.json",
+        "data/parliament/votes/derived/important_votes/52.json",
+        "data/parliament/votes/derived/loyalty.json",
+        "data/parliament/votes/derived/party_correlation.json",
+        "data/parliament/votes/derived/party_pair_breaks.json",
+        "data/parliament/votes/derived/search_index.json",
+        "data/parliament/votes/derived/similarity.json",
+        "data/parliament/votes/derived/similarity_headline.json",
+        "data/parliament/votes/derived/topic_index.json",
+        "data/parliament/votes/index.json",
+        "data/parliament/votes/sessions/2026-10-07.json",
+        "data/parliament/votes/sessions/2026-10-08.json",
+        "data/parliament/votes/sessions/2026-10-09.json",
+        "data/parliament/votes/sessions/2026-10-13.json",
+        "data/parliament/votes/sessions/2026-10-14.json",
+        "data/parliament/votes/sessions/2026-10-15.json",
+        "data/parliament/votes/sessions/2026-10-16.json",
+        "data/parliament/votes/sessions/2026-10-21.json",
+        "data/parliament/votes/sessions/2026-10-28.json",
+        "data/parliament/votes/sessions/2026-11-04.json",
+        "data/parliament/votes/sessions/2026-11-05.json",
+        "data/parliament/votes/sessions/2026-11-06.json",
+        "data/parliament/votes/sessions/2026-11-11.json",
+        "data/parliament/votes/sessions/2026-11-12.json",
+        "data/parliament/votes/sessions/2026-11-13.json",
+        "data/parliament/votes/sessions/2026-11-18.json",
+        "data/parliament/votes/sessions/2026-11-19.json",
+        "data/parliament/votes/sessions/2026-11-20.json",
+        "data/parliament/votes/sessions/2026-11-25.json",
+        "data/parliament/votes/sessions/2026-11-26.json"
+      ],
+      "summary": "4 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-procurement",
+      "status": "skipped",
+      "sources": [
+        "eop_procurement"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "delegated to the update-procurement runbook (not yet a script)"
+    },
+    {
+      "id": "update-zdoi",
+      "status": "needs-operator",
+      "sources": [
+        "zdoi_pitay"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "no marker yet — choose run or seed"
+    },
+    {
+      "id": "update-macro",
+      "status": "ok",
+      "sources": [
+        "eurostat"
+      ],
+      "steps": [
+        {
+          "seq": 6,
+          "id": "fetch_eurostat",
+          "command": "pnpm exec tsx scripts/macro/fetch_eurostat.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 14895,
+          "medianMs": 18508,
+          "log": "logs/pipeline/20261128T054138Z-116f/006-fetch_eurostat.log"
+        },
+        {
+          "seq": 7,
+          "id": "fetch_cofog",
+          "command": "pnpm exec tsx scripts/macro/fetch_cofog.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4585,
+          "medianMs": 3278,
+          "log": "logs/pipeline/20261128T054138Z-116f/007-fetch_cofog.log"
+        },
+        {
+          "seq": 8,
+          "id": "fetch_eu_peers",
+          "command": "pnpm exec tsx scripts/macro/fetch_eu_peers.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 19769,
+          "medianMs": 13178,
+          "log": "logs/pipeline/20261128T054138Z-116f/008-fetch_eu_peers.log"
+        },
+        {
+          "seq": 9,
+          "id": "fetch_food_pli",
+          "command": "pnpm exec tsx scripts/macro/fetch_food_pli.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1724,
+          "medianMs": 1195,
+          "log": "logs/pipeline/20261128T054138Z-116f/009-fetch_food_pli.log"
+        },
+        {
+          "seq": 10,
+          "id": "admin:build-context",
+          "command": "pnpm run admin:build-context",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 468,
+          "medianMs": 476.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/010-admin_build-context.log"
+        },
+        {
+          "seq": 11,
+          "id": "social:poverty_impact",
+          "command": "pnpm exec tsx scripts/social/fetch_poverty_impact.ts",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 981,
+          "medianMs": 815,
+          "log": "logs/pipeline/20261128T054138Z-116f/011-social_poverty_impact.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/administration/context.json",
+        "data/cofog.json",
+        "data/macro.json",
+        "data/macro_peers.json",
+        "data/social/poverty_impact.json"
+      ],
+      "summary": "6 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-vaccines",
+      "status": "needs-operator",
+      "sources": [
+        "his_immunizations_daily",
+        "his_immunization_app",
+        "ial_shortage_list",
+        "ncipd_flu_weekly",
+        "eurostat_vaccine_trade",
+        "eurostat_flu_coverage"
+      ],
+      "steps": [],
+      "gates": [],
+      "why": "no marker yet — choose run or seed"
+    },
+    {
+      "id": "update-prices",
+      "status": "ok",
+      "sources": [
+        "kzp_prices"
+      ],
+      "steps": [
+        {
+          "seq": 12,
+          "id": "prices",
+          "command": "pnpm run prices",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 399238,
+          "medianMs": 485913.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/012-prices.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data-changes.json",
+        "data/prices/product_slugs.json"
+      ],
+      "summary": "1 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "update-council-minutes",
+      "status": "ok",
+      "sources": [
+        "council_minutes"
+      ],
+      "steps": [
+        {
+          "seq": 13,
+          "id": "council:scrape",
+          "command": "pnpm run council:scrape --per-councillor",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1446357,
+          "medianMs": 644989,
+          "log": "logs/pipeline/20261128T054138Z-116f/013-council_scrape.log"
+        },
+        {
+          "seq": 14,
+          "id": "db:load:council:pg",
+          "command": "pnpm run db:load:council:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 4813,
+          "medianMs": 3231,
+          "log": "logs/pipeline/20261128T054138Z-116f/014-db_load_council_pg.log"
+        },
+        {
+          "seq": 15,
+          "id": "council:index_corpus.test",
+          "command": "pnpm exec vitest run scripts/council/lib/index_corpus.test.ts",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 33588,
+          "medianMs": 11808,
+          "log": "logs/pipeline/20261128T054138Z-116f/015-council_index_corpus.test.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/council/VAR01/2026/VAR01-2026-prot42-r1319.json",
+        "data/council/VAR01/2026/VAR01-2026-prot42-r1320.json",
+        "data/council/index.json",
+        "state/ingest/council_BGS01.json",
+        "state/ingest/council_DOB28.json",
+        "state/ingest/council_HKV09.json",
+        "state/ingest/council_HKV34.json",
+        "state/ingest/council_PDV01.json",
+        "state/ingest/council_PER32.json",
+        "state/ingest/council_PVN01.json",
+        "state/ingest/council_RAZ26.json",
+        "state/ingest/council_RSE01.json",
+        "state/ingest/council_SLV01.json",
+        "state/ingest/council_SOF.json",
+        "state/ingest/council_SZR01.json",
+        "state/ingest/council_VAR01.json",
+        "state/ingest/council_VTR01.json"
+      ],
+      "summary": "3 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 16,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 28052,
+          "medianMs": 16651,
+          "log": "logs/pipeline/20261128T054138Z-116f/016-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 17,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 7522,
+          "medianMs": 6372.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/017-data_map.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data_map.json"
+      ]
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 18,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 614,
+          "medianMs": 653,
+          "log": "logs/pipeline/20261128T054138Z-116f/018-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 19,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 444,
+          "medianMs": 441.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/019-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 20,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6808,
+          "medianMs": 10339,
+          "log": "logs/pipeline/20261128T054138Z-116f/020-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 21,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3249,
+          "medianMs": 4254.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/021-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 22,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1165,
+          "medianMs": 1206.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/022-db_gen-home-feed.log"
+        },
+        {
+          "seq": 23,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 411,
+          "medianMs": 516,
+          "log": "logs/pipeline/20261128T054138Z-116f/023-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/home/feed.json",
+        "data/home/flyover.json",
+        "data/home/price_events.json"
+      ]
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 24,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 1802,
+          "medianMs": 924.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/024-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 25,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2296,
+          "medianMs": 1288.5,
+          "log": "logs/pipeline/20261128T054138Z-116f/025-db_check-cloud.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    }
+  ],
+  "needsOperator": [
+    {
+      "unit": "update-zdoi",
+      "id": "bootstrap",
+      "instruction": "No marker yet. Run it (`pnpm run pipeline:ingest --only update-zdoi --bootstrap run`) or seed it without running (`--bootstrap seed`)."
+    },
+    {
+      "unit": "update-vaccines",
+      "id": "bootstrap",
+      "instruction": "No marker yet. Run it (`pnpm run pipeline:ingest --only update-vaccines --bootstrap run`) or seed it without running (`--bootstrap seed`)."
+    }
+  ],
+  "needsAgent": [
+    {
+      "unit": "update-rollcall",
+      "id": "pin-rollcall-counts",
+      "instruction": "Update the four pinned counts in scripts/db/tests/rollcall.data.test.ts from the loader output.",
+      "doc": ".claude/skills/update-rollcall/SKILL.md (Step 5c)"
+    },
+    {
+      "unit": "update-procurement",
+      "id": "run-runbook",
+      "instruction": "Run update-procurement for eop_procurement. Planned steps: pnpm exec tsx scripts/procurement/ingest_eop.ts --self-heal --apply → pnpm run procurement:ingest → pnpm exec tsx scripts/procurement/ingest_tenders.ts --apply → pnpm exec tsx scripts/procurement/eop_field_map.ts --apply → pnpm exec tsx scripts/procurement/by_id_shards.ts → pnpm exec tsx scripts/procurement/ingest_anexi.ts → pnpm exec tsx scripts/procurement/anexi_current_value.ts --apply → pnpm run proc:backfill-unp:apply → pnpm run proc:reconcile:apply → pnpm exec tsx scripts/procurement/rebuild_from_cache.ts → pnpm exec tsx scripts/procurement/contract_index.ts → pnpm exec tsx scripts/procurement/rebuild_derived.ts → pnpm run db:refresh.",
+      "doc": ".claude/skills/update-procurement/SKILL.md"
+    }
+  ],
+  "findings": [
+    "watcher: his_immunization_app errored (3 run(s) in a row): his_infoapp: Sheet_1 row 111439 has an out-of-range string index null (retried: via BG proxy: his_infoapp: Sheet_1 row 111439 has an out-of-range string index null)",
+    "watcher STANDING: his_immunization_app failing 3 runs in a row",
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261128T054138Z-116f/024-db_check-generated.log"
+  ],
+  "publish": {
+    "decision": "go",
+    "heldBecause": []
+  },
+  "exitCode": 0,
+  "endedAt": "2026-11-28T07:16:10.056Z",
+  "verdict": "degraded",
+  "published": {
+    "exitCode": 0,
+    "report": "state/pipeline/runs/20261128T063320Z-8130/report.md"
+  }
+}
