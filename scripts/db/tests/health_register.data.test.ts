@@ -1,5 +1,4 @@
-// Gate for the health EIK register (`src/lib/healthReferenceData.ts`),
-// health-hub-v1 T9.
+// Gate for the health EIK register (`src/lib/healthReferenceData.ts`).
 //
 // The register IS the sector: every /sector/health procurement figure is
 // `awarder_eik = ANY(…)` over it, so a body missing from it is absent from the

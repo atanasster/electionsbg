@@ -154,8 +154,8 @@ export const SUBSIDIES_BANDS: SubsidiesBand[] = [
         // every one of those links silently did nothing when clicked. A same-page anchor is the
         // link that rots when the destination is reorganised, and nothing type-checks it.
         //
-        // /money is where the rail subsidy lives since the transport hub split the sector page
-        // (docs/plans/transport-hub-v1.md O1); the hub itself fronts procurement. It carries the
+        // /money is where the rail subsidy lives since the transport hub split the sector page;
+        // the hub itself fronts procurement. It carries the
         // forwarded `?pscope=y:YYYY` and anchors on that year — the same rule this hub's tile
         // reads (railSubsidyAnchor), so the two state the same year.
         titleKey: "subsidies_tile_rail",

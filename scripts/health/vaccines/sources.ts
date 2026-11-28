@@ -1,5 +1,5 @@
 // Parsers + fetchers for the vaccine sources other than the НЗИС info-app
-// (his_infoapp.ts). Plan: docs/plans/vaccines-flow-v1.md §1, T1.
+// (his_infoapp.ts).
 //
 // Every parser THROWS on a shape change rather than returning a partial or
 // empty result: three of these sources keep no history (the report page shows

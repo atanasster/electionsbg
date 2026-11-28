@@ -352,8 +352,8 @@ const RoadsProcurementScreen = lazy(() =>
     default: m.RoadsProcurementScreen,
   })),
 );
-// The transport sector hub and its four sub-pages (docs/plans/transport-hub-v1.md
-// T3) — literal routes ahead of sector/:id, like roads.
+// The transport sector hub and its four sub-pages — literal routes ahead of
+// sector/:id, like roads.
 const TransportHubScreen = lazy(() =>
   import("./screens/transport/TransportHubScreen").then((m) => ({
     default: m.TransportHubScreen,
@@ -379,8 +379,8 @@ const TransportMoneyScreen = lazy(() =>
     default: m.TransportMoneyScreen,
   })),
 );
-// The healthcare sector hub and its four sub-pages
-// (docs/plans/health-hub-v1.md T3) — literal routes ahead of sector/:id.
+// The healthcare sector hub and its four sub-pages — literal routes ahead of
+// sector/:id.
 const HealthHubScreen = lazy(() =>
   import("./screens/health/HealthHubScreen").then((m) => ({
     default: m.HealthHubScreen,
@@ -411,8 +411,8 @@ const HealthVaccinesScreen = lazy(() =>
     default: m.HealthVaccinesScreen,
   })),
 );
-// The education-and-science sector hub and its three sub-pages
-// (docs/plans/edu-hub-v1.md T3) — literal routes ahead of sector/:id.
+// The education-and-science sector hub and its three sub-pages — literal
+// routes ahead of sector/:id.
 const EduHubScreen = lazy(() =>
   import("./screens/edu/EduHubScreen").then((m) => ({
     default: m.EduHubScreen,
@@ -2350,8 +2350,8 @@ export const AuthRoutes = () => {
             }
           />
           {/* The transport sector hub and its four sub-pages — static literals,
-              so the registry gate and the router census can read them
-              (docs/plans/transport-hub-v1.md T3). They win over sector/:id, whose
+              so the registry gate and the router census can read them.
+              They win over sector/:id, whose
               SECTOR_DASHBOARDS.transport entry is now INERT. */}
           <Route
             path="sector/transport"
@@ -2393,8 +2393,8 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {/* The healthcare hub and its four sub-pages
-              (docs/plans/health-hub-v1.md T3). They win over sector/:id, whose
+          {/* The healthcare hub and its four sub-pages. They win over
+              sector/:id, whose
               SECTOR_DASHBOARDS.health entry is now INERT. */}
           <Route
             path="sector/health"
@@ -2444,8 +2444,8 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {/* The education-and-science hub and its three sub-pages
-              (docs/plans/edu-hub-v1.md T3). They win over sector/:id, whose
+          {/* The education-and-science hub and its three sub-pages. They win
+              over sector/:id, whose
               SECTOR_DASHBOARDS.edu entry is now INERT. */}
           <Route
             path="sector/edu"

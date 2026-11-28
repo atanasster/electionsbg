@@ -43,7 +43,7 @@ export type TransportModel = AwarderModel<TransportCategory>;
  *  mirror `categoryCpvDivs` read, so the tile's split and the browse it links to
  *  cannot disagree. Longest prefix wins.
  *
- *  Division 34 is NOT all vehicles (transport-hub-v1 A3): 3494 is rail track
+ *  Division 34 is NOT all vehicles: 3494 is rail track
  *  material (sleepers, switch parts, fastenings — €156.7M all-time) and 3496 is
  *  airport / air-traffic-control equipment (the Saab digital tower — €31.6M). Both
  *  sat in „Подвижен състав" and made it 45% not vehicles at the default scope.
@@ -175,7 +175,7 @@ export const buildTransportModelFromAggregates = (
   p: GroupModelPayload,
 ): TransportModel => buildAwarderModelFromAggregates(p, transportClassifier);
 
-// ── Sector-specific readings of the same rows (transport-hub-v1) ──────────────
+// ── Sector-specific readings of the same rows ──────────────
 
 /** A ministry contract that IS rail spending: the rail public-service obligation
  *  (CPV 6021*) and rolling stock (346*). МТС awards both centrally, so a split by
@@ -188,8 +188,8 @@ export const isMinistryRailCpv = (
   isPsoAward(awarderEik, cpv) ||
   (awarderEik === TRANSPORT_EIK && normCpv(cpv).startsWith("346"));
 
-/** A ministry contract that IS maritime / Danube spending (transport-hub-v1
- *  audit 2026-10-17, T9): river dredging works (CPV 45247*) and the marker and
+/** A ministry contract that IS maritime / Danube spending (audit 2026-10-17):
+ *  river dredging works (CPV 45247*) and the marker and
  *  survey boats (3451*). Only these two: the rest of the ministry's residue
  *  (~€80M — ICT, the e-government portal, the digital-TV campaign, HQ upkeep) has
  *  no clean CPV rule and stays on the ministry row, captioned on #modes. */
@@ -249,7 +249,7 @@ export function isPsoAward(
   return awarderEik === TRANSPORT_EIK && normCpv(cpv).startsWith("6021");
 }
 
-// ── Pass-through vs operating inputs (transport-hub-v1 audit 2026-10-17, T6) ──
+// ── Pass-through vs operating inputs ──
 //
 // Only STAFF BENEFITS pass through the buyer to someone else: food vouchers, food
 // in kind („безплатна храна", CPV 15*) and the voluntary pension top-up. Fuel,

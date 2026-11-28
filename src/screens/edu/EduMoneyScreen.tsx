@@ -1,7 +1,6 @@
 // /sector/edu/money — the money OUTSIDE public procurement: МОН's budget, the EU
 // funds of the sector's institutions on the grant basis (by programme and by
 // institution), and the research arm on three corpora.
-// Plan: docs/plans/edu-hub-v1.md §3 (T5 deepens each section).
 //
 // „БЕЗ ПЕРИОД" — no ScopeControl: the budget law and ИСУН lifetime figures carry
 // their own years and are not filtered by parliament.

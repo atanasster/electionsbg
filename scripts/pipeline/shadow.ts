@@ -1,5 +1,5 @@
 // Shadow comparison: would the planner have queued what the LLM orchestrator
-// actually ran? Plan: docs/plans/watch-pipeline-scripts-v1.md §5 Tier 0.
+// actually ran?
 //
 // For a past `process-watch-report` session we rebuild the state it decided
 // from — state/watch and state/ingest as committed just before the session

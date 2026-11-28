@@ -128,7 +128,7 @@ still governs the curated file.
 
 The `ds` facet is no longer hand-curated. It comes from `ds_announcement` (migration 203),
 the Commission's own decision documents crawled and parsed into the committed
-`data/comdos/` corpus (docs/plans/comdos-ds-ingest-v1.md). Each row is an OFFICIAL state
+`data/comdos/` corpus. Each row is an OFFICIAL state
 finding of established affiliation (a публичен акт, not our claim). When the watcher flags
 `comdos_ds`, the `update-persons` pipeline handler does all of this unattended (since
 2026-11-22) — the commands below are the manual equivalent, in the order it runs them:

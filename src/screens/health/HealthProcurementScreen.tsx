@@ -1,5 +1,5 @@
 // /sector/health/procurement — what the health fund, the ministry and its bodies
-// buy, how it is awarded and who wins it. Plan: docs/plans/health-hub-v1.md §3.
+// buy, how it is awarded and who wins it.
 //
 // SCOPED (ScopeControl) and universe-filterable (?universe=, validated on read
 // against HEALTH_UNIVERSE_PARAMS — an unknown value is the whole sector, never an

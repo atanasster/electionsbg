@@ -1,6 +1,5 @@
 // /sector/transport/network — the project map: the railway sections, stations,
-// ports and airports the contract TITLES name (migration 076). Plan:
-// docs/plans/transport-hub-v1.md §3 (#map).
+// ports and airports the contract TITLES name (migration 076).
 //
 // ?mode=<universe> filters the bodies the map draws — the hub's rail / ports /
 // aviation tiles link here with it. Validated on read: an unknown value is

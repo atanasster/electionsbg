@@ -1,6 +1,6 @@
 // Parse one Комисия по досиетата decision (its full text, D3) into the decision
 // header and the persons it announces. Pure — no I/O — so every rule below is
-// unit-tested. See docs/plans/comdos-ds-ingest-v1.md §3–§4.
+// unit-tested.
 //
 // The document layout has not changed since 2007: each announced person is a
 // block opening with „Три имена", followed by labelled fields, and the decision

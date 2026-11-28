@@ -243,19 +243,19 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
   "db:gen-transport-hub-stats": {
     artifact: "data/transport/derived/hub_stats.json",
     reason:
-      "the /sector/transport hub's KPI band, body rail, finder index and band figures (transport-hub-v1 T2). It reads contracts, procurement_annexes, fund_projects and the project map's coverage through transport_project_map(), so its slot is immediately AFTER db:load:transport-facility-map:pg (which follows db:load:transport-project-map:pg) — placed beside db:gen-sector-stats, where the other sector hubs sit, it would publish the PREVIOUS vintage of the map coverage. Its KPI 1 must equal sector_stats.json all.transport, which runs earlier in the chain",
+      "the /sector/transport hub's KPI band, body rail, finder index and band figures. It reads contracts, procurement_annexes, fund_projects and the project map's coverage through transport_project_map(), so its slot is immediately AFTER db:load:transport-facility-map:pg (which follows db:load:transport-project-map:pg) — placed beside db:gen-sector-stats, where the other sector hubs sit, it would publish the PREVIOUS vintage of the map coverage. Its KPI 1 must equal sector_stats.json all.transport, which runs earlier in the chain",
     bucketPath: "transport/derived/hub_stats.json",
   },
   "db:gen-edu-hub-stats": {
     artifact: "data/education/derived/hub_stats.json",
     reason:
-      "the /sector/edu hub's KPI band, body rail, finder index and band figures (edu-hub-v1 T2). It reads contracts, fund_projects and national_competition() — so it must follow db:load:pg and db:load:funds:pg — and sits right after db:gen-transport-hub-stats, beside the other sector hubs. Its KPI 1 is the roster's awarder-side Σ, which awarder_group_model() over EDU_SECTOR_EIKS must reproduce",
+      "the /sector/edu hub's KPI band, body rail, finder index and band figures. It reads contracts, fund_projects and national_competition() — so it must follow db:load:pg and db:load:funds:pg — and sits right after db:gen-transport-hub-stats, beside the other sector hubs. Its KPI 1 is the roster's awarder-side Σ, which awarder_group_model() over EDU_SECTOR_EIKS must reproduce",
     bucketPath: "education/derived/hub_stats.json",
   },
   "db:gen-health-hub-stats": {
     artifact: "data/health/derived/hub_stats.json",
     reason:
-      "the /sector/health hub's KPI band, hospital rail, finder index and band figures (health-hub-v1 T2). It reads contracts, fund_projects, national_competition(), nzok_hospital_payments and nzok_drug_quarterly plus the committed B1 history — so it sits right after db:load:nzok-drug-quarterly:pg, the last of those loaders; placed beside the other sector hubs it would state KPIs 2 and 3 from the PREVIOUS payments/pharmacy vintage against a current KPI 1",
+      "the /sector/health hub's KPI band, hospital rail, finder index and band figures. It reads contracts, fund_projects, national_competition(), nzok_hospital_payments and nzok_drug_quarterly plus the committed B1 history — so it sits right after db:load:nzok-drug-quarterly:pg, the last of those loaders; placed beside the other sector hubs it would state KPIs 2 and 3 from the PREVIOUS payments/pharmacy vintage against a current KPI 1",
     bucketPath: "health/derived/hub_stats.json",
   },
   "db:gen-governance-hub-stats": {

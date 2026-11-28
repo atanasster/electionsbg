@@ -1,4 +1,4 @@
-// The per-unit competition colour band (transport-hub-v1 A10): relative to the
+// The per-unit competition colour band: relative to the
 // same-window national rate, never a fixed threshold.
 
 /** Points above the national rate at which a bar turns red. */

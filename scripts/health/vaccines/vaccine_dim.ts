@@ -1,4 +1,4 @@
-// The 31 НЗИС vaccine labels, each classified once (vaccines-flow-v1 §4).
+// The 31 НЗИС vaccine labels, each classified once.
 //
 // `labelEn` is НЗИС's English label VERBATIM — it is the join key for both the
 // info-app cells and the report page's counters, which carry the same 31

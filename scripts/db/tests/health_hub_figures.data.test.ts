@@ -2,13 +2,13 @@
 // data/health/derived/hub_stats.json, written by
 // `pnpm run db:gen-health-hub-stats` — so they fail the way every
 // committed-derived artifact fails: the corpus reloads underneath the file and
-// the hub keeps stating the old number at a 200 (health-hub-v1 T2, T9).
+// the hub keeps stating the old number at a 200.
 //
 // Each figure is RE-DERIVED here from contracts / nzok_hospital_payments /
 // national_competition() — never read back from the blob — and compared within
 // a band. When one trips after an ordinary ingest, re-run the generator; do not
 // widen the band. Each gate below was broken once by hand to watch it fail
-// (health-hub-v1 T9); the mutation arms keep that true.
+//; the mutation arms keep that true.
 //
 // The ?universe / #fragment half of T9 is src/screens/health/healthRegistry.test.ts.
 //

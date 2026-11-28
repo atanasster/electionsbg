@@ -1,6 +1,6 @@
 // "Документация" — the ЦАИС ЕОП dossier on the tender (procedure) detail page.
 // The long description the notice header truncates, the published files, and the
-// award-stage trail. See docs/plans/tender-dossier-ingest-v1.md §5 (A7).
+// award-stage trail.
 //
 // ⚠️ RENDERS NOTHING when there is no dossier. The capture is built up over a long
 // crawl, so "not crawled yet" and "migration not applied" both arrive as null — and

@@ -1,5 +1,5 @@
 // The МЗ second-level roster's PG-FREE invariants — structure, its membership
-// in all three copies of the health sector's EIK-set (health-hub-v1 D1), its
+// in all three copies of the health sector's EIK-set, its
 // separation from the excluded classes, and the search-key coverage.
 //
 // Split from scripts/db/tests/mz_second_level_bodies.data.test.ts on the
@@ -214,7 +214,7 @@ describe("MZ_SECOND_LEVEL_BODIES — retired EIKs and the institution count", ()
   });
 });
 
-describe("MZ_SECOND_LEVEL_BODIES — sector members (health-hub-v1 D1)", () => {
+describe("MZ_SECOND_LEVEL_BODIES — sector members", () => {
   // Since 2026-11-20 every row is a member of the health sector's roll-up.
   // Three copies of the sector's EIK-set exist, so all three are asserted —
   // a body missing from one is counted by one surface and not another.

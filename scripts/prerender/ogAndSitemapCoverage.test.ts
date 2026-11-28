@@ -1765,7 +1765,7 @@ describe("a hub's og capture anchors on its head", () => {
       // ⚠️ RE-SHOT AGAIN 2026-10-12 (UTC) — roads-hub-v1 T2 put НКСИП in the roads roll-up
       // (D5). LOOKED AT: roads €8,9 → €9,1 млрд. and the procurement total €29,8 → €30
       // млрд.; the other six values are unchanged.
-      // ⚠️ RE-SHOT 2026-10-16 (UTC) — transport-hub-v1 D2 put Летище Пловдив in the
+      // ⚠️ RE-SHOT 2026-10-16 (UTC) — the transport hub work put Летище Пловдив in the
       // transport roll-up (+€1.06M), which tipped the procurement total over the rounding
       // boundary: €30,049,039,752 → €30,050,100,018. LOOKED AT: €30 → €30,1 млрд.; the
       // other seven values are unchanged.

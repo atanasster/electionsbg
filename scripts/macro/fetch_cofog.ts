@@ -138,8 +138,8 @@ const fetchCofog = async (): Promise<EurostatResponse> => {
 const fetchCofogPeers = async (): Promise<EurostatResponse> => {
   const params = new URLSearchParams({ format: "JSON", lang: "EN" });
   // Eurostat codes Greece as EL, not GR: asking for GR returned nothing, so every
-  // peer band was „of 26" with Greece silently missing (transport-hub-v1 audit
-  // 2026-10-17, G13; memory feedback_eu_peers_flags). Ask for EL, decode back to GR.
+  // peer band was „of 26" with Greece silently missing (audit
+  // 2026-10-17; memory feedback_eu_peers_flags). Ask for EL, decode back to GR.
   for (const g of EU27_GEOS) params.append("geo", toEurostatGeo(g));
   params.append("geo", EU_AGGREGATE_GEO);
   params.append("sector", "S13");

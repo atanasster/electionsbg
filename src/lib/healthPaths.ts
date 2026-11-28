@@ -5,8 +5,7 @@
 // sector-pack cluster into the entry chunk every page downloads.
 // src/entryGraph.test.ts gates it.
 
-/** The hub and its sub-pages (docs/plans/health-hub-v1.md §3; vaccines:
- *  docs/plans/vaccines-flow-v1.md). */
+/** The hub and its sub-pages, vaccines included. */
 export const HEALTH_PATHS = {
   hub: "/sector/health",
   hospitals: "/sector/health/hospitals",

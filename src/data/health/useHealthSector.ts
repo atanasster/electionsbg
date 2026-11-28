@@ -1,4 +1,4 @@
-// Data hooks for /sector/health/procurement (docs/plans/health-hub-v1.md T3).
+// Data hooks for /sector/health/procurement.
 // The edu shape (src/data/edu/useEduSector.ts) with ONE difference that is the
 // point of the page: every request carries exFramework=1 (D3).
 //

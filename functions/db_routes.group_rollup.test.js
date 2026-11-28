@@ -47,7 +47,7 @@ test("any other exMembers value keeps the default", async () => {
   assert.ok(!db.calls[0].sql.includes(MEMBER_CLAUSE));
 });
 
-// ── exFramework (docs/plans/health-hub-v1.md D3) ─────────────────────────────
+// ── exFramework ──────────────────────────────────────────────────────────────
 // A joint_kind='framework' row (087) is ceiling/N — a share of a framework
 // CEILING, not money spent — and on МЗ they nearly double the ministry. The
 // switch must reach all three group routes, stay opt-in, and interpolate only a

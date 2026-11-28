@@ -4,7 +4,7 @@
 // education register from routes.tsx would drag the sector-pack cluster into the
 // entry chunk every page downloads. src/entryGraph.test.ts gates it.
 
-/** The hub and its three sub-pages (docs/plans/edu-hub-v1.md §3). */
+/** The hub and its three sub-pages. */
 export const EDU_PATHS = {
   hub: "/sector/edu",
   procurement: "/sector/edu/procurement",

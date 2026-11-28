@@ -153,7 +153,7 @@ describe("education sector — the hub headline is a BUDGET", () => {
     // figure, so the invariant is: a `y:<Y>` scope shows Y or is marked
     // `unavailable` (the tile's dash), and a parliament window — which a budget
     // cannot be windowed to — shows the same latest year as `all`, never the
-    // window's own year. edu-hub-v1 A15.
+    // window's own year.
     const stats = readJson<SectorStats>(STATS);
     const latest = stats[ALL]?.edu?.year;
     assert.ok(latest, "no year on the all-scope edu cell");

@@ -83,7 +83,7 @@ pnpm run bucket:sync:paths health/derived/hub_stats.json # upload it; commit the
 
 It is a committed bucket blob — no `:cloud` loader carries it, so skipping the sync
 leaves the hub on the previous month at a 200 (`pnpm run db:check-generated` reports it).
-It refuses to write when KPI 2 + KPI 3 ≥ KPI 1 (health-hub-v1 A2/A3).
+It refuses to write when KPI 2 + KPI 3 ≥ KPI 1.
 
    Then rebuild the **hospital map geo crosswalk** (`nzok_hospital_geo`, migration 075) that the health-pack marker map at the top of `/awarder/121858220` is drawn from. It re-resolves one HQ point per hospital EIK from `awarder_seats` + `data/settlements.json`, so a new monthly БМП file (new/renamed facilities) means new points:
    ```bash

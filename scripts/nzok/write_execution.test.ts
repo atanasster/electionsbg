@@ -1,4 +1,4 @@
-// The B1 section anchors (health-hub-v1 A3). Section А is OWN revenue only;
+// The B1 section anchors. Section А is OWN revenue only;
 // the state transfer that funds most of НЗОК is section В, and the form's own
 // balance is section Г. Reading А − Б as a balance invented a ~€1.8bn deficit
 // for 2025 against a real −€26.7M, so all four lines are parsed and pinned.

@@ -6,8 +6,8 @@
 // companies, the state higher-education institutions whose ПРБ is МОН, and the two
 // research academies — БАН and Селскостопанската академия. 128 EIKs for 127
 // institutions (Свищов changed EIK — see `retiredEikOf`), €2.15bn cumulative
-// (2011-2026, measured 2026-11-20; 126 EIKs / €2.137bn before edu-hub-v1 D2 added
-// ЦРЧР and НДД). Counts here are dated; the code derives every reader-facing one.
+// (2011-2026, measured 2026-11-20; 126 EIKs / €2.137bn before ЦРЧР and НДД were
+// added). Counts here are dated; the code derives every reader-facing one.
 //
 // ⚠ WHY IT EXISTS AT ALL. Until the 2026-08-18 audit the sector rolled up ONE EIK —
 // МОН's — so `/sector/edu` showed €506M against a real €2.11bn, and on its DEFAULT
@@ -134,7 +134,7 @@ export const EDU_ENTITIES: EducationEntity[] = [
   { eik: "175110821", name: "Център за образователна интеграция на децата и учениците от етническите малцинства (ЦОИДУЕМ)", universe: "agency" }, // prettier-ignore
   { eik: "175467353", name: "Фонд „Научни изследвания“", universe: "agency" }, // prettier-ignore
   { eik: "177480148", name: "Държавна агенция за научни изследвания и иновации (ДАНИИ)", universe: "agency" }, // prettier-ignore
-  // edu-hub-v1 D2 (2026-11-20): two МОН bodies the corpus sweep found in NO sector.
+  // Added 2026-11-20: two МОН bodies the corpus sweep found in NO sector.
   // ЦРЧР is the national Erasmus+ agency under the minister (€9.58M / 221 contracts);
   // НДД is the ministry's national children's palace (€2.58M / 21). Together +€12.16M.
   { eik: "130047747", name: "Център за развитие на човешките ресурси (ЦРЧР)", universe: "agency" }, // prettier-ignore
@@ -316,12 +316,12 @@ export const EDUCATION_EXTERNAL_HIGHER_SCHOOLS: ReadonlyArray<{
   { eik: "129004492", name: "Висше военноморско училище „Н. Й. Вапцаров“", sector: "defense" }, // prettier-ignore
   { eik: "129003305", name: "Военна академия „Г. С. Раковски“", sector: "defense" }, // prettier-ignore
   { eik: "129001232", name: "Академия на МВР", sector: "security" }, // prettier-ignore
-  // edu-hub-v1 A2 (2026-11-20): in the defense pack all along, missing here, so the
+  // Added 2026-11-20: in the defense pack all along, missing here, so the
   // footnote and the prerender intro said FOUR external higher schools for five.
   { eik: "129011005", name: "Висше военновъздушно училище „Георги Бенковски“", sector: "defense" }, // prettier-ignore
 ];
 
-// ── The other three lists (edu-hub-v1 §0, accepted 2026-11-20) ─────────────────
+// ── The other three lists ─────────────────
 // sector-dashboard §1: roll-up (EDU_ENTITIES above) / VERIFY / ADJACENT / EXCLUDED.
 // None of the three below is ever in EDU_SECTOR_EIKS. VERIFY and ADJACENT are SHOWN
 // on /sector/edu/bodies; EXCLUDED exists so a name match cannot re-admit a body.
@@ -395,7 +395,7 @@ export const EDU_VERIFY: ReadonlyArray<{
 ];
 
 /** State bodies a roster member pays under a FINANCING AGREEMENT that the register
- *  books as a contract (edu-hub-v1 A10): ИА „Програма за образование" → ФМФИ,
+ *  books as a contract: ИА „Програма за образование" → ФМФИ,
  *  €13.91M, 0 tenderers, 2024-09-23 — a transfer between state bodies, not a market
  *  purchase. Disclosed beside the headline, never netted out of it (the transport
  *  D5 rule: the register says it is a contract, and the € did leave the body). */

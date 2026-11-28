@@ -12,9 +12,8 @@
 //   - `score` (0..100): the legacy additive-weight severity score. It is NOT
 //     rendered anywhere (the UI shows the flags-fired ratio) — it survives only
 //     as a stable internal ordering key and is asserted on by
-//     risk_scorer.harness.ts. Do not surface it without renaming (see
-//     docs/plans/procurement-risk-v2.md §1c C2 — a bare 0..100 severity number
-//     collides with the awarder exposure grade's 0..100).
+//     risk_scorer.harness.ts. Do not surface it without renaming — a bare
+//     0..100 severity number collides with the awarder exposure grade's 0..100).
 
 import type {
   AwarderConcentrationEntry,
@@ -240,7 +239,7 @@ const scoreFromFlags = (
  *  whose signed→current growth reaches this is at/over the statutory ceiling for
  *  the ал.1 т.2/т.3 grounds. ⚠️ A permitted inflation indexation (ал.3 / чл.117а)
  *  carries its OWN separate 50% ceiling, so ≥50% is a signal for review, not a
- *  proven breach. See docs/plans/procurement-risk-v2.md §0b. */
+ *  proven breach. */
 const ANNEX_GROWTH_CAP = contractThreshold("annexGrowth");
 
 /** EU Directive 2014/24/EU Art. 27 reference open-procedure minimum. A tender

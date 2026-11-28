@@ -35,7 +35,7 @@ import {
 // adding narrowing cannot quietly change the prompt every published eval baseline
 // was measured against. A DELIBERATE registry or prompt change re-pins these two
 // values; anything else failing here means the no-candidate path was altered.
-// Re-pinned 2026-10-17: transport-hub-v1 moved the transportEuFunds description to the grant (БФП) basis.
+// Re-pinned 2026-10-17: the transport hub moved the transportEuFunds description to the grant (БФП) basis.
 const FULL_CATALOGUE = {
   bg: {
     bytes: 86_213,

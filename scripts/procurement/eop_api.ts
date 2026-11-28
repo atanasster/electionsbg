@@ -2,8 +2,7 @@
 //
 // The service is `https://service.eop.bg/NX1Service.svc/<Method>` — POST, JSON body
 // with NAMED parameters (the signatures are self-describing at /NX1Service.svc/js).
-// Everything here was verified to answer with no session, cookie or token; see
-// docs/plans/tender-dossier-ingest-v1.md §1.
+// Everything here was verified to answer with no session, cookie or token.
 //
 // ⚠️ THE ANONYMOUS SURFACE IS EXACTLY THE `GetPublic*` / `GetPublished*` PREFIX,
 // plus RetrieveTenderAnnouncementDocuments. 16 other per-tender methods were probed

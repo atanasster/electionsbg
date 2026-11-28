@@ -31,7 +31,7 @@ GRANT USAGE ON SCHEMA public TO app_readonly;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO app_readonly;
 GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO app_readonly;
 
--- …except the two ДС tables (203, docs/plans/comdos-ds-ingest-v1.md §4): both carry
+-- …except the two ДС tables (203): both carry
 -- names, and the serving role reads them only through 204's aggregate functions. The blanket GRANT
 -- above would otherwise hand them back on every run of this file — locally at the
 -- start of every db:refresh, on Cloud SQL whenever it is run by hand.

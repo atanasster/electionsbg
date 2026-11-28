@@ -524,7 +524,7 @@ const eduFacts = (() => {
 // The /sector/health/vaccines body quotes the CURATED season plan
 // (data/health/vaccines/season_plan.json, committed, source-cited) and nothing
 // live: the НЗИС counters move daily and a prerendered count would be stale by
-// the next morning (docs/plans/vaccines-flow-v1.md T6).
+// the next morning.
 const vaccinePlanFacts = (() => {
   const plan = JSON.parse(
     fs.readFileSync(
@@ -1247,7 +1247,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "The Ministry of Tourism is mostly an advertiser: about half of its ~€28.8M in public procurement is advertising and media by CPV — media buying, TV air-time and PR. This page summarises its tenders for the selected parliament or the full history.",
     },
   },
-  // `health` is a BESPOKE hub since health-hub-v1 T3 — its five pages are
+  // `health` is a BESPOKE hub — its five pages are
   // healthStaticPages() below, not a SECTOR_PAGES entry.
   {
     id: "energy",
@@ -1405,7 +1405,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "The Ministry of e-Government builds the state's information systems. This page summarises its public procurement.",
     },
   },
-  // `edu` is a BESPOKE hub since edu-hub-v1 T3 — its four pages are
+  // `edu` is a BESPOKE hub — its four pages are
   // eduStaticPages() below, not a SECTOR_PAGES entry.
   {
     id: "agri",
@@ -1808,7 +1808,7 @@ ${links(true)}
 };
 
 /** /sector/transport and its four sub-pages — hand-authored
- *  (BESPOKE_SECTOR_PAGE_IDS). Plan: docs/plans/transport-hub-v1.md T3 (C7). Every
+ *  (BESPOKE_SECTOR_PAGE_IDS). Every
  *  figure comes from transportFacts (the committed hub blob). Each <h1> equals the
  *  screen's own heading (TransportHubScreen / TransportPageFrame titles). */
 const transportStaticPages = (): PrerenderRoute[] => {
@@ -2009,7 +2009,7 @@ ${up(true)}`.trim(),
 };
 
 /** /sector/health and its five sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
- *  Plan: docs/plans/health-hub-v1.md T3. Every figure comes from healthFacts (the
+ *  Every figure comes from healthFacts (the
  *  committed hub blob). Each <h1> equals the screen's own heading (HealthHubScreen
  *  / HealthPageFrame titles). English heads name the bodies in English — no
  *  Cyrillic acronyms in an /en <title> (the edu lesson). */
@@ -2215,7 +2215,7 @@ ${links(true)}
 };
 
 /** /sector/edu and its three sub-pages — hand-authored (BESPOKE_SECTOR_PAGE_IDS).
- *  Plan: docs/plans/edu-hub-v1.md T3. Every figure comes from eduFacts (the
+ *  Every figure comes from eduFacts (the
  *  committed hub blob) or the roster in educationReferenceData. Each <h1> equals
  *  the screen's own heading (EduHubScreen / EduPageFrame titles). */
 const eduStaticPages = (): PrerenderRoute[] => {

@@ -1,6 +1,6 @@
 // Day-coverage audit for the day-bucket ingest caches.
 //
-// WHY THIS EXISTS (docs/plans/tender-dossier-ingest-v1.md §11). ingest_tenders
+// WHY THIS EXISTS. ingest_tenders
 // rebuilds the whole corpus from "every day-bucket present in the cache", so a day
 // that was never fetched is indistinguishable from a day the source published
 // nothing on: the corpus just comes out smaller and every count still reconciles.

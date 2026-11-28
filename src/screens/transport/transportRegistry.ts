@@ -1,7 +1,6 @@
 // The /sector/transport hub registry — the tiles the sector fronts. Pure data;
 // the scene is referenced by `id` (TRANSPORT_SCENES[id]), so this module carries
-// no JSX. Mirrors roadsRegistry.ts / waterRegistry.ts. Plan:
-// docs/plans/transport-hub-v1.md §3.
+// no JSX. Mirrors roadsRegistry.ts / waterRegistry.ts.
 //
 // EVERY `to` IS A LIVE, STATIC DESTINATION — asserted against the routed list by
 // `transportRegistry.test.ts`. No seeded `:param` paths.

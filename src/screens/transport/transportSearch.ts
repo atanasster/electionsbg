@@ -1,5 +1,4 @@
-// The /sector/transport finder's sources — pure data, no JSX. Plan:
-// docs/plans/transport-hub-v1.md T6.
+// The /sector/transport finder's sources — pure data, no JSX.
 //
 // Four groups:
 //

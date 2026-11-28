@@ -9,8 +9,7 @@
 // "firedCount of availableCount" ratio, never a bare 0..100 number.
 //
 // Thresholds are calibrated on the Bulgarian corpus, NOT imported — see
-// scripts/procurement/tender_base_rates.sql and docs/plans/procurement-risk-v2.md
-// §6b-results (126,413 tenders, 2020–2026). The three ex-ante procedure-grain
+// scripts/procurement/tender_base_rates.sql (126,413 tenders, 2020–2026). The three ex-ante procedure-grain
 // signals our data actually supports:
 //   - nonOpenProcedure   — the hero flag; 14.3% base rate, stable by year. This
 //                          IS the EC-Scoreboard "no calls for bids" story where

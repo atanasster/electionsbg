@@ -87,7 +87,7 @@ describe("the person-layer marker", () => {
   // The map is what turns "a people source changed" into "run update-persons".
   // If it stopped naming the skill, the marker would go unread again.
   it("is the skill the watcher→skill map queues for the person layer", () => {
-    // The map is the pipeline registry since Tier 6 (watch-pipeline-scripts-v1).
+    // The map is the pipeline registry since Tier 6.
     const h = handlerById(SKILL);
     expect(
       h,
@@ -204,8 +204,7 @@ describe("the presidential marker", () => {
   });
 
   it("is the marker the pipeline registry reads for the presidential sources", () => {
-    // Since Tier 6 of docs/plans/watch-pipeline-scripts-v1.md the watcher→skill
-    // map is the registry, not process-watch-report's prose.
+    // The watcher→skill map is the registry, not process-watch-report's prose.
     const h = handlerById(SKILL);
     expect(
       h,

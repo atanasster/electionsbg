@@ -3,7 +3,7 @@
 // & IT, maintenance, design, fuel, supplies, other). Each row carries its € share and
 // dominant supplier. Pure from TransportCategoryAgg.
 //
-// ⚠️ € ONLY — NO COUNTS (transport-hub-v1 T9 F1, the water `functions` precedent).
+// ⚠️ € ONLY — NO COUNTS.
 // awarder_group_model's byCpv / byCpvContractor COUNT the €0 consortium-member rows
 // (CPV 45: 826 contracts against 699 ex-member; single-bid 19% against 21.6%), while
 // each row links to the ex-member browse. A count here would disagree with the page it

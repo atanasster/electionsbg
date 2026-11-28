@@ -2,7 +2,7 @@
 // Out of the component so hubHead.gates.test.ts can reach them (the roads /
 // water / transport hubs' convention). Copy lives here, not in the i18n corpus.
 //
-// Plan: docs/plans/edu-hub-v1.md §3 (Head). Rules the code below follows:
+// Rules the code below follows:
 //
 // · Every figure is whole-corpus (the hub is unscoped) and every link to a
 //   scoped page carries `?pscope=all`.

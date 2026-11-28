@@ -1,5 +1,5 @@
-// The /sector/health finder's sources — pure data, no JSX. Plan:
-// docs/plans/health-hub-v1.md T6 (the edu T6 shape).
+// The /sector/health finder's sources — pure data, no JSX (the edu finder's
+// shape).
 //
 // Four groups:
 //

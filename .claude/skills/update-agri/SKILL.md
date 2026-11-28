@@ -59,7 +59,7 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
    ```
 
    **One committed blob does read this corpus**: the /sector/edu hub's research
-   arm (edu-hub-v1 T5) sums ССА/БАН payouts from `agri_subsidies`. After a local
+   arm sums ССА/БАН payouts from `agri_subsidies`. After a local
    reload run `pnpm run db:gen-edu-hub-stats`, commit
    `data/education/derived/hub_stats.json` and
    `pnpm run bucket:sync:paths education/derived/hub_stats.json`.

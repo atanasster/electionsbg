@@ -1,6 +1,6 @@
 // The OBLAST a person mention sits in, at the one grain where a national mention (a МИР
 // candidacy or seat) and a local one (a council or mayoral term in an община) can be
-// compared. Read by `sameNationalLocal` in cluster.ts. docs/plans/person-national-local-merge-v1.md §4.2.
+// compared. Read by `sameNationalLocal` in cluster.ts.
 //
 // It exists because the two sides record place at DIFFERENT grains — a candidacy carries
 // the МИР, a local term the община — so `weakBoth`'s string comparison can never bridge

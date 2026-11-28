@@ -7,7 +7,7 @@
 //   • load_annexes_pg.ts (114) — stores the per-annex modification rows, keyed to
 //     the contract, so we can say "one annex at the cap, or several summing to it".
 // A second, divergent notion of "this contract's annexes" would be worse than
-// none (docs/plans/procurement-risk-v2.md §0b) — hence one module, two callers.
+// none — hence one module, two callers.
 //
 // ⚠️ TWO CONTRACT BASES, AND THE BASIS IS A PROPERTY OF THE **ROW**. The annex feed
 // publishes a joint award's value in FULL (all members). The SHARD rows the fold
@@ -94,7 +94,7 @@ export const UNP_RE = /^\d{5}-\d{4}-\d{4}$/;
 // ⚠️ THE DOUBLING ALONE IS NOT EVIDENCE, and that is why the text is required.
 // The other 160 are mostly options and т.3 changes, and a +100% under чл. 116
 // ал. 1 т. 3 is exactly the over-cap modification the risk index exists to
-// surface (procurement-risk-v2). Dropping every exact doubling would hide real
+// surface. Dropping every exact doubling would hide real
 // findings to remove five clerical ones. The test is narrow on purpose: an
 // exact 2× AND the CONTRACT's own value or price named as unchanged.
 //

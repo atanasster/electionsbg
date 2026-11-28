@@ -7,7 +7,7 @@
 -- scripts/judiciary/moneyTables.ts.
 --
 -- ⚠️⚠️ STORAGE ONLY — THERE IS DELIBERATELY NO GRANT TO app_readonly. Owner decision
--- 2026-10-21 (deferred-followups-verification-fixes-v1 T4.8, „precondition only"): these rows
+-- 2026-10-21: these rows
 -- may not reach `person_wealth_year`, a page, a route or the AI chat until a rule exists for
 -- which register wins when one person has BOTH an ИВСС filing and a КПКОНПИ / Сметна палата
 -- one for the same year. 090 keeps ONE declaration per (person, period_year), so wiring this

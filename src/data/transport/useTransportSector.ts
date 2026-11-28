@@ -1,5 +1,4 @@
-// Data hooks for the /sector/transport sub-pages (docs/plans/transport-hub-v1.md
-// T3). They replace useTransport.tsx, which served the deleted TransportPack.
+// Data hooks for the /sector/transport sub-pages. They replace useTransport.tsx, which served the deleted TransportPack.
 //
 // Four requests, each answering a different question and each on its stated
 // basis — never mixed:
@@ -172,7 +171,7 @@ export const useTransportRollup = (
 
 /** One ИСУН beneficiary on the grant basis (D6). No total project value: a
  *  phased project carries its total once per phase, so summing it double-counts
- *  (transport-hub-v1 audit 2026-10-17, T3). */
+ * . */
 export interface TransportFundOp {
   eik: string;
   name: string;

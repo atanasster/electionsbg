@@ -462,7 +462,7 @@ const ROUTES: RouteCheck[] = [
     hasEnglishMirror: true,
   })),
 
-  // The transport sector hub and its four sub-pages (docs/plans/transport-hub-v1.md T3) —
+  // The transport sector hub and its four sub-pages —
   // hand-authored, not the generic SECTOR_PAGES template, so each needs its own check that
   // it is not serving the homepage's head.
   ...(

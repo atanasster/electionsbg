@@ -61,8 +61,7 @@ export interface Programme {
  * `ipa-bgrs.mrrb.bg`, `ipa-bgmk.mrrb.bg` and `ipa-bgtr.mrrb.bg` (one shared МРРБ Drupal
  * layout, hence one `mrrb` kind), and Romania–Bulgaria at `interregviarobg.eu`, which DOES
  * publish a calls index (`interregrobg.eu` is the 2014–2020 site). Found by the
- * 2026-10-21 deferred-followups audit, row 12 of
- * docs/audits/deferred-followups-verification-2026-10.md.
+ * 2026-10-21 deferred-followups audit.
  *
  * Those four sites send an incomplete TLS chain, which is what a Node client sees as
  * „unreachable"; `interreg_tls.ts` supplies the missing intermediates with verification on.

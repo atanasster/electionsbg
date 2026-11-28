@@ -1,4 +1,4 @@
-// Unit test for the MP name-match rule (docs/plans/local-mp-photo-links-v1.md):
+// Unit test for the MP name-match rule:
 // exact normalised full name, unique in the index, at least two tokens. No fs.
 
 import { describe, it, expect } from "vitest";

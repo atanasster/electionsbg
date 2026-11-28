@@ -1,5 +1,4 @@
-// A9 + B4 — risk signals derivable from the ЦАИС ЕОП dossier.
-// docs/plans/tender-dossier-ingest-v1.md §5 (A9, B4).
+// Risk signals derivable from the ЦАИС ЕОП dossier.
 //
 // These are the signals the DOSSIER makes possible and the notice header alone did
 // not: what the buyer published, when they published it, and what the specification

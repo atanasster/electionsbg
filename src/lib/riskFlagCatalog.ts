@@ -13,8 +13,7 @@
 // copies), and the residue was visible in the prose too: contractRiskMask.ts and
 // risk_parity.harness.ts both still described "twelve" checks against thirteen.
 //
-// It also exists because the flags are becoming a PUBLISHED artifact
-// (docs/plans/procurement-risk-open-source-v1.md). A flag that fires on a named
+// It also exists because the flags are becoming a PUBLISHED artifact. A flag that fires on a named
 // company is a public claim; the spec will be generated from this file, so it
 // cannot say one thing while the code computes another.
 //

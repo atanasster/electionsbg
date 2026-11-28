@@ -10,8 +10,7 @@
 // The two rules needing no address are Stolipinovo (prefix) and Filipovci (suffix), so it was
 // almost certainly a shard tree with no addresses yet — a re-parse rewrote
 // `data/<cycle>/sections/*.json` and `--local-problem-sections` ran before `--local-coords`
-// stamped the addresses back on. `docs/plans/local-neighbourhoods-coverage-v1.md` has the
-// measurement. The generator now refuses to write below an address-coverage floor, and the
+// stamped the addresses back on. The generator now refuses to write below an address-coverage floor, and the
 // coverage arm below asserts the same floor on the shard tree directly.
 //
 // ⚠ THE JOIN IS ЕКАТТЕ + ADDRESS, NOT THE SECTION CODE, and that is the whole design: local

@@ -107,7 +107,7 @@ export const POST_STEPS: readonly PostStep[] = [
     outputs: ["data/transport/derived/hub_stats.json"],
   },
   {
-    // The /sector/edu hub blob (edu-hub-v1 T7). Reads contracts, fund_projects,
+    // The /sector/edu hub blob. Reads contracts, fund_projects,
     // national_competition() and agri_subsidies (the research arm's payout
     // basis), so it follows the procurement, funds and agri reloads.
     id: "edu-hub-stats",
@@ -117,7 +117,7 @@ export const POST_STEPS: readonly PostStep[] = [
     outputs: ["data/education/derived/hub_stats.json"],
   },
   {
-    // The /sector/health hub blob (health-hub-v1 T7). Reads contracts,
+    // The /sector/health hub blob. Reads contracts,
     // national_competition(), fund_projects, nzok_hospital_payments,
     // nzok_drug_quarterly and the committed B1 execution history, so it
     // follows the procurement, funds and НЗОК reloads.

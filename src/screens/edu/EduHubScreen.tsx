@@ -1,5 +1,4 @@
-// /sector/edu — the education-and-science sector hub. Plan:
-// docs/plans/edu-hub-v1.md §3.
+// /sector/edu — the education-and-science sector hub.
 //
 // This URL rendered the generic SectorDashboardScreen around MonPack — a
 // textbook-market analysis that never bound the sector's 126-EIK roster, so

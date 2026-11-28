@@ -1349,7 +1349,7 @@ describe("clusterBlock", () => {
   });
 });
 
-// Tier 2c — national ↔ local (docs/plans/person-national-local-merge-v1.md).
+// Tier 2c — national ↔ local.
 describe("clusterBlock — national ↔ local", () => {
   const full = (over: Partial<Mention>): Mention =>
     base({

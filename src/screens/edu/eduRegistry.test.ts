@@ -1,4 +1,4 @@
-// Gate for the /sector/edu hub registry (docs/plans/edu-hub-v1.md T3). Every
+// Gate for the /sector/edu hub registry. Every
 // failure it catches is silent at build time and loud on the page: a dead link,
 // a missing scene, a repeated accent, a whole-corpus tile landing on one
 // parliament's slice, a #fragment the destination never renders, a ?universe

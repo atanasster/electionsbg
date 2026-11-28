@@ -4,7 +4,7 @@ This is the compact home for work deliberately left outside an otherwise complet
 implementation. Entries stay only while they name an unresolved decision, a concrete trigger,
 or a bounded next step. Completed implementation histories belong in Git, not here.
 
-## Production publish (deferred-followups-verification-fixes-v1) — done 2026-10-21
+## Production publish — done 2026-10-21
 
 Published and verified against local the same day: `open_calls` 88 → 119 (Interreg ×6, АХУ, АЗ;
 row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company-place`
@@ -455,8 +455,7 @@ row-for-row equal to local), Interreg coverage notes → `graph` → `tr-company
   - When 2026 round 1 (`2026_10_25_pvr`) drops, re-verify `runoffFlow` ridge-regularised OLS fit on
     live 2026 round-1 → round-2 pairs and calibrate `presidential_2026` risk-index weights once
     2026 round-1 section tallies exist.
-- **Local neighbourhood corpus (`problem_sections_local`)** — see
-  `docs/plans/local-neighbourhoods-coverage-v1.md`. Record correction (2026-10-21): the retired
+- **Local neighbourhood corpus (`problem_sections_local`)**. Record correction (2026-10-21): the retired
   presidential-analysis-sections plan (`fa5260ca06`) recorded 2019/2023 matching **2**
   neighbourhoods against 7 in 2011/2015. That „2" was an out-of-order build (shards re-parsed,
   generator run before `--local-coords`), not a shrink: the corpus matches 7 / 7 / 8 / 8, the

@@ -1,6 +1,6 @@
 // /sector/transport/money — the money OUTSIDE public procurement: the ministry
 // budget, the annual rail subsidy, the EU funds on the grant basis, the EU peer
-// comparison and road safety. Plan: docs/plans/transport-hub-v1.md §3.
+// comparison and road safety.
 //
 // „БЕЗ ПЕРИОД" — no ScopeControl (O9): budget law, Eurostat and ИСУН lifetime
 // figures carry their own years and are not filtered by parliament. But the page

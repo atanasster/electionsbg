@@ -1,6 +1,6 @@
 // /sector/health/drugs — the medicines the health fund pays for: by active
 // substance, quarter by quarter, the unit prices and the hospital-administered
-// ones. Plan: docs/plans/health-hub-v1.md §3.
+// ones.
 //
 // „БЕЗ ПЕРИОД" — no ScopeControl: the drug corpora are quarterly series with
 // their own cadence.

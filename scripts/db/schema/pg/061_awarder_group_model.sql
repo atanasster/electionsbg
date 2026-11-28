@@ -15,7 +15,7 @@
 --
 --   pnpm exec tsx scripts/db/apply_functions.ts 061_awarder_group_model.sql
 --
--- p_ex_framework (health-hub-v1 D3, 2026-11-20) drops the joint_kind='framework'
+-- p_ex_framework drops the joint_kind='framework'
 -- rows (087) from EVERY aggregate below. A framework row is not a contract's
 -- value: 087 tags rows where one award was split EQUALLY across the framework's
 -- parties, so each row carries ceiling/N — a share of a CEILING nobody has spent.

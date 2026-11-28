@@ -2,7 +2,7 @@
 // blob. Out of the component so hubHead.gates.test.ts can reach them (the roads
 // and water hubs' convention). Copy lives here, not in the i18n corpus.
 //
-// Plan: docs/plans/transport-hub-v1.md §3. Five rules the code below follows:
+// Five rules the code below follows:
 //
 // · Every figure is whole-corpus (the hub is unscoped) and every link to a scoped
 //   page carries `?pscope=all`.

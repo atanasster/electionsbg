@@ -4,8 +4,7 @@
 
 Every watcher source and what runs when it moves. The registry is the source of
 truth; a skill's runbook covers only what a script cannot do (operator and agent
-steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see
-`docs/plans/watch-pipeline-scripts-v1.md` for how.
+steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`.
 
 64 handlers: 43 script, 13 delegated to an agent, 8 operator-only.
 

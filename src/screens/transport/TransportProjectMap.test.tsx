@@ -1,4 +1,4 @@
-// The project map's caption and links (transport-hub-v1 A8, C3): the coverage line
+// The project map's caption and links: the coverage line
 // shows when the function returns coverage and is hidden otherwise, and every feature
 // links to the contracts browser over the bodies the CARD draws, on the page's scope.
 

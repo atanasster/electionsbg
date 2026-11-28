@@ -2,7 +2,7 @@
 // Out of the component so the gates can reach them (the roads / water /
 // transport / edu hubs' convention). Copy lives here, not in the i18n corpus.
 //
-// Plan: docs/plans/health-hub-v1.md §3 (Head). Rules the code below follows:
+// Rules the code below follows:
 //
 // · KPIs 1–3 share ONE year (the blob's `year`, complete in every corpus); KPI 4
 //   is the procurement corpus over all years. Every link to the scoped

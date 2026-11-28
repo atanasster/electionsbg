@@ -1,7 +1,7 @@
 // The two НЗОК-corpus search indexes a finder can build from payloads it already
 // has: hospitals (from the hospital-payments payload) and molecules (from the
 // quarterly drug payload). Pure data, no JSX. Shared by NzokSearchBox and the
-// /sector/health hub finder (health-hub-v1 T6), so the fold rules live once.
+// /sector/health hub finder, so the fold rules live once.
 
 import { buildEntityIndex, type EntityIndex } from "@/lib/entitySearchIndex";
 import { decodeEntities } from "@/lib/decodeEntities";

@@ -1,4 +1,4 @@
-// Unit tests for the /sector/health pure helpers (docs/plans/health-hub-v1.md T3):
+// Unit tests for the /sector/health pure helpers:
 // the retired-EIK fold and the hub's national-minus-sector baseline.
 
 import { describe, it, expect } from "vitest";

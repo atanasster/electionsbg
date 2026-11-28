@@ -1,5 +1,4 @@
-// Gate for the education EIK register (`src/lib/educationReferenceData.ts`),
-// edu-hub-v1 T9.
+// Gate for the education EIK register (`src/lib/educationReferenceData.ts`).
 //
 // The register IS the sector: every /sector/edu figure is `awarder_eik = ANY(…)`
 // over it, so a body missing from it is absent from the roll-up, the bodies page,

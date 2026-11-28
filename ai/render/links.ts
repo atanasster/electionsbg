@@ -381,7 +381,7 @@ pages(
   "Defense",
 );
 pages(["securityRoadSafety"], "/sector/security", "Сигурност", "Security");
-// The transport hub split its old single page (docs/plans/transport-hub-v1.md C8):
+// The transport hub split its old single page:
 // procurement lives on /procurement, the rail subsidy and the EU funds on /money.
 pages(
   ["transportSpending"],

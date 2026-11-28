@@ -1,6 +1,6 @@
 // The repair packet: one self-contained markdown file per failed step, written
 // for a reader who has NOTHING else — not the conversation, not the runbook,
-// not the terminal. Plan: docs/plans/watch-pipeline-scripts-v1.md §2.8.
+// not the terminal.
 //
 // Nine fixed sections. Every value comes from the run record, the step's log,
 // git or the perf trace; the packet invents no prose about the failure beyond

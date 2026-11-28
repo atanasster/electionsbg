@@ -31,7 +31,7 @@ export const MEMBER_SEARCH_MIN = 10;
 
 /** The roster as INSTITUTIONS: a retired EIK (`aliasOf`) is not one of its own.
  *  Every count and chip list on a sector page goes through this, so the heading,
- *  the chips and the finder label cannot disagree (edu-hub-v1 A5/A6). */
+ *  the chips and the finder label cannot disagree. */
 export const sectorInstitutions = (
   members: SectorDashboardConfig["members"],
 ): SectorDashboardConfig["members"] => members.filter((m) => !m.aliasOf);

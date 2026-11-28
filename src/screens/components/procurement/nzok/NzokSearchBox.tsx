@@ -2,7 +2,7 @@
 // corpus (hospitals, molecules, medicine packs and clinical pathways) plus a
 // fifth over the second-level МЗ bodies, which take no НЗОК money at all.
 //
-// Since 2026-11-20 (health-hub-v1 D1) those bodies are sector MEMBERS; the group
+// Since 2026-11-20 those bodies are sector MEMBERS; the group
 // stays because it is still the only place this box finds them.
 //
 // That fifth group is here because the four above are the whole of what this

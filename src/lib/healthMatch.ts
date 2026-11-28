@@ -1,6 +1,6 @@
 // The health NAME matcher — the candidate finder the register sweep runs over
-// contracts and tenders (scripts/db/tests/health_register.data.test.ts,
-// health-hub-v1 T9). One module, imported by every consumer (sector-dashboard §2
+// contracts and tenders (scripts/db/tests/health_register.data.test.ts).
+// One module, imported by every consumer (sector-dashboard §2
 // rule 1).
 //
 // It finds the populations a NAME identifies: НЗОК and МЗ themselves, the ЦСМП,

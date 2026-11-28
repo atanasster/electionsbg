@@ -1,4 +1,4 @@
-// Data hooks for /sector/health/vaccines (docs/plans/vaccines-flow-v1.md T5).
+// Data hooks for /sector/health/vaccines.
 //
 // Both routes degrade a missing migration 206 to `null` (never `[]`), so a
 // `null` here means "not loaded on this database" and the page says so. Every

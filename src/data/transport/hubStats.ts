@@ -1,6 +1,5 @@
 // The /sector/transport hub's figures, read from the committed blob that
-// `pnpm run db:gen-transport-hub-stats` derives from Postgres
-// (docs/plans/transport-hub-v1.md T2).
+// `pnpm run db:gen-transport-hub-stats` derives from Postgres.
 //
 // WHY A BLOB: the hub must not fetch the group model, the ministry's per-CPV
 // split, the funds rollup and the project map to draw four numbers (dashboard-hub
@@ -49,7 +48,7 @@ export interface TransportHubStats {
     contractorEur: number;
     /** Of `eur`, the rail PSO estimate МТС → БДЖ-ПП (isPsoAward over in-group
      *  rows): a multi-year „прогнозна стойност", most of the in-group € —
-     *  transport-hub-v1 audit 2026-10-17 (T7). Optional for older blobs. */
+     *  audit 2026-10-17. Optional for older blobs. */
     psoEur?: number;
   };
   /** Public bodies outside the sector paid by the group (Пощи, НЕК … — D9).

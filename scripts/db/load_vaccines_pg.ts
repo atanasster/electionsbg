@@ -1,4 +1,4 @@
-// Load the vaccines corpus into migration 206 (docs/plans/vaccines-flow-v1.md T3).
+// Load the vaccines corpus into migration 206.
 //
 //   pnpm run db:load:vaccines:pg
 //   pnpm run db:load:vaccines:pg:cloud

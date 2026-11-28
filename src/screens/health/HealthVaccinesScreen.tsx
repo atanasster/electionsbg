@@ -1,7 +1,6 @@
 // /sector/health/vaccines — the flu-vaccine season: what was planned, what НЗИС
 // recorded and when, where, what was on the shortage list, the wave it is meant
 // to precede, where the vaccines are dispatched from and what МЗ paid.
-// Plan: docs/plans/vaccines-flow-v1.md §5.
 //
 // „БЕЗ ПЕРИОД" in the scope sense: the page has its own SEASON selector
 // (`?season=`, page-local, validated against the seasons the data holds). A

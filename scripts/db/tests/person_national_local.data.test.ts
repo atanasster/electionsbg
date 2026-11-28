@@ -1,5 +1,5 @@
 // The national ↔ local merge tier (cluster.ts `unionNationalLocal`) reached the person
-// layer. docs/plans/person-national-local-merge-v1.md §5 step 4.
+// layer.
 //
 // Before that tier, a councillor or mayor who later stood for or sat in parliament was
 // TWO public people — two /person pages, and Bridge B then refused their Commerce-Registry

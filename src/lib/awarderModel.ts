@@ -418,7 +418,7 @@ export interface GroupModelPayload {
     bidKnownN: number;
     singleBidN: number;
   }[];
-  /** 061's p_ex_framework echo (health-hub-v1 D3) — true only when the server
+  /** 061's p_ex_framework echo — true only when the server
    *  applied the switch. Absent on a database whose 061 predates it, so a caller
    *  that asked for exFramework must read THIS, not trust its own request. */
   exFramework?: boolean;

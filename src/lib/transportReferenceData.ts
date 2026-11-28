@@ -111,7 +111,7 @@ export const TRANSPORT_ENTITIES: TransportEntity[] = [
   // or wanted: a windowed scope past 2021 simply finds nothing for this EIK.
   { eik: "121023551", name: "„Летище София“ ЕАД", nameEn: "Sofia Airport", universe: "aviation" }, // prettier-ignore
   // „Летище Пловдив“ ЕАД — 100% state airport operator, same class as Летище София
-  // (D2, docs/plans/transport-hub-v1.md). Small (€1.06M, 11 contracts 2011–2026, all
+  // (added 2026-10-17). Small (€1.06M, 11 contracts 2011–2026, all
   // fuel CPV 09*), but it meets the inclusion rule; seat Крумово (обл. Пловдив).
   { eik: "115007069", name: "„Летище Пловдив“ ЕАД", nameEn: "Plovdiv Airport", universe: "aviation" }, // prettier-ignore
   { eik: "121805755", name: "ГД „Гражданска въздухоплавателна администрация“ (ГД ГВА)", nameEn: "Civil Aviation Administration", universe: "aviation" }, // prettier-ignore
@@ -261,7 +261,7 @@ export const TRANSPORT_PUBLIC_CONTRACTORS: {
     principal: "state",
   },
   { eik: "202218735", name: "„Център за градска мобилност“ ЕАД", nameEn: "Urban Mobility Centre", principal: "municipal" }, // prettier-ignore
-  // transport-hub-v1 audit 2026-10-17 (T10): the МТС HQ's heat and gas suppliers.
+  // Audit 2026-10-17: the МТС HQ's heat and gas suppliers.
   // EIKs taken from contracts.contractor_eik (€805,973 and €359,479).
   { eik: "831609046", name: "„Топлофикация София“ ЕАД", nameEn: "Toplofikatsia Sofia", principal: "municipal" }, // prettier-ignore
   {
@@ -275,7 +275,7 @@ export const TRANSPORT_PUBLIC_CONTRACTORS: {
 /** EU-FUNDED PROJECTS OUTSIDE THE SECTOR — fund_projects rows held by a transport
  *  body whose subject is not the movement of people or goods (D1). Excluded from
  *  every transport EU-funds figure (the hub blob, /money#funds, the AI tool) by
- *  contract number, and named in the caption. transport-hub-v1 audit 2026-10-17. */
+ *  contract number, and named in the caption. Audit 2026-10-17. */
 export const TRANSPORT_EU_FUNDS_EXCLUDED: {
   contractNumber: string;
   eik: string;
@@ -297,7 +297,7 @@ export const TRANSPORT_EU_FUNDS_EXCLUDED: {
 
 /** EU-funded projects that PASS THROUGH a transport body to others — kept in the
  *  figure (the body is the beneficiary of record) and captioned where they rank.
- *  transport-hub-v1 audit 2026-10-17. */
+ *  Audit 2026-10-17. */
 export const TRANSPORT_EU_FUNDS_PASS_THROUGH: {
   contractNumber: string;
   eik: string;

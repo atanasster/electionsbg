@@ -1,4 +1,4 @@
-// Fixture tests for the project-map link rules (plan transport-hub-v1 A5–A7, C3, C4).
+// Fixture tests for the project-map link rules.
 // The titles are the real corpus titles each rule was written against.
 
 import { describe, it, expect } from "vitest";

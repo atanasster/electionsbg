@@ -100,7 +100,7 @@ export const ORCHESTRATOR_EXEMPTIONS: Record<
   string,
   { kind: CloudExemptionKind; reason: string }
 > = {
-  // ── 2026-11-12 (watch-pipeline-scripts-v1 Tier 6) ──────────────────────────
+  // ── 2026-11-12 ──────────────────────────
   // person:slugs:cloud, proc:verify-seats:cloud and data:local-person-refresh:cloud
   // left this list: the orchestrator is now the pipeline registry
   // (docs/pipeline-handlers.md), whose handlers run each of them.

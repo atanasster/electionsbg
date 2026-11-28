@@ -1,5 +1,5 @@
-// Dry run for the national ↔ local merge tier (cluster.ts `unionNationalLocal`,
-// docs/plans/person-national-local-merge-v1.md §5 step 3). READ-ONLY.
+// Dry run for the national ↔ local merge tier (cluster.ts `unionNationalLocal`).
+// READ-ONLY.
 //
 // Builds the resolver's mentions through the SAME code path it uses
 // (`buildMentionBlocks`), clusters every block twice — with and without the tier — and

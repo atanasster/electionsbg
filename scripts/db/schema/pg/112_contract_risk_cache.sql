@@ -163,7 +163,7 @@ END $$;
 -- PROVENANCE OF THE SERVED MASKS. One row, describing the last rebuild.
 --
 -- WHY IT EXISTS: the flag definitions are a published, versioned artifact
--- (src/lib/riskFlagCatalog.ts, docs/plans/procurement-risk-open-source-v1.md), and
+-- (src/lib/riskFlagCatalog.ts), and
 -- the methodology page invites a journalist to cite "flag set vX.Y.Z". The version
 -- in the BUNDLE says what the code declares; every flag a reader actually sees came
 -- out of contract_risk_cache, built by the last rebuild. Those two diverge for the

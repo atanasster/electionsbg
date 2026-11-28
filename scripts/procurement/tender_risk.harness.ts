@@ -1,6 +1,5 @@
 // Behavioural regression harness for the ex-ante per-PROCEDURE risk scorer
-// (src/data/procurement/computeTenderRisk.ts). Locks the calibrated logic from
-// docs/plans/procurement-risk-v2.md §6b-results — above all the TIER-CONDITIONAL
+// (src/data/procurement/computeTenderRisk.ts). Locks the calibrated logic — above all the TIER-CONDITIONAL
 // rushed-deadline rule, which is the whole point of the base-rate calibration:
 // a short submission window is a red flag on a competitive procedure but the
 // statutory norm on a low-value / non-open one, so it must NOT fire there.

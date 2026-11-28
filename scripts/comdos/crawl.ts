@@ -1,5 +1,5 @@
 // Crawl the Комисия по досиетата decision archive into the gitignored
-// raw_data/comdos/ cache (docs/plans/comdos-ds-ingest-v1.md §2, D1–D3).
+// raw_data/comdos/ cache.
 //
 //   pnpm run comdos:crawl              # resumable: fetches only what is missing
 //   pnpm run comdos:crawl --refresh    # re-read the archive index (new decisions)

@@ -217,15 +217,15 @@ const HUB_SCREENS = [
   // same reason. Its basis names the corpus start („от 2011 г.") and an НСИ year.
   "src/screens/water/WaterHubScreen.tsx",
   "src/screens/water/waterHubFigures.ts",
-  // The transport sector hub (docs/plans/transport-hub-v1.md T3) and its band module, for
+  // The transport sector hub and its band module, for
   // the same reason. Its basis names the corpus window („2011–2026").
   "src/screens/transport/TransportHubScreen.tsx",
   "src/screens/transport/transportHubFigures.ts",
-  // The education sector hub (docs/plans/edu-hub-v1.md T3) and its band module, for the
+  // The education sector hub and its band module, for the
   // same reason. Its basis names the corpus window from the hub blob.
   "src/screens/edu/EduHubScreen.tsx",
   "src/screens/edu/eduHubFigures.ts",
-  // The health sector hub (docs/plans/health-hub-v1.md T3) and its band module. KPIs 1–3
+  // The health sector hub and its band module. KPIs 1–3
   // name the blob's complete year; KPI 4 names the procurement corpus window.
   "src/screens/health/HealthHubScreen.tsx",
   "src/screens/health/healthHubFigures.ts",
@@ -738,7 +738,7 @@ describe("hub head — the band and the tiles are disjoint", () => {
   });
 
   // Verbatim from the committed sector_stats.json, `all` scope, 2026-08-26 — except
-  // `transport`, re-read 2026-10-17 after transport-hub-v1 D2 added Летище Пловдив.
+  // `transport`, re-read 2026-10-17 after Летище Пловдив was added.
   const SECTOR_STATS_FIXTURE: Record<string, SectorStat> = {
     roads: { kind: "eur", basis: "procurement", value: 8822447923 },
     water: { kind: "eur", basis: "procurement", value: 3326158810 },

@@ -1,5 +1,4 @@
 // The typed routing table for the watch → ingest → publish pipeline.
-// Plan: docs/plans/watch-pipeline-scripts-v1.md §2.1.
 //
 // Until this registry existed the same facts lived as prose tables in
 // .claude/skills/process-watch-report/SKILL.md and 37 update-* runbooks, and

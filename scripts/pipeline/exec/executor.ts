@@ -1,6 +1,6 @@
 // Run one step: spawn it, tee its output to a log, enforce its timeout, pin
 // its database, read its result file, classify a failure and append the perf
-// row. Plan: docs/plans/watch-pipeline-scripts-v1.md §2.3.
+// row.
 //
 // Every command either runner executes goes through runStep(), so a step can
 // never be "run without the wrapper" — the failure mode the prose runbooks

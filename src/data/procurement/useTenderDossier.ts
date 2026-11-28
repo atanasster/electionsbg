@@ -1,7 +1,6 @@
 // The ЦАИС ЕОП dossier for one procedure — everything the register publishes
 // beyond the notice header that `tenders` already carries.
-// Backed by /api/db/tender-dossier (migration 146); see
-// docs/plans/tender-dossier-ingest-v1.md §5 (A7).
+// Backed by /api/db/tender-dossier (migration 146).
 //
 // `null` means one of two things and the UI must not conflate them with a third:
 // the procedure has not been crawled yet (the capture is built up over a ~26 h

@@ -2473,7 +2473,7 @@ override for the two maritime bodies. First cloud deploy needs
 degrades a missing migration to an empty map, so ordering is cosmetic, not breaking. Re-run it
 whenever `TRANSPORT_ENTITIES` changes; `transport_facility_map.data.test.ts` fails on drift.
 
-**The /sector/transport hub (docs/plans/transport-hub-v1.md) adds an ordering on top of
+**The /sector/transport hub adds an ordering on top of
 that.** 076 (the project map) gained a `scope` column, a consortium-member filter and a
 `coverage` key, and 132 a member filter; both are FUNCTIONS, so only their loaders or
 `apply_functions.ts` carry them. `db_routes.js` also gained `awarder-funds-rollup?basis=grant`

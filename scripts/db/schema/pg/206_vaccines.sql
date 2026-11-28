@@ -1,4 +1,4 @@
--- 206 · Vaccines: supply → channel → arm (docs/plans/vaccines-flow-v1.md §4).
+-- 206 · Vaccines: supply → channel → arm.
 --
 -- Applied by `db:load:vaccines:pg[:cloud]` and by nothing else, so a corpus reload
 -- carries every object here. All tables are small (under 150k rows in total).

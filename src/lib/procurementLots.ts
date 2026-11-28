@@ -1,5 +1,5 @@
 // Fold the lots of ONE procurement (same УНП, same awarder) into one row for a
-// "biggest contracts" list — edu-hub-v1 A14. МОН's distance-learning devices
+// "biggest contracts" list. МОН's distance-learning devices
 // purchase of 2021-05-18 (УНП 00165-2021-0004) is four lot contracts
 // (€32.2M + €17.0M + €12.8M + €6.1M); ranked row by row it fills half a top-8
 // list with one decision and hides the €68M it actually was.

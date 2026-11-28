@@ -258,7 +258,7 @@ describe("the surfaces that read the roster", () => {
   });
 });
 
-describe("the four lists (edu-hub-v1 §0)", () => {
+describe("the four lists", () => {
   it("never overlap: one EIK, one list", () => {
     const lists: Array<[string, readonly { eik: string }[]]> = [
       ["roll-up", EDU_ENTITIES],

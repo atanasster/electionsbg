@@ -1,6 +1,5 @@
 // Gate for the /sector/transport project map (migration 076, loader
 // load_transport_project_map_pg.ts, rules lib/transport_project_links.ts).
-// docs/plans/transport-hub-v1.md A1, A5–A7, C3.
 //
 // What it holds, each a defect that shipped:
 //   • €0 consortium-member rows are never counted (Видин – София read 11 contracts

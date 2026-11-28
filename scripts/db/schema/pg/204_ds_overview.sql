@@ -1,5 +1,5 @@
 -- 204 — the aggregate serving layer over the comdos.bg ДС corpus (203), for a
--- future /data/ds page. docs/plans/comdos-ds-ingest-v1.md §5. Applied by
+-- future /data/ds page. Applied by
 -- `db:load:ds:pg` after 203.
 --
 -- ⚠️⚠️ AGGREGATES ONLY. `ds_announcement` names people and is deliberately not

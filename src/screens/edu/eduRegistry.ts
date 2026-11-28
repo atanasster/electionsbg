@@ -1,6 +1,6 @@
 // The /sector/edu hub registry — the tiles the sector fronts. Pure data; the
 // scene is referenced by `id` (EDU_SCENES[id]), so this module carries no JSX.
-// Mirrors transportRegistry.ts. Plan: docs/plans/edu-hub-v1.md §3.
+// Mirrors transportRegistry.ts.
 //
 // EVERY `to` IS A LIVE, STATIC DESTINATION — asserted against the routed list by
 // eduRegistry.test.ts. No seeded `:param` paths.

@@ -1,5 +1,5 @@
 -- Ex-ante tender-risk BASE RATES — the §6b calibration pass for the tender
--- risk-signal set (docs/plans/procurement-risk-v2.md). READ-ONLY: no schema
+-- risk-signal set. READ-ONLY: no schema
 -- changes, no writes. Run before writing any tender-risk scoring SQL, so the
 -- thresholds are calibrated on the Bulgarian corpus rather than imported (an
 -- imported band is noise — WB PRWP 10444's flat "7–11d submission = risk"

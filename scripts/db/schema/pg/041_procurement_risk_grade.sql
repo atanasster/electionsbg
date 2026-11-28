@@ -102,7 +102,7 @@ $$;
 -- of 1,149 ranked buyers 234 change grade (226 better, 8 worse); the buyers who
 -- worsen are direct-award-heavy (e.g. 91–99% direct share), the buyers who
 -- improve were penalised mainly for single-bidding. The 2 worst (F) buyers are
--- unchanged. See docs/plans/procurement-risk-v2.md §8.
+-- unchanged.
 --
 -- Both consumers call this helper: awarder_risk_grade(text) [per-entity] and
 -- awarder_risk_grade_window(text,text) [the windowed ranking — the matview AND

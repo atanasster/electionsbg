@@ -1,6 +1,6 @@
 -- 203 — Комисия по досиетата (comdos.bg) decision corpus: every decision the
 -- Commission has published, and every person it announced in them.
--- docs/plans/comdos-ds-ingest-v1.md. Loaded by `db:load:ds:pg` from the COMMITTED
+-- Loaded by `db:load:ds:pg` from the COMMITTED
 -- data/comdos/ corpus (`pnpm run comdos:crawl && pnpm run comdos:parse`).
 --
 -- ⚠️⚠️ WHAT THIS CORPUS IS — and the rules that are not negotiable (plan §4):

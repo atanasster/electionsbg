@@ -644,7 +644,7 @@ export const BUDGET_MACRO: Handler[] = [
     outputs: ["data/budget/nzok", "data/data-changes.json"],
   },
   {
-    // docs/plans/vaccines-flow-v1.md. Three of the six sources keep no history
+    // Three of the six sources keep no history
     // (НЗИС year-to-date counters, the weekly СЕСПА list, the two НЦЗПБ weeks
     // on show), so the snapshot writer is the only record of them: it runs on
     // ANY flip and appends to data/health/vaccines/*.jsonl, never rewrites.

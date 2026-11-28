@@ -180,7 +180,7 @@ describe("the curated boundary", () => {
   });
 });
 
-describe("the other declared lists (transport-hub-v1 D2–D4, D9)", () => {
+describe("the other declared lists", () => {
   it("adds Летище Пловдив to aviation (D2)", () => {
     expect(transportUniverseOf("115007069")).toBe("aviation");
   });

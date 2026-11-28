@@ -209,7 +209,7 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
   },
   // The sector hubs — described WITHOUT figures on purpose: every number on these
   // pages is read from a regenerated blob, so a literal here would go stale the
-  // way the „~€7,3 млрд" prerender literal did (transport-hub-v1 A15).
+  // way the „~€7,3 млрд" prerender literal did.
   {
     url: "/governance/sectors",
     label: "The state by sector",

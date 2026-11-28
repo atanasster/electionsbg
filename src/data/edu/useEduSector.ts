@@ -1,4 +1,4 @@
-// Data hooks for the /sector/edu sub-pages (docs/plans/edu-hub-v1.md T3). The
+// Data hooks for the /sector/edu sub-pages. The
 // transport shape (src/data/transport/useTransportSector.ts), three requests and
 // three bases, never mixed:
 //

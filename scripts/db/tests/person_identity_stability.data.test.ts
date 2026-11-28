@@ -272,8 +272,8 @@ test.skipIf(skipIdentity)(
     // 1,261-person „public" drop. 5.9b/5.9c moved too, to keep one vintage.
     //
     // RE-BASELINED 2026-11-23 — a DROP in the controls, ATTRIBUTED, the 2026-10-03 shape
-    // again. The cause is a deliberate MERGE, 5e853ddee6 (cluster.ts `unionNationalLocal`,
-    // docs/plans/person-national-local-merge-v1.md): a councillor or mayor and an MP or
+    // again. The cause is a deliberate MERGE, 5e853ddee6 (cluster.ts `unionNationalLocal`):
+    // a councillor or mayor and an MP or
     // candidate of the same party in the same oblast had been two people. The controls fell
     // by design: folds 3,470 → 3,372, rows 9,768 → 9,279, review groups 3,432 → 3,340.
     // CHECKED pair by pair rather than inherited: the resolve retired 417 slugs. 409 point at

@@ -58,7 +58,7 @@ WITH base AS (
   FROM contracts
   WHERE awarder_eik = ANY(p_eiks) AND tag = 'contract'
     -- €0 consortium MEMBER rows inherit the carrier's tenderer count, so counting them
-    -- inflated every count and single-bid share here (transport-hub-v1 A2 / C1).
+    -- inflated every count and single-bid share here.
     AND consortium_role IS DISTINCT FROM 'member'
     AND date >= COALESCE(p_from, '')
     AND date <  COALESCE(p_to, '99999999')

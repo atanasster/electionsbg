@@ -11,7 +11,7 @@
 // held by one MP only. There is deliberately NO first+last fallback — it used
 // to mirror the officials decorator's, and that tier attached the wrong MP's
 // photo to 69% of stamped rows (a different middle name is a different father,
-// i.e. a different person). See docs/plans/local-mp-photo-links-v1.md.
+// i.e. a different person).
 //
 // Covers all four candidate-bearing slots of LocalMunicipalityBundle:
 //   - mayor.round1[], mayor.round2[], mayor.elected

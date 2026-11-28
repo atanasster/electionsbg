@@ -1,5 +1,4 @@
-// Gate for the ДС facet's attachment rule (scripts/person/dsJoin.ts,
-// docs/plans/comdos-ds-ingest-v1.md §4 rule 2). Runs the SAME query the resolver
+// Gate for the ДС facet's attachment rule (scripts/person/dsJoin.ts). Runs the SAME query the resolver
 // runs, over the committed MP roster, so a regression in the join is caught without
 // a full db:resolve:persons.
 //

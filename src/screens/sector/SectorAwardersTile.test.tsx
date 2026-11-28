@@ -5,7 +5,7 @@ import { SectorAwardersTile } from "./SectorAwardersTile";
 import { SECTOR_DASHBOARDS } from "./sectorDashboards";
 import { EDU_INSTITUTION_COUNT } from "@/lib/educationReferenceData";
 
-describe("SectorAwardersTile — one chip per institution (edu-hub-v1 A5/A6)", () => {
+describe("SectorAwardersTile — one chip per institution", () => {
   it("renders Свищов once and counts institutions, not EIKs", () => {
     render(
       <MemoryRouter>

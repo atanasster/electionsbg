@@ -3,7 +3,6 @@
 // lists that are SHOWN and never summed: VERIFY (principal unsettled — every
 // ЦСОП / РЦПППО, D3), ADJACENT (an education body under another principal, D4)
 // and the state higher schools that sit in another sector (A2).
-// Plan: docs/plans/edu-hub-v1.md §3.
 //
 // It also carries what the generic /sector/:id shell gave this sector before the
 // hub: the member finder (SectorMembersSearch) and the roster with its „whole

@@ -1,4 +1,4 @@
-// health-hub-v1 T1 — the two engine corrections /sector/health stands on.
+// The two engine corrections /sector/health stands on.
 //
 //   pnpm run test:data
 //

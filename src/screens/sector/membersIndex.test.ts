@@ -102,7 +102,7 @@ describe("MEMBER_SEARCH_MIN", () => {
     // which joined at 126 when the 2026-08-18 audit widened it from МОН alone to
     // the whole education roster, plus agri, which joined at 66 when the
     // 2026-08-20 audit widened it from ДФЗ alone to the МЗХ family, plus health,
-    // which joined at 57 when health-hub-v1 D1 (2026-11-20) added МЗ's
+    // which joined at 57 when the 2026-11-20 roster decision added МЗ's
     // second-level bodies (it keeps its bespoke NzokSearchBox). Social (6) is
     // below it; the six remaining single-member sectors are far below.
     expect(above).toEqual(
@@ -152,7 +152,7 @@ describe("MEMBER_SEARCH_MIN", () => {
   });
 });
 
-describe("a retired EIK is not an institution (edu-hub-v1 A5/A6)", () => {
+describe("a retired EIK is not an institution", () => {
   const members = SECTOR_DASHBOARDS.edu.members;
 
   it("finds Свищов by its retired EIK, landing on the successor's page", () => {

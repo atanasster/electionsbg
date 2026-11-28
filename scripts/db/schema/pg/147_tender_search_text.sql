@@ -1,4 +1,4 @@
--- The searchable body of a tender's dossier — docs/plans/tender-dossier-ingest-v1.md (B3).
+-- The searchable body of a tender's dossier.
 --
 -- `tenders` exposes two searchable strings: buyer_name and subject. subject is a
 -- 138-char headline, so the words a reader actually searches for — the nine coffee

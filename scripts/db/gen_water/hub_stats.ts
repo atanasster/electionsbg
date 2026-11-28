@@ -139,7 +139,7 @@ const main = async () => {
 
   const [hasGm] = await allRows<{ ok: boolean }>(
     // to_regproc, not a pinned 3-arg signature: 061 gained a 4th defaulted arg
-    // (health-hub-v1 D3), and the 3-arg probe then skipped this generator silently.
+    //, and the 3-arg probe then skipped this generator silently.
     `SELECT to_regproc('public.awarder_group_model') IS NOT NULL AS ok`,
   );
   if (!hasGm?.ok) {

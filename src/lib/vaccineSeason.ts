@@ -1,5 +1,5 @@
 // The flu-vaccine season rules shared by the page, the AI tool and the
-// prerender (docs/plans/vaccines-flow-v1.md). Import-free on purpose: the
+// prerender. Import-free on purpose: the
 // prerender and the AI bundle both read it.
 
 /** A season runs 1 August – 31 July and is named by its start year. */

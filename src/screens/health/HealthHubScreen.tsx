@@ -1,4 +1,4 @@
-// /sector/health — the health sector hub. Plan: docs/plans/health-hub-v1.md §3.
+// /sector/health — the health sector hub.
 //
 // This URL rendered the generic SectorDashboardScreen around NzokPack, whose
 // subject — the fund's ЗОП — is ~2% of the sector's money, while hospitals and

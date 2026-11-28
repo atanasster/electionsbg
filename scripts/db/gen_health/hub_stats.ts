@@ -1,7 +1,6 @@
 // `pnpm run db:gen-health-hub-stats` → data/health/derived/hub_stats.json, the
-// /sector/health hub's KPI band, hospital rail, finder index and band figures
-// (docs/plans/health-hub-v1.md T2). The shape is HealthHubStats
-// (src/data/health/hubStats.ts).
+// /sector/health hub's KPI band, hospital rail, finder index and band figures.
+// The shape is HealthHubStats (src/data/health/hubStats.ts).
 //
 // Inputs: contracts (db:load:pg), nzok_hospital_payments
 // (db:load:nzok-hospital:pg), nzok_drug_quarterly (db:load:nzok-drug-quarterly:pg),

@@ -1,6 +1,5 @@
 // Pure helpers shared by the /sector/edu screens and their tests. Kept out of
 // the screen modules so each of those exports components only (fast refresh).
-// Plan: docs/plans/edu-hub-v1.md §3.
 
 import type { NationalCompetition } from "@/data/procurement/useNationalCompetition";
 import type { EduBodyAgg, EduFundOp } from "@/data/edu/useEduSector";

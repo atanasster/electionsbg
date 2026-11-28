@@ -1,6 +1,6 @@
 // /sector/health/money — the money the health sector RUNS: НЗОК's execution,
 // МЗ's budget, the EU funds of the roster's institutions and the activity the
-// fund pays for. Plan: docs/plans/health-hub-v1.md §3 (T5 deepens it).
+// fund pays for.
 //
 // „БЕЗ ПЕРИОД" — no ScopeControl: B1 execution, the budget law and ИСУН lifetime
 // figures carry their own years.

@@ -2,7 +2,6 @@
 // (docs/pipeline-handlers.md), so a skill can point at "the registry entry"
 // instead of restating its commands. Generated, never hand-edited —
 // handler_index.test.ts fails when the committed page drifts.
-// Plan: docs/plans/watch-pipeline-scripts-v1.md, Tier 6.
 
 import { orderCloud } from "./cloud_order";
 import type { PostStep } from "./post_steps";
@@ -142,8 +141,7 @@ export const renderHandlerIndex = (
     "",
     "Every watcher source and what runs when it moves. The registry is the source of",
     "truth; a skill's runbook covers only what a script cannot do (operator and agent",
-    "steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`; see",
-    "`docs/plans/watch-pipeline-scripts-v1.md` for how.",
+    "steps, troubleshooting). Run it all with `pnpm run pipeline:nightly`.",
     "",
     `${sorted.length} handlers: ${count("script")} script, ${count("skill")} delegated to an agent, ${count("operator")} operator-only.`,
     "",

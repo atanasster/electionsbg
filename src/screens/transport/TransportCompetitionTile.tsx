@@ -5,7 +5,7 @@
 // (awarder-group-rollup?exMembers=1) — the counts the hub's KPI 3 and the browse
 // pack use, never the member-inclusive group-model byUnit (A2 / C1).
 //
-// COLOUR IS RELATIVE TO THE SAME-WINDOW NATIONAL RATE (transport-hub-v1 A10), never a
+// COLOUR IS RELATIVE TO THE SAME-WINDOW NATIONAL RATE, never a
 // fixed threshold: a fixed 35%/60% band painted bodies amber in a window where the
 // whole country sat at 48.8%, i.e. a typical rate read as a warning. With no matched
 // baseline (an older deployed function) the bars stay neutral — no verdict at all.

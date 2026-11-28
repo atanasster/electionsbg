@@ -10,8 +10,8 @@
 //   • the ROUTED list carries four CROSS-MODULE destinations (/budget/municipal,
 //     /sector/transport/money, /culture, /budget/simulator). Those belong to other teams'
 //     pages, so a rename there breaks this hub silently — the routes.tsx check is what makes
-//     it loud. /sector/transport/money is a literal <Route path> since the transport hub
-//     (docs/plans/transport-hub-v1.md O1), so it no longer needs the sector-registry detour.
+//     it loud. /sector/transport/money is a literal <Route path> since the transport hub,
+//     so it no longer needs the sector-registry detour.
 //   • band 3's four tiles must all be ANNUAL and must each name their year in the rendered
 //     caption. That is not checkable from the registry (the caption is built in the screen), so
 //     the screen's own test covers it; what IS checked here is that the band exists with

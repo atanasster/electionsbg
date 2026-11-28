@@ -2,7 +2,7 @@
 // data/education/derived/hub_stats.json, written by
 // `pnpm run db:gen-edu-hub-stats` — so they fail the way every committed-derived
 // artifact fails: the corpus reloads underneath the file and the hub keeps
-// stating the old number at a 200 (docs/plans/edu-hub-v1.md T2).
+// stating the old number at a 200.
 //
 // Each figure is RE-DERIVED here from contracts / fund_projects /
 // national_competition() — never read back from the blob — and compared within

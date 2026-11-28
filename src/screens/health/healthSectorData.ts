@@ -1,6 +1,5 @@
 // Pure helpers shared by the /sector/health screens and their tests. Kept out of
 // the screen modules so each of those exports components only (fast refresh).
-// Plan: docs/plans/health-hub-v1.md §3.
 
 import {
   HEALTH_ENTITIES,

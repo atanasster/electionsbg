@@ -1,5 +1,4 @@
 // Capture the vaccine sources into their durable copies.
-// Plan: docs/plans/vaccines-flow-v1.md §2, T1.5 + T2.1/T2.3.
 //
 //   pnpm run vaccines:snapshot                 # every part
 //   pnpm run vaccines:snapshot --only his,sespa

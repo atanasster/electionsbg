@@ -1,5 +1,5 @@
 // What would run, and why — a pure function of watcher state, ingest markers,
-// the registry and the environment. Plan: docs/plans/watch-pipeline-scripts-v1.md §2.2.
+// the registry and the environment.
 //
 // The rule is the one process-watch-report applied by hand: a handler is due
 // when any of its sources moved after its marker's lastSuccessfulIngest. What

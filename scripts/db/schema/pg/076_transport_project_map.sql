@@ -52,7 +52,7 @@ END $$;
 -- Windowed [from, to) with sargable COALESCE bounds (matches scopeByWindow's half-open,
 -- string-compared guard so the awarder_eik index is kept), tag='contract' only, consortium
 -- MEMBER rows excluded — they carry €0 and inherit the carrier's tenderer count, so counting
--- them made „Видин – София" 11 contracts when it is 2 (transport-hub-v1 A1). Returns two
+-- them made „Видин – София" 11 contracts when it is 2. Returns two
 -- collections: line segments (rail sections) and points (stations/ports/junctions), each
 -- ranked by spend DESC with a name tiebreak for byte-deterministic ordering, plus `coverage`:
 -- how much of the window's money the map places at all, by DISTINCT contract key (a contract

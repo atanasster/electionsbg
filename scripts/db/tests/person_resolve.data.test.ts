@@ -78,7 +78,7 @@ afterAll(async () => {
 // added (2026-09-27): 101 mayors had been split this way, Sofia's among them.
 //
 // A THIRD, and it is party + PLACE at the one grain where the two sides meet: cluster.ts
-// `unionNationalLocal` (docs/plans/person-national-local-merge-v1.md). A national mention
+// `unionNationalLocal`. A national mention
 // (mp/candidate in a МИР) and a local term (an община) of the SAME party in the SAME oblast,
 // identical three-part name, uncontested on that key. It is re-derived here the same way:
 // the oblast key mirrors `oblastKeyFor` (Sofia city — МИР 23/24/25, SFO_CITY, the S2### районы

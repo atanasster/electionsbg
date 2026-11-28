@@ -34,7 +34,7 @@
 //       €2.84bn ministry is that it double-counted against nothing, so that is
 //       asserted rather than assumed;
 //     - the second-level МЗ family (55 ЦСМП/РЗИ/НЦОЗА EIKs, €86.9m) is IN since
-//       2026-11-20 (health-hub-v1 D1) and every swept body must be listed, while
+//       2026-11-20 and every swept body must be listed, while
 //       the state/university HOSPITALS (€10.6bn — НЗОК's own payees) stay OUT;
 //     - both members are real, signature awarders in the corpus — proves neither
 //       EIK is a typo, while НЗОК's own thin ЗОП line stays far below payout.
@@ -357,7 +357,7 @@ describe("health sector (НЗОК + МЗ + МЗ bodies; payout headline from Н�
       // Widened 2026-08-16 from НЗОК alone: МЗ is €2.84bn / 5,771 contracts —
       // 34× НЗОК's whole ЗОП line — and belonged to no sector at all. Pin both
       // EIKs so neither a re-narrowing nor a silent third member goes unnoticed.
-      // Widened again 2026-11-20 (health-hub-v1 D1) with МЗ's 55 second-level
+      // Widened again 2026-11-20 with МЗ's 55 second-level
       // EIKs, in roster order after the two principals.
       const expected = [
         "121858220",
@@ -519,7 +519,7 @@ describe("health sector (НЗОК + МЗ + МЗ bodies; payout headline from Н�
   });
 
   test.skipIf(skip)(
-    "every swept second-level МЗ body is in the EIK-set (health-hub-v1 D1)",
+    "every swept second-level МЗ body is in the EIK-set",
     async () => {
       // ЦСМП / РЗИ / НЦОЗА are second-level units under МЗ (~€86.9m), IN the
       // roll-up since 2026-11-20. Resolved from the corpus, so a body that starts
@@ -1686,7 +1686,7 @@ describe("transport sector (procurement / МТС)", () => {
   );
 
   test.skipIf(skip)(
-    "the transport-hub-v1 lists stay outside the roll-up, and its additions are material",
+    "the transport hub's added lists stay outside the roll-up, and its additions are material",
     async () => {
       // D3 / D4 / D9: the VERIFY body, the in-group contractor and the public
       // contractors each answer a different question from the awarder-side headline.

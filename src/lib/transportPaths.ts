@@ -12,7 +12,7 @@
  *  import-free; transportReferenceData.test.ts holds the two equal. */
 export const TRANSPORT_MINISTRY_EIK = "000695388";
 
-/** The hub and its four sub-pages (docs/plans/transport-hub-v1.md §3). */
+/** The hub and its four sub-pages. */
 export const TRANSPORT_PATHS = {
   hub: "/sector/transport",
   network: "/sector/transport/network",

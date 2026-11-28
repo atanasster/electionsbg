@@ -1,5 +1,5 @@
 // The awarder-funds-rollup ?basis=grant arm against the real corpus
-// (transport-hub-v1 D6 / A11). The route test (functions/) only sees SQL text, so a
+//. The route test (functions/) only sees SQL text, so a
 // column bound to the wrong field — total_eur returned as grantEur — would pass
 // there; this re-derives each field from fund_projects independently.
 

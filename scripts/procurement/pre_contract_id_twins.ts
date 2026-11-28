@@ -18,7 +18,7 @@
 // corpus), 2011–2021, every one `tag = 'contract'`, no `procurement_annexes` row on any.
 // Validated by re-parsing every raw dump with TODAY's parser: in every group the
 // contract-number-less row is NOT produced, and every sibling IS. Plan: docs/plans/procurement-same-feed-dedup-v1.md
-// §7; found by the transport audit (docs/plans/transport-hub-v1.md, €107M of its headline).
+// §7; found by the transport audit (€107M of its headline).
 //
 // ── THE RULE ───────────────────────────────────────────────────────────────────────────────
 //

@@ -1,5 +1,5 @@
 // /sector/edu/procurement — what the education and science institutions buy,
-// how it is awarded and who wins it. Plan: docs/plans/edu-hub-v1.md §3.
+// how it is awarded and who wins it.
 //
 // Sections carry the plan's ids and ONLY those: #spine #universes #competition
 // #contractors #top-contracts #buses #textbooks #direct. Each section OWNS its id

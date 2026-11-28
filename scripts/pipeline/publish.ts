@@ -1,7 +1,6 @@
 // The publish runner: consume state/upload/pending.json, push the bucket
 // subtrees and run the `:cloud` loaders it names, verify, close out.
-// Plan: docs/plans/watch-pipeline-scripts-v1.md §2.10; it replaces the
-// procedure in .claude/skills/upload-watch-changes/SKILL.md step for step.
+// It replaces the procedure in .claude/skills/upload-watch-changes/SKILL.md step for step.
 //
 // The rules it keeps from that runbook, each of which was a documented miss:
 //   - the manifest IS the work list — nothing is re-derived from git;

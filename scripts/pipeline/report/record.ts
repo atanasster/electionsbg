@@ -1,5 +1,5 @@
 // The machine-readable record of one pipeline run (`run.json`), and where a
-// run's artifacts live. Plan: docs/plans/watch-pipeline-scripts-v1.md §2.8.
+// run's artifacts live.
 //
 // Two tiers on purpose:
 //   state/pipeline/runs/<session>/   COMMITTED, small: run.json, report.md,

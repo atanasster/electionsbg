@@ -20,7 +20,7 @@ const REPO = path.resolve(
   "../..",
 );
 const MAP = path.join(REPO, ".claude/skills/process-watch-report/SKILL.md");
-// Since Tier 6 (docs/plans/watch-pipeline-scripts-v1.md) the routing table is the
+// The routing table is the
 // pipeline registry, rendered into this generated page; the skill points at it.
 const INDEX = path.join(REPO, "docs/pipeline-handlers.md");
 

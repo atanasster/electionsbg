@@ -1,7 +1,7 @@
 // Pure title → map-link rules for the /sector/transport project map
 // (transport_project_link, schema 076). Kept apart from the loader so every rule
 // below carries a fixture test (transport_project_links.test.ts) and needs no
-// database. docs/plans/transport-hub-v1.md A5–A7.
+// database.
 //
 // Three rules, each of which shipped wrong before 2026-10-16:
 //
@@ -226,8 +226,8 @@ export const kmBetween = (a: [number, number], b: [number, number]): number => {
 const AMBIGUITY_RATIO = 1.5;
 
 /**
- * Choose the two places a named section runs between (transport-hub-v1 audit
- * 2026-10-17, T4). Every end is checked against the other — TOWNS INCLUDED: a
+ * Choose the two places a named section runs between (audit
+ * 2026-10-17). Every end is checked against the other — TOWNS INCLUDED: a
  * town name is often also a village elsewhere („Стражица" is a town in Велико
  * Търново and a village near Балчик; „Славяново" a town in Плевен and a village
  * near Попово), and taking the town blindly drew Стражица–Славяново 100 km across

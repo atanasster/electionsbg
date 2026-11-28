@@ -1,6 +1,6 @@
 // The /sector/health hub registry — the tiles the sector fronts. Pure data; the
 // scene is referenced by `id` (HEALTH_SCENES[id]), so this module carries no JSX.
-// Mirrors eduRegistry.ts. Plan: docs/plans/health-hub-v1.md §3.
+// Mirrors eduRegistry.ts.
 //
 // EVERY `to` IS A LIVE, STATIC DESTINATION — asserted against the routed list by
 // healthRegistry.test.ts. No seeded `:param` paths.

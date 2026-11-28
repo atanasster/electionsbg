@@ -9,7 +9,7 @@
 //
 // Each compressed sheet carries `data` and `strings`, both arrays of 10,000-char
 // CHUNKS of an LZW stream. Three things are easy to get wrong, and each was
-// measured on the real file (docs/plans/vaccines-flow-v1.md, T0):
+// measured on the real file:
 //
 //  1. The chunks are ONE stream. Concatenate them BEFORE decoding — an LZW
 //     dictionary spans chunk boundaries, so decoding per chunk fails on the

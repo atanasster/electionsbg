@@ -1,5 +1,5 @@
 // Load the COMMITTED comdos.bg decision corpus (data/comdos/) into `ds_decision` +
-// `ds_announcement` (migration 203, docs/plans/comdos-ds-ingest-v1.md).
+// `ds_announcement` (migration 203).
 //
 //   pnpm run db:load:ds:pg
 //   pnpm run db:load:ds:pg:cloud

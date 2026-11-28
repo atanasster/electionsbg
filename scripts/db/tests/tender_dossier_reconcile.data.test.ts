@@ -1,5 +1,4 @@
 // A8 — reconcile the ЦАИС ЕОП dossier against the corpus it overlaps.
-// docs/plans/tender-dossier-ingest-v1.md §5 (A8), §1.4, §1.5.
 //
 // The dossier is a SECOND source for two things the corpus already models, and the
 // plan's instruction was explicit: reconcile them, do not ship two disagreeing

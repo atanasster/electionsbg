@@ -1,5 +1,5 @@
 // /sector/transport/procurement — what the transport bodies buy, how it is
-// awarded and who wins it. Plan: docs/plans/transport-hub-v1.md §3.
+// awarded and who wins it.
 //
 // Sections carry the plan's ids and ONLY those (C6): #spine #modes #categories
 // #competition #contractors #top-contracts #direct #risk. Each section OWNS its

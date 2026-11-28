@@ -4,7 +4,7 @@
 // The decorator used to fall back to first+last, which drops the patronymic: 11,991 of
 // 17,374 stamped rows (69%) showed a different person's parliament.bg portrait. This
 // gate re-checks the stamped artifacts rather than the matcher, so a stale bundle
-// written by the old rule fails here too. See docs/plans/local-mp-photo-links-v1.md.
+// written by the old rule fails here too.
 
 import fs from "fs";
 import path from "path";

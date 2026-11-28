@@ -1,4 +1,4 @@
-// The health finder (health-hub-v1 T6): the bodies group spans the whole roster
+// The health finder: the bodies group spans the whole roster
 // — one row per institution, a retired РИОКОЗ EIK finding its РЗИ successor —
 // ranked by the blob and landing on all-time awarder pages; the two НЗОК groups
 // stay unbuilt (and not loading) until the box is armed; then the shared

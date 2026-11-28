@@ -1,5 +1,4 @@
-// /sector/transport — the transport sector hub. Plan:
-// docs/plans/transport-hub-v1.md §3.
+// /sector/transport — the transport sector hub.
 //
 // This URL rendered the generic SectorDashboardScreen around TransportPack — one
 // long scroll with no head and no stated basis, in which the ministry looked

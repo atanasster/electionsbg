@@ -1,5 +1,4 @@
 // The handler registry: every watcher source → what runs when it moves.
-// Plan: docs/plans/watch-pipeline-scripts-v1.md §2.1.
 
 import { BUDGET_MACRO } from "./handlers/budget_macro";
 import { PARLIAMENT_PEOPLE } from "./handlers/parliament_people";

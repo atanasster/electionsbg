@@ -1,6 +1,6 @@
 # Сметна палата audit reports — scoping (v1)
 
-Status: **scoping only** (deferred-followups-verification-fixes-v1, T4.10). Nothing is built.
+Status: **scoping only** (deferred follow-up T4.10). Nothing is built.
 Everything below was measured against bulnao.government.bg on 2026-10-21 with a scratch scanner;
 counts are the site's own listings on that day.
 

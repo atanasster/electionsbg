@@ -1,5 +1,4 @@
 // Tier A of the tender dossier ingest — the JSON crawl.
-// docs/plans/tender-dossier-ingest-v1.md §5.
 //
 // For every ЦАИС-era tender we already hold (`tenders.tender_id`, which is also the
 // ocid suffix), fetch the anonymous per-tender surface and store the raw bodies:

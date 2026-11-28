@@ -2,7 +2,6 @@
 // the companies and agencies under it, grouped by mode, each with its own
 // procurement in the page's window; the one body whose principal is unsettled
 // (D3), shown apart and never summed; and the facility map at #map (D7).
-// Plan: docs/plans/transport-hub-v1.md §3.
 //
 // It also carries what the generic /sector/:id shell gave this sector before the
 // hub: the member finder (SectorMembersSearch) and the roster with its

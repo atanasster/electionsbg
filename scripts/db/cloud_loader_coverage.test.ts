@@ -24,9 +24,8 @@ const cloudScripts = (): string[] => {
 };
 
 // The pipeline registry, as rendered into docs/pipeline-handlers.md (generated,
-// and gated against the registry by handler_index.test.ts). Since Tier 6 of
-// docs/plans/watch-pipeline-scripts-v1.md the orchestrator's source → loader
-// routing lives THERE, not in process-watch-report's prose, so a loader the
+// and gated against the registry by handler_index.test.ts). The orchestrator's
+// source → loader routing lives THERE, not in process-watch-report's prose, so a loader the
 // registry publishes is wired even when no runbook spells it.
 const handlerIndexText = (): string => {
   const p = path.join(ROOT, "docs/pipeline-handlers.md");

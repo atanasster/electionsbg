@@ -30,7 +30,7 @@ const BASE = process.env.OG_BASE_URL ?? "http://localhost:5173";
 // whose OG is a hand-framed, map-focused capture that this generic KPI-clip would
 // overwrite. Run those scripts separately:
 //   transport → scripts/og/capture-screens.ts `sector-transport` / `-network` (a bespoke
-//               HubHead hub since docs/plans/transport-hub-v1.md T3; its old map-only
+//               HubHead hub; its old map-only
 //               screenshot_transport.ts is retired)
 //   regional  → scripts/og/screenshot_regional.ts   (d3 oblast choropleth + scatter)
 //   roads     → scripts/og/capture-screens.ts `sector-roads` (a bespoke HubHead hub —

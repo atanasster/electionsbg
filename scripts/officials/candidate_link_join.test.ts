@@ -1,5 +1,4 @@
-// Unit test for the officials candidateLink join (docs/plans/local-mp-photo-links-v1.md
-// Part B): the slate row a roster name resolves to, and the MP photo it carries. Hand-built
+// Unit test for the officials candidateLink join: the slate row a roster name resolves to, and the MP photo it carries. Hand-built
 // bundles and MP index; no fs, no DB.
 
 import { describe, it, expect } from "vitest";

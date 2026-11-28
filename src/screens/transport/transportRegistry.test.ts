@@ -1,4 +1,4 @@
-// Gate for the /sector/transport hub registry (docs/plans/transport-hub-v1.md T3).
+// Gate for the /sector/transport hub registry.
 // Every failure it catches is silent at build time and loud on the page: a dead
 // link, a missing scene (white screen), a repeated accent, a ?param the
 // destination drops, a whole-corpus tile landing on one parliament's slice, a

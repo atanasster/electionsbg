@@ -1,5 +1,4 @@
 // A4 — walk the ЦАИС ЕОП tenderId space.
-// docs/plans/tender-dossier-ingest-v1.md §5 (A4), §9.3.
 //
 // WHY A WALK AND NOT A SEARCH. The register exposes five anonymous search methods,
 // but their request shape resisted reverse-engineering (three guesses → ErrorCode 4;

@@ -618,7 +618,7 @@ const patronymicConflict = (a: Mention, b: Mention): boolean =>
 // The NATIONAL ↔ LOCAL rule: a person who stood for or sat in parliament in an oblast, and
 // a person who held a local office in an община of that same oblast, for the same party,
 // under the same full three-part name, are one person — when nobody else on the fold
-// competes for that (party, oblast). docs/plans/person-national-local-merge-v1.md.
+// competes for that (party, oblast).
 //
 // Why it was needed. `weakBoth` already accepts party AND place as evidence, but compares
 // the place as a string, and the two sides fill it at different grains — the МИР on a

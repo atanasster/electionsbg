@@ -1,6 +1,6 @@
 // `pnpm run db:gen-edu-hub-stats` → data/education/derived/hub_stats.json, the
-// /sector/edu hub's KPI band, body rail, finder index and band figures
-// (docs/plans/edu-hub-v1.md T2). The shape is EduHubStats (src/data/edu/hubStats.ts).
+// /sector/edu hub's KPI band, body rail, finder index and band figures.
+// The shape is EduHubStats (src/data/edu/hubStats.ts).
 //
 // Inputs are Postgres only: contracts, fund_projects, national_competition() (167),
 // and agri_subsidies (db:load:agri:pg) for the research arm's payout basis —

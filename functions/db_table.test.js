@@ -1746,7 +1746,7 @@ test("an EMPTY tier filter must NOT drop the public floor (presence != effect)",
 
 // ---------------------------------------------------------------------------
 // B3 — the two search arms added for the tender dossier
-// (docs/plans/tender-dossier-ingest-v1.md, 147_tender_search_text.sql).
+// (147_tender_search_text.sql).
 
 const tenders = REGISTRY.tenders;
 

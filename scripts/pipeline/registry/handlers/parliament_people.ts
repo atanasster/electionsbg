@@ -326,7 +326,7 @@ export const PARLIAMENT_PEOPLE: Handler[] = [
         "db:load:tr-name-fold-people:pg",
         pnpm("db:load:tr-name-fold-people:pg"),
       ),
-      // the ДС corpus the resolver reads (docs/plans/comdos-ds-ingest-v1.md)
+      // the ДС corpus the resolver reads
       derive("db:load:ds:pg", pnpm("db:load:ds:pg")),
       // --no-stamp: the resolver would otherwise stamp the marker at step 2 of
       // the chain, so a later failure would leave it reading "done".

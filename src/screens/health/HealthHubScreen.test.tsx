@@ -1,4 +1,4 @@
-// The hub finder's LAZY-FETCH gate (health-hub-v1 T6). Two regressions are
+// The hub finder's LAZY-FETCH gate. Two regressions are
 // invisible everywhere else:
 //
 //   1. dropping `armed` from the two hook calls adds two НЗОК payload requests

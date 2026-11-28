@@ -1,5 +1,4 @@
-// Gate for the comdos.bg ДС decision corpus (migration 203,
-// docs/plans/comdos-ds-ingest-v1.md). Three things are worth protecting:
+// Gate for the comdos.bg ДС decision corpus (migration 203). Three things are worth protecting:
 //   - the database is a lossless load of the COMMITTED corpus;
 //   - the plan's §4 rules are structural, not conventions: no recruiter/handler
 //     name anywhere, and the named rows are not readable by the serving role;

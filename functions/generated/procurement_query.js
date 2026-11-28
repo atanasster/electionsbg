@@ -2140,7 +2140,7 @@ var EDU_ENTITIES = [
   // prettier-ignore
   { eik: "177480148", name: "\u0414\u044A\u0440\u0436\u0430\u0432\u043D\u0430 \u0430\u0433\u0435\u043D\u0446\u0438\u044F \u0437\u0430 \u043D\u0430\u0443\u0447\u043D\u0438 \u0438\u0437\u0441\u043B\u0435\u0434\u0432\u0430\u043D\u0438\u044F \u0438 \u0438\u043D\u043E\u0432\u0430\u0446\u0438\u0438 (\u0414\u0410\u041D\u0418\u0418)", universe: "agency" },
   // prettier-ignore
-  // edu-hub-v1 D2 (2026-11-20): two МОН bodies the corpus sweep found in NO sector.
+  // Added 2026-11-20: two МОН bodies the corpus sweep found in NO sector.
   // ЦРЧР is the national Erasmus+ agency under the minister (€9.58M / 221 contracts);
   // НДД is the ministry's national children's palace (€2.58M / 21). Together +€12.16M.
   { eik: "130047747", name: "\u0426\u0435\u043D\u0442\u044A\u0440 \u0437\u0430 \u0440\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u043D\u0430 \u0447\u043E\u0432\u0435\u0448\u043A\u0438\u0442\u0435 \u0440\u0435\u0441\u0443\u0440\u0441\u0438 (\u0426\u0420\u0427\u0420)", universe: "agency" },
@@ -2463,7 +2463,7 @@ var TRANSPORT_ENTITIES = [
   { eik: "121023551", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u0421\u043E\u0444\u0438\u044F\u201C \u0415\u0410\u0414", nameEn: "Sofia Airport", universe: "aviation" },
   // prettier-ignore
   // „Летище Пловдив“ ЕАД — 100% state airport operator, same class as Летище София
-  // (D2, docs/plans/transport-hub-v1.md). Small (€1.06M, 11 contracts 2011–2026, all
+  // (added 2026-10-17). Small (€1.06M, 11 contracts 2011–2026, all
   // fuel CPV 09*), but it meets the inclusion rule; seat Крумово (обл. Пловдив).
   { eik: "115007069", name: "\u201E\u041B\u0435\u0442\u0438\u0449\u0435 \u041F\u043B\u043E\u0432\u0434\u0438\u0432\u201C \u0415\u0410\u0414", nameEn: "Plovdiv Airport", universe: "aviation" },
   // prettier-ignore
@@ -2524,7 +2524,7 @@ var TRANSPORT_PUBLIC_CONTRACTORS = [
   },
   { eik: "202218735", name: "\u201E\u0426\u0435\u043D\u0442\u044A\u0440 \u0437\u0430 \u0433\u0440\u0430\u0434\u0441\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u043D\u043E\u0441\u0442\u201C \u0415\u0410\u0414", nameEn: "Urban Mobility Centre", principal: "municipal" },
   // prettier-ignore
-  // transport-hub-v1 audit 2026-10-17 (T10): the МТС HQ's heat and gas suppliers.
+  // Audit 2026-10-17: the МТС HQ's heat and gas suppliers.
   // EIKs taken from contracts.contractor_eik (€805,973 and €359,479).
   { eik: "831609046", name: "\u201E\u0422\u043E\u043F\u043B\u043E\u0444\u0438\u043A\u0430\u0446\u0438\u044F \u0421\u043E\u0444\u0438\u044F\u201C \u0415\u0410\u0414", nameEn: "Toplofikatsia Sofia", principal: "municipal" },
   // prettier-ignore

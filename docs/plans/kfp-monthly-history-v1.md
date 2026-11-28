@@ -1,6 +1,6 @@
 # КФП monthly history — located (v1)
 
-Status: **located, not built** (deferred-followups-verification-fixes-v1, T4.12). Measured
+Status: **located, not built** (deferred follow-up T4.12). Measured
 2026-10-21.
 
 ## Where it is

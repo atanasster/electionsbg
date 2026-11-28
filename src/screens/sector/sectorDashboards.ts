@@ -95,7 +95,7 @@ export interface SectorMember {
    *  roll-up must still fold its contracts, but it renders NO chip of its own and
    *  is not counted in the roster heading: one institution, one chip. The live
    *  case is Стопанска академия „Д. А. Ценов" (040624317 → 000124026), which the
-   *  education roster listed twice and counted as two bodies (edu-hub-v1 A5/A6). */
+   *  education roster listed twice and counted as two bodies. */
   aliasOf?: string;
 }
 
@@ -301,7 +301,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       })),
     ),
   },
-  // ⚠ INERT (docs/plans/health-hub-v1.md T3) — the roads/transport/edu
+  // ⚠ INERT — the roads/transport/edu
   // precedent. /sector/health is the bespoke HealthHubScreen, routed as a static
   // literal ahead of sector/:id, so this entry no longer renders and the НЗОК
   // pack's tiles now sit on /sector/health/{hospitals,drugs,money}. It stays
@@ -312,7 +312,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // hub HEADLINE stays НЗОК-only payout on purpose: summing МЗ's budget onto it
   // would mix bases and double-count the state transfer that part-funds НЗОК.
   // Members from the curated register (healthReferenceData.ts): НЗОК, МЗ and,
-  // since 2026-11-20 (health-hub-v1 D1), МЗ's 55 second-level EIKs.
+  // since 2026-11-20, МЗ's 55 second-level EIKs.
   //
   // leadEik stays НЗОК because getSectorPack keys on it, so the fund's
   // budget-bridge pack — the one that shows ЗОП is ~1.5% of the money — remains
@@ -363,7 +363,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // SEPARATE sector — АПИ/Автомагистрали are excluded. Метрополитен is municipal,
   // also excluded. Members from the curated allowlist (transportReferenceData.ts).
   //
-  // ⚠ INERT (2026-10-16, docs/plans/transport-hub-v1.md C5) — the roads precedent.
+  // ⚠ INERT (2026-10-16) — the roads precedent.
   // /sector/transport is the bespoke TransportHubScreen, routed as a static
   // literal ahead of sector/:id, so this entry no longer renders. It stays
   // COMPLETE on purpose: SECTOR_DASHBOARD_IDS drives the sitemap slug and the
@@ -502,7 +502,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       },
     ],
   },
-  // ⚠ INERT (docs/plans/edu-hub-v1.md T3) — the roads/transport precedent.
+  // ⚠ INERT — the roads/transport precedent.
   // /sector/edu is the bespoke EduHubScreen, routed as a static literal ahead of
   // sector/:id, so this entry no longer renders and MonPack now sits in
   // /sector/edu/procurement#textbooks. It stays COMPLETE on purpose: the sitemap

@@ -2,7 +2,7 @@
 // tile, the /subsidies rail tile (through useRailSubsidy) and the AI `railSubsidy`
 // tool, which cannot import a React hook module. One definition, so the chat and the
 // page cannot disagree about the year or about an unpublished capital transfer
-// (transport-hub-v1 T9 F3).
+//.
 
 export interface RailSubsidyFile {
   source: { name: string; note: string; unit: string };
@@ -55,7 +55,7 @@ export const railSubsidyRows = (
   return subs
     .map((y) => {
       const pso = y.bdzPassengerPsoEur;
-      // A null component is UNPUBLISHED, not zero (transport-hub-v1 T9 F3): the
+      // A null component is UNPUBLISHED, not zero: the
       // 2024 law leaves both capital transfers blank, and coalescing them to 0
       // published a total €100M+ short of the real one. So НКЖИ and the total
       // are null whenever a part is missing, and `capitalMissing` says why.

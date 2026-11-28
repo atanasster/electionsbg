@@ -1401,7 +1401,7 @@ export const nzokPrivateHospitals = async (
 // 31 Jul, so a January shot belongs to the previous season. Two НЗИС clocks
 // answer here and are never compared with each other: the daily counter
 // (season-to-date) and the monthly cells, of which only COMPLETE months are
-// set against the same months last season (docs/plans/vaccines-flow-v1.md §7).
+// set against the same months last season.
 
 type VaccinesOverviewLite = {
   season: number;

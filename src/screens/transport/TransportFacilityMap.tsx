@@ -341,7 +341,7 @@ export const TransportFacilityMap: FC<{
             ? `Картата отразява избрания времеви обхват${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} от ${seats.total} структури са РЕГИСТРИРАНИ в София${seats.hasOutside ? `; останалите са ${seats.outsideBg}` : ""}. Двата маркера във Варна (Морска администрация, Пристанищна инфраструктура) са реалното място на дейността, не седалището. Мрежите (жп линии, пътища) нямат една точка — вижте `
             : `The map reflects the selected time scope${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} of ${seats.total} entities are REGISTERED in Sofia${seats.hasOutside ? `; the rest sit ${seats.outsideEn}` : ""}. The two Varna markers (Maritime Administration, Bulgarian Ports Infrastructure Company) mark where the operation physically sits, not the legal seat. Networks (rail lines, roads) have no single point — see `}
           {/* The project map lives on its own page since the hub split
-              (transport-hub-v1 T3); the scope travels with the link. */}
+             ; the scope travels with the link. */}
           <Link
             to={`${TRANSPORT_PATHS.network}${location.search}`}
             className="underline hover:text-primary"

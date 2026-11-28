@@ -1,4 +1,4 @@
-// Gate for the /sector/health hub registry (docs/plans/health-hub-v1.md T3).
+// Gate for the /sector/health hub registry.
 // Every failure it catches is silent at build time and loud on the page: a dead
 // link, a missing scene, a repeated accent, a whole-corpus tile landing on one
 // parliament's slice, a #fragment the destination never renders, a ?universe the

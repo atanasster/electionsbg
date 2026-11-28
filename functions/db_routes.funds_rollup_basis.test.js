@@ -1,4 +1,4 @@
-// awarder-funds-rollup ?basis=grant (transport-hub-v1 D6/A11): opt-in, echoed, and
+// awarder-funds-rollup ?basis=grant: opt-in, echoed, and
 // the default call — water's useVik and the AI tool — stays on fund_beneficiaries.
 const test = require("node:test");
 const assert = require("node:assert/strict");

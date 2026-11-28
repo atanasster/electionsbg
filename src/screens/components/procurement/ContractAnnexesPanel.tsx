@@ -2,7 +2,7 @@
 // The value ladder above it shows the NET signing→current move; this itemises
 // what produced it: each published modification, when, its Δ, and the ЗОП
 // ground the buyer stated. It exists to answer the question the net figure
-// cannot (docs/plans/procurement-risk-v2.md §0b) — was a +50% move ONE annex at
+// cannot — was a +50% move ONE annex at
 // the чл.116 ал.2 cap, or SEVERAL smaller ones summing to it?
 //
 // DESCRIPTIVE, not a verdict: it reports the register's own stated grounds

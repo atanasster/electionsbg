@@ -18,7 +18,6 @@
 // patronymic or the two are within MIDDLE_NAME_MAX_EDITS.
 // The MP side is exact full name only (scripts/parsers_local/mpNameMatch.ts). A different
 // patronymic is a different person, so an unguarded first+last fallback is never safe.
-// See docs/plans/local-mp-photo-links-v1.md Part B.
 
 import fs from "fs";
 import path from "path";
@@ -144,8 +143,7 @@ const patronymicOf = (name: string): string => {
 
 /** Max edits between two patronymics still read as one person mistyped. Measured
  *  2026-10-21 on the mi2023 slates: the roster typos („Радослваов", „Геогиев") are 1–2
- *  edits; the genuinely different middle names the old fallback accepted are 4–8.
- *  docs/plans/local-mp-photo-links-v1.md Part B. */
+ *  edits; the genuinely different middle names the old fallback accepted are 4–8. */
 export const MIDDLE_NAME_MAX_EDITS = 2;
 
 /** Two names the first+last fallback may treat as one person: either lacks a patronymic,

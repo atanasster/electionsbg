@@ -175,8 +175,7 @@ CREATE OR REPLACE VIEW risk_cpv_median AS
 -- needs; only чл.21 bars slicing ONE need, which the data cannot distinguish.
 -- Ceilings are date+category dependent (EUR, ÷1.95583; ДВ 88/2023 raised them
 -- 2024-01-01): works (CPV 45) 25 565 ≤2023 / 40 903 2024+; goods & services
--- 15 339 ≤2023 / 25 565 2024+. See scripts/procurement/tender_base_rates.sql
--- and docs/plans/procurement-risk-v2.md §7.4.
+-- 15 339 ≤2023 / 25 565 2024+. See scripts/procurement/tender_base_rates.sql.
 CREATE OR REPLACE VIEW risk_split_source AS
   SELECT key, awarder_eik, awarder_name, contractor_eik, contractor_name,
          left(cpv, 2) AS cpv_div,

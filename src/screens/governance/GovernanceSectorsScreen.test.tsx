@@ -14,7 +14,7 @@ import type { ReactNode } from "react";
 import { GovernanceSectorsScreen } from "./GovernanceSectorsScreen";
 
 /** Verbatim from data/procurement/derived/sector_stats.json, `all` scope, 2026-08-26 —
- *  except `transport`, re-read 2026-10-17 (transport-hub-v1 D2). */
+ *  except `transport`, re-read 2026-10-17. */
 const STATS = {
   all: {
     roads: { kind: "eur", basis: "procurement", value: 8822447923 },

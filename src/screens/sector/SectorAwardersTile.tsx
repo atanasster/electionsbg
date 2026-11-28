@@ -16,7 +16,7 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   // One chip per INSTITUTION: a retired EIK (`aliasOf`) folds into its
-  // successor's chip and out of the heading count (edu-hub-v1 A5/A6).
+  // successor's chip and out of the heading count.
   const members = sectorInstitutions(config.members);
   const single = members.length === 1;
 

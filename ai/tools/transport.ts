@@ -2,7 +2,7 @@
 // group's procurement is served live from Postgres (the same awarder-group-model and
 // ex-member rollup the hub's sub-pages read), so these tools aggregate the curated
 // state-transport group (every EIK in TRANSPORT_ENTITIES) on the hub's own rules
-// (docs/plans/transport-hub-v1.md C8).
+//.
 //
 //   transportSpending  — group procurement by MODE (rail/maritime/aviation/road) +
 //                        what it buys by function + competition signals.
@@ -62,7 +62,7 @@ interface NationalCompetition {
 
 // "Къде отиват парите за транспорт?" — the state transport group's procurement by
 // mode + function, the chat analog of /sector/transport/procurement. Two rules keep
-// it from contradicting the hub (docs/plans/transport-hub-v1.md C8):
+// it from contradicting the hub:
 //   • the mode split RE-ATTRIBUTES the ministry's rail contracts (PSO 6021*, rolling
 //     stock 346*) to rail — reattributedModes(), the hub's KPI 2 rule (D8);
 //   • the single-bid share is the EX-MEMBER pair (awarder-group-rollup?exMembers=1)
@@ -196,7 +196,7 @@ interface FundsRollup {
 // "Колко европейски пари усвоява транспортът?" — ИСУН on the GRANT basis (БФП,
 // fund_projects — D6): the grant awarded against what has been paid, the hub's
 // /money#funds figure. Without the declared out-of-sector projects (the RRP
-// broadband project — transport-hub-v1 audit 2026-10-17, T2) and with NO total
+// broadband project, audited 2026-10-17) and with NO total
 // project value: a phased project carries its total once per phase, so a sum
 // double-counts (T3).
 export const transportEuFunds = async (

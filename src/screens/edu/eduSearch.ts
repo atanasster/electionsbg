@@ -1,5 +1,5 @@
-// The /sector/edu finder's sources — pure data, no JSX. Plan:
-// docs/plans/edu-hub-v1.md T6 (the transport T6 shape).
+// The /sector/edu finder's sources — pure data, no JSX (the transport finder's
+// shape).
 //
 // Three groups:
 //

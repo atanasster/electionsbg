@@ -1,5 +1,4 @@
 // The six vaccine sources. Maps to `update-vaccines`.
-// Plan: docs/plans/vaccines-flow-v1.md T1.
 //
 // Every fingerprint THROWS on an unreachable source or zero parsed rows — none
 // returns an empty fingerprint, because three of these sources keep no history

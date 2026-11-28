@@ -3390,7 +3390,7 @@ const DB_ROUTES = {
     // to. € is unaffected either way (member rows carry €0). Opt-in: the default
     // stays the member-inclusive basis the defense strip was sized on.
     const exMembers = s(q, "exMembers") === "1";
-    // exFramework=1 (health-hub-v1 D3) drops the joint_kind='framework' rows
+    // exFramework=1 drops the joint_kind='framework' rows
     // (087) from every count and € below. Each such row is ceiling/N — an equal
     // split of a framework CEILING, not money spent — and on МЗ they are €1.31bn
     // against €1,527.1M of real contracts, so summing them nearly doubles the
@@ -3443,7 +3443,7 @@ const DB_ROUTES = {
       .filter((e) => /^\d{9,13}$/.test(e))
       .slice(0, 300);
     if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
-    // exFramework=1 → 061's p_ex_framework (health-hub-v1 D3). The 4th argument
+    // exFramework=1 → 061's p_ex_framework. The 4th argument
     // is sent ONLY when asked for, so the default call stays the 3-arg form and
     // keeps working against a database whose 061 predates the switch; a caller
     // that asked for it reads the payload's own "exFramework" echo, which an old
@@ -3482,7 +3482,7 @@ const DB_ROUTES = {
     const limit = clampInt(q.limit, 8, 1, 50);
     const from = orNull(q, "from");
     const to = orNull(q, "to");
-    // exFramework=1 (health-hub-v1 D3) drops framework-ceiling shares (087) —
+    // exFramework=1 drops framework-ceiling shares (087) —
     // a ceiling/N row would otherwise rank as one of the "biggest contracts".
     const exFramework = s(q, "exFramework") === "1";
     const contracts = await dbRows(
@@ -3490,11 +3490,11 @@ const DB_ROUTES = {
               contractor_eik AS "contractorEik", contractor_name AS "contractorName",
               amount_eur AS "amountEur", title,
               -- awarder + CPV let a sector caption the rows it ranks (the
-              -- transport hub's PSO / pass-through rule, transport-hub-v1
-              -- G2/G9). Additive: the two existing callers ignore them.
+              -- transport hub's PSO / pass-through rule). Additive: the two
+              -- existing callers ignore them.
               awarder_eik AS "awarderEik", cpv,
               -- УНП lets a caller fold the lots of ONE procurement into one row
-              -- (edu-hub-v1 A14: МОН's 2021 devices purchase is four lots).
+              --.
               -- Additive: existing callers ignore it.
               unp,
               -- 'framework' marks a ceiling share, not money spent (087) — lets
@@ -3532,9 +3532,8 @@ const DB_ROUTES = {
     // beneficiary, with the total project value beside it. fund_beneficiaries'
     // `contracted_eur` is the TOTAL project value including own contribution
     // (НКЖИ €3.19bn against €1.50bn of grant, so absorption read 30.8% for 65.9%),
-    // and its paid figure lags fund_projects (МТС €441.5M vs €510.7M) —
-    // transport-hub-v1 D6 / A11. Opt-in and echoed, so every default caller is
-    // byte-identical.
+    // and its paid figure lags fund_projects (МТС €441.5M vs €510.7M). Opt-in
+    // and echoed, so every default caller is byte-identical.
     if (s(q, "basis") === "grant") {
       // ?exclude=<contract_number,…> drops named projects a sector declares out of
       // scope (transport: МТС's RRP broadband project — „съобщения", D1; audit

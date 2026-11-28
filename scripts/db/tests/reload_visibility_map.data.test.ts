@@ -338,7 +338,7 @@ const RELOADED: ReadonlyArray<{
   // graph_company_node sat at 20/1174 pages (1.7%) while looking freshly maintained,
   // and its two siblings were healthy only because autovacuum had reached them.
   { table: "graph_edge", loader: "db:load:graph:pg" },
-  // Stage-merged since transport-hub-v1 O5 (was TRUNCATE + INSERT in one transaction).
+  // Stage-merged since 2026-10-16 (was TRUNCATE + INSERT in one transaction).
   {
     table: "transport_project_link",
     loader: "db:load:transport-project-map:pg",

@@ -1,6 +1,6 @@
 // The education NAME matcher — the candidate finder the register sweep runs over
-// contracts and tenders (scripts/db/tests/edu_register.data.test.ts,
-// edu-hub-v1 T9). One module, imported by every consumer (sector-dashboard §2
+// contracts and tenders (scripts/db/tests/edu_register.data.test.ts).
+// One module, imported by every consumer (sector-dashboard §2
 // rule 1).
 //
 // WHAT IT CAN AND CANNOT FIND. It covers the populations a NAME identifies:

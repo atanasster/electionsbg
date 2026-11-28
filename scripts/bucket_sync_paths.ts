@@ -178,14 +178,14 @@ export const isExcluded = (rel: string): string | null => {
   // still-served parliament/ tree, so it also needs the CHILD_EXCLUDES twin.
   if (rel.startsWith("parliament/bills"))
     return "parliament/bills/ is a PG load source (db:load:rollcall:pg)";
-  // The vaccines load source (vaccines-flow-v1 T2): the committed append-only
+  // The vaccines load source: the committed append-only
   // JSONL + curated JSON under the served health/ tree (health/derived/ ships),
   // so it also needs the CHILD_EXCLUDES twin.
   if (rel === "health/vaccines" || rel.startsWith("health/vaccines/"))
     return "health/vaccines/ is a PG load source (db:load:vaccines:pg)";
   if (rel === "administration/eforms_requests.json")
     return "administration/eforms_requests.json is a PG load source (db:load:admin-service-requests:pg)";
-  // The comdos.bg ДС decision corpus (docs/plans/comdos-ds-ingest-v1.md) — the
+  // The comdos.bg ДС decision corpus — the
   // committed data/comdos/ is the `ds` loader's SOURCE, served from Cloud SQL; a
   // bucket copy would put 11 MB of named persons on a path nothing reads.
   if (rel === "comdos" || rel.startsWith("comdos/"))

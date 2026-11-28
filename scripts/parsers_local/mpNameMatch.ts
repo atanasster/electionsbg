@@ -9,7 +9,7 @@
 // 5,262 distinct (name, mpId) pairs (84%) — and not one miss was a source dropping a middle
 // name, which was the fallback's stated reason. Even a 1–2-edit middle-name tolerance is
 // unsafe against the NATIONAL index (Петров/Петков, Янков/Цеков are different people), so
-// do not add a fuzzy tier here. See docs/plans/local-mp-photo-links-v1.md.
+// do not add a fuzzy tier here.
 //
 // A key held by two MPs is DROPPED rather than resolved by "photo wins": that heuristic
 // would quietly attach one namesake's face to the other's candidacy.

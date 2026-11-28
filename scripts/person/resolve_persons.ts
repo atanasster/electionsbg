@@ -1055,7 +1055,7 @@ async function collect(): Promise<Raw[]> {
   // ДС / COMDOS — OFFICIAL findings of the Комисия по досиетата (comdos.bg), the
   // §5 T1 `ds` facet. Government verdicts, not our claim — but wrongly naming someone a
   // State Security collaborator is a severe accusation, so the gate is the strictest in
-  // this resolver (docs/plans/comdos-ds-ingest-v1.md §4 rule 2): an announcement attaches
+  // this resolver: an announcement attaches
   // ONLY to a parliament MP (the Tier-0 gold key) whose folded name AND EXACT birth date
   // both match the Commission's own document, and only when that (name, birth date) pair
   // names exactly ONE MP. Everyone else in the corpus stays a lead, never a role.

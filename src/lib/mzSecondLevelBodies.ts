@@ -2,7 +2,7 @@
 // разпоредители под Министерството на здравеопазването without being part of
 // it: the 28 ЦСМП plus the air ambulance, the 23 РЗИ, and НЦОЗА.
 //
-// SECTOR MEMBERS SINCE 2026-11-20 (docs/plans/health-hub-v1.md D1). Until then
+// SECTOR MEMBERS SINCE 2026-11-20. Until then
 // this list was reachability only, kept disjoint from the sector's EIK-set; the
 // operator then decided these budget units belong in the roll-up because their
 // principal is МЗ. `healthReferenceData.ts` spreads this list into

@@ -1,5 +1,5 @@
 // ДС / COMDOS — the Комисия по досиетата (comdos.bg) decision archive behind the
-// `ds` facet on the person layer. See docs/plans/comdos-ds-ingest-v1.md.
+// `ds` facet on the person layer.
 //
 // The Commission has no bulk export, but its decision archive is crawlable
 // (`pnpm run comdos:crawl`) and every decision document follows one field layout,

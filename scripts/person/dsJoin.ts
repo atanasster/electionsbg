@@ -1,4 +1,4 @@
-// The ДС facet's ONE attachment rule (docs/plans/comdos-ds-ingest-v1.md §4 rule 2),
+// The ДС facet's ONE attachment rule,
 // shared by resolve_persons.ts and its data gate so the gate tests the query that runs.
 //
 // An announcement in ds_announcement (migration 203) attaches to a parliament MP only

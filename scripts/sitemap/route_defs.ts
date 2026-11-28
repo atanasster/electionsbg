@@ -259,24 +259,22 @@ export const routeDefs = (year: string): RouteDefs => [
     path: `sector/roads/${sub}`,
     file: `data/roads/derived/hub_stats.json`,
   })),
-  // The transport hub's four sub-pages (docs/plans/transport-hub-v1.md T3). `file:` is
-  // the tracked figures blob the hub and its prerender bodies read.
+  // The transport hub's four sub-pages. `file:` is the tracked figures blob the hub and its prerender bodies read.
   ...["network", "procurement", "bodies", "money"].map((sub) => ({
     path: `sector/transport/${sub}`,
     file: `data/transport/derived/hub_stats.json`,
   })),
-  // The education hub's three sub-pages (docs/plans/edu-hub-v1.md T3).
+  // The education hub's three sub-pages.
   ...["procurement", "bodies", "money"].map((sub) => ({
     path: `sector/edu/${sub}`,
     file: `data/education/derived/hub_stats.json`,
   })),
-  // The healthcare hub's four sub-pages (docs/plans/health-hub-v1.md T3).
+  // The healthcare hub's four sub-pages.
   ...["hospitals", "drugs", "procurement", "money"].map((sub) => ({
     path: `sector/health/${sub}`,
     file: `data/health/derived/hub_stats.json`,
   })),
-  // The flu-vaccine page (docs/plans/vaccines-flow-v1.md T6): its prerender
-  // quotes only the curated season plan.
+  // The flu-vaccine page: its prerender quotes only the curated season plan.
   {
     path: "sector/health/vaccines",
     file: `data/health/vaccines/season_plan.json`,

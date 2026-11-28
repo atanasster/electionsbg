@@ -1,4 +1,4 @@
--- The ЦАИС ЕОП per-procedure DOSSIER — docs/plans/tender-dossier-ingest-v1.md §5 (A6).
+-- The ЦАИС ЕОП per-procedure DOSSIER.
 --
 -- What `tenders` already holds is the notice HEADER: subject, buyer, estimated value,
 -- deadline. This is everything else the register publishes about the same procedure —

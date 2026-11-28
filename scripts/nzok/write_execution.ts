@@ -86,7 +86,7 @@ const num = (v: unknown): number =>
   typeof v === "number" && Number.isFinite(v) ? v : NaN;
 
 // ⚠ revenueEur IS NOT THE FUND'S INCOME, and reading it as such invents a
-// deficit (health-hub-v1 A3). Section А of the ЕБК form is OWN revenue —
+// deficit. Section А of the ЕБК form is OWN revenue —
 // contributions and the like. The state-budget transfer that funds most of НЗОК
 // is in section В („ОБЩО ТРАНСФЕРИ И ЗАЕМИ М/У БЮДЖЕТНИ ОРГАНИЗАЦИИ"), net of
 // what the fund passes on. Measured on the 2025 annual: А − Б alone reads as a

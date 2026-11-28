@@ -1,5 +1,4 @@
-// Postgres gates for the flu-vaccine corpus (migration 206, db:load:vaccines:pg)
-// — docs/plans/vaccines-flow-v1.md T8.
+// Postgres gates for the flu-vaccine corpus (migration 206, db:load:vaccines:pg).
 //
 // The page answers „how far is this season behind the last one", and every way
 // it can be wrong still renders a plausible number:

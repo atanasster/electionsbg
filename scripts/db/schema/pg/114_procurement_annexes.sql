@@ -3,7 +3,7 @@
 --
 -- WHY: the corpus already carries the NET move (contracts.signing_amount_eur vs
 -- amount_eur, migration 078). That answers "how much did this contract grow?"
--- but not the question docs/plans/procurement-risk-v2.md §0b actually needs to
+-- but not the question the risk work actually needs to
 -- publish the +50% cliff finding: was that one annex at the чл.116 ал.2 cap, or
 -- several smaller ones summing to it — and on which ground (ал.2 substantial
 -- change vs ал.3 inflation indexation, which stack separately)? That is a

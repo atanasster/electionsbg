@@ -1,6 +1,6 @@
 # СЕБРА payments — located (v1)
 
-Status: **located, not built** (deferred-followups-verification-fixes-v1, T4.11). Measured
+Status: **located, not built** (deferred follow-up T4.11). Measured
 2026-10-21.
 
 ## The plan's assumption was wrong in the useful direction

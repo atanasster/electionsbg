@@ -6,8 +6,7 @@
 // browse pack. Its one import is that roster — itself import-free.
 //
 // ---------------------------------------------------------------------------
-// The four lists (sector-dashboard skill §1), decided 2026-11-20 —
-// docs/plans/health-hub-v1.md D1
+// The four lists (sector-dashboard skill §1), decided 2026-11-20.
 //
 //   roll-up   НЗОК (`nzok`), МЗ (`mz`) and the 55 second-level EIKs
 //             (`mz_bodies`, 53 institutions). Principal = МЗ for all of them.
@@ -123,7 +122,7 @@ export { NZOK_EIK };
 export const MZ_BUDGET_NODE = "admin-ministerstvo-na-zdraveopazvaneto";
 
 /** Which part of the sector a member belongs to. Groups the dashboard roster
- *  today; the hub's `?universe=` filter reads it from health-hub-v1 T3. */
+ *  today; the hub's `?universe=` filter reads it too. */
 export type HealthUniverse = "nzok" | "mz" | "mz_bodies";
 
 export interface HealthEntity {
@@ -201,7 +200,7 @@ export const healthUniverseOf = (eik: string): HealthUniverse | undefined =>
 
 /** The excluded list. Unlike education's it is CLASSES, not EIKs: the
  *  лечебни заведения are commercial companies a name rule identifies (234
- *  hospitals on 2026-11-20; 283 by the looser name match in health-hub-v1 §1),
+ *  hospitals on 2026-11-20; 283 by a looser name match),
  *  and the РЗОК share НЗОК's own Булстат. `namePattern` is a Postgres regex
  *  (`~*`): health_register.data.test.ts and sector_stats.data.test.ts sweep the
  *  corpus with it, and mzSecondLevelBodies.test.ts checks no roster name

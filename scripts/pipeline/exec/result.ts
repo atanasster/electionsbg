@@ -1,5 +1,4 @@
 // The structured result a step MAY hand back to the runner.
-// Plan: docs/plans/watch-pipeline-scripts-v1.md §2.4.
 //
 // The runner sets PIPELINE_RESULT_FILE for every step. A script that calls
 // reportResult() writes its summary, counts and warnings there, and the run

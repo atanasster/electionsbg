@@ -1,5 +1,5 @@
-// Mirror + fixture tests for the transport classifier (transport-hub-v1 A3, A4,
-// D8, G2/G3, G9). The CPV codes are real corpus rows.
+// Mirror + fixture tests for the transport classifier. The CPV codes are real
+// corpus rows.
 
 import { describe, it, expect } from "vitest";
 import {

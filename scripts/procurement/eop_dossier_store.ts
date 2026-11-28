@@ -1,6 +1,5 @@
 /**
- * Tier A raw store for the ЦАИС ЕОП dossier crawl
- * (docs/plans/tender-dossier-ingest-v1.md §5). One gzipped JSON body per
+ * Tier A raw store for the ЦАИС ЕОП dossier crawl. One gzipped JSON body per
  * (tenderId, kind), plus a SEPARATE failure ledger.
  *
  * ⚠️ THE TWO-TABLE SPLIT IS THE INVARIANT, copied deliberately from

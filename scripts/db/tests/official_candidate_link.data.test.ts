@@ -121,7 +121,7 @@ test.skipIf(skip)("official_slug is unique (no roster fan-out)", async () => {
   assert.equal(Number(dupe.n), 0, `${dupe.n} duplicate official_slug(s)`);
 });
 
-// docs/plans/local-mp-photo-links-v1.md Part B. Each link joined back to the roster name it
+// Each link joined back to the roster name it
 // was resolved from — the same membership the loader reads.
 type NamedLink = {
   official_slug: string;

@@ -1,6 +1,6 @@
 // The /governance/sectors band, against a fixture measured verbatim from the committed
 // payload (data/procurement/derived/sector_stats.json, `all` scope, read 2026-08-26;
-// `transport` re-read 2026-10-17 after transport-hub-v1 D2).
+// `transport` re-read 2026-10-17 after Летище Пловдив joined the sector).
 //
 // The §0 class this band exists inside: NINETEEN SECTORS ON FOUR BASES, only one of which
 // may be summed. `procurement` is four DISJOINT rosters over one selected window; `budget`

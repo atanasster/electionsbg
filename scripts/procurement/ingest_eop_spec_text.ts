@@ -1,5 +1,4 @@
 // Tier B of the tender dossier ingest — the ONE download per tender.
-// docs/plans/tender-dossier-ingest-v1.md §5 (tier B).
 //
 // For each tender in the tier-A store, pick the техническа спецификация out of the
 // attachment manifest, mint a 30-minute signed URL, download it to a temp file,

@@ -1,6 +1,5 @@
 // Parse the crawled comdos.bg decisions (raw_data/comdos/, written by
-// `pnpm run comdos:crawl`) into the COMMITTED corpus the `ds` loader reads
-// (docs/plans/comdos-ds-ingest-v1.md §3, §5):
+// `pnpm run comdos:crawl`) into the COMMITTED corpus the `ds` loader reads:
 //
 //   data/comdos/decisions.json   one row per decision in the archive
 //   data/comdos/persons.jsonl    one row per announced person-block

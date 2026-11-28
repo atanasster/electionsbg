@@ -1,5 +1,5 @@
 // Комисия по досиетата (comdos.bg) — the decision archive that backs the `ds`
-// facet. See docs/plans/comdos-ds-ingest-v1.md.
+// facet.
 //
 // The site is an old PHP app with NO bulk export: a paginated archive of decision
 // titles (D1), one HTML page per decision (D2), and on that page a link to the

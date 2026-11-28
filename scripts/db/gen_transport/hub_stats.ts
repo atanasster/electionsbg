@@ -1,6 +1,6 @@
 // `pnpm run db:gen-transport-hub-stats` → data/transport/derived/hub_stats.json,
 // the /sector/transport hub's KPI band, body rail, finder index and band figures
-// (docs/plans/transport-hub-v1.md T2). The shape is TransportHubStats
+//. The shape is TransportHubStats
 // (src/data/transport/hubStats.ts).
 //
 // Inputs are Postgres only: contracts, procurement_annexes, fund_projects,
@@ -106,7 +106,7 @@ const main = async () => {
   const [fns] = await allRows<{ ok: boolean }>(
     `SELECT to_regprocedure('national_competition(text,text)') IS NOT NULL
         -- to_regproc, not to_regprocedure on one signature: 061 gained a 4th
-        -- defaulted arg (health-hub-v1 D3) and a pinned 3-arg probe skipped this
+        -- defaulted arg and a pinned 3-arg probe skipped this
         -- generator silently once it was applied. The 3-arg call still resolves.
         AND to_regproc('public.awarder_group_model') IS NOT NULL
         AND to_regprocedure('transport_project_map(text[],text,text)') IS NOT NULL AS ok`,

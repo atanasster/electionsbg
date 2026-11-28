@@ -1,4 +1,4 @@
-// The AI transport tools answer on the hub's own rules (transport-hub-v1 C8), so the
+// The AI transport tools answer on the hub's own rules, so the
 // chat and /sector/transport cannot state two different numbers:
 //   · transportSpending — rail share re-attributed (D8), ex-member single-bid rate,
 //     no member-inclusive count fallback;

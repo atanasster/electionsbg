@@ -221,7 +221,6 @@ export type LocalSectionResult = {
   // is today's building at that code, which for a renumbered code is not the
   // building the cycle voted in. Compare it against the cycle date rather than
   // assume the direction — a 2026 partial predates nothing.
-  // docs/plans/local-neighbourhoods-coverage-v1.md §4.
   addressSource?: string;
   longitude?: number;
   latitude?: number;

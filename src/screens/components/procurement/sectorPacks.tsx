@@ -15,8 +15,7 @@ import { PROCUREMENT_BUYER_SECTORS } from "@/lib/procurementBuyerSectors";
 // whole buyer roll-up themselves. RoadsPack was deleted once nothing rendered it.
 //
 // Transport has NO pack either, for the same reason: /sector/transport is the
-// bespoke TransportHubScreen and its four sub-pages (docs/plans/transport-hub-v1.md
-// C5). TransportPack and useTransport were deleted — /awarder/000695388 already
+// bespoke TransportHubScreen and its four sub-pages. TransportPack and useTransport were deleted — /awarder/000695388 already
 // suppressed the pack (`showPack = SectorPack && !sectorDash`), so nothing rendered
 // them.
 //
@@ -390,7 +389,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "transport",
     label: { bg: "Транспорт (МТС)", en: "Transport (МТС)" },
     eiks: PROCUREMENT_BUYER_SECTORS.transport.eiks,
-    // transport-hub-v1 B4: the hub's counts are ex-members (the T2 blob and the
+    // The hub's counts are ex-members (the T2 blob and the
     // rollup's exMembers=1 basis), because a €0 consortium member row inherits its
     // carrier's tenderer count. The browse must land on the same basis or every KPI
     // link opens on a different number than the KPI. € sums are unaffected.
@@ -402,7 +401,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
       {
         corpus: "interreg_partners",
         rowsAtDecision: 4,
-        // Decided 2026-10-16 (transport-hub-v1 §2 observations): ИАППД €6.32M and
+        // Decided 2026-10-16: ИАППД €6.32M and
         // ИА „Морска администрация" €3.25M in Interreg partner budgets. Real money,
         // on its own basis — but no transport surface renders it yet, so declaring
         // it would claim an arm that shows nowhere. Re-decide if /money#funds adds

@@ -1,5 +1,4 @@
 // Preflight: which of the registry's needs this machine can meet right now.
-// Plan: docs/plans/watch-pipeline-scripts-v1.md §2.9.
 //
 // Every one of these used to be discovered by FAILING half-way through a run:
 // the 2026-11-12 session died at its first step because parliament.bg timed

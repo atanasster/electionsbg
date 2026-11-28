@@ -1,5 +1,4 @@
 // Name the KIND of a step failure from its exit and its log tail.
-// Plan: docs/plans/watch-pipeline-scripts-v1.md §2.7.
 //
 // The class decides three things a reader (human or LLM) would otherwise
 // re-derive from the log every time: whether a retry can help, whether the

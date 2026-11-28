@@ -1,6 +1,6 @@
 // The /sector/health hub's figures, read from the committed blob that
 // `pnpm run db:gen-health-hub-stats` derives from Postgres and the committed B1
-// history (docs/plans/health-hub-v1.md T2). The shape is declared ONCE, here,
+// history. The shape is declared ONCE, here,
 // and imported by the generator.
 //
 // Numbers only — no prose, no URLs. Rate pairs ship UN-DIVIDED so both sides of a

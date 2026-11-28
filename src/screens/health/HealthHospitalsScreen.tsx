@@ -1,5 +1,5 @@
 // /sector/health/hospitals — what the health fund pays each hospital, for what,
-// and how that moves. Plan: docs/plans/health-hub-v1.md §3.
+// and how that moves.
 //
 // „БЕЗ ПЕРИОД" — no ScopeControl: the payments corpus is a monthly series with
 // its own reporting cadence, never filtered by parliament.

@@ -1,5 +1,5 @@
 // Gate for ds_overview() (migration 204) — the ONLY serving surface over the
-// comdos.bg ДС corpus. docs/plans/comdos-ds-ingest-v1.md §5.
+// comdos.bg ДС corpus.
 //
 // What it protects:
 //   - the payload reconciles to the tables, on the basis each key names;

@@ -2,7 +2,7 @@
 // from state/watch/<id>.json on purpose — a source's state file is NOT
 // written on error (so the next good run still diffs against the last good
 // fingerprint), which means the state file alone can never say "this has
-// been failing for nine days". Plan: docs/plans/watch-pipeline-scripts-v1.md §3.4.
+// been failing for nine days".
 //
 // File: state/watch/_health.json. The leading `_` is a CONVENTION, not a
 // filter: the pipeline's loadState skips `_`-prefixed files, but a shell glob

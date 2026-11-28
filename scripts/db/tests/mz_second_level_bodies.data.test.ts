@@ -211,8 +211,8 @@ describe.skipIf(skip)("МЗ second-level roster — corpus reconcile", () => {
   test("the family is worth what a reader would be told", async () => {
     // Membership in the sector set is asserted in mzSecondLevelBodies.test.ts
     // (decidable from the source). What belongs here is the half the source
-    // cannot answer — that the family's procurement, in the health roll-up since
-    // health-hub-v1 D1, is real and large.
+    // cannot answer — that the family's procurement, in the health roll-up, is
+    // real and large.
     const [row] = await allRows<{ eur: string; n: string }>(
       `SELECT round(sum(amount_eur)::numeric)::text AS eur, count(*)::text AS n
          FROM contracts

@@ -6,7 +6,7 @@
 //
 // This re-derives each figure and compares within a band (when one trips after an
 // ordinary ingest, re-run the generator — do not widen the band). It holds the
-// agreements docs/plans/transport-hub-v1.md T2 names:
+// agreements the hub depends on:
 //   · KPI 1 == sector_stats.json all.transport — one number, two pages;
 //   · the browse every KPI links to lands on the blob's contract count;
 // and asserts the REJECTED bases differ, so a regression onto one of them fails:

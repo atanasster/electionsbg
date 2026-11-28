@@ -1427,7 +1427,7 @@ const captures: Capture[] = [
   {
     slug: "sector-transport",
     routePath: "sector/transport",
-    // The transport sector hub's head (docs/plans/transport-hub-v1.md T3). All four
+    // The transport sector hub's head. All four
     // band cells come from one blob (transport/derived/hub_stats.json), so the wait
     // names the two whose destinations no other head link shares — the #modes and
     // #contractors sections of /procurement — and an absent blob times out instead
@@ -1443,7 +1443,7 @@ const captures: Capture[] = [
   {
     slug: "sector-edu",
     routePath: "sector/edu",
-    // The education sector hub's head (docs/plans/edu-hub-v1.md T3). All four band
+    // The education sector hub's head. All four band
     // cells come from one blob (education/derived/hub_stats.json); the wait names the
     // two whose destinations no other head link shares — the #universes and
     // #competition sections of /procurement — so an absent blob times out instead of
@@ -1459,7 +1459,7 @@ const captures: Capture[] = [
   {
     slug: "sector-health",
     routePath: "sector/health",
-    // The healthcare sector hub's head (docs/plans/health-hub-v1.md T3). All four
+    // The healthcare sector hub's head. All four
     // band cells come from one blob (health/derived/hub_stats.json); the wait names
     // the two whose destinations no other head link shares — the money page's
     // #nzok-budget and the drugs page's #pharmacy — so an absent blob times out

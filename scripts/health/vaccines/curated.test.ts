@@ -1,4 +1,4 @@
-// The curated season files (vaccines-flow-v1 §0 D5, §7.8): every row cites a
+// The curated season files: every row cites a
 // source, and a later announcement supersedes rather than overwrites.
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";

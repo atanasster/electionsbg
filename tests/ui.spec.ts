@@ -751,7 +751,7 @@ const HUB_HEAD_BUDGETS: {
   // + a note + a 5-row operator aside, no scope control (the hub is whole-corpus).
   // Measured 468 at 1280 on 2026-10-12 before the finder (T5); 495 with it.
   { path: "/water", maxPx: 560, measured: 495, cells: 4, asideRows: 5 },
-  // The transport sector hub (docs/plans/transport-hub-v1.md T3): identity + deck + a
+  // The transport sector hub: identity + deck + a
   // 4-cell band + a note + a 5-row body aside + the finder, no scope control. Measured
   // in the dev server at 1280 with the committed blob — the same setup reproduces
   // /water's recorded 495 exactly.

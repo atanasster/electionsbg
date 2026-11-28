@@ -1,5 +1,4 @@
 // A5 — parse the rendered обявление/решение out of `TenderPublicationDetails[].HtmlPreview`.
-// docs/plans/tender-dossier-ingest-v1.md §5 (A5), §1.2.
 //
 // ONE STRUCTURAL PARSER, TWO KEYING FAMILIES. The plan called for two parsers — an
 // eForms BT-keyed one for 2024+ and a label parser for 2020–2023 — but the rendered

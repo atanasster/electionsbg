@@ -1,5 +1,4 @@
 // A6 — project the tier-A/B capture into Postgres (schema: 146_tender_dossier.sql).
-// docs/plans/tender-dossier-ingest-v1.md §5.
 //
 // INPUT is the gitignored SQLite capture written by ingest_eop_dossier.ts and
 // ingest_eop_spec_text.ts. This fetches NOTHING: it is the offline projection half,
