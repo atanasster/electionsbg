@@ -1,64 +1,78 @@
-# Watch report — 2026-11-27 (27.11.2026 г., 10:44 Europe/Sofia)
+# Watch report — 2026-11-28 (28.11.2026 г., 07:41 Europe/Sofia)
 
 ## Changed
-- **data.egov.bg Commerce Registry (Търговски регистър)**: 3 new resource(s) on top: b4e5dbd6-e3ff-40fd-8123-eab6fae99906, fa228e92-4bd0-4dd2-9971-0899204da69e, 255c2749-05e0-48bf-93ae-a2c9b0867b6b · via BG proxy mac:8118
-- **TED — обявления за България (api.ted.europa.eu)**: 104 new BG notices (26,800 this year)
-- **НЗИС — имунизации от началото на годината (his.bg)**: 2026: 1,435,512 immunizations, flu 395,672 (as of 2026-11-27T06:10:00) — flu +9,036
+- **Parliament roll-call votes**: 1 new roll-call session(s) since 2026-11-26 (latest: 2026-11-26)
+- **Платформа за достъп до обществена информация (pitay.government.bg) — заявления по ЗДОИ**: 16 new ЗДОИ request(s), newest id 23002 → 23018 — crawl and load (update-zdoi: zdoi:fetch --refresh)
+- **ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)**: 1 new publication day(s) (latest 2026-11-26) — run the incremental EOP gap-fill + geo refresh in /update-procurement
+- **Eurostat macro (BG): 29 datasets**: new release · ei_bssi_m_r2 2026-11-27T11:00:00+0100, nama_10_gdp 2026-11-27T23:00:00+0100, nama_10_lp_ulc 2026-11-27T23:00:00+0100, namq_10_a10 2026-11-27T23:00:00+0100, namq_10_gdp 2026-11-27T23:00:00+0100, sts_trtu_m 2026-11-27T11:00:00+0100
+- **Council resolutions + vote tallies**: 1 município(s) changed: VAR01 +48
+- **КЗП Колко струва (retail prices, kolkostruva.bg)**: new daily price archive: 2026-11-27 (was 2026-11-25)
+- **НЗИС — имунизации от началото на годината (his.bg)**: 2026: 1,446,862 immunizations, flu 403,395 (as of 2026-11-28T06:09:00) — flu +7,723
+- **ИАЛ СЕСПА — лекарства с установен недостиг (чл. 217в ЗЛПХМ)**: 2026-11-27…2026-12-03: 59 products, vaccines: Fluenz · via BG proxy mac:8118
 
 ## Unchanged
-- data.egov.bg АОП (Агенция по обществени поръчки): unchanged (6 datasets on page 1, latest OCDS resource „Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 31.10.2026 г., съгласно стандарт OCDS", hash 84d9124dde3bb87b) · via BG proxy mac:8118
-- МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo): unchanged (4512 institutions) · via BG proxy mac:8118
-- ДФ Земеделие — изплатени субсидии: unchanged (8 financial-year files) · via BG proxy mac:8118
-- data.egov.bg бюджет (изпълнение на държавния бюджет): unchanged (10 monthly resource(s), hash 0a6d280ff24db831) · via BG proxy mac:8118
-- data.egov.bg общински бюджети (касово изпълнение по ЕБК): unchanged (18 muni-year execution report(s) tracked · hash 597a11ac64fa38df) · via BG proxy mac:8118
-- МОН: ДЗИ резултати (data.egov.bg): unchanged (10 resources) · via BG proxy mac:8118
-- МОН: НВО 7. клас резултати (data.egov.bg): unchanged (9 resources) · via BG proxy mac:8118
+- Parliament MPs (active roster): unchanged (52-ро Народно събрание — 240 MPs)
+- Комисия по досиетата (comdos.bg) — решения (ДС facet): unchanged (latest DecisionID 2207 on the comdos.bg archive)
+- Курирани решения за идентичност на лица: unchanged (2 audited person identity decision(s))
+- BG Wikipedia polls (cross-check only): unchanged (115 parliamentary + 19 presidential poll table rows)
+- Polls — Тренд (rctrend.bg): unchanged (no new electoral publications (newest id 213033))
+- Polls — Алфа Рисърч: unchanged (no new electoral publications (newest id 1061))
+- Polls — Маркет ЛИНКС: unchanged (no new electoral publications (newest id 122))
+- Polls — Сова Харис: unchanged (no new electoral publications (newest id 4159))
+- Polls — Мяра: unchanged (no new electoral publications (newest id 1946))
+- Polls — Глобал Метрикс: unchanged (no new electoral publications (newest id 658))
+- Polls — Галъп (site + press): unchanged (site arm FAILED: fetch failed · press: no new press coverage)
+- Polls — press discovery (agencies without a site): unchanged (no new press coverage across any press-only agency)
+- Сметна палата declarations — MPs: unchanged (727 MP declarations in scope for 2026, hash 46cf32bda5447c0d)
+- Сметна палата declarations — executive (officials): unchanged (11317 declarations in scope for 2026, hash 85857c57c626707e)
+- Сметна палата declarations — municipal (mayors & councillors): unchanged (6499 declarations in scope for 2026, hash 5dbbf6f1df11f716)
+- Interreg — трансгранични покани: unchanged (31 покани от 5 програми · недостъпни: interreg-bsb)
+- АХУ — конкурси за финансиране (хора с увреждания): unchanged (7 конкурса за финансиране на страницата с новини)
+- ИСУН — отворени процедури: unchanged (50 отворени · 0 за обсъждане)
+- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК): unchanged (бр. 107 от 2026-11-27 · 15 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени · неинспектирани броеве: 100)
+- МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение: unchanged (IPOP CSV sample 32768B · hash c80f2b397fe71582)
+- AZ (Агенция по заетостта): annual unemployment reviews: unchanged (18 annual reviews · latest 2025)
+- НСИ: население по общини (timeseries XLSX): unchanged (351945 bytes)
+- НСИ: раждания, умирания и миграция по общини (timeseries XLSX): unchanged (568322 bytes)
+- НСИ: Баланс на територията (LANDUSE annex): unchanged (1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година)
+- НСИ: Население с водни услуги / воден режим (Ecology_9.8): unchanged (15 years · latest 2024)
+- ГРАО: население по постоянен и настоящ адрес (по населени места): unchanged (2026-09-15 · 505573 bytes)
+- TED — обявления за България (api.ted.europa.eu): unchanged (26,800 BG notices published this year)
+- CIK local-elections results bundles: unchanged (0/2 regular bundle(s) reachable · 15 partial cycle(s) tracked)
+- ЦИК presidential-elections results bundles: unchanged (5 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle)
+- Procurement scope windows (calendar / election rollover): unchanged (16 year window(s) 2011..2026 + 13 election window(s) (+ all))
+- НЦЗПБ — седмична заболяемост от грип и ОРЗ (grippe.gateway.bg): unchanged (week 47 (2026-11-16): 3,201 cases, 92.11 per 10,000)
 
 ## Skipped (off-cadence)
 - АДФИ — доклади от финансови инспекции (adfi.minfin.bg) (weekly): 2,256 inspection reports listed · next check 2026-12-02
 - АОП — исторически списък с външни експерти по отм. чл. 232а, ал. 2 ЗОП (aop.bg) (weekly): 92 expert(s) — register closed since 2023-01-01 · next check 2026-12-02
 - ИСУН 2020 — приключени без финансова корекция (2020.eufunds.bg) (weekly): contracts=410 · beneficiaries=1417 page(s) of 25 · next check 2026-12-02
-- Parliament roll-call votes (daily): 1 new session(s), 1 with roll-call CSV (latest id 11201, 2026-11-25) · next check 2026-11-27
-- Parliament MPs (active roster) (daily): 52-ро Народно събрание — 240 MPs · next check 2026-11-27
 - OFAC SDN — Bulgaria-linked designations (sanctions facet) (weekly): 92 Bulgaria-linked SDN row(s) · next check 2026-11-28
-- Комисия по досиетата (comdos.bg) — решения (ДС facet) (daily): latest DecisionID 2207 on the comdos.bg archive · next check 2026-11-27
 - Регулатори / независими органи — състави (regulator facet) (monthly): Конституционен съд — 12 съдии, председател Павлина Панова · next check 2026-12-18
-- Курирани решения за идентичност на лица (daily): 2 audited person identity decision(s) · next check 2026-11-27
-- Платформа за достъп до обществена информация (pitay.government.bg) — заявления по ЗДОИ (daily): newest ЗДОИ application id 23002 · next check 2026-11-27
 - Регистър на физическите лица в несъстоятелност (РНФЛ) (weekly): статистика: публикувана (16775B) · дело №1: няма запис · номенклатури 4d2ef77a1a374f1e · next check 2026-12-02
 - МК регистър на държавните културни институти (mc.government.bg) (monthly): 70 държавни културни институти listed · next check 2026-12-17
 - НФЦ Единен публичен регистър (financed films, nfc.bg) (monthly): 30 .xls registers listed · next check 2026-12-22
 - НФК news feed (grant results, ncf.bg) (weekly): 2 results post(s) on the feed · newest #755 · next check 2026-12-02
 - НФЦ artistic-commission appointments (nfc.bg заповеди) (monthly): 12 commission-appointment orders published · next check 2026-12-22
-- BG Wikipedia polls (cross-check only) (daily): 115 parliamentary + 19 presidential poll table rows · next check 2026-11-27
-- Polls — Тренд (rctrend.bg) (daily): no new electoral publications (newest id 213033) · next check 2026-11-27
-- Polls — Алфа Рисърч (daily): no new electoral publications (newest id 1061) · next check 2026-11-27
-- Polls — Маркет ЛИНКС (daily): +1 electoral publication(s): Обществено–политически нагласи - Ноември 2026 (2026-11-24) · next check 2026-11-27
-- Polls — Сова Харис (daily): no new electoral publications (newest id 4159) · next check 2026-11-27
-- Polls — Мяра (daily): no new electoral publications (newest id 1946) · next check 2026-11-27
-- Polls — Глобал Метрикс (daily): no new electoral publications (newest id 658) · next check 2026-11-27
-- Polls — Галъп (site + press) (daily): site arm FAILED: fetch failed · press: +1 press item(s): Ако изборите бяха днес, в НС биха влезли пет сигурни партии, а още две са реални шансове - БНР (БНР) · next check 2026-11-27
-- Polls — press discovery (agencies without a site) (daily): no new press coverage across any press-only agency · next check 2026-11-27
 - BG Wikipedia governments list (weekly): 111 cabinets · tail d9a0b0b2b6b7224f · next check 2026-12-02
 - ЦПРС — регистър на строителя (register.ksb.bg) (weekly): 54 licence classes · 726 firms in the sample · next check 2026-12-02
-- Сметна палата declarations — MPs (daily): 727 MP declarations in scope for 2026, hash 46cf32bda5447c0d · next check 2026-11-27
-- Сметна палата declarations — executive (officials) (daily): 11317 declarations in scope for 2026, hash 85857c57c626707e · next check 2026-11-27
-- Сметна палата declarations — municipal (mayors & councillors) (daily): 6499 declarations in scope for 2026, hash 5dbbf6f1df11f716 · next check 2026-11-27
 - Сметна палата party financing (weekly): index hash b4dfe4c5759f4f81 · next check 2026-12-02
 - Сметна палата annual-report index (monthly): 15 years, latest 2025 · next check 2026-12-17
 - ЕРИК campaign financing (Сметна палата, изборни дарения/отчети) (weekly): 2026_04_19: 25 participants, 848 donors, €1,300,979 donated (hash feee721e7018dc50) · next check 2026-12-02
+- data.egov.bg Commerce Registry (Търговски регистър) (daily): 10 resources on page 1, hash af599cde620cda7c · next check 2026-11-28
 - Български пощи — пощенски кодове (data.egov.bg) (monthly): 5293 postcode rows, hash 3be6f2ba6308076e · next check 2026-12-04
-- ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления) (daily): latest published day 2026-11-25; 11/12 recent days published, hash 1f7cf61cf5dbf636 · next check 2026-11-27
+- data.egov.bg АОП (Агенция по обществени поръчки) (weekly): 6 datasets on page 1, latest OCDS resource „Автоматично генерирани данни за обявления, публикувани в ЦАИС ЕОП на 31.10.2026 г., съгласно стандарт OCDS", hash 84d9124dde3bb87b · next check 2026-12-03
 - АОП debarred-suppliers register (monthly): 3 entries on debarred register, hash 0f289ac0f9e9c51f · next check 2026-12-06
 - КЗК procurement-appeals register (жалби по ЗОП) (weekly): 1240 complaints this year, newest 300700004 (hash bcfa0bccff494df0) · next check 2026-12-02
 - КЗК decisions register (решения и определения по ЗОП) (weekly): 612 acts this year, newest АКТ-1183-18.11.2026 (hash 516aecb0cebf7e74) · next check 2026-12-02
+- МОН регистър на институциите (Tier R crosswalk + Tier B на awarder geo) (daily): 4512 institutions · next check 2026-11-28
 - ИСУН EU funds (beneficiaries) (weekly): 53201 beneficiaries · 83400 contracts · €46,170,602,166 contracted · next check 2026-12-02
 - ИСУН EU funds (projects) (weekly): 83400 contracts · €46,170,602,166 total · €20,694,767,256 paid · next check 2026-12-02
 - keep.eu Interreg (programme re-imports) (weekly): 11/22 programmes · newest import 2027-10-28 · next check 2026-12-02
-- Interreg — трансгранични покани (daily): 31 покани от 5 програми · недостъпни: interreg-bsb · next check 2026-11-27
-- АХУ — конкурси за финансиране (хора с увреждания) (daily): 7 конкурса за финансиране на страницата с новини · next check 2026-11-27
-- ИСУН — отворени процедури (daily): 50 отворени · 0 за обсъждане · next check 2026-11-27
+- ДФ Земеделие — изплатени субсидии (weekly): 8 financial-year files · next check 2026-12-03
 - ДФЗ — индикативен график (Стратегически план) (weekly): график 2026 · 21 KB · next check 2026-12-02
+- data.egov.bg бюджет (изпълнение на държавния бюджет) (weekly): 10 monthly resource(s), hash 0a6d280ff24db831 · next check 2026-12-03
+- data.egov.bg общински бюджети (касово изпълнение по ЕБК) (weekly): 18 muni-year execution report(s) tracked · hash 597a11ac64fa38df · next check 2026-12-03
 - Per-ministry execution reports (програмен бюджет) (weekly): 14 report(s), hash 9f58e7b2c9f52e33 · next check 2026-12-02
 - Доклад за състоянието на администрацията (IISDA) (weekly): 1 report(s) 2025–2025, hash 72e9a235091a22c5 · next check 2026-12-02
 - Административен регистър — услуги (IISDA) (weekly): 2683 services across 4 tiers, hash 9cd5a50c403f44ed · next check 2026-12-02
@@ -71,10 +85,7 @@
 - НОИ — статистически годишник „Пенсии“ (ZIP) (weekly): 1/3 yearbook ZIP(s) published · tracking 2024, 2025, 2026 · hash 3c1928ebd71fd416 · next check 2026-12-02
 - КФН — частни пенсионни фондове (тримесечни данни) (weekly): 3 КФН statistics period(s) listed (2024-2, 2025-2, 2026-2) · hash 574f4d54b6489a0b · next check 2026-12-02
 - ДВ — Инвестиционна програма за общински проекти (Приложение III) (weekly): 1 annex(es) tracked · latest 2025 · hash 72052b6f71553f4f · next check 2026-12-02
-- ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК) (daily): бр. 107 от 2026-11-27 · 15 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени · неинспектирани броеве: 100 · next check 2026-11-27
 - Общински капиталови програми (per-municipality capital lists) (weekly): 54 programme(s) tracked across 5 year(s) · latest 2026 (1 муни) · 3 manual (2022/vidin, 2023/vidin, 2025/vidin) · hash bec381413128034e · next check 2026-12-02
-- МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение (daily): IPOP CSV sample 32768B · hash c80f2b397fe71582 · next check 2026-11-27
-- Eurostat macro (BG): 29 datasets (daily): 29 datasets · latest update 2026-11-26T11:00:00+0100 · next check 2026-11-27
 - Eurostat policy-baseline (BG): consumption + tax aggregates (monthly): 5 datasets · latest update 2026-11-05T23:00:00+0100 · next check 2026-12-04
 - Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202) (monthly): nrg_pc_204:2026-10-19T23:00:00+0200 · nrg_pc_202:2026-10-19T11:00:00+0200 · next check 2026-12-06
 - Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw) (weekly): tour_occ_nim:2026-11-16T11:00:00+0100 · tour_occ_ninraw:2026-10-12T23:00:00+0200 · next check 2026-12-02
@@ -106,26 +117,18 @@
 - Minfin programme-budget execution reports (via Wayback) (monthly): 27 report(s) cached · latest 2024-06 (H1) · next check 2026-12-22
 - МВнР programmatic execution reports (via Wayback) (monthly): 22 report(s) cached · latest 2025-12 (annual) · next check 2026-12-07
 - State Budget Law promulgation (minfin, via Wayback) (weekly): 45 budget-law file(s) cached · latest FY 2025 · next check 2026-12-02
-- AZ (Агенция по заетостта): annual unemployment reviews (daily): 18 annual reviews · latest 2025 · next check 2026-11-27
-- НСИ: население по общини (timeseries XLSX) (daily): 351945 bytes · next check 2026-11-27
-- НСИ: раждания, умирания и миграция по общини (timeseries XLSX) (daily): 568322 bytes · next check 2026-11-27
-- НСИ: Баланс на територията (LANDUSE annex) (daily): 1 upcoming · 9.06.2027: Баланс на територията на Република България по вид територии - 2026 година · next check 2026-11-27
-- НСИ: Население с водни услуги / воден режим (Ecology_9.8) (daily): 15 years · latest 2024 · next check 2026-11-27
-- ГРАО: население по постоянен и настоящ адрес (по населени места) (daily): 2026-09-15 · 505573 bytes · next check 2026-11-27
+- МОН: ДЗИ резултати (data.egov.bg) (daily): 10 resources · next check 2026-11-28
+- МОН: НВО 7. клас резултати (data.egov.bg) (daily): 9 resources · next check 2026-11-28
 - Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-12-17
 - World Bank WGI (Bulgaria, Rule of Law canary) (monthly): 21 year(s) · latest 2025 = -0.046 (Rule of Law) · next check 2026-12-06
 - Standard Eurobarometer (institutional trust) (monthly): latest wave: Standard Eurobarometer 105 (Spring 2026) · next check 2026-12-17
-- CIK local-elections results bundles (daily): 0/2 regular bundle(s) reachable · 15 partial cycle(s) tracked · next check 2026-11-27
-- ЦИК presidential-elections results bundles (daily): 5 presidential cycle(s) in the index · 0 not yet ingested · 0 with a separate round-2 bundle · next check 2026-11-27
 - iisda.government.bg — Кметове на общини (monthly): 265 mayors registered · page-1 sample of 30 IDs · next check 2026-12-21
 - ИАОС air quality (data.egov.bg) (weekly): 6 total resources · PM10 6 res · next check 2026-11-28
 - Прозрачност без граници — LISI (monthly): latest year on page: 2024 · next check 2026-12-21
 - ВСС — съдебна статистика (monthly): 34 statistics PDFs · latest year 2026 · next check 2026-12-04
 - ИВСС — декларации на магистрати (monthly): register years 2017-2026 (290 letter pages) · 4 ИВСС lists, 37 named · next check 2026-12-06
-- Council resolutions + vote tallies (daily): 16 município(s) wired, 921 session-link(s) total · 3 fetch error(s) · next check 2026-11-27
 - ИПИ — Местни данъци (265 общини) (monthly): 5/5 indicator CSVs · latest year 2025 · next check 2026-12-21
 - Общински наредби за местни данъци (weekly): 10 município(s) wired · next check 2026-12-02
-- КЗП Колко струва (retail prices, kolkostruva.bg) (daily): latest 2026-11-25 · 14 days advertised · next check 2026-11-27
 - EC Weekly Oil Bulletin: consumer fuel prices (petrol 95 & diesel) (weekly): history XLSX 906e60ca… · next check 2026-12-02
 - Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1) (monthly): PLI updated 2026-07-09T23:00:00+0200 · next check 2026-12-11
 - НЗОК болнични плащания по лечебни заведения — БМП/ЛП/МИ (nhif.bg) (monthly): newest payments: bmp 2026-09 · drugs 2026-09 · devices 2026-09 · next check 2026-12-04
@@ -142,14 +145,11 @@
 - ГИТ — доклади за дейността (monthly): 5 годишни доклада на ГИТ · next check 2026-12-11
 - Eurostat road safety (BG): пътни жертви (sdg_11_40) (monthly): sdg_11_40 · update 2026-10-27T23:00:00+0100 · next check 2026-12-07
 - Финансови показатели на общините (ЗПФ чл. 130г) — предстоящо тримесечие (weekly): up to date at 2026-Q2 · next check 2026-12-02
-- Procurement scope windows (calendar / election rollover) (daily): 16 year window(s) 2011..2026 + 13 election window(s) (+ all) · next check 2026-11-27
-- ИАЛ СЕСПА — лекарства с установен недостиг (чл. 217в ЗЛПХМ) (daily): 2026-11-20…2026-11-26: 57 products, vaccines: Fluenz · next check 2026-11-27
-- НЦЗПБ — седмична заболяемост от грип и ОРЗ (grippe.gateway.bg) (daily): week 47 (2026-11-16): 3,201 cases, 92.11 per 10,000 · next check 2026-11-27
 - Eurostat Comext — търговия с ваксини (CN 3002 41) (weekly): updated 2026-11-13T11:00:00+0100, latest period 2026-12 · next check 2026-11-29
 - Eurostat — обхват с грипна ваксина 65+ (hlth_ps_immu) (weekly): updated 2026-07-13T11:00:00+0200; BG 2024 = 19.4% · next check 2026-11-29
 
 ## Errors
-- **НЗИС — имунизации по месец, област, възраст (info-app)**: his_infoapp: Sheet_1 row 111439 has an out-of-range string index null (retried: via BG proxy: his_infoapp: Sheet_1 row 111439 has an out-of-range string index null) _(failing 2 runs in a row)_
+- **НЗИС — имунизации по месец, област, възраст (info-app)**: his_infoapp: Sheet_1 row 111439 has an out-of-range string index null (retried: via BG proxy: his_infoapp: Sheet_1 row 111439 has an out-of-range string index null) _(failing 3 runs in a row)_
 
 ---
-_Watcher run at 2026-11-27T08:44:27.560Z UTC._
+_Watcher run at 2026-11-28T05:41:46.135Z UTC._
