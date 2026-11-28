@@ -1,0 +1,339 @@
+{
+  "schema": 1,
+  "session": "20261128T101034Z-0979",
+  "kind": "ingest",
+  "startedAt": "2026-11-28T10:10:37.117Z",
+  "git": {
+    "shaStart": "cfdcce46c33bc9789b0d23b62aa21b5bb655e497",
+    "shaEnd": "64f124051fcf56a1bd91baff024425dc67098fab"
+  },
+  "env": {
+    "egress:bg": {
+      "ok": true,
+      "detail": "exit IP country US — met through the BG proxy mac:8118; КЗК, АСП and ГИТ answer only a Bulgarian exit"
+    },
+    "reach:gov-hosts": {
+      "ok": true,
+      "detail": "www.parliament.bg, www.mod.bg answer (exit US)"
+    },
+    "pg-local": {
+      "ok": true,
+      "detail": "docker Postgres answers SELECT 1 on 127.0.0.1:5433"
+    },
+    "headed": {
+      "ok": true,
+      "detail": "a display is available for headed Playwright"
+    },
+    "drive:prices": {
+      "ok": false,
+      "detail": "raw_data/prices → /Volumes/Storage/data-bg/raw_data/prices: the link's target is not reachable — mount the external drive"
+    },
+    "tr-state": {
+      "ok": true,
+      "detail": "raw_data/tr/state.sqlite present"
+    },
+    "bin:pdftotext": {
+      "ok": true,
+      "detail": "pdftotext on PATH"
+    },
+    "bin:unzip": {
+      "ok": true,
+      "detail": "unzip on PATH"
+    },
+    "gemini": {
+      "ok": true,
+      "detail": "GEMINI_API_KEY is set"
+    },
+    "proxy": {
+      "ok": false,
+      "detail": "Cloud SQL proxy is down (nothing listens on 127.0.0.1:5434) — a publish needs `pnpm run db:proxy:cloud`"
+    },
+    "bin:gsutil": {
+      "ok": true,
+      "detail": "gsutil on PATH"
+    },
+    "git": {
+      "ok": true,
+      "detail": "on main; 0 tracked file(s) under data/ with uncommitted changes"
+    },
+    "lock": {
+      "ok": true,
+      "detail": "no pipeline run holds the lock"
+    },
+    "pending-manifest": {
+      "ok": true,
+      "detail": "no unpublished manifest"
+    },
+    "pg-shm": {
+      "ok": true,
+      "detail": "Postgres /dev/shm is 1024 MB"
+    },
+    "disk": {
+      "ok": true,
+      "detail": "repo volume 40.6 GB free (min 10); Docker VM 40.0 GB free (min 8; `docker builder prune -af` frees space)"
+    }
+  },
+  "units": [
+    {
+      "id": "update-vaccines",
+      "status": "ok",
+      "sources": [
+        "his_immunizations_daily",
+        "his_immunization_app",
+        "ial_shortage_list",
+        "ncipd_flu_weekly",
+        "eurostat_vaccine_trade",
+        "eurostat_flu_coverage"
+      ],
+      "steps": [
+        {
+          "seq": 1,
+          "id": "vaccines:snapshot --only his",
+          "command": "pnpm run vaccines:snapshot --only his",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2837,
+          "log": "logs/pipeline/20261128T101034Z-0979/001-vaccines_snapshot_--only_his.log"
+        },
+        {
+          "seq": 2,
+          "id": "vaccines:snapshot --only infoapp",
+          "command": "pnpm run vaccines:snapshot --only infoapp",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 13340,
+          "log": "logs/pipeline/20261128T101034Z-0979/002-vaccines_snapshot_--only_infoapp.log"
+        },
+        {
+          "seq": 3,
+          "id": "vaccines:snapshot --only sespa",
+          "command": "pnpm run vaccines:snapshot --only sespa",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3584,
+          "log": "logs/pipeline/20261128T101034Z-0979/003-vaccines_snapshot_--only_sespa.log"
+        },
+        {
+          "seq": 4,
+          "id": "vaccines:snapshot --only ncipd",
+          "command": "pnpm run vaccines:snapshot --only ncipd",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 2737,
+          "log": "logs/pipeline/20261128T101034Z-0979/004-vaccines_snapshot_--only_ncipd.log"
+        },
+        {
+          "seq": 5,
+          "id": "vaccines:snapshot --only eurostat",
+          "command": "pnpm run vaccines:snapshot --only eurostat",
+          "phase": "ingest",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 10144,
+          "log": "logs/pipeline/20261128T101034Z-0979/005-vaccines_snapshot_--only_eurostat.log"
+        },
+        {
+          "seq": 6,
+          "id": "db:load:vaccines:pg",
+          "command": "pnpm run db:load:vaccines:pg",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 1707,
+          "medianMs": 1103,
+          "log": "logs/pipeline/20261128T101034Z-0979/006-db_load_vaccines_pg.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/health/vaccines/flu_weeks.jsonl",
+        "data/health/vaccines/his_daily.jsonl",
+        "data/health/vaccines/shortage_weeks.jsonl"
+      ],
+      "summary": "6 step(s) ok",
+      "stamped": true
+    },
+    {
+      "id": "post:myarea-alerts",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 7,
+          "id": "myarea:alerts",
+          "command": "pnpm run myarea:alerts",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 34428,
+          "medianMs": 16651,
+          "log": "logs/pipeline/20261128T101034Z-0979/007-myarea_alerts.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:data-map",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 8,
+          "id": "data:map",
+          "command": "pnpm run data:map",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 5316,
+          "medianMs": 6372.5,
+          "log": "logs/pipeline/20261128T101034Z-0979/008-data_map.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/data_map.json"
+      ]
+    },
+    {
+      "id": "post:governance-hub-stats",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 9,
+          "id": "db:gen-governance-hub-stats",
+          "command": "pnpm run db:gen-governance-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 578,
+          "medianMs": 634,
+          "log": "logs/pipeline/20261128T101034Z-0979/009-db_gen-governance-hub-stats.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [
+        "data/governance/hub_stats.json"
+      ]
+    },
+    {
+      "id": "post:home",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 10,
+          "id": "db:gen-home-hub-stats",
+          "command": "pnpm run db:gen-home-hub-stats",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 456,
+          "medianMs": 441,
+          "log": "logs/pipeline/20261128T101034Z-0979/010-db_gen-home-hub-stats.log"
+        },
+        {
+          "seq": 11,
+          "id": "db:gen-home-flyover",
+          "command": "pnpm run db:gen-home-flyover",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 6017,
+          "medianMs": 8554.5,
+          "log": "logs/pipeline/20261128T101034Z-0979/011-db_gen-home-flyover.log"
+        },
+        {
+          "seq": 12,
+          "id": "db:gen-home-price-events",
+          "command": "pnpm run db:gen-home-price-events",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 3179,
+          "medianMs": 4254.5,
+          "log": "logs/pipeline/20261128T101034Z-0979/012-db_gen-home-price-events.log"
+        },
+        {
+          "seq": 13,
+          "id": "db:gen-home-feed",
+          "command": "pnpm run db:gen-home-feed",
+          "phase": "derive",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 998,
+          "medianMs": 1163,
+          "log": "logs/pipeline/20261128T101034Z-0979/013-db_gen-home-feed.log"
+        },
+        {
+          "seq": 14,
+          "id": "home:health",
+          "command": "pnpm run home:health",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 0,
+          "durationMs": 185,
+          "medianMs": 508,
+          "log": "logs/pipeline/20261128T101034Z-0979/014-home_health.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-generated",
+      "status": "ok",
+      "steps": [
+        {
+          "seq": 15,
+          "id": "db:check-generated",
+          "command": "pnpm run db:check-generated",
+          "phase": "verify",
+          "status": "ok",
+          "exitCode": 1,
+          "durationMs": 1424,
+          "medianMs": 924.5,
+          "log": "logs/pipeline/20261128T101034Z-0979/015-db_check-generated.log"
+        }
+      ],
+      "gates": [],
+      "filesChanged": []
+    },
+    {
+      "id": "post:check-cloud",
+      "status": "skipped",
+      "steps": [
+        {
+          "seq": 16,
+          "id": "db:check-cloud",
+          "command": "pnpm run db:check-cloud",
+          "phase": "verify",
+          "status": "skipped",
+          "exitCode": null,
+          "durationMs": 0,
+          "log": "",
+          "firstError": "unmet need(s): proxy"
+        }
+      ],
+      "gates": [],
+      "filesChanged": [],
+      "why": "not run: proxy — owed to the next run"
+    }
+  ],
+  "needsOperator": [],
+  "needsAgent": [],
+  "findings": [
+    "db:check-generated exited 1: it found something — read logs/pipeline/20261128T101034Z-0979/015-db_check-generated.log",
+    "post-step(s) owed to the next run: check-cloud (state/pipeline/owed_post_steps.json)"
+  ],
+  "publish": {
+    "decision": "held",
+    "heldBecause": [
+      "post-step check-cloud: not run: proxy — owed to the next run"
+    ]
+  },
+  "exitCode": 4,
+  "endedAt": "2026-11-28T10:12:05.973Z",
+  "verdict": "degraded"
+}
